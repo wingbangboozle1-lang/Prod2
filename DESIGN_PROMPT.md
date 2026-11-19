@@ -77,7 +77,9 @@ stylesheet (`assets/css/site.css`, token-first, fluid `clamp()` type, 44px tap t
 terracotta accent reserved for interaction); the front page leads with a product rail, format
 tiles, the guide shelf and then the sourced table; the mobile sticky comparison bar ships on
 every reader page (SG-23 path A) and is dismissible; read-date chips appear on product cards and
-in the comparison table (SG-22).
+in the comparison table (SG-22). One deliberate deviation: an unverified value
+renders as a muted italic em dash with a link to its flag, not an amber badge —
+a badge implies a queue someone is working, and nobody is on payroll here.
 
 Changed since this brief was written: **P4 and P5 are published** — both thermometers were
 destination-verified on 2026-11-19 and render as cards and table rows with tagged Special Links
