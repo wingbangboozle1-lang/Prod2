@@ -22,18 +22,15 @@ jobs:
         uses: actions/checkout@v4
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Assemble static site artifact
+        run: |
+          mkdir -p _site
+          cp index.html suggestions.html evidence.html feed.xml sitemap.xml robots.txt _site/
+          cp -R assets guides _site/
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: |
-            index.html
-            suggestions.html
-            evidence.html
-            assets/
-            guides/
-            feed.xml
-            sitemap.xml
-            robots.txt
+          path: _site
   deploy:
     environment:
       name: github-pages
