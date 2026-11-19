@@ -268,3 +268,13 @@ index one site and the Pages deploy stays unbroken.
 - PR #9 merged into `main`; GitHub Pages deploys `site/` via the existing
   workflow. Merge commit and deploy status: see the PR page and the
   repository's Actions history.
+
+### Merge / deploy record (filled in after PR #9, 2026-11-19)
+
+| PR | What | Result |
+| --- | --- | --- |
+| #8 | sess-prod2-a1 INT-06 consolidation | merged before this session's sync |
+| **#9** | **This session's integration** (Zone4 provenance archive, VOICE.md, DESIGN_PROMPT.md, coordination union, RR-1..RR-4) | **Merged 2026-11-19 13:26 UTC, merge commit `7e0085fd85e5673faacd62cbf4f9457693397ea3`** |
+| Deploy | GitHub Actions on `main` after the merge | `verify-site` success, `Self-hosted analytics tests` success, `Deploy to GitHub Pages` success, `pages build and deployment` success |
+| Pages | `gh api repos/.../pages/builds/latest` | status `built` for commit `7e0085f` (2026-11-19T13:26:33Z) |
+| Live site | https://wingbangboozle1-lang.github.io/Prod2/ | serving the canonical `site/` build |
