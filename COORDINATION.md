@@ -459,3 +459,26 @@ Parallel-session note: no other claim touches `data/p2/*`, `docs/`, or the root 
 | Tasks | T-12 done (partial, see update above), T-13 done, T-14 done, T-15 done |
 | Still open (flagged, do not block) | F-P06, F-P07, F-01, F-03, F-08, F-19, F-26, F-29, F-44, F-49, F-57, F-58, F-66, F-P01, F-P04, F-P05 |
 | Follow-up | This record PR is the last action on the branch. The sandbox cannot reach `github.io` directly, so the live check used the page fetch tool. |
+
+---
+
+# Session arena/9f7a78d8-prod2 — claim (2026-11-19)
+
+Branch `arena/9f7a78d8-prod2`, based on consolidated `main` (`1b5e211`, after PR #17/#18).
+Single Arena session: it works its scope and is also the final integration pass for that
+scope, merging to `main` via a pull request. Claimed after `git pull --rebase`; no other
+session holds an active claim on the files below at claim time.
+
+**Scope (non-overlapping with the just-merged #17/#18, which touched `data/p2/*` registers +
+their generated mirror only):**
+
+| Task | Status | Session | Scope (files) | Notes |
+|---|---|---|---|---|
+| T-16 Reader-facing polish: make the front page read like a shop, not an audit | in progress | arena/9f7a78d8-prod2 | `content/pages/index.html` (copy only) | Keep masthead disclosure strip, `rel="sponsored"` links, verification surfaces reachable from nav group + footer. Copy-level; no register/price/rating changes. |
+| T-17 Publish the approved SG-03 second thermometer guide (instant-read vs leave-in) | in progress | arena/9f7a78d8-prod2 | new `content/pages/guide-instant-vs-leave-in.html`, `tools/build.py` (PAGES/GUIDE_IDS/GUIDE_LINKS), homepage guide card | Question-shaped, listing-facts-only, sourced; auto-flows to sitemap + feed. Honors D-19 banned-claim rule and F-02 (no prices/ratings). |
+| T-18 Coherence + board record + rebuild + gate + PR + merge + Pages check | pending | arena/9f7a78d8-prod2 | `data/p2/questions.json` (one sentence), `COORDINATION.md`, `docs/`, root mirror | Rebuild via `tools/build.py`; gate with `tools/checks.py` + `scripts/verify_site.py` + `npm test`. |
+
+No edit to another session's claimed files. Registers `data/p2/{products,sources,flags,
+suggestions,decisions,ledger,intent-links,verification-*}.json` are NOT edited except the one
+Q-P02 coherence sentence. Shared outputs (docs/, root mirror) change only through
+`tools/build.py` output, then are re-verified.
