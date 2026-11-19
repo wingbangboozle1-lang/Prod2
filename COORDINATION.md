@@ -438,3 +438,36 @@ Parallel-session note: no other claim touches `data/p2/*`, `docs/`, or the root 
 | Tasks | T-12 done (partial, see update above), T-13 done, T-14 done, T-15 done |
 | Still open (flagged, do not block) | F-P06, F-P07, F-01, F-03, F-08, F-19, F-26, F-29, F-44, F-49, F-57, F-58, F-66, F-P01, F-P04, F-P05 |
 | Follow-up | This record PR is the last action on the branch. The sandbox cannot reach `github.io` directly, so the live check used the page fetch tool. |
+
+# Session `arena/b650562d-prod2` (sess-b650562d) — claim + scope, 2026-11-19
+
+**Branch:** `arena/b650562d-prod2` from `da11cd414e9d0dd18f0e2d44854f4d976326ef26` (= `main` tip at claim time).
+**Role:** suggestions/decision-portal pass + reader-facing polish. This session is *not* a second
+site build: it improves the canonical `docs/` publication (mirrored to root) that is live today.
+
+## Task claims (scope is mine while in progress; SG-15+ numbering continues from the merged SG-14)
+
+| Task | Status | Scope (files) | What |
+|---|---|---|---|
+| S1 — Live re-verification of the five submitted links | done | `data/p2/verification-2026-11-19.json`, `data/p2/products.json` (read dates only) | All five `link.amazon` short links re-resolved live 2026-11-19; same ASINs; no `tag=` on any resolved URL (F-03 stands). |
+| S2 — Suggestions portal v2 (decision paths) | in progress | `data/p2/suggestions.json`, `tools/build.py` (hook_suggestions), `content/pages/suggestions.html` | Every suggestion carries theme, 2–3 concrete paths, cost/upside/downside, what it unlocks, and whether it feeds the design prompt. |
+| S3 — Open-questions register v2 | in progress | `data/p2/questions.json`, `tools/build.py` (hook_questions) | Known / missing / how to discover / who can answer / blocking / default if unanswered, each with an official link for manual review. |
+| S4 — Design prompt pack page | in progress | `content/pages/design-prompt.html`, `tools/build.py` (PAGES), `DESIGN_BRIEF.md` | Copy-ready briefs that make the site read like a shop, not an audit — with the compliance guardrails any redesign must keep. |
+| S5 — Reader-facing polish (S-20 mobile-first, shop framing) | in progress | `assets/css/site.css`, `assets/js/site.js`, `content/pages/index.html`, `content/pages/compare.html` | Type scale, ≥44px tap targets, sticky comparison bar, product-first front page, card system. |
+| S6 — Three new question-shaped guides (completes S-13's eight) | in progress | `content/pages/guide-*.html`, `tools/build.py` | Published into the same sitemap/feed. |
+| S7 — Analysis/findings page | in progress | `content/pages/analysis.html`, `tools/build.py` | Computed counter-space ranking, coverage matrix, revenue-path findings, priority matrix. |
+| S8 — Docs + registers + gates + PR + merge + deploy | in progress | `EXECUTIVE_SUMMARY.md`, `data/p2/{decisions,flags}.json`, `COORDINATION.md` | Rebuild, both gates green, PR to `main`, merge, confirm Pages. |
+
+## Review requests for another session's open work (logged per protocol — not edited)
+
+| ID | Request | Evidence |
+|---|---|---|
+| RR-5 | **Open PR #16 (`arena/30a7028a-prod2`) must not be merged as-is.** It writes root-level `index.html`, `products.html`, `suggestions.html`, `flagged.html`, `sitemap.xml`, `feed.xml`, `robots.txt` and `data/products.json` as hand-authored files. On `main` those root paths are **generated mirrors** of `docs/` (INT-07: `tools/build.py` mirrors `docs/` → root) and `data/products.json` belongs to the preserved Countercraft schema. Merging PR #16 would clobber the live publication and desynchronise the mirror (its own `tools/check_site.py` would then fail `git diff` reproducibility in CI). Recommended: rebase the PR onto current `main`, retarget its generator to a non-conflicting directory, or close it and carry its unique registers only. | `main` `tools/build.py` `mirror_to_root()`; `verify.yml` reproducibility steps; PR #16 file list via `gh pr view 16 --json files`. |
+| RR-6 | PR #16's branch was cut from `c6dc49a` (pre-consolidation), so it lacks the tagged-Special-Link fix, the disclosure gate and the archives. Any unique content there should be ported by an integration session, not merged wholesale. | `git log` base of `arena/30a7028a-prod2`. |
+
+## Verification note for this session
+
+Sandbox egress allows only github/npm/pypi hosts over the shell, so re-reads were done through the
+page-fetch tool (not `curl`): each short link was followed to its final Amazon URL and the listing
+`<title>` was compared character-for-character with the register. Results recorded in
+`data/p2/verification-2026-11-19.json` under `session_b650562d`.
