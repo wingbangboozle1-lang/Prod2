@@ -65,5 +65,31 @@ constraints are non-negotiable and listed at the end.
 2. Every outbound Amazon link: final destination URL + `tag=shopnow047c-20`,
    `rel="sponsored"`, no shortener, no redirect wrapper.
 3. No price, availability, rating, review count or popularity badge.
-4. Held products (P4/P5) never render as links, cards or rows with destinations.
-5. No "trending"/popularity claims anywhere reader-facing.
+4. No "trending"/popularity claims anywhere reader-facing.
+5. Prices and star ratings are not published (F-02), so no design element may imply them.
+6. A module that states a figure must carry the date it was read and the listing it came
+   from; the build can render both, so no design may drop them.
+
+## Status against the published build (updated 2026-11-19)
+
+Implemented in the `docs/` publication (the live site): the warm-editorial tokens are the
+stylesheet (`assets/css/site.css`, token-first, fluid `clamp()` type, 44px tap targets, one
+terracotta accent reserved for interaction); the front page leads with a product rail, format
+tiles, the guide shelf and then the sourced table; the mobile sticky comparison bar ships on
+every reader page (SG-23 path A) and is dismissible; read-date chips appear on product cards and
+in the comparison table (SG-22).
+
+Changed since this brief was written: **P4 and P5 are published** — both thermometers were
+destination-verified on 2026-11-19 and render as cards and table rows with tagged Special Links
+(decision D-P06), so the "held products" constraint above no longer applies to them. The hero
+promise line is "Three air fryers, two thermometers, zero guesswork." and the primary CTA is
+"Compare all five".
+
+Not adopted, still awaiting a named path in the queue: brand rename (SG-01), verdict/ranking
+modules (SG-24), price display (SG-05), product photography (SG-08), seasonal framing (SG-28).
+
+The eight machine-ready design briefs that the queue feeds live in
+`data/p2/design-prompts.json` and are published as a page — **Design prompt pack**
+(`design-prompt.html`) — with each suggestion's `feeds_design_prompt` field recording which brief
+it unblocks. Regenerating a page from a brief must keep the compliance block above intact: the
+gate (`tools/checks.py`) is what makes that claim checkable rather than aspirational.

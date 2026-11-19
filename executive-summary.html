@@ -66,37 +66,100 @@
 <h1>Executive summary</h1>
 <p class="lede">What this project is, what is verified, what is missing, and what decisions are open — on one page. Written for a reviewer deciding what to do next.</p>
 
-<h2>What this is</h2>
-<p>A small affiliate publication (Prod2 — Kitchen notes &amp; buying guides) built around five owner-supplied Amazon products: three air fryers (dual-basket, oven-style, single-basket) and two meat thermometers (instant-read, wireless leave-in). The reader-facing site is a question-led buying guide; the machinery behind it — verification register, intent records, flags, open questions, suggestion queue, decision log, measurement plan — stays reachable from one navigation group and every footer.</p>
+<h2 id="what-this-is">What this is</h2>
+<p>A small affiliate publication (Prod2 — Kitchen notes &amp; buying guides) built around five owner-supplied Amazon products:
+three air fryers (dual-basket, oven-style, single-basket) and two meat thermometers (instant-read, wireless
+leave-in). The reader-facing site is a shop-shaped set of buying guides — a product rail on the front page, eight
+question-led guides, format pages, a comparison table — and the machinery behind it (verification register, intent
+records, flags, open questions, the suggestion queue, the decision log, the measurement plan) stays reachable from
+one navigation group and every footer. <a href="analysis.html">The analysis page</a> is where the register is read
+back as findings rather than as rows.</p>
 
-<h2>The five products and their status</h2>
+<h2 id="status">Verified status, as of the last pass</h2>
 <ul>
-  <li><strong>P1–P3</strong> (ASINs <code>B0CDY277D3</code>, <code>B09B7SB46R</code>, <code>B08DKYBTPH</code>) — verified from official listings since 2026-11-14, re-checked on dated passes through <strong>2026-11-19</strong>. Specification tables carried from those dated reads; titles and breadcrumbs re-read 2026-11-19.</li>
-  <li><strong>P4–P5</strong> (ASINs <code>B0DHZTCNR5</code>, <code>B0DZFD6R9Z</code>) — the brief's two additional short links, resolved and read for the first time on <strong>2026-11-19</strong>. They are meat thermometers, not air fryers; the site organizes by format accordingly (decision <a href="decisions.html#D-P01">D-P01</a>).</li>
-  <li><strong>Links:</strong> all five owner-submitted short links resolve to the ASINs above with <em>no</em> <code>tag=</code> parameter (flag <a href="flagged.html#F-03">F-03</a>). The site publishes tagged Special Links (<code>https://www.amazon.com/dp/&lt;ASIN&gt;?tag=shopnow047c-20</code>, decision <a href="decisions.html#D-01">D-01</a>) with <code>rel="sponsored"</code> and the required disclosure on every page. Whether the tracking ID is registered and whether clicks attribute is confirmable only inside Associates Central (<a href="flagged.html#F-57">F-57</a>, <a href="flagged.html#F-58">F-58</a>) — the site claims no revenue.</li>
+  <li><strong>P1–P3</strong> (ASINs <code>B0CDY277D3</code>, <code>B09B7SB46R</code>, <code>B08DKYBTPH</code>) —
+  verified from official listings since 2026-11-14, re-checked on dated passes through <strong>2026-11-19</strong>.
+  Every published figure carries the date it was read.</li>
+  <li><strong>P4–P5</strong> (ASINs <code>B0DHZTCNR5</code>, <code>B0DZFD6R9Z</code>) — the brief's two additional
+  short links, resolved and read for the first time on <strong>2026-11-19</strong>. They are meat thermometers, not
+  air fryers; the site organizes by format accordingly (decision <a href="decisions.html#D-P01">D-P01</a>).</li>
+  <li><strong>Links:</strong> all five owner-submitted short links resolve to the ASINs above with <em>no</em>
+  <code>tag=</code> parameter (flag <a href="flagged.html#F-03">F-03</a>). The site publishes tagged Special Links
+  (<code>https://www.amazon.com/dp/&lt;ASIN&gt;?tag=shopnow047c-20</code>, decision
+  <a href="decisions.html#D-01">D-01</a>) with <code>rel="sponsored"</code> and the required disclosure on every
+  page. Whether the tracking ID is registered and whether clicks attribute is confirmable only inside Associates
+  Central (<a href="flagged.html#F-57">F-57</a>, <a href="flagged.html#F-58">F-58</a>) — the site claims no
+  revenue. The five re-resolutions are logged with dates in
+  <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-log.json" rel="noopener" target="_blank">data/p2/verification-log.json</a>.</li>
 </ul>
 
-<h2>What is deliberately absent</h2>
+<h2 id="absent">What is deliberately absent</h2>
 <ul>
-  <li><strong>Prices and star ratings</strong> — withheld (<a href="flagged.html#F-02">F-02</a>): they drift faster than honest re-verification.</li>
-  <li><strong>Commission figures per product</strong> — blank (<a href="flagged.html#F-01">F-01</a>): the official rate table's category bands don't map to these ASINs; no rate is inferred.</li>
-  <li><strong>Hands-on testing</strong> — none claimed (<a href="decisions.html#D-06">D-06</a>): this is a specification publication until real usage exists (queued as <a href="suggestions.html#SG-07">SG-07</a>).</li>
-  <li><strong>Forecasts</strong> — no conversion score or revenue forecast anywhere; the campaign ledger starts empty by rule.</li>
+  <li><strong>Prices and star ratings</strong> — withheld (<a href="flagged.html#F-02">F-02</a>): they drift faster
+  than honest re-verification. The buttons say "see it on Amazon" instead of quoting a number.</li>
+  <li><strong>Commission figures per product</strong> — blank (<a href="flagged.html#F-01">F-01</a>): the official
+  rate table's category bands don't map to these ASINs; no rate is inferred.</li>
+  <li><strong>Hands-on testing</strong> — none claimed (<a href="decisions.html#D-06">D-06</a>): this is a
+  specification publication until real usage exists (queued as <a href="suggestions.html#SG-07">SG-07</a>).</li>
+  <li><strong>Product photography</strong> — none hosted: Amazon-supplied assets only, no scraping, no generated
+  food imagery that would imply a kitchen nobody cooked in (queued as <a href="suggestions.html#SG-08">SG-08</a>).</li>
+  <li><strong>Forecasts</strong> — no conversion score or revenue forecast anywhere; the campaign ledger starts
+  empty by rule and only takes values from an authorized first-party report.</li>
 </ul>
 
-<h2>Measurement and automation</h2>
-<p>The build is automated end to end: <code>tools/build.py</code> renders the site from the data registers; <code>tools/checks.py</code> is the publish gate (disclosure placement, sponsored-link marking, unique titles/meta, sourced facts, link integrity) and runs from a clean checkout with standard-library Python. Measurement ships as machinery but not as data: the privacy-preserving click counter and the self-hosted endpoint are deployable (<a href="measurement.html">contract here</a>), and nothing is transmitted until an endpoint is configured (<a href="flagged.html#F-19">F-19</a>). The five defined ledger events and their official attribution windows are recorded on the <a href="measurement.html">measurement page</a>.</p>
+<h2 id="this-pass">What the last pass changed</h2>
+<ul>
+  <li><strong>The decision-support layer became a review surface.</strong> Every suggestion now carries two or
+  three priced paths (change, upside, downside, cost, what it unlocks) and a marked recommendation; every question
+  records what is known, what is missing, what it decides, who can answer and the default while it stays open.
+  Accept one by replying <code>SG-15, path A</code> — nothing that changes a claim is adopted before you do
+  (<a href="decisions.html#D-P07">D-P07</a>).</li>
+  <li><strong>The front page leads with products.</strong> Product rail, format tiles, guide shelf, then the
+  sourced table — the verification machine moved to where a reader can check it, not where they land
+  (<a href="decisions.html#D-P08">D-P08</a>).</li>
+  <li><strong>Three new guides and a guide index</strong> (dual vs single basket, probe in an air fryer, the gift
+  checklist), each with per-figure read dates and a "what we did not test" note.</li>
+  <li><strong>The <a href="design-prompt.html">design prompt pack</a></strong> now publishes the briefs the
+  suggestion queue feeds, with the guardrails a restyle may not remove.</li>
+  <li><strong>Two new gates</strong> in <code>tools/checks.py</code>: a dated-figure check on the register tables,
+  and in-page anchor resolution, so a link that scrolls nowhere fails the build.</li>
+</ul>
 
-<h2>Open decisions for the reviewer</h2>
+<h2 id="measurement">Measurement and automation</h2>
+<p>The build is automated end to end: <code>tools/build.py</code> renders the site from the data registers;
+<code>tools/checks.py</code> is the publish gate (disclosure placement, sponsored-link marking, unique titles/meta,
+sourced facts, link integrity) and runs from a clean checkout with standard-library Python. Measurement ships as
+machinery but not as data: the privacy-preserving click counter and the self-hosted endpoint are deployable
+(<a href="measurement.html">contract here</a>), and nothing is transmitted until an endpoint is configured
+(<a href="flagged.html#F-19">F-19</a>). The five defined ledger events and their official attribution windows are
+on that page.</p>
+
+<h2 id="open">Open decisions for the reviewer</h2>
+<p>Ranked, with what each is waiting on and what moves once it is answered:
+<a href="analysis.html#waiting-on">the priority board</a>. In short:</p>
 <ol>
-  <li><strong>Run the one-link-per-product test in Associates Central</strong> — gates attribution claims and scaling (Q-01, F-58).</li>
-  <li><strong>Host the analytics endpoint + enable Search Console</strong> — top operational priority (<a href="suggestions.html#SG-06">SG-06</a>).</li>
-  <li><strong>Brand rename after trademark clearance</strong> — <a href="suggestions.html#SG-01">SG-01</a>, blocked on Q-19.</li>
-  <li><strong>Whether to publish prices under a dated-snapshot rule</strong> — <a href="suggestions.html#SG-05">SG-05</a>, only with automation.</li>
+  <li><strong>Which register is canonical</strong> — the one question that decides whether any figure on a future
+  page can be trusted to have come from the file the build used (<a href="flagged.html#F-P06">F-P06</a>).</li>
+  <li><strong>Who accepts a suggestion</strong> — the queue has states and no named decider
+  (<a href="questions.html#Q-P08">Q-P08</a>).</li>
+  <li><strong>Host the collector and verify a Search Console property</strong> — until then every ranking here is
+  judgement, not measurement (<a href="suggestions.html#SG-06">SG-06</a>).</li>
+  <li><strong>Pick the price policy</strong> — dated snapshots, a licensed live price, or none
+  (<a href="suggestions.html#SG-05">SG-05</a>).</li>
+  <li><strong>Set the re-verification cadence</strong> — the listings have been observed drifting within days
+  (<a href="questions.html#Q-P11">Q-P11</a>).</li>
+  <li><strong>Name the publisher</strong> — the mandated statement is in the first person and the site has no
+  "I" yet (<a href="questions.html#Q-P19">Q-P19</a>).</li>
+  <li><strong>Close the pull-request hazard</strong> — PR #16 would overwrite the generated root the live site is
+  served from (<a href="questions.html#Q-P18">Q-P18</a>); logged as RR-5/RR-6 on the coordination board.</li>
 </ol>
 
-<h2>Where to look</h2>
-<p><a href="method.html">Method &amp; source register</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html">Open questions</a> · <a href="suggestions.html">Suggestion queue</a> · <a href="decisions.html">Decision log</a> · <a href="measurement.html">Measurement</a> · <a href="compliance.html">Compliance</a></p>
+<h2 id="where-to-look">Where to look</h2>
+<p><a href="method.html">Method &amp; source register</a> · <a href="flagged.html">Flagged for review</a> ·
+<a href="questions.html">Open questions</a> · <a href="suggestions.html">Suggestion queue</a> ·
+<a href="decisions.html">Decision log</a> · <a href="measurement.html">Measurement</a> ·
+<a href="compliance.html">Compliance</a> · <a href="analysis.html">Analysis</a> ·
+<a href="design-prompt.html">Design prompt pack</a></p>
 
 </main>
 
