@@ -398,3 +398,58 @@ _None. This session owned all scopes._
 | Serving note | The repo is served in legacy **`main /` (root)** mode; flipping to Actions mode403s for session tokens (admin-only). `scripts/build_site.py`'s INT-07 root mirror was retargeted: **`tools/build.py` now mirrors `docs/` → root** so the canonical URL carries the Prod2 publication; the Countercraft build stays verified at `site/` and is no longer mirrored. `pages.yml`'s `configure-pages`/`deploy-pages` steps were removed after `configure-pages` rewrote the legacy source once mid-session. |
 | Workflows on merge commit | verify-site: success · Self-hosted analytics tests: success · Deploy to GitHub Pages: success |
 | Checks at merge | `tools/checks.py` PASS · `scripts/verify_site.py` PASS · `npm test` PASS (2/2) |
+
+---
+
+# Session claim — arena/c6ee2745-prod2 (2026-11-19)
+
+**Session:** `arena/c6ee2745-prod2` · **Branch:** `arena/c6ee2745-prod2` (branched from `da11cd4`)
+**Scope:** full storefront rebuild — new generator `tools/shop.py`, new data registers
+(`data/catalog.json`, `data/editorial.json`, `data/facts.json`, `data/evidence-desk.json`),
+new theme (`assets/css/storefront.css`, `assets/js/storefront.js`), and the published output
+(`docs/`, `site/`, and the repo-root mirror). Does **not** edit `data/*.json` registers owned by
+prior sessions (published inside the Evidence Desk by reference, not rewritten).
+
+| Task | Status | Owner | Scope | Verification |
+|---|---|---|---|---|
+| W-01 Live re-verification of 5 submitted short links + listings | done | arena/c6ee2745-prod2 | `data/catalog.json` | 5/5 resolve; ASINs unchanged; read 2026-11-19 |
+| W-02 Re-verify spec facts (dimensions, capacity, wattage, materials) | done | arena/c6ee2745-prod2 | `data/facts.json` | official listing spec tables, read 2026-11-19 |
+| W-03 Re-verify policy text (OA, Program Policies, ASIN, FTC, Google) | done | arena/c6ee2745-prod2 | `data/facts.json` | quoted verbatim from official pages |
+| W-04 Disclosure wording correction (OA §5 + help GDXFHVYZMTGPUMPE) | done | arena/c6ee2745-prod2 | `data/disclosures.json` | see FINDING W-01 below |
+| W-05 Storefront information architecture (shop / compare / guides) | done | arena/c6ee2745-prod2 | `tools/shop.py` | 8-check gate in `tools/shop.py --check` |
+| W-06 Editorial build: 10 question-shaped articles | done | arena/c6ee2745-prod2 | `data/editorial.json` | every product fact cites a verified field |
+| W-07 Evidence Desk (registers, flags, missing info, suggestions) | done | arena/c6ee2745-prod2 | `data/evidence-desk.json` | each row links an official source |
+| W-08 Build + gate + publish | done | arena/c6ee2745-prod2 | `docs/`, `site/`, root mirror | gate green; PR + deploy recorded below |
+
+## FINDING W-01 — disclosure wording (verified 2026-11-19)
+
+The published site carried the sentence *"As an Amazon Associate **we** earn from qualifying
+purchases."* The official pages state the required sentence in the first person singular:
+
+- Operating Agreement §5: *"You must clearly and prominently state the following, or any
+  substantially similar statement previously allowed under this Agreement … 'As an Amazon
+  Associate I earn from qualifying purchases.'"*
+  <https://affiliate-program.amazon.com/help/operating/agreement>
+- Associates help, "Why do I have to identify myself as an Associate?": *"the Operating Agreement
+  requires that the following statement clearly and conspicuously appears on your Site: 'As an
+  Amazon Associate I earn from qualifying purchases.'"*
+  <https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE>
+
+§5 allows a "substantially similar statement **previously allowed under this Agreement**"; the
+help page restates the exact sentence. This session therefore publishes the exact sentence
+verbatim on every page and records the substitution as flag **F-W01** rather than asserting the
+old wording was compliant or non-compliant.
+
+## FINDING W-02 — no `tag` parameter on the five supplied short links
+
+Participation Requirements §2(b) requires the Associates ID "as a parameter in the URL of each
+link you place on your Site to an Amazon Site"
+(<https://affiliate-program.amazon.com/help/operating/policies>). None of the five supplied
+`link.amazon/…` URLs carries `tag=`, and none of the redirects observed on 2026-11-19 carried
+`tag=` either. This session therefore publishes tagged `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20`
+links as the buy path and keeps the supplied short links as *submitted-source records only*.
+Recorded as flag **F-W02**.
+
+## Handoff requests
+
+None — no other session is active on this branch. Prior sessions' files are read, not edited.
