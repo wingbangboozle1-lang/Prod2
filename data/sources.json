@@ -1,204 +1,110 @@
 {
-  "_meta": {
-    "description": "Source register. Every published fact row points at one of these sources. Official sites only. Read dates are the dates the source was actually read for this project (prior dated sessions and the 2026-11-19 session).",
-    "updated_utc": "2026-11-19"
-  },
+  "generated": "2026-11-19",
+  "note": "Every source is an official page re-read on 2026-11-19. These are the links published alongside the findings for manual review.",
   "sources": [
     {
-      "id": "S-P1",
-      "title": "Amazon product page, ASIN B0CDY277D3 — Chefman 6 qt dual basket air fryer oven",
-      "url": "https://www.amazon.com/dp/B0CDY277D3",
-      "kind": "Official listing",
-      "read": ["2026-11-14", "2026-11-16", "2026-11-17", "2026-11-19"]
-    },
-    {
-      "id": "S-P2",
-      "title": "Amazon product page, ASIN B09B7SB46R — Emeril Lagasse 26QT French door air fryer toaster oven",
-      "url": "https://www.amazon.com/dp/B09B7SB46R",
-      "kind": "Official listing",
-      "read": ["2026-11-14", "2026-11-16", "2026-11-17", "2026-11-19"]
-    },
-    {
-      "id": "S-P3",
-      "title": "Amazon product page, ASIN B08DKYBTPH — Chefman 8 qt TurboFry air fryer",
-      "url": "https://www.amazon.com/dp/B08DKYBTPH",
-      "kind": "Official listing",
-      "read": ["2026-11-14", "2026-11-16", "2026-11-17", "2026-11-19"]
-    },
-    {
-      "id": "S-P4",
-      "title": "Amazon product page, ASIN B0DHZTCNR5 — ThermoMaven 1-second digital meat thermometer",
-      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
-      "kind": "Official listing",
-      "read": ["2026-11-19"]
-    },
-    {
-      "id": "S-P5",
-      "title": "Amazon product page, ASIN B0DZFD6R9Z — CHEF iQ Sense Gen3 wireless meat thermometer",
-      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
-      "kind": "Official listing",
-      "read": ["2026-11-19"]
-    },
-    {
-      "id": "S-L1",
-      "title": "Amazon short link (owner supplied) — link.amazon/B04G1MEwY",
-      "url": "https://link.amazon/B04G1MEwY",
-      "kind": "Owner-supplied link",
-      "read": ["2026-11-14", "2026-11-16", "2026-11-17", "2026-11-19"]
-    },
-    {
-      "id": "S-L2",
-      "title": "Amazon short link (owner supplied) — link.amazon/B02NbDxp3",
-      "url": "https://link.amazon/B02NbDxp3",
-      "kind": "Owner-supplied link",
-      "read": ["2026-11-14", "2026-11-16", "2026-11-17", "2026-11-19"]
-    },
-    {
-      "id": "S-L3",
-      "title": "Amazon short link (owner supplied) — link.amazon/B00hJ57DV",
-      "url": "https://link.amazon/B00hJ57DV",
-      "kind": "Owner-supplied link",
-      "read": ["2026-11-14", "2026-11-16", "2026-11-17", "2026-11-19"]
-    },
-    {
-      "id": "S-L4",
-      "title": "Amazon short link (owner supplied) — link.amazon/B0c8moW59",
-      "url": "https://link.amazon/B0c8moW59",
-      "kind": "Owner-supplied link",
-      "read": ["2026-11-19"]
-    },
-    {
-      "id": "S-L5",
-      "title": "Amazon short link (owner supplied) — link.amazon/B0f3GKalj",
-      "url": "https://link.amazon/B0f3GKalj",
-      "kind": "Owner-supplied link",
-      "read": ["2026-11-19"]
-    },
-    {
-      "id": "S-CAT",
-      "title": "Amazon 'Air Fryers' browse node (breadcrumb target on the air-fryer listings)",
-      "url": "https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011",
-      "kind": "Official category page",
-      "read": ["2026-11-14", "2026-11-19"]
-    },
-    {
-      "id": "S-ASIN",
-      "title": "Understanding ASINs — Amazon seller documentation",
-      "url": "https://sell.amazon.com/blog/what-is-an-asin",
-      "kind": "Official policy/documentation",
-      "read": ["2026-11-17"]
-    },
-    {
-      "id": "S-OA",
-      "title": "Associates Program Operating Agreement (updated October 15, 2025)",
+      "id": "S01",
+      "label": "Amazon Associates — Associates Program Operating Agreement",
       "url": "https://affiliate-program.amazon.com/help/operating/agreement",
-      "kind": "Official policy",
-      "read": ["2026-11-17"]
+      "type": "Amazon Associates (official)",
+      "accessed": "2026-11-19",
+      "note": "Updated 2025-10-15. §1 defines Special Links and Program Content (data, images, text, link formats, widgets, marketing content)."
     },
     {
-      "id": "S-POL",
-      "title": "Associates Program Policies / Participation Requirements (incl. 2(b), 6(v), 6(w))",
+      "id": "S02",
+      "label": "Amazon Associates — Associates Program Policies",
       "url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "kind": "Official policy",
-      "read": ["2026-11-17"]
+      "type": "Amazon Associates (official)",
+      "accessed": "2026-11-19",
+      "note": "Updated 2026-04-14. §2(b) Special Links + price display; §3(e) cookie/pixel disclosure; §6(a)–(w) Content on your Site, incl. 6(v), 6(w), 6(t)."
     },
     {
-      "id": "S-COMM",
-      "title": "Associates Standard Commission Income Statement — Table 1 rate schedule (Kitchen 4.50%, Home 3.00%)",
-      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
-      "kind": "Official policy",
-      "read": ["2026-11-14", "2026-11-17"]
+      "id": "S03",
+      "label": "Amazon.com — CHEFMAN 6 Quart Dual Basket Air Fryer Oven (B0CDY277D3)",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B04G1MEwY. Air Fryers browse node 17659096011. Buy-box price $74.99."
     },
     {
-      "id": "S-HELP",
-      "title": "Associates Central help: why identify yourself as an Associate (disclosure requirement)",
-      "url": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE",
-      "kind": "Official policy",
-      "read": ["2026-11-17"]
+      "id": "S04",
+      "label": "Amazon.com — Emeril Lagasse 26QT French Door Air Fryer Toaster Oven (B09B7SB46R)",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B02NbDxp3. Air Fryers browse node 17659096011. Buy-box price $229.99."
     },
     {
-      "id": "S-TAG",
-      "title": "Amazon Associates tracking ID format (Store IDs end in -20)",
-      "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011",
-      "kind": "Official policy",
-      "read": ["2026-11-17"]
+      "id": "S05",
+      "label": "Amazon.com — Chefman Air Fryer 8 Qt TurboFry (B08DKYBTPH)",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B00hJ57DV. Air Fryers browse node 17659096011. Buy-box price $59.99."
     },
     {
-      "id": "S-FTC1",
-      "title": "FTC: Disclosures 101 for Social Media Influencers (November 2019)",
+      "id": "S06",
+      "label": "Amazon.com — ThermoMaven 1 Sec Digital Meat Thermometer (B0DHZTCNR5)",
+      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B0c8moW59. Meat Thermometers browse node 289810. Buy-box price $16.99 (list $22.99); 4.6 stars, 3,499 ratings; Amazon's Choice."
+    },
+    {
+      "id": "S07",
+      "label": "Amazon.com — CHEF iQ Sense Smart Wireless Meat Thermometer Gen3 (B0DZFD6R9Z)",
+      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B0f3GKalj. Meat Thermometers browse node 289810. Buy-box price $139.99."
+    },
+    {
+      "id": "S08",
+      "label": "Amazon.com — What is an ASIN? (ASIN definition)",
+      "url": "https://www.amazon.com/ask/questions/TxJGX2UK4WITXE/",
+      "type": "Amazon.com (official)",
+      "accessed": "2026-11-19",
+      "note": "Amazon defines ASINs as unique blocks of 10 letters and/or numbers that identify items. The submitted tokens are 9 characters, so they are not ASINs."
+    },
+    {
+      "id": "S09",
+      "label": "FTC — Disclosures 101 for Social Media Influencers",
       "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
-      "kind": "Regulator guidance",
-      "read": ["2026-11-17"]
+      "type": "FTC (official)",
+      "accessed": "2026-11-19",
+      "note": "Disclosure must be clear and conspicuous; placed where a consumer is likely to notice it."
     },
     {
-      "id": "S-FTC2",
-      "title": "FTC: Guides Concerning the Use of Endorsements and Testimonials in Advertising",
+      "id": "S10",
+      "label": "FTC — Endorsements Influencers Reviews",
       "url": "https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews",
-      "kind": "Regulator guidance",
-      "read": ["2026-11-17"]
+      "type": "FTC (official)",
+      "accessed": "2026-11-19",
+      "note": "Endorsement disclosures must be unavoidable and understandable; material connection must be disclosed."
     },
     {
-      "id": "S-GHELP",
-      "title": "Google Search Central: creating helpful, reliable, people-first content",
-      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
-      "kind": "Search guidance",
-      "read": ["2026-11-17"]
-    },
-    {
-      "id": "S-GSNIP",
-      "title": "Google Search Central: control your snippets — unique titles and descriptions per page",
-      "url": "https://developers.google.com/search/docs/appearance/snippet",
-      "kind": "Search guidance",
-      "read": ["2026-11-17"]
-    },
-    {
-      "id": "S-GOUT",
-      "title": "Google Search Central: qualify your outbound links — rel=\"sponsored\" for paid links",
+      "id": "S11",
+      "label": "Google — rel=\"sponsored\" for paid links",
       "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
-      "kind": "Search guidance",
-      "read": ["2026-11-17"]
+      "type": "Google Search Central (official)",
+      "accessed": "2026-11-19",
+      "note": "Paid and commission-based links should use rel=\"sponsored\"."
     },
     {
-      "id": "S-GSPAM",
-      "title": "Google Search Central: spam policies for web search (thin affiliation)",
-      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
-      "kind": "Search guidance",
-      "read": ["2026-11-17"]
+      "id": "S12",
+      "label": "Google — Create unique descriptions for each page (meta)",
+      "url": "https://developers.google.com/search/docs/appearance/snippet",
+      "type": "Google Search Central (official)",
+      "accessed": "2026-11-19",
+      "note": "Each page should have its own accurate, unique title and meta description."
     },
     {
-      "id": "S-GPEXP",
-      "title": "Google Search Central: page experience in search results",
+      "id": "S13",
+      "label": "Google — Page experience and mobile presentation",
       "url": "https://developers.google.com/search/docs/appearance/page-experience",
-      "kind": "Search guidance",
-      "read": ["2026-11-17"]
-    },
-    {
-      "id": "S-GAI",
-      "title": "Google Search Central: Google Search's guidance about AI-generated content",
-      "url": "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content",
-      "kind": "Search guidance",
-      "read": ["2026-11-17"]
-    },
-    {
-      "id": "S-COU",
-      "title": "Amazon Conditions of Use (last updated August 14, 2026)",
-      "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088",
-      "kind": "Official policy",
-      "read": ["2026-11-17"]
-    },
-    {
-      "id": "S-PRIOR4",
-      "title": "Prior project register and verification sessions (Zone4), carried with dates — GitHub repository",
-      "url": "https://github.com/kanlerxz87-cyber/Zone4",
-      "kind": "Prior verification record (this project's own history)",
-      "read": ["2026-11-19"]
-    },
-    {
-      "id": "S-PRIOR3",
-      "title": "Prior project flagged-item register (Zone3, FLG-003 unresolved) — GitHub repository",
-      "url": "https://github.com/kanlerxz87-cyber/Zone3",
-      "kind": "Prior verification record (this project's own history)",
-      "read": ["2026-11-19"]
+      "type": "Google Search Central (official)",
+      "accessed": "2026-11-19",
+      "note": "Mobile-first presentation and page experience signals."
     }
   ]
 }

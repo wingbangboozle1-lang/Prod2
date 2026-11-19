@@ -16,7 +16,7 @@
       "intent_basis": "Owner-submitted product link (brief 2026-11-19); ASIN read from the official listing the link resolves to (first read 2026-11-14, re-read 2026-11-19).",
       "official_listing_url": "https://www.amazon.com/dp/B0CDY277D3",
       "confirmation_date_utc": "2026-11-19",
-      "confirmation_source": "S-P1 (listing title re-read 2026-11-19; matches data/products.json name_listing)",
+      "confirmation_source": "S-P1 (listing title re-read 2026-11-19; matches data/p2-products.json name_listing)",
       "observed_redirect": {
         "date_utc": "2026-11-19",
         "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
@@ -65,7 +65,7 @@
       "intent_basis": "Owner-submitted product link (brief 2026-11-19); ASIN read from the official listing the link resolves to (first read 2026-11-14, re-read 2026-11-19).",
       "official_listing_url": "https://www.amazon.com/dp/B08DKYBTPH",
       "confirmation_date_utc": "2026-11-19",
-      "confirmation_source": "S-P3 (listing title re-read 2026-11-19; matches data/products.json name_listing)",
+      "confirmation_source": "S-P3 (listing title re-read 2026-11-19; matches data/p2-products.json name_listing)",
       "observed_redirect": {
         "date_utc": "2026-11-19",
         "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH",

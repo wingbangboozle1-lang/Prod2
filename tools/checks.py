@@ -154,7 +154,7 @@ def main() -> int:
 
     # ------------------------------------------------------------------ facts
     check("facts")
-    products = json.loads((DATA / "products.json").read_text(encoding="utf-8"))["products"]
+    products = json.loads((DATA / "p2-products.json").read_text(encoding="utf-8"))["products"]
     intents = json.loads((DATA / "intent-links.json").read_text(encoding="utf-8"))["links"]
     prod_html = (DOCS / "products.html").read_text(encoding="utf-8")
     compare_html = (DOCS / "compare.html").read_text(encoding="utf-8")

@@ -1,0 +1,165 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Suggestions &amp;amp; Open Questions — Countercraft</title><meta name='description' content='Open questions, missing information and suggested improvements, with a path chooser for the next decision.'><link rel='canonical' href='https://wingbangboozle1-lang.github.io/Prod2suggestions.html'><link rel='alternate' type='application/rss+xml' title='Countercraft' href='rss.xml'><link rel='sitemap' type='application/xml' href='sitemap.xml'><link rel='icon' href='data:,'><meta property='og:type' content='website'><meta property='og:title' content='Suggestions &amp;amp; Open Questions — Countercraft'><meta property='og:description' content='Open questions, missing information and suggested improvements, with a path chooser for the next decision.'><meta property='og:image' content='https://wingbangboozle1-lang.github.io/Prod2/assets/social.png'><meta property='og:url' content='https://wingbangboozle1-lang.github.io/Prod2suggestions.html'><meta name='twitter:card' content='summary_large_image'><meta name='twitter:title' content='Suggestions &amp;amp; Open Questions — Countercraft'><meta name='twitter:description' content='Open questions, missing information and suggested improvements, with a path chooser for the next decision.'><meta name='twitter:image' content='https://wingbangboozle1-lang.github.io/Prod2/assets/social.png'><style>
+:root{
+  --paper:#f7f3ec; --card:#fffdf8; --ink:#1c1a17; --muted:#6b665e;
+  --line:#e4dcc9; --accent:#b45309; --accent-2:#1f4d3a; --accent-soft:#f3e6d2;
+  --shadow:0 1px 2px rgba(28,26,23,.06),0 8px 24px rgba(28,26,23,.06);
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-2);text-decoration:underline;text-underline-offset:2px}
+a:hover{color:var(--accent)}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;letter-spacing:-.01em;margin:0 0 .4em}
+h1{font-size:clamp(2rem,5vw,3.2rem)}
+h2{font-size:clamp(1.5rem,3vw,2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1.1em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);text-transform:uppercase;letter-spacing:.12em;
+  font-size:.72rem;font-weight:700;color:var(--accent);margin:0 0 .6em}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
+
+/* masthead */
+.masthead{background:var(--card);border-bottom:1px solid var(--line)}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px}
+.brand{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.brand span{color:var(--accent)}
+.brand small{display:block;font-family:var(--sans);font-weight:400;font-size:.7rem;color:var(--muted);letter-spacing:.06em}
+
+/* disclosure strip — under the masthead, above the fold */
+.disclosure{background:var(--accent-2);color:#f3efe6;font-size:.82rem}
+.disclosure .wrap{padding:9px 20px;display:flex;gap:8px;align-items:flex-start}
+.disclosure b{font-weight:700}
+.disclosure a{color:#ffe9c7;text-decoration:underline}
+
+/* nav */
+nav.site{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+nav.site .wrap{display:flex;gap:4px;overflow-x:auto;padding:8px 20px;scrollbar-width:thin}
+nav.site a{text-decoration:none;color:var(--ink);font-size:.9rem;white-space:nowrap;
+  padding:7px 11px;border-radius:999px;border:1px solid transparent}
+nav.site a:hover{background:var(--accent-soft)}
+nav.site a.active{background:var(--ink);color:var(--paper)}
+
+main{padding:34px 0 60px}
+section{margin:0 0 46px}
+
+/* hero */
+.hero{padding:34px 0 8px}
+.hero h1{max-width:16ch}
+.hero p.lead{font-size:1.18rem;color:#3a352e;max-width:60ch}
+.cta{display:inline-flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
+  padding:12px 20px;border-radius:999px;font-weight:600;font-size:.95rem;border:1px solid var(--ink)}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+
+/* cards / tiles */
+.grid{display:grid;gap:18px}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:820px){.grid.cols-3{grid-template-columns:1fr}.grid.cols-2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+.card h3{margin:0}
+.card .meta{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;
+  box-shadow:var(--shadow);text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:6px}
+.tile:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tile h3{margin:0;color:var(--accent-2)}
+.tile .count{font-size:.78rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+
+/* tables */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:640px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--sans);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);background:#fbf7ef;font-weight:700}
+tbody tr:last-child td{border-bottom:none}
+td .src{font-size:.8rem}
+.badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;
+  letter-spacing:.04em;text-transform:uppercase}
+.badge.ok{background:#e6f2ec;color:var(--accent-2)}
+.badge.flag{background:#fbe8d6;color:var(--accent)}
+.badge.blank{background:#ece7db;color:var(--muted)}
+.product-link{font-weight:600}
+
+/* chooser */
+.chooser{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+.chooser ol{margin:8px 0 0;padding-left:20px}
+.chooser li{margin:6px 0}
+.chooser .pick{margin-top:12px;font-size:.92rem;color:var(--muted)}
+
+/* guide */
+.guide{max-width:720px;margin:0 auto}
+.guide .lead{font-size:1.15rem;color:#3a352e}
+.faq{border-top:1px solid var(--line);padding:16px 0}
+.faq h3{margin:0 0 4px;color:var(--accent-2)}
+.related{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
+
+/* footer */
+footer{background:var(--ink);color:#cfc9bd;margin-top:40px}
+footer .disc{background:#2a2722;color:#e9e2d2;border-bottom:1px solid #3a352e}
+footer .disc .wrap{padding:14px 20px;font-size:.82rem;max-width:1080px}
+footer .wrap{padding:30px 20px 40px;display:grid;gap:24px}
+footer h4{color:#fff;font-family:var(--sans);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;margin:0 0 10px}
+footer a{color:#e9c9a6;text-decoration:none}
+footer a:hover{text-decoration:underline;color:#fff}
+footer .col{display:flex;flex-direction:column;gap:7px}
+footer .legal{font-size:.78rem;color:#8d877b;margin-top:8px}
+
+.note{background:var(--accent-soft);border:1px solid #e6d3b8;border-radius:12px;padding:14px 16px;font-size:.9rem}
+.flagrow{background:#fbe8d6;border:1px solid #ecc9a8;border-radius:12px;padding:14px 16px}
+</style></head><body><header class='masthead'><div class='wrap'><a class='brand' href='/index.html'>Countercraft<small>Kitchen gear worth the counter space.</small></a><span class='small muted'>Verified 2026-11-19</span></div></header><div class="disclosure"><div class="wrap"><b>Disclosure.</b> <span>Countercraft is an Amazon Associate. As an Amazon Associate I earn from qualifying purchases. Product links on this site are affiliate links and are marked as sponsored. Prices and availability are as listed on the Amazon product page at the date shown and may change; always confirm on Amazon before you buy.</span></div></div><nav class='site'><div class='wrap'><a href="/index.html" class="">Home</a><a href="/air-fryer-ovens.html" class="">Air Fryer Ovens</a><a href="/meat-thermometers.html" class="">Meat Thermometers</a><a href="/comparison.html" class="">Comparison</a><a href="/guides.html" class="">Guides</a><a href="/research-desk.html" class="">Research Desk</a><a href="/suggestions.html" class="">Suggestions</a><a href="/flagged.html" class="">Flagged</a><a href="/about.html" class="">About</a></div></nav><main><div class='wrap'><section><p class='eyebrow'>Decision portal</p><h1>Suggestions &amp; open questions</h1><p class='lead'>Nothing here is decided for you. Below is the list of questions that need answers before a decision can be made, what we have and do not have, and the suggestions for discovering what is missing. Review, pick a path, then implement.</p></section><section><h2>Open questions to resolve first</h2><div class='grid cols-2'><div class='card'><span class='meta'>Question Q1</span><h3>Do we keep the submitted link.amazon short links, or replace them with tagged Special Links generated in the Associates console?</h3><p><strong>What we know:</strong> All five submitted links resolve to real Amazon listings. Each submitted token is a 9-character short-link token, not a 10-character ASIN. Program Policies 6(w) prohibits using link shortening in a way that makes the Amazon destination unclear. The exact compliance status of the supplied short links is unresolved.</p><p><strong>What we do not know:</strong> Whether the enrolled Associates account exists and can generate tagged Special Links for these five ASINs; Amazon&#x27;s specific determination of these short links.</p><h4>Options</h4><ul><li><strong>Replace with tagged Special Links</strong> — <span class='muted'>Most compliant and trackable; requires an enrolled Associates account and a one-link-per-product test in the enrolled workflow.</span></li><li><strong>Keep short links with explicit Amazon disclosure</strong> — <span class='muted'>Fastest; carries unresolved 6(w) risk and weaker tracking.</span></li><li><strong>Hybrid (short links now, Special Links at scale)</strong> — <span class='muted'>Ship immediately, de-risk later; two link formats to manage.</span></li></ul><p><strong>Recommendation:</strong> Replace with tagged Special Links before scaling. Test one link per product in the enrolled Associates workflow and confirm the destination and tracking report before scaling.</p><p class='small muted'><strong>How to find out:</strong> Log into Associates Central, generate a Special Link for each resolved ASIN, and open each once to confirm the destination and that the click appears in the tracking report.</p></div><div class='card'><span class='meta'>Question Q2</span><h3>How do we display star ratings and review counts for the products whose ratings we could not capture?</h3><p><strong>What we know:</strong> ThermoMaven&#x27;s rating was captured from the official listing (4.6 stars, 3,499 ratings). The other four ratings are displayed on their listings but were not captured in this extraction. Program Policies 6(t) restricts displaying Amazon customer reviews or star ratings unless obtained via Creators API or PA API.</p><p><strong>What we do not know:</strong> Whether the account has Creators/PA API access; the exact numeric ratings for the four products.</p><h4>Options</h4><ul><li><strong>Show rating only where captured; blank + flag the rest</strong> — <span class='muted'>Fully honest; the comparison table looks uneven.</span></li><li><strong>Point the rating cell to the listing (&#x27;see listing&#x27;)</strong> — <span class='muted'>Reader can verify; not a stored value.</span></li><li><strong>Pull ratings via Creators/PA API</strong> — <span class='muted'>Compliant and complete; requires API access and compliance with the License.</span></li></ul><p><strong>Recommendation:</strong> Show the captured rating and leave the four uncaptured ratings blank with a flag. Do not infer values.</p><p class='small muted'><strong>How to find out:</strong> Request Creators/PA API access through Associates Central and pull ratings through the official API if granted.</p></div><div class='card'><span class='meta'>Question Q3</span><h3>How do we display prices under the Program Policies price-display rule?</h3><p><strong>What we know:</strong> Buy-box prices were read from each official listing on 2026-11-19. Program Policies 2(b) states prices and availability may only be shown if (a) Amazon serves the link with that price data, or (b) the data is obtained via Creators API or PA API.</p><p><strong>What we do not know:</strong> Whether the links we publish will be Amazon-served price links or static; API access status.</p><h4>Options</h4><ul><li><strong>Show &#x27;as listed&#x27; price with a live listing link and a verify date</strong> — <span class='muted'>Transparent; price may drift, so a date and a link are required.</span></li><li><strong>Remove prices entirely</strong> — <span class='muted'>Maximum compliance; weaker buyer signal.</span></li><li><strong>API-driven live price</strong> — <span class='muted'>Accurate and compliant; requires API access.</span></li></ul><p><strong>Recommendation:</strong> Show the price as listed, label it &#x27;as listed on 2026-11-19&#x27;, and link to the live listing so the reader sees the current price. Do not present a price comparison against non-Amazon sellers.</p><p class='small muted'><strong>How to find out:</strong> Confirm whether the published links will be Amazon-served price links, or obtain Creators/PA API access for live pricing.</p></div><div class='card'><span class='meta'>Question Q4</span><h3>Where does the self-hosted analytics endpoint run, given GitHub Pages is static?</h3><p><strong>What we know:</strong> The site is served statically from GitHub Pages, which cannot receive POST requests. The five events (page_view, cta_click, product_click, filter_apply, guide_read) are defined and the client counter is built.</p><p><strong>What we do not know:</strong> The chosen hosting for the collection endpoint.</p><h4>Options</h4><ul><li><strong>Serverless function at /collect (Netlify / Vercel / Deno)</strong> — <span class='muted'>Self-hosted, privacy-preserving, no third party; needs a small deploy.</span></li><li><strong>Self-hosted Plausible</strong> — <span class='muted'>Purpose-built privacy analytics; more setup.</span></li><li><strong>Client-only local counter</strong> — <span class='muted'>No server needed; data stays on the client and is not aggregated.</span></li></ul><p><strong>Recommendation:</strong> Deploy a small serverless /collect function alongside the static site and point the counter at it. Keep the counter cookie-free and store only an anonymous local ID.</p><p class='small muted'><strong>How to find out:</strong> Choose the hosting for the endpoint and confirm the privacy posture (no cookies, no cross-site tracking).</p></div><div class='card'><span class='meta'>Question Q5</span><h3>What imagery do we use, given the Operating Agreement treats images as Program Content?</h3><p><strong>What we know:</strong> Operating Agreement §1 treats data, images and text as Program Content. Generated or copied photography is not permitted. S-18 (real product photography) needs a decision first.</p><p><strong>What we do not know:</strong> Which official imagery channels are permitted for our use; whether brand press assets are usable.</p><h4>Options</h4><ul><li><strong>Text-led, no product photos for now</strong> — <span class='muted'>Safe and clean; less visual.</span></li><li><strong>Use only Amazon-served/Program Content imagery per the Agreement</strong> — <span class='muted'>Compliant; limited styling control.</span></li><li><strong>Commission original product photography</strong> — <span class='muted'>Strong and original; cost and lead time.</span></li></ul><p><strong>Recommendation:</strong> Stay text-led and editorial now. Add imagery only through an officially permitted channel once confirmed.</p><p class='small muted'><strong>How to find out:</strong> Confirm with the Operating Agreement and Program Policies which imagery is permitted, then source accordingly.</p></div><div class='card'><span class='meta'>Question Q6</span><h3>What is the publishing cadence, and which guides go first?</h3><p><strong>What we know:</strong> Eight question-shaped guides are drafted. The site has a sitemap and RSS feed ready to accept each new guide.</p><p><strong>What we do not know:</strong> Measured query demand — we have no analytics yet, so topic priority is currently editorial.</p><h4>Options</h4><ul><li><strong>Publish all eight now</strong> — <span class='muted'>Full library immediately; no measured prioritization.</span></li><li><strong>Publish in phases, reorder by measured queries</strong> — <span class='muted'>Data-led ordering; needs analytics first.</span></li><li><strong>Publish a weekly cadence with one new guide each week</strong> — <span class='muted'>Consistent; slow to build volume.</span></li></ul><p><strong>Recommendation:</strong> Publish the eight guides on a weekly cadence, then reorder the next topics from measured queries in Search Console and the analytics endpoint rather than instinct.</p><p class='small muted'><strong>How to find out:</strong> Turn on Search Console and the analytics endpoint, then read the real query and click data after the first weeks.</p></div></div></section><section><h2>Suggestions to improve decision-making</h2><div class='table-wrap'><table><thead><tr><th>ID</th><th>Suggestion</th><th>What it does</th><th>Expected outcome</th><th>Status</th></tr></thead><tbody><tr><td>SUG-01</td><td>Put a compliance gate in front of publishing</td><td>Before any guide is published, run a checklist: disclosure strip present, all outbound product links marked rel=&quot;sponsored&quot;, price labeled &#x27;as listed&#x27; with a date, and no inferred values.</td><td>Every published page passes the same gate; no page ships non-compliant.</td><td><span class='badge ok'>implemented</span></td></tr><tr><td>SUG-02</td><td>Add a provenance table to the Research Desk</td><td>Publish a dated provenance trail for every data point so any value can be traced to the official source and the date it was read.</td><td>Readers and reviewers can audit any row in one click.</td><td><span class='badge ok'>implemented</span></td></tr><tr><td>SUG-03</td><td>Add a reader-capture point (newsletter)</td><td>Add a privacy-preserving email capture on the guides so returning readers can be informed of new guides.</td><td>A way to reach readers who return, without third-party tracking.</td><td><span class='badge flag'>proposed</span></td></tr><tr><td>SUG-04</td><td>Verify the site in Google Search Console</td><td>Once live, submit the sitemap and verify ownership in Search Console to read real query and impression data.</td><td>Measured queries drive the next topic instead of instinct.</td><td><span class='badge flag'>proposed</span></td></tr><tr><td>SUG-05</td><td>Add FAQ and Article structured data to guides</td><td>Mark up question-shaped guides with FAQPage and Article schema to improve how they present in search.</td><td>Better search presentation for question-shaped content.</td><td><span class='badge ok'>implemented</span></td></tr><tr><td>SUG-06</td><td>Add an internal site search</td><td>A lightweight client-side search over the guide index so readers can jump to a question.</td><td>Lower bounce, faster path to a guide.</td><td><span class='badge flag'>proposed</span></td></tr><tr><td>SUG-07</td><td>A/B test the comparison CTA wording</td><td>Once click tracking is live, test two CTA phrasings on the comparison page and pick the better from measured clicks.</td><td>Data-led CTA choice instead of guesswork.</td><td><span class='badge flag'>proposed</span></td></tr><tr><td>SUG-08</td><td>Seasonal cadence for the kitchen-appliance angle</td><td>Plan dated seasonal guides (holiday cooking, spring cleaning) that tie back to the same verified products.</td><td>Relevant, dated content that can capture seasonal search.</td><td><span class='badge flag'>proposed</span></td></tr></tbody></table></div></section><section><h2>Path chooser</h2><p class='muted small'>Three ways to proceed. The recommended path leads with the products and puts a gate in front of the parts that need a decision.</p><div class='grid cols-3'><div class='card'><span class='meta'>PATH-A</span><h3>Recommended path</h3><p>Ship the editorial site now with verified data, disclosure and rel=&quot;sponsored&quot; in place. Replace short links with tagged Special Links as the single compliant outbound format once the Associates account confirms them. Add analytics, then let measured queries drive the next topics.</p><p class='small muted'>Leads with the products, keeps every dashboard surface reachable, and puts a gate in front of the parts that need a decision.</p></div><div class='card'><span class='meta'>PATH-B</span><h3>Fast path</h3><p>Publish the site with the submitted short links and a clear Amazon-destination disclosure, then swap to Special Links later.</p><p class='small muted'>Fastest to live, but carries the unresolved 6(w) risk and weaker tracking.</p></div><div class='card'><span class='meta'>PATH-C</span><h3>Wait-and-build path</h3><p>Hold publication until Special Links, API-driven ratings and live pricing are all in place.</p><p class='small muted'>Most compliant end-state, but delays having anything live to measure.</p></div></div></section></div></main><footer><div class="disc"><div class="wrap"><b>Disclosure.</b> Countercraft is an Amazon Associate. As an Amazon Associate I earn from qualifying purchases. Product links on this site are affiliate links and are marked as sponsored. Prices and availability are as listed on the Amazon product page at the date shown and may change; always confirm on Amazon before you buy.</div></div><div class='wrap'><div class='col'><h4>Countercraft</h4><a href='/index.html'>Countercraft</a><span class='small'>Kitchen gear worth the counter space.</span></div><div class='col'><h4>Shop</h4><a href="/index.html">Home</a><a href="/air-fryer-ovens.html">Air Fryer Ovens</a><a href="/meat-thermometers.html">Meat Thermometers</a><a href="/comparison.html">Comparison</a><a href="/guides.html">Guides</a><a href="/research-desk.html">Research Desk</a><a href="/suggestions.html">Suggestions</a><a href="/flagged.html">Flagged</a><a href="/about.html">About</a></div><div class='col'><h4>Measure &amp; review</h4><a href='/research-desk.html'>Research Desk</a><a href='/suggestions.html'>Suggestions</a><a href='/flagged.html'>Flagged for Review</a><a href='/about.html'>About &amp; compliance</a></div><div class='col'><h4>Find this site</h4><a href='/sitemap.xml'>Sitemap</a><a href='/rss.xml'>RSS feed</a><a href='/robots.txt'>robots.txt</a></div><p class='legal'>Countercraft is an Amazon Associate. As an Amazon Associate I earn from qualifying purchases. Product links on this site are affiliate links and are marked as sponsored. Prices and availability are as listed on the Amazon product page at the date shown and may change; always confirm on Amazon before you buy. · Tracking ID shopnow047c-20 · Data verified 2026-11-19 · No cookies. Outbound product links are affiliate links marked as sponsored.</p></div></footer><script>
+/* Countercraft privacy-preserving outbound-click counter.
+   No cookies, no third parties. An anonymous id is stored in localStorage.
+   Events: page_view, cta_click, product_click, filter_apply, guide_read.
+   Point window.COUNTERCRAFT_ENDPOINT at your self-hosted /collect endpoint. */
+(function () {
+  var EVENTS = ["page_view","cta_click","product_click","filter_apply","guide_read"];
+  var ENDPOINT = window.COUNTERCRAFT_ENDPOINT || "/collect";
+  function uid() {
+    var k = "cc_uid";
+    try {
+      var v = localStorage.getItem(k);
+      if (!v) { v = "cc_" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+        localStorage.setItem(k, v); }
+      return v;
+    } catch (e) { return "cc_anon"; }
+  }
+  var queue = [];
+  function send() {
+    if (!queue.length) return;
+    var batch = queue.splice(0, queue.length);
+    var body = JSON.stringify({ events: batch });
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(ENDPOINT, new Blob([body], { type: "application/json" }));
+      } else {
+        fetch(ENDPOINT, { method: "POST", body: body,
+          headers: { "Content-Type": "application/json" }, keepalive: true });
+      }
+    } catch (e) { /* endpoint not hosted yet; events stay local and are not lost silently */ }
+  }
+  window.ccTrack = function (event, extra) {
+    if (EVENTS.indexOf(event) === -1) return;
+    queue.push({ event: event, path: location.pathname, ts: Date.now(),
+                 ref: document.referrer, uid: uid(), extra: extra || null });
+    if (queue.length >= 5) send();
+  };
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-event]");
+    if (!el) return;
+    var ev = el.getAttribute("data-event");
+    if (EVENTS.indexOf(ev) === -1) return;
+    window.ccTrack(ev, { asin: el.getAttribute("data-asin") || null,
+                         label: (el.textContent || "").trim().slice(0, 80) });
+  }, true);
+  window.ccTrack("page_view");
+  window.addEventListener("beforeunload", send);
+})();
+</script></body></html>

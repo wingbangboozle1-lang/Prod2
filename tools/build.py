@@ -30,14 +30,14 @@ def load(name: str):
 
 
 SETTINGS = load("settings.json")
-PRODUCTS = load("products.json")["products"]
+PRODUCTS = load("p2-products.json")["products"]
 INTENTS = load("intent-links.json")["links"]
-SOURCES = load("sources.json")["sources"]
+SOURCES = load("p2-sources.json")["sources"]
 FLAGS = load("flags.json")["flags"]
 QUESTIONS = load("questions.json")["questions"]
-SUGGESTIONS = load("suggestions.json")["suggestions"]
+SUGGESTIONS = load("p2-suggestions.json")["suggestions"]
 DECISIONS = load("decisions.json")["decisions"]
-LEDGER = load("ledger.json")
+LEDGER = load("p2-ledger.json")
 EVENTS = load("events.json")
 
 BRAND = SETTINGS["brand"]["name"]

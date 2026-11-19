@@ -82,7 +82,7 @@
       "title": "P2's listing title second segment drifts between reads",
       "detail": "The B09B7SB46R listing title's second segment changed across the 2026-11-14, 2026-11-15 and 2026-11-19 reads. The site publishes the current string with its read date and keeps previous strings in the register (see also F-66).",
       "evidence": "https://www.amazon.com/dp/B09B7SB46R",
-      "evidence_note": "S-P2; strings recorded in data/verification-2026-11-19.json and data/products.json",
+      "evidence_note": "S-P2; strings recorded in data/verification-2026-11-19.json and data/p2-products.json",
       "how_to_resolve": "Standing volatility; the register keeps the dated history."
     },
     {

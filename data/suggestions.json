@@ -1,138 +1,171 @@
 {
-  "_meta": {
-    "description": "Suggestion queue. Every item is a proposed change with its evidence, expected impact, effort, risk and dependencies. Nothing here is implemented until the owner (or a delegated reviewer) picks a path: accept, amend, or reject. Status values: proposed | recommended | accepted | rejected. This is the review surface the brief asked for: choose the best path before implementing.",
-    "updated_utc": "2026-11-19"
-  },
+  "generated": "2026-11-19",
+  "tracking_id": "shopnow047c-20",
+  "note": "Decision portal. These are the questions that must be answered before a decision can be made, the information we have vs. do not have, and the suggestions for discovering what is missing. Nothing here is a claim about popularity, search volume or product superiority.",
+  "open_questions": [
+    {
+      "id": "Q1",
+      "question": "Do we keep the submitted link.amazon short links, or replace them with tagged Special Links generated in the Associates console?",
+      "what_we_know": "All five submitted links resolve to real Amazon listings. Each submitted token is a 9-character short-link token, not a 10-character ASIN. Program Policies 6(w) prohibits using link shortening in a way that makes the Amazon destination unclear. The exact compliance status of the supplied short links is unresolved.",
+      "what_we_do_not_know": "Whether the enrolled Associates account exists and can generate tagged Special Links for these five ASINs; Amazon's specific determination of these short links.",
+      "options": [
+        { "label": "Replace with tagged Special Links", "tradeoff": "Most compliant and trackable; requires an enrolled Associates account and a one-link-per-product test in the enrolled workflow." },
+        { "label": "Keep short links with explicit Amazon disclosure", "tradeoff": "Fastest; carries unresolved 6(w) risk and weaker tracking." },
+        { "label": "Hybrid (short links now, Special Links at scale)", "tradeoff": "Ship immediately, de-risk later; two link formats to manage." }
+      ],
+      "recommendation": "Replace with tagged Special Links before scaling. Test one link per product in the enrolled Associates workflow and confirm the destination and tracking report before scaling.",
+      "how_to_discover": "Log into Associates Central, generate a Special Link for each resolved ASIN, and open each once to confirm the destination and that the click appears in the tracking report."
+    },
+    {
+      "id": "Q2",
+      "question": "How do we display star ratings and review counts for the products whose ratings we could not capture?",
+      "what_we_know": "ThermoMaven's rating was captured from the official listing (4.6 stars, 3,499 ratings). The other four ratings are displayed on their listings but were not captured in this extraction. Program Policies 6(t) restricts displaying Amazon customer reviews or star ratings unless obtained via Creators API or PA API.",
+      "what_we_do_not_know": "Whether the account has Creators/PA API access; the exact numeric ratings for the four products.",
+      "options": [
+        { "label": "Show rating only where captured; blank + flag the rest", "tradeoff": "Fully honest; the comparison table looks uneven." },
+        { "label": "Point the rating cell to the listing ('see listing')", "tradeoff": "Reader can verify; not a stored value." },
+        { "label": "Pull ratings via Creators/PA API", "tradeoff": "Compliant and complete; requires API access and compliance with the License." }
+      ],
+      "recommendation": "Show the captured rating and leave the four uncaptured ratings blank with a flag. Do not infer values.",
+      "how_to_discover": "Request Creators/PA API access through Associates Central and pull ratings through the official API if granted."
+    },
+    {
+      "id": "Q3",
+      "question": "How do we display prices under the Program Policies price-display rule?",
+      "what_we_know": "Buy-box prices were read from each official listing on 2026-11-19. Program Policies 2(b) states prices and availability may only be shown if (a) Amazon serves the link with that price data, or (b) the data is obtained via Creators API or PA API.",
+      "what_we_do_not_know": "Whether the links we publish will be Amazon-served price links or static; API access status.",
+      "options": [
+        { "label": "Show 'as listed' price with a live listing link and a verify date", "tradeoff": "Transparent; price may drift, so a date and a link are required." },
+        { "label": "Remove prices entirely", "tradeoff": "Maximum compliance; weaker buyer signal." },
+        { "label": "API-driven live price", "tradeoff": "Accurate and compliant; requires API access." }
+      ],
+      "recommendation": "Show the price as listed, label it 'as listed on 2026-11-19', and link to the live listing so the reader sees the current price. Do not present a price comparison against non-Amazon sellers.",
+      "how_to_discover": "Confirm whether the published links will be Amazon-served price links, or obtain Creators/PA API access for live pricing."
+    },
+    {
+      "id": "Q4",
+      "question": "Where does the self-hosted analytics endpoint run, given GitHub Pages is static?",
+      "what_we_know": "The site is served statically from GitHub Pages, which cannot receive POST requests. The five events (page_view, cta_click, product_click, filter_apply, guide_read) are defined and the client counter is built.",
+      "what_we_do_not_know": "The chosen hosting for the collection endpoint.",
+      "options": [
+        { "label": "Serverless function at /collect (Netlify / Vercel / Deno)", "tradeoff": "Self-hosted, privacy-preserving, no third party; needs a small deploy." },
+        { "label": "Self-hosted Plausible", "tradeoff": "Purpose-built privacy analytics; more setup." },
+        { "label": "Client-only local counter", "tradeoff": "No server needed; data stays on the client and is not aggregated." }
+      ],
+      "recommendation": "Deploy a small serverless /collect function alongside the static site and point the counter at it. Keep the counter cookie-free and store only an anonymous local ID.",
+      "how_to_discover": "Choose the hosting for the endpoint and confirm the privacy posture (no cookies, no cross-site tracking)."
+    },
+    {
+      "id": "Q5",
+      "question": "What imagery do we use, given the Operating Agreement treats images as Program Content?",
+      "what_we_know": "Operating Agreement §1 treats data, images and text as Program Content. Generated or copied photography is not permitted. S-18 (real product photography) needs a decision first.",
+      "what_we_do_not_know": "Which official imagery channels are permitted for our use; whether brand press assets are usable.",
+      "options": [
+        { "label": "Text-led, no product photos for now", "tradeoff": "Safe and clean; less visual." },
+        { "label": "Use only Amazon-served/Program Content imagery per the Agreement", "tradeoff": "Compliant; limited styling control." },
+        { "label": "Commission original product photography", "tradeoff": "Strong and original; cost and lead time." }
+      ],
+      "recommendation": "Stay text-led and editorial now. Add imagery only through an officially permitted channel once confirmed.",
+      "how_to_discover": "Confirm with the Operating Agreement and Program Policies which imagery is permitted, then source accordingly."
+    },
+    {
+      "id": "Q6",
+      "question": "What is the publishing cadence, and which guides go first?",
+      "what_we_know": "Eight question-shaped guides are drafted. The site has a sitemap and RSS feed ready to accept each new guide.",
+      "what_we_do_not_know": "Measured query demand — we have no analytics yet, so topic priority is currently editorial.",
+      "options": [
+        { "label": "Publish all eight now", "tradeoff": "Full library immediately; no measured prioritization." },
+        { "label": "Publish in phases, reorder by measured queries", "tradeoff": "Data-led ordering; needs analytics first." },
+        { "label": "Publish a weekly cadence with one new guide each week", "tradeoff": "Consistent; slow to build volume." }
+      ],
+      "recommendation": "Publish the eight guides on a weekly cadence, then reorder the next topics from measured queries in Search Console and the analytics endpoint rather than instinct.",
+      "how_to_discover": "Turn on Search Console and the analytics endpoint, then read the real query and click data after the first weeks."
+    }
+  ],
   "suggestions": [
     {
-      "id": "SG-01",
-      "title": "Adopt a consumer-facing brand name (after trademark clearance)",
-      "problem": "The wordmark 'Prod2' is the project's established name, not a shop name. A real brand name would help the site read as a publication and support a future domain.",
-      "proposal": "Shortlist 2-3 candidate names (e.g. 'Counter & Crisp', 'The Basket Guide', 'Crisp Ledger'), run each through a trademark search (Q-19), pick one, rename in one pass (masthead, titles, OG card), then consider a domain.",
-      "evidence": "D-18 kept the established name only because clearance (Q-19) was open; the constraint is clearance, not the name itself.",
-      "impact": "Medium — brand recall, SERP click-through, linkability.",
-      "effort": "One session once a name clears.",
-      "risk": "Trademark collision if skipped; mitigated by the clearance step.",
-      "depends_on": ["Q-19"],
-      "status": "proposed",
-      "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items."
+      "id": "SUG-01",
+      "title": "Put a compliance gate in front of publishing",
+      "description": "Before any guide is published, run a checklist: disclosure strip present, all outbound product links marked rel=\"sponsored\", price labeled 'as listed' with a date, and no inferred values.",
+      "expected_outcome": "Every published page passes the same gate; no page ships non-compliant.",
+      "effort": "Low",
+      "status": "implemented"
     },
     {
-      "id": "SG-02",
-      "title": "Publish the comparison table's 'counter depth' as the lead spec",
-      "problem": "Capacity is what listings lead with, but counter depth is what buyers underestimate (the brief's counter-space thesis).",
-      "proposal": "Reorder comparison columns so counter depth and footprint lead; add a 'capacity per cm of depth' derived column with its formula shown (D-26 published the analysis; this makes it the headline).",
-      "evidence": "D-26 adopted the capacity-per-depth analysis; the counter-space guide is the site's most distinctive angle.",
-      "impact": "Medium — differentiation, matches the strongest guide.",
-      "effort": "Small (column reorder + one derived column in build).",
-      "risk": "Low. Derived values must show the formula to stay within the evidence rule.",
-      "depends_on": [],
-      "status": "proposed",
-      "recommendation": "Accept. Cheap, on-thesis."
+      "id": "SUG-02",
+      "title": "Add a provenance table to the Research Desk",
+      "description": "Publish a dated provenance trail for every data point so any value can be traced to the official source and the date it was read.",
+      "expected_outcome": "Readers and reviewers can audit any row in one click.",
+      "effort": "Low",
+      "status": "implemented"
     },
     {
-      "id": "SG-03",
-      "title": "Build a seasonal thermometer cluster (grilling season, holiday gifts)",
-      "problem": "Half the catalog (P4/P5) has one guide only; seasonal demand for thermometers is a natural traffic window.",
-      "proposal": "Two question-shaped guides ('How accurate does a meat thermometer need to be?', 'Instant-read vs leave-in: which for which cook?') plus a gift-guide page, timed to seasons, each linked into sitemap + feed.",
-      "evidence": "The publishing-cadence requirement; the thermometer products' listing themes (grill/BBQ, stocking stuffers).",
-      "impact": "Medium-high organic potential; unmeasured until analytics exist (Q-P02).",
-      "effort": "One session per guide.",
-      "risk": "Low — content only; no new claims needed beyond listed specs.",
-      "depends_on": ["Q-P04"],
-      "status": "proposed",
-      "recommendation": "Accept after Q-P04, timed to season."
+      "id": "SUG-03",
+      "title": "Add a reader-capture point (newsletter)",
+      "description": "Add a privacy-preserving email capture on the guides so returning readers can be informed of new guides.",
+      "expected_outcome": "A way to reach readers who return, without third-party tracking.",
+      "effort": "Medium",
+      "status": "proposed"
     },
     {
-      "id": "SG-04",
-      "title": "Reader email capture with consent flow",
-      "problem": "RSS is the only capture channel; a newsletter would build a returning audience.",
-      "proposal": "Add a signup form with reviewed consent + privacy text, kept clear of affiliate links (Participation Requirement 6(g)); double opt-in; no incentives tied to clicks.",
-      "evidence": "Q-47; FTC disclosure guidance travels with the channel (S-FTC1).",
-      "impact": "Medium — returning readers; but adds compliance surface.",
-      "effort": "Medium (form + consent text review + privacy note page).",
-      "risk": "Medium — privacy liability if consent text is wrong; gated on review.",
-      "depends_on": ["Q-47"],
-      "status": "proposed",
-      "recommendation": "Defer until traffic exists; the compliance cost is paid before any benefit arrives."
+      "id": "SUG-04",
+      "title": "Verify the site in Google Search Console",
+      "description": "Once live, submit the sitemap and verify ownership in Search Console to read real query and impression data.",
+      "expected_outcome": "Measured queries drive the next topic instead of instinct.",
+      "effort": "Low",
+      "status": "proposed"
     },
     {
-      "id": "SG-05",
-      "title": "Adopt a dated-snapshot price policy",
-      "problem": "Buyers want prices; the site withholds them (F-02) because they drift faster than re-verification.",
-      "proposal": "Publish price only with a mandatory read date + 'check listing' link; checks enforce price/date pairing; re-verify at each publishing pass. Ratings stay withheld (they invite selection bias).",
-      "evidence": "F-02; D-19 shows the dated-snapshot pattern already works for popularity claims.",
-      "impact": "Medium-high conversion relevance; adds upkeep to every pass.",
-      "effort": "Medium (rule + checks + one re-verification sweep).",
-      "risk": "Medium — stale prices damage trust more than absent prices; must be automated before adoption.",
-      "depends_on": ["Q-27"],
-      "status": "proposed",
-      "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand."
+      "id": "SUG-05",
+      "title": "Add FAQ and Article structured data to guides",
+      "description": "Mark up question-shaped guides with FAQPage and Article schema to improve how they present in search.",
+      "expected_outcome": "Better search presentation for question-shaped content.",
+      "effort": "Low",
+      "status": "implemented"
     },
     {
-      "id": "SG-06",
-      "title": "Deploy the analytics endpoint and turn on Search Console",
-      "problem": "No first-party measurement exists (F-19); topic selection is instinct instead of measured queries (Q-P02).",
-      "proposal": "Host analytics-endpoint/server.py on an owner-controlled HTTPS host; set settings.analytics_endpoint; verify the domain in Google Search Console; submit the sitemap; record weekly counts in the campaign ledger only from authorized reports.",
-      "evidence": "The brief's measurement-first priority; the machinery ships with this build.",
-      "impact": "High — everything downstream (topics, optimization, revenue reporting) depends on it.",
-      "effort": "Low-medium (hosting + config), mostly owner-side access work.",
-      "risk": "Low — the endpoint stores counts only, no visitor data.",
-      "depends_on": ["Q-23"],
-      "status": "proposed",
-      "recommendation": "Accept as the top operational priority. Nothing else compounds without it."
+      "id": "SUG-06",
+      "title": "Add an internal site search",
+      "description": "A lightweight client-side search over the guide index so readers can jump to a question.",
+      "expected_outcome": "Lower bounce, faster path to a guide.",
+      "effort": "Medium",
+      "status": "proposed"
     },
     {
-      "id": "SG-07",
-      "title": "Add a 'what it's like to live with' layer once real usage exists",
-      "problem": "S-06 (hands-on content) was recorded as not adopted because nobody has tested these appliances; listings can't tell a reader what cleanup or noise is like.",
-      "proposal": "Either (a) owner supplies first-hand notes/photos for one product and the site adds a clearly-labeled experience section, or (b) keep spec-only and say so. Do not fabricate experience.",
-      "evidence": "Google's thin-affiliation policy (S-GSPAM) rewards genuine experience; the current site is honest but thinner than ideal.",
-      "impact": "High on E-E-A-T, if real.",
-      "effort": "Depends entirely on real usage.",
-      "risk": "High if faked — never do this synthetically.",
-      "depends_on": ["Owner input"],
-      "status": "proposed",
-      "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available."
+      "id": "SUG-07",
+      "title": "A/B test the comparison CTA wording",
+      "description": "Once click tracking is live, test two CTA phrasings on the comparison page and pick the better from measured clicks.",
+      "expected_outcome": "Data-led CTA choice instead of guesswork.",
+      "effort": "Medium",
+      "status": "proposed"
     },
     {
-      "id": "SG-08",
-      "title": "Sticky mobile comparison bar on product pages",
-      "problem": "Mobile readers scroll long comparisons and lose the buy path (S-20 in the brief list).",
-      "proposal": "A sticky bottom bar on the comparison and category pages showing the currently scrolled product + its sponsored link; type-scale and tap-target pass first.",
-      "evidence": "Brief item S-20 (not yet implemented).",
-      "impact": "Medium conversion UX.",
-      "effort": "One session (CSS/JS + checks update).",
-      "risk": "Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).",
-      "depends_on": [],
-      "status": "proposed",
-      "recommendation": "Accept as a UX follow-up after the first traffic arrives."
+      "id": "SUG-08",
+      "title": "Seasonal cadence for the kitchen-appliance angle",
+      "description": "Plan dated seasonal guides (holiday cooking, spring cleaning) that tie back to the same verified products.",
+      "expected_outcome": "Relevant, dated content that can capture seasonal search.",
+      "effort": "Medium",
+      "status": "proposed"
+    }
+  ],
+  "path_chooser": [
+    {
+      "id": "PATH-A",
+      "label": "Recommended path",
+      "summary": "Ship the editorial site now with verified data, disclosure and rel=\"sponsored\" in place. Replace short links with tagged Special Links as the single compliant outbound format once the Associates account confirms them. Add analytics, then let measured queries drive the next topics.",
+      "why": "Leads with the products, keeps every dashboard surface reachable, and puts a gate in front of the parts that need a decision."
     },
     {
-      "id": "SG-09",
-      "title": "Internal-linking rule as an automated check",
-      "problem": "S-24's rule (every article reaches the comparison, the buying guide and its category pillar) is satisfied today by hand and can rot.",
-      "proposal": "Extend tools/checks.py: each guide must link to compare.html, buying-guide.html and its category page; fail the build otherwise.",
-      "evidence": "S-24/D-27 adopted the rule; automation is the brief's machinery-trust requirement.",
-      "impact": "Medium — keeps the site's structure intact as pages grow.",
-      "effort": "Small.",
-      "risk": "None.",
-      "depends_on": [],
-      "status": "proposed",
-      "recommendation": "Accept. It is a gate, and gates are cheap once written."
+      "id": "PATH-B",
+      "label": "Fast path",
+      "summary": "Publish the site with the submitted short links and a clear Amazon-destination disclosure, then swap to Special Links later.",
+      "why": "Fastest to live, but carries the unresolved 6(w) risk and weaker tracking."
     },
     {
-      "id": "SG-10",
-      "title": "Second-format expansion: one more air-fryer format page (basket accessories, liners, racks)",
-      "problem": "Adjacent accessory queries (liners, racks) are how many readers enter the category.",
-      "proposal": "A small accessories guide that links back to the three formats; only listed facts; no accessory products added to the affiliate set until their own intent records exist.",
-      "evidence": "Topic-hub structure of the publishing plan (S-13/D-17).",
-      "impact": "Medium organic potential; unmeasured (Q-P02).",
-      "effort": "One session.",
-      "risk": "Low.",
-      "depends_on": [],
-      "status": "proposed",
-      "recommendation": "Defer until measured queries confirm demand (after SG-06)."
+      "id": "PATH-C",
+      "label": "Wait-and-build path",
+      "summary": "Hold publication until Special Links, API-driven ratings and live pricing are all in place.",
+      "why": "Most compliant end-state, but delays having anything live to measure."
     }
   ]
 }
