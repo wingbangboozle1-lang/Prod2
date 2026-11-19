@@ -89,6 +89,10 @@ PAGES = [
      f"How accurate does a meat thermometer need to be? | {BRAND}",
      "±0.5°F vs ±1°F, instant-read vs leave-in wireless: what accuracy claims on the listing mean and which thermometer fits which cook.",
      "guides"),
+    ("guide-instant-vs-leave-in", "guide-instant-vs-leave-in.html",
+     f"Instant-read vs leave-in: which thermometer for which cook | {BRAND}",
+     "Spot-check in a second, or watch a long cook from your phone? How an instant-read and a wireless leave-in thermometer differ by workflow, with listed specs.",
+     "guides"),
     ("category-air-fryers", "category-air-fryers.html",
      f"Air fryers: dual-basket, toaster-oven, single-basket | {BRAND}",
      "Three air-fryer formats compared by the decision that matters — how they fit your counter and your cooking. Listed specs only, each with its source.",
@@ -136,7 +140,7 @@ PAGES = [
 ]
 
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
-             "guide-multifunction", "guide-thermometer-accuracy"]
+             "guide-multifunction", "guide-thermometer-accuracy", "guide-instant-vs-leave-in"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -198,6 +202,7 @@ GUIDE_LINKS = [
     ("guide-cleanup-counter-space.html", "Cleanup &amp; counter space"),
     ("guide-multifunction.html", "Before buying multi-function"),
     ("guide-thermometer-accuracy.html", "Thermometer accuracy"),
+    ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
 ]
 
 
