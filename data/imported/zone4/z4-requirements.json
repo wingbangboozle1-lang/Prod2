@@ -1,0 +1,556 @@
+{
+  "_meta": {
+    "description": "Full list of requirements taken from the project brief, one row each, with the delivery status of this site and the official source that governs or evidences that status. Nothing is inferred: a requirement is marked Delivered only where the site actually does it, and Not built / Unverifiable otherwise, with the official rule or missing access named in the blocker column. Updated by the final integration session (arena/3036372b-zone4) on 2026-11-14: the content-generation, tracking and delivery rows were restated against the merged site, which now publishes the marketing content kit and a local first-party click log. Extended on 2026-11-15 by session arena/d2a62d6b-zone4 with REQ-31 to REQ-35 (question register, suggestions board, marketing redesign, organic traffic, executive summary).",
+    "as_of_utc": "2026-11-15",
+    "status_meanings": {
+      "Delivered": "Working on the published site now.",
+      "Delivered (partial)": "Something is published, but a named part of the requirement is missing or unverified.",
+      "Not built - blocked (policy)": "Building it as described would breach a rule that is cited in the Blocker / official rule column. Not attempted.",
+      "Not built - needs access": "Not blocked by policy, but needs an Associates account, an API key or reporting data this repository does not have.",
+      "Unverifiable (blank + flagged)": "No official source provides the value. The field is left blank on the site and flagged for review."
+    },
+    "updated_00ba6c2e_2026_11_15": "REQ-22 and REQ-23 delivery text updated because the site grew from 21 to 24 pages. No status changed: both were already Delivered and remain so. The three added pages are the decision-support layer requested in this session's brief (suggestions, open questions, decision log).",
+    "corrected_by_89900251_2026_11_16": "REQ-32 and REQ-33 referenced F-41 for the redesign sign-off. F-41 is the landing-page KPI-count defect; the redesign flag is F-46. Both references corrected on 2026-11-16 and recorded as F-51."
+  },
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "area": "Platform",
+      "requirement": "Build an AI-powered Amazon affiliate marketing platform.",
+      "status": "Not built - blocked (policy)",
+      "delivered": "",
+      "blocker": "Two official rules gate it. Associates Program Policies, Participation Requirements Section 5: 'You will not, without our express prior written approval, use, or allow any third party to use, any Special Links or Program Content to develop machine learning models or related technology.' Amazon Conditions of Use, 'License and Access': 'You will not, and will not allow any third party to, use AI-generated content from the Amazon Services to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology.'",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088"
+      ],
+      "flags": [
+        "F-12",
+        "F-21",
+        "F-24"
+      ]
+    },
+    {
+      "id": "REQ-02",
+      "area": "Research automation",
+      "requirement": "Automate product research.",
+      "status": "Not built - blocked (policy)",
+      "delivered": "",
+      "blocker": "Conditions of Use, 'License and Access', excludes 'any collection and use of any product listings, descriptions, or prices' and 'any use of data mining, robots, or similar data gathering and extraction tools'. Participation Requirements Section 6(s) bars artificially generating clicks or impressions 'whether by way of a robot or software program or otherwise'. The three records on this site were read by hand from official pages, not by an automated collector.",
+      "sources": [
+        "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-11",
+        "F-21"
+      ]
+    },
+    {
+      "id": "REQ-03",
+      "area": "Trend analysis",
+      "requirement": "Identify trending products.",
+      "status": "Unverifiable (blank + flagged)",
+      "delivered": "",
+      "blocker": "Amazon shows popularity badges and 'bought in past month' signals on its own pages. Reuse of Amazon-displayed sales and review metrics is restricted by Participation Requirements Section 6(t), and no official source publishes trend data for these ASINs. The Trend column is blank on every product row.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ],
+      "flags": [
+        "F-15"
+      ]
+    },
+    {
+      "id": "REQ-04",
+      "area": "Conversion analysis",
+      "requirement": "Identify high-converting products.",
+      "status": "Unverifiable (blank + flagged)",
+      "delivered": "",
+      "blocker": "Conversion and earnings data exists only inside Associates reports, which need an enrolled account. No Associates account, reporting feed or tag is available here (F-03), so no conversion value is published.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://link.amazon/B04G1MEwY"
+      ],
+      "flags": [
+        "F-03",
+        "F-15"
+      ]
+    },
+    {
+      "id": "REQ-05",
+      "area": "Pricing analysis",
+      "requirement": "Analyze pricing.",
+      "status": "Not built - blocked (policy)",
+      "delivered": "",
+      "blocker": "Pricing analysis stays blocked. Participation Requirement 2(b) permits prices and availability only if Amazon serves the link or the data comes from the Creators API, and 6(y) prohibits price tracking and price alerting functionality unless Amazon agrees otherwise. The official category table rate is kept separate; no product-level commission assignment is published without verification (F-01). No price is published (F-02).",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-02",
+        "F-19"
+      ]
+    },
+    {
+      "id": "REQ-06",
+      "area": "Review analysis",
+      "requirement": "Analyze reviews.",
+      "status": "Not built - blocked (policy)",
+      "delivered": "",
+      "blocker": "Participation Requirements Section 6(t): 'You will not display or otherwise use any of our customer reviews or star ratings, in part or in whole, on your Site unless you have obtained a link to that customer review or star rating through Creators API or PA API.' No review text, star rating or review count is published.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-02"
+      ]
+    },
+    {
+      "id": "REQ-07",
+      "area": "Competition analysis",
+      "requirement": "Analyze competition.",
+      "status": "Delivered (partial)",
+      "delivered": "Each product row lists the three also-viewed ASINs read from its Amazon product page, with a direct link to each competitor listing.",
+      "blocker": "The 'Customers who viewed this item also viewed' module is an advertising slot. On the 2026-11-14 snapshot the 'Sponsored' label sat directly above that module on P1 and P3, and a sponsored brand-store module sat above it on P2. The lists are therefore ad-influenced, not organic competition data, and no ranking or share is derived from them.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "flags": [
+        "F-10",
+        "F-29"
+      ]
+    },
+    {
+      "id": "REQ-08",
+      "area": "Commission analysis",
+      "requirement": "Analyze commission potential.",
+      "status": "Delivered (partial)",
+      "delivered": "The official public Standard Commission Income Statement Table 1 lists the Kitchen category at 4.50%. That is recorded as a category-level reference only; all three product-level commission cells remain blank because no official source reviewed confirms the commission category assigned to each ASIN.",
+      "blocker": "Amazon’s assigned commission category for each of the three ASINs cannot be confirmed from the official sources reviewed. Table 1 includes Kitchen at 4.50% and Home at 3.00%; the product page breadcrumb alone does not establish the Associates commission category. No product-level rate or earnings estimate is published. Qualifying Revenue also excludes shipping, tax and similar items. Flag F-01.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-01",
+        "F-02"
+      ]
+    },
+    {
+      "id": "REQ-09",
+      "area": "Content generation",
+      "requirement": "Generate SEO-optimized product articles.",
+      "status": "Delivered",
+      "delivered": "Three product articles are published on the Marketing content page, one for each supplied product. Each has a suggested slug, a title tag, a meta description, an H1, three keyword targets with the search-volume cell left blank, an outline mapped to fact IDs, finished copy, a call to action carrying the disclosure, and a fact table in which every row links to its official source. 53 fact rows in total across the five pieces. The copy is written in this site's own words and republishes no Amazon listing prose. Each piece is additionally published as its own page under /articles/ with its own title tag and meta description, and is listed in the articles hub grouped by product category.",
+      "blocker": "No blocker for the articles themselves. Two limits still apply to the content and are recorded rather than worked around: the Amazon AI clauses restrict training or fine-tuning on Amazon content, not the writing of pages with an AI tool from verified fields (finding A-08), and no price, rating, review count or commission figure appears in any article because those are withheld (F-02, F-01). A human owner should still read the copy before publishing it.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088"
+      ],
+      "flags": [
+        "F-02",
+        "F-12"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "area": "Content generation",
+      "requirement": "Generate product comparisons.",
+      "status": "Delivered (partial)",
+      "delivered": "A comparison page is published on the Marketing content page, comparing the three supplied products on the attributes that were verified from their official pages: format, listed capacity, listed dimensions, listed colour, listed material, listed special features, control method and category path. Every row of its fact table links to its official source. Each piece is additionally published as its own page under /articles/ with its own title tag and meta description, and is listed in the articles hub grouped by product category.",
+      "blocker": "The comparison has no price, rating or review columns, because those are withheld under Sections 2(b) and 6(t). Section 2(b) also requires that a comparison format display both the lowest new and the lowest used Amazon price, which cannot be met without a Creators API or PA API feed.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-02"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "area": "Content generation",
+      "requirement": "Generate buying guides.",
+      "status": "Delivered",
+      "delivered": "A buying guide is published on the Marketing content page: a decision-oriented guide that walks through the three formats, states the verified specifications for each, and names the unresolved listing inconsistencies a buyer should know about. Every row of its fact table links to its official source. Each piece is additionally published as its own page under /articles/ with its own title tag and meta description, and is listed in the articles hub grouped by product category.",
+      "blocker": "No blocker for the guide itself. Participation Requirement 6(a) bars altering Program Content and Section 3(c) makes the Associate responsible for the accuracy of every product description posted on the site, so the guide cites verified fields only and links to the official pages rather than restating listing prose. No price, rating or commission figure appears in it (F-02, F-01).",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-02"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "area": "Niche research",
+      "requirement": "Identify profitable niches.",
+      "status": "Delivered (partial)",
+      "delivered": "Findings A-01 to A-04 state the niche actually evidenced: all three products share one Amazon category path (Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers), two share a brand, and the set spans three formats.",
+      "blocker": "'Profitable' cannot be evidenced: the product-specific commission category assignment is unverified (F-01) and prices are withheld (F-02), so no profitability claim is made. The sample is three products, not a market scan.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-01",
+        "F-02",
+        "F-15"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "area": "Content generation",
+      "requirement": "Create engaging marketing content.",
+      "status": "Delivered (partial)",
+      "delivered": "The marketing content kit is published on the Marketing content page: three product articles, one comparison page, one buying guide, each with a title tag, meta description, keyword targets, finished copy and a call to action carrying the required disclosure, plus an eight-rule SEO checklist and a seven-step publishing checklist. Each piece is additionally published as its own page under /articles/ with its own title tag and meta description, and is listed in the articles hub grouped by product category.",
+      "blocker": "Ad copy, email, social and landing-page copy are not produced. Any such content would be built on the withheld price, rating and commission data (F-01, F-02) and would need the REQ-01 compliance review first.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-01",
+        "F-02"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "area": "Link management",
+      "requirement": "Publish and manage affiliate links.",
+      "status": "Delivered (partial)",
+      "delivered": "All three products' outbound links are published as tagged Special Links (https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20) on the dashboard, the all-products table, the category pages and every article call to action, each with the Associates disclosure directly beside it, the '(paid link)' marker and rel=\"sponsored\". The submitted short links stay recorded in the product-intent confirmation record (data/intent-links.json) with their observed redirect targets kept in a separate field.",
+      "blocker": "Attribution is unverified end to end. The tracking ID is owner-supplied (brief, 2026-11-17) and matches the official XXXXX-## format of Participation Requirements 2(b), but no public official source can confirm it is registered and active (F-57); the published one-link-per-product test inside Associates Central must pass before the links are treated as attribution-ready. The supplied short links' compliance status is unresolved (Zone3 FLG-003) and is not judged here.",
+      "sources": [
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-03",
+        "F-04",
+        "F-57"
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "area": "Tracking",
+      "requirement": "Track clicks and conversions.",
+      "status": "Delivered (partial)",
+      "delivered": "A first-party click tracker is published on the Analytics page. It records real clicks on the site's tracked links in the visitor's own browser, plus one event explicitly labelled as a test, and exports the log as JSON or CSV. It starts at zero, sends nothing to any server and never estimates a figure, so it does not conflict with Section 6(s) on artificial clicks. The five defined event types (impression, click, session, order, refund) and the campaign-ledger rollup schema (timestamp, source, channel, eligible sessions, clicks, reported orders, with a dated provenance trail) are defined in data/ledger.json with zero rows.",
+      "blocker": "Conversion and revenue attribution is not built and no click, conversion or revenue figure is published. Click and conversion reporting is produced by Amazon, not by this site: Commission Income Statement Section 6 states that Amazon will use commercially reasonable efforts to track Qualifying Purchases and to create and distribute the reports. No Associates account or reporting feed is connected, and the selected tag's registration is pending the one-link-per-product Associates Central test (F-57), so a locally recorded click cannot yet be reconciled against Amazon reporting (F-19).",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-03",
+        "F-19",
+        "F-57"
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "area": "Optimization",
+      "requirement": "Continuously optimize campaigns to maximize affiliate revenue.",
+      "status": "Not built - needs access",
+      "delivered": "",
+      "blocker": "Optimisation needs measured data first: no Associates reporting is connected, the endpoint is not hosted (F-59) and the campaign ledger is deliberately empty (data/ledger.json; Q-49). The evidence-based iteration rule (Priority 4) forbids a conversion score or revenue forecast, and none is published.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "flags": [
+        "F-01",
+        "F-15"
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "area": "Automation",
+      "requirement": "Prioritize automation.",
+      "status": "Not built - blocked (policy)",
+      "delivered": "The parts that can be automated safely are automated: scripts/build_site.py regenerates every page from data/, and scripts/verify.py re-checks the data, links, anchors, per-row source links, disclosure and the price and rating guards. The Site checks workflow runs both on every push and pull request and fails if the committed docs/ differs from the build.",
+      "blocker": "Automating the research, content and campaign layers is gated by REQ-01, REQ-02 and REQ-15. Section 6(s) specifically bars robot-generated clicks or impressions.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/.github/workflows/site-checks.yml"
+      ],
+      "flags": [
+        "F-11",
+        "F-12",
+        "F-21"
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "area": "Scalability",
+      "requirement": "Prioritize scalability.",
+      "status": "Delivered",
+      "delivered": "The site is generated from five JSON files in data/. Adding a product means adding one record; pages, category pages, the verification log and the flag pages rebuild from it with no manual page editing. No per-page hand maintenance is needed.",
+      "blocker": "",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/scripts/build_site.py"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-19",
+      "area": "Data-driven decisions",
+      "requirement": "Prioritize data-driven decisions.",
+      "status": "Delivered",
+      "delivered": "Every published value carries the official page it was read from. Values with no official source are left blank and flagged rather than estimated, so no decision rests on an inferred number.",
+      "blocker": "",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/scripts/verify.py"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-20",
+      "area": "Compliance",
+      "requirement": "Compliance with Amazon Associates policies.",
+      "status": "Delivered",
+      "delivered": "Twenty-two rules (R-01 to R-22) are checked against this site on the Policy compliance page, each linked to the exact official section. Prices, ratings and reviews are withheld; no Amazon trademark is in the domain; no paid search, no sub-tags, no incentives, no price tracking.",
+      "blocker": "Open legal-review items remain: R-11 (the license limits on collecting listing content) and R-12 (AI and model restrictions). See the Flagged for review page.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://affiliate-program.amazon.com/help/operating/agreement"
+      ],
+      "flags": [
+        "F-11",
+        "F-12"
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "area": "Compliance",
+      "requirement": "Compliance with disclosure requirements.",
+      "status": "Delivered",
+      "delivered": "The Operating Agreement Section 5 sentence is on every page and directly beside every affiliate link. The FTC placement test (hard to miss, placed with the endorsement, simple language) and the Associates help page requirement that the link-level disclosure be clear and conspicuous and near the link are both implemented.",
+      "blocker": "",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/agreement",
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+        "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-22",
+      "area": "Site",
+      "requirement": "Live site with a clean landing page and subpages organized by category.",
+      "status": "Delivered",
+      "delivered": "Thirty-four generated pages: the publication front page (shop and guides first), executive summary, requirements, all-products catalogue (with the product-intent confirmation record), three category pages, combined marketing page, articles hub, seven article pages, the guides hub and four published question-shaped guides, product-intent record page, measurement and ledger page, automation/tracking, analysis, suggestions, open questions, decision log, verification, policy compliance, analytics, Flagged for Review and sources. GitHub Pages serves the site, with a generated sitemap, robots.txt and RSS feed.",
+      "blocker": "",
+      "sources": [
+        "https://api.github.com/repos/kanlerxz87-cyber/Zone4/pages"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-23",
+      "area": "Site",
+      "requirement": "Clean, user friendly, simple, easy to use UI, like a simple dashboard.",
+      "status": "Delivered",
+      "delivered": "One fixed sidebar navigates every page, grouped by purpose (overview, categories, content, research, decide, governance). The landing page uses KPI tiles and article cards; wide tables scroll inside their own container and the long tables carry a live filter box; the suggestion register pairs a scannable summary table with one card per proposal.",
+      "blocker": "",
+      "sources": [
+        "https://api.github.com/repos/kanlerxz87-cyber/Zone4/pages"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-24",
+      "area": "Site",
+      "requirement": "Contain all entries and findings in a simple, easy to read table format.",
+      "status": "Delivered",
+      "delivered": "Products, verification log, policy rules, analysis findings, requirements and sources are all rendered as tables. Every row states its value, status and source.",
+      "blocker": "",
+      "sources": [
+        "https://api.github.com/repos/kanlerxz87-cyber/Zone4/pages"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-25",
+      "area": "Site",
+      "requirement": "Include any analysis and findings.",
+      "status": "Delivered",
+      "delivered": "Nine findings (A-01 to A-09) on the Analysis and findings page, each with its basis, a confidence level and its official source links. A-08 names the price-tracking rule that blocks pricing analysis; A-09 records how the source-link rule is enforced.",
+      "blocker": "",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/data/content.json"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-26",
+      "area": "Verification",
+      "requirement": "Every table row must have a source link to an official site.",
+      "status": "Delivered",
+      "delivered": "Enforced, not asserted: scripts/verify.py parses every table body row on every page and fails if a row has no link to an official host (amazon.com, link.amazon, affiliate-program.amazon.com, ftc.gov, github.com, api.github.com).",
+      "blocker": "",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/scripts/verify.py"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-27",
+      "area": "Verification",
+      "requirement": "If a value cannot be confirmed from an official source, leave it blank and flag it as unverified.",
+      "status": "Delivered",
+      "delivered": "Unconfirmed product-level rates, prices, ratings, review counts, trend and conversion values are blank and flagged with their official sources. The official Kitchen category rate (4.50%) is kept separate as a category-level reference and is not attributed to a product. Flags F-01, F-02 and F-15.",
+      "blocker": "",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-28",
+      "area": "Reporting",
+      "requirement": "Create an executive summary outlining important details.",
+      "status": "Delivered",
+      "delivered": "Executive summary page: headline, eight findings, the four decisions that need the user, and the six capabilities that are deliberately not built.",
+      "blocker": "",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/data/content.json"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-29",
+      "area": "Delivery",
+      "requirement": "Publish the site on GitHub Pages.",
+      "status": "Delivered",
+      "delivered": "Published at https://kanlerxz87-cyber.github.io/Zone4/. The Pages source is main / (legacy build); the root index.html redirects to docs/index.html and a root .nojekyll is present, both of which verify.py checks.",
+      "blocker": "",
+      "sources": [
+        "https://api.github.com/repos/kanlerxz87-cyber/Zone4/pages"
+      ],
+      "flags": []
+    },
+    {
+      "id": "REQ-30",
+      "area": "Delivery",
+      "requirement": "Build marketing for the three supplied products.",
+      "status": "Delivered",
+      "delivered": "All three supplied products have marketing: one article each, plus one comparison page covering all three and one buying guide covering the three formats, all published on the Marketing content page with sourced fact tables, title tags, meta descriptions, keyword targets and disclosure-carrying calls to action. Each product also has its own verified record on a category page with its disclosure and competitor context. Each piece is additionally published as its own page under /articles/ with its own title tag and meta description, and is listed in the articles hub grouped by product category.",
+      "blocker": "No blocker. The marketing copy deliberately carries no price, rating, review count or commission figure, because those are withheld or unverified (F-01, F-02), and no Amazon listing prose is republished. An owner should read the copy before publishing it.",
+      "sources": [
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV"
+      ],
+      "flags": [
+        "F-01",
+        "F-02"
+      ]
+    },
+    {
+      "id": "REQ-31",
+      "area": "Decision support",
+      "requirement": "Provide a clear list of questions, information and answers that must be addressed before any decision can reasonably be made, based on what is already known and what is not.",
+      "status": "Delivered (partial)",
+      "delivered": "The questions register: 49 rows split into what is already known from an official source or a recorded decision, what is missing and who can supply it. The 2026-11-17 passes added the measurement, privacy and reader-capture gaps (Q-45 to Q-49).",
+      "blocker": "The register cannot answer twelve of its own rows: the Associates tag, the per-ASIN commission category and API eligibility need the owner's account, and the collection and AI-content questions need counsel. Those are listed as unknown rather than guessed.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/agreement",
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+        "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content"
+      ],
+      "flags": [
+        "F-01",
+        "F-02",
+        "F-03",
+        "F-09",
+        "F-11",
+        "F-12",
+        "F-19",
+        "F-21",
+        "F-22",
+        "F-23",
+        "F-29",
+        "F-31",
+        "F-39"
+      ]
+    },
+    {
+      "id": "REQ-32",
+      "area": "Decision support",
+      "requirement": "Create a section dedicated to suggestions, so someone can review them and choose the best path before implementing any changes.",
+      "status": "Delivered (partial)",
+      "delivered": "The suggestions register: 40 costed paths, each with the problem, the proposal, the cost, the risk, the check that would prove it worked, its priority, the decision it sits behind and its status (shipped, staged, awaiting the owner, or refused by policy), plus a decision queue that records which option was actually taken.",
+      "blocker": "Nothing on the board is implemented except the two items this session shipped for review (the redesign and the navigation split, S-13 and S-17), because the brief asks for a path to be chosen before changes are made. The owner's sign-off on those two is open (F-46).",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://affiliate-program.amazon.com/help/operating/agreement",
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+        "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content"
+      ],
+      "flags": [
+        "F-46"
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "area": "Site",
+      "requirement": "Redesign the site so it reads like a polished marketing affiliate website rather than a research data dump, while keeping every published value sourced.",
+      "status": "Delivered",
+      "delivered": "A marketing redesign of all 23 pages: an editorial design system with a serif display face, a warm paper-and-ink palette, a marketing hero, article cards, category tiles, restyled tables and a navigation split into a public magazine and a research appendix, including restyled suggestions, decision and question components.",
+      "blocker": "No blocker. The redesign is a proposed path awaiting sign-off, recorded as F-46 and on the suggestions board, because the brief asks for suggestions to be reviewed before changes are made.",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4",
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      ],
+      "flags": [
+        "F-46"
+      ]
+    },
+    {
+      "id": "REQ-34",
+      "area": "Traffic",
+      "requirement": "Make the site able to generate organic traffic so real people can click the links and buy, without publishing anything unverified.",
+      "status": "Delivered (partial)",
+      "delivered": "Per-page title tags and meta descriptions on the article pages, keyword targets with declared intent, an articles hub grouped by category, three category pages that act as pillars, internal linking between articles and the comparison and buying guide, and a traffic plan on the suggestions board built on the verification angle.",
+      "blocker": "Nothing is measured, so nothing can be optimised: no Associates reporting is connected and the links carry no visible tag. Paid search is constrained by Participation Requirement 6(f) and Commission Income Statement 2(c) to 2(e), which is why the plan is organic-first. No traffic or earnings projection is published, because the Operating Agreement states Amazon makes no representation about either.",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+        "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content",
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://affiliate-program.amazon.com/help/operating/agreement"
+      ],
+      "flags": [
+        "F-03",
+        "F-19",
+        "F-23",
+        "F-31"
+      ]
+    },
+    {
+      "id": "REQ-35",
+      "area": "Reporting",
+      "requirement": "Produce an executive summary outlining the important details.",
+      "status": "Delivered",
+      "delivered": "EXECUTIVE_SUMMARY.md in the repository and the Executive summary page on the site, both generated from the same data as the rest of the site.",
+      "blocker": "",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4",
+        "https://affiliate-program.amazon.com/help/operating/agreement"
+      ],
+      "flags": [
+        "F-01",
+        "F-02",
+        "F-03"
+      ]
+    }
+  ]
+}
