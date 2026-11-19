@@ -102,6 +102,10 @@ PAGES = [
      f"Holiday hosting: which format earns the counter? | {BRAND}",
      "Big meals, borrowed counter space, eat-in waves. Which air-fryer format and which thermometer workflow fit holiday hosting, from listed specs only.",
      "guides"),
+    ("guide-instant-vs-leave-in", "guide-instant-vs-leave-in.html",
+     f"Instant-read vs leave-in: which thermometer for which cook | {BRAND}",
+     "Spot-check in a second, or watch a long cook from your phone? How an instant-read and a wireless leave-in thermometer differ by workflow, with listed specs.",
+     "guides"),
     ("guides", "guides.html",
      f"Guides: one buyer question per page | {BRAND}",
      "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
@@ -154,7 +158,7 @@ PAGES = [
 
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
-             "guide-two-baskets-or-one", "guide-holiday-hosting"]
+             "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -220,6 +224,7 @@ GUIDE_LINKS = [
     ("guide-how-many-quarts.html", "How many quarts do you need?"),
     ("guide-two-baskets-or-one.html", "Two baskets or one?"),
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
+    ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
     ("guides.html", "All guides"),
 ]
 
@@ -596,6 +601,7 @@ GUIDE_BLURBS = {
     "guide-how-many-quarts": "A serving-count sanity check from the listed capacities, not the marketing.",
     "guide-two-baskets-or-one": "Batch math meets listed specs: when two drawers beat one big basket.",
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
+    "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -606,6 +612,7 @@ GUIDE_TAGS = {
     "guide-how-many-quarts": "Capacity",
     "guide-two-baskets-or-one": "Format",
     "guide-holiday-hosting": "Seasonal",
+    "guide-instant-vs-leave-in": "Thermometers",
 }
 
 

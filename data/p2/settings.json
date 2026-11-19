@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Site-wide settings consumed by tools/build.py. Tracking ID supplied by the owner in the brief (2026-11-19): shopnow047c-20.",
   "updated_utc": "2026-11-19",
-  "last_change": "2026-11-19 (arena/9f84489c-prod2): search_console token slot + reader_capture endpoint/consent blocks added (both empty by design; gates F-P06/F-P07)."
+  "last_change": "2026-11-19 (arena/9f84489c-prod2): search_console token slot + reader_capture endpoint/consent blocks added (both empty by design; gates F-P09/F-P10)."
  },
  "brand": {
   "name": "Prod2",
@@ -25,12 +25,12 @@
  },
  "search_console": {
   "verification_token": "",
-  "status": "owner action - F-P06 / Q-P05",
+  "status": "owner action - F-P09 / Q-P08",
   "note": "When the owner obtains the HTML-tag verification token from Google Search Console, paste it here and rebuild: tools/build.py emits <meta name=\"google-site-verification\" content=\"...\"> on every page. Until then no verification meta is emitted and no search-performance data exists."
  },
  "reader_capture": {
   "endpoint": "",
-  "status": "shipped disabled - F-P07 / Q-47",
+  "status": "shipped disabled - F-P10 / Q-47",
   "consent_checkbox_text": "I'm asking Prod2 to answer this question on the site. If I left an email, use it only to tell me when the answer publishes. No lists, no sharing, no marketing.",
   "note": "The 'What should we answer next?' form posts to this URL only when it is set (any HTTPS endpoint accepting {\"question\": \"...\", \"email\": \"...\"}). While empty, a visitor's typed question stays in their own browser and nothing is transmitted. Before connecting it, settle the consent basis (Q-47) and update privacy.html."
  }

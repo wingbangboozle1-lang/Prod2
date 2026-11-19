@@ -69,13 +69,13 @@
 <div class="callout">
   <h3>How to use this queue</h3>
   <p>Each card ends with our recommendation and the dependencies that gate it. To proceed: pick <strong>accept</strong>, <strong>amend</strong>, or <strong>reject</strong> per item (a comment in the repo's <code>COORDINATION.md</code>, or an instruction in the brief, is enough). Accepted items move to the <a href="decisions.html">decision log</a> with their date, then to the build. Items the standing brief has already mandated show <span class="status status-accepted">accepted</span> or <span class="status status-shipped">shipped</span> with a progress note instead of waiting for a second nod.</p>
-  <p><strong>The shortest credible path</strong> — the smallest sequence of owner decisions that unblocks the most work (<a href="suggestions.html#SG-12">SG-12</a> makes this standing):</p>
+  <p><strong>The shortest credible path</strong> — the smallest sequence of owner decisions that unblocks the most work (<a href="suggestions.html#SG-32">SG-32</a> makes this standing):</p>
   <ol>
-    <li><strong><a href="#SG-06">SG-06</a></strong> — host the endpoint + verify Search Console (<a href="questions.html#Q-P05">Q-P05</a>). Nothing measures until this lands, and nothing compounds without measurement.</li>
-    <li><strong><a href="#SG-11">SG-11</a></strong> + <strong><a href="#SG-01">SG-01</a></strong> — pick the visual direction and the brand name in one decision, so the visual pass happens once (<a href="questions.html#Q-P06">Q-P06</a>).</li>
-    <li><strong><a href="#SG-13">SG-13</a></strong> — the token layer, immediately after: it makes the pick reversible.</li>
-    <li><strong><a href="#SG-14">SG-14</a></strong> — switch topic selection to measured queries after 14 days of data.</li>
-    <li><strong><a href="#SG-16">SG-16</a></strong> + <strong><a href="#SG-04">SG-04</a></strong> — open the question-capture loop once the consent basis exists (<a href="questions.html#Q-47">Q-47</a>).</li>
+    <li><strong><a href="#SG-06">SG-06</a></strong> — host the endpoint + verify Search Console (<a href="questions.html#Q-P08">Q-P08</a>). Nothing measures until this lands, and nothing compounds without measurement.</li>
+    <li><strong><a href="#SG-31">SG-31</a></strong> + <strong><a href="#SG-01">SG-01</a></strong> — pick the visual direction and the brand name in one decision, so the visual pass happens once (<a href="questions.html#Q-P09">Q-P09</a>).</li>
+    <li><strong><a href="#SG-33">SG-33</a></strong> — the token layer, immediately after: it makes the pick reversible.</li>
+    <li><strong><a href="#SG-34">SG-34</a></strong> — switch topic selection to measured queries after 14 days of data.</li>
+    <li><strong><a href="#SG-36">SG-36</a></strong> + <strong><a href="#SG-04">SG-04</a></strong> — open the question-capture loop once the consent basis exists (<a href="questions.html#Q-47">Q-47</a>).</li>
   </ol>
 </div>
 
@@ -123,7 +123,7 @@
     <dt>Expected impact</dt><dd>Medium-high organic potential; unmeasured until analytics exist (Q-P02).</dd>
     <dt>Effort</dt><dd>One session per guide.</dd>
     <dt>Risk</dt><dd>Low — content only; no new claims needed beyond listed specs.</dd>
-    <dt>Progress</dt><dd>2026-11-19 publication pass (owner brief mandated the seasonal rows): seasonal desks shipped in data/p2/calendar.json - Holiday hosting live with its own guide (guide-holiday-hosting.html), grilling season staged to open in May. The thermometer cluster is wired to its pillar page. The standalone gift-guide page stays optional.</dd>
+    <dt>Progress</dt><dd>2026-11-19: the approved thermometer guide shipped (guide-instant-vs-leave-in.html, PR #20) and the seasonal desks shipped in data/p2/calendar.json - Holiday hosting live with its own guide (guide-holiday-hosting.html), grilling season staged to open in May. The cluster pages are wired to their pillars.</dd>
     <dt>Depends on</dt><dd>Q-P04</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept after Q-P04, timed to season.</p>
@@ -138,7 +138,7 @@
     <dt>Expected impact</dt><dd>Medium — returning readers; but adds compliance surface.</dd>
     <dt>Effort</dt><dd>Medium (form + consent text review + privacy note page).</dd>
     <dt>Risk</dt><dd>Medium — privacy liability if consent text is wrong; gated on review.</dd>
-    <dt>Progress</dt><dd>2026-11-19 publication pass (brief mandated reader capture): the consent-gated &quot;What should we answer next?&quot; form ships on the front page and guides hub. It sends nothing until the consent basis (Q-47) is settled and a capture endpoint is configured (F-P07). Email capture itself remains gated behind that decision.</dd>
+    <dt>Progress</dt><dd>2026-11-19 publication pass (brief mandated reader capture): the consent-gated &quot;What should we answer next?&quot; form ships on the front page and guides hub. It sends nothing until the consent basis (Q-47) is settled and a capture endpoint is configured (F-P10). Email capture itself remains gated behind that decision. See SG-30.</dd>
     <dt>Depends on</dt><dd>Q-47</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Defer until traffic exists; the compliance cost is paid before any benefit arrives.</p>
@@ -168,7 +168,7 @@
     <dt>Expected impact</dt><dd>High — everything downstream (topics, optimization, revenue reporting) depends on it.</dd>
     <dt>Effort</dt><dd>Low-medium (hosting + config), mostly owner-side access work.</dd>
     <dt>Risk</dt><dd>Low — the endpoint stores counts only, no visitor data.</dd>
-    <dt>Progress</dt><dd>2026-11-19 publication pass (brief mandated the Search Console row): readiness shipped - verification-token slot in settings.json, sitemap + robots + feed wired, step-by-step checklist on the measurement page. Property verification and endpoint hosting are owner actions (F-P06, F-19).</dd>
+    <dt>Progress</dt><dd>2026-11-19 publication pass (brief mandated the Search Console row): readiness shipped - verification-token slot in settings.json, sitemap + robots + feed wired, step-by-step checklist on the measurement page. Property verification and endpoint hosting are owner actions (F-P09, F-19, Q-P08). See SG-29.</dd>
     <dt>Depends on</dt><dd>Q-23</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the top operational priority. Nothing else compounds without it.</p>
@@ -213,7 +213,7 @@
     <dt>Expected impact</dt><dd>Medium — keeps the site&#x27;s structure intact as pages grow.</dd>
     <dt>Effort</dt><dd>Small.</dd>
     <dt>Risk</dt><dd>None.</dd>
-    <dt>Progress</dt><dd>2026-11-19: implemented in tools/checks.py - every guide page must reach the comparison, the buying guide and its category pillar, and the gate fails the build when one is missing.</dd>
+    <dt>Progress</dt><dd>2026-11-19: implemented in tools/checks.py (&quot;publication&quot; section) - every guide page must reach the comparison, the buying guide and its category pillar, and the gate fails the build when one is missing. The feed must cover every guide too.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept. It is a gate, and gates are cheap once written.</p>
@@ -234,22 +234,142 @@
   <p class="reco"><strong>Our recommendation:</strong> Defer until measured queries confirm demand (after SG-06).</p>
 </article>
 <article class="card s-card" id="SG-11">
-  <header><h3><code>SG-11</code> Design feed: three fully specified directions for the next visual pass</h3>
+  <header><h3><code>SG-11</code> Run an answer-first article calendar of question-shaped guides, one per format decision</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Five guides exist, but the site has no written calendar for what comes next, so topic choice is instinct.</dd>
+    <dt>Proposal</dt><dd>Plan a rolling calendar of about one guide every two weeks, each titled as the buyer&#x27;s question (for example, &#x27;Is a dual-basket air fryer worth it for two dishes at once?&#x27;). Every answer uses only listed specs with their read dates. Topics are chosen from Search Console queries once SG-06 is live.</dd>
+    <dt>Evidence</dt><dd>Q-P02 (which guide next, on what evidence); the publishing-cadence question in data/p2/questions.json; VOICE.md rule 7 (questions are titles).</dd>
+    <dt>Expected impact</dt><dd>Medium-high organic potential; unmeasured until analytics runs.</dd>
+    <dt>Effort</dt><dd>Small per guide; the calendar itself is one document.</dd>
+    <dt>Risk</dt><dd>Low, provided no popularity claims are made (D-19 banned words stay banned).</dd>
+    
+    <dt>Depends on</dt><dd>Q-P02, SG-06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06.</p>
+</article>
+<article class="card s-card" id="SG-12">
+  <header><h3><code>SG-12</code> Give every product its own buyer-first section: who it suits, what it does not do, what the listing says</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Product sections are spec tables. A shopper deciding between two machines needs a plain answer for each product first.</dd>
+    <dt>Proposal</dt><dd>On each product block, lead with a &#x27;Who it suits&#x27; line and a &#x27;Where it falls short&#x27; line, both drawn only from listed facts (for example, &#x27;Suits two dishes at the same temperature; the baskets are 3 qt each&#x27;). The sponsored link and paid-link label stay directly under that text.</dd>
+    <dt>Evidence</dt><dd>The existing product register (data/p2/products.json highlights); FTC guidance that endorsements must reflect honest experience (S-FTC2), which rules out invented hands-on claims.</dd>
+    <dt>Expected impact</dt><dd>Medium; likely the highest conversion-relevant change that needs no new data.</dd>
+    <dt>Effort</dt><dd>Small (copy in content/pages + one check that each block has both lines).</dd>
+    <dt>Risk</dt><dd>Low. Must not claim testing that did not happen (D-06).</dd>
+    
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. It improves the shop feel without adding claims.</p>
+</article>
+<article class="card s-card" id="SG-13">
+  <header><h3><code>SG-13</code> Build one organic cluster per format, linked into a hub, before adding more formats</h3>
+  <span class="status status-accepted">accepted</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Guides link to the comparison, but each format lacks a cluster that answers the search journey from question to purchase.</dd>
+    <dt>Proposal</dt><dd>Four clusters: dual-basket, oven-style, single-basket, instant-read vs leave-in thermometer. Each cluster has one hub page, two or three question guides, and the sponsored links where the reader is ready to act. Internal links follow the rule in SG-09.</dd>
+    <dt>Evidence</dt><dd>S-24 / D-27 (internal linking rule); the existing category pages; the brief&#x27;s requirement for clusters.</dd>
+    <dt>Expected impact</dt><dd>Medium-high for organic discovery; unmeasured until SG-06.</dd>
+    <dt>Effort</dt><dd>Medium (roughly one session per cluster).</dd>
+    <dt>Risk</dt><dd>Low; more pages mean more upkeep, which SG-09 automates.</dd>
+    <dt>Progress</dt><dd>2026-11-19 publication pass: the clusters shipped - data/p2/calendar.json defines both clusters, the guides hub (guides.html) is the hub page, every guide links its pillar (enforced by the gate). Adding more formats still waits.</dd>
+    <dt>Depends on</dt><dd>SG-09</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.</p>
+</article>
+<article class="card s-card" id="SG-14">
+  <header><h3><code>SG-14</code> Hold paid promotion and a newsletter until one clean attribution test exists</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Clicks cannot yet be tied to reports. Spending money or adding a list before attribution works would produce numbers the site cannot defend.</dd>
+    <dt>Proposal</dt><dd>Sequence the growth plan: (1) one-link-per-product test in Associates Central (Q-01 / F-58); (2) analytics endpoint and Search Console (SG-06); (3) only then consider reader email capture (SG-04) or any paid channel. No paid spend is planned in this proposal.</dd>
+    <dt>Evidence</dt><dd>F-57 and F-58 (attribution not verified); SG-04 (compliance cost before benefit); the measurement-before-automation brief item.</dd>
+    <dt>Expected impact</dt><dd>High for decision quality; prevents false confidence.</dd>
+    <dt>Effort</dt><dd>Owner-side access work; no build effort.</dd>
+    <dt>Risk</dt><dd>Low. Delay is the only cost.</dd>
+    
+    <dt>Depends on</dt><dd>Q-01, SG-06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the sequencing rule for every growth decision.</p>
+</article>
+<article class="card s-card" id="SG-27">
+  <header><h3><code>SG-27</code> Shop-first navigation labels</h3>
+  <span class="status status-shipped">shipped</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The brief requires the navigation to read like a shop, with dashboard surfaces in the footer and a single navigation group - not a research console.</dd>
+    <dt>Proposal</dt><dd>Reader nav: Compare - Products - Guides - Buying guide - Air fryers - Thermometers. Everything else (executive summary, method, flagged, questions, suggestions, decisions, measurement, compliance, privacy) lives in the one &#x27;The work behind it&#x27; group and the footer directory.</dd>
+    <dt>Evidence</dt><dd>Owner brief 2026-11-19 (&#x27;nav labels&#x27;); the chrome gate in tools/checks.py enforces the single group.</dd>
+    <dt>Expected impact</dt><dd>The reader sees shop language first; reviewers keep every surface one click away.</dd>
+    <dt>Effort</dt><dd>Shipped in the 2026-11-19 publication pass.</dd>
+    <dt>Risk</dt><dd>None.</dd>
+    <dt>Progress</dt><dd>2026-11-19 publication pass: live. Nav labels as above; footer adds a &#x27;Read &amp; follow&#x27; column (guides hub, feed, ask, byline).</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Done; revisit only with a design-direction change (SG-31).</p>
+</article>
+<article class="card s-card" id="SG-28">
+  <header><h3><code>SG-28</code> Verify and promote the shipped RSS feed</h3>
+  <span class="status status-shipped">shipped</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The feed ships but sat unadvertised; readers had no affordance to follow, and nothing checked that new guides reach the feed.</dd>
+    <dt>Proposal</dt><dd>Subscribe cards on the front page and guides hub (&#x27;Follow the feed&#x27;), a feed link in the byline strip and footer, feed_click measurement (one of the five defined events), and a gate check that the feed covers every guide.</dd>
+    <dt>Evidence</dt><dd>Owner brief 2026-11-19 (&#x27;the shipped RSS feed&#x27;); data/p2/events.json feed_click.</dd>
+    <dt>Expected impact</dt><dd>A no-data reader channel that actually gets used; syndication for every new guide.</dd>
+    <dt>Effort</dt><dd>Shipped in the 2026-11-19 publication pass.</dd>
+    <dt>Risk</dt><dd>None - the feed collects nothing.</dd>
+    <dt>Progress</dt><dd>2026-11-19 publication pass: live. Subscribe module, byline + footer links, feed_click counter, and the publication gate fails if a guide is missing from feed.xml.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Done. Validate the feed in a feed reader when the owner reviews.</p>
+</article>
+<article class="card s-card" id="SG-29">
+  <header><h3><code>SG-29</code> Verify a Search Console property and submit the sitemap</h3>
+  <span class="status status-accepted">accepted</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Search engines have one site to index but no verified property: without Search Console there are no measured queries, so topic selection stays instinct (Q-P02).</dd>
+    <dt>Proposal</dt><dd>Owner verifies https://wingbangboozle1-lang.github.io/Prod2/ in Search Console (HTML-tag method: paste the token into data/p2/settings.json -&gt; search_console.verification_token and rebuild), then submits sitemap.xml and feed.xml. Readiness (canonicals, unique titles/meta, sitemap, robots, feed) already ships.</dd>
+    <dt>Evidence</dt><dd>Owner brief 2026-11-19 (&#x27;Search Console&#x27;); Google Search Central property verification docs.</dd>
+    <dt>Expected impact</dt><dd>Unlocks measured topic selection (SG-34) and the verification-angle growth thesis (SG-37).</dd>
+    <dt>Effort</dt><dd>Owner minutes; the build side is done.</dd>
+    <dt>Risk</dt><dd>None.</dd>
+    <dt>Progress</dt><dd>2026-11-19 publication pass: readiness shipped (token slot + meta emission + checklist on the measurement page). Verification itself is an owner action (F-P09, Q-P08).</dd>
+    <dt>Depends on</dt><dd>Q-P08, Q-P06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Owner runs the checklist on the measurement page this week; nothing compounds without it.</p>
+</article>
+<article class="card s-card" id="SG-30">
+  <header><h3><code>SG-30</code> Consent-first reader capture</h3>
+  <span class="status status-accepted">accepted</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The brief wants reader capture; collecting an email without a settled consent basis would breach the site&#x27;s own privacy posture (Q-47).</dd>
+    <dt>Proposal</dt><dd>A question form (&#x27;What should we answer next?&#x27;) with a required consent checkbox and optional email, wired to a capture endpoint only when one is configured. While the endpoint is empty the form stays dark: the question stays in the visitor&#x27;s browser and nothing is transmitted.</dd>
+    <dt>Evidence</dt><dd>Owner brief 2026-11-19 (&#x27;reader capture&#x27;); FTC disclosure/consent guidance (S07); Q-47.</dd>
+    <dt>Expected impact</dt><dd>Closes the reader-to-queue loop (SG-36) without collecting anything prematurely.</dd>
+    <dt>Effort</dt><dd>Mechanism shipped; the consent text and endpoint are the remaining owner steps.</dd>
+    <dt>Risk</dt><dd>Consent text must be settled before connecting the endpoint - the gate exists so the form cannot send in the meantime.</dd>
+    <dt>Progress</dt><dd>2026-11-19 publication pass: form ships disconnected by design (F-P10). It activates when settings.reader_capture.endpoint is set and the consent basis (Q-47) is settled.</dd>
+    <dt>Depends on</dt><dd>Q-47</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Owner settles the consent wording (Q-47), then hosts the endpoint and flips the switch.</p>
+</article>
+<article class="card s-card" id="SG-31">
+  <header><h3><code>SG-31</code> Design feed: three fully specified directions for the next visual pass</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief asks for design suggestions that feed the design prompt, so a reviewer can pick the best path before anything is implemented. One direction (warm editorial) is carried and built; the alternatives have never been specified side by side.</dd>
     <dt>Proposal</dt><dd>Publish three complete directions against the same compliance block: (A) Warm editorial - kitchen magazine that shows its sources: serif display (Fraunces), paper background, terracotta accent, drawn line-art only; this build follows it (DESIGN_PROMPT.md). (B) Clean modern shop - sans display (Inter), white cards, one strong accent color, product-first grid with big tap targets, tighter type scale; the most e-commerce-native of the three. (C) Bold magazine - high-contrast black/paper, oversized display numerals for specs, full-width section bands, editorial photography if the photography decision (Q-05/D-22 lineage, SG-18) ever clears. Each keeps: disclosure above the fold, no prices/ratings, sponsored-only product links, drawn-not-copied imagery.</dd>
     <dt>Evidence</dt><dd>Owner brief 2026-11-19 (the site must look like a polished marketing affiliate publication, not generated output); carried D-18/DIR-A; DESIGN_PROMPT.md.</dd>
     <dt>Expected impact</dt><dd>Decides the entire reader-facing look; direction B is the most shop-like, A is the most distinctive and least template-like, C is the boldest but needs photography.</dd>
-    <dt>Effort</dt><dd>The pick is one meeting; the token layer (SG-13) makes the implementation one session per direction.</dd>
+    <dt>Effort</dt><dd>The pick is one meeting; the token layer (SG-33) makes the implementation one session per direction.</dd>
     <dt>Risk</dt><dd>Low if done through the token layer; high if done as scattered one-off CSS. Direction C depends on the photography decision.</dd>
     
-    <dt>Depends on</dt><dd>Q-P06</dd>
+    <dt>Depends on</dt><dd>Q-P09</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once.</p>
 </article>
-<article class="card s-card" id="SG-12">
-  <header><h3><code>SG-12</code> Decision-making improvements: dependency-ordered queue and the shortest credible path</h3>
+<article class="card s-card" id="SG-32">
+  <header><h3><code>SG-32</code> Decision-making improvements: dependency-ordered queue and the shortest credible path</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief asks for suggestions on how to improve decision making. Decisions currently pile up in a flat log; blockers are visible only if the reader cross-references the questions register.</dd>
@@ -263,38 +383,38 @@
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept. Cheap, no downside, and it is exactly the review surface the brief asked for.</p>
 </article>
-<article class="card s-card" id="SG-13">
-  <header><h3><code>SG-13</code> Design token layer: color, type and spacing in one switchable place</h3>
+<article class="card s-card" id="SG-33">
+  <header><h3><code>SG-33</code> Design token layer: color, type and spacing in one switchable place</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
-    <dt>Problem</dt><dd>The palette and type scale are hard-coded in assets/css/site.css. Switching a design direction (SG-11) today means editing declarations all over the sheet.</dd>
+    <dt>Problem</dt><dd>The palette and type scale are hard-coded in assets/css/site.css. Switching a design direction (SG-31) today means editing declarations all over the sheet.</dd>
     <dt>Proposal</dt><dd>Move the eight palette tokens, the two type stacks and the spacing scale into CSS custom properties at the top of the sheet; components consume only variables. Then a direction switch is a token-block swap.</dd>
     <dt>Evidence</dt><dd>DESIGN_PROMPT.md already defines the tokens (ink/paper/card/terracotta/sage/rule/muted/amber).</dd>
-    <dt>Expected impact</dt><dd>Makes SG-11 reversible and the brand rename (SG-01) mechanical.</dd>
+    <dt>Expected impact</dt><dd>Makes SG-31 reversible and the brand rename (SG-01) mechanical.</dd>
     <dt>Effort</dt><dd>One session; visual output must be pixel-identical after the refactor (the build gate catches content changes, not pixels, so the pass includes a manual look).</dd>
     <dt>Risk</dt><dd>Low; one-day regression window.</dd>
     
-    <dt>Depends on</dt><dd>Q-P06</dd>
+    <dt>Depends on</dt><dd>Q-P09</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept together with SG-11, whichever direction wins.</p>
 </article>
-<article class="card s-card" id="SG-14">
-  <header><h3><code>SG-14</code> Choose topics from measured queries after 14 days of real data</h3>
+<article class="card s-card" id="SG-34">
+  <header><h3><code>SG-34</code> Choose topics from measured queries after 14 days of real data</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
     <dt>Problem</dt><dd>Topic selection is editorial instinct labeled as hypothesis (Q-P02). The brief wants the next topic chosen from measured queries instead.</dd>
-    <dt>Proposal</dt><dd>Once Search Console is verified (Q-P05) and the endpoint is hosted (F-19) and 14 days of data exist: pull the Search Queries report plus the endpoint&#x27;s guide_read_75 counts, rank candidate questions by impressions and read-through, and let the top measured question set the next queue slot. Record the data date and the decision in the decision log; keep the ledger&#x27;s rule (no revenue forecast).</dd>
+    <dt>Proposal</dt><dd>Once Search Console is verified (Q-P08) and the endpoint is hosted (F-19) and 14 days of data exist: pull the Search Queries report plus the endpoint&#x27;s guide_read_75 counts, rank candidate questions by impressions and read-through, and let the top measured question set the next queue slot. Record the data date and the decision in the decision log; keep the ledger&#x27;s rule (no revenue forecast).</dd>
     <dt>Evidence</dt><dd>Owner brief 2026-11-19; measurement contract (data/p2/events.json); the campaign ledger&#x27;s first-party rule.</dd>
     <dt>Expected impact</dt><dd>Turns the queue from hypothesis to measurement; expected to change what gets written within two cadence cycles.</dd>
     <dt>Effort</dt><dd>One review cycle per month after the gate opens.</dd>
     <dt>Risk</dt><dd>Low - selection only, publication standards unchanged.</dd>
     
-    <dt>Depends on</dt><dd>Q-P05, Q-P02</dd>
+    <dt>Depends on</dt><dd>Q-P08, Q-P02</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept. It is the payoff for SG-06 and requires no new machinery.</p>
 </article>
-<article class="card s-card" id="SG-15">
-  <header><h3><code>SG-15</code> Seasonal desk rotation as a standing module</h3>
+<article class="card s-card" id="SG-35">
+  <header><h3><code>SG-35</code> Seasonal desk rotation as a standing module</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
     <dt>Problem</dt><dd>The seasonal rows the brief mandates (nav labels, feed, Search Console, reader capture run in parallel with seasons and clusters) need a home that keeps rotating, not a one-off page.</dd>
@@ -308,8 +428,8 @@
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept before the next season boundary (2026-12-31).</p>
 </article>
-<article class="card s-card" id="SG-16">
-  <header><h3><code>SG-16</code> Question-to-guide pipeline from the reader-capture form</h3>
+<article class="card s-card" id="SG-36">
+  <header><h3><code>SG-36</code> Question-to-guide pipeline from the reader-capture form</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
     <dt>Problem</dt><dd>Reader questions arrive (once capture is connected) with no defined route into the publishing queue.</dd>
@@ -323,15 +443,15 @@
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept in principle now; activate with the capture endpoint.</p>
 </article>
-<article class="card s-card" id="SG-17">
-  <header><h3><code>SG-17</code> Grow on the verification angle: the &#x27;receipts visible&#x27; differentiator</h3>
+<article class="card s-card" id="SG-37">
+  <header><h3><code>SG-37</code> Grow on the verification angle: the &#x27;receipts visible&#x27; differentiator</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief wants organic traffic from real buyers without volume tricks. The site&#x27;s differentiator is not product coverage - it is that every figure shows its read date and source.</dd>
-    <dt>Proposal</dt><dd>Make the method the marketing: a short &#x27;every number has a receipt&#x27; strip near the top of the front page (already shipped), cross-links from every fact table to the source register, and titles/meta that promise sourced specs rather than superlatives. Then measure (SG-14). No popularity claims, per D-19.</dd>
+    <dt>Proposal</dt><dd>Make the method the marketing: a short &#x27;every number has a receipt&#x27; strip near the top of the front page (already shipped), cross-links from every fact table to the source register, and titles/meta that promise sourced specs rather than superlatives. Then measure (SG-34). No popularity claims, per D-19.</dd>
     <dt>Evidence</dt><dd>Owner brief (the verification angle); Google Search Central helpful-content guidance (S-GHELP); D-19 evidence rule.</dd>
     <dt>Expected impact</dt><dd>Positions the site against thin affiliate pages, which is the one advantage a small publication can actually hold.</dd>
-    <dt>Effort</dt><dd>Mostly shipped; remaining work is measured iteration (SG-14).</dd>
+    <dt>Effort</dt><dd>Mostly shipped; remaining work is measured iteration (SG-34).</dd>
     <dt>Risk</dt><dd>Low - the compliance block already forbids the alternative (hype).</dd>
     
     <dt>Depends on</dt><dd>—</dd>
@@ -349,7 +469,7 @@
       <p class="footer-brand">Prod2 <span>· Kitchen notes &amp; buying guides</span></p>
       <p class="footer-disclosure">As an Amazon Associate we earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
     </div>
-    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guides.html">All guides</a></li></ul></div>
+    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guides.html">All guides</a></li></ul></div>
     <div><h2>Compare &amp; shop</h2><ul><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
     <div><h2>Read &amp; follow</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="guides.html#subscribe">Follow the feed</a></li><li><a href="guides.html#ask">Ask a question</a></li><li><a href="guides.html#byline">Who writes this</a></li></ul></div>
     <div><h2>The work behind it</h2><ul><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>

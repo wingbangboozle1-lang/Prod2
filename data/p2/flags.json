@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-19",
-  "last_change": "2026-11-19 (arena/9f84489c-prod2): added F-P06 (Search Console verification, owner action) and F-P07 (reader-capture gate)."
+  "last_change": "2026-11-19 integration (arena/9f84489c-prod2): union of the parallel sessions registers; publication-pass flags renumbered F-P09 (Search Console verification) / F-P10 (reader-capture gate) to avoid collision with PR #17 rows."
  },
  "flags": [
   {
@@ -179,20 +179,47 @@
   {
    "id": "F-P06",
    "status": "open",
-   "title": "Google Search Console verification is not done (owner action)",
-   "detail": "The publication ships everything Search Console needs to be claimed and submitted (unique titles and meta descriptions, canonical URLs, sitemap.xml, robots.txt with the Sitemap line, RSS feed). Verification itself needs the owner's Google account: either the HTML-tag token (a slot exists in data/p2/settings.json -> search_console.verification_token, currently empty) or the DNS/HTML-file method. Until then no search performance data exists, so topic selection stays editorial (Q-P02).",
-   "evidence": "https://developers.google.com/search/docs/appearance/google-search-console",
-   "evidence_note": "Google Search Central: Search Console is the first-party source of search query data; verification requires the property owner.",
-   "how_to_resolve": "Owner verifies the property in Search Console (paste the meta token into settings.json and rebuild, or use the HTML-file method), then submits sitemap.xml and the feed. Prepared checklist: measurement.html."
+   "title": "Two registers disagree on whether prices are published",
+   "detail": "data/products.json (the earlier Countercraft build) carries buy-box prices for all five ASINs (as listed on 2026-11-19; values are kept in that file only). data/p2/ withholds prices and ratings entirely (F-02). The earlier build's executive-summary appendix therefore conflicts with this build's rule. The Prod2 site publishes no prices.",
+   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+   "evidence_note": "Price text as observed on the official listing, read 2026-11-19 (arena/236bc1ed-prod2 recheck).",
+   "how_to_resolve": "Decision under Q-27 / SG-05. Until a dated-snapshot rule is adopted and automated, prices stay unpublished here. The Countercraft build stays archived and is not mirrored."
   },
   {
    "id": "F-P07",
+   "status": "open",
+   "title": "Short-link redirect re-read covered two of five links in the latest pass",
+   "detail": "This session re-fetched link.amazon/B04G1MEwY (resolves to B0CDY277D3) and link.amazon/B0c8moW59 (resolves to B0DHZTCNR5). Both matched the register. The other three short links (P2, P3, P5) keep their 2026-11-19 reads and were not re-fetched in this pass.",
+   "evidence": "https://link.amazon/B02NbDxp3",
+   "evidence_note": "Submitted link for P2; the three unrefreshed short links are listed in data/p2/intent-links.json.",
+   "how_to_resolve": "Re-read all five short links in the next publishing pass. Not automated yet; a check that fails on a redirect change would close this gap."
+  },
+  {
+   "id": "F-P08",
+   "status": "open",
+   "title": "Session-8ff10f50 dimension values not re-confirmed in this pass",
+   "detail": "This session (arena/8ff10f50-prod2) could not re-read the official Amazon listings to confirm the product-table dimensions (D×W×H) and derived capacity-per-depth ratio for P1-P3 — the sandbox cannot reach amazon.com (egress is github.com, npm and PyPI only). Those values carry earlier read dates (2026-11-14) and are published with them, pending an owner re-read. Per the publication rule, values that cannot be confirmed from an official source at publishing time should be left blank and flagged rather than trusted by default; no value was inferred or filled in this pass.",
+   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+   "evidence_note": "data/p2/products.json (dimensions_read 2026-11-14); data/p2/verification-2026-11-19.json (carried_prior_reads)",
+   "how_to_resolve": "Owner re-reads the three air-fryer listings and either re-confirms the dimensions (update read date) or blanks them and marks them unverified until confirmed."
+  },
+  {
+   "id": "F-P09",
+   "status": "open",
+   "title": "Google Search Console verification is not done (owner action)",
+   "detail": "The publication ships everything Search Console needs to be claimed and submitted (unique titles and meta descriptions, canonical URLs, sitemap.xml, robots.txt with the Sitemap line, RSS feed). Verification itself needs the owner's Google account: either the HTML-tag token (a slot exists in data/p2/settings.json -> search_console.verification_token, currently empty). Cross-reference: Q-P06 (owner domain control) and Q-P08 (who verifies). or the DNS/HTML-file method. Until then no search performance data exists, so topic selection stays editorial (Q-P02).",
+   "evidence": "https://developers.google.com/search/docs/appearance/google-search-console",
+   "evidence_note": "Google Search Central: Search Console is the first-party source of search query data; verification requires the property owner.",
+   "how_to_resolve": "Owner verifies the property in Search Console (paste the meta token into settings.json and rebuild, or use the HTML-file method), then submits sitemap.xml and the feed. Prepared checklist: measurement.html. Cross-ref: Q-P08."
+  },
+  {
+   "id": "F-P10",
    "status": "open",
    "title": "Reader-capture form ships disconnected (privacy basis open)",
    "detail": "The 'What should we answer next?' form is live but sends nothing anywhere: the consent basis for collecting an email address (Q-47) is not settled, and no capture endpoint is configured (data/p2/settings.json -> reader_capture). A visitor's typed question stays in their own browser. This is deliberate: the mechanism is built, the gate in front of it is real.",
    "evidence": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
    "evidence_note": "FTC guidance cited for the disclosure/consent standard that the capture consent text must meet (S07).",
-   "how_to_resolve": "Owner settles the consent text and the privacy-page wording (Q-47), then sets the capture endpoint URL in settings.json and rebuilds; the form activates with the consent checkbox required."
+   "how_to_resolve": "Owner settles the consent text and the privacy-page wording (Q-47), then sets the capture endpoint URL in settings.json and rebuilds; the form activates with the consent checkbox required. Related: SG-30."
   }
  ]
 }

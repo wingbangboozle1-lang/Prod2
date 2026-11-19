@@ -1,118 +1,147 @@
 {
-  "_meta": {
-    "description": "Verification session record for 2026-11-19 (arena/44093825-prod2). Method: each owner-submitted short link fetched with redirects followed; official listing page title and category breadcrumb read; product-summary / About-this-item bullets read for the two newly resolved products; prior dated reads (2026-11-14 … 2026-11-17) carried with their records. Prices and star ratings were visible on every listing and are withheld from publication (F-02).",
-    "session": "arena/44093825-prod2",
-    "date_utc": "2026-11-19"
-  },
-  "redirect_observations": [
-    {
-      "submitted_url": "https://link.amazon/B04G1MEwY",
-      "resolved_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
-      "observed_asin": "B0CDY277D3",
-      "page_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
-      "title_matches_register": true,
-      "tag_parameter_present": false
+    "_meta": {
+        "description": "Verification session record for 2026-11-19 (arena/44093825-prod2). Method: each owner-submitted short link fetched with redirects followed; official listing page title and category breadcrumb read; product-summary / About-this-item bullets read for the two newly resolved products; prior dated reads (2026-11-14 … 2026-11-17) carried with their records. Prices and star ratings were visible on every listing and are withheld from publication (F-02).",
+        "session": "arena/44093825-prod2",
+        "date_utc": "2026-11-19"
     },
-    {
-      "submitted_url": "https://link.amazon/B02NbDxp3",
-      "resolved_url_without_query": "https://www.amazon.com/dp/B09B7SB46R",
-      "observed_asin": "B09B7SB46R",
-      "page_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
-      "title_matches_register": false,
-      "title_drift_note": "First segment matches the register; the second segment differs from both the stored 2026-11-14 string and the 2026-11-15 string on record (F-44/F-66 extended). Current string published with its 2026-11-19 read date; the register keeps the previous strings.",
-      "tag_parameter_present": false
+    "redirect_observations": [
+        {
+            "submitted_url": "https://link.amazon/B04G1MEwY",
+            "resolved_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
+            "observed_asin": "B0CDY277D3",
+            "page_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+            "title_matches_register": true,
+            "tag_parameter_present": false
+        },
+        {
+            "submitted_url": "https://link.amazon/B02NbDxp3",
+            "resolved_url_without_query": "https://www.amazon.com/dp/B09B7SB46R",
+            "observed_asin": "B09B7SB46R",
+            "page_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+            "title_matches_register": false,
+            "title_drift_note": "First segment matches the register; the second segment differs from both the stored 2026-11-14 string and the 2026-11-15 string on record (F-44/F-66 extended). Current string published with its 2026-11-19 read date; the register keeps the previous strings.",
+            "tag_parameter_present": false
+        },
+        {
+            "submitted_url": "https://link.amazon/B00hJ57DV",
+            "resolved_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH",
+            "observed_asin": "B08DKYBTPH",
+            "page_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+            "title_matches_register": true,
+            "tag_parameter_present": false
+        },
+        {
+            "submitted_url": "https://link.amazon/B0c8moW59",
+            "resolved_url_without_query": "https://www.amazon.com/dp/B0DHZTCNR5",
+            "observed_asin": "B0DHZTCNR5",
+            "page_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+            "title_matches_register": "new product — first read",
+            "tag_parameter_present": false,
+            "resolves_flag": "F-55 (for this link)"
+        },
+        {
+            "submitted_url": "https://link.amazon/B0f3GKalj",
+            "resolved_url_without_query": "https://www.amazon.com/dp/B0DZFD6R9Z",
+            "observed_asin": "B0DZFD6R9Z",
+            "page_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3 : Home & Kitchen",
+            "title_matches_register": "new product — first read",
+            "tag_parameter_present": false,
+            "resolves_flag": "F-55 (for this link)"
+        }
+    ],
+    "new_product_reads": {
+        "B0DHZTCNR5": {
+            "brand_seen": "From ThermoMaven (Product Summary block)",
+            "breadcrumb_seen": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+            "about_this_item": [
+                "NIST certification for ±0.5°F accuracy (as listed)",
+                "Thermocouple sensor; accurate readings in 1 second (as listed)",
+                "Bright LED screen; auto-rotating display (as listed)",
+                "Fully waterproof design; title states IP67 (as listed)",
+                "Motion-activated wake and energy-saving sleep (as listed)"
+            ],
+            "title_internal_inconsistency": "Page <title> says 'IP67 Waterproof for Grill BBQ'; the Product Summary heading on the same page says 'Highly Waterproof for Grill BBQ Camping'. Both recorded verbatim (F-P01).",
+            "withheld_but_observed": "Price, star rating, review count, 'bought in past week' badge and review-highlight counts appeared on the page and are withheld from publication (F-02)."
+        },
+        "B0DZFD6R9Z": {
+            "brand_seen": "CHEF iQ",
+            "breadcrumb_seen": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+            "product_summary_bullets": [
+                "3 thermometer probes included (this configuration)",
+                "Unlimited wireless range (WiFi)",
+                "Pairs with CHEF iQ App",
+                "Quad internal temperature sensors + external ambient sensor (5 sensors)",
+                "Accurate within 1˚F (as listed)",
+                "Ultra-thin design; probe 4.75\" long",
+                "Air-fryer and deep-fryer safe",
+                "Monitors cooking in real time; predictive cook times and steps",
+                "Smart charging hub; visual and audio alerts",
+                "70+ hours of probe use on a full charge (as listed)",
+                "Waterproof and dishwasher safe",
+                "Heat safe to 1000°F (as listed in title and summary)"
+            ],
+            "size_options_seen": "1 Probe / 2 Probes / 3 Probes / 4 Probes (this record = 3 Probes, Gen3)",
+            "withheld_but_observed": "Price, star rating and review counts appeared on the page and are withheld from publication (F-02)."
+        }
     },
-    {
-      "submitted_url": "https://link.amazon/B00hJ57DV",
-      "resolved_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH",
-      "observed_asin": "B08DKYBTPH",
-      "page_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
-      "title_matches_register": true,
-      "tag_parameter_present": false
+    "also_viewed_observations_2026_11_19": {
+        "note": "'Customers who viewed this item also viewed', first three slots as shown on the 2026-11-19 read. Carousel membership and order change between reads (F-29). Labels are listing-title prefixes as shown.",
+        "B0CDY277D3": [
+            "B0B7C327LK — Chefman 6 Quart Dual Basket Air Fryer, Digital Touchscreen",
+            "B0CNSB81V6 — Nutrichef Double Basket Air Fryer 8.8 QT (slot moved from 3 to 2 vs 2026-11-14 snapshot)",
+            "B0BYKGN61Q — Gourmia Air Fryer 10 Qt Dual Basket (slot moved from 2 to 3 vs 2026-11-14 snapshot)"
+        ],
+        "B09B7SB46R": [
+            "B0BZ52FLKC — Emeril Lagasse Dual Zone Technology 25QT Air Fryer Oven",
+            "B0FM5KF34G — Ninja French Door Premier Air Fry Oven FO101",
+            "B0F92GL7JH — HotKing Dual-Zone Air Fryer Toaster Oven Combo 28 QT"
+        ],
+        "B08DKYBTPH": [
+            "B0CNY1YVDD — Chefman Air Fryer 6 QT Compact",
+            "B09MR7QWKZ — Gourmia Air Fryer 8 Qt (new vs 2026-11-14 snapshot, which showed B0D5FX6VRL)",
+            "B0C33CHG99 — Cosori TurboBlaze Air Fryer 6 Qt"
+        ],
+        "B0DHZTCNR5": [
+            "B0GL7Z4KP4 — ThermoMaven 1 Sec Professional Digital Meat Thermometer",
+            "B0DNMTK56N — ThermoMaven 0.5 Sec Professional Meat Thermometer",
+            "B0F5X3NSR4 — 0.5 Sec Instant Read Meat Thermometer"
+        ],
+        "B0DZFD6R9Z": [
+            "B0FXBQ3KX1 — CHEF iQ Sense Smart Wireless Meat Thermometer (Gen3)",
+            "B0D1TMFTPN — ThermoMaven WiFi Wireless Meat Thermometer",
+            "B0H2JP9YDM — Chef iQ Sense USA 250 Limited Edition"
+        ]
     },
-    {
-      "submitted_url": "https://link.amazon/B0c8moW59",
-      "resolved_url_without_query": "https://www.amazon.com/dp/B0DHZTCNR5",
-      "observed_asin": "B0DHZTCNR5",
-      "page_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
-      "title_matches_register": "new product — first read",
-      "tag_parameter_present": false,
-      "resolves_flag": "F-55 (for this link)"
+    "carried_prior_reads": {
+        "note": "Specification-table fields for P1–P3 (dimensions, color, material, model numbers, UPC/GTIN, special features) were read from the official listing pages on 2026-11-14 and re-read 2026-11-16/2026-11-17 in prior sessions (records in kanlerxz87-cyber/Zone4 data/, source S-PRIOR4). Titles and breadcrumbs were re-read 2026-11-19. Commission Table 1 category bands (Kitchen 4.50%, Home 3.00%) were read 2026-11-14/2026-11-17 (S-COMM); product-level rates stay blank (F-01)."
     },
-    {
-      "submitted_url": "https://link.amazon/B0f3GKalj",
-      "resolved_url_without_query": "https://www.amazon.com/dp/B0DZFD6R9Z",
-      "observed_asin": "B0DZFD6R9Z",
-      "page_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3 : Home & Kitchen",
-      "title_matches_register": "new product — first read",
-      "tag_parameter_present": false,
-      "resolves_flag": "F-55 (for this link)"
+    "recheck_arena_236bc1ed": {
+        "_note": "Second read on 2026-11-19 by arena/236bc1ed-prod2 (T-12). Only two of five short links were re-fetched in this pass; P2, P3 and P5 keep their 2026-11-19 reads from redirect_observations above. Prices and star ratings that appear on the fetched listing pages are recorded here only as observations and are NOT published (F-02).",
+        "observations": [
+            {
+                "submitted_url": "https://link.amazon/B04G1MEwY",
+                "resolved_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
+                "observed_asin": "B0CDY277D3",
+                "page_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+                "title_matches_register": "yes (data/p2/products.json P1 name_listing)",
+                "observed_on_listing_not_published": {
+                    "buy_box_price_text": "$74.99",
+                    "rating_text": "4.4 out of 5 stars (count not recorded)"
+                },
+                "source": "https://www.amazon.com/dp/B0CDY277D3"
+            },
+            {
+                "submitted_url": "https://link.amazon/B0c8moW59",
+                "resolved_url_without_query": "https://www.amazon.com/dp/B0DHZTCNR5",
+                "observed_asin": "B0DHZTCNR5",
+                "page_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+                "title_matches_register": "yes (data/p2/products.json P4 name_listing)",
+                "observed_on_listing_not_published": {
+                    "buy_box_price_text": "$16.99",
+                    "rating_text": "4.7 out of 5 stars (count not recorded)"
+                },
+                "source": "https://www.amazon.com/dp/B0DHZTCNR5"
+            }
+        ]
     }
-  ],
-  "new_product_reads": {
-    "B0DHZTCNR5": {
-      "brand_seen": "From ThermoMaven (Product Summary block)",
-      "breadcrumb_seen": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
-      "about_this_item": [
-        "NIST certification for ±0.5°F accuracy (as listed)",
-        "Thermocouple sensor; accurate readings in 1 second (as listed)",
-        "Bright LED screen; auto-rotating display (as listed)",
-        "Fully waterproof design; title states IP67 (as listed)",
-        "Motion-activated wake and energy-saving sleep (as listed)"
-      ],
-      "title_internal_inconsistency": "Page <title> says 'IP67 Waterproof for Grill BBQ'; the Product Summary heading on the same page says 'Highly Waterproof for Grill BBQ Camping'. Both recorded verbatim (F-P01).",
-      "withheld_but_observed": "Price, star rating, review count, 'bought in past week' badge and review-highlight counts appeared on the page and are withheld from publication (F-02)."
-    },
-    "B0DZFD6R9Z": {
-      "brand_seen": "CHEF iQ",
-      "breadcrumb_seen": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
-      "product_summary_bullets": [
-        "3 thermometer probes included (this configuration)",
-        "Unlimited wireless range (WiFi)",
-        "Pairs with CHEF iQ App",
-        "Quad internal temperature sensors + external ambient sensor (5 sensors)",
-        "Accurate within 1˚F (as listed)",
-        "Ultra-thin design; probe 4.75\" long",
-        "Air-fryer and deep-fryer safe",
-        "Monitors cooking in real time; predictive cook times and steps",
-        "Smart charging hub; visual and audio alerts",
-        "70+ hours of probe use on a full charge (as listed)",
-        "Waterproof and dishwasher safe",
-        "Heat safe to 1000°F (as listed in title and summary)"
-      ],
-      "size_options_seen": "1 Probe / 2 Probes / 3 Probes / 4 Probes (this record = 3 Probes, Gen3)",
-      "withheld_but_observed": "Price, star rating and review counts appeared on the page and are withheld from publication (F-02)."
-    }
-  },
-  "also_viewed_observations_2026_11_19": {
-    "note": "'Customers who viewed this item also viewed', first three slots as shown on the 2026-11-19 read. Carousel membership and order change between reads (F-29). Labels are listing-title prefixes as shown.",
-    "B0CDY277D3": [
-      "B0B7C327LK — Chefman 6 Quart Dual Basket Air Fryer, Digital Touchscreen",
-      "B0CNSB81V6 — Nutrichef Double Basket Air Fryer 8.8 QT (slot moved from 3 to 2 vs 2026-11-14 snapshot)",
-      "B0BYKGN61Q — Gourmia Air Fryer 10 Qt Dual Basket (slot moved from 2 to 3 vs 2026-11-14 snapshot)"
-    ],
-    "B09B7SB46R": [
-      "B0BZ52FLKC — Emeril Lagasse Dual Zone Technology 25QT Air Fryer Oven",
-      "B0FM5KF34G — Ninja French Door Premier Air Fry Oven FO101",
-      "B0F92GL7JH — HotKing Dual-Zone Air Fryer Toaster Oven Combo 28 QT"
-    ],
-    "B08DKYBTPH": [
-      "B0CNY1YVDD — Chefman Air Fryer 6 QT Compact",
-      "B09MR7QWKZ — Gourmia Air Fryer 8 Qt (new vs 2026-11-14 snapshot, which showed B0D5FX6VRL)",
-      "B0C33CHG99 — Cosori TurboBlaze Air Fryer 6 Qt"
-    ],
-    "B0DHZTCNR5": [
-      "B0GL7Z4KP4 — ThermoMaven 1 Sec Professional Digital Meat Thermometer",
-      "B0DNMTK56N — ThermoMaven 0.5 Sec Professional Meat Thermometer",
-      "B0F5X3NSR4 — 0.5 Sec Instant Read Meat Thermometer"
-    ],
-    "B0DZFD6R9Z": [
-      "B0FXBQ3KX1 — CHEF iQ Sense Smart Wireless Meat Thermometer (Gen3)",
-      "B0D1TMFTPN — ThermoMaven WiFi Wireless Meat Thermometer",
-      "B0H2JP9YDM — Chef iQ Sense USA 250 Limited Edition"
-    ]
-  },
-  "carried_prior_reads": {
-    "note": "Specification-table fields for P1–P3 (dimensions, color, material, model numbers, UPC/GTIN, special features) were read from the official listing pages on 2026-11-14 and re-read 2026-11-16/2026-11-17 in prior sessions (records in kanlerxz87-cyber/Zone4 data/, source S-PRIOR4). Titles and breadcrumbs were re-read 2026-11-19. Commission Table 1 category bands (Kitchen 4.50%, Home 3.00%) were read 2026-11-14/2026-11-17 (S-COMM); product-level rates stay blank (F-01)."
-  }
 }

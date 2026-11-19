@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
   "updated_utc": "2026-11-19",
-  "last_change": "2026-11-19 (arena/9f84489c-prod2): added Q-P05 (Search Console verification) and Q-P06 (design-direction pick)."
+  "last_change": "2026-11-19 integration (arena/9f84489c-prod2): publication-pass questions renumbered Q-P08 (Search Console verification, cross-ref Q-P06) / Q-P09 (design-direction pick)."
  },
  "questions": [
   {
@@ -109,7 +109,7 @@
    "id": "Q-P02",
    "area": "Editorial",
    "question": "Which question-shaped guide should be published next, and on what evidence of demand?",
-   "known": "The four brief-mandated guides plus one thermometer guide ship now. Editorial hypotheses are working titles, not claims about search volume (D-19).",
+   "known": "The four brief-mandated guides plus two thermometer guides ship now (the accuracy guide and an instant-read vs leave-in workflow guide). Editorial hypotheses are working titles, not claims about search volume (D-19).",
    "unknown": "Real query demand. No Search Console or analytics data exists yet (F-19).",
    "how_to_discover": "After measurement is live: read first-party queries (Search Console + endpoint counts) for 4-6 weeks, then choose topics from measured queries (publishing cadence on the measurement page).",
    "answerable_by": "Data, once collected.",
@@ -138,7 +138,7 @@
    "id": "Q-P04",
    "area": "Editorial",
    "question": "Should the two thermometer products get their own buying guide cluster (seasonal grilling / holiday gift angle)?",
-   "known": "Thermometers are half the catalog; one thermometer question-guide ships now. A seasonal cluster is an editorial and SEO investment, not a data problem.",
+   "known": "Thermometers are half the catalog; two thermometer guides now ship (accuracy, and an instant-read vs leave-in workflow guide). A full seasonal cluster is still an editorial and SEO investment, not a data problem.",
    "unknown": "Owner appetite for the extra content.",
    "how_to_discover": "Review SG-03 alongside measured queries (Q-P02).",
    "answerable_by": "The owner.",
@@ -149,6 +149,53 @@
   },
   {
    "id": "Q-P05",
+   "area": "Imagery",
+   "question": "Is any product imagery usable on the site, and through which official channel?",
+   "known": "The Operating Agreement Section 1 treats images as Program Content. Generated or copied photography is not an option under this project's rules (S-18, D-22).",
+   "unknown": "Which Amazon-served or brand-supplied images the Associates terms allow for this use, and whether the owner has a licence path.",
+   "how_to_discover": "Read the imagery clauses of the Operating Agreement and Program Policies with the owner's Associates contact, or ask Associates support in writing. Until then the site stays text-led.",
+   "answerable_by": "The account holder, with Associates support.",
+   "blocks": [
+    "S-18 (product photography)"
+   ],
+   "flags": [
+    "F-15"
+   ]
+  },
+  {
+   "id": "Q-P06",
+   "area": "Findability",
+   "question": "Does the owner control a domain for Search Console and the analytics endpoint?",
+   "known": "The site is served from the GitHub Pages address wingbangboozle1-lang.github.io/Prod2. Search Console verification and a hosted endpoint both need an owner-controlled HTTPS address (SG-06).",
+   "unknown": "Whether a custom domain exists or is wanted, and who holds Search Console access.",
+   "how_to_discover": "The owner checks the domain registrar and the Search Console account. If none exists, the Pages address can be verified as a URL-prefix property.",
+   "answerable_by": "The owner.",
+   "blocks": [
+    "SG-06",
+    "SG-11"
+   ],
+   "flags": [
+    "F-19"
+   ]
+  },
+  {
+   "id": "Q-P07",
+   "area": "Editorial",
+   "question": "Which seasonal window should the first thermometer cluster target?",
+   "known": "The two thermometer listings describe grill and BBQ use and gift angles in their titles. No dated search or sales data exists in this project, and none is claimed.",
+   "unknown": "Whether any seasonal demand is real for these products, and the timing of the next season.",
+   "how_to_discover": "Read Search Console queries for thermometer terms after SG-06. Do not use listing titles as evidence of demand.",
+   "answerable_by": "The owner, from Search Console data.",
+   "blocks": [
+    "SG-03",
+    "SG-13"
+   ],
+   "flags": [
+    "F-15"
+   ]
+  },
+  {
+   "id": "Q-P08",
    "area": "Findability",
    "question": "Who verifies the site in Google Search Console, and when?",
    "known": "The site ships with everything Search Console needs to index it well: one canonical URL per page, unique titles and meta descriptions, sitemap.xml, robots.txt with the Sitemap line, and an RSS feed. The build is ready for the verification token (settings.json -> search_console.verification_token).",
@@ -157,23 +204,24 @@
    "answerable_by": "The account holder (needs the owner's Google account).",
    "blocks": [
     "Measured topic selection (SG-06, Q-P02)",
-    "Any search-performance claim"
+    "Any search-performance claim",
+    "SG-29 verification step"
    ],
    "flags": [
-    "F-P06"
+    "F-P09"
    ]
   },
   {
-   "id": "Q-P06",
+   "id": "Q-P09",
    "area": "Design",
    "question": "Which of the three specified design directions should the next visual pass implement?",
-   "known": "The carried brief (DESIGN_PROMPT.md) specifies Direction A, warm editorial, and this build follows it. Two alternative directions are fully specified in the suggestion queue (SG-11): a clean modern shop and a bold magazine layout, each with the same compliance block. No reader data exists to choose between them (Q-P05 open).",
+   "known": "The carried brief (DESIGN_PROMPT.md) specifies Direction A, warm editorial, and this build follows it. Two alternative directions are fully specified in the suggestion queue (SG-31): a clean modern shop and a bold magazine layout, each with the same compliance block. No reader data exists to choose between them (Q-P05 open).",
    "unknown": "The owner's preference, and whether any brand-name change (Q-19, SG-01) should ship in the same pass.",
-   "how_to_discover": "Review SG-11 side by side on the suggestions page and record the pick in the decision log; the token layer (SG-13) then makes the switch mechanical.",
+   "how_to_discover": "Review SG-31 side by side on the suggestions page and record the pick in the decision log; the token layer (SG-33) then makes the switch mechanical.",
    "answerable_by": "The site owner (taste call); Search Console data can inform it later.",
    "blocks": [
     "A full visual overhaul",
-    "SG-13 token layer"
+    "SG-33 token layer"
    ],
    "flags": []
   }

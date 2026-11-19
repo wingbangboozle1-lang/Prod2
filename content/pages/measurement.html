@@ -33,12 +33,12 @@
 </ul>
 
 <h2>Search Console readiness (the findability half)</h2>
-<p>Everything the search side needs is already shipping on every page: one canonical URL each, unique titles and meta descriptions, <a href="sitemap.xml">sitemap.xml</a>, <a href="robots.txt">robots.txt</a> with the Sitemap line, and <a href="feed.xml" data-feed="1">the RSS feed</a>. Verification itself needs the owner's Google account (<a href="flagged.html#F-P06">F-P06</a>, <a href="questions.html#Q-P05">Q-P05</a>); the build is ready for the token:</p>
+<p>Everything the search side needs is already shipping on every page: one canonical URL each, unique titles and meta descriptions, <a href="sitemap.xml">sitemap.xml</a>, <a href="robots.txt">robots.txt</a> with the Sitemap line, and <a href="feed.xml" data-feed="1">the RSS feed</a>. Verification itself needs the owner's Google account (<a href="flagged.html#F-P09">F-P09</a>, <a href="questions.html#Q-P08">Q-P08</a>); the build is ready for the token:</p>
 <ol>
   <li>Open <a class="src" href="https://search.google.com/search-console" rel="noopener" target="_blank">Google Search Console</a> and add the property <code>{{base_url}}/</code>.</li>
   <li>Choose the <strong>HTML tag</strong> method, copy the token, and paste it into <code>data/p2/settings.json → search_console.verification_token</code>.</li>
   <li>Rebuild (<code>python3 tools/build.py</code>): the build emits <code>google-site-verification</code> on every page while the token is set, and emits nothing while it is empty — by design.</li>
-  <li>Submit <code>sitemap.xml</code> and the feed URL in Search Console. From the first query data onward, topic selection can switch from editorial hypotheses to measured queries (<a href="suggestions.html#SG-14">SG-14</a>).</li>
+  <li>Submit <code>sitemap.xml</code> and the feed URL in Search Console. From the first query data onward, topic selection can switch from editorial hypotheses to measured queries (<a href="suggestions.html#SG-34">SG-34</a>).</li>
 </ol>
 
 <h2>What the owner needs to do to turn this on</h2>
