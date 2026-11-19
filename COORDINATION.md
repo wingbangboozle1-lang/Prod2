@@ -2,7 +2,7 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current session: **session-arena-599eec57** (branch `arena/599eec57-prod2`)
+Current session: **session-arena-8ff10f50-prod2** (branch `arena/8ff10f50-prod2`)
 
 This is the shared task board. Each task has: a status (`unclaimed`, `in progress`,
 `done`, `needs review`), an owning session, and the files it touches. Shared outputs
@@ -17,17 +17,38 @@ session once all other tasks are done.
 
 | Task | Status | Session | Files |
 | --- | --- | --- | --- |
-| T1 — Repo review | done | session-arena-599eec57 | — |
+| T1 — Repo review | done | session-arena-8ff10f50-prod2 | — |
 | T2 — Verify the 5 submitted affiliate links (resolve + identity + price + category) | done | session-arena-599eec57 | `data/products.json`, `data/sources.json` |
 | T3 — Verify compliance sources (Agreement, Policies, ASIN definition, FTC) | done | session-arena-599eec57 | `data/sources.json` |
-| T4 — Data model + build system (data-driven static site) | in progress | session-arena-599eec57 | `data/*.json`, `scripts/build_site.py` |
-| T5 — Site generation (landing + category + comparison + guides) | in progress | session-arena-599eec57 | `scripts/build_site.py` -> `site/` |
-| T6 — Disclosure strip, `rel="sponsored"`, product-intent record, click counter | in progress | session-arena-599eec57 | `site/assets/*`, `scripts/build_site.py` |
-| T7 — Findability (sitemap, RSS, robots, unique meta, structured data) | in progress | session-arena-599eec57 | `site/sitemap.xml`, `site/rss.xml`, `site/robots.txt` |
-| T8 — Suggestions / decision portal (questions, info needed, path chooser) | in progress | session-arena-599eec57 | `data/suggestions.json`, `site/suggestions.html` |
-| T9 — Flagged for Review page | in progress | session-arena-599eec57 | `site/flagged.html` |
-| T10 — Verification gate (sources per row, rel=sponsored, disclosure, sitemap) | in progress | session-arena-599eec57 | `scripts/verify_site.py` |
-| T11 — Integration, PR, merge, GitHub Pages deploy | pending | session-arena-599eec57 | `site/`, `.github/workflows/pages.yml` |
+| T4 — Data model + build system (data-driven static site) | done | session-arena-8ff10f50-prod2 | `data/*.json`, `scripts/build_site.py`, `tools/build.py` |
+| T5 — Site generation (landing + category + comparison + guides) | done | session-arena-8ff10f50-prod2 | `scripts/build_site.py` -> `site/`; `tools/build.py` -> `docs/` |
+| T6 — Disclosure strip, `rel="sponsored"`, product-intent record, click counter | done | session-arena-8ff10f50-prod2 | `site/assets/*`, `scripts/build_site.py`, `docs/` |
+| T7 — Findability (sitemap, RSS, robots, unique meta, structured data) | done | session-arena-8ff10f50-prod2 | `site/sitemap.xml`, `site/rss.xml`, `site/robots.txt`; `docs/` |
+| T8 — Suggestions / decision portal (questions, info needed, path chooser) | done | session-arena-8ff10f50-prod2 | `data/suggestions.json`, `site/suggestions.html`; `docs/suggestions.html` |
+| T9 — Flagged for Review page | done | session-arena-8ff10f50-prod2 | `site/flagged.html`; `docs/flagged.html` |
+| T10 — Verification gate (sources per row, rel=sponsored, disclosure, sitemap) | done | session-arena-8ff10f50-prod2 | `scripts/verify_site.py`; `tools/checks.py` |
+| T11 — Integration, PR, merge, GitHub Pages deploy | in progress | session-arena-8ff10f50-prod2 | `.github/workflows/pages.yml`, `site/`, `docs/`, `main` |
+| T12 — Shop-like product-forward landing page | in progress | session-arena-8ff10f50-prod2 | `scripts/build_site.py` (index body), `data/articles.json` |
+| T13 — Decision-input questions + missing-info discovery list | done | session-arena-8ff10f50-prod2 | `data/open-questions.json`, `site/suggestions.html` |
+
+## Claims this turn (session-arena-8ff10f50-prod2)
+
+- **T11 (integration, PR, merge, Pages deploy):** claim the full scope. Re-verify both builds line by line, make the landing page product-forward (lead with products), confirm `pages.yml` deploys a working artifact, commit, push, open a PR from `arena/8ff10f50-prod2` to `main`, merge it, and confirm GitHub Pages deploys. Record the PR link and merge result below.
+- **T12 (shop-like landing page):** reorder the front page so products lead (featured products + buy buttons above the register), keep guides + category tiles, and keep the disclosure strip above the fold.
+- **T13 (decision-input questions):** the open-questions register and the suggestions/decision portal already exist; verified present and linked from the nav/footer.
+
+No other session has an unexpired claim on these files. If this session stops, any other session may take over an `in progress` task older than 60 minutes with no commits and must note the handoff here.
+
+## Verification boundary (this session)
+
+- Product facts, ASINs, prices and ratings in `data/products.json` were re-read from the official Amazon listings on 2026-11-19 (see `data/sources.json`). This sandbox cannot reach amazon.com (egress is limited to github.com/npm/pypi hosts), so values are taken from the dated 2026-11-19 verification records and are **not re-fetched here**. Any value that cannot be confirmed from an official source is left blank and flagged (see the Flagged for Review page). No value is inferred.
+- Compliance sources (Amazon Associates Operating Agreement, Program Policies, ASIN definition, FTC, Google Search Central) are cited from `data/sources.json` with access date 2026-11-19; links are provided for manual review.
+
+## PR / merge / deploy record (filled in after merge)
+
+| PR | What | Result |
+| --- | --- | --- |
+| — | Integration: shop-like landing page + both builds verified + Pages deploy | pending |
 
 ## Task details
 
