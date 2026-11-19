@@ -11,6 +11,9 @@ Sections:
   disclosure   disclosure sentence on every page (strip + footer repeat)
   links        Amazon link policy (sponsored rel, tag on /dp/); internal links
                resolve; no broken in-site references
+  validity     no nested <p>, no duplicate id attributes, no disclosure
+               label artifact; fragment links (page.html#id) resolve; every
+               F-/Q-/SG-/D- reference in a page exists in its register
   facts        each product's listed facts appear with a citation; null values
                are published blank + marked unverified, never filled in
   claims       banned popularity words on reader-facing pages; no published
@@ -151,6 +154,86 @@ def main() -> int:
                 fail(f"{f.name}: broken internal link -> {href}")
     if not FAILURES:
         ok("amazon link policy holds; internal links resolve")
+
+    # --------------------------------------------------------------- validity
+    check("validity")
+    from html.parser import HTMLParser
+
+    class PageParser(HTMLParser):
+        VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+                "link", "meta", "param", "source", "track", "wbr"}
+
+        def __init__(self) -> None:
+            super().__init__(convert_charrefs=True)
+            self.p_depth = 0
+            self.nested_p: list[int] = []
+            self.ids: dict[str, int] = {}
+            self.dup_ids: list[tuple[str, int, int]] = []
+
+        def handle_starttag(self, tag, attrs):  # noqa: ANN001
+            if tag == "p":
+                self.p_depth += 1
+                if self.p_depth > 1:
+                    self.nested_p.append(self.getpos()[0])
+            for key, value in attrs:
+                if key == "id" and value:
+                    if value in self.ids:
+                        self.dup_ids.append((value, self.ids[value], self.getpos()[0]))
+                    else:
+                        self.ids[value] = self.getpos()[0]
+
+        def handle_endtag(self, tag):  # noqa: ANN001
+            if tag == "p":
+                self.p_depth = max(0, self.p_depth - 1)
+
+    page_ids: dict[str, set[str]] = {}
+    parsed: dict[str, PageParser] = {}
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        parser = PageParser()
+        parser.feed(text)
+        parsed[f.name] = parser
+        page_ids[f.name] = set(parser.ids)
+        for line in parser.nested_p:
+            fail(f"{f.name}:{line}: nested <p> (invalid markup)")
+        for dup, first, line in parser.dup_ids:
+            fail(f'{f.name}:{line}: duplicate id="{dup}" (first seen line {first})')
+        if re.search(r"\(\(paid", text):
+            fail(f"{f.name}: disclosure label artifact '((paid' rendered")
+    # fragment links resolve (relative or on-site absolute)
+    base = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))["base_url"].rstrip("/")
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for href in re.findall(r'href="([^"]+)"', text):
+            if href.startswith(base + "/"):
+                href = href[len(base) + 1:]
+            if "#" not in href:
+                continue
+            page_part, frag = href.split("#", 1)
+            if not frag:
+                continue
+            target = page_part or f.name
+            if target.endswith(".html") and target in page_ids:
+                if frag not in page_ids[target]:
+                    fail(f"{f.name}: fragment {target}#{frag} has no matching id")
+            elif target == f.name and frag not in page_ids[f.name]:
+                fail(f"{f.name}: fragment #{frag} has no matching id")
+    # register cross-references: every F-/Q-/SG-/D- id cited on a page exists
+    registers = {
+        "F": {x["id"] for x in json.loads((DATA / "flags.json").read_text(encoding="utf-8"))["flags"]},
+        "Q": {x["id"] for x in json.loads((DATA / "questions.json").read_text(encoding="utf-8"))["questions"]},
+        "SG": {x["id"] for x in json.loads((DATA / "suggestions.json").read_text(encoding="utf-8"))["suggestions"]},
+        "D": {x["id"] for x in json.loads((DATA / "decisions.json").read_text(encoding="utf-8"))["decisions"]},
+    }
+    ref_re = re.compile(r"\b(F|Q|SG|D)-(?:P)?\d+\b")
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for m in ref_re.finditer(text):
+            rid = m.group(0)
+            if rid not in registers[m.group(1)]:
+                fail(f"{f.name}: cites {rid} which is not in the register")
+    if not FAILURES:
+        ok("valid markup; fragments and register cross-references resolve")
 
     # ------------------------------------------------------------------ facts
     check("facts")

@@ -252,7 +252,7 @@ def build_footer() -> str:
 DISCLOSURE_STRIP = (f'<div class="disclosure" role="note">'
                     f'<span class="disclosure-check" aria-hidden="true">✓</span> '
                     f'<strong>{esc(DISCLOSURE)}</strong> '
-                    f'<span class="disclosure-more">Product links on this site are paid links ({esc(PAID_LABEL)}); '
+                    f'<span class="disclosure-more">Product links on this site are paid links, marked {esc(PAID_LABEL)}; '
                     f'we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span>'
                     f'</div>')
 
