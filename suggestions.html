@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggestions and decision support — Countertop Dispatch</title>
+<meta name="description" content="Ranked suggestions with open questions, options and missing information for the owner to decide before any change is made. Nothing here is implemented yet.">
+<link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/suggestions.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Suggestions and decision support — Countertop Dispatch">
+<meta property="og:description" content="Ranked suggestions with open questions, options and missing information for the owner to decide before any change is made. Nothing here is implemented yet.">
+<meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/suggestions.html">
+<meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/og-cover.png">
+<meta property="og:site_name" content="Countertop Dispatch">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Countertop Dispatch guides" href="feed.xml">
+<link rel="stylesheet" href="assets/style.css">
+
+<script src="assets/analytics.js" defer></script>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">Countertop Dispatch</a>
+    <p class="tagline">Kitchen appliance buying guides, checked line by line</p>
+    <span class="issue-line">Verified 19 Nov 2026</span>
+  </div>
+</header>
+<div class="disclosure-strip" role="note">As an Amazon Associate we earn from qualifying purchases. <a href="compliance.html">How this site makes money &amp; how sources are checked</a></div>
+<nav class="mainnav" aria-label="Primary"><ul><li><a href="index.html">Home</a></li><li><a href="guides/index.html">Guides</a></li><li><a href="products.html">Products</a></li><li><a href="comparison.html">Comparison</a></li><li><a href="analysis.html">Analysis</a></li><li><a href="suggestions.html" aria-current="page">Suggestions</a></li><li><a href="flagged.html">Flagged</a></li></ul></nav>
+<main>
+<div class="wrap section">
+  <div class="section-head">
+    <h1>Suggestions &amp; decisions</h1>
+    <span class="more">For review — nothing implemented</span>
+  </div>
+  <p class="lede">Each suggestion states what exists today, the options, what is missing, and what we would do. Nothing on this page has been built; the point is to let a reviewer pick a path first. Suggestion IDs are referenced from <a href="flagged.html">Flagged for Review</a>.</p>
+
+  <div class="suggestion" id="S-01">
+    <div class="sug-head">
+      <h3>S-01 · Confirm the intended products for all five submitted links</h3>
+      <span class="status blocked">Blocked on owner</span>
+    </div>
+    <p><strong>What exists:</strong> All five submitted short links were fetched live on 19 Nov 2026 and each resolved to a real, in-stock listing. The <em>intended</em> ASIN field in <a href="data/product-intent.json">product-intent.json</a> is <span class="mono">null</span> for all five, because the submitted tokens are 9 characters while official Amazon documentation defines ASINs as 10 characters (<a href="flagged.html#FLG-P01">FLG-P01</a>).</p>
+    <ul class="options">
+      <li><strong>Option A —</strong> Owner confirms the resolved listings are the intended products → we populate <span class="mono">intended.*</span> with the confirmation date and source, keeping <span class="mono">observed.*</span> separate.</li>
+      <li><strong>Option B —</strong> Owner supplies the correct 10-character ASINs → we re-resolve and re-verify against those.</li>
+      <li><strong>Option C —</strong> Leave as-is → site keeps publishing observed-only records with the mismatch flagged.</li>
+    </ul>
+    <p class="missing">Missing: a statement from the owner. This session cannot infer intent — the fields stay null until then.</p>
+    <p class="rec"><strong>Recommendation:</strong> Option A is likely sufficient (all five destinations are coherent product pages), but only the owner can say so. Takes one reply; unblocks FLG-P01.</p>
+  </div>
+
+  <div class="suggestion" id="S-02">
+    <div class="sug-head">
+      <h3>S-02 · Decide how prices and ratings may be shown</h3>
+      <span class="status decide">Decision needed</span>
+    </div>
+    <p><strong>What exists:</strong> Price and rating columns on the product table are <span class="mono">withheld</span> and flagged (<a href="flagged.html#FLG-P04">FLG-P04</a>, <a href="flagged.html#FLG-P05">FLG-P05</a>) because Amazon's Program Policies restrict displaying them unless obtained through the Creators API / PA API (with the required date/time stamp and disclaimer) or served by Amazon's own link. Observed values from our checks are deliberately not published anywhere on this site.</p>
+    <ul class="options">
+      <li><strong>Option A —</strong> Keep withholding: listing links always show the live price. Zero compliance surface, less on-page information.</li>
+      <li><strong>Option B —</strong> Apply for PA API / Creators API access → display prices with the mandated timestamp and disclaimer text, refreshed by script.</li>
+      <li><strong>Option C —</strong> Use Amazon's own price widgets where available (served by Amazon → permitted under the "we serve the link" path).</li>
+    </ul>
+    <p class="missing">Missing: the owner's Associates account status, whether API access is applied for, and the legal wording review for Option B's disclaimer.</p>
+    <p class="rec"><strong>Recommendation:</strong> Option A until API access exists; it is already what the site does. Option C is the cheapest upgrade if widgets fit the design.</p>
+  </div>
+
+  <div class="suggestion" id="S-03">
+    <div class="sug-head">
+      <h3>S-03 · Resolve the short-link compliance question</h3>
+      <span class="status blocked">Blocked on owner / Amazon</span>
+    </div>
+    <p><strong>What exists:</strong> The five submitted <span class="mono">link.amazon/…</span> URLs resolve correctly, but we do not declare them valid or invalid — their exact compliance status is unresolved and cross-referenced from Zone3's FLG-003 (<a href="flagged.html#FLG-P02">FLG-P02</a>). Separately, every product link <em>on this site</em> is already a standard Special Link with <span class="mono">?tag=shopnow047c-20</span> and <span class="mono">rel="sponsored"</span>, all five tested live 19 Nov 2026.</p>
+    <ul class="options">
+      <li><strong>Option A —</strong> Test one submitted link inside the enrolled Associates workflow (owner sign-in), confirm click tracking, then decide.</li>
+      <li><strong>Option B —</strong> Use only self-generated Special Links on-site (current state) and keep submitted links as provenance records only.</li>
+      <li><strong>Option C —</strong> Ask Associates support directly about the link.amazon format.</li>
+    </ul>
+    <p class="missing">Missing: Associates-account click report for one tagged test click — requires the owner's sign-in; not available to this session.</p>
+    <p class="rec"><strong>Recommendation:</strong> Option B is already in force and sufficient to publish; do Option A when the owner next signs in to Associates Central.</p>
+  </div>
+
+  <div class="suggestion" id="S-04">
+    <div class="sug-head">
+      <h3>S-04 · Provision the analytics endpoint</h3>
+      <span class="status mine">Ready to build</span>
+    </div>
+    <p><strong>What exists:</strong> The five-event counter (<a href="data/events.json">events.json</a>) ships in <span class="mono">assets/analytics.js</span> with no cookies and no IP collection. <span class="mono">ENDPOINT</span> is empty, so events currently stay in the browser. The endpoint contract is written down in <span class="mono">tools/analytics-endpoint.md</span>.</p>
+    <ul class="options">
+      <li><strong>Option A —</strong> Cloudflare Worker + KV: ~30 lines, no server to run, free tier generous.</li>
+      <li><strong>Option B —</strong> Small self-hosted Flask/Node app behind your domain: full control of the ledger append.</li>
+      <li><strong>Option C —</strong> Leave local-only: zero data, zero infrastructure; the counter still works per-browser for demos.</li>
+    </ul>
+    <p class="missing">Missing: owner preference for hosting, and a domain to receive events (GitHub Pages itself cannot host the endpoint).</p>
+    <p class="rec"><strong>Recommendation:</strong> Option A when the site has readers; Option C until then. Either way the code path is already written and gated behind one constant.</p>
+  </div>
+
+  <div class="suggestion" id="S-05">
+    <div class="sug-head">
+      <h3>S-05 · Capture the two missing dimension rows</h3>
+      <span class="status mine">Ready to build</span>
+    </div>
+    <p><strong>What exists:</strong> P4 and P5 dimension cells are blank and flagged (<a href="flagged.html#FLG-P07">FLG-P07</a>) because this pass captured title-level facts for the thermometers but not their specification tables.</p>
+    <ul class="options">
+      <li><strong>Option A —</strong> One more fetch pass over the two listings' product-information sections; fill cells with source links.</li>
+      <li><strong>Option B —</strong> Leave blank: thermometers rarely compete on footprint, so the information may not earn its place.</li>
+    </ul>
+    <p class="missing">Nothing blocking; pure effort trade-off.</p>
+    <p class="rec"><strong>Recommendation:</strong> Option A — blanks should be rare and every one closed quickly while the listing is verified in-session.</p>
+  </div>
+
+  <div class="suggestion" id="S-06">
+    <div class="sug-head">
+      <h3>S-06 · Close the wattage and warranty blanks on air fryers</h3>
+      <span class="status mine">Ready to build</span>
+    </div>
+    <p><strong>What exists:</strong> Only the TurboFry listing states wattage (900W) and only the Emeril listing states a warranty term (12 months) in the fields captured. The other cells are blank and flagged as <a href="flagged.html#FLG-P08">FLG-P08</a> — not inferred from sibling models.</p>
+    <ul class="options">
+      <li><strong>Option A —</strong> Re-read the two listings' full spec tables and fill only what is stated there.</li>
+      <li><strong>Option B —</strong> Remove wattage/warranty columns until all rows can be filled (table-wide consistency).</li>
+    </ul>
+    <p class="missing">Nothing blocking; needs one verification pass each.</p>
+    <p class="rec"><strong>Recommendation:</strong> Option A, with any remaining blanks kept flagged. Consistency is nice; honesty about blanks is better.</p>
+  </div>
+
+  <div class="suggestion" id="S-07">
+    <div class="sug-head">
+      <h3>S-07 · Expand the guide set along the two category pillars</h3>
+      <span class="status decide">Decision needed</span>
+    </div>
+    <p><strong>What exists:</strong> Four question-shaped guides cover air fryers and cross-category buying. The thermometer pillar has a dashboard but no dedicated guide yet.</p>
+    <ul class="options">
+      <li><strong>Option A —</strong> Add one thermometer guide (instant-read vs wireless: what changes in real cooking) using the two checked products.</li>
+      <li><strong>Option B —</strong> Keep four guides; thermometer depth lives in the category dashboard.</li>
+    </ul>
+    <p class="missing">Missing: owner's editorial appetite — more pages means more maintenance per verification cycle.</p>
+    <p class="rec"><strong>Recommendation:</strong> Option A if the thermometer category is meant to earn traffic; the two products already provide the source material.</p>
+  </div>
+
+  <div class="suggestion" id="S-08">
+    <div class="sug-head">
+      <h3>S-08 · Register the site in Google Search Console</h3>
+      <span class="status blocked">Blocked on owner</span>
+    </div>
+    <p><strong>What exists:</strong> <span class="mono">sitemap.xml</span> and <span class="mono">robots.txt</span> are published and reference the live URL; <span class="mono">feed.xml</span> carries all four guides. Verification itself requires the owner's Google account.</p>
+    <ul class="options">
+      <li><strong>Option A —</strong> Owner adds the property and submits the sitemap URL.</li>
+      <li><strong>Option B —</strong> Skip; organic discovery via sitemap alone.</li>
+    </ul>
+    <p class="missing">Missing: owner's Google account action. Cannot be automated from this session.</p>
+    <p class="rec"><strong>Recommendation:</strong> Option A — two minutes, and it is the only way to see real query data later.</p>
+  </div>
+
+  <div class="qa">
+    <h2>Open questions, with what we know and what is missing</h2>
+
+    <div class="qa-item">
+      <h3>Q1 · Are the five submitted products the products the owner meant to publish?</h3>
+      <p class="answer"><strong>Known:</strong> all five links resolve to coherent, in-stock listings in two clean categories (19 Nov 2026, sources S-09…S-18).</p>
+      <p class="missing">Missing: owner confirmation — intended fields stay null (S-01).</p>
+    </div>
+
+    <div class="qa-item">
+      <h3>Q2 · What is the exact compliance status of the link.amazon format?</h3>
+      <p class="answer"><strong>Known:</strong> it is not documented in the Program Policies text we fetched; purchases through non-conforming links can be disqualified; Zone3 flagged the same question as FLG-003. We report observations only.</p>
+      <p class="missing">Missing: an Associates-workflow test click with tracking report, or a statement from Amazon (S-03).</p>
+    </div>
+
+    <div class="qa-item">
+      <h3>Q3 · Which commission rate applies to each ASIN?</h3>
+      <p class="answer"><strong>Known:</strong> Table 1 publishes 4.50% for Kitchen and 4.00% for All Other Categories (source S-19). The schedule page is sign-in gated (S-03).</p>
+      <p class="missing">Missing: Amazon's per-ASIN category assignment and any custom rate card — cells stay blank (S-02 counterpart: FLG-P03).</p>
+    </div>
+
+    <div class="qa-item">
+      <h3>Q4 · Can prices and ratings appear on this site at all?</h3>
+      <p class="answer"><strong>Known:</strong> the Program Policies permit display only via Amazon-served links or PA API / Creators API output with timestamp and disclaimer (source S-02, fetched 19 Nov 2026).</p>
+      <p class="missing">Missing: owner's decision between withholding, API access, or widgets (S-02).</p>
+    </div>
+
+    <div class="qa-item">
+      <h3>Q5 · Where should analytics events go?</h3>
+      <p class="answer"><strong>Known:</strong> the client and contract are written; five events defined; privacy constraints documented.</p>
+      <p class="missing">Missing: hosting choice and a receiving domain (S-04).</p>
+    </div>
+
+    <div class="qa-item">
+      <h3>Q6 · What did the owner's original brief mean by "products" for the thermometer rows?</h3>
+      <p class="answer"><strong>Known:</strong> P4 and P5 arrived via the same submitted-link batch as the air fryers; both resolve under the Meat Thermometers node.</p>
+      <p class="missing">Missing: whether the thermometer pillar is a growth category or an incidental add-on (S-07).</p>
+    </div>
+  </div>
+
+  <div class="related">
+    <h3>Next</h3>
+    <ul>
+      <li><a href="flagged.html">Flagged for Review</a></li>
+      <li><a href="analysis.html">Analysis &amp; findings</a></li>
+      <li><a href="summary.html">Executive summary</a></li>
+      <li><a href="products.html">Product table</a></li>
+      <li><a href="guides/index.html">All guides</a></li>
+    </ul>
+  </div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-disclosure"><strong>Disclosure:</strong> As an Amazon Associate we earn from qualifying purchases. Every product link on this site is a Special Link tagged with our Associates ID <span class="mono">shopnow047c-20</span> and marked <span class="mono">rel=&quot;sponsored&quot;</span>. Prices, ratings and commission rates are withheld wherever Amazon&rsquo;s Program Policies restrict how they may be shown &mdash; see <a href="flagged.html">Flagged for Review</a> and <a href="compliance.html">Compliance</a>.</p>
+    <div class="footer-grid">
+      <div>
+        <h4>Read</h4>
+        <ul><li><a href="guides/index.html">All guides</a></li><li><a href="products.html">Product table</a></li><li><a href="comparison.html">Comparison & chooser</a></li><li><a href="category/air-fryers.html">Air fryers</a></li><li><a href="category/meat-thermometers.html">Meat thermometers</a></li></ul>
+      </div>
+      <div>
+        <h4>Dashboards</h4>
+        <ul><li><a href="summary.html">Executive summary</a></li><li><a href="analysis.html">Analysis & findings</a></li><li><a href="suggestions.html">Suggestions & decisions</a></li><li><a href="flagged.html">Flagged for Review</a></li><li><a href="compliance.html">Disclosure & compliance</a></li></ul>
+      </div>
+      <div>
+        <h4>Data &amp; feeds</h4>
+        <ul><li><a href="data/products.json">products.json</a></li><li><a href="data/submitted-links.json">submitted-links.json</a></li><li><a href="data/product-intent.json">product-intent.json</a></li><li><a href="data/events.json">events.json</a></li><li><a href="data/campaign-ledger.csv">campaign-ledger.csv</a></li><li><a href="feed.xml">RSS feed</a></li><li><a href="sitemap.xml">Sitemap</a></li><li><a href="robots.txt">robots.txt</a></li><li><a href="https://github.com/wingbangboozle1-lang/Prod2">Source repo</a></li></ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>Countertop Dispatch &mdash; published from a checked build. Prices change; the listing is the source of truth.</span>
+      <span>Built 2026-11-19</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disclosure and compliance — Countertop Dispatch</title>
+<meta name="description" content="How this site makes money, how every link is marked, why prices and ratings are withheld, and which official policies govern each choice — with links to the sources.">
+<link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/compliance.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Disclosure and compliance — Countertop Dispatch">
+<meta property="og:description" content="How this site makes money, how every link is marked, why prices and ratings are withheld, and which official policies govern each choice — with links to the sources.">
+<meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/compliance.html">
+<meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/og-cover.png">
+<meta property="og:site_name" content="Countertop Dispatch">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Countertop Dispatch guides" href="feed.xml">
+<link rel="stylesheet" href="assets/style.css">
+
+<script src="assets/analytics.js" defer></script>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">Countertop Dispatch</a>
+    <p class="tagline">Kitchen appliance buying guides, checked line by line</p>
+    <span class="issue-line">Verified 19 Nov 2026</span>
+  </div>
+</header>
+<div class="disclosure-strip" role="note">As an Amazon Associate we earn from qualifying purchases. <a href="compliance.html">How this site makes money &amp; how sources are checked</a></div>
+<nav class="mainnav" aria-label="Primary"><ul><li><a href="index.html">Home</a></li><li><a href="guides/index.html">Guides</a></li><li><a href="products.html">Products</a></li><li><a href="comparison.html">Comparison</a></li><li><a href="analysis.html">Analysis</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="flagged.html" aria-current="page">Flagged</a></li></ul></nav>
+<main>
+<div class="wrap section">
+  <div class="section-head">
+    <h1>Disclosure &amp; compliance</h1>
+    <span class="more">Sources fetched 19 November 2026</span>
+  </div>
+  <p class="lede">This page is the audit trail for how the site is allowed to behave. Every rule below links to the official document it comes from; every place the site follows it is linked too.</p>
+
+  <div class="callout">
+    <strong>The disclosure, in plain words</strong>
+    <p>As an Amazon Associate we earn from qualifying purchases. If you buy through our links, we may earn a commission at no extra cost to you. This strip appears directly under the masthead on every page and again in the footer — it is not buried, because the FTC expects disclosures to be hard to miss.</p>
+    <p class="small">FTC guidance: <a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener">Disclosures 101 for Social Media Influencers</a> · <a href="https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews" rel="noopener">Endorsements, Influencers, and Reviews</a></p>
+  </div>
+
+  <h2>How every product link is marked</h2>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Rule</th><th>What this site does</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Associates ID carried as a tag parameter</td>
+          <td>Every outbound product URL is <span class="mono">https://www.amazon.com/dp/&lt;ASIN&gt;?tag=shopnow047c-20</span>. All five were tested live on 19 Nov 2026 and resolved to the correct listings.</td>
+          <td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener">S-02 · Participation Requirements §2(b)</a></td>
+        </tr>
+        <tr>
+          <td>Links must not be obscured or cloaked</td>
+          <td>Links go straight to <span class="mono">amazon.com/dp/…</span> — no intermediate hop, no shortened display URL. The link text says where it goes.</td>
+          <td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener">S-02 · §6(v), §6(w)</a></td>
+        </tr>
+        <tr>
+          <td>Paid/affiliate links marked for crawlers</td>
+          <td>Every product link carries <span class="mono">rel="sponsored"</span> (plus <span class="mono">noopener</span> on new-tab links).</td>
+          <td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener">S-05 · Google: qualify outbound links</a></td>
+        </tr>
+        <tr>
+          <td>Special Link definition</td>
+          <td>On-site links are standard tagged <span class="mono">/dp/</span> URLs — the "tagged link format" the Operating Agreement describes.</td>
+          <td class="src"><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener">S-01 · Operating Agreement §1</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Why prices and ratings are withheld</h2>
+  <p>Two Program Policy rules we verified in the fetched text:</p>
+  <ul class="prose-list">
+    <li><strong>Prices</strong> may be shown only if Amazon serves them within the link, or if obtained via Creators API / PA API with an adjacent date/time stamp and the prescribed disclaimer. This site did neither — so price cells read <span class="mono">withheld</span> and are flagged as <a href="flagged.html#FLG-P04">FLG-P04</a>.</li>
+    <li><strong>Star ratings and review counts</strong> may be displayed only when obtained through Creators API / PA API with a link to the review. This site did neither — flagged as <a href="flagged.html#FLG-P05">FLG-P05</a>.</li>
+  </ul>
+  <p>The practical effect: every price and rating you see is on Amazon's own page, current at the moment you click, and we never restate a stale copy. The owner's options for changing this are on <a href="suggestions.html#S-02">suggestions S-02</a>.</p>
+  <p class="small">Sources: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener">S-02 · Program Policies</a> (fetched 19 Nov 2026) · <a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener">S-01 · Operating Agreement</a> (updated 15 Oct 2025).</p>
+
+  <h2>What we publish vs. what we flag</h2>
+  <div class="table-scroll">
+    <table class="data editorial">
+      <thead><tr><th>Value type</th><th>Published when…</th><th>Left blank when…</th></tr></thead>
+      <tbody>
+        <tr><td>Identity (title, brand, ASIN)</td><td>Read from the official listing — always, for all five (<a href="products.html">product table</a>)</td><td>Never blank</td></tr>
+        <tr><td>Specs (capacity, dimensions, features)</td><td>The listing states them</td><td>The listing was not fully read — flagged (<a href="flagged.html#FLG-P07">FLG-P07</a>, <a href="flagged.html#FLG-P08">FLG-P08</a>)</td></tr>
+        <tr><td>Price / rating</td><td>Never on this site — policy restricts display</td><td>Always — flagged (<a href="flagged.html#FLG-P04">FLG-P04</a>, <a href="flagged.html#FLG-P05">FLG-P05</a>)</td></tr>
+        <tr><td>Commission rate</td><td>Never per-product — sign-in gated</td><td>Always — flagged (<a href="flagged.html#FLG-P03">FLG-P03</a>); category reference rates shown on <a href="analysis.html">analysis</a> with source</td></tr>
+        <tr><td>Conflicting official statements</td><td>Both statements quoted, conflict flagged</td><td>Never silently reconciled (<a href="flagged.html#FLG-P06">FLG-P06</a>)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Search and feed hygiene</h2>
+  <ul class="prose-list">
+    <li>Every page has a unique title and meta description (checked by <span class="mono">tools/check_site.py</span>).</li>
+    <li><a href="sitemap.xml">sitemap.xml</a> lists all published pages; <a href="robots.txt">robots.txt</a> points crawlers at it.</li>
+    <li><a href="feed.xml">feed.xml</a> is a valid RSS 2.0 feed carrying all four guides plus the product table.</li>
+    <li>Meta descriptions follow <a href="https://developers.google.com/search/docs/appearance/snippet" rel="noopener">Google's guidance: unique per page, descriptive of the actual content</a>.</li>
+  </ul>
+
+  <div class="related">
+    <h3>Next</h3>
+    <ul>
+      <li><a href="flagged.html">Flagged for Review</a></li>
+      <li><a href="suggestions.html">Suggestions &amp; decisions</a></li>
+      <li><a href="products.html">Product table</a></li>
+      <li><a href="summary.html">Executive summary</a></li>
+      <li><a href="guides/index.html">All guides</a></li>
+    </ul>
+  </div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-disclosure"><strong>Disclosure:</strong> As an Amazon Associate we earn from qualifying purchases. Every product link on this site is a Special Link tagged with our Associates ID <span class="mono">shopnow047c-20</span> and marked <span class="mono">rel=&quot;sponsored&quot;</span>. Prices, ratings and commission rates are withheld wherever Amazon&rsquo;s Program Policies restrict how they may be shown &mdash; see <a href="flagged.html">Flagged for Review</a> and <a href="compliance.html">Compliance</a>.</p>
+    <div class="footer-grid">
+      <div>
+        <h4>Read</h4>
+        <ul><li><a href="guides/index.html">All guides</a></li><li><a href="products.html">Product table</a></li><li><a href="comparison.html">Comparison & chooser</a></li><li><a href="category/air-fryers.html">Air fryers</a></li><li><a href="category/meat-thermometers.html">Meat thermometers</a></li></ul>
+      </div>
+      <div>
+        <h4>Dashboards</h4>
+        <ul><li><a href="summary.html">Executive summary</a></li><li><a href="analysis.html">Analysis & findings</a></li><li><a href="suggestions.html">Suggestions & decisions</a></li><li><a href="flagged.html">Flagged for Review</a></li><li><a href="compliance.html">Disclosure & compliance</a></li></ul>
+      </div>
+      <div>
+        <h4>Data &amp; feeds</h4>
+        <ul><li><a href="data/products.json">products.json</a></li><li><a href="data/submitted-links.json">submitted-links.json</a></li><li><a href="data/product-intent.json">product-intent.json</a></li><li><a href="data/events.json">events.json</a></li><li><a href="data/campaign-ledger.csv">campaign-ledger.csv</a></li><li><a href="feed.xml">RSS feed</a></li><li><a href="sitemap.xml">Sitemap</a></li><li><a href="robots.txt">robots.txt</a></li><li><a href="https://github.com/wingbangboozle1-lang/Prod2">Source repo</a></li></ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>Countertop Dispatch &mdash; published from a checked build. Prices change; the listing is the source of truth.</span>
+      <span>Built 2026-11-19</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

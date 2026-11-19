@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Countertop Dispatch</title>
+  <link>https://wingbangboozle1-lang.github.io/Prod2/index.html</link>
+  <atom:link href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Question-shaped buying guides for countertop appliances, every claim sourced.</description>
+  <language>en</language>
+  <lastBuildDate>Thu, 19 Nov 2026 09:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Basket or oven-style air fryer: what should you compare?</title>
+    <link>https://wingbangboozle1-lang.github.io/Prod2/guides/basket-or-oven-air-fryer.html</link>
+    <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/guides/basket-or-oven-air-fryer.html</guid>
+    <description>The two shapes solve different problems. Here is the comparison that actually matters before you measure your counter.</description>
+    <pubDate>Thu, 19 Nov 2026 09:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>A no-hype checklist for comparing air fryer capacity</title>
+    <link>https://wingbangboozle1-lang.github.io/Prod2/guides/air-fryer-capacity-checklist.html</link>
+    <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/guides/air-fryer-capacity-checklist.html</guid>
+    <description>Quarts, basket depth, and the food you actually cook. A short checklist with no marketing words in it.</description>
+    <pubDate>Thu, 19 Nov 2026 09:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>How to assess cleanup and counter-space trade-offs</title>
+    <link>https://wingbangboozle1-lang.github.io/Prod2/guides/cleanup-counter-space-tradeoffs.html</link>
+    <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/guides/cleanup-counter-space-tradeoffs.html</guid>
+    <description>Dishwasher-safe parts, wipe-down surfaces, and the maths of what stays on the counter all week.</description>
+    <pubDate>Thu, 19 Nov 2026 09:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>Questions to ask before buying a multi-function kitchen appliance</title>
+    <link>https://wingbangboozle1-lang.github.io/Prod2/guides/multi-function-kitchen-appliance-questions.html</link>
+    <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/guides/multi-function-kitchen-appliance-questions.html</guid>
+    <description>Twelve questions that separate the functions you will use from the ones printed on the box.</description>
+    <pubDate>Thu, 19 Nov 2026 09:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>All five products, checked against official listings</title>
+    <link>https://wingbangboozle1-lang.github.io/Prod2/products.html</link>
+    <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/products.html</guid>
+    <description>The full product table: capacity, dimensions, features and a source link on every row.</description>
+    <pubDate>Thu, 19 Nov 2026 09:00:00 GMT</pubDate>
+  </item>
+</channel>
+</rss>
