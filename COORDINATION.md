@@ -426,3 +426,15 @@ Parallel-session note: no other claim touches `data/p2/*`, `docs/`, or the root 
 **Handoff note:** none. No other session held a claim on `data/p2/*` or `docs/` during this pass.
 
 **Scope note for the owner:** the new suggestions (SG-11 to SG-14) and questions (Q-P05 to Q-P07) are queued for review on the Suggestions and Open questions pages. Nothing in them is implemented.
+
+## PR / merge / deploy record — arena/236bc1ed-prod2
+
+| Item | Value |
+|---|---|
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/17 (`arena/236bc1ed-prod2` → `main`) |
+| Merge result | **merged** 2026-11-19 21:41 UTC, merge commit `676afc2` (`gh pr merge 17 --merge`, no approval waited for) |
+| Pages | **deployed** — "Deploy to GitHub Pages" success and "pages build and deployment" success on `676afc2`; live page https://wingbangboozle1-lang.github.io/Prod2/flagged.html shows F-P06 |
+| Checks run | `tools/build.py` + `tools/checks.py` ALL CHECKS PASSED (20 pages); `scripts/verify_site.py` VERIFY OK (18 pages); `npm test` 2/2 pass; verify-site workflow success |
+| Tasks | T-12 done (partial, see update above), T-13 done, T-14 done, T-15 done |
+| Still open (flagged, do not block) | F-P06, F-P07, F-01, F-03, F-08, F-19, F-26, F-29, F-44, F-49, F-57, F-58, F-66, F-P01, F-P04, F-P05 |
+| Follow-up | This record PR is the last action on the branch. The sandbox cannot reach `github.io` directly, so the live check used the page fetch tool. |
