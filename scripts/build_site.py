@@ -15,6 +15,8 @@ Design rules enforced here (and re-checked by scripts/verify_site.py):
   * sitemap.xml, rss.xml and robots.txt are regenerated from the tree.
 """
 import json
+import shutil
+import os
 import os
 import html
 from datetime import date
@@ -777,4 +779,20 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main()    # INT-07: mirror the canonical build to the repository root.
+    # GitHub Pages for this repo is in legacy "main /" mode (serves the repo
+    # root; flipping it to Actions mode needs an admin and returns 403 to the
+    # session token). Mirroring the deterministic output to the root keeps the
+    # live site correct in BOTH modes. When an admin flips Pages to Actions
+    # mode, drop the mirror (single commit; documented in COORDINATION.md).
+    mirror_skip = {".github", "archive", "data", "scripts", "site", "tests", "node_modules", "var"}
+    for root_dir, dirs, files in os.walk(SITE):
+        rel_root = os.path.relpath(root_dir, SITE)
+        if rel_root == ".":
+            dirs[:] = [d for d in dirs if d not in mirror_skip]
+        dst_root = ROOT if rel_root == "." else os.path.join(ROOT, rel_root)
+        os.makedirs(dst_root, exist_ok=True)
+        for f in files:
+            shutil.copy(os.path.join(root_dir, f), os.path.join(dst_root, f))
+
+

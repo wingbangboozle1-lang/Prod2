@@ -33,6 +33,13 @@ EXECUTIVE_SUMMARY.md  executive summary
 DECISIONS.md     decision log (taken + open)
 ```
 
+**Root mirror (INT-07):** GitHub Pages for this repo is in legacy "serve the repository root"
+mode, which only a repository admin can switch to Actions mode (the REST API returns 403 to the
+session token — recorded three times). The generator therefore mirrors the deterministic `site/`
+output to the repository root, so the live site is correct in both Pages modes. One source of truth
+(`data/*.json`), two deterministic outputs. When an admin flips Pages to Actions mode, delete the
+root mirror in a single commit.
+
 **One site rule (INT-06, 2026-11-19):** four independent session builds existed at peak. The
 consolidated, canonical site is the data-driven `site/` build. Everything else lives in `archive/`.
 The optional `server.mjs` endpoint serves `site/` and accepts all event families in aggregate-only
