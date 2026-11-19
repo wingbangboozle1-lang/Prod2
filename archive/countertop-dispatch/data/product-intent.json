@@ -1,0 +1,91 @@
+{
+  "generated_on": "2026-11-19",
+  "schema": "intended and observed are deliberately separate fields and are never merged. intended.* is only populated from owner confirmation or an official Associates report; it is null where unconfirmed. observed.* comes from live fetches of the submitted URLs.",
+  "records": [
+    {
+      "submitted_url": "https://link.amazon/B04G1MEwY",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmation_date": null,
+        "source": null,
+        "note": "Not confirmable in this session: submitted token is 9 characters and Amazon ASINs are 10 characters (S-04). Owner confirmation required."
+      },
+      "observed": {
+        "resolved_asin": "B0CDY277D3",
+        "resolved_listing_url": "https://www.amazon.com/dp/B0CDY277D3",
+        "full_redirect_target": "https://www.amazon.com/dp/B0CDY277D3?lv=shuf&channelId=500&plpRedirect=mhFallback",
+        "observed_on": "2026-11-19",
+        "source": ["S-09", "S-14"]
+      }
+    },
+    {
+      "submitted_url": "https://link.amazon/B02NbDxp3",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmation_date": null,
+        "source": null,
+        "note": "Not confirmable in this session: submitted token is 9 characters and Amazon ASINs are 10 characters (S-04). Owner confirmation required."
+      },
+      "observed": {
+        "resolved_asin": "B09B7SB46R",
+        "resolved_listing_url": "https://www.amazon.com/dp/B09B7SB46R",
+        "full_redirect_target": "https://www.amazon.com/dp/B09B7SB46R?lv=shuf&channelId=500&plpRedirect=mhFallback",
+        "observed_on": "2026-11-19",
+        "source": ["S-10", "S-15"]
+      }
+    },
+    {
+      "submitted_url": "https://link.amazon/B00hJ57DV",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmation_date": null,
+        "source": null,
+        "note": "Not confirmable in this session: submitted token is 9 characters and Amazon ASINs are 10 characters (S-04). Owner confirmation required."
+      },
+      "observed": {
+        "resolved_asin": "B08DKYBTPH",
+        "resolved_listing_url": "https://www.amazon.com/dp/B08DKYBTPH",
+        "full_redirect_target": "https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&channelId=500&plpRedirect=mhFallback",
+        "observed_on": "2026-11-19",
+        "source": ["S-11", "S-16"]
+      }
+    },
+    {
+      "submitted_url": "https://link.amazon/B0c8moW59",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmation_date": null,
+        "source": null,
+        "note": "Not confirmable in this session: submitted token is 9 characters and Amazon ASINs are 10 characters (S-04). Owner confirmation required."
+      },
+      "observed": {
+        "resolved_asin": "B0DHZTCNR5",
+        "resolved_listing_url": "https://www.amazon.com/dp/B0DHZTCNR5",
+        "full_redirect_target": "https://www.amazon.com/dp/B0DHZTCNR5?lv=shuf&channelId=500&plpRedirect=mhFallback",
+        "observed_on": "2026-11-19",
+        "source": ["S-12", "S-17"]
+      }
+    },
+    {
+      "submitted_url": "https://link.amazon/B0f3GKalj",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmation_date": null,
+        "source": null,
+        "note": "Not confirmable in this session: submitted token is 9 characters and Amazon ASINs are 10 characters (S-04). Owner confirmation required."
+      },
+      "observed": {
+        "resolved_asin": "B0DZFD6R9Z",
+        "resolved_listing_url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+        "full_redirect_target": "https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&channelId=500&plpRedirect=mhFallback&th=1",
+        "observed_on": "2026-11-19",
+        "source": ["S-13", "S-18"]
+      }
+    }
+  ]
+}

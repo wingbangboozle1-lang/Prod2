@@ -50,15 +50,32 @@
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — 8 sections, green on the merged build.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — 9 sections, green on the merged build.
+
+## The publication pass (2026-11-19, arena/9f84489c-prod2)
+
+The reader-facing site now reads like a shop, not an audit (decision D-P07): the front page leads
+with the five product cards before any data table; a guides hub groups eight question-shaped guides
+into two clusters (air fryers, meat thermometers) with pillar pages; a seasonal desk (holiday
+hosting live, grilling season staged) rotates from `data/p2/calendar.json`; the reader nav carries
+clear labels (Compare · Products · Guides · Buying guide · Air fryers · Thermometers) while every
+dashboard surface stays in the footer and the single "The work behind it" group; the RSS feed ships
+with subscribe affordances; Search Console readiness ships with a verification-token slot and an
+owner checklist (F-P06 / Q-P05); and a consent-gated "What should we answer next?" form ships dark
+until its privacy basis exists (F-P07 / Q-47). Three new guides (how many quarts; two baskets or
+one; holiday hosting) complete the eight-topic calendar on a 14-day cadence. The suggestion queue
+grew SG-11…SG-17 — including three fully specified design directions that feed DESIGN_PROMPT.md —
+and the questions register gained a scannable status table plus Q-P05/Q-P06.
 
 ## Open decisions for the owner
 
 1. Run the **one-link-per-product test** in Associates Central (gates attribution claims/scaling).
-2. **Deploy the analytics endpoint + enable Search Console** (SG-06) — everything downstream depends on it.
-3. Brand rename after trademark clearance (SG-01, blocked on Q-19).
-4. Whether to adopt a dated-snapshot price policy (SG-05) — only with automation.
-5. Product photography decision (S-18/D-22): still awaiting a decision; generated/copy photography is banned, real photography is the only compliant path.
+2. **Deploy the analytics endpoint + verify Search Console** (SG-06) — everything downstream depends on it; the checklist is on the measurement page.
+3. **Pick the design direction and settle the brand name together** (SG-11, SG-01; Q-P06, Q-19) — then SG-13 makes the switch mechanical.
+4. **Settle the reader-capture consent text** (Q-47) — the form ships dark until then.
+5. Whether to adopt a dated-snapshot price policy (SG-05) — only with automation.
+6. Product photography decision (S-18/D-22): still awaiting a decision; generated/copy photography is banned, real photography is the only compliant path.
+
 
 
 ---
@@ -234,7 +251,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — 8 sections, green on the merged build.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — 9 sections, green on the merged build.
 
 ## Open decisions for the owner
 

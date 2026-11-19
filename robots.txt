@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /Prod2/archive/
 
 Sitemap: https://wingbangboozle1-lang.github.io/Prod2/sitemap.xml

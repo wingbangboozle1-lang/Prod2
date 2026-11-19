@@ -21,6 +21,9 @@ Sections:
   chrome       one nav group ("The work behind it") + footer directory present
   seo          canonical/og:image/JSON-LD parse; sitemap covers every page;
                robots.txt points at the sitemap; feed items resolve
+  publication  guides reach compare + buying guide + their cluster pillars (S-24);
+               feed covers every guide; reader-capture gate consistent with
+               settings; Search Console verification meta matches the token slot
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
 """
 from __future__ import annotations
@@ -340,6 +343,57 @@ def main() -> int:
             fail(f"feed links missing page {name}")
     if not FAILURES:
         ok("meta/JSON-LD/sitemap/robots/feed consistent")
+
+    # ----------------------------------------------------------- publication
+    check("publication")
+    cal = json.loads((DATA / "calendar.json").read_text(encoding="utf-8"))
+    guide_ids = [g for g in build.GUIDE_IDS]
+    # every guide reaches the comparison, the buying guide and its cluster pillars
+    pillars: dict[str, set[str]] = {}
+    for cl in cal["clusters"]:
+        for g in cl["guides"]:
+            pillars.setdefault(g, set()).add(cl["pillar"])
+    for gid in guide_ids:
+        f = DOCS / f"{gid}.html"
+        if not f.exists():
+            fail(f"guide page missing: {gid}.html")
+            continue
+        text = f.read_text(encoding="utf-8")
+        for need in ("compare.html", "buying-guide.html"):
+            if f'href="{need}' not in text:
+                fail(f"{gid}.html: does not reach {need} (S-24 internal-link rule)")
+        for pillar in pillars.get(f"{gid}.html", set()):
+            if f'href="{pillar}"' not in text:
+                fail(f"{gid}.html: does not reach its pillar {pillar} (S-24)")
+    # feed covers every guide
+    feed = (DOCS / "feed.xml").read_text(encoding="utf-8")
+    for gid in guide_ids:
+        if f"/{gid}.html" not in feed:
+            fail(f"feed.xml: guide {gid}.html not in the feed")
+    # reader-capture form: present, consent required, state matches settings
+    settings = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))
+    cap = settings.get("reader_capture", {}) or {}
+    endpoint = cap.get("endpoint", "") or ""
+    expect_state = "live" if endpoint else "disconnected"
+    for name in ("index.html", "guides.html"):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        if "data-capture=" not in text or 'name="consent"' not in text:
+            fail(f"{name}: reader-capture form or consent checkbox missing")
+        if f'data-capture="{expect_state}"' not in text:
+            fail(f"{name}: data-capture state != '{expect_state}' (settings.reader_capture)")
+        if endpoint and f'data-capture-endpoint="{endpoint}"' not in text:
+            fail(f"{name}: capture endpoint not wired from settings")
+    # Search Console verification meta matches the settings token
+    token = (settings.get("search_console", {}) or {}).get("verification_token", "") or ""
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        has_meta = 'name="google-site-verification"' in text
+        if token and not has_meta:
+            fail(f"{f.name}: verification token set but meta missing")
+        if not token and has_meta:
+            fail(f"{f.name}: verification meta present but settings token empty")
+    if not FAILURES:
+        ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
 
     # -------------------------------------------------------------- freshness
     check("freshness")

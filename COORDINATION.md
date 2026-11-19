@@ -2,7 +2,31 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current session: **session-arena-8ff10f50-prod2** (branch `arena/8ff10f50-prod2`)
+Current sessions: **session-arena-9f84489c** (branch `arena/9f84489c-prod2`, publication polish pass — claim below) · session-arena-8ff10f50-prod2 (branch `arena/8ff10f50-prod2`, PRs #19/#21 merged)
+
+---
+
+## ACTIVE CLAIM — session arena/9f84489c-prod2 (2026-11-19, publication polish pass)
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| P-01 Shop-first front page (publication front page, products before process) | in progress | arena/9f84489c-prod2 | `content/pages/index.html`, `tools/build.py` |
+| P-02 Nav labels + guides hub page (single nav group; dashboards footer-only) | in progress | arena/9f84489c-prod2 | `tools/build.py`, `content/pages/guides.html` |
+| P-03 Three new question-shaped guides (complete the eight-topic calendar) | in progress | arena/9f84489c-prod2 | `content/pages/guide-*.html`, `tools/build.py` |
+| P-04 Seasons + clusters (holiday hosting cluster, pillar wiring, cadence) | in progress | arena/9f84489c-prod2 | `data/p2/calendar.json`, `content/pages/*` |
+| P-05 Parallel-pass rows: RSS subscribe affordances, Search Console readiness, reader capture | in progress | arena/9f84489c-prod2 | `tools/build.py`, `data/p2/settings.json`, `data/p2/events.json` |
+| P-06 Suggestions queue expansion (design-direction + decision-making paths) | in progress | arena/9f84489c-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| P-07 Questions register clarity pass (status table, discovery suggestions) | in progress | arena/9f84489c-prod2 | `data/p2/questions.json`, `content/pages/questions.html` |
+| P-08 Docs sync (README, EXECUTIVE_SUMMARY, DECISIONS) + decision log entries | in progress | arena/9f84489c-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `data/p2/decisions.json` |
+| P-09 Gate extension (feed covers guides, internal-link rule, capture consent) | in progress | arena/9f84489c-prod2 | `tools/checks.py` |
+| P-10 Integration: rebuild, re-verify, PR to main, merge, Pages live check; PR #16 handoff | pending | arena/9f84489c-prod2 | `docs/`, root mirror, `archive/countertop-dispatch/` |
+
+Protocol notes for this claim:
+- Branch `arena/9f84489c-prod2` from `da11cd4` (main at PR #15). Arena allows one branch per session; this session is both working and integration session on this branch (same standing note as the arena/44093825 claim below).
+- **PR #16 handoff (arena/30a7028a-prod2, "Countertop Dispatch"):** its claim has been inactive >60 minutes with no commits since 14:17 UTC and its merge plan never ran. Per the handoff rule this session takes over integration of that branch: its full build will be preserved as `archive/countertop-dispatch/` (nothing discarded), and one deployed site stays canonical per the standing one-site rule (INT-06).
+- The canonical deployed publication remains `docs/` (built by `tools/build.py`, gated by `tools/checks.py`, mirrored to the repo root for legacy Pages serving).
+
+---
 
 This is the shared task board. Each task has: a status (`unclaimed`, `in progress`,
 `done`, `needs review`), an owning session, and the files it touches. Shared outputs
