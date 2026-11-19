@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance gate: disclosures and link policy | Prod2</title>
+<meta name="description" content="How the Associates disclosure, sponsored-link marking and FTC endorsement guidance are enforced in the publishing workflow.">
+<link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/compliance.html">
+<meta property="og:title" content="Compliance gate: disclosures and link policy | Prod2">
+<meta property="og:description" content="How the Associates disclosure, sponsored-link marking and FTC endorsement guidance are enforced in the publishing workflow.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/compliance.html">
+<meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-card.png">
+<meta property="og:site_name" content="Prod2 — Kitchen notes &amp; buying guides">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Prod2 feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
+<link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "name": "Prod2 — Kitchen notes & buying guides",
+   "url": "https://wingbangboozle1-lang.github.io/Prod2/",
+   "description": "What to compare before you buy",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Prod2",
+    "url": "https://wingbangboozle1-lang.github.io/Prod2/"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://wingbangboozle1-lang.github.io/Prod2/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Compliance gate: disclosures and link policy",
+     "item": "https://wingbangboozle1-lang.github.io/Prod2/compliance.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body data-page="compliance">
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">Prod2</span>
+      <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
+    <nav class="nav" aria-label="Site"><a href="compare.html">Compare</a><a href="products.html">Products</a><a href="buying-guide.html">Buying guide</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html" aria-current="page">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
+  </div>
+  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate we earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links ((paid link)); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
+</header>
+<main id="main" class="wrap">
+<p class="eyebrow">The work behind it</p>
+<h1>Compliance gate: disclosures and link policy</h1>
+<p class="lede">How the Associates disclosure, the sponsored-link marking and the endorsement rules are enforced in the publishing workflow — automatically where possible, by gate where not.</p>
+
+<h2>Disclosure placement (enforced by the build gate)</h2>
+<ul>
+  <li><strong>Under the masthead on every page</strong>, above the content — including the front page and this one — carrying the required sentence verbatim: <em>"As an Amazon Associate we earn from qualifying purchases."</em></li>
+  <li><strong>Repeated in every footer</strong>, with a link to this page.</li>
+  <li>Product links carry the <strong>(paid link)</strong> label next to the call to action.</li>
+  <li><code>tools/checks.py</code> fails the build if any page lacks the disclosure strip or the footer sentence.</li>
+</ul>
+
+<h2>Outbound link policy (enforced by the build gate)</h2>
+<ul>
+  <li>Every product link is an Amazon Associates Special Link of the form <code>https://www.amazon.com/dp/&lt;ASIN&gt;?tag=shopnow047c-20</code> — the final destination URL with the tag as a parameter, no shortener (Participation Requirements 2(b), 6(v)–(w): a link must not obscure where it goes).</li>
+  <li>Every product link carries <code>rel="sponsored nofollow noopener"</code> per <a class="src" href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank">Google's guidance on paid links</a> (S-GOUT) — without replacing the required disclosure.</li>
+  <li>The owner-supplied short links are recorded in the <a href="products.html#intent-record">intent record</a> verbatim and are not judged valid or invalid (FLG-003 unresolved).</li>
+  <li><code>tools/checks.py</code> fails the build on any amazon.com/dp/ link missing the tag or the sponsored rel.</li>
+</ul>
+
+<h2>Endorsement and review context</h2>
+<ul>
+  <li>This site publishes <strong>listed specifications, not product endorsements in the FTC's testimonial sense</strong>: nobody here has used the products (<a href="decisions.html#D-06">D-06</a>), and the site says so.</li>
+  <li>Manufacturer claims ("±0.5°F accuracy", "NIST-certified", "1000°F heat safe") are recorded as the listing's statements with dates — never adopted as this site's own claims.</li>
+  <li>Popularity statements are allowed only as dated snapshots of an official page (<a href="decisions.html#D-19">D-19</a>); "trending", "best-selling" and similar bare adjectives are banned by the checks.</li>
+</ul>
+
+<h2>The rules we check against (official sources)</h2>
+<ul>
+  <li><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank">Associates Program Operating Agreement</a> (S-OA) — including Section 5 on identification.</li>
+  <li><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">Associates Program Policies</a> (S-POL) — Participation Requirements 2(b), 6(v), 6(w).</li>
+  <li><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE" rel="noopener" target="_blank">Associates help: identifying yourself as an Associate</a> (S-HELP).</li>
+  <li><a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank">FTC Disclosures 101</a> (S-FTC1) and <a class="src" href="https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews" rel="noopener" target="_blank">FTC Endorsement Guides</a> (S-FTC2).</li>
+  <li><a class="src" href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank">Google spam policies (thin affiliation)</a> (S-GSPAM) — why this site leads with questions and sourced tables.</li>
+</ul>
+
+<h2>What is not yet verified (and is claimed nowhere)</h2>
+<p>The tracking ID's registration and activity (<a href="flagged.html#F-57">F-57</a>) and the one-link-per-product reporting test (<a href="flagged.html#F-58">F-58</a>) are owner-side actions inside Associates Central. Until they pass, the site publishes the links and the disclosure but claims no attributed click, order or revenue.</p>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-brand">Prod2 <span>· Kitchen notes &amp; buying guides</span></p>
+      <p class="footer-disclosure">As an Amazon Associate we earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
+    </div>
+    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li></ul></div>
+    <div><h2>Compare &amp; shop</h2><ul><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
+    <div><h2>The work behind it</h2><ul><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+  </div>
+  <p class="wrap footer-legal">Published 2026-11-19. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
+  Product links are Amazon Associates Special Links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
+</footer>
+<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/site.js" defer></script>
+<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/measure.js" defer></script>
+</body>
+</html>

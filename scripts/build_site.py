@@ -797,20 +797,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()    # INT-07: mirror the canonical build to the repository root.
-    # GitHub Pages for this repo is in legacy "main /" mode (serves the repo
-    # root; flipping it to Actions mode needs an admin and returns 403 to the
-    # session token). Mirroring the deterministic output to the root keeps the
-    # live site correct in BOTH modes. When an admin flips Pages to Actions
-    # mode, drop the mirror (single commit; documented in COORDINATION.md).
-    mirror_skip = {".github", "archive", "data", "scripts", "site", "tests", "node_modules", "var"}
-    for root_dir, dirs, files in os.walk(SITE):
-        rel_root = os.path.relpath(root_dir, SITE)
-        if rel_root == ".":
-            dirs[:] = [d for d in dirs if d not in mirror_skip]
-        dst_root = ROOT if rel_root == "." else os.path.join(ROOT, rel_root)
-        os.makedirs(dst_root, exist_ok=True)
-        for f in files:
-            shutil.copy(os.path.join(root_dir, f), os.path.join(dst_root, f))
-
-
+    main()    # INT-07 mirror REPLACED 2026-11-19 (arena/44093825-prod2): the legacy
+    # "main /" Pages source serves the repo root, and the mirror now carries the
+    # Prod2 publication (tools/build.py mirrors docs/ -> root). This generator keeps
+    # building site/ only — preserved and verified, no longer the mirrored build.
+    # Reason + live-verification record: COORDINATION.md, final merge/deploy record.
