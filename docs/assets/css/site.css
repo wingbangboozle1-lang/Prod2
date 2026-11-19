@@ -242,11 +242,59 @@ a.src { color: var(--sage-deep); font-weight: 600; text-decoration: underline; t
   padding: .12rem .55rem; font-size: .8rem; font-weight: 600; color: var(--ink-soft);
 }
 
+/* ---------- publication modules (2026-11-19 pass) ---------- */
+.receipt-strip {
+  margin-top: 1.1rem; padding: .75rem 1rem; border-left: 3px solid var(--sage);
+  background: #fff; font-size: .92rem; color: var(--ink-soft);
+}
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin: 1.5rem 0;
+}
+.subscribe-card, .capture-card { display: flex; flex-direction: column; }
+.subscribe-card code { font-size: .85rem; word-break: break-all; }
+.capture-form { display: flex; flex-direction: column; gap: .45rem; margin-top: .6rem; }
+.capture-form label { font-weight: 600; font-size: .92rem; }
+.capture-form textarea, .capture-form input[type="email"] {
+  font: inherit; padding: .55rem .7rem; border: 1px solid var(--rule);
+  border-radius: 6px; background: #fff; width: 100%; box-sizing: border-box;
+}
+.capture-form textarea:focus, .capture-form input[type="email"]:focus {
+  outline: 2px solid var(--terracotta); outline-offset: 1px;
+}
+.capture-consent {
+  display: flex; gap: .55rem; align-items: flex-start; font-weight: 400;
+  font-size: .88rem; line-height: 1.45; margin: .35rem 0;
+}
+.capture-consent input { margin-top: .25rem; min-width: 18px; min-height: 18px; }
+.capture-form .btn { align-self: flex-start; margin-top: .35rem; }
+.capture-note {
+  margin-top: .55rem; padding: .6rem .8rem; border-radius: 6px;
+  background: var(--paper-deep); font-size: .9rem;
+}
+.byline-strip {
+  display: flex; gap: 1.25rem; justify-content: space-between; align-items: flex-end;
+  margin: 1.75rem 0; padding: 1.25rem 1.4rem; background: var(--paper-deep);
+  border-radius: var(--radius);
+}
+.byline-strip h3 { margin-top: 0; }
+.byline-strip p { margin-bottom: 0; }
+.byline-meta { font-size: .88rem; color: var(--muted); white-space: nowrap; }
+.season-card .eyebrow, .cluster-card .eyebrow { margin-bottom: .35rem; }
+.season-guides, .cluster-guides { margin: .55rem 0 0; padding-left: 1.1rem; }
+.season-guides li, .cluster-guides li { margin: .22rem 0; }
+.cluster-head { margin-top: 2.25rem; }
+.status-accepted { background: var(--sage); color: #fff; }
+.status-shipped { background: var(--sage-deep, #4d5b43); color: #fff; }
+.status-rejected { background: var(--paper-deep); color: var(--muted); text-decoration: line-through; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 60rem) {
   .hero-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .q-card dl, .s-card dl { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .byline-strip { flex-direction: column; align-items: flex-start; }
+  .byline-meta { white-space: normal; }
 }
 @media (max-width: 40rem) {
   body { font-size: 16px; }

@@ -39,6 +39,7 @@ SUGGESTIONS = load("suggestions.json")["suggestions"]
 DECISIONS = load("decisions.json")["decisions"]
 LEDGER = load("ledger.json")
 EVENTS = load("events.json")
+CALENDAR = load("calendar.json")
 
 BRAND = SETTINGS["brand"]["name"]
 DESCRIPTOR = SETTINGS["brand"]["descriptor"]
@@ -89,6 +90,22 @@ PAGES = [
      f"How accurate does a meat thermometer need to be? | {BRAND}",
      "±0.5°F vs ±1°F, instant-read vs leave-in wireless: what accuracy claims on the listing mean and which thermometer fits which cook.",
      "guides"),
+    ("guide-how-many-quarts", "guide-how-many-quarts.html",
+     f"How many quarts do you actually need? | {BRAND}",
+     "Quarts on a listing describe volume, not people. A serving-count sanity check built from the listed capacities of the three air fryers, each sourced.",
+     "guides"),
+    ("guide-two-baskets-or-one", "guide-two-baskets-or-one.html",
+     f"Two baskets or one: when do two drawers earn their space? | {BRAND}",
+     "Dual-zone or one big basket? The batch math and the listed specs that decide it: sync finish, shake reminders, and who cooks two dishes at once.",
+     "guides"),
+    ("guide-holiday-hosting", "guide-holiday-hosting.html",
+     f"Holiday hosting: which format earns the counter? | {BRAND}",
+     "Big meals, borrowed counter space, eat-in waves. Which air-fryer format and which thermometer workflow fit holiday hosting, from listed specs only.",
+     "guides"),
+    ("guides", "guides.html",
+     f"Guides: one buyer question per page | {BRAND}",
+     "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
+     "guides"),
     ("category-air-fryers", "category-air-fryers.html",
      f"Air fryers: dual-basket, toaster-oven, single-basket | {BRAND}",
      "Three air-fryer formats compared by the decision that matters — how they fit your counter and your cooking. Listed specs only, each with its source.",
@@ -136,7 +153,8 @@ PAGES = [
 ]
 
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
-             "guide-multifunction", "guide-thermometer-accuracy"]
+             "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
+             "guide-two-baskets-or-one", "guide-holiday-hosting"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -177,6 +195,7 @@ def buy_link(p: dict, text: str | None = None) -> str:
 NAV_READER = [
     ("compare.html", "Compare"),
     ("products.html", "Products"),
+    ("guides.html", "Guides"),
     ("buying-guide.html", "Buying guide"),
     ("category-air-fryers.html", "Air fryers"),
     ("category-thermometers.html", "Thermometers"),
@@ -198,6 +217,10 @@ GUIDE_LINKS = [
     ("guide-cleanup-counter-space.html", "Cleanup &amp; counter space"),
     ("guide-multifunction.html", "Before buying multi-function"),
     ("guide-thermometer-accuracy.html", "Thermometer accuracy"),
+    ("guide-how-many-quarts.html", "How many quarts do you need?"),
+    ("guide-two-baskets-or-one.html", "Two baskets or one?"),
+    ("guide-holiday-hosting.html", "Holiday hosting formats"),
+    ("guides.html", "All guides"),
 ]
 
 
@@ -227,6 +250,9 @@ def build_footer() -> str:
     shop = lis([("compare.html", "Compare the five"), ("products.html", "Products &amp; specs"),
                 ("category-air-fryers.html", "Air fryers"), ("category-thermometers.html", "Thermometers"),
                 ("buying-guide.html", "Buying guide")])
+    read = lis([("guides.html", "All guides"), ("buying-guide.html", "Buying guide"),
+                ("guides.html#subscribe", "Follow the feed"), ("guides.html#ask", "Ask a question"),
+                ("guides.html#byline", "Who writes this")])
     work = lis(NAV_WORK)
     return f"""
 <footer class="footer">
@@ -237,6 +263,7 @@ def build_footer() -> str:
     </div>
     <div><h2>Guides</h2><ul>{guides}</ul></div>
     <div><h2>Compare &amp; shop</h2><ul>{shop}</ul></div>
+    <div><h2>Read &amp; follow</h2><ul>{read}</ul></div>
     <div><h2>The work behind it</h2><ul>{work}</ul></div>
   </div>
   <p class="wrap footer-legal">Published {esc(BUILD_DATE)}. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
@@ -465,6 +492,8 @@ def hook_suggestions(_="") -> str:
     out = []
     for s in SUGGESTIONS:
         deps = esc(", ".join(s.get("depends_on", [])) or "—")
+        progress = s.get("progress")
+        progress_html = (f"<dt>Progress</dt><dd>{esc(progress)}</dd>" if progress else "")
         out.append(f"""
 <article class="card s-card" id="{esc(s['id'])}">
   <header><h3><code>{esc(s['id'])}</code> {esc(s['title'])}</h3>
@@ -476,6 +505,7 @@ def hook_suggestions(_="") -> str:
     <dt>Expected impact</dt><dd>{esc(s['impact'])}</dd>
     <dt>Effort</dt><dd>{esc(s['effort'])}</dd>
     <dt>Risk</dt><dd>{esc(s['risk'])}</dd>
+    {progress_html}
     <dt>Depends on</dt><dd>{deps}</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> {esc(s['recommendation'])}</p>
@@ -557,6 +587,160 @@ def hook_comparison_cta(_="") -> str:
             ' <a class="btn btn-ghost" href="buying-guide.html">Read the buying guide</a></p>')
 
 
+GUIDE_BLURBS = {
+    "guide-basket-vs-oven": "The format decision, decoded: food shape, preheat patience, cleanup.",
+    "guide-capacity": "Quarts lie when you compare across formats. Make them mean the same thing.",
+    "guide-cleanup-counter-space": "What listed dimensions and dishwasher-safe parts tell you before it arrives.",
+    "guide-multifunction": "Twenty-four presets, twenty-four reasons to buy? The questions that count them down.",
+    "guide-thermometer-accuracy": "±0.5°F versus ±1°F, check-it versus watch-it: what the claims really say.",
+    "guide-how-many-quarts": "A serving-count sanity check from the listed capacities, not the marketing.",
+    "guide-two-baskets-or-one": "Batch math meets listed specs: when two drawers beat one big basket.",
+    "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
+}
+GUIDE_TAGS = {
+    "guide-basket-vs-oven": "Format",
+    "guide-capacity": "Capacity",
+    "guide-cleanup-counter-space": "Counter space",
+    "guide-multifunction": "Multi-function",
+    "guide-thermometer-accuracy": "Thermometers",
+    "guide-how-many-quarts": "Capacity",
+    "guide-two-baskets-or-one": "Format",
+    "guide-holiday-hosting": "Seasonal",
+}
+
+
+def _guide_card(gid: str) -> str:
+    title = GUIDE_TITLES[gid].split(" | ")[0]
+    return f"""
+  <article class="card guide-card">
+    <span class="tag">{esc(GUIDE_TAGS.get(gid, "Guide"))}</span>
+    <h3><a href="{gid}.html">{esc(title)}</a></h3>
+    <p>{esc(GUIDE_BLURBS.get(gid, ""))}</p>
+    <a class="more" href="{gid}.html">Read the guide</a>
+  </article>"""
+
+
+def hook_guide_cards(_="") -> str:
+    return '<div class="card-grid">' + "".join(_guide_card(g) for g in GUIDE_IDS) + "</div>"
+
+
+def hook_subscribe(_="") -> str:
+    return f"""
+<div class="card subscribe-card" id="subscribe">
+  <h3>Follow the feed</h3>
+  <p>Every new guide lands in <a href="feed.xml" data-feed="1">the RSS feed</a> the day it publishes. It is the reader channel on this site that collects nothing at all: no sign-up, no address, no tracking.</p>
+  <p class="muted">Feed address: <code>{esc(BASE)}/feed.xml</code> — paste it into any feed reader.</p>
+</div>"""
+
+
+def hook_reader_capture(_="") -> str:
+    consent = esc(SETTINGS.get("reader_capture", {}).get("consent_checkbox_text",
+                                                          "Use my question only to answer it on the site."))
+    endpoint = SETTINGS.get("reader_capture", {}).get("endpoint", "") or ""
+    state = "live" if endpoint else "disconnected"
+    return f"""
+<div class="card capture-card" id="ask">
+  <h3>What should we answer next?</h3>
+  <p>Every guide here starts from a real buyer question. Ask yours — if it fits the five products we follow, it enters the <a href="guides.html">guide queue</a>.</p>
+  <form class="capture-form" data-capture="{esc(state)}" data-capture-endpoint="{esc(endpoint)}">
+    <label for="capture-question">Your question</label>
+    <textarea id="capture-question" name="question" rows="3" required
+      placeholder="e.g. Can two baskets really finish dinner at the same time?"></textarea>
+    <label for="capture-email">Email <span class="muted">(optional — only to tell you when the answer publishes)</span></label>
+    <input id="capture-email" name="email" type="email" autocomplete="email">
+    <label class="capture-consent"><input type="checkbox" name="consent" required> {consent}</label>
+    <button type="submit" class="btn">Send the question</button>
+    <p class="capture-note" data-capture-note hidden></p>
+    <p class="muted small-note">This form is currently <strong>disconnected on purpose</strong>: nothing is sent anywhere until the privacy basis for holding an email is settled (<a href="questions.html#Q-47">Q-47</a>) and an endpoint is configured (<a href="flagged.html#F-P07">F-P07</a>). Until then your question stays in your own browser.</p>
+  </form>
+</div>"""
+
+
+def hook_byline(_="") -> str:
+    return f"""
+<div class="byline-strip" id="byline">
+  <div>
+    <h3>Who writes this</h3>
+    <p>{esc(BRAND)} is an edited buying guide, not a store and not a lab. The editing rule is short: every figure on this site was read from an official product listing or an official policy page on a dated pass, and the citation sits next to it. Nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>), so nothing pretends otherwise. The voice standard is published in the repo (<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/VOICE.md" rel="noopener" target="_blank">VOICE.md</a>), and the receipts stay visible on the <a href="method.html">method page</a>.</p>
+  </div>
+  <p class="byline-meta">Published {esc(BUILD_DATE)} · <a href="feed.xml" data-feed="1">RSS</a> · <a href="https://github.com/wingbangboozle1-lang/Prod2" rel="noopener" target="_blank">Source register on GitHub</a></p>
+</div>"""
+
+
+def hook_season_desk(_="") -> str:
+    blocks = []
+    for s in CALENDAR["seasons"]:
+        links = "".join(
+            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
+            for g in s["guides"])
+        blocks.append(f"""
+  <div class="card season-card">
+    <p class="eyebrow">{esc(s["window"])} · {esc(s["status"])}</p>
+    <h3>{esc(s["name"])}</h3>
+    <p>{esc(s["line"])}</p>
+    <ul class="season-guides">{links}</ul>
+  </div>""")
+    return ('<div class="card-grid season-grid">' + "".join(blocks) + "</div>"
+            + '<p class="table-note">Seasons follow the US calendar (the marketplace is amazon.com). '
+            "They are an editorial rotation, not a demand claim — no season is chosen from a trend figure "
+            '(<a href="flagged.html#F-15">F-15</a>). Rotation register: '
+            '<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json" rel="noopener" target="_blank">data/p2/calendar.json</a>.</p>')
+
+
+def hook_clusters(_="") -> str:
+    blocks = []
+    for c in CALENDAR["clusters"]:
+        links = "".join(
+            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
+            for g in c["guides"])
+        blocks.append(f"""
+  <div class="card cluster-card">
+    <p class="eyebrow">Cluster · {len(c["guides"])} guides</p>
+    <h3><a href="{esc(c["pillar"])}">{esc(c["name"])}</a></h3>
+    <p>{esc(c["line"])}</p>
+    <ul class="cluster-guides">{links}</ul>
+    <p><a class="more" href="{esc(c["pillar"])}">The {esc(c["name"].lower())} pillar page</a></p>
+  </div>""")
+    return '<div class="card-grid cluster-grid">' + "".join(blocks) + "</div>"
+
+
+def hook_queue(_="") -> str:
+    rows = "".join(
+        f'<tr><td>{esc(q["due_utc"])}</td><td>{esc(q["title"])}</td><td>{esc(q["answers_with"])}</td></tr>'
+        for q in CALENDAR["queue"])
+    return (f'<div class="table-scroll"><table class="data"><thead><tr><th>Due (UTC)</th>'
+            f"<th>Working title — a hypothesis, not a popularity claim</th>"
+            f"<th>Answerable from</th></tr></thead><tbody>{rows}</tbody></table></div>"
+            f'<p class="table-note">Cadence: {esc(CALENDAR["cadence"]["unit"])}, every '
+            f'{esc(str(CALENDAR["cadence"]["interval_days"]))} days; next due '
+            f'{esc(CALENDAR["cadence"]["next_due_utc"])}. {esc(CALENDAR["cadence"]["rule"])}</p>')
+
+
+def hook_questions_summary(_="") -> str:
+    rows = []
+    for q in QUESTIONS:
+        state = "owner action" if "account holder" in q.get("answerable_by", "").lower() else "open"
+        rows.append(f'<tr><td><a href="#{esc(q["id"])}"><code>{esc(q["id"])}</code></a></td>'
+                    f'<td>{esc(q["area"])}</td><td>{esc(q["question"])}</td>'
+                    f'<td>{esc(state)}</td><td>{esc(", ".join(q.get("blocks", [])) or "—")}</td></tr>')
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>ID</th><th>Area</th>'
+            '<th>The question</th><th>State</th><th>What it blocks</th></tr></thead><tbody>'
+            + "".join(rows) + "</tbody></table></div>"
+            + '<p class="table-note">The full register below answers each row in five fields: '
+            "what we know, what is missing, how to discover it, who can answer it, and what it blocks.</p>")
+
+
+def hook_guides_index(_="") -> str:
+    out = []
+    for c in CALENDAR["clusters"]:
+        items = "".join(_guide_card(g[:-5]) for g in c["guides"] if g[:-5] in GUIDE_TITLES)
+        out.append(f'<h2 class="cluster-head">Cluster: {esc(c["name"])}</h2>'
+                   f'<p class="lede">{esc(c["line"])} Start at the '
+                   f'<a href="{esc(c["pillar"])}">{esc(c["name"].lower())} pillar</a> or pick a question.</p>'
+                   f'<div class="card-grid">{items}</div>')
+    return "".join(out)
+
+
 HOOKS = {
     "products_table": hook_products_table,
     "air_fryer_table": hook_air_fryer_table,
@@ -577,6 +761,15 @@ HOOKS = {
     "product_cards": hook_product_cards,
     "guide_links": hook_guide_links,
     "comparison_cta": hook_comparison_cta,
+    "guide_cards": hook_guide_cards,
+    "subscribe": hook_subscribe,
+    "reader_capture": hook_reader_capture,
+    "byline": hook_byline,
+    "season_desk": hook_season_desk,
+    "clusters": hook_clusters,
+    "queue": hook_queue,
+    "questions_summary": hook_questions_summary,
+    "guides_index": hook_guides_index,
 }
 
 
@@ -678,7 +871,7 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
             })
         graph.append({"@type": "ItemList", "name": "Products compared on " + BRAND,
                       "itemListElement": items})
-    if page_id.startswith("guide") or page_id == "buying-guide":
+    if (page_id.startswith("guide") and page_id != "guides") or page_id == "buying-guide":
         graph.append({
             "@type": "Article", "headline": title.split(" | ")[0],
             "description": description, "url": BASE + "/" + path,
@@ -695,7 +888,7 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
 # Page assembly
 # ---------------------------------------------------------------------------
 LAYOUT = """<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-endpoint="{endpoint}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -709,7 +902,7 @@ LAYOUT = """<!DOCTYPE html>
 <meta property="og:image" content="{base}/assets/img/og-card.png">
 <meta property="og:site_name" content="{brand} — {descriptor}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="alternate" type="application/rss+xml" title="{brand} feed" href="{base}/feed.xml">
+{site_verification}<link rel="alternate" type="application/rss+xml" title="{brand} feed" href="{base}/feed.xml">
 <link rel="stylesheet" href="{base}/assets/css/site.css">
 <script type="application/ld+json">
 {jsonld}
@@ -740,12 +933,17 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
     frag = (CONTENT / "pages" / f"{page_id}.html").read_text(encoding="utf-8")
     content = render_fragment(frag)
     nav = build_nav(path)
+    token = (SETTINGS.get("search_console", {}) or {}).get("verification_token", "") or ""
+    site_verification = (f'<meta name="google-site-verification" content="{esc(token)}">\n'
+                         if token else "")
     out = LAYOUT.format(
         title=esc(title), description=esc(description), canonical=f"{BASE}/{path}",
         base=esc(BASE), brand=esc(BRAND), descriptor=esc(DESCRIPTOR),
         jsonld=jsonld_for(page_id, title, description, path),
         page_id=esc(page_id), nav=nav, disclosure=DISCLOSURE_STRIP,
         content=content, footer=build_footer(),
+        endpoint=esc(SETTINGS.get("analytics_endpoint", "") or ""),
+        site_verification=site_verification,
     )
     (DOCS / path).write_text(out, encoding="utf-8")
 
