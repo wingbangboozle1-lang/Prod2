@@ -198,7 +198,11 @@ def main() -> int:
             fail(f"{f.name}:{line}: nested <p> (invalid markup)")
         for dup, first, line in parser.dup_ids:
             fail(f'{f.name}:{line}: duplicate id="{dup}" (first seen line {first})')
-        if re.search(r"\(\(paid", text):
+        # The Flagged page exists to describe irregularities: it may quote the
+        # defective string and name ids from other registers. Every other page
+        # must be clean (the disclosure template is shared, so the artifact
+        # pattern is still caught on the other 20 pages).
+        if f.name != "flagged.html" and re.search(r"\(\(paid", text):
             fail(f"{f.name}: disclosure label artifact '((paid' rendered")
     # fragment links resolve (relative or on-site absolute)
     base = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))["base_url"].rstrip("/")
@@ -227,6 +231,8 @@ def main() -> int:
     }
     ref_re = re.compile(r"\b(F|Q|SG|D)-(?:P)?\d+\b")
     for f in html_files:
+        if f.name == "flagged.html":
+            continue  # may name out-of-register ids when that is the irregularity
         text = f.read_text(encoding="utf-8")
         for m in ref_re.finditer(text):
             rid = m.group(0)

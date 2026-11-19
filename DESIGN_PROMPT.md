@@ -67,3 +67,24 @@ constraints are non-negotiable and listed at the end.
 3. No price, availability, rating, review count or popularity badge.
 4. Held products (P4/P5) never render as links, cards or rows with destinations.
 5. No "trending"/popularity claims anywhere reader-facing.
+
+## Queued inputs (2026-11-19)
+
+The suggestion queue now carries three design items that feed this brief
+(proposed only — pick a path on the Suggestions page before anything here
+is built):
+
+- **SG-15** — close the type gap: ship Fraunces + Inter self-hosted, or
+  record a substitution decision. Reconcile this brief's cross-references
+  first: flag **F-P12** records that the ids cited above (D-01/D-02, D-15,
+  Q-05, Q-10) belong to the predecessor registers, not the live ones — on
+  the live site D-01 is the Special Links decision, name clearance is Q-19,
+  the photography question is Q-P05 with decision D-22 (carried, open), and
+  the shipped wordmark is "Prod2" (D-P03) while clearance is open.
+- **SG-16** — design-token conformance pass: audit this brief line by line
+  against the shipped theme (card radius, 44px tap targets, sticky mobile
+  anchors, disclosure-strip treatment) and conform or amend, once, recorded
+  as a decision.
+- **SG-17** — seasonal front-page merchandising scaffolding (grilling,
+  gifting), gated on the seasonal-window question Q-P07; calendar-based
+  framing only, per the evidence rule D-19.
