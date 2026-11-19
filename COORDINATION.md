@@ -197,9 +197,12 @@ recoverable from git reflog; its unique content is preserved in `archive/counter
 
 ## PR / merge / deploy record
 
-- PR: https://github.com/wingbangboozle1-lang/Prod2/pull/8 (base `main`)
-- Merge result: recorded after merge below.
-- Pages: recorded after deploy verification below.
+- PR #10 (final integration): https://github.com/wingbangboozle1-lang/Prod2/pull/10 — **merged** (merge commit `25119abf`); CI checks (`test`, `verify`) passed before merge.
+- Pages API: `PUT /pages {build_type: workflow}` returned **403** with this session's token (third recorded occurrence) — Pages remained in legacy `main /` mode; flipping it needs a repository admin.
+- Actions deployment for the merge commit: `github-pages` environment reported success; sandbox egress to `*.github.io` is blocked, so live HTML could not be fetched from the session.
+- **INT-07 (root mirror, PR #11):** legacy Pages serves the repository root, which had no `index.html` after consolidation. The generator now mirrors the deterministic `site/` output to the repo root (one source of truth, two deterministic outputs; reproducibility check extended in `verify.yml`). PR #11: https://github.com/wingbangboozle1-lang/Prod2/pull/11 — **merged** (merge commit `8c3c9a23`); CI passed.
+- **Deploy verified (API):** legacy `pages-build-deployment` run for `8c3c9a23` completed with **success**; `GET /pages/builds/latest` → `{status: built, commit: 8c3c9a23}`. The live site at https://wingbangboozle1-lang.github.io/Prod2/ now serves the canonical Countercraft build at root paths with corrected canonical URLs. An HTML fetch from inside the session was impossible (egress restriction); verification is by GitHub's build/deployment API plus the repo-side gate. This is the final deploy result for the brief's "confirm GitHub Pages deploys successfully" step.
+- When an admin flips Pages to Actions mode, delete the root mirror in a single commit (documented in README).
 
 ---
 
@@ -268,3 +271,4 @@ index one site and the Pages deploy stays unbroken.
 - PR #9 merged into `main`; GitHub Pages deploys `site/` via the existing
   workflow. Merge commit and deploy status: see the PR page and the
   repository's Actions history.
+
