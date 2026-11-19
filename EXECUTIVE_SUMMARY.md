@@ -27,17 +27,35 @@
 
 ## The site
 
-- Front page built as a publication front (D-21): hero, question-led guides, category tiles, then the data.
-- Five question-shaped guides (basket vs oven · capacity checklist · cleanup & counter space · multi-function questions · thermometer accuracy), a buying guide, two category pages, and a sourced comparison table with the three-question chooser (D-23) and the counter-space analysis (D-26).
+- Front page built as a shop, not an audit (D-P08): a method promise, a five-card product rail carrying the two
+  deciding figures and the date each was read, format tiles, the guide shelf, then the sourced table. The
+  verification machinery is one click away rather than first.
+- **Eight** question-led guides (basket vs oven · capacity · dual vs single basket · cleanup and counter
+  space · multi-function questions · air fryer as a gift · thermometer accuracy · probe in an air fryer), a guide
+  index, a buying guide, two format pages, and a sourced comparison table with the three-question chooser (D-23), the
+  counter-space analysis (D-26) and a read date on every published figure. 26 pages in total, including an
+  **analysis page** (coverage matrix, capacity-to-footprint ranking, three-stage funnel, owner priority board,
+  verification ledger) and a **design prompt pack** page.
 - Disclosure strip under the masthead on **every** page + footer repeat; every product link marked sponsored.
 - Unique titles/meta, JSON-LD, sitemap.xml, robots.txt, RSS feed, typographic OG card (no product photography — S-18/D-22 still needs a decision).
 
 ## Decision-support system (review surfaces)
 
-- **Suggestion queue** (`suggestions.html`): 10 proposals with evidence/impact/effort/risk and recommendations — nothing implemented until a reviewer picks a path. Recommended first move: **SG-06** (deploy the analytics endpoint + Search Console).
-- **Open questions** (`questions.html`): what is known/missing/how to discover, per item — including Q-01 (Associates enrollment) and Q-19 (name clearance).
+- **Suggestion queue** (`suggestions.html`): **34 proposals**, each with evidence, impact/effort/risk and **two or
+  three concrete paths** (what changes, upside, downside, cost, what it unlocks), one marked recommendation, and a
+  ranked board on top. Nothing that changes a claim ships before a reviewer names a path: replying
+  `SG-15, path A` is enough (D-P07).
+- **Open questions** (`questions.html`): **27 items**, each recording what is already known with its dated source,
+  what is missing, what the answer decides, who can answer, the checks a session could run, and the conservative
+  default while it stays open. 12 gate a decision and are ranked on a board above the list.
+- **Owner priority board** (`analysis.html#waiting-on`, from `data/p2/decision-priority.json`): the nine decisions
+  this repository is waiting on, ranked by what they unblock, each with a waiting_on line and an effort
+  estimate, so the shortest useful reply is a sentence.
 - **Flagged for review** (`flagged.html`): open/resolved/standing items with evidence links (S-11 split). F-55 resolved 2026-11-19; F-57/F-58/F-19/F-01/F-03 remain open — none blocks the merge.
-- **Decision log** (`decisions.html`): carried decisions D-01…D-27 with recorded outcomes, plus this build's D-P01…D-P06.
+- **Decision log** (`decisions.html`): carried decisions D-01 to D-27 with recorded outcomes, plus this build's
+  D-P01 to D-P08 (D-P07 records what was implemented without waiting and what deliberately was not; D-P08 the
+  shop-shaped front and the image-free identity). 22 queue items record which design brief they feed
+  (`feeds_design_prompt`).
 
 ## Measurement (machinery shipped, not yet on)
 
@@ -47,18 +65,31 @@
 
 ## Verification & governance trail
 
-- 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
+- 2026-11-19 session records: data/p2/verification-2026-11-19.json (redirect reads, titles, breadcrumbs, feature
+  bullets, carousel observations) plus the dated re-check log data/p2/verification-log.json, rendered as a table on
+  the analysis page so that a verified claim always means verified on this date, from this URL.
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — 8 sections, green on the merged build.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **9 sections** (pages, disclosure, links
+  including in-page anchors, facts, claims, editorial voice, chrome, SEO, freshness), green on the merged build.
+  `python3 scripts/verify_site.py` (the Countercraft build) and `npm test` (the endpoint) also pass.
 
 ## Open decisions for the owner
 
-1. Run the **one-link-per-product test** in Associates Central (gates attribution claims/scaling).
-2. **Deploy the analytics endpoint + enable Search Console** (SG-06) — everything downstream depends on it.
-3. Brand rename after trademark clearance (SG-01, blocked on Q-19).
-4. Whether to adopt a dated-snapshot price policy (SG-05) — only with automation.
-5. Product photography decision (S-18/D-22): still awaiting a decision; generated/copy photography is banned, real photography is the only compliant path.
+1. **Which register is canonical** — one line decides whether a future figure can be traced to the file
+  the build actually used (F-P06, SG-31, Q-P15).
+2. **Who accepts a suggestion path** — the queue has accepted/amended/rejected states and no named
+  decider (Q-P08).
+3. **Host the collector and verify a Search Console property** — until then every ranking here is
+  judgement, not measurement (SG-06, SG-25).
+4. **Pick the price policy** — dated snapshots, a licensed live feed, or none (SG-05, Q-27).
+5. **Set the re-verification cadence** — listings have been observed drifting within days (Q-P11).
+6. **Name the publisher** — the mandated disclosure is written in the first person and the site has
+  no I (Q-P19, SG-27).
+7. **Run the one-link-per-product test** in Associates Central, and settle the imagery route (SG-08, S-18/D-22):
+  generated or copied photography is out, a real shoot is the only compliant path.
+8. **Close the PR #16 hazard** — merging it would overwrite the generated root the live site is
+  served from (Q-P18, RR-5/RR-6).
 
 
 ---
