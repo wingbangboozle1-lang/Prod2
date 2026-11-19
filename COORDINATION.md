@@ -482,3 +482,44 @@ No edit to another session's claimed files. Registers `data/p2/{products,sources
 suggestions,decisions,ledger,intent-links,verification-*}.json` are NOT edited except the one
 Q-P02 coherence sentence. Shared outputs (docs/, root mirror) change only through
 `tools/build.py` output, then are re-verified.
+
+## Record — arena/9f7a78d8-prod2 (T-16..T-18 complete, 2026-11-19)
+
+Single Arena session; worked its scope and merged to `main` via PR. All edits went through
+`tools/build.py` (source `content/pages/` + `data/p2/`), never a hand-edit of `docs/` or the root
+mirror; mirrors were regenerated and are deterministic.
+
+**What changed (reader-facing only; no product fact, price, rating or register value altered):**
+- T-16 `content/pages/index.html`: front page made shop-first — hero line, section heading and
+  the "at a glance" intro reworded toward the buyer decision; masthead disclosure strip still above
+  the fold; all "work behind it" surfaces stay reachable from the single nav group + footer.
+- T-17 New `content/pages/guide-instant-vs-leave-in.html` — "Instant-read or leave-in: which
+  thermometer for which cook", the approved SG-03 topic; listing-facts-only (P4/P5), sourced to the
+  official listings read 2026-11-19; no prices/ratings; no banned popularity claims. Registered in
+  `tools/build.py` (PAGES/GUIDE_IDS/GUIDE_LINKS) → flows to footer, `sitemap.xml`, `feed.xml`. Site now 21 pages.
+- T-18 `data/p2/questions.json` Q-P02/Q-P04 coherence (two thermometer guides now ship).
+
+**Parallel-session conflict (resolved, nothing discarded):** PR #19 (`arena/8ff10f50-prod2`) had
+independently made the landing page *product-forward* (moved the comparison table above the guide
+cards) while this session reworded the same two blocks and added a card. Rebase onto `main` conflicted
+on `content/pages/index.html` only. Resolution **kept PR #19's product-forward ordering**, applied
+this session's reworded copy, and kept the new 6th card; PR #19/#21's transparency flag
+(`data/p2/flags.json` F-P08) and all their register work were preserved. `docs/` + root rebuilt from
+the merged source.
+
+**Gates (re-run on the combined tree after merge, no diff):** `tools/checks.py` ALL PASS (21 pages,
+freshness ok) · `scripts/verify_site.py` VERIFY OK (18) · `npm test` 2/2 · CI on the PR: `test` pass,
+`verify` pass.
+
+**PR / merge / deploy:**
+- PR: https://github.com/wingbangboozle1-lang/Prod2/pull/20
+- Merge: **merged** 2026-11-19 21:49 UTC, merge commit `3cd056a` on `main` (`gh pr merge 20 --merge`).
+- Pages: `Deploy to GitHub Pages` success; `pages/builds/latest` status `built` for `3cd056a`.
+- Live verified via page fetch: homepage serves the product-forward layout, shop-voice hero, 6 guide
+  cards incl. the new thermometer guide; `guide-instant-vs-leave-in.html` serves with tagged
+  `?tag=shopnow047c-20` sponsored links, disclosure and sourced facts.
+- Note for owner: the site serves in legacy `main /` (root) mode; the directory-path edge cache can lag
+  a build by seconds — hard-refresh / query-string fetch shows the new state (confirmed here).
+- Still open (flagged, non-blocking): F-01, F-02, F-03, F-19, F-57, F-58, F-P06, F-P07, and the
+  owner-only gates Q-01 / Q-19 / Q-23 / Q-27 (Associates Central validation, trademark, endpoint host,
+  price policy). Those require account/host access this environment cannot reach and stay as decisions.
