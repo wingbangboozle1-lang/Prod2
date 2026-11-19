@@ -35,6 +35,16 @@ recommended path; none are decided without the information listed.
 | D-23 | Which imagery channel is permitted? | Confirmation of which imagery is allowed under the Agreement. | Stay text-led until confirmed; then use only permitted imagery. |
 | D-24 | Publishing cadence and topic order? | Measured query data (analytics + Search Console). | Weekly cadence; reorder next topics from measured queries. |
 
+## Publication pass — 2026-11-19 (arena/9f84489c-prod2)
+
+Recorded in full in `data/p2/decisions.json` (D-P07…D-P09); summary here.
+
+| ID | Decision | Rationale | Source |
+| --- | --- | --- | --- |
+| D-P07 | The owner brief is the decision for the publication pass: shop-first front page, guides hub, eight question-shaped guides on a 14-day cadence, seasonal desks + clusters, reader nav labels, RSS subscribe affordances, Search Console readiness, consent-gated question form. Dashboards stay in the footer + one nav group; every compliance rule unchanged. | "Make it read like a shop, not an audit… read like a publication" | Owner brief 2026-11-19 |
+| D-P08 | Reader-capture form ships **dark**: it sends nothing until the consent basis (Q-47) is settled and a capture endpoint is configured. | Gate what cannot be automated; FTC consent standard | FTC S07; Q-47; F-P07 |
+| D-P09 | Search Console: readiness ships now (sitemap, robots, feed, canonicals, verification-token slot); verification itself remains an owner action. | Verification requires the property owner's Google account | Google Search Central; Q-P05; F-P06 |
+
 ## Notes on the reference items (S-04 … S-25)
 
 The source brief lists items S-04 through S-25 with priorities and implementation statuses. This

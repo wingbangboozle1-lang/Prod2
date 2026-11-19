@@ -44,6 +44,7 @@ python3 analytics-endpoint/server.py --port 8787
 | `claims` | no price patterns (`$…`) and no star-rating patterns anywhere (F-02); no banned popularity words ("trending", "best-selling", …) on reader-facing pages (D-19) |
 | `chrome` | the single navigation group ("The work behind it") and the footer directory appear on every page |
 | `seo` | canonical + og:image + parseable JSON-LD per page; sitemap covers exactly the built pages; robots.txt points at the sitemap; feed items resolve |
+| `publication` | every guide reaches the comparison, the buying guide and its cluster pillars (S-24 rule, automated); the feed covers every guide; the reader-capture form's consent checkbox and gate state match `settings.json`; the Search Console verification meta appears only while a token is configured |
 | `freshness` | `docs/` byte-matches a fresh render from `data/` + `content/` — no stale output can ship |
 
 ## How the "no hallucination" rule is enforced
@@ -67,6 +68,7 @@ python3 analytics-endpoint/server.py --port 8787
 
 ## Test count
 
-`tools/checks.py` runs **8 check sections** covering 60+ individual assertions across
-20 pages. The engine has no other entry points; everything the site publishes flows
+`tools/checks.py` runs **9 check sections** covering 70+ individual assertions across
+24 pages (20 core + guides hub + 3 question-shaped guides added in the 2026-11-19
+publication pass). The engine has no other entry points; everything the site publishes flows
 through the build and the gate.
