@@ -311,7 +311,7 @@ def layout(active, title, description, body, extra_head="", breadcrumbs=None):
         "Outbound product links are affiliate links marked as sponsored.</p>"
         "</div></footer>"
     ) % (footer_disc, esc(BRAND), esc(BRAND), esc(TAGLINE), footer_nav, esc(DISCLOSURE), "shopnow047c-20", VERIFY_DATE)
-    canon = "https://wingbangboozle1-lang.github.io/Prod2" + (active or "/index.html")
+    canon = "https://wingbangboozle1-lang.github.io/Prod2/" + (active or "index.html").lstrip("/")  # INT-06: fixed missing slash (was Prod2index.html)
     doc = (
         "<!doctype html><html lang='en'><head><meta charset='utf-8'>"
         "<meta name='viewport' content='width=device-width,initial-scale=1'>"

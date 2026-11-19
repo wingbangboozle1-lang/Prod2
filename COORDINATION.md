@@ -140,3 +140,63 @@ session was discarded):
 - `npm test` (the other session's endpoint tests + this session's gate) passes.
 - PR #6 merges this integration into `main`; GitHub Pages deploys `site/` via the workflow.
 
+
+---
+
+# FINAL INTEGRATION PASS — session `arena/9386098f-prod2` (sess-prod2-a1), 2026-11-19
+
+At consolidation time the repository contained **four independent session builds**:
+
+| Build | Brand | Location | From | Status at consolidation |
+|---|---|---|---|---|
+| 1 | Counter Notes v1 (root) | `archive/counter-notes-v1/` | PR #1 (d12d2304) | Archived |
+| 2 | Counter Notes (generated) | `docs/` | PRs #2–#5 (f2613c86 + 3f1d9d65) | Was canonical per its board |
+| 3 | The Counter Edit | branch `arena/9386098f-prod2` (pre-reset), now `archive/counter-edit-build/` | sess-prod2-a1 (this session) | Built in parallel from stale base |
+| 4 | Countercraft | `site/` | PR #6 (599eec57) + PR #7 | Declared canonical on main |
+
+**Decision (INT-06): canonical = `site/` (Countercraft)** — the latest merged state of `main`, already
+data-driven, gated by `scripts/verify_site.py`, and deployed by `pages.yml`. Everything else archived,
+nothing deleted. The pre-reset state of this branch (its own full build + its ports into `docs/`) is
+recoverable from git reflog; its unique content is preserved in `archive/counter-edit-build/`.
+
+## What this integration pass did
+
+- `docs/` → `archive/counter-notes-docs/` (git mv, history kept). Its generator source survives in
+  git history (it had been replaced on `main` by Countercraft's).
+- Fixed a real bug on main: canonical/og URLs lacked a slash (`…/Prod2index.html`) on every page —
+  fixed in `scripts/build_site.py` and the whole `site/` regenerated + committed.
+- `site/assets/analytics.js`: endpoint default changed from active `"/collect"` (which beaconed to a
+  nonexistent path on GitHub Pages) to **off by default**; events stay in the page unless an endpoint
+  is explicitly configured — restores the project's own privacy posture (FR-09).
+- `server.mjs`: serves `site/` now; whitelist extended to the union of all three event taxonomies
+  (tracker events, self-host client events, Countercraft events); safe aggregate keys for each;
+  self-host injection sets `window.COUNTERCRAFT_ENDPOINT="/api/events"` on served pages.
+- `analytics-client.js` (self-host only) no longer double-sends `page_view`.
+- `tests/server.test.mjs`: adapted + two new tests (integration events, Countercraft events) —
+  `npm test` green.
+- `pages.yml`: `enablement: true` on configure-pages (INT-04/T11 — CI may flip Pages to workflow mode).
+- README updated: one-site rule, archives, endpoint.
+
+## Session register (this session)
+
+| Session | Branch | Started (UTC) | Status |
+|---|---|---|---|
+| sess-prod2-a1 | `arena/9386098f-prod2` | 2026-11-19 12:40 | active — final integration |
+
+## Conflict log
+
+- Two `git pull --rebase` operations collided with concurrent merges to `main` (PR #5→#6→#7 landed
+  during this session's work). First rebase resolved by union-merging boards; second collision was
+  resolved by resetting this branch onto consolidated `main` and re-applying the integration as new
+  commits — **no upstream content was discarded at any point**; the branch's prior state remains in
+  reflog and its content in `archive/`.
+- Independent convergence: three sessions separately resolved all five submitted short links live on
+  2026-11-19 to the same observed ASINs (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z);
+  all note the submitted tokens are 9 characters, not 10-character ASINs, and make **no claim** about
+  the short links' compliance status (FR-01/FR-02/F-02 equivalents).
+
+## PR / merge / deploy record
+
+- PR: https://github.com/wingbangboozle1-lang/Prod2/pull/8 (base `main`)
+- Merge result: recorded after merge below.
+- Pages: recorded after deploy verification below.

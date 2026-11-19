@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decision log — The Counter Edit</title>
+<meta name="description" content="Twenty structural decisions with rationale and status; the gate before implementation.">
+<meta name="author" content="The Counter Edit desk">
+<link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/docs/decisions.html">
+<meta property="og:site_name" content="The Counter Edit">
+<meta property="og:title" content="Decision log — The Counter Edit">
+<meta property="og:description" content="Twenty structural decisions with rationale and status; the gate before implementation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/docs/decisions.html">
+<meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Decision log — The Counter Edit">
+<meta name="twitter:description" content="Twenty structural decisions with rationale and status; the gate before implementation.">
+<meta name="twitter:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-image.jpg">
+<link rel="icon" type="image/svg+xml" href="/Prod2/favicon.svg">
+<link rel="alternate" type="application/rss+xml" title="The Counter Edit &mdash; new guides" href="/Prod2/rss.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/Prod2/assets/css/style.css">
+
+<script>window.TCE_ENDPOINT = "";</script>
+<script defer src="/Prod2/assets/js/tce.js"></script>
+</head><body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="disclosure" data-disclosure>
+  <div class="wrap"><span class="tag">Affiliate disclosure</span>
+  <span>The Counter Edit earns from qualifying purchases as an Amazon Associate. Product links on this site are paid affiliate links to Amazon.com &mdash; the price you pay never changes. <a href="/Prod2/disclosure.html">How this works</a></span></div>
+</div>
+<header class="site-head">
+  <div class="wrap">
+    <a class="wordmark" href="/Prod2/index.html"><span class="dot"></span>The Counter Edit</a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="/Prod2/guides/index.html">Guides</a></li>
+        <li><a href="/Prod2/compare.html">Compare</a></li>
+        <li><a href="/Prod2/products.html">The Shelf</a></li>
+        <li><a href="/Prod2/about.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap"><section class="page-head" style="padding-bottom:0;">
+      <p class="kicker">Decision log</p>
+      <h1 style="font-family:var(--font-display);font-weight:640;font-size:clamp(1.8rem,4vw,2.5rem);margin:0 0 10px;">Decisions</h1>
+      <p class="lede">Every structural decision, its rationale, and its status. The gate rule: suggestions are reviewed here before code changes &mdash; not after.</p>
+    </section></div>
+  <div class="wrap"><div style="display:flex;gap:14px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin:18px 0 26px;font-size:0.88rem;box-shadow:var(--shadow);"><a href="/Prod2/docs/index.html" style="text-decoration:none;color:var(--ink-soft);">Dashboard</a><a href="/Prod2/docs/requirements.html" style="text-decoration:none;color:var(--ink-soft);">Requirements</a><a href="/Prod2/docs/decisions.html" style="text-decoration:none;font-weight:700;color:var(--brand-deep);">Decisions</a><a href="/Prod2/docs/flagged.html" style="text-decoration:none;color:var(--ink-soft);">Flagged</a><a href="/Prod2/docs/suggestions.html" style="text-decoration:none;color:var(--ink-soft);">Suggestions</a><a href="/Prod2/docs/open-questions.html" style="text-decoration:none;color:var(--ink-soft);">Open questions</a><a href="/Prod2/docs/metrics.html" style="text-decoration:none;color:var(--ink-soft);">Metrics</a><a href="/Prod2/docs/sources.html" style="text-decoration:none;color:var(--ink-soft);">Sources</a></div>
+  <div class="data-table-wrap"><table class="data"><thead><tr><th>ID</th><th>Date</th><th>Decision</th><th>Rationale</th><th>Status</th><th>Source</th></tr></thead><tbody><tr><td><strong id="D-01">D-01</strong></td><td>2026-11-19</td><td>Intended ASIN and observed redirect target are recorded in separate fields, never merged.</td><td>Product-intent record requirement; a merged field would launder an unverified identity into a fact.</td><td><span class="status-pill status-done">Adopted</span></td><td>Official listings fetched live</td></tr><tr><td><strong id="D-02">D-02</strong></td><td>2026-11-19</td><td>Tracking ID <code>shopnow047c-20</code> applied to every outbound Amazon link site-wide.</td><td>Associates attribution requires the tag on all links we intend to monetize.</td><td><span class="status-pill status-done">Adopted</span></td><td><a href='https://affiliate-program.amazon.com/help/operating/policies' rel='nofollow noopener' target='_blank'>Program Policies</a></td></tr><tr><td><strong id="D-03">D-03</strong></td><td>2026-11-19</td><td>Disclosure strip above the fold on every page, repeated in footer.</td><td>FTC clear-and-conspicuous placement; Associates statement requirement.</td><td><span class="status-pill status-done">Adopted</span></td><td><a href='https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers' rel='nofollow noopener' target='_blank'>FTC Disclosures 101</a></td></tr><tr><td><strong id="D-04">D-04</strong></td><td>2026-11-19</td><td>rel="sponsored nofollow noopener" on all outbound Amazon links.</td><td>Machine-readable paid-link marking that coexists with the visible disclosure.</td><td><span class="status-pill status-done">Adopted</span></td><td><a href='https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links' rel='nofollow noopener' target='_blank'>Google: qualify outbound links</a></td></tr><tr><td><strong id="D-05">D-05</strong></td><td>2026-11-19</td><td>Reader-facing links use tagged amazon.com/dp/ Special Links built from observed ASINs; submitted short links are not used for readers until their compliance status resolves.</td><td>The short links resolve (observed live) but their policy status is unresolved; readers get links built from listings we have actually read.</td><td><span class="status-pill status-done">Adopted</span></td><td><a href='https://affiliate-program.amazon.com/help/operating/policies' rel='nofollow noopener' target='_blank'>Special Link requirements</a></td></tr><tr><td><strong id="D-06">D-06</strong></td><td>2026-11-19</td><td>S-06 adopted: the cleanup &amp; counter-space guide is the &lsquo;what it is like to live with&rsquo; content.</td><td>Listing specs cannot carry lived-in judgment; Google&rsquo;s thin-affiliation guidance asks for meaningful content.</td><td><span class="status-pill status-done">Adopted</span></td><td><a href='https://developers.google.com/search/docs/essentials/spam-policies' rel='nofollow noopener' target='_blank'>Google: spam policies</a></td></tr><tr><td><strong id="D-07">D-07</strong></td><td>2026-11-19</td><td>Conversion facts enter the ledger only from authorized first-party reports with a provenance string; no scores, rankings or forecasts are derived.</td><td>Analytics must be evidence before optimization; fabricated baselines poison every later decision.</td><td><span class="status-pill status-done">Adopted</span></td><td><a href='https://affiliate-program.amazon.com/help/operating/policies' rel='nofollow noopener' target='_blank'>Associates reporting</a></td></tr><tr><td><strong id="D-08">D-08</strong></td><td>2026-11-19</td><td>Five events (E1&ndash;E5) shipped; privacy-preserving by construction; endpoint optional via one config value.</td><td>Measurement before content decisions; privacy as a design constraint, not a policy page.</td><td><span class="status-pill status-done">Adopted</span></td><td>data/events.schema.json</td></tr><tr><td><strong id="D-09">D-09</strong></td><td>2026-11-19</td><td>Prices and ratings are never published as stable facts; cells stay blank with a flag.</td><td>Both change daily; a copied number is a defect the day after publish.</td><td><span class="status-pill status-done">Adopted</span></td><td>Observed dynamic values on listings</td></tr><tr><td><strong id="D-10">D-10</strong></td><td>2026-11-19</td><td>Dimensions and warranty terms blank until verified from official sources; S-23 methodology published ahead of its numbers.</td><td>Verification-before-values rule; methodology transparency keeps the eventual table checkable.</td><td><span class="status-pill status-done">Adopted</span></td><td>Listing spec tables pending fetch</td></tr><tr><td><strong id="D-11">D-11</strong></td><td>2026-11-19</td><td>Brand name provisional: &lsquo;The Counter Edit&rsquo;.</td><td>A name is an owner-level decision (T-11); the build needs a consistent placeholder that survives replacement.</td><td><span class="status-pill status-open">Open &mdash; owner decision</span></td><td>Suggestions page</td></tr><tr><td><strong id="D-12">D-12</strong></td><td>2026-11-19</td><td>Voice: plain-spoken, source-first, labeled opinions; guides written to it once, deliberately.</td><td>A consistent voice is the difference between a publication and a content farm.</td><td><span class="status-pill status-done">Adopted</span></td><td><a href='https://developers.google.com/search/docs/fundamentals/creating-helpful-content' rel='nofollow noopener' target='_blank'>Google: people-first content</a></td></tr><tr><td><strong id="D-13">D-13</strong></td><td>2026-11-19</td><td>Front page rebuilt as editorial homepage: hero, featured guides, tools, glance table, trust strip.</td><td>Products lead; verification is one footer-click deep.</td><td><span class="status-pill status-done">Adopted</span></td><td>site/index.html</td></tr><tr><td><strong id="D-14">D-14</strong></td><td>2026-11-19</td><td>Visual direction &lsquo;Warm Counter Editorial&rsquo; (cream ground, paprika ink, Fraunces + Inter), implemented from the adopted design brief.</td><td>A decided direction prevents per-page style drift.</td><td><span class="status-pill status-done">Adopted</span></td><td>DESIGN_PROMPT.md</td></tr><tr><td><strong id="D-15">D-15</strong></td><td>2026-11-19</td><td>Illustration-only imagery, labeled as illustration; no generated or copied product photography (photography policy decision recorded as <strong id="D-22">D-22</strong>).</td><td>Program Content rules and the S-18 decision make photography an owner call; illustrations are safe and ownable.</td><td><span class="status-pill status-done">Adopted &mdash; pending T-12</span></td><td><a href='https://affiliate-program.amazon.com/help/operating/agreement' rel='nofollow noopener' target='_blank'>Operating Agreement (Program Content)</a></td></tr><tr><td><strong id="D-16">D-16</strong></td><td>2026-11-19</td><td>One page per question; four guides built from the suggested hypotheses; titles carry no popularity claim.</td><td>Question-shaped content matches buyer intent without pretending to keyword data we do not have.</td><td><span class="status-pill status-done">Adopted</span></td><td><a href='https://developers.google.com/search/docs/fundamentals/creating-helpful-content' rel='nofollow noopener' target='_blank'>Google: people-first content</a></td></tr><tr><td><strong id="D-17">D-17</strong></td><td>2026-11-19</td><td>Publishing cadence: one guide per week (Tuesday); each new guide enters sitemap and feed the day it publishes.</td><td>Cadence is a promise to readers and a measurable habit for the desk.</td><td><span class="status-pill status-done">Adopted</span></td><td>rss.xml / sitemap.xml</td></tr><tr><td><strong id="D-18">D-18</strong></td><td>2026-11-19</td><td>Internal-linking rule: every guide links the comparison, the capacity pillar, the shelf and the category hub; enforced by check.py.</td><td>S-24 compliance becomes a machine-checked invariant instead of a memory task.</td><td><span class="status-pill status-done">Adopted</span></td><td>scripts/check.py</td></tr><tr><td><strong id="D-19">D-19</strong></td><td>2026-11-19</td><td>Evidence rule for trending/popularity claims: a dated link to the snapshot that showed it, or silence.</td><td>Unverifiable popularity claims are a compliance and trust hazard.</td><td><span class="status-pill status-done">Adopted</span></td><td>disclosure.html</td></tr><tr><td><strong id="D-20">D-20</strong></td><td>2026-11-19</td><td>Publishing workflow gates: build &rarr; check (titles, sponsored rel, disclosure, link integrity, flag cross-refs) &rarr; deploy; human endorsement-context review checklist in ENGINE.md.</td><td>Automate the checkable, gate the judgment.</td><td><span class="status-pill status-done">Adopted</span></td><td>ENGINE.md</td></tr><tr><td><strong id="D-22">D-22</strong></td><td>2026-11-19</td><td>Photography policy (S-18): no product photography until the owner picks a rights-safe path; illustration-only until then.</td><td>Program Content includes images; generated or copied photography risks a policy breach and misleads readers.</td><td><span class="status-pill status-open">Open &mdash; owner decision T-12</span></td><td><a href='https://affiliate-program.amazon.com/help/operating/agreement' rel='nofollow noopener' target='_blank'>Operating Agreement (Program Content)</a></td></tr></tbody></table></div>
+  </div>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">The Counter Edit</div>
+        <p style="margin:0 0 8px; color:#cfc7b8;">Question-shaped buyer guides for air fryers and the
+        thermometers that keep them honest. Independent, reader-first, and boring where it matters
+        &mdash; every claim carries its source.</p>
+        <p style="margin:0; font-size:0.82rem; color:#8a8177;">Provisional brand name &mdash; see the
+        <a href="/Prod2/docs/suggestions.html">suggestions page</a> for the open decision.</p>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="/Prod2/guides/index.html">All guides</a></li>
+          <li><a href="/Prod2/compare.html">Compare the five</a></li>
+          <li><a href="/Prod2/products.html">The Shelf</a></li>
+          <li><a href="/Prod2/rss.xml">RSS feed</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Data room</h4>
+        <ul>
+          <li><a href="/Prod2/docs/index.html">Dashboard</a></li>
+          <li><a href="/Prod2/docs/requirements.html">Requirements</a></li>
+          <li><a href="/Prod2/docs/decisions.html">Decisions</a></li>
+          <li><a href="/Prod2/docs/flagged.html">Flagged for review</a></li>
+          <li><a href="/Prod2/docs/suggestions.html">Suggestions</a></li>
+          <li><a href="/Prod2/docs/open-questions.html">Open questions</a></li>
+          <li><a href="/Prod2/docs/metrics.html">Metrics plan</a></li>
+          <li><a href="/Prod2/docs/sources.html">Source register</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-disclosure">
+      <strong>Disclosure:</strong> As an Amazon Associate, The Counter Edit earns from qualifying purchases.
+      outbound product links to Amazon.com on this site are marked <code>rel="sponsored"</code> and carry our
+      Associates tracking ID (<code>shopnow047c-20</code>). They are advertising, and they are labeled as such above the
+      fold on every page. Prices and availability on Amazon change without notice; we do not publish prices
+      we cannot verify at the moment you read. This site is independent and is not owned by or endorsed by Amazon.
+      Compliance references: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="nofollow noopener" target="_blank">Associates Program Policies</a>
+      &middot; <a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="nofollow noopener" target="_blank">FTC Disclosures 101</a>.
+    </div>
+    <div class="foot-legal">
+      <span>&copy; 2026 The Counter Edit. Illustrations are our own; no product photography is used pending the S-18 decision.</span>
+      <span><a href="/Prod2/disclosure.html">Disclosure policy</a> &middot; <a href="/Prod2/docs/index.html">Data room</a></span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
