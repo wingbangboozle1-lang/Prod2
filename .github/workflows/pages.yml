@@ -22,9 +22,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Build the site
+      - name: Build the deployed publication (docs/)
+        run: python3 tools/build.py
+      - name: Release gate — publication
+        run: python3 tools/checks.py
+      - name: Build the preserved Countercraft site (site/)
         run: python3 scripts/build_site.py
-      - name: Release gate
+      - name: Release gate — Countercraft
         run: python3 scripts/verify_site.py
       - uses: actions/configure-pages@v5
         with:
@@ -32,7 +36,7 @@ jobs:
           enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./site
+          path: ./docs
 
   deploy:
     needs: build

@@ -1,0 +1,20 @@
+<p class="eyebrow">The work behind it</p>
+<h1>Privacy</h1>
+<p class="lede">Short version: this site collects almost nothing, on purpose.</p>
+
+<h2>What the site does</h2>
+<ul>
+  <li><strong>No cookies, no accounts, no sign-in.</strong> The site is static pages.</li>
+  <li><strong>No third-party trackers.</strong> No ad networks, no analytics companies, no font CDNs, no social widgets.</li>
+  <li><strong>Outbound click counting</strong> (the local counter) stores running counts in your own browser (localStorage). An outbound click is recorded as an ASIN and a target host only — never the full URL.</li>
+  <li><strong>Nothing is transmitted to any server</strong> while the site's self-hosted analytics endpoint is unconfigured — which is its current state (<a href="flagged.html#F-19">F-19</a>).</li>
+</ul>
+
+<h2>What the future endpoint would do (when deployed)</h2>
+<p>The self-hosted endpoint (<code>analytics-endpoint/server.py</code>) accepts five event names with a site path and optional ASIN, and stores daily counts per event and path. It never reads or stores IP addresses, user agents, referrers or cookies, and writes no request log. Its counts are aggregate numbers, not visitor records.</p>
+
+<h2>What leaves your browser when you click a product link</h2>
+<p>You go to Amazon. Amazon's own privacy terms apply there (<a class="src" href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ" rel="noopener" target="_blank">Amazon Privacy Notice</a>). Those links are paid links, as disclosed on every page.</p>
+
+<h2>The feed</h2>
+<p><a href="feed.xml">The RSS feed</a> is the reader-capture channel of this site, and it collects nothing at all.</p>

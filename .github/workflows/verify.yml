@@ -24,3 +24,9 @@ jobs:
         run: |
           git diff --exit-code -- site/
           git diff --exit-code -- '*.html' 'assets' 'guides' 'rss.xml' 'sitemap.xml' 'robots.txt' '.nojekyll'
+      - name: Build the preserved publication (docs/)
+        run: python3 tools/build.py
+      - name: Verify the preserved publication
+        run: python3 tools/checks.py
+      - name: Publication build is reproducible (committed docs/ matches the build)
+        run: git diff --exit-code -- docs/

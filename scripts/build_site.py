@@ -61,19 +61,37 @@ def by_id(products, pid):
     return None
 
 
+TRACKING_TAG = "shopnow047c-20"
+
+
+def tagged_url(url):
+    """Tagged Special Link: final destination URL with the tag as its parameter
+    (Participation Requirements 2(b)). No shortener (6(v)-(w))."""
+    if "/dp/" in url and "tag=" not in url:
+        sep = "&" if "?" in url else "?"
+        return url + sep + "tag=" + TRACKING_TAG
+    return url
+
+
 def product_link(p, label=None, class_="product-link"):
-    """Outbound affiliate link. Always rel=sponsored, per Google paid-link guidance."""
+    """Outbound affiliate link. rel=sponsored per Google paid-link guidance, nofollow,
+    and the tracking tag on the destination URL (integration fix 2026-11-19)."""
     label = label or p["title"]
     return (
-        '<a class="%s" href="%s" rel="sponsored noopener" target="_blank" '
+        '<a class="%s" href="%s" rel="sponsored nofollow noopener" target="_blank" '
         'data-event="product_click" data-asin="%s">%s</a>'
-        % (class_, esc(p["listing_url"]), esc(p["resolves_to_asin"]), esc(label))
+        % (class_, esc(tagged_url(p["listing_url"])), esc(p["resolves_to_asin"]), esc(label))
     )
 
 
 def ext_link(url, label, cls="src"):
-    """External link. Amazon product-listing links are marked sponsored; others are not."""
-    rel = "sponsored noopener" if url.startswith("https://www.amazon.com/") else "noopener"
+    """External link. Amazon links are marked sponsored; /dp/ product links also get the
+    tracking tag (integration fix 2026-11-19)."""
+    if url.startswith("https://www.amazon.com/"):
+        rel = "sponsored nofollow noopener"
+        url = tagged_url(url)
+    else:
+        rel = "noopener"
     return '<a class="%s" href="%s" rel="%s" target="_blank">%s</a>' % (cls, esc(url), rel, esc(label))
 
 

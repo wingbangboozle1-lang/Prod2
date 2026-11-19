@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "description": "Site-wide settings consumed by tools/build.py. Tracking ID supplied by the owner in the brief (2026-11-19): shopnow047c-20.",
+    "updated_utc": "2026-11-19"
+  },
+  "brand": {
+    "name": "Prod2",
+    "descriptor": "Kitchen notes & buying guides",
+    "tagline": "What to compare before you buy",
+    "name_basis": "Decision D-P03: keep the project's established name (Prod2) as the wordmark, per the carried D-18 rationale — no new trade name is introduced while name clearance (Q-19) is open. A consumer-facing rename is queued as suggestion SG-01."
+  },
+  "tracking_id": "shopnow047c-20",
+  "marketplace": "US (www.amazon.com)",
+  "base_url": "https://wingbangboozle1-lang.github.io/Prod2",
+  "affiliate_link_pattern": "https://www.amazon.com/dp/{asin}?tag=shopnow047c-20",
+  "disclosure_sentence": "As an Amazon Associate we earn from qualifying purchases.",
+  "disclosure_detail": "Product links on this site are paid links (Amazon Associates Special Links). If you buy through them, we may earn a commission at no extra cost to you. We publish only figures read from official listings.",
+  "paid_link_label": "(paid link)",
+  "analytics_endpoint": "",
+  "analytics_endpoint_note": "Empty by default: the site sends nothing to any server until a self-hosted endpoint URL is set here and the site is rebuilt. Deployment of analytics-endpoint/server.py is tracked as flag F-19.",
+  "editorial": {
+    "voice": "Warm, direct, practical. Take a position inside verified facts; address the reader; never describe the checking process as the story (D-12).",
+    "evidence_rule": "Every published figure resolves to a dated read of an official listing or an official policy page. Prices and star ratings are not published (F-02). Popularity claims only as dated snapshots of an official page (D-19)."
+  }
+}

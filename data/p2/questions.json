@@ -1,0 +1,118 @@
+{
+  "_meta": {
+    "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
+    "updated_utc": "2026-11-19"
+  },
+  "questions": [
+    {
+      "id": "Q-01",
+      "area": "Money",
+      "question": "Is the Associates account enrolled under tracking ID shopnow047c-20, and has each published link been validated in that account?",
+      "known": "The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). All five supplied short links resolved without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central.",
+      "unknown": "Account enrollment status; Partner Tag registration; whether test clicks report.",
+      "how_to_discover": "Owner logs into Associates Central: confirm the Partner Tag, generate or validate one Special Link per product, run a test click and read it in the report (protocol on the measurement page).",
+      "answerable_by": "The account holder.",
+      "blocks": ["Any earnings claim", "Scaling the link set", "S-08"],
+      "flags": ["F-57", "F-58"]
+    },
+    {
+      "id": "Q-19",
+      "area": "Legal",
+      "question": "Is the site's own trade name cleared, and does it contain an Amazon Mark?",
+      "known": "No Amazon Mark appears in any page title, meta description or target keyword (tools/checks.py fails the build if one does). The current wordmark is the project's established name 'Prod2' (D-P03), served under a github.io subpath — the site has no domain of its own yet.",
+      "unknown": "Whether a consumer-facing name (candidates in SG-01) collides with an existing trademark.",
+      "how_to_discover": "Re-read the Trademark Guidelines (S-POL) for domain and site names; run any candidate name through a trademark search before registering a domain.",
+      "answerable_by": "The owner, with a trademark search.",
+      "blocks": ["SG-01 (rename)", "Domain purchase"],
+      "flags": []
+    },
+    {
+      "id": "Q-23",
+      "area": "Measurement",
+      "question": "Where can the self-hosted analytics endpoint run?",
+      "known": "analytics-endpoint/server.py is standard-library Python, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.",
+      "unknown": "Which host the owner wants (any VM/container/Function that speaks HTTPS).",
+      "how_to_discover": "Owner picks a host; run the server; set the endpoint in data/p2/settings.json; rebuild. See the measurement page for the event contract.",
+      "answerable_by": "The owner.",
+      "blocks": ["Shared click/conversion data", "SG-06"],
+      "flags": ["F-19"]
+    },
+    {
+      "id": "Q-27",
+      "area": "Content",
+      "question": "May the site publish prices and ratings under a dated-snapshot rule?",
+      "known": "Prices/ratings are currently withheld (F-02). D-19 already allows popularity claims as dated snapshots of official pages; extending that discipline to prices is an owner decision because it adds a re-verification obligation to every published page.",
+      "unknown": "Whether the owner wants the upkeep.",
+      "how_to_discover": "Decide SG-05; if yes, the checks must enforce 'price + read date' pairing.",
+      "answerable_by": "The owner.",
+      "blocks": ["SG-05"],
+      "flags": ["F-02"]
+    },
+    {
+      "id": "Q-31",
+      "area": "Product identity",
+      "question": "What is P2's exact preset/function count (24 or 25)?",
+      "known": "The title read 2026-11-19 says '24 One-Touch Preset Options'. Prior reads saw '24 cooking functions' and one section counting 25.",
+      "unknown": "The count as the manufacturer defines it.",
+      "how_to_discover": "Dated re-read of the listing's full spec/overview sections, or the manufacturer's product page.",
+      "answerable_by": "Any verification session.",
+      "blocks": [],
+      "flags": ["F-26"]
+    },
+    {
+      "id": "Q-47",
+      "area": "Content",
+      "question": "May the site ask readers for an email address, and what consent text would that need?",
+      "known": "The RSS feed captures readers without collecting personal data. Participation Requirement 6(g) bars rewarding clicks, so any list must stay clear of the affiliate links.",
+      "unknown": "Whether a list is wanted at all, and what the consent/privacy text should say.",
+      "how_to_discover": "Owner decision (SG-04); if yes, get the consent and privacy text reviewed before the first form ships.",
+      "answerable_by": "The owner, with a privacy reviewer.",
+      "blocks": ["SG-04"],
+      "flags": []
+    },
+    {
+      "id": "Q-P01",
+      "area": "Measurement",
+      "question": "Which five events should the campaign ledger track?",
+      "known": "Resolved by adoption: the ledger's five defined events are impression, click, session, order, refund, each with the official attribution window from the Commission Income Statement (see measurement page). The site-side endpoint records five separate local events (page_view, outbound_click, guide_read_75, category_click, feed_click).",
+      "unknown": "Nothing — recorded so the definition is checkable (D-P05).",
+      "how_to_discover": "n/a",
+      "answerable_by": "n/a",
+      "blocks": [],
+      "flags": []
+    },
+    {
+      "id": "Q-P02",
+      "area": "Editorial",
+      "question": "Which question-shaped guide should be published next, and on what evidence of demand?",
+      "known": "The four brief-mandated guides plus one thermometer guide ship now. Editorial hypotheses are working titles, not claims about search volume (D-19).",
+      "unknown": "Real query demand. No Search Console or analytics data exists yet (F-19).",
+      "how_to_discover": "After measurement is live: read first-party queries (Search Console + endpoint counts) for 4-6 weeks, then choose topics from measured queries (publishing cadence on the measurement page).",
+      "answerable_by": "Data, once collected.",
+      "blocks": ["S-25 (organic growth plan)"],
+      "flags": ["F-19"]
+    },
+    {
+      "id": "Q-P03",
+      "area": "Product identity",
+      "question": "Do the five submitted links continue to point at the same five products over time?",
+      "known": "On 2026-11-19 all five resolved to the recorded ASINs. Listings drift (titles change, variants swap, default offers change — F-44, F-49, F-29).",
+      "unknown": "Future drift.",
+      "how_to_discover": "Re-run the verification pass each season or before any campaign push; record dated observations in the register.",
+      "answerable_by": "Any verification session.",
+      "blocks": [],
+      "flags": ["F-44", "F-49"]
+    },
+    {
+      "id": "Q-P04",
+      "area": "Editorial",
+      "question": "Should the two thermometer products get their own buying guide cluster (seasonal grilling / holiday gift angle)?",
+      "known": "Thermometers are half the catalog; one thermometer question-guide ships now. A seasonal cluster is an editorial and SEO investment, not a data problem.",
+      "unknown": "Owner appetite for the extra content.",
+      "how_to_discover": "Review SG-03 alongside measured queries (Q-P02).",
+      "answerable_by": "The owner.",
+      "blocks": ["SG-03"],
+      "flags": []
+    }
+  ]
+}

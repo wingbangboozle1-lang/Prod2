@@ -1,0 +1,38 @@
+<p class="eyebrow">The work behind it</p>
+<h1>Compliance gate: disclosures and link policy</h1>
+<p class="lede">How the Associates disclosure, the sponsored-link marking and the endorsement rules are enforced in the publishing workflow — automatically where possible, by gate where not.</p>
+
+<h2>Disclosure placement (enforced by the build gate)</h2>
+<ul>
+  <li><strong>Under the masthead on every page</strong>, above the content — including the front page and this one — carrying the required sentence verbatim: <em>"{{disclosure}}"</em></li>
+  <li><strong>Repeated in every footer</strong>, with a link to this page.</li>
+  <li>Product links carry the <strong>(paid link)</strong> label next to the call to action.</li>
+  <li><code>tools/checks.py</code> fails the build if any page lacks the disclosure strip or the footer sentence.</li>
+</ul>
+
+<h2>Outbound link policy (enforced by the build gate)</h2>
+<ul>
+  <li>Every product link is an Amazon Associates Special Link of the form <code>https://www.amazon.com/dp/&lt;ASIN&gt;?tag=shopnow047c-20</code> — the final destination URL with the tag as a parameter, no shortener (Participation Requirements 2(b), 6(v)–(w): a link must not obscure where it goes).</li>
+  <li>Every product link carries <code>rel="sponsored nofollow noopener"</code> per <a class="src" href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank">Google's guidance on paid links</a> (S-GOUT) — without replacing the required disclosure.</li>
+  <li>The owner-supplied short links are recorded in the <a href="products.html#intent-record">intent record</a> verbatim and are not judged valid or invalid (FLG-003 unresolved).</li>
+  <li><code>tools/checks.py</code> fails the build on any amazon.com/dp/ link missing the tag or the sponsored rel.</li>
+</ul>
+
+<h2>Endorsement and review context</h2>
+<ul>
+  <li>This site publishes <strong>listed specifications, not product endorsements in the FTC's testimonial sense</strong>: nobody here has used the products (<a href="decisions.html#D-06">D-06</a>), and the site says so.</li>
+  <li>Manufacturer claims ("±0.5°F accuracy", "NIST-certified", "1000°F heat safe") are recorded as the listing's statements with dates — never adopted as this site's own claims.</li>
+  <li>Popularity statements are allowed only as dated snapshots of an official page (<a href="decisions.html#D-19">D-19</a>); "trending", "best-selling" and similar bare adjectives are banned by the checks.</li>
+</ul>
+
+<h2>The rules we check against (official sources)</h2>
+<ul>
+  <li><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank">Associates Program Operating Agreement</a> (S-OA) — including Section 5 on identification.</li>
+  <li><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">Associates Program Policies</a> (S-POL) — Participation Requirements 2(b), 6(v), 6(w).</li>
+  <li><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE" rel="noopener" target="_blank">Associates help: identifying yourself as an Associate</a> (S-HELP).</li>
+  <li><a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank">FTC Disclosures 101</a> (S-FTC1) and <a class="src" href="https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews" rel="noopener" target="_blank">FTC Endorsement Guides</a> (S-FTC2).</li>
+  <li><a class="src" href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank">Google spam policies (thin affiliation)</a> (S-GSPAM) — why this site leads with questions and sourced tables.</li>
+</ul>
+
+<h2>What is not yet verified (and is claimed nowhere)</h2>
+<p>The tracking ID's registration and activity (<a href="flagged.html#F-57">F-57</a>) and the one-link-per-product reporting test (<a href="flagged.html#F-58">F-58</a>) are owner-side actions inside Associates Central. Until they pass, the site publishes the links and the disclosure but claims no attributed click, order or revenue.</p>

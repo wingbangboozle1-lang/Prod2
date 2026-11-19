@@ -79,6 +79,10 @@ def main():
         if not md or not md.group(1).strip():
             errors.append("%s: missing or empty meta description." % rp)
 
+        # 3b. every /dp/ product link carries the tracking tag (integration fix 2026-11-19)
+        for href in amazon_link_re.findall(doc):
+            if "/dp/" in href and "tag=shopnow047c-20" not in href:
+                errors.append("%s: product link missing tag=shopnow047c-20: %s" % (rp, href))
         # 3. every outbound Amazon product link is rel="sponsored"
         for href in amazon_link_re.findall(doc):
             tag_start = doc.find('href="%s"' % href)
