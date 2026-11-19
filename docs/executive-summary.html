@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive summary: five Amazon products, what is verified, and what is not</title>
+<meta name="description" content="Executive summary of the site: the five supplied products, what is verified from official sources, what is not, and the decisions still open.">
+<link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/executive-summary.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Countertop Journal">
+<meta property="og:title" content="Executive summary: five Amazon products, what is verified, and what is not">
+<meta property="og:description" content="Executive summary of the site: the five supplied products, what is verified from official sources, what is not, and the decisions still open.">
+<meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/executive-summary.html">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="alternate" type="application/rss+xml" title="Countertop Journal guides" href="feed.xml">
+
+</head>
+<body data-analytics-endpoint="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="index.html">Countertop Journal</a>
+    <p class="tagline">Working name · Air fryers and meat thermometers, with the listing behind every row</p>
+  </div>
+</header>
+<div class="disclosure-strip" id="disclosure" role="note">
+  <div class="wrap"><strong>Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. This site is not endorsed by or affiliated with Amazon. Product links are marked sponsored.</div>
+</div>
+<nav class="nav" aria-label="Main">
+  <div class="wrap"><ul><li><a href="index.html">Home</a></li><li><a href="air-fryers.html">Air fryers</a></li><li><a href="meat-thermometers.html">Meat thermometers</a></li><li><a href="guides/index.html">Guides</a></li><li><a href="products.html">Products</a></li><li><a href="analysis.html">Analysis</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="about.html">About</a></li></ul></div>
+</nav>
+<main id="main" class="wrap">
+
+<article class="article">
+  <p class="kicker">Executive summary · as of 2026-11-19</p>
+  <h1>Executive summary</h1>
+  <h2>What the site is</h2>
+  <p>A static, text-first product site for five Amazon products in two categories: air fryers and meat thermometers. It is published from this repository through GitHub Pages.</p>
+  <h2>What is verified</h2>
+  <ul>
+    <li>All five supplied short links resolve to Amazon product pages. The observed ASINs are in the product table (<a href="products.html">products</a>).</li>
+    <li>The Associates disclosure wording is taken verbatim from Section 5 of the Operating Agreement (<a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="sponsored noopener">source</a>).</li>
+    <li>Every product link is marked sponsored, and the verify script checks it on every build.</li>
+  </ul>
+  <h2>What is not verified, and why it matters</h2>
+  <ul>
+    <li>The intended ASIN for each link is not confirmed (<a href="flagged.html#FR-02">FR-02</a>). The site shows the observed redirect target and keeps the intended field blank.</li>
+    <li>Special Link tests have not been run (<a href="flagged.html#FR-03">FR-03</a>). This needs the owner’s Associates account.</li>
+    <li>No price, rating, commission rate or dimension is published (<a href="flagged.html#FR-05">FR-05</a>, <a href="flagged.html#FR-06">FR-06</a>, <a href="flagged.html#FR-08">FR-08</a>).</li>
+    <li>No server-side analytics runs; GitHub Pages cannot host the endpoint (<a href="flagged.html#FR-09">FR-09</a>).</li>
+  </ul>
+  <h2>Decisions the owner needs to make</h2>
+  <p>Ten items are on the <a href="suggestions.html">suggestions page</a>. The first three decide whether the product links can be relied on: confirm intended ASINs, run the Special Link test, and decide on price display.</p>
+  <h2>What the site does not claim</h2>
+  <p>No ranking, no performance result, no ‘trending’ or popularity claim, no conversion score, and no revenue forecast. The campaign ledger is empty (<a href="ledger.html">ledger</a>).</p>
+  <h2>Flagged for review</h2>
+  <p>There are 18 flagged items, with sources, on the <a href="flagged.html">Flagged for Review page</a>. Flags do not block publication.</p>
+</article>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer-disclosure" id="footer-disclosure"><strong>Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. This site is not endorsed by or affiliated with Amazon.</p>
+    <nav aria-label="Site map"><ul class="footer-links"><li><a href="executive-summary.html">Executive summary</a></li><li><a href="products.html">Full product table</a></li><li><a href="analysis.html">Analysis and build status</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions for review</a></li><li><a href="ledger.html">Campaign ledger</a></li><li><a href="sources.html">Source register</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="about.html">About and method</a></li><li><a href="feed.xml">RSS feed</a></li><li><a href="sitemap.xml">Sitemap</a></li></ul></nav>
+    <p class="fine">Every page is dated by its source fetch. Product data was checked on 2026-11-19. Editorial byline: “Editorial team” (no named author supplied, see <a href="flagged.html#FR-11">FR-11</a>). Brand name is a working name (<a href="flagged.html#FR-12">FR-12</a>).</p>
+  </div>
+</footer>
+<script src="assets/tracker.js" defer></script>
+</body>
+</html>
