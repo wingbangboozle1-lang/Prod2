@@ -22,6 +22,7 @@ Statuses: `unclaimed` · `in progress` · `done` · `needs review`. Items marked
 | T11 Publish to GitHub Pages | in progress | f2613c86 | repo Pages setting (source: main `/docs`) | Set after merge. Status recorded below. |
 | T12 Integration with PR #1 (session d12d2304): one site, one brand, one Pages source | in progress | f2613c86 | all | Conflicts in COORDINATION.md and README.md resolved (see Handoffs). PR and merge result recorded below. |
 | T13 Port the four PR #1 guides into the generated site | done | f2613c86 | `archive/counter-notes-v1/`, `scripts/build_site.py`, `docs/guides/` | Texts kept; two sentences about the short links updated to match the 2026-11-19 resolution. Original root site archived, not deleted. |
+| T14 Optional self-hosted analytics endpoint and five-event aggregate collector | in progress | `arena/3f1d9d65-prod2` | `server.mjs`, `analytics-client.mjs`, `package.json`, `.gitignore`, `tests/server.test.mjs`, `docs/analytics-endpoint.html` | GitHub Pages remains static. Node host mode is optional and requires separate deployment; no existing tracker file will be edited. |
 
 ## Sources (official unless labelled)
 
@@ -122,3 +123,10 @@ This repository initially contained only a minimal README and no prior coordinat
 - Live site verified at https://wingbangboozle1-lang.github.io/Prod2/; fetched the homepage, evidence page, suggestions page, RSS feed, and sitemap after deployment.
 - Main branch is the authorized Pages deployment source; feature-branch build passes and deploy is skipped by design because environment protection rejects feature branches.
 - Note: GitHub's Pages API reported `build_type: legacy` / source `main` while the Actions deployment job also succeeded. The live files at the expected origin were fetched successfully; check the repository Pages settings if deployment mode is later changed.
+
+## Current Arena session handoff — `arena/3f1d9d65-prod2`
+
+- The current checkout started from `c6dc49a`, before the coordination board and publication work landed on `main`. While preparing a separate full-site build, `git pull --rebase origin main` exposed the intervening PR #1–#4 work and the merged PR #2 integration. No files from `origin/main` were discarded.
+- The full-site duplicate generated from the stale checkout is preserved in a local stash for this turn and is not being applied over the merged `docs/` site. This session will work only on the separate self-hosted event endpoint in T14.
+- Request to T6/T7 integration owner: please review whether the existing `docs/assets/tracker.js` should send the documented five event types when served by an API-capable host. This session will not edit that existing tracker/build scope; the new Node server can optionally inject its own event client at response time.
+- Official source additionally checked: GitHub Docs, https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages — GitHub Pages is a static hosting service; its documentation also says visitor IP addresses are logged for security. This host-level collection is distinct from the app's aggregate endpoint.
