@@ -10,16 +10,16 @@ Current sessions: **session-arena-9f84489c** (branch `arena/9f84489c-prod2`, pub
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
-| P-01 Shop-first front page (publication front page, products before process) | in progress | arena/9f84489c-prod2 | `content/pages/index.html`, `tools/build.py` |
-| P-02 Nav labels + guides hub page (single nav group; dashboards footer-only) | in progress | arena/9f84489c-prod2 | `tools/build.py`, `content/pages/guides.html` |
-| P-03 Three new question-shaped guides (complete the eight-topic calendar) | in progress | arena/9f84489c-prod2 | `content/pages/guide-*.html`, `tools/build.py` |
-| P-04 Seasons + clusters (holiday hosting cluster, pillar wiring, cadence) | in progress | arena/9f84489c-prod2 | `data/p2/calendar.json`, `content/pages/*` |
-| P-05 Parallel-pass rows: RSS subscribe affordances, Search Console readiness, reader capture | in progress | arena/9f84489c-prod2 | `tools/build.py`, `data/p2/settings.json`, `data/p2/events.json` |
-| P-06 Suggestions queue expansion (design-direction + decision-making paths) | in progress | arena/9f84489c-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
-| P-07 Questions register clarity pass (status table, discovery suggestions) | in progress | arena/9f84489c-prod2 | `data/p2/questions.json`, `content/pages/questions.html` |
-| P-08 Docs sync (README, EXECUTIVE_SUMMARY, DECISIONS) + decision log entries | in progress | arena/9f84489c-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `data/p2/decisions.json` |
-| P-09 Gate extension (feed covers guides, internal-link rule, capture consent) | in progress | arena/9f84489c-prod2 | `tools/checks.py` |
-| P-10 Integration: rebuild, re-verify, PR to main, merge, Pages live check; PR #16 handoff | pending | arena/9f84489c-prod2 | `docs/`, root mirror, `archive/countertop-dispatch/` |
+| P-01 Shop-first front page (publication front page, products before process) | done | arena/9f84489c-prod2 | `content/pages/index.html`, `tools/build.py` |
+| P-02 Nav labels + guides hub page (single nav group; dashboards footer-only) | done | arena/9f84489c-prod2 | `tools/build.py`, `content/pages/guides.html` |
+| P-03 Three new question-shaped guides (complete the eight-topic calendar) | done | arena/9f84489c-prod2 | `content/pages/guide-*.html`, `tools/build.py` |
+| P-04 Seasons + clusters (holiday hosting cluster, pillar wiring, cadence) | done | arena/9f84489c-prod2 | `data/p2/calendar.json`, `content/pages/*` |
+| P-05 Parallel-pass rows: RSS subscribe affordances, Search Console readiness, reader capture | done | arena/9f84489c-prod2 | `tools/build.py`, `data/p2/settings.json`, `data/p2/events.json` |
+| P-06 Suggestions queue expansion (design-direction + decision-making paths) | done | arena/9f84489c-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| P-07 Questions register clarity pass (status table, discovery suggestions) | done | arena/9f84489c-prod2 | `data/p2/questions.json`, `content/pages/questions.html` |
+| P-08 Docs sync (README, EXECUTIVE_SUMMARY, DECISIONS) + decision log entries | done | arena/9f84489c-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `data/p2/decisions.json` |
+| P-09 Gate extension (feed covers guides, internal-link rule, capture consent) | done | arena/9f84489c-prod2 | `tools/checks.py` |
+| P-10 Integration: rebuild, re-verify, PR to main, merge, Pages live check; PR #16 handoff | done | arena/9f84489c-prod2 | `docs/`, root mirror, `archive/countertop-dispatch/` |
 
 Protocol notes for this claim:
 - Branch `arena/9f84489c-prod2` from `da11cd4` (main at PR #15). Arena allows one branch per session; this session is both working and integration session on this branch (same standing note as the arena/44093825 claim below).
@@ -614,3 +614,92 @@ here. Parallel sessions active during this pass: `arena/236bc1ed-prod2`, `arena/
 
 ### Still open after this pass (flagged, non-blocking)
 F-01, F-03, F-08, F-19, F-26, F-29, F-44, F-49, F-57, F-58, F-66, F-P01, F-P04, F-P05, F-P06, F-P07, F-P08, F-P12 — plus owner-only gates Q-01 / Q-19 / Q-23 / Q-27 / Q-P06 (Associates Central validation, trademark clearance, endpoint host, price policy, domain). None blocks publication.
+
+
+---
+
+# Integration record — arena/9f84489c-prod2 (publication pass, 2026-11-19)
+
+Session register: session arena/9f84489c-prod2, branch `arena/9f84489c-prod2`, claimed P-01..P-10 at
+2026-11-19 21:46 UTC (claim commit `f551716`, pushed before any work started).
+
+## What this pass shipped (P-01..P-09)
+
+- **Shop-first front page** (P-01): product cards before any data table; hero promise + method line +
+  receipt strip; seasonal desk; cluster pillars; subscribe + question-capture modules; byline strip;
+  the sourced table last. (D-P07)
+- **Nav labels + guides hub** (P-02): reader nav Compare · Products · Guides · Buying guide ·
+  Air fryers · Thermometers; `guides.html` hub grouping guides by cluster and season; every
+  dashboard surface stays in the one "The work behind it" group + footer.
+- **Three new question-shaped guides** (P-03): guide-how-many-quarts, guide-two-baskets-or-one,
+  guide-holiday-hosting — completing the eight-topic calendar alongside PR #20's
+  guide-instant-vs-leave-in (9 question guides + buying guide live).
+- **Seasons + clusters** (P-04): `data/p2/calendar.json` (14-day cadence, next due 2026-12-03;
+  holiday-hosting desk live; grilling desk staged; two clusters with pillars, every guide
+  gate-enforced to reach compare + buying guide + its pillar).
+- **Parallel-pass rows SG-27..SG-30** (P-05) per the brief's own numbering: nav labels (shipped),
+  RSS feed + subscribe affordances + feed_click + gate coverage (shipped), Search Console
+  readiness + token slot + owner checklist (accepted; verification owner action — F-P13 / Q-P08),
+  consent-first reader capture (accepted; form ships dark — F-P14 / Q-47; D-P08).
+- **Decision support** (P-06/P-07): suggestions SG-27..SG-37 (incl. three fully specified design
+  directions feeding DESIGN_PROMPT.md — SG-31, Q-P09), shortest-credible-path block (SG-32),
+  progress notes merged onto SG-03/04/06/09/13 and cross-refs onto SG-15..17; questions register
+  with scannable status table + Q-P08/Q-P09.
+- **Docs sync** (P-08): ENGINE.md (10 gate sections / 25 pages), DECISIONS.md (D-P07..D-P09),
+  EXECUTIVE_SUMMARY.md, README.md.
+- **Gate extension** (P-09): tools/checks.py "publication" section (S-24 pillar-linking rule as an
+  automated check — SG-09 shipped; feed covers every guide; capture-gate + verification-meta
+  consistency).
+
+## Merge / conflict log (nothing discarded)
+
+`origin/main` moved three times during this session (PRs #17–#22, then #24/#26). Two integration
+rounds unioned them into this branch before the PR:
+
+1. **Round 1 (merge commit `1a3066d`)** — union with PRs #17–#22:
+   - `tools/build.py`: their guide-instant-vs-leave-in registration + my guides hub/new guides/hooks.
+   - `data/p2/{flags,questions,suggestions}.json`: this pass's rows renumbered (F-P06/07 → F-P09/10
+     at the time; Q-P05/06 → Q-P08/P09; SG-11..17 → SG-31..37) so PR #17's rows stayed intact;
+     SG-27..SG-30 adopted per the brief's numbering; progress notes merged onto SG-03/04/06/09/13.
+   - `content/pages/index.html`: shop-first flow + their benefit-led hero line and callout.
+   - `COORDINATION.md`: both session claims kept.
+2. **Round 2 (merge commit `3299766`)** — union with PRs #24/#26 (T-19..T-22):
+   - Their validity gate (+89 lines checks.py) coexists with my publication gate; their rendering
+     fixes (F-P09..F-P11: disclosure paren artifact, products.html duplicate ids, nested CTA) verified landed.
+   - This pass's rows renumbered again: F-P09/10 → **F-P13/F-P14** (PR #24 took F-P09..F-P12);
+     references updated across content, settings, questions.
+   - Their validity gate caught two real defects in this branch, fixed at source:
+     products_table rows now `id="row-Pn"` (cards keep the Pn anchors guides link to), and SG-31 now
+     cites only register-local ids (D-22/Q-P05, not the predecessor register's Q-05/SG-18).
+   - Their SG-15..17 cross-referenced with my SG-31/33/35 (same ground; merge when the owner picks).
+
+## PR #16 handoff (Countertop Dispatch, arena/30a7028a-prod2)
+
+Claim was >60 minutes stale with no commits and its stated merge plan never ran; PR #16 was closed
+unmerged at 21:51 UTC (by a parallel session). Per the handoff rule and the standing one-site rule
+(INT-06), its full tree is preserved verbatim at `archive/countertop-dispatch/` (snapshot of commit
+`d77bb9f`, provenance README included) and its branch remains on the remote. `robots.txt` now
+disallows `/Prod2/archive/` so only one site is indexable.
+
+## PR / merge / deploy record
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/27 |
+| Merge result | **Merged 2026-11-19 22:20:16 UTC**, merge commit `acd5aeae96d7` |
+| Workflows on merge commit | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Checks at merge | tools/checks.py ALL PASS (25 pages, 10 sections) · scripts/verify_site.py PASS · npm test 2/2 |
+| Pages | **built** for `acd5aea` (API status `built`, 2026-11-19T22:20:18Z), legacy `main /` root serving; root mirror byte-identical to `docs/` (same md5s), so the live URL serves exactly the gated build |
+| Live site | https://wingbangboozle1-lang.github.io/Prod2/ (direct live-fetch unavailable from this sandbox's egress allowlist; verified via the Pages API + mirror byte-match + green workflows) |
+
+## Notes for the open parallel PRs (protocol: logged, not edited)
+
+- **PR #23 (arena/5e692632)** — its SG-27..30 rows are already on main under the same IDs (shipped/
+  accepted states with progress notes, per the brief's mandate); its hero byline + "Start here" path
+  are unique and worth rebasing in. Rebase onto `acd5aea`; its base (PR #18) predates #19–#22.
+- **PR #25 (arena/b650562d)** — "Decision-support portal v2, nine-guide shop front" overlaps SG-32
+  (decision queue) and the guides hub; rebase onto `acd5aea` and cross-reference SG-32/SG-31 in its
+  rows rather than duplicating them.
+- Register numbering is now dense-and-stable: flags F-01..F-P14, questions Q-01..Q-P09 (plus
+  Q-19/23/27/31/47 carried), suggestions SG-01..SG-17 + SG-27..SG-37. New rows should continue from
+  F-P15 / Q-P10 / SG-38.
