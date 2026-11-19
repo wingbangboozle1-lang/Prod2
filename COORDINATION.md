@@ -29,4 +29,5 @@ This repository initially contained only a minimal README and no prior coordinat
 
 - `git diff --check` passed.
 - HTML check covered all 7 HTML pages: unique page titles present; descriptions and disclosure strips present; local links resolve; the five product URLs carry `rel="sponsored"` (also `nofollow`); sitemap and RSS XML parse successfully.
+- First Pages workflow attempt failed because `upload-pages-artifact` was given a multiline path list; fixed by assembling an explicit `_site` artifact. The artifact upload/build then passed, but deployment from the feature branch was blocked by GitHub Pages environment protection. The workflow now deploys only from `main`; verify the post-merge main-branch run and hosted site before calling it live.
 - Link/source validation is not a substitute for checking actual hosted Pages deployment, Search Console, or Associates link reports. Those remain flagged, not marked verified.
