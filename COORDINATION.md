@@ -27,7 +27,7 @@ session once all other tasks are done.
 | T8 — Suggestions / decision portal (questions, info needed, path chooser) | done | session-arena-8ff10f50-prod2 | `data/suggestions.json`, `site/suggestions.html`; `docs/suggestions.html` |
 | T9 — Flagged for Review page | done | session-arena-8ff10f50-prod2 | `site/flagged.html`; `docs/flagged.html` |
 | T10 — Verification gate (sources per row, rel=sponsored, disclosure, sitemap) | done | session-arena-8ff10f50-prod2 | `scripts/verify_site.py`; `tools/checks.py` |
-| T11 — Integration, PR, merge, GitHub Pages deploy | in progress | session-arena-8ff10f50-prod2 | `.github/workflows/pages.yml`, `site/`, `docs/`, `main` |
+| T11 — Integration, PR, merge, GitHub Pages deploy | done | session-arena-8ff10f50-prod2 | `.github/workflows/pages.yml`, `site/`, `docs/`, `main` |
 | T12 — Shop-like product-forward landing page | in progress | session-arena-8ff10f50-prod2 | `scripts/build_site.py` (index body), `data/articles.json` |
 | T13 — Decision-input questions + missing-info discovery list | done | session-arena-8ff10f50-prod2 | `data/open-questions.json`, `site/suggestions.html` |
 
@@ -48,7 +48,7 @@ No other session has an unexpired claim on these files. If this session stops, a
 
 | PR | What | Result |
 | --- | --- | --- |
-| — | Integration: shop-like landing page + both builds verified + Pages deploy | pending |
+| #19 | Integration: product-forward landing page + transparency flag F-P08 + both builds verified + Pages deploy | Merged into `main` as merge commit `0030f90a69b53ecd226923ddd6125dc795f0b282`; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
 
 ## Task details
 
