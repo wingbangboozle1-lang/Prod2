@@ -1,0 +1,16 @@
+{
+  "generated": "2026-11-19",
+  "tracking_id": "shopnow047c-20",
+  "note": "Evidence-based iteration. The ledger starts empty and well-defined. Timestamp, source, channel, eligible sessions, clicks and reported orders are added ONLY when obtained from authorized first-party reports (e.g. the Associates Performance Report). No conversion score or revenue forecast is presented. A dated provenance trail is kept for every added row.",
+  "columns": [
+    "timestamp",
+    "source",
+    "channel",
+    "eligible_sessions",
+    "clicks",
+    "reported_orders",
+    "provenance_date",
+    "provenance_note"
+  ],
+  "rows": []
+}
