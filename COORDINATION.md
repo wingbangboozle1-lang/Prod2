@@ -547,3 +547,70 @@ freshness ok) · `scripts/verify_site.py` VERIFY OK (18) · `npm test` 2/2 · CI
 - Still open (flagged, non-blocking): F-01, F-02, F-03, F-19, F-57, F-58, F-P06, F-P07, and the
   owner-only gates Q-01 / Q-19 / Q-23 / Q-27 (Associates Central validation, trademark, endpoint host,
   price policy). Those require account/host access this environment cannot reach and stay as decisions.
+---
+
+# Session arena/1ca951c0-prod2 — claim (2026-11-19)
+
+Branch `arena/1ca951c0-prod2`, based on consolidated `main` (`3cd056a`, after PRs #17–#21).
+Single Arena session: it works its scope and is also the integration pass for that scope,
+merging to `main` via a pull request. Claimed after rebasing onto `origin/main`; no other
+session holds an active claim on the files below at claim time.
+
+**Scope (non-overlapping with the merged #17–#20 claims, which covered the registers'
+suggestion/question/flag additions and the front-page copy pass):**
+
+| Task | Status | Session | Scope (files) | Notes |
+|---|---|---|---|---|
+| T-19 Fix three rendering defects found in a line-by-line review of the built pages: (a) disclosure strip renders `((paid link))` (double-paren artifact, all pages), (b) front page CTA renders a nested `<p>` inside `<p>`, (c) `products.html` ships duplicate `id="P1..P5"` (cards + fact headings) | done | arena/1ca951c0-prod2 | `tools/build.py` (DISCLOSURE_STRIP wording only), `content/pages/index.html` (CTA wrapper), `content/pages/products.html` (fact-heading anchors) | Fix the generator, not the output; output regenerated below. |
+| T-20 Put a gate in front of what can be automated: add an HTML-validity + cross-reference section to `tools/checks.py` (nested `<p>`, duplicate `id`s, the `((` artifact, fragment links `page.html#id` resolve, register ids F-/Q-/SG-/D- referenced in pages exist) | done | arena/1ca951c0-prod2 | `tools/checks.py` | Gate must fail on each defect class above if reintroduced. |
+| T-21 Design suggestion pass feeding `DESIGN_PROMPT.md` (the brief a redesign implements): queue the visual-overhaul suggestions not yet covered by SG-01..SG-14, and record the two fixed defects as resolved flags with evidence links | done | arena/1ca951c0-prod2 | `data/p2/suggestions.json`, `data/p2/flags.json`, `DESIGN_PROMPT.md` (queued-inputs note only) | Proposals only — nothing visual is implemented in this pass. |
+| T-22 Rebuild (`tools/build.py` → `docs/` + root mirror), run all gates, record sources/verification/irregularities here, PR → `main`, merge, confirm Pages deploy, record PR + merge result | done | arena/1ca951c0-prod2 | `docs/`, root mirror, this file | Runs last. |
+
+**Verification boundary (this session):** this sandbox's egress allowlist does not include
+`amazon.com`, `ftc.gov` or `developers.google.com`, so no product fact or compliance text is
+re-fetched here; those keep their dated register citations (last live reads 2026-11-19,
+`data/p2/sources.json`, `data/p2/verification-2026-11-19.json`). What this session verifies
+directly: the built HTML of every published page, the generator sources, all gate runs, and
+internal cross-reference integrity. Nothing is marked verified that was not checked here.
+
+**Conflict log:** none at claim time. PR #16 (`arena/30a7028a-prod2`, stale since 14:17 UTC,
+based on the initial commit) was closed by another session at 21:51 UTC — no action needed
+here. Parallel sessions active during this pass: `arena/236bc1ed-prod2`, `arena/8ff10f50-prod2`,
+`arena/9f7a78d8-prod2` (all their PRs merged before this claim).
+
+---
+
+## PR / merge / deploy record — arena/1ca951c0-prod2 (T-19..T-22)
+
+| Item | Value |
+|---|---|
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/24 (`arena/1ca951c0-prod2` → `main`) |
+| Merge result | **merged** 2026-11-19 22:10 UTC, merge commit `c0f59fbf6c359768d2e82ce9477fab2f8802c452` (`gh pr merge 24 --merge`, no approval waited for; CI on the PR: `verify` pass, `test` pass, state CLEAN before merge) |
+| Pages | **deployed** — `gh api .../pages/builds/latest` → status `built` for commit `c0f59fb` (created 2026-11-19T22:10:30Z, no error); workflows `verify-site` and `Self-hosted analytics tests` success on the PR |
+| Live verification | Fetched live pages after the deploy: homepage serves the shop-first layout with 6 guide cards and tagged `?tag=shopnow047c-20` sponsored links; `flagged.html` serves **F-P09/F-P10/F-P11 (resolved)** with pre-fix permalinks and **F-P12 (open)**; `compliance.html` serves the disclosure/link-policy page. The disclosure strip itself is a styled div the markdown fetcher drops, so its wording was verified at source: the committed `docs/` for `c0f59fb` is the exact artifact Pages serves (legacy `main /` mode), and it passes the gate that fails on the old artifact. |
+
+### Sources used this session (all repo-local; this sandbox cannot reach amazon.com / ftc.gov / developers.google.com)
+- Generator + gate sources: `tools/build.py` (DISCLOSURE_STRIP, hooks), `tools/checks.py`, `content/pages/*.html`.
+- Registers: `data/p2/{flags,suggestions,questions,decisions,settings}.json`, `data/imported/zone4/z4-decisions.json` (D-22 provenance), `data/decisions.json` + `data/open-questions.json` (the predecessor lineage the brief cites).
+- Pre-fix evidence permalinks at `3cd056a` (in PR #24 and in the flags): disclosure line 146, nested `<p>` line 188, duplicate id line 232.
+- Product/compliance facts: **not re-fetched here** — they keep their dated register citations (last live reads 2026-11-19, `data/p2/sources.json`, `data/p2/verification-2026-11-19.json`). Nothing in this pass altered a product value, price, rating or claim.
+
+### Verification performed
+- `python3 tools/build.py && python3 tools/checks.py` → ALL CHECKS PASSED, 21 pages, **9 sections** (new `validity` included), freshness ok.
+- `python3 scripts/verify_site.py` → VERIFY OK (18 pages); `npm test` → 2/2.
+- Independent parser scan of all 21 built pages: 0 nested `<p>`, 0 duplicate `id`s, 0 `((paid` artifacts, 0 stray end tags; root mirror byte-identical to `docs/`.
+- Cross-reference sweep: every `F-/Q-/SG-/D-` id cited on a page exists in its register (this sweep is now the gate, not a one-off).
+
+### Irregularities found (all recorded on the Flagged page, non-blocking)
+- **F-P09 / F-P10 / F-P11 (resolved 2026-11-19)** — the three rendering defects fixed in this pass; each carries its pre-fix permalink as evidence.
+- **F-P12 (open)** — `DESIGN_PROMPT.md` cites predecessor-register ids (D-01/D-02/D-15/Q-05/Q-10) and a brand the build does not ship (wordmark `Prod2`, D-P03); must be reconciled during the queued visual pass (SG-15).
+- **D-22 dangling citation (fixed)** — Q-P05 cited D-22, which existed only in the imported Zone4 register; carried into the live decisions log with its original date/options/sources so documentation matches the code.
+- The gate's own first run caught the D-22 citation — evidence the automation works, not a manual finding.
+
+### Conflict log
+- Rebase onto `main` (`d1a3ab0`, PR #22) conflicted once on `COORDINATION.md` (PR #22's record vs this session's claim). Resolved as a **union — both records kept, nothing discarded**; an initial resolution attempt accidentally committed conflict markers on the branch (never pushed as such) and was repaired by fixup+autosquash before the force-with-lease push; verified `grep`-clean at the claim commit.
+- Open PR #23 (`arena/5e692632-prod2`) edits overlapping files (`COORDINATION.md`, `data/p2/suggestions.json`, `content/pages/index.html`) and was already CONFLICTING with `main` before this merge; its suggestion ids (SG-27..30) do not collide with this pass's (SG-15..17). Its session resolves on rebase — **left open for its owner, not touched**.
+- PR #16 (stale since 14:17 UTC, based on the initial commit) was closed by another session at 21:51 UTC; no action needed here.
+
+### Still open after this pass (flagged, non-blocking)
+F-01, F-03, F-08, F-19, F-26, F-29, F-44, F-49, F-57, F-58, F-66, F-P01, F-P04, F-P05, F-P06, F-P07, F-P08, F-P12 — plus owner-only gates Q-01 / Q-19 / Q-23 / Q-27 / Q-P06 (Associates Central validation, trademark clearance, endpoint host, price policy, domain). None blocks publication.

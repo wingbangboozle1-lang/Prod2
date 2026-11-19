@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-19",
-  "last_change": "2026-11-19 (arena/9f84489c-prod2): D-P07 (publication pass scope), D-P08 (capture gate), D-P09 (Search Console readiness vs verification)."
+  "last_change": "2026-11-19 integration: D-P07..D-P09 (publication pass scope, capture gate, Search Console readiness) appended."
  },
  "decisions": [
   {
@@ -85,6 +85,16 @@
    "recorded_choice": "Editorial front page: hero, featured guides, category tiles, then the data. Every dashboard surface stays reachable from the footer and one navigation group.",
    "sources": [
     "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+   ]
+  },
+  {
+   "id": "D-22",
+   "question": "Where will product photography come from?",
+   "status": "Open (carried 2026-11-16) — needs owner answer",
+   "recorded_choice": "Not yet decided. Options carried from the source register: (A) photograph the actual units, (B) use images served through approved Amazon tools once the account is confirmed, (C) stay text-first. Interim posture on this build: text-first — no product photography is published (illustrations only), because generated or copied photography of a specific product would be a fabricated claim about that product.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/agreement",
+    "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
    ]
   },
   {

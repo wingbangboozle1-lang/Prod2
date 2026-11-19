@@ -59,7 +59,7 @@
       <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
     <nav class="nav" aria-label="Site"><a href="compare.html">Compare</a><a href="products.html">Products</a><a href="guides.html">Guides</a><a href="buying-guide.html">Buying guide</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html" aria-current="page">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
   </div>
-  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate we earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links ((paid link)); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
+  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate we earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links, marked (paid link); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
 </header>
 <main id="main" class="wrap">
 <p class="eyebrow">The work behind it</p>
@@ -85,15 +85,16 @@
 </ul>
 
 <h2>Measurement and automation</h2>
-<p>The build is automated end to end: <code>tools/build.py</code> renders the site from the data registers; <code>tools/checks.py</code> is the publish gate (disclosure placement, sponsored-link marking, unique titles/meta, sourced facts, link integrity) and runs from a clean checkout with standard-library Python. Measurement ships as machinery but not as data: the privacy-preserving click counter and the self-hosted endpoint are deployable (<a href="measurement.html">contract here</a>), and nothing is transmitted until an endpoint is configured (<a href="flagged.html#F-19">F-19</a>). The five defined ledger events and their official attribution windows are recorded on the <a href="measurement.html">measurement page</a>.</p>
+<p>The build is automated end to end: <code>tools/build.py</code> renders the site from the data registers; <code>tools/checks.py</code> is the publish gate (disclosure placement, sponsored-link marking, unique titles/meta, sourced facts, link integrity, markup validity and register cross-references) and runs from a clean checkout with standard-library Python. Measurement ships as machinery but not as data: the privacy-preserving click counter and the self-hosted endpoint are deployable (<a href="measurement.html">contract here</a>), and nothing is transmitted until an endpoint is configured (<a href="flagged.html#F-19">F-19</a>). The five defined ledger events and their official attribution windows are recorded on the <a href="measurement.html">measurement page</a>.</p>
 
 <h2>Open decisions for the reviewer</h2>
 <ol>
   <li><strong>Run the one-link-per-product test in Associates Central</strong> — gates attribution claims and scaling (Q-01, F-58).</li>
   <li><strong>Host the analytics endpoint + enable Search Console</strong> — top operational priority; the Search Console checklist is ready on the <a href="measurement.html">measurement page</a> (<a href="suggestions.html#SG-06">SG-06</a>, Q-P08).</li>
   <li><strong>Pick the design direction and the brand name together</strong> — three specified directions in <a href="suggestions.html#SG-31">SG-31</a>; brand rename after clearance (<a href="suggestions.html#SG-01">SG-01</a>, blocked on Q-19).</li>
-  <li><strong>Settle the reader-capture consent basis</strong> — the form ships dark until then (Q-47, <a href="flagged.html#F-P10">F-P10</a>).</li>
+  <li><strong>Settle the reader-capture consent basis</strong> — the form ships dark until then (Q-47, <a href="flagged.html#F-P14">F-P14</a>).</li>
   <li><strong>Whether to publish prices under a dated-snapshot rule</strong> — <a href="suggestions.html#SG-05">SG-05</a>, only with automation.</li>
+  <li><strong>Visual pass: implement or amend the design brief</strong> — <a href="suggestions.html#SG-15">SG-15</a> with <a href="suggestions.html#SG-16">SG-16</a>, after the brief's cross-references are reconciled (<a href="flagged.html#F-P12">F-P12</a>).</li>
 </ol>
 
 <h2>The 2026-11-19 publication pass</h2>

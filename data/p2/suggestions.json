@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-19 integration (arena/9f84489c-prod2): SG-27..SG-30 carried per the brief (nav labels, RSS feed, Search Console, reader capture); SG-31..SG-37 added (design directions, decision-making improvements, token layer, measured topics, seasonal rotation, question pipeline, verification-angle growth); SG-03/04/06/09/13 progress notes merged."
+  "last_change": "2026-11-19 integration: SG-27..SG-37 carried from the publication pass (nav labels, RSS feed, Search Console, reader capture, design directions, decision-making, token layer, measured topics, seasonal rotation, question pipeline, verification-angle growth); SG-15..17 cross-referenced."
  },
  "suggestions": [
   {
@@ -70,7 +70,7 @@
    ],
    "status": "accepted",
    "recommendation": "Defer until traffic exists; the compliance cost is paid before any benefit arrives.",
-   "progress": "2026-11-19 publication pass (brief mandated reader capture): the consent-gated \"What should we answer next?\" form ships on the front page and guides hub. It sends nothing until the consent basis (Q-47) is settled and a capture endpoint is configured (F-P10). Email capture itself remains gated behind that decision. See SG-30."
+   "progress": "2026-11-19 publication pass (brief mandated reader capture): the consent-gated \"What should we answer next?\" form ships on the front page and guides hub. It sends nothing until the consent basis (Q-47) is settled and a capture endpoint is configured (F-P14). Email capture itself remains gated. See SG-30."
   },
   {
    "id": "SG-05",
@@ -101,7 +101,7 @@
    ],
    "status": "accepted",
    "recommendation": "Accept as the top operational priority. Nothing else compounds without it.",
-   "progress": "2026-11-19 publication pass (brief mandated the Search Console row): readiness shipped - verification-token slot in settings.json, sitemap + robots + feed wired, step-by-step checklist on the measurement page. Property verification and endpoint hosting are owner actions (F-P09, F-19, Q-P08). See SG-29."
+   "progress": "2026-11-19 publication pass (brief mandated the Search Console row): readiness shipped - verification-token slot in settings.json, sitemap + robots + feed wired, checklist on the measurement page. Property verification and endpoint hosting are owner actions (F-P13, F-19, Q-P08). See SG-29."
   },
   {
    "id": "SG-07",
@@ -143,7 +143,7 @@
    "depends_on": [],
    "status": "shipped",
    "recommendation": "Accept. It is a gate, and gates are cheap once written.",
-   "progress": "2026-11-19: implemented in tools/checks.py (\"publication\" section) - every guide page must reach the comparison, the buying guide and its category pillar, and the gate fails the build when one is missing. The feed must cover every guide too."
+   "progress": "2026-11-19: implemented in tools/checks.py (\"publication\" section) - every guide must reach the comparison, the buying guide and its category pillar; the feed must cover every guide."
   },
   {
    "id": "SG-10",
@@ -201,7 +201,7 @@
    ],
    "status": "accepted",
    "recommendation": "Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.",
-   "progress": "2026-11-19 publication pass: the clusters shipped - data/p2/calendar.json defines both clusters, the guides hub (guides.html) is the hub page, every guide links its pillar (enforced by the gate). Adding more formats still waits."
+   "progress": "2026-11-19 publication pass: the clusters shipped - data/p2/calendar.json defines both clusters, guides.html is the hub, every guide links its pillar (gate-enforced). Adding more formats still waits."
   },
   {
    "id": "SG-14",
@@ -218,6 +218,52 @@
    ],
    "status": "proposed",
    "recommendation": "Accept as the sequencing rule for every growth decision."
+  },
+  {
+   "id": "SG-15",
+   "title": "Close the type gap between DESIGN_PROMPT.md and the shipped theme (or record a substitution)",
+   "problem": "The adopted brief specifies Fraunces (display) and Inter (body). The shipped theme loads neither: --serif is an Iowan Old Style/Palatino/Georgia stack and --sans is system-ui. Palette tokens, fluid type and the hero match the brief, but the specified typefaces never load, so every page reads closer to a plain system page than the approved warm-editorial direction.",
+   "proposal": "Either (a) self-host Fraunces + Inter (subset woff2, font-display: swap) so the brief's voice ships with no third-party requests — preserving the site's send-nothing privacy posture — or (b) record a decision amending the brief's typefaces to the current stacks. Reconcile the brief's register ids and brand section first (F-P12).",
+   "evidence": "DESIGN_PROMPT.md 'Direction: warm editorial' vs assets/css/site.css --serif/--sans; direction governed by D-18/D-P03.",
+   "impact": "Medium — the largest single gap between the approved brief and the shipped page; fixes all pages at once.",
+   "effort": "Small (font files + @font-face) or one recorded decision.",
+   "risk": "Low. Self-hosted fonts keep the no-third-party-request posture; a substitution decision keeps the brief honest.",
+   "depends_on": [
+    "F-P12"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted.",
+   "progress": "Cross-ref: SG-31 (three fully specified directions) and SG-33 (token layer) cover the same ground from the publication pass; merge the two rows when the owner picks a direction (Q-P09)."
+  },
+  {
+   "id": "SG-16",
+   "title": "Design-token conformance pass against the brief's non-negotiables",
+   "problem": "The brief fixes values the shipped theme does not all meet: cards at 8px radius max (theme uses --radius: 10px), buttons with 44px minimum tap targets, sticky comparison anchors on mobile (brief section 'Mobile-first rules'), and the disclosure strip's paper-on-rule treatment. Some match, some silently differ, and nobody has audited the two against each other.",
+   "proposal": "Walk DESIGN_PROMPT.md line by line against assets/css/site.css and the page templates; conform the theme where the brief is right or amend the brief where the build is better, and record the outcome as one decision. Include the mobile rules: fluid type, tap targets, sticky anchors, no horizontal scroll traps.",
+   "evidence": "DESIGN_PROMPT.md (adopted brief, D-18) vs assets/css/site.css (shipped theme).",
+   "impact": "Medium — consistency across pages; prevents visual drift as new pages ship.",
+   "effort": "One session (audit + small CSS changes + one recorded decision).",
+   "risk": "Low — visual only; disclosure and link gates are unaffected.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Accept together with SG-15 as one visual pass: audit, conform, record, stop.",
+   "progress": "Cross-ref: SG-33 (token layer) is the publication-pass sibling of this conformance pass; do both in one session."
+  },
+  {
+   "id": "SG-17",
+   "title": "Seasonal front-page merchandising scaffolding (grilling, gifting) tied to the calendar",
+   "problem": "The front page is seasonless. Grilling season and holiday gifting are the natural windows for half the catalog (the two thermometers), and the brief asks for timely, catchy topics that still obey the evidence rule — seasonality must come from the calendar, never from invented popularity.",
+   "proposal": "Pre-build two seasonal swaps (late-spring grilling, November gifting): hero line, category-tile copy and one question-shaped guide slot each, written from listed facts and dated reads only. Decide the exact dates from Q-P07. Ship the scaffolding now; activate on the calendar; revert after the window.",
+   "evidence": "Q-P07 (seasonal window open); SG-03/SG-11 (thermometer cluster, answer-first calendar); D-19 permits calendar-based framing and bans popularity claims — the claims gate enforces both.",
+   "impact": "Medium organic potential in fixed windows; unmeasured until SG-06 measurement exists.",
+   "effort": "One session for scaffolding; near-zero per activation.",
+   "risk": "Low if copy stays calendar-based; the claims gate blocks scarcity/hype language.",
+   "depends_on": [
+    "Q-P07"
+   ],
+   "status": "proposed",
+   "recommendation": "Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated.",
+   "progress": "Cross-ref: the seasonal scaffolding partially shipped (data/p2/calendar.json + the front-page seasonal desk, SG-35); this row covers the remaining merchandising depth."
   },
   {
    "id": "SG-27",
@@ -261,7 +307,7 @@
     "Q-P06"
    ],
    "status": "accepted",
-   "progress": "2026-11-19 publication pass: readiness shipped (token slot + meta emission + checklist on the measurement page). Verification itself is an owner action (F-P09, Q-P08).",
+   "progress": "2026-11-19 publication pass: readiness shipped (token slot + meta emission + checklist on the measurement page). Verification itself is an owner action (F-P13, Q-P08).",
    "recommendation": "Owner runs the checklist on the measurement page this week; nothing compounds without it."
   },
   {
@@ -277,14 +323,14 @@
     "Q-47"
    ],
    "status": "accepted",
-   "progress": "2026-11-19 publication pass: form ships disconnected by design (F-P10). It activates when settings.reader_capture.endpoint is set and the consent basis (Q-47) is settled.",
+   "progress": "2026-11-19 publication pass: form ships disconnected by design (F-P14). It activates when settings.reader_capture.endpoint is set and the consent basis (Q-47) is settled.",
    "recommendation": "Owner settles the consent wording (Q-47), then hosts the endpoint and flips the switch."
   },
   {
    "id": "SG-31",
    "title": "Design feed: three fully specified directions for the next visual pass",
    "problem": "The brief asks for design suggestions that feed the design prompt, so a reviewer can pick the best path before anything is implemented. One direction (warm editorial) is carried and built; the alternatives have never been specified side by side.",
-   "proposal": "Publish three complete directions against the same compliance block: (A) Warm editorial - kitchen magazine that shows its sources: serif display (Fraunces), paper background, terracotta accent, drawn line-art only; this build follows it (DESIGN_PROMPT.md). (B) Clean modern shop - sans display (Inter), white cards, one strong accent color, product-first grid with big tap targets, tighter type scale; the most e-commerce-native of the three. (C) Bold magazine - high-contrast black/paper, oversized display numerals for specs, full-width section bands, editorial photography if the photography decision (Q-05/D-22 lineage, SG-18) ever clears. Each keeps: disclosure above the fold, no prices/ratings, sponsored-only product links, drawn-not-copied imagery.",
+   "proposal": "Publish three complete directions against the same compliance block: (A) Warm editorial - kitchen magazine that shows its sources: serif display (Fraunces), paper background, terracotta accent, drawn line-art only; this build follows it (DESIGN_PROMPT.md). (B) Clean modern shop - sans display (Inter), white cards, one strong accent color, product-first grid with big tap targets, tighter type scale; the most e-commerce-native of the three. (C) Bold magazine - high-contrast black/paper, oversized display numerals for specs, full-width section bands, editorial photography if the photography decision (the photography decision D-22, open imagery question Q-P05) ever clears. Each keeps: disclosure above the fold, no prices/ratings, sponsored-only product links, drawn-not-copied imagery.",
    "evidence": "Owner brief 2026-11-19 (the site must look like a polished marketing affiliate publication, not generated output); carried D-18/DIR-A; DESIGN_PROMPT.md.",
    "impact": "Decides the entire reader-facing look; direction B is the most shop-like, A is the most distinctive and least template-like, C is the boldest but needs photography.",
    "effort": "The pick is one meeting; the token layer (SG-33) makes the implementation one session per direction.",

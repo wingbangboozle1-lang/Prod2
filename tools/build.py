@@ -279,7 +279,7 @@ def build_footer() -> str:
 DISCLOSURE_STRIP = (f'<div class="disclosure" role="note">'
                     f'<span class="disclosure-check" aria-hidden="true">✓</span> '
                     f'<strong>{esc(DISCLOSURE)}</strong> '
-                    f'<span class="disclosure-more">Product links on this site are paid links ({esc(PAID_LABEL)}); '
+                    f'<span class="disclosure-more">Product links on this site are paid links, marked {esc(PAID_LABEL)}; '
                     f'we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span>'
                     f'</div>')
 
@@ -336,7 +336,7 @@ def hook_products_table(_="") -> str:
                "P3": "Big single basket, small footprint", "P4": "Fast doneness checks",
                "P5": "Cook away from the heat"}[p["id"]]
         rows.append(
-            f'<tr id="{p["id"]}"><td><strong>{esc(p["name_short"])}</strong><br>'
+            f'<tr id="row-{p["id"]}"><td><strong>{esc(p["name_short"])}</strong><br>'
             f'<span class="muted">{esc(p["asin"])}</span></td>'
             f'<td>{esc(p["format"])}</td><td>{esc(p["capacity"] or "—")}</td>'
             f'<td>{esc(p["dimensions"] or "—")}</td><td>{esc(str(depth) + chr(34) if depth else "—")}</td>'
@@ -658,7 +658,7 @@ def hook_reader_capture(_="") -> str:
     <label class="capture-consent"><input type="checkbox" name="consent" required> {consent}</label>
     <button type="submit" class="btn">Send the question</button>
     <p class="capture-note" data-capture-note hidden></p>
-    <p class="muted small-note">This form is currently <strong>disconnected on purpose</strong>: nothing is sent anywhere until the privacy basis for holding an email is settled (<a href="questions.html#Q-47">Q-47</a>) and an endpoint is configured (<a href="flagged.html#F-P07">F-P07</a>). Until then your question stays in your own browser.</p>
+    <p class="muted small-note">This form is currently <strong>disconnected on purpose</strong>: nothing is sent anywhere until the privacy basis for holding an email is settled (<a href="questions.html#Q-47">Q-47</a>) and an endpoint is configured (<a href="flagged.html#F-P14">F-P14</a>). Until then your question stays in your own browser.</p>
   </form>
 </div>"""
 
