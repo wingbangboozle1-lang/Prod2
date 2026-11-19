@@ -37,3 +37,14 @@ The endpoint intentionally does not accept conversions, revenue, email signup, f
 - This server must be hosted on Node or another API-capable same-origin runtime. A static GitHub Pages deployment cannot execute it.
 - No hosting account, API-capable provider, Search Console property, or Amazon Associates account was available/verified in this task, so public production collection is not enabled.
 - Do not infer affiliate attribution from the event counts. Use only authorized Amazon first-party reports for eligible sessions, clicks, orders, and commissions.
+
+
+## Consolidation update (INT-06, 2026-11-19)
+
+The canonical published site is now `site/` (Countercraft). `server.mjs` serves `site/` and accepts
+all event families in aggregate-only form: the tracker events (`page_view`, `outbound_click`,
+`chooser_completed`, `article_half_read`, `disclosure_viewed`), the self-host client events
+(`guide_open`, `category_open`, `rss_feed_click`), and the Countercraft analytics events
+(`cta_click`, `product_click`, `filter_apply`, `guide_read`). The page tracker
+(`site/assets/analytics.js`) now transmits nothing unless an endpoint is explicitly configured
+(`window.COUNTERCRAFT_ENDPOINT`) — on GitHub Pages events stay in the page only.

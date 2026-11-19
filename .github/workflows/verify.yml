@@ -16,15 +16,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Build the deployed publication
+      - name: Build the site
+        run: python3 scripts/build_site.py
+      - name: Verify the built site
+        run: python3 scripts/verify_site.py
+      - name: Build is reproducible (committed site/ and root mirror match the build)
+        run: |
+          git diff --exit-code -- site/
+          git diff --exit-code -- '*.html' 'assets' 'guides' 'rss.xml' 'sitemap.xml' 'robots.txt' '.nojekyll'
+      - name: Build the preserved publication (docs/)
         run: python3 tools/build.py
-      - name: Verify the deployed publication
+      - name: Verify the preserved publication
         run: python3 tools/checks.py
       - name: Publication build is reproducible (committed docs/ matches the build)
         run: git diff --exit-code -- docs/
-      - name: Build the Countercraft site
-        run: python3 scripts/build_site.py
-      - name: Verify the Countercraft site
-        run: python3 scripts/verify_site.py
-      - name: Countercraft build is reproducible (committed site/ matches the build)
-        run: git diff --exit-code -- site/

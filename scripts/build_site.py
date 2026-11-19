@@ -15,6 +15,8 @@ Design rules enforced here (and re-checked by scripts/verify_site.py):
   * sitemap.xml, rss.xml and robots.txt are regenerated from the tree.
 """
 import json
+import shutil
+import os
 import os
 import html
 from datetime import date
@@ -329,7 +331,7 @@ def layout(active, title, description, body, extra_head="", breadcrumbs=None):
         "Outbound product links are affiliate links marked as sponsored.</p>"
         "</div></footer>"
     ) % (footer_disc, esc(BRAND), esc(BRAND), esc(TAGLINE), footer_nav, esc(DISCLOSURE), "shopnow047c-20", VERIFY_DATE)
-    canon = "https://wingbangboozle1-lang.github.io/Prod2" + (active or "/index.html")
+    canon = "https://wingbangboozle1-lang.github.io/Prod2/" + (active or "index.html").lstrip("/")  # INT-06: fixed missing slash (was Prod2index.html)
     doc = (
         "<!doctype html><html lang='en'><head><meta charset='utf-8'>"
         "<meta name='viewport' content='width=device-width,initial-scale=1'>"
@@ -795,4 +797,20 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main()    # INT-07: mirror the canonical build to the repository root.
+    # GitHub Pages for this repo is in legacy "main /" mode (serves the repo
+    # root; flipping it to Actions mode needs an admin and returns 403 to the
+    # session token). Mirroring the deterministic output to the root keeps the
+    # live site correct in BOTH modes. When an admin flips Pages to Actions
+    # mode, drop the mirror (single commit; documented in COORDINATION.md).
+    mirror_skip = {".github", "archive", "data", "scripts", "site", "tests", "node_modules", "var"}
+    for root_dir, dirs, files in os.walk(SITE):
+        rel_root = os.path.relpath(root_dir, SITE)
+        if rel_root == ".":
+            dirs[:] = [d for d in dirs if d not in mirror_skip]
+        dst_root = ROOT if rel_root == "." else os.path.join(ROOT, rel_root)
+        os.makedirs(dst_root, exist_ok=True)
+        for f in files:
+            shutil.copy(os.path.join(root_dir, f), os.path.join(dst_root, f))
+
+

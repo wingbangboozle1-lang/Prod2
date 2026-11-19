@@ -10,7 +10,7 @@ import {fileURLToPath} from 'node:url';
 const ROOT=path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 async function freePort(){const server=createServer();server.listen(0,'127.0.0.1');await once(server,'listening');const port=server.address().port;await new Promise(resolve=>server.close(resolve));return port;}
 
-test('self-host mode injects the first-party client and aggregates only five allow-listed event types',async(t)=>{
+test('self-host mode injects the endpoint config and first-party client, and aggregates the allow-listed event types',async(t)=>{
   const port=await freePort();
   const store=path.join(ROOT,'var','test-events.json');
   await rm(store,{force:true});
@@ -21,7 +21,7 @@ test('self-host mode injects the first-party client and aggregates only five all
   for(let n=0;n<60;n++){try{const r=await fetch(`http://127.0.0.1:${port}/`);if(r.ok){ready=true;break;}}catch{}await new Promise(resolve=>setTimeout(resolve,50));}
   assert.ok(ready,`server did not start: ${logs}`);
   const page=await fetch(`http://127.0.0.1:${port}/`);assert.equal(page.status,200);
-  const html=await page.text();assert.match(html,/As an Amazon Associate/);  // brand-agnostic marker (integration 2026-11-19): docs/ is now the deployed Prod2 publicationassert.match(html,/data-analytics-endpoint="\/api\/events"/);assert.match(html,/api\/client\.js/);
+  const html=await page.text();assert.match(html,/Countercraft/);assert.match(html,/COUNTERCRAFT_ENDPOINT="\/api\/events"/);assert.match(html,/api\/client\.js/);
   const client=await fetch(`http://127.0.0.1:${port}/api/client.js`);assert.equal(client.status,200);assert.match(await client.text(),/rss_feed_click/);
   const fixtures=[
     {event:'page_view',page:'/products.html'},
@@ -37,4 +37,38 @@ test('self-host mode injects the first-party client and aggregates only five all
   for(const secret of ['test-agent','192.0.2.4','must not be retained','not-an-email','2026-11-19T00:00:00Z','email','query','ip']) assert.equal(stored.includes(secret),false,`aggregate must omit ${secret}`);
   const counts=JSON.parse(stored);assert.equal(Object.keys(counts).length,5);assert.equal(counts['page_view|/products.html'],1);assert.equal(counts['outbound_click|P01'],1);assert.equal(counts['guide_open|basket-or-oven'],1);assert.equal(counts['category_open|air-fryers'],1);assert.equal(counts['rss_feed_click|feed'],1);
   const traversal=await fetch(`http://127.0.0.1:${port}/%2e%2e/server.mjs`);assert.notEqual(traversal.status,200);
+});
+
+test('endpoint aggregates the Countercraft event family safely',async(t)=>{
+  const port=await freePort();
+  const store=path.join(ROOT,'var','test-events-cc.json');
+  await rm(store,{force:true});
+  const child=spawn(process.execPath,['server.mjs'],{cwd:ROOT,env:{...process.env,PORT:String(port),EVENT_STORE:store},stdio:['ignore','pipe','pipe']});
+  let logs='';child.stdout.on('data',x=>logs+=x.toString());child.stderr.on('data',x=>logs+=x.toString());
+  t.after(async()=>{child.kill('SIGTERM');await new Promise(resolve=>child.once('exit',resolve));await rm(store,{force:true});});
+  let ready=false;
+  for(let n=0;n<60;n++){try{const r=await fetch(`http://127.0.0.1:${port}/`);if(r.ok){ready=true;break;}}catch{}await new Promise(resolve=>setTimeout(resolve,50));}
+  assert.ok(ready,`server did not start: ${logs}`);
+  const fixtures=[
+    {event:'product_click',asin:'B0CDY277D3',path:'/comparison.html'},
+    {event:'product_click',asin:'NOT-AN-ASIN',path:'/comparison.html'},
+    {event:'cta_click',label:'Air fryers'},
+    {event:'filter_apply'},
+    {event:'guide_read'},
+    {event:'not_in_the_list',email:'nope@example.test'}
+  ];
+  let invalid;
+  for(const event of fixtures){
+    const r=await fetch(`http://127.0.0.1:${port}/api/events`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(event)});
+    if(event.event==='not_in_the_list') invalid=r; else assert.equal(r.status,204);
+  }
+  assert.equal(invalid.status,400);
+  const stored=await readFile(store,'utf8');
+  for(const secret of ['email','nope@example.test','NOT-AN-ASIN','label','Air fryers']) assert.equal(stored.includes(secret),false,`aggregate must omit ${secret}`);
+  const counts=JSON.parse(stored);
+  assert.equal(counts['product_click|B0CDY277D3'],1);
+  assert.equal(counts['product_click|unknown'],1);
+  assert.equal(counts['cta_click|cta'],1);
+  assert.equal(counts['filter_apply|filter'],1);
+  assert.equal(counts['guide_read|guide'],1);
 });
