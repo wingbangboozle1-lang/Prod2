@@ -993,7 +993,7 @@ def build_sitemap() -> None:
 
 def build_robots() -> None:
     (DOCS / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\n\n"
+        "User-agent: *\nAllow: /\nDisallow: /Prod2/archive/\n\n"
         f"Sitemap: {BASE}/sitemap.xml\n", encoding="utf-8")
 
 

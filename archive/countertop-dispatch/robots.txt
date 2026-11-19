@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Affiliate disclosure: outbound product links are marked rel="sponsored"
+# and tagged with the Associates ID shopnow047c-20. See compliance.html.
+
+Sitemap: https://wingbangboozle1-lang.github.io/Prod2/sitemap.xml

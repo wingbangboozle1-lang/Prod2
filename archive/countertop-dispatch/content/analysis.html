@@ -1,0 +1,118 @@
+title: Analysis and findings — Countertop Dispatch
+description: Counter-space maths, category findings, commission rates from the official schedule, and what could not be verified. Every claim sourced.
+nav: analysis.html
+---
+<div class="wrap section">
+  <div class="section-head">
+    <h1>Analysis &amp; findings</h1>
+    <span class="more">What the checked data shows</span>
+  </div>
+  <p class="lede">Four analyses run over the five checked products: counter-space, category structure, commission economics, and verification coverage. Each states its method and links its sources.</p>
+
+  <h2>1. Counter-space: capacity per centimetre of depth</h2>
+  <p>Counters are lost to depth first. Dividing each air fryer's listed capacity by its listed depth gives a rough &ldquo;litres per centimetre&rdquo; efficiency — useful for asking whether the capacity you gain is worth the depth you pay:</p>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Product</th><th>Listed capacity</th><th>Depth</th><th>Capacity ÷ depth</th><th>Footprint</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr data-asin="B0CDY277D3">
+          <td>Chefman 6 Qt Dual Basket</td>
+          <td class="num">6 qt ≈ 5.7 L</td><td class="num">34.0 cm</td><td class="num">0.17 L/cm</td>
+          <td class="num">1,020 cm²</td>
+          <td class="src"><a href="https://www.amazon.com/dp/B0CDY277D3?tag=shopnow047c-20" rel="noopener sponsored">S-14</a></td>
+        </tr>
+        <tr data-asin="B09B7SB46R">
+          <td>Emeril Lagasse 26 QT</td>
+          <td class="num">24.6 L</td><td class="num">42.9 cm</td><td class="num">0.57 L/cm</td>
+          <td class="num">1,722 cm²</td>
+          <td class="src"><a href="https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20" rel="noopener sponsored">S-15</a></td>
+        </tr>
+        <tr data-asin="B08DKYBTPH">
+          <td>Chefman 8 Qt TurboFry</td>
+          <td class="num">8 qt ≈ 7.6 L</td><td class="num">32.4 cm</td><td class="num">0.23 L/cm</td>
+          <td class="num">1,111 cm²</td>
+          <td class="src"><a href="https://www.amazon.com/dp/B08DKYBTPH?tag=shopnow047c-20" rel="noopener sponsored">S-16</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note">Capacity converted at 1 qt ≈ 0.946 L; depth converted at 2.54 cm/in; both from the dimensions printed on each official listing. The oven wins on ratio because its cavity is a box — but it also occupies 55% more counter than the dual basket. Ratio is a conversation starter, not a verdict: <strong>use it with the footprint column, never alone.</strong></p>
+  <div class="callout">
+    <strong>Finding A</strong>
+    The 26 QT oven packs the most capacity per centimetre of depth and the least per square centimetre of counter — those two facts pull in opposite directions, which is exactly why the <a href="{prefix}comparison.html">chooser asks about your depth before your appetite</a>.
+  </div>
+
+  <h2>2. Category structure: two categories, clean nodes</h2>
+  <p>The five products split across two official browse nodes, no product straddling both:</p>
+  <ul class="prose-list">
+    <li><strong>Air Fryers</strong> (node 17659096011) — P1, P2, P3: Home &amp; Kitchen &gt; Kitchen &amp; Dining &gt; Small Appliances &gt; Fryers &gt; Air Fryers. <a href="{prefix}category/air-fryers.html">Dashboard</a></li>
+    <li><strong>Meat Thermometers</strong> (node 289810) — P4, P5: Home &amp; Kitchen &gt; Kitchen &amp; Dining &gt; Kitchen Utensils &amp; Gadgets &gt; Thermometers &amp; Timers &gt; Meat. <a href="{prefix}category/meat-thermometers.html">Dashboard</a></li>
+  </ul>
+  <div class="callout">
+    <strong>Finding B</strong>
+    The submitted set is not a single-category basket. Any site copy that promised &ldquo;air fryers only&rdquo; would misdescribe two of the five products — so category pages are organised per node, and the front page leads with both.
+  </div>
+
+  <h2>3. Commission: the official schedule, read carefully</h2>
+  <p>Amazon publishes fixed Standard Commission Income rates by product category. The official statement ( Associates Program Standard Commission Income Statement, Table 1) includes this row relevant to this set:</p>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Product category (Table 1)</th><th>Fixed rate</th><th>Applies to our set?</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Physical Books, Kitchen, Automotive</td><td class="num">4.50%</td>
+          <td>Probably — but the per-ASIN category assignment is Amazon's, not ours <a class="flagmark" href="{prefix}flagged.html#FLG-P03">FLG-P03</a></td>
+          <td class="src"><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener">S-19</a></td>
+        </tr>
+        <tr>
+          <td>All Other Categories</td><td class="num">4.00%</td>
+          <td>Fallback if an ASIN is not in Kitchen <a class="flagmark" href="{prefix}flagged.html#FLG-P03">FLG-P03</a></td>
+          <td class="src"><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener">S-19</a></td>
+        </tr>
+        <tr>
+          <td>Custom rate card</td><td><span class="unverified">blank</span></td>
+          <td>Requires Associates sign-in <a class="flagmark" href="{prefix}flagged.html#FLG-P03">FLG-P03</a></td>
+          <td class="src"><a href="https://affiliate-program.amazon.com/help/operating/schedule" rel="noopener">S-03 (sign-in gated)</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note">Per-product commission cells on the <a href="{prefix}products.html">product table</a> stay blank: the schedule page redirects to sign-in, and Amazon does not publish which Table 1 row a given ASIN is charged against. We show the reference rates with their source and fill nothing per-product.</p>
+  <div class="callout">
+    <strong>Finding C</strong>
+    Commission upside in this set is bounded and unexciting to guess at: the published band is 4.00–4.50% for the categories these products likely sit in. Any number more precise than that would be invented — so it is blank.
+  </div>
+
+  <h2>4. Verification coverage</h2>
+  <div class="table-scroll">
+    <table class="data editorial">
+      <thead><tr><th>Field group</th><th>Covered</th><th>Blank / withheld</th><th>Reason</th></tr></thead>
+      <tbody>
+        <tr><td>Titles, brands, categories</td><td>5 / 5</td><td>—</td><td>From the <a href="{prefix}products.html">official listings on the product table</a></td></tr>
+        <tr><td>Capacity</td><td>3 / 3 air fryers</td><td>n/a for thermometers</td><td><a href="{prefix}category/air-fryers.html">Air fryer rows</a></td></tr>
+        <tr><td>Dimensions</td><td>3 / 5</td><td>P4, P5</td><td><a href="{prefix}flagged.html#FLG-P07">FLG-P07</a> not captured this pass</td></tr>
+        <tr><td>Price</td><td>0 / 5</td><td>5 / 5</td><td><a href="{prefix}flagged.html#FLG-P04">FLG-P04</a> policy restriction</td></tr>
+        <tr><td>Rating</td><td>0 / 5</td><td>5 / 5</td><td><a href="{prefix}flagged.html#FLG-P05">FLG-P05</a> policy restriction</td></tr>
+        <tr><td>Commission rate</td><td>0 / 5</td><td>5 / 5</td><td><a href="{prefix}flagged.html#FLG-P03">FLG-P03</a> sign-in gated</td></tr>
+        <tr><td>Link resolution</td><td>5 / 5</td><td>—</td><td>All five observed live 19 Nov 2026 — see <a href="{prefix}data/submitted-links.json">submitted-links.json</a></td></tr>
+        <tr><td>Tagged-link tests</td><td>5 / 5</td><td>—</td><td>All five resolve with <span class="mono">tag=shopnow047c-20</span> — see <a href="{prefix}compliance.html">how links are marked</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>Finding D</strong>
+    Coverage is deliberately uneven: 100% on identity and resolution, 0% on the three fields policy or sign-in walls off. The blanks are the honest part of this site — each one is numbered and published on <a href="{prefix}flagged.html">Flagged for Review</a>.
+  </div>
+
+  <div class="related">
+    <h3>Next</h3>
+    <ul>
+      <li><a href="{prefix}products.html">Full product table</a></li>
+      <li><a href="{prefix}suggestions.html">Suggestions &amp; open questions</a></li>
+      <li><a href="{prefix}flagged.html">Flagged for Review</a></li>
+      <li><a href="{prefix}summary.html">Executive summary</a></li>
+      <li><a href="{prefix}guides/index.html">All guides</a></li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+{
+  "generated_on": "2026-11-19",
+  "privacy": "No cookies, no login, no cross-site identifiers. A random session id lives in sessionStorage only. IP addresses are never sent by the client. If an analytics endpoint is configured, only the fields listed per event are transmitted; if none is configured, events stay in the browser's local queue and are never transmitted.",
+  "endpoint_status": "not_provisioned",
+  "endpoint_note": "See suggestions.html S-04 for provisioning options. Endpoint contract is documented in tools/analytics-endpoint.md.",
+  "events": [
+    {
+      "name": "page_view",
+      "definition": "A page finished loading in a foreground tab.",
+      "fields": ["session_id", "path", "ts"],
+      "emitted_by": "assets/analytics.js on DOMContentLoaded"
+    },
+    {
+      "name": "product_impression",
+      "definition": "A product card or product table row was at least 50% visible for 1 second.",
+      "fields": ["session_id", "asin", "path", "ts"],
+      "emitted_by": "IntersectionObserver on .product-card and table.data tbody rows"
+    },
+    {
+      "name": "outbound_click",
+      "definition": "A click on a rel=sponsored product link leaving for Amazon.",
+      "fields": ["session_id", "asin", "path", "ts"],
+      "emitted_by": "click handler on a[rel~=sponsored]; this is the outbound-click counter",
+      "note": "The destination URL is reduced to its ASIN; query strings are never transmitted."
+    },
+    {
+      "name": "guide_read",
+      "definition": "A guide article was scrolled to at least 75% of its height.",
+      "fields": ["session_id", "path", "ts"],
+      "emitted_by": "scroll handler on .article pages, once per session per article"
+    },
+    {
+      "name": "chooser_result",
+      "definition": "A visitor completed the three-question chooser on comparison.html and a verdict was rendered.",
+      "fields": ["session_id", "answers", "verdict_asin", "ts"],
+      "emitted_by": "chooser submit handler on comparison.html",
+      "note": "answers is an array of three short strings (counter depth, style, cooking frequency); no free text."
+    }
+  ]
+}
