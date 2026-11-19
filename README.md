@@ -42,4 +42,12 @@ listings. See `data/products.json` and the **Research Desk** page.
 - Irregularities and unverified values are published blank + flagged on the **Flagged for
   Review** page with source links — never inferred.
 
+## Self-hosted analytics endpoint
+
+The privacy-preserving click counter (`site/assets/analytics.js`) records the five defined
+events and POSTs them to a `/collect` endpoint. GitHub Pages is static, so the endpoint is
+self-hosted: `server.mjs` (a small Node collector with five-event aggregation) runs locally or
+on any Node host. Run `npm start` to serve it, `npm test` to run the endpoint tests together
+with the release gate. See `ANALYTICS-ENDPOINT.md`.
+
 See `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, and the **About** page for sources and methodology.
