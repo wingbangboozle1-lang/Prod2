@@ -4,10 +4,10 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
-const SITE = path.join(ROOT, 'docs');
+const SITE = path.join(ROOT, 'site'); // INT-06: canonical site is site/ (Countercraft); docs/ archived
 const STORE = path.resolve(process.env.EVENT_STORE || path.join(ROOT, 'var', 'events-aggregate.json'));
 const PORT = Number(process.env.PORT || 4173);
-const allowedEvents = new Set(['page_view', 'outbound_click', 'guide_open', 'category_open', 'rss_feed_click']);
+const allowedEvents = new Set(['page_view', 'outbound_click', 'guide_open', 'category_open', 'rss_feed_click', 'chooser_completed', 'article_half_read', 'disclosure_viewed', 'cta_click', 'product_click', 'filter_apply', 'guide_read']);
 const products = new Set(['P01', 'P02', 'P03', 'P04', 'P05']);
 const guides = new Set(['basket-or-oven', 'capacity-checklist', 'cleanup-and-space', 'questions-before-buying']);
 const categories = new Set(['air-fryers', 'meat-thermometers']);
@@ -29,6 +29,13 @@ function keyFor(body) {
   if (event === 'outbound_click') return `${event}|${products.has(body.product) ? body.product : 'unknown'}`;
   if (event === 'guide_open') return `${event}|${guides.has(body.guide) ? body.guide : 'unknown'}`;
   if (event === 'category_open') return `${event}|${categories.has(body.category) ? body.category : 'unknown'}`;
+  if (event === 'chooser_completed') return `${event}|${products.has(body.recommendation) ? body.recommendation : 'unknown'}`;
+  if (event === 'article_half_read') return `${event}|${body.depth === 100 ? 100 : 50}`;
+  if (event === 'disclosure_viewed') return `${event}|disclosure`;
+  if (event === 'product_click') return `${event}|${body.asin && /^[A-Z0-9]{10}$/.test(String(body.asin)) ? body.asin : 'unknown'}`;
+  if (event === 'cta_click') return `${event}|cta`;
+  if (event === 'filter_apply') return `${event}|filter`;
+  if (event === 'guide_read') return `${event}|guide`;
   return `${event}|feed`;
 }
 async function record(key) {
@@ -86,7 +93,10 @@ async function handler(req, res) {
     let content=await readFile(target);
     if (path.extname(target)==='.html') {
       let html=content.toString('utf8');
+      // INT-06: canonical site (Countercraft) opts in via window.COUNTERCRAFT_ENDPOINT;
+      // legacy Counter Notes pages opted in via the body attribute. Support both.
       html=html.replace('data-analytics-endpoint=""','data-analytics-endpoint="/api/events"');
+      html=html.replace('</head>','<script>window.COUNTERCRAFT_ENDPOINT="/api/events";</script></head>');
       html=html.replace('</body>','<script src="/api/client.js" defer></script></body>');
       content=Buffer.from(html);
     }
