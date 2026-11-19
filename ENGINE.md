@@ -1,0 +1,72 @@
+# Engine guide
+
+The machinery behind this site: a deterministic static-site build plus a
+publish gate. The central guarantee is simple — **an unverified fact cannot
+reach a published page, and a page that breaks the disclosure or link rules
+cannot ship.**
+
+```
+data/*.json  ──►  tools/build.py  ──►  docs/            (the published site)
+content/pages/*.html ─┘                  │
+assets/ (css/js/img) ────────────────────┤
+                                         ▼
+                               tools/checks.py  ──►  gate: fail = do not publish
+```
+
+## Commands (clean checkout, standard-library Python 3.11+)
+
+```bash
+python3 tools/build.py     # render docs/ from data/ + content/ + assets/
+python3 tools/checks.py    # the publish gate; exit 0 = green
+```
+
+Optional (only when changing the social-preview card; needs Pillow):
+
+```bash
+python3 tools/make_og.py   # re-render assets/img/og-card.png (typographic brand art)
+```
+
+Self-hosted analytics endpoint (deployable, not yet hosted — flag F-19):
+
+```bash
+python3 analytics-endpoint/server.py --port 8787
+# then set analytics_endpoint in data/settings.json and rebuild
+```
+
+## What the gate checks (tools/checks.py)
+
+| Section | Enforced |
+|---|---|
+| `pages` | every registered page is built; each has a unique `<title>` (≤ 70 chars) and unique meta description (50–170 chars) |
+| `disclosure` | the Associates sentence appears on every page twice — the strip under the masthead and the footer repeat |
+| `links` | every `amazon.com/dp/` product link carries `tag=shopnow047c-20` **and** `rel="sponsored nofollow noopener"`; `link.amazon` short links carry `rel="sponsored"` and are never query-stripped or tag-appended; other Amazon links carry `nofollow`; every internal link resolves |
+| `facts` | every product's buy URL and listing citation is published; blanks are rendered `— unverified`; intent records keep `intended_asin` and `observed_redirect` as separate fields and the path code is never treated as an ASIN |
+| `claims` | no price patterns (`$…`) and no star-rating patterns anywhere (F-02); no banned popularity words ("trending", "best-selling", …) on reader-facing pages (D-19) |
+| `chrome` | the single navigation group ("The work behind it") and the footer directory appear on every page |
+| `seo` | canonical + og:image + parseable JSON-LD per page; sitemap covers exactly the built pages; robots.txt points at the sitemap; feed items resolve |
+| `freshness` | `docs/` byte-matches a fresh render from `data/` + `content/` — no stale output can ship |
+
+## How the "no hallucination" rule is enforced
+
+| Layer | Enforcement |
+|---|---|
+| `data/products.json` | every published value carries `*_source` (register id) and `*_read` (UTC date); nulls are null, never guessed |
+| `data/intent-links.json` | intent fields (`intended_asin`, `official_listing_url`, `confirmation_date_utc`, `confirmation_source`) and observation fields (`observed_redirect`, `observed_redirect_history`) are separate structures and are never merged |
+| `data/flags.json` | anything unconfirmed is blank on the page **and** flagged with an evidence link |
+| `tools/checks.py` | `facts` and `claims` sections fail the build when a cited value disappears, a blank gets filled without a source, or a banned claim slips into copy |
+| content rule | manufacturer claims ("±0.5°F", "NIST-certified") are quoted as the listing's statements with dates — never adopted as the site's own |
+
+## Adding a page
+
+1. Add its fragment to `content/pages/<id>.html` (hooks available: `{{products_table}}`,
+   `{{facts:P1}}`, `{{buy:P1}}`, `{{chooser}}`, `{{flags_open}}`, `{{questions}}`, … —
+   see `tools/build.py` HOOKS).
+2. Register it in `PAGES` in `tools/build.py` (path, title, description, section).
+3. Run the two commands above. The sitemap, feed (for guides), nav and footer pick it up
+   automatically or fail the gate.
+
+## Test count
+
+`tools/checks.py` runs **8 check sections** covering 60+ individual assertions across
+20 pages. The engine has no other entry points; everything the site publishes flows
+through the build and the gate.

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measurement: events, clicks and the campaign ledger | Prod2</title>
+<meta name="description" content="The privacy-preserving click counter, the five defined events with attribution windows, the analytics endpoint, and the empty campaign ledger.">
+<link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/measurement.html">
+<meta property="og:title" content="Measurement: events, clicks and the campaign ledger | Prod2">
+<meta property="og:description" content="The privacy-preserving click counter, the five defined events with attribution windows, the analytics endpoint, and the empty campaign ledger.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/measurement.html">
+<meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-card.png">
+<meta property="og:site_name" content="Prod2 — Kitchen notes &amp; buying guides">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Prod2 feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
+<link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "name": "Prod2 — Kitchen notes & buying guides",
+   "url": "https://wingbangboozle1-lang.github.io/Prod2/",
+   "description": "What to compare before you buy",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Prod2",
+    "url": "https://wingbangboozle1-lang.github.io/Prod2/"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://wingbangboozle1-lang.github.io/Prod2/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Measurement: events, clicks and the campaign ledger",
+     "item": "https://wingbangboozle1-lang.github.io/Prod2/measurement.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body data-page="measurement">
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">Prod2</span>
+      <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
+    <nav class="nav" aria-label="Site"><a href="compare.html">Compare</a><a href="products.html">Products</a><a href="buying-guide.html">Buying guide</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html" aria-current="page">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
+  </div>
+  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate we earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links ((paid link)); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
+</header>
+<main id="main" class="wrap">
+<p class="eyebrow">The work behind it</p>
+<h1>Measurement: events, click counter and campaign ledger</h1>
+<p class="lede">What gets counted, what never gets counted, and why the campaign ledger is empty on purpose. No conversion score and no revenue forecast is published anywhere on this site.</p>
+
+<h2>Two event sets, never mixed</h2>
+<p><strong>1. The campaign ledger's five defined events</strong> — the attribution vocabulary, with the official windows from the Commission Income Statement (<a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">S-COMM</a>):</p>
+<div class="table-scroll"><table class="data"><thead><tr><th>Event</th><th>Definition</th><th>Attribution window (official)</th></tr></thead><tbody><tr><td><strong>impression</strong></td><td>A tracked unit was shown to a visitor (client-side, first-party only). Recorded by the local tracker; carries no attribution on its own.</td><td>n/a</td></tr><tr><td><strong>click</strong></td><td>A visitor activated a Special Link on this site. Starts the attribution session.</td><td>Session opens at the click and ends at the first of: 24 hours elapsing, an order being placed, or the customer clicking another publisher&#x27;s Special Link.</td></tr><tr><td><strong>session</strong></td><td>The attribution session record opened by a click, as Amazon measures it.</td><td>24 hours / order / competing Special Link, whichever comes first (Commission Income Statement 1(b)).</td></tr><tr><td><strong>order</strong></td><td>A Qualifying Purchase attributed to a Special Link: 1-Click purchases during the session, or cart orders completed no later than 89 days after the initial click.</td><td>During the session, or up to 89 days for cart orders; the product must ship and be paid for within 180 days of purchase (Commission Income Statement 1(b)(iii)).</td></tr><tr><td><strong>refund</strong></td><td>A returned or refunded order, which reduces reported commission; recorded only when the Associates report states it.</td><td>As reported by Associates Central.</td></tr></tbody></table></div><p class="table-note">Windows as stated in the Commission Income Statement (<a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank" title="Associates Standard Commission Income Statement — Table 1 rate schedule (Kitchen 4.50%, Home 3.00%)">S-COMM</a>). This ledger starts empty and is filled only from authorized first-party reports.</p>
+
+<p><strong>2. The site's five local events</strong> — what the click counter can observe first-hand (counts only, no visitor data):</p>
+<div class="table-scroll"><table class="data"><thead><tr><th>Event</th><th>Definition</th><th>Fields</th></tr></thead><tbody><tr><td><code>page_view</code></td><td>A page finished loading.</td><td><code>path</code></td></tr><tr><td><code>outbound_click</code></td><td>A visitor clicked a sponsored product link.</td><td><code>path, asin, target_host</code></td></tr><tr><td><code>guide_read_75</code></td><td>A reader scrolled through 75% of a guide.</td><td><code>path</code></td></tr><tr><td><code>category_click</code></td><td>A reader clicked a category tile.</td><td><code>path, target</code></td></tr><tr><td><code>feed_click</code></td><td>A reader clicked the RSS/feed link.</td><td><code>path</code></td></tr></tbody></table></div>
+
+<h2>The privacy-preserving outbound-click counter</h2>
+<p><code>assets/js/measure.js</code> counts the five local events with these rules enforced in code:</p>
+<ul>
+  <li>no cookies, no visitor identifiers, no referrer capture;</li>
+  <li>an outbound click records only the ASIN and the target host — never the full URL;</li>
+  <li><strong>nothing leaves the browser</strong> while no analytics endpoint is configured — events are counted in the visitor's own localStorage only.</li>
+</ul>
+<p>Status: machinery shipped, endpoint not yet hosted (<a href="flagged.html#F-19">F-19</a>). While <code>data/settings.json → analytics_endpoint</code> is empty, the site sends nothing anywhere.</p>
+
+<h2>The self-hosted analytics endpoint</h2>
+<p><code>analytics-endpoint/server.py</code> (standard-library Python) accepts exactly the five local events, validates the body (event name, site path, ASIN format), and stores daily counts per event and path. It never reads or stores the client address, user agent, referrer or cookies, and it writes no request log. Deploy it on any owner-controlled HTTPS host, set the endpoint URL in <code>data/settings.json</code>, rebuild — done.</p>
+
+<h2>The campaign ledger</h2>
+<div class="table-scroll"><table class="data"><thead><tr><th>timestamp_utc</th><th>source</th><th>channel</th><th>eligible_sessions</th><th>clicks</th><th>reported_orders</th><th>report_reference</th><th>obtained_by</th></tr></thead><tbody></tbody></table></div><p class="table-note"><strong>Empty. No authorized report has been imported.</strong> A row is added only from an authorized first-party report (for example an Associates Central export). No row is estimated, and the site's own click counter is never a reported order.</p>
+<p>A row appears only when the owner exports an authorized first-party report (for example from Associates Central). The site's own click counter is a separate measurement and is never a reported order.</p>
+
+<h2>Publishing cadence and what gets written next</h2>
+<ul>
+  <li><strong>Cadence:</strong> at least one question-shaped guide per month, each added to <a href="sitemap.xml">the sitemap</a> and <a href="feed.xml">the feed</a> at publish (both are generated by the build, so a new guide can't ship without them).</li>
+  <li><strong>Topic selection:</strong> once measurement is live (SG-06), the next topic is chosen from measured first-party queries — Search Console plus the endpoint's page counts — not from instinct. Until then the queue holds editorial hypotheses labeled as hypotheses (<a href="questions.html#Q-P02">Q-P02</a>).</li>
+  <li><strong>What we never publish:</strong> conversion scores, revenue forecasts, or any estimated earnings. Per the Operating Agreement, no representation is made about expected traffic or commission income.</li>
+</ul>
+
+<h2>What the owner needs to do to turn this on</h2>
+<ol>
+  <li>Confirm tracking ID <code>shopnow047c-20</code> in Associates Central; run the one-link-per-product test (protocol: generate/validate one Special Link per product, confirm destination, confirm a test click in reporting) — <a href="flagged.html#F-58">F-58</a>.</li>
+  <li>Host <code>analytics-endpoint/server.py</code>; set the endpoint; rebuild — <a href="suggestions.html#SG-06">SG-06</a>.</li>
+  <li>Verify the site in Google Search Console; submit <code>sitemap.xml</code>.</li>
+  <li>Export the first authorized report into the ledger (timestamp, source, channel, eligible sessions, clicks, reported orders, report reference, obtained by).</li>
+</ol>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-brand">Prod2 <span>· Kitchen notes &amp; buying guides</span></p>
+      <p class="footer-disclosure">As an Amazon Associate we earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
+    </div>
+    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li></ul></div>
+    <div><h2>Compare &amp; shop</h2><ul><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
+    <div><h2>The work behind it</h2><ul><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+  </div>
+  <p class="wrap footer-legal">Published 2026-11-19. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
+  Product links are Amazon Associates Special Links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
+</footer>
+<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/site.js" defer></script>
+<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/measure.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggestion queue: choose the path before we build | Prod2</title>
+<meta name="description" content="Proposed improvements with evidence, impact, effort and risk. Nothing here is implemented until a reviewer picks a path.">
+<link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/suggestions.html">
+<meta property="og:title" content="Suggestion queue: choose the path before we build | Prod2">
+<meta property="og:description" content="Proposed improvements with evidence, impact, effort and risk. Nothing here is implemented until a reviewer picks a path.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/suggestions.html">
+<meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-card.png">
+<meta property="og:site_name" content="Prod2 — Kitchen notes &amp; buying guides">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Prod2 feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
+<link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "name": "Prod2 — Kitchen notes & buying guides",
+   "url": "https://wingbangboozle1-lang.github.io/Prod2/",
+   "description": "What to compare before you buy",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Prod2",
+    "url": "https://wingbangboozle1-lang.github.io/Prod2/"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://wingbangboozle1-lang.github.io/Prod2/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Suggestion queue: choose the path before we build",
+     "item": "https://wingbangboozle1-lang.github.io/Prod2/suggestions.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body data-page="suggestions">
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-row">
+    <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">Prod2</span>
+      <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
+    <nav class="nav" aria-label="Site"><a href="compare.html">Compare</a><a href="products.html">Products</a><a href="buying-guide.html">Buying guide</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html" aria-current="page">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
+  </div>
+  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate we earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links ((paid link)); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
+</header>
+<main id="main" class="wrap">
+<p class="eyebrow">The work behind it</p>
+<h1>Suggestion queue: choose the path before we build</h1>
+<p class="lede">Every proposed improvement, with its evidence, expected impact, effort and risk. Nothing in this queue is implemented until a reviewer accepts a path — this page is the review surface the brief asked for.</p>
+
+<div class="callout">
+  <h3>How to use this queue</h3>
+  <p>Each card ends with our recommendation and the dependencies that gate it. To proceed: pick <strong>accept</strong>, <strong>amend</strong>, or <strong>reject</strong> per item (a comment in the repo's <code>COORDINATION.md</code>, or an instruction in the brief, is enough). Accepted items move to the decision log with their date, then to the build. Proposed order if you want our sequence:</p>
+  <ol>
+    <li><strong><a href="#SG-06">SG-06</a></strong> — deploy measurement + Search Console. Nothing else compounds without it.</li>
+    <li><strong><a href="#SG-01">SG-01</a></strong> — brand rename after clearance (blocked on Q-19).</li>
+    <li><strong><a href="#SG-02">SG-02</a></strong> and <strong><a href="#SG-09">SG-09</a></strong> — cheap, on-thesis, low risk.</li>
+    <li><strong><a href="#SG-07">SG-07</a></strong> — the biggest content upgrade available, if real usage exists.</li>
+  </ol>
+</div>
+
+
+<article class="card s-card" id="SG-01">
+  <header><h3><code>SG-01</code> Adopt a consumer-facing brand name (after trademark clearance)</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The wordmark &#x27;Prod2&#x27; is the project&#x27;s established name, not a shop name. A real brand name would help the site read as a publication and support a future domain.</dd>
+    <dt>Proposal</dt><dd>Shortlist 2-3 candidate names (e.g. &#x27;Counter &amp; Crisp&#x27;, &#x27;The Basket Guide&#x27;, &#x27;Crisp Ledger&#x27;), run each through a trademark search (Q-19), pick one, rename in one pass (masthead, titles, OG card), then consider a domain.</dd>
+    <dt>Evidence</dt><dd>D-18 kept the established name only because clearance (Q-19) was open; the constraint is clearance, not the name itself.</dd>
+    <dt>Expected impact</dt><dd>Medium — brand recall, SERP click-through, linkability.</dd>
+    <dt>Effort</dt><dd>One session once a name clears.</dd>
+    <dt>Risk</dt><dd>Trademark collision if skipped; mitigated by the clearance step.</dd>
+    <dt>Depends on</dt><dd>Q-19</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Do it after clearance. Ranked 1 by impact/effort among brand items.</p>
+</article>
+<article class="card s-card" id="SG-02">
+  <header><h3><code>SG-02</code> Publish the comparison table&#x27;s &#x27;counter depth&#x27; as the lead spec</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Capacity is what listings lead with, but counter depth is what buyers underestimate (the brief&#x27;s counter-space thesis).</dd>
+    <dt>Proposal</dt><dd>Reorder comparison columns so counter depth and footprint lead; add a &#x27;capacity per cm of depth&#x27; derived column with its formula shown (D-26 published the analysis; this makes it the headline).</dd>
+    <dt>Evidence</dt><dd>D-26 adopted the capacity-per-depth analysis; the counter-space guide is the site&#x27;s most distinctive angle.</dd>
+    <dt>Expected impact</dt><dd>Medium — differentiation, matches the strongest guide.</dd>
+    <dt>Effort</dt><dd>Small (column reorder + one derived column in build).</dd>
+    <dt>Risk</dt><dd>Low. Derived values must show the formula to stay within the evidence rule.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. Cheap, on-thesis.</p>
+</article>
+<article class="card s-card" id="SG-03">
+  <header><h3><code>SG-03</code> Build a seasonal thermometer cluster (grilling season, holiday gifts)</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Half the catalog (P4/P5) has one guide only; seasonal demand for thermometers is a natural traffic window.</dd>
+    <dt>Proposal</dt><dd>Two question-shaped guides (&#x27;How accurate does a meat thermometer need to be?&#x27;, &#x27;Instant-read vs leave-in: which for which cook?&#x27;) plus a gift-guide page, timed to seasons, each linked into sitemap + feed.</dd>
+    <dt>Evidence</dt><dd>The publishing-cadence requirement; the thermometer products&#x27; listing themes (grill/BBQ, stocking stuffers).</dd>
+    <dt>Expected impact</dt><dd>Medium-high organic potential; unmeasured until analytics exist (Q-P02).</dd>
+    <dt>Effort</dt><dd>One session per guide.</dd>
+    <dt>Risk</dt><dd>Low — content only; no new claims needed beyond listed specs.</dd>
+    <dt>Depends on</dt><dd>Q-P04</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept after Q-P04, timed to season.</p>
+</article>
+<article class="card s-card" id="SG-04">
+  <header><h3><code>SG-04</code> Reader email capture with consent flow</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>RSS is the only capture channel; a newsletter would build a returning audience.</dd>
+    <dt>Proposal</dt><dd>Add a signup form with reviewed consent + privacy text, kept clear of affiliate links (Participation Requirement 6(g)); double opt-in; no incentives tied to clicks.</dd>
+    <dt>Evidence</dt><dd>Q-47; FTC disclosure guidance travels with the channel (S-FTC1).</dd>
+    <dt>Expected impact</dt><dd>Medium — returning readers; but adds compliance surface.</dd>
+    <dt>Effort</dt><dd>Medium (form + consent text review + privacy note page).</dd>
+    <dt>Risk</dt><dd>Medium — privacy liability if consent text is wrong; gated on review.</dd>
+    <dt>Depends on</dt><dd>Q-47</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Defer until traffic exists; the compliance cost is paid before any benefit arrives.</p>
+</article>
+<article class="card s-card" id="SG-05">
+  <header><h3><code>SG-05</code> Adopt a dated-snapshot price policy</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Buyers want prices; the site withholds them (F-02) because they drift faster than re-verification.</dd>
+    <dt>Proposal</dt><dd>Publish price only with a mandatory read date + &#x27;check listing&#x27; link; checks enforce price/date pairing; re-verify at each publishing pass. Ratings stay withheld (they invite selection bias).</dd>
+    <dt>Evidence</dt><dd>F-02; D-19 shows the dated-snapshot pattern already works for popularity claims.</dd>
+    <dt>Expected impact</dt><dd>Medium-high conversion relevance; adds upkeep to every pass.</dd>
+    <dt>Effort</dt><dd>Medium (rule + checks + one re-verification sweep).</dd>
+    <dt>Risk</dt><dd>Medium — stale prices damage trust more than absent prices; must be automated before adoption.</dd>
+    <dt>Depends on</dt><dd>Q-27</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Only after the automated date-pairing check exists. Do not do this by hand.</p>
+</article>
+<article class="card s-card" id="SG-06">
+  <header><h3><code>SG-06</code> Deploy the analytics endpoint and turn on Search Console</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>No first-party measurement exists (F-19); topic selection is instinct instead of measured queries (Q-P02).</dd>
+    <dt>Proposal</dt><dd>Host analytics-endpoint/server.py on an owner-controlled HTTPS host; set settings.analytics_endpoint; verify the domain in Google Search Console; submit the sitemap; record weekly counts in the campaign ledger only from authorized reports.</dd>
+    <dt>Evidence</dt><dd>The brief&#x27;s measurement-first priority; the machinery ships with this build.</dd>
+    <dt>Expected impact</dt><dd>High — everything downstream (topics, optimization, revenue reporting) depends on it.</dd>
+    <dt>Effort</dt><dd>Low-medium (hosting + config), mostly owner-side access work.</dd>
+    <dt>Risk</dt><dd>Low — the endpoint stores counts only, no visitor data.</dd>
+    <dt>Depends on</dt><dd>Q-23</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the top operational priority. Nothing else compounds without it.</p>
+</article>
+<article class="card s-card" id="SG-07">
+  <header><h3><code>SG-07</code> Add a &#x27;what it&#x27;s like to live with&#x27; layer once real usage exists</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>S-06 (hands-on content) was recorded as not adopted because nobody has tested these appliances; listings can&#x27;t tell a reader what cleanup or noise is like.</dd>
+    <dt>Proposal</dt><dd>Either (a) owner supplies first-hand notes/photos for one product and the site adds a clearly-labeled experience section, or (b) keep spec-only and say so. Do not fabricate experience.</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s thin-affiliation policy (S-GSPAM) rewards genuine experience; the current site is honest but thinner than ideal.</dd>
+    <dt>Expected impact</dt><dd>High on E-E-A-T, if real.</dd>
+    <dt>Effort</dt><dd>Depends entirely on real usage.</dd>
+    <dt>Risk</dt><dd>High if faked — never do this synthetically.</dd>
+    <dt>Depends on</dt><dd>Owner input</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available.</p>
+</article>
+<article class="card s-card" id="SG-08">
+  <header><h3><code>SG-08</code> Sticky mobile comparison bar on product pages</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Mobile readers scroll long comparisons and lose the buy path (S-20 in the brief list).</dd>
+    <dt>Proposal</dt><dd>A sticky bottom bar on the comparison and category pages showing the currently scrolled product + its sponsored link; type-scale and tap-target pass first.</dd>
+    <dt>Evidence</dt><dd>Brief item S-20 (not yet implemented).</dd>
+    <dt>Expected impact</dt><dd>Medium conversion UX.</dd>
+    <dt>Effort</dt><dd>One session (CSS/JS + checks update).</dd>
+    <dt>Risk</dt><dd>Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as a UX follow-up after the first traffic arrives.</p>
+</article>
+<article class="card s-card" id="SG-09">
+  <header><h3><code>SG-09</code> Internal-linking rule as an automated check</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>S-24&#x27;s rule (every article reaches the comparison, the buying guide and its category pillar) is satisfied today by hand and can rot.</dd>
+    <dt>Proposal</dt><dd>Extend tools/checks.py: each guide must link to compare.html, buying-guide.html and its category page; fail the build otherwise.</dd>
+    <dt>Evidence</dt><dd>S-24/D-27 adopted the rule; automation is the brief&#x27;s machinery-trust requirement.</dd>
+    <dt>Expected impact</dt><dd>Medium — keeps the site&#x27;s structure intact as pages grow.</dd>
+    <dt>Effort</dt><dd>Small.</dd>
+    <dt>Risk</dt><dd>None.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. It is a gate, and gates are cheap once written.</p>
+</article>
+<article class="card s-card" id="SG-10">
+  <header><h3><code>SG-10</code> Second-format expansion: one more air-fryer format page (basket accessories, liners, racks)</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Adjacent accessory queries (liners, racks) are how many readers enter the category.</dd>
+    <dt>Proposal</dt><dd>A small accessories guide that links back to the three formats; only listed facts; no accessory products added to the affiliate set until their own intent records exist.</dd>
+    <dt>Evidence</dt><dd>Topic-hub structure of the publishing plan (S-13/D-17).</dd>
+    <dt>Expected impact</dt><dd>Medium organic potential; unmeasured (Q-P02).</dd>
+    <dt>Effort</dt><dd>One session.</dd>
+    <dt>Risk</dt><dd>Low.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Defer until measured queries confirm demand (after SG-06).</p>
+</article>
+
+<p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/suggestions.json" rel="noopener" target="_blank">data/suggestions.json</a>.</p>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-brand">Prod2 <span>· Kitchen notes &amp; buying guides</span></p>
+      <p class="footer-disclosure">As an Amazon Associate we earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
+    </div>
+    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li></ul></div>
+    <div><h2>Compare &amp; shop</h2><ul><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
+    <div><h2>The work behind it</h2><ul><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+  </div>
+  <p class="wrap footer-legal">Published 2026-11-19. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
+  Product links are Amazon Associates Special Links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
+</footer>
+<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/site.js" defer></script>
+<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/measure.js" defer></script>
+</body>
+</html>
