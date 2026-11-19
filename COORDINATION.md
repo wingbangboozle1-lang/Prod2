@@ -83,13 +83,14 @@ This repository initially contained only a minimal README and no prior coordinat
 
 | Task | Status | Owner | Files in scope | Notes |
 |---|---|---|---|---|
-| Create a publication-style, evidence-conscious affiliate site and decision-support pages | done | arena/d12d2304-prod2 | `index.html`, `suggestions.html`, `evidence.html`, `guides/`, `assets/`, `.github/workflows/`, `README.md`, `COORDINATION.md`, `feed.xml`, `sitemap.xml`, `robots.txt` | Static publication, decision room, source register, feed, sitemap, and Pages workflow added. Deployment still requires checking GitHub Pages settings and workflow. |
+| Create a publication-style, evidence-conscious affiliate site and decision-support pages | done | arena/d12d2304-prod2 | `index.html`, `suggestions.html`, `evidence.html`, `guides/`, `assets/`, `.github/workflows/`, `README.md`, `COORDINATION.md`, `feed.xml`, `sitemap.xml`, `robots.txt` | Published via PR #1; GitHub Pages deployment succeeded on main. Hosted site verified at the expected Pages origin. |
 
 ## Verification / handoff log
 
 ### Evidence boundaries and irregularities
 
 - The five user-provided `https://link.amazon/...` URLs are opaque short links. Their intended products, ASINs, official listing URLs, destination behavior, Special Link compliance, and tracking report status have not been verified. Their path tokens are not treated as ASINs; the submitted URL/source, intended product fields, and observed redirect field are separate. No conclusion that the supplied links are invalid is made.
+- The project supplied tracking ID `shopnow047c-20`; it is recorded as user input only. Its Associates account status and relation to tested Special Links are not verified, and it was not appended to or used to generate links.
 - No product-level specifications, pricing, ratings, reviews, popularity, commission, conversion, or revenue assertions are included. Guides are decision frameworks, not hands-on testing or product recommendations.
 - No analytics endpoint, Search Console property, or report data exists in this repository. The five event names are proposed only; the campaign ledger remains empty. A privacy-reviewed backend and account/property setup are required.
 - Site canonical URLs target the expected GitHub Pages project address `https://wingbangboozle1-lang.github.io/Prod2/`; this is a deployment assumption pending confirmation of the actual Pages origin/custom domain.
@@ -110,3 +111,11 @@ This repository initially contained only a minimal README and no prior coordinat
 - HTML check covered all 7 HTML pages: unique page titles present; descriptions and disclosure strips present; local links resolve; the five product URLs carry `rel="sponsored"` (also `nofollow`); sitemap and RSS XML parse successfully.
 - First Pages workflow attempt failed because `upload-pages-artifact` was given a multiline path list; fixed by assembling an explicit `_site` artifact. The artifact upload/build then passed, but deployment from the feature branch was blocked by GitHub Pages environment protection. The workflow now deploys only from `main`; verify the post-merge main-branch run and hosted site before calling it live.
 - Link/source validation is not a substitute for checking actual hosted Pages deployment, Search Console, or Associates link reports. Those remain flagged, not marked verified.
+
+### Pull request and deployment result
+
+- PR #1: https://github.com/wingbangboozle1-lang/Prod2/pull/1 — merged with a merge commit on 2026-11-19 (`7e39a599a1d87db5107ed132fa347728642a9655`).
+- Successful main-branch Pages workflow run: https://github.com/wingbangboozle1-lang/Prod2/actions/runs/44526867564 — build artifact and deploy jobs both succeeded.
+- Live site verified at https://wingbangboozle1-lang.github.io/Prod2/; fetched the homepage, evidence page, suggestions page, RSS feed, and sitemap after deployment.
+- Main branch is the authorized Pages deployment source; feature-branch build passes and deploy is skipped by design because environment protection rejects feature branches.
+- Note: GitHub's Pages API reported `build_type: legacy` / source `main` while the Actions deployment job also succeeded. The live files at the expected origin were fetched successfully; check the repository Pages settings if deployment mode is later changed.
