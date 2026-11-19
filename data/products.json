@@ -342,8 +342,8 @@
     {
       "id": "FR-18",
       "severity": "Low",
-      "title": "GitHub Pages source changed to main /docs",
-      "detail": "The repository's Pages source was a legacy build from main /. The site is published from /docs, so the setting is changed as part of the deployment.",
+      "title": "Pages source set to GitHub Actions, publishing the generated docs/ folder",
+      "detail": "The repository's Pages source was a legacy build from main /, which served the PR #1 root site. The integrated site is generated into docs/. pages.yml builds, runs the verify gate, and deploys docs/. The owner should confirm the Pages source in repository settings after the first deploy.",
       "sources": [
         {
           "label": "GitHub Docs: configuring a publishing source for GitHub Pages",
@@ -351,6 +351,27 @@
         }
       ],
       "status": "Done in this session; reversible"
+    },
+    {
+      "id": "FR-19",
+      "severity": "High",
+      "title": "Tracking ID shopnow047c-20: links use it as the brief requires, but Associates enrollment is not verified",
+      "detail": "The brief names shopnow047c-20 as the selected tracking ID, and the product buttons carry it. Session d12d2304 recorded the same ID only as unverified user input and did not use it in any link (its evidence.html and COORDINATION.md, updated on main in PR #3 and #4). This session follows the brief. Whether the ID belongs to an enrolled Associates account, and whether links built with it are tracked, is unverified and must be confirmed in the account. The owner should decide whether the tagged links stay live until then (SUG-02).",
+      "sources": [
+        {
+          "label": "Associates Program Operating Agreement, Section 1 (tagged Special Link formats)",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "label": "Associates Program Policies, Commission Income Statement 2(g) (links not properly formatted are not tracked)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Zone4 decision log (D-40, Special Links question open; internal)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "status": "Open: owner confirmation in the Associates account"
     }
   ]
 }

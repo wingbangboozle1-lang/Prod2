@@ -61,6 +61,7 @@ See the Flagged for Review page (`docs/flagged.html`) for the full list with sou
 - **Superseded in part:** their `evidence.html` says the five short links were not yet resolved. That was accurate before this session. The generated `products.html`, `analysis.html` and `flagged.html` replace it.
 - **Disclosure line:** their header said product links are published "only after destination and tracking checks". Product buttons on the generated site go live before the Special Link test (FR-03). The generated disclosure does not repeat that promise. Owner decision: SUG-02.
 - The brief's `session-<id>/<task>` branch naming conflicts with the session branch rule; the session branch is used.
+- **Tracking ID (FR-19):** see the Log. The tagged links use `shopnow047c-20` as the brief requires. Session d12d2304 did not use it in links. This is an unresolved difference, and the owner decides (SUG-02).
 
 ## Pull request and merge
 
@@ -73,6 +74,8 @@ See the Flagged for Review page (`docs/flagged.html`) for the full list with sou
 - 2026-11-19: Claimed T1 to T12 (session f2613c86). Repository contained only README.md at base; all content built in this session.
 - 2026-11-19: PR #2 opened from `arena/f2613c86-prod2`. Merge refused (conflict) because PR #1 (session d12d2304) had been merged to `main` in the meantime. Resolved as above; see Handoffs.
 - 2026-11-19: CI `verify-site` passed on the pre-merge commit. It is re-run on the resolved branch.
+- 2026-11-19: `main` advanced again while PR #2 was open (PR #3 and PR #4 from session d12d2304: deployment record, and the tracking ID recorded as unverified input). Merged into this branch. Their edits to `evidence.html`, `suggestions.html` and the board were applied to the archived copies and to the history section below. Nothing was dropped.
+- 2026-11-19: Position difference recorded (FR-19). Session d12d2304 did not use `shopnow047c-20` in links. This session uses it in tagged product links, as the brief's "Selected Tracking ID" requires. Enrollment of the ID is unverified, so the owner must confirm it in the account.
 
 ---
 
