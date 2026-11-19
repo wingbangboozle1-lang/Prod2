@@ -1,0 +1,357 @@
+{
+  "_meta": {
+    "description": "Question-shaped guides published on 2026-11-17. Every figure is a fact row with the official listing page it was read from. Titles are working titles chosen from the editorial hypotheses in the brief, not claims about search volume or product superiority (F-15).",
+    "created_utc": "2026-11-17",
+    "created_by": "arena/3d2ad125-zone4"
+  },
+  "guides": [
+    {
+      "slug": "basket-or-oven-style-air-fryer-what-to-compare",
+      "category": "air-fryer-toaster-ovens",
+      "h1": "Basket or oven-style air fryer: what should you compare?",
+      "title_tag": "Basket or oven-style air fryer: what to compare",
+      "meta_description": "Two basket air fryers and one oven-style unit, compared on the points their listings state: baskets, footprint, and the questions to ask first.",
+      "dek": "Three listings, two shapes. Here is what each shape asks of your counter and your cooking, using only what the official listing pages state.",
+      "product_ids": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "sections": [
+        {
+          "h2": "Start with the shape, not the brand",
+          "paragraphs": [
+            "The three listings we track fall into two shapes. Two are basket fryers: P1 is a dual-basket model whose title names 2 independent 3 Qt nonstick baskets [F1], and P3 is a single-basket 8 Qt model [F5]. The third, P2, is an oven-style unit whose title calls it a French door air fryer toaster oven [F3].",
+            "The shape decides the first question. A basket fryer asks how much food fits in one basket. An oven-style unit asks how much fits on its racks and whether you want it to replace a toaster oven."
+          ]
+        },
+        {
+          "h2": "Compare what each listing actually states",
+          "paragraphs": [
+            "Dual-basket models split the capacity. P1's title names two 3 Qt baskets [F1], so the two baskets together are the figure to compare with a single-basket model's total, not the 6 Qt in the title alone. Check whether both baskets run at the same time or one at a time before you rely on the split. The listing states the feature names; it does not give a test result here, so the page is the place to check.",
+            "Oven-style units state a larger footprint. P2's recorded dimensions are 16.9 inches deep, 15.8 inches wide and 14.8 inches high [F4], against 12.75 inches deep for P3 [F6]. Measure your counter and the space above it, not only the depth."
+          ]
+        },
+        {
+          "h2": "A short checklist before you choose",
+          "paragraphs": [
+            "1. Write down the largest meal you cook in a normal week, and whether it needs one tray or two.",
+            "2. Measure the footprint including the door or lid swing, then compare it with the recorded dimensions above.",
+            "3. Read the feature list on the listing page and count only the features you will use.",
+            "4. If a listing gives a count of functions, check it against the title; where the records disagree, we flag it instead of choosing one (see the flagged items for P2)."
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "id": "F1",
+          "product": "P1",
+          "text": "Listing title names 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets.",
+          "source": "https://www.amazon.com/dp/B0CDY277D3",
+          "read": "2026-11-17 (listing title)"
+        },
+        {
+          "id": "F3",
+          "product": "P2",
+          "text": "Listing title: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven.",
+          "source": "https://www.amazon.com/dp/B09B7SB46R",
+          "read": "2026-11-17 (listing title)"
+        },
+        {
+          "id": "F4",
+          "product": "P2",
+          "text": "Dimensions as listed: 16.9\"D x 15.8\"W x 14.8\"H.",
+          "source": "https://www.amazon.com/dp/B09B7SB46R",
+          "read": "Carried from the 2026-11-14 verification record (data/verification-session-46c18cd1.json); not re-read on 2026-11-17."
+        },
+        {
+          "id": "F5",
+          "product": "P3",
+          "text": "Listing title: Chefman Air Fryer 8 Qt TurboFry 4-in-1.",
+          "source": "https://www.amazon.com/dp/B08DKYBTPH",
+          "read": "2026-11-17 (listing title)"
+        },
+        {
+          "id": "F6",
+          "product": "P3",
+          "text": "Dimensions as listed: 12.75\"D x 13.5\"W x 10\"H.",
+          "source": "https://www.amazon.com/dp/B08DKYBTPH",
+          "read": "Carried from the 2026-11-14 verification record (data/verification-session-46c18cd1.json); not re-read on 2026-11-17."
+        }
+      ],
+      "published_utc": "2026-11-17",
+      "disclosure": "As an Amazon Associate I earn from qualifying purchases."
+    },
+    {
+      "slug": "air-fryer-capacity-checklist",
+      "category": "single-basket-air-fryers",
+      "h1": "Which air fryer capacity do you need? A no-hype checklist",
+      "title_tag": "Which air fryer capacity do you need? A checklist",
+      "meta_description": "How to compare air fryer capacity across listings: the unit each listing uses, the figure it states, and the mismatches we flagged instead of smoothing over.",
+      "dek": "Capacity is the most quoted number on a listing and the least consistent one. Compare it in one unit, check the title against the spec, and ignore the rest of the hype.",
+      "product_ids": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "sections": [
+        {
+          "h2": "Read the unit before the number",
+          "paragraphs": [
+            "The three listings do not state capacity the same way. P3's title says 8 Qt [F7] and its recorded capacity is 8 quarts [F8]. P2's title says 26QT [F3], while its recorded capacity is 24.6 liters [F9]. P1's title says 6 Quart [F10], but its recorded capacity is 6 liters [F11].",
+            "The P1 pair is not a rounding difference we can settle: six quarts and six litres are different volumes. We have not converted or chosen between them. It is recorded as a flag, so you can check the official listing yourself."
+          ]
+        },
+        {
+          "h2": "What a capacity figure does not tell you",
+          "paragraphs": [
+            "A capacity figure is a total, not a usable area. Two-basket models split it, and a deep basket is not the same as a wide one. Use the dimensions alongside the capacity, and the cooking area the listing describes, before deciding that a larger number means more food.",
+            "Judge capacity against the meals you cook: how many portions, and whether they are one large item (a whole chicken) or several small ones (fries for four)."
+          ]
+        },
+        {
+          "h2": "The checklist",
+          "paragraphs": [
+            "1. Note the unit the listing uses (quarts, qt or liters) and convert every listing to that unit yourself before comparing.",
+            "2. Check the title figure against the spec figure. If they differ, treat the spec as unconfirmed until you have checked the page.",
+            "3. Decide whether you need one basket or two, using the meal sizes you actually cook.",
+            "4. Ignore claims of a single 'best' capacity: none of the listings states a test of cooking results, and this site does not run one."
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "id": "F3",
+          "product": "P2",
+          "text": "Listing title: 26QT French Door Multi-Function Air Fryer Toaster Oven.",
+          "source": "https://www.amazon.com/dp/B09B7SB46R",
+          "read": "2026-11-17 (listing title)"
+        },
+        {
+          "id": "F7",
+          "product": "P3",
+          "text": "Listing title: Chefman Air Fryer 8 Qt.",
+          "source": "https://www.amazon.com/dp/B08DKYBTPH",
+          "read": "2026-11-17 (listing title)"
+        },
+        {
+          "id": "F8",
+          "product": "P3",
+          "text": "Capacity as listed: 8 quarts.",
+          "source": "https://www.amazon.com/dp/B08DKYBTPH",
+          "read": "Carried from the 2026-11-14 verification record (data/verification-session-46c18cd1.json); not re-read on 2026-11-17."
+        },
+        {
+          "id": "F9",
+          "product": "P2",
+          "text": "Capacity as listed: 24.6 liters.",
+          "source": "https://www.amazon.com/dp/B09B7SB46R",
+          "read": "Carried from the 2026-11-14 verification record (data/verification-session-46c18cd1.json); not re-read on 2026-11-17."
+        },
+        {
+          "id": "F10",
+          "product": "P1",
+          "text": "Listing title: CHEFMAN 6 Quart Dual Basket Air Fryer Oven.",
+          "source": "https://www.amazon.com/dp/B0CDY277D3",
+          "read": "2026-11-17 (listing title)"
+        },
+        {
+          "id": "F11",
+          "product": "P1",
+          "text": "Capacity as listed: 6 liters (flagged, see F-63).",
+          "source": "https://www.amazon.com/dp/B0CDY277D3",
+          "read": "Carried from the 2026-11-14 verification record (data/verification-session-46c18cd1.json); not re-read on 2026-11-17."
+        }
+      ],
+      "published_utc": "2026-11-17",
+      "disclosure": "As an Amazon Associate I earn from qualifying purchases."
+    },
+    {
+      "slug": "counter-space-and-cleanup-trade-offs",
+      "category": "dual-basket-air-fryers",
+      "h1": "How much counter space and cleanup does an air fryer really take?",
+      "title_tag": "Air fryer counter space and cleanup: what to weigh",
+      "meta_description": "What an air fryer takes from your counter, and which cleanup features the listings state, using the recorded dimensions of three models.",
+      "dek": "Every air fryer trades counter space for capacity. The listings give you the footprint and some cleanup facts; the rest is for you to measure.",
+      "product_ids": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "sections": [
+        {
+          "h2": "The footprint, as recorded",
+          "paragraphs": [
+            "P1's recorded dimensions are 13.38 inches deep, 11.81 inches wide and 10.63 inches high [F12]. P3's are 12.75 inches deep, 13.5 inches wide and 10 inches high [F13]. P2's are 16.9 inches deep, 15.8 inches wide and 14.8 inches high [F4].",
+            "On these figures P3 is the shallowest of the three and P2 the deepest and tallest. Depth matters for a counter against a wall; height matters for an upper cabinet above the unit."
+          ]
+        },
+        {
+          "h2": "Cleanup features the titles state",
+          "paragraphs": [
+            "P1's title names nonstick baskets that are dishwasher safe [F1]. P3's title names an XL nonstick basket that is dishwasher safe [F14]. Neither title says anything about the drawer or the heating element, so check the listing for those before you rely on them.",
+            "A dishwasher-safe basket is a claim on the listing. We record it as stated and do not test it."
+          ]
+        },
+        {
+          "h2": "Trade-offs to weigh",
+          "paragraphs": [
+            "1. Count the space you need on both sides of the unit for air flow and for opening it. The recorded dimensions do not include clearance.",
+            "2. Decide whether the counter space pays for itself: a larger unit that replaces a toaster oven can free a different space, a basket unit may fit where an oven will not.",
+            "3. Check what the listing says about cleaning before you buy, and read the flagged items below for anything we could not confirm."
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "id": "F1",
+          "product": "P1",
+          "text": "Listing title names 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets.",
+          "source": "https://www.amazon.com/dp/B0CDY277D3",
+          "read": "2026-11-17 (listing title)"
+        },
+        {
+          "id": "F4",
+          "product": "P2",
+          "text": "Dimensions as listed: 16.9\"D x 15.8\"W x 14.8\"H.",
+          "source": "https://www.amazon.com/dp/B09B7SB46R",
+          "read": "Carried from the 2026-11-14 verification record (data/verification-session-46c18cd1.json); not re-read on 2026-11-17."
+        },
+        {
+          "id": "F12",
+          "product": "P1",
+          "text": "Dimensions as listed: 13.38\"D x 11.81\"W x 10.63\"H.",
+          "source": "https://www.amazon.com/dp/B0CDY277D3",
+          "read": "Carried from the 2026-11-14 verification record (data/verification-session-46c18cd1.json); not re-read on 2026-11-17."
+        },
+        {
+          "id": "F13",
+          "product": "P3",
+          "text": "Dimensions as listed: 12.75\"D x 13.5\"W x 10\"H.",
+          "source": "https://www.amazon.com/dp/B08DKYBTPH",
+          "read": "Carried from the 2026-11-14 verification record (data/verification-session-46c18cd1.json); not re-read on 2026-11-17."
+        },
+        {
+          "id": "F14",
+          "product": "P3",
+          "text": "Listing title names an XL Nonstick Dishwasher-Safe Basket.",
+          "source": "https://www.amazon.com/dp/B08DKYBTPH",
+          "read": "2026-11-17 (listing title)"
+        }
+      ],
+      "published_utc": "2026-11-17",
+      "disclosure": "As an Amazon Associate I earn from qualifying purchases."
+    },
+    {
+      "slug": "questions-before-a-multi-function-kitchen-appliance",
+      "category": "air-fryer-toaster-ovens",
+      "h1": "What should you ask before buying a multi-function kitchen appliance?",
+      "title_tag": "Questions before buying a multi-function kitchen appliance",
+      "meta_description": "Six questions to ask before you buy a multi-function kitchen appliance, with an example from a listing whose function count does not match across its own page.",
+      "dek": "A multi-function appliance promises to replace several others. Ask these questions first, and check every number against the official listing.",
+      "product_ids": [
+        "P2"
+      ],
+      "sections": [
+        {
+          "h2": "Six questions to ask first",
+          "paragraphs": [
+            "1. Which of the jobs you do now will it replace, and which will you still need a second appliance for?",
+            "2. How many functions does the listing claim, and does the spec table give the same number?",
+            "3. What is the footprint, and where will it sit when it is switched on and running hot?",
+            "4. What is the capacity in the unit you think in, and does the title agree with the spec?",
+            "5. What do the cleaning and the parts look like, and does the listing say whether any are dishwasher safe?",
+            "6. What does the listing leave out that you would need to know? Write that down before you check out."
+          ]
+        },
+        {
+          "h2": "An example from one listing",
+          "paragraphs": [
+            "P2's title describes 24 One-Touch Preset Options [F15]. Its 'About this item' section heads its list as 25 cooking pre-sets, so the page gives two counts. We recorded that disagreement as a flag rather than picking a number (F-26). This is exactly the kind of gap question 2 is for.",
+            "Our recorded capacity for P2 is 24.6 liters, while its title says 26QT [F9][F3]. The title uses quarts and the record uses liters. Check the listing before you rely on either figure."
+          ]
+        },
+        {
+          "h2": "What this guide does not claim",
+          "paragraphs": [
+            "It does not say which appliance cooks better. None of the listings states a cooking test, and this site has not run one. It does not state a price or a rating, because the programme withholds them from sites like this one."
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "id": "F3",
+          "product": "P2",
+          "text": "Listing title: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven.",
+          "source": "https://www.amazon.com/dp/B09B7SB46R",
+          "read": "2026-11-17 (listing title)"
+        },
+        {
+          "id": "F9",
+          "product": "P2",
+          "text": "Capacity as listed: 24.6 liters.",
+          "source": "https://www.amazon.com/dp/B09B7SB46R",
+          "read": "Carried from the 2026-11-14 verification record (data/verification-session-46c18cd1.json); not re-read on 2026-11-17."
+        },
+        {
+          "id": "F15",
+          "product": "P2",
+          "text": "Listing title (read 2026-11-17) describes 24 One-Touch Preset Options.",
+          "source": "https://www.amazon.com/dp/B09B7SB46R",
+          "read": "2026-11-17 (listing title)"
+        }
+      ],
+      "published_utc": "2026-11-17",
+      "disclosure": "As an Amazon Associate I earn from qualifying purchases."
+    },
+    {
+      "slug": "what-to-check-in-a-meat-thermometer",
+      "category": "meat-thermometers",
+      "h1": "What should you check before buying a meat thermometer?",
+      "title_tag": "What to check before buying a meat thermometer",
+      "meta_description": "What a meat thermometer listing states, which claims are only claims, and the questions to ask before buying two meat thermometers from their official pages.",
+      "dek": "Two listings whose titles carry accuracy, certification and connectivity claims. The titles are the listing's claims; this guide shows where they stop and what to ask next.",
+      "product_ids": [
+        "P4",
+        "P5"
+      ],
+      "sections": [
+        {
+          "h2": "Read the title claims as claims",
+          "paragraphs": [
+            "P4's title states ±0.5℉ accuracy, NIST and NSF certification, a bright auto-rotating LED screen and high waterproofing [F16]. P5's title states 3 ultra-thin probes, WiFi unlimited range, 1000°F heat safety and 5 sensors [F17].",
+            "Those are statements made by the listing. This site did not test accuracy, range or heat safety, and the spec tables were not read in full, so the claims are shown as titled and nothing more."
+          ]
+        },
+        {
+          "h2": "Questions to ask before buying",
+          "paragraphs": [
+            "1. Do you need one probe or several? P5's title says 3 probes; P4's title does not state a probe count in the words we read.",
+            "2. Do you cook over direct heat or in an oven? P5's title names BBQ, grill, oven, smoker and air fryer use; P4's title names grill, BBQ and camping use.",
+            "3. Do you need a wireless connection? P5's title describes WiFi range; P4's title does not mention a wireless feature.",
+            "4. Check the official listing for the spec table, the warranty and the probe materials before you buy. Those were not recorded here (F-60)."
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "id": "F16",
+          "product": "P4",
+          "text": "Listing title: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy, NIST&NSF Certified.",
+          "source": "https://www.amazon.com/dp/B0DHZTCNR5",
+          "read": "2026-11-17 (listing title)"
+        },
+        {
+          "id": "F17",
+          "product": "P5",
+          "text": "Listing title: CHEF iQ Sense Smart Wireless Meat Thermometer, 3 Ultra-Thin Probes, WiFi Unlimited Range, 1000°F Heat Safe, 5 Sensors.",
+          "source": "https://www.amazon.com/dp/B0DZFD6R9Z",
+          "read": "2026-11-17 (listing title)"
+        }
+      ],
+      "published_utc": "2026-11-17",
+      "disclosure": "As an Amazon Associate I earn from qualifying purchases.",
+      "publication_status": "Held (F-55 on main): not built or listed until the candidate listings are confirmed."
+    }
+  ]
+}

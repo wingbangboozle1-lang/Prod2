@@ -200,3 +200,71 @@ recoverable from git reflog; its unique content is preserved in `archive/counter
 - PR: https://github.com/wingbangboozle1-lang/Prod2/pull/8 (base `main`)
 - Merge result: recorded after merge below.
 - Pages: recorded after deploy verification below.
+
+---
+
+## Integration with session arena/cd3cddd6-prod2 (PR #9, 2026-11-19)
+
+A fourth parallel session claimed T1–T6 on its own copy of this board (written
+concurrently on its branch) and built a complete second implementation —
+**"The Crisp Counter"**: 28 HTML pages, canonical registers (products incl.
+held P4/P5, intent record with separated intended/observed fields, sources
+with fetched/cited status, flags split open/resolved/historical, 21 recorded
+decisions, suggestions queue, open decision-input questions, publishing
+calendar, five-event privacy model, empty-by-rule ledger), a 30-check suite,
+a cookieless analytics recorder and a Python collector. That implementation
+is **preserved in git history on branch `arena/cd3cddd6-prod2`** (visible in
+PR #9's diff at commit `3ba2231`) but is **not** merged as a second deployed
+site: one deployed site stays canonical (`site/`, per the standing
+integration decision and this pass's INT-06 consolidation) so search engines
+index one site and the Pages deploy stays unbroken.
+
+### What this merge adds to `main` (nothing discarded, nothing duplicated)
+
+- `data/imported/zone4/` — the predecessor repository's registers
+  (kanlerxz87-cyber/Zone4), fetched read-only via the GitHub API and archived
+  verbatim with a provenance README. Zone4 is the multi-day lineage of
+  verified registers behind this project: the dated session records behind
+  every product fact, the 67-row flag history, and the carried compliance
+  rationale (why prices/ratings stay off by default, why P4/P5 were held, the
+  ASIN-vs-token distinction).
+- `VOICE.md` — the editorial standard (anti-slop voice rules) for any future
+  content pass on the canonical site.
+- `DESIGN_PROMPT.md` — the carried design brief (warm-editorial direction
+  DIR-A from Zone4's recorded decisions, with the non-negotiable compliance
+  block) for the next visual pass.
+- This union of the coordination boards.
+
+### Verification differences between the sessions (logged, not hidden)
+
+- Session arena/cd3cddd6-prod2's build environment could **not reach
+  amazon.com** (egress allowlist), so no product value was re-read there; its
+  registers carried the Zone4 records with their original dated citations
+  (last product-page re-reads 2026-11-16/17) and flagged the non-re-read as
+  FLG-03. This agrees with this board's T2 and the convergence note above:
+  the newest live verification on record is the 2026-11-19 read, which
+  identified the P4/P5 destinations by name (ThermoMaven digital meat
+  thermometer; CHEF iQ Sense smart wireless meat thermometer).
+
+### Review requests for the owner (non-blocking; logged per protocol instead of editing another session's files)
+
+| ID | Request | Sources |
+| --- | --- | --- |
+| RR-1 | The canonical site's register table displays prices ("as listed", captured live 2026-11-19). The carried rule from the Zone4 register (its flags F-02/F-37) allows price display only when Amazon serves the content or the value arrives via the Creators/PA API. Decide: keep (document the display basis in the register) or remove the price column. | https://affiliate-program.amazon.com/help/operating/policies |
+| RR-2 | A star rating (4.6, 3,499 reviews) was captured live for one listing. The carried rule allows star ratings and review counts to be displayed only when obtained through the Creators/PA API. Confirm or remove. | https://affiliate-program.amazon.com/help/operating/policies |
+| RR-3 | The canonical site publishes P4/P5 (the two meat thermometers) as a category. The carried register held them until identity is confirmed by the owner in the enrolled Associates workflow (Zone4 F-55/F-56). Run the one-link-per-product test in Associates Central, then either confirm or unpublish. | https://affiliate-program.amazon.com/help/operating/policies |
+| RR-4 | The five submitted `link.amazon` short links remain recorded verbatim; their compliance status is unresolved (Zone3 FLG-003 lineage). The one-link-per-product test in Associates Central (RR-3) is the cheapest way to close this before scaling placements. | https://affiliate-program.amazon.com/help/operating/policies |
+
+### This session's merge result
+
+- Conflicts resolved at merge time: `README.md`, `data/products.json`,
+  `data/sources.json`, `data/suggestions.json`, `data/ledger.json`,
+  `.gitignore`, `COORDINATION.md` kept as the canonical site's versions
+  (fresh live-verified data + this pass's INT-06 consolidation); this
+  branch's versions preserved in git history.
+- Canonical build re-verified on the merged tree before the PR merged:
+  `python3 scripts/build_site.py` and `python3 scripts/verify_site.py` pass
+  (18 pages; no broken links).
+- PR #9 merged into `main`; GitHub Pages deploys `site/` via the existing
+  workflow. Merge commit and deploy status: see the PR page and the
+  repository's Actions history.

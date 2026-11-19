@@ -1,0 +1,105 @@
+{
+  "_meta": {
+    "description": "Open questions register - the decision inputs. Each row states the question, why it blocks a decision, what information already exists, what is missing, and a concrete way to discover the missing information. Nothing downstream of a row moves until the row is answered in data/decisions.json.",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2"
+  },
+  "questions": [
+    {
+      "id": "Q-01",
+      "question": "Are the intended ASINs for P4 and P5 correct, and are those products in scope?",
+      "why_it_blocks": "Blocks D-20 (whether to keep them held) and any future shop page for them.",
+      "have": "Observed destinations (provisional ASINs B0DHZTCNR5, B0DZFD6R9Z, both meat thermometers per the predecessor register's 2026-11-17 reads).",
+      "missing": "The owner's confirmation of what each submitted link was meant to point at.",
+      "discovery": "Owner opens the two submitted short links, compares them with the registered official listing URLs, and answers in-scope / out-of-scope / different-product."
+    },
+    {
+      "id": "Q-02",
+      "question": "Is the tracking ID shopnow047c-20 registered and active?",
+      "why_it_blocks": "Blocks treating any Special Link as attribution-ready (FLG-04) and every downstream conversion question.",
+      "have": "Owner-supplied ID, format matches the XXXXX-## pattern.",
+      "missing": "Associates Central status.",
+      "discovery": "Associates Central - Account settings - Manage your tracking IDs; screenshot or note the status."
+    },
+    {
+      "id": "Q-03",
+      "question": "Do clicks on the published Special Links report to the Associates dashboard?",
+      "why_it_blocks": "Blocks scaling link placements and all measurement claims (FLG-07).",
+      "have": "Destination checks (right ASINs observed on the final URLs).",
+      "missing": "One observed click per product in the Associates reporting UI.",
+      "discovery": "Click each published link once from a normal browser; check Associates Central reports next day; record the result in the intent record's attribution_status."
+    },
+    {
+      "id": "Q-04",
+      "question": "Will the site apply for Creators/PA API access?",
+      "why_it_blocks": "Blocks SG-05 (prices/availability/ratings display) and photography path (c) in Q-05.",
+      "have": "The API's official documentation URL and the carried rules that keep prices off the site today.",
+      "missing": "Owner's application decision; account eligibility.",
+      "discovery": "Review the API documentation's eligibility page; decide; record in decisions.json."
+    },
+    {
+      "id": "Q-05",
+      "question": "Which product-photography path is chosen?",
+      "why_it_blocks": "Blocks lifting FLG-10 and the shop pages' imagery upgrade.",
+      "have": "The bar on generated and copied photos (D-13) and the four candidate paths (SG-04).",
+      "missing": "The choice, plus budget/equipment if path (a), or API access if path (c).",
+      "discovery": "Pick a path on the Suggestions page; record in decisions.json."
+    },
+    {
+      "id": "Q-06",
+      "question": "Where is the analytics collector hosted?",
+      "why_it_blocks": "Blocks real funnel measurement (FLG-08) and SG-06's measured-query switch.",
+      "have": "A runnable dependency-free collector and the five-event contract.",
+      "missing": "Hosting choice, domain/URL, retention decision.",
+      "discovery": "Compare the two or three candidate hosts against the retention note in events.json; deploy; set CC_COLLECT_URL."
+    },
+    {
+      "id": "Q-07",
+      "question": "Who owns the Search Console property and its verification?",
+      "why_it_blocks": "Blocks query-level topic selection (FLG-09, SG-03, SG-06).",
+      "have": "A complete sitemap, canonical URLs and shipped structured data.",
+      "missing": "A verified property.",
+      "discovery": "Follow SG-03's step list with a Google account that manages the site."
+    },
+    {
+      "id": "Q-08",
+      "question": "What publishing cadence can actually be sustained?",
+      "why_it_blocks": "Blocks committing to the 14-day guide cadence beyond the shipped queue.",
+      "have": "Eight shipped guides; the cadence rule; no data on writing capacity.",
+      "missing": "An answer on who writes and how often.",
+      "discovery": "Owner states a sustainable number; the calendar re-bases on it."
+    },
+    {
+      "id": "Q-09",
+      "question": "Is there budget for any tooling (keyword data, stock photography, email tool)?",
+      "why_it_blocks": "Blocks the paid options in SG-04, SG-08 and any keyword research beyond Search Console.",
+      "have": "A working zero-budget stack.",
+      "missing": "A budget statement.",
+      "discovery": "Owner states the monthly ceiling; the suggestion queue re-sorts by what fits."
+    },
+    {
+      "id": "Q-10",
+      "question": "Is 'The Crisp Counter' clear to use as the site name?",
+      "why_it_blocks": "Blocks investing in any external asset that carries the name (og images are regenerable; domains and social handles are not).",
+      "have": "The name, the rationale (D-01), and the fact that no external asset carries it yet.",
+      "missing": "A quick clearance check for confusingly similar marks in this niche.",
+      "discovery": "Search the USPTO trademark database for the phrase in class 35/44-adjacent registrations; record the result."
+    },
+    {
+      "id": "Q-11",
+      "question": "If email capture is wanted, what is the consent basis and retention period?",
+      "why_it_blocks": "Blocks SG-08's email option.",
+      "have": "RSS as the shipped, obligation-free channel.",
+      "missing": "Consent basis, retention, privacy notice text, tool choice.",
+      "discovery": "Decide after Q-06/Q-09; the form ships only with its privacy copy written."
+    },
+    {
+      "id": "Q-12",
+      "question": "Which comparison page conclusion is allowed to say which product 'wins' for a reader profile?",
+      "why_it_blocks": "Blocks any 'for most people, pick X' sentence: with no measured performance data and attribution unverified, a conclusion would be an unverified claim.",
+      "have": "Verified spec facts for three formats; the chooser's honest spec-priority output.",
+      "missing": "Either measured evidence (which this register does not fabricate) or an owner policy call on spec-based conclusions.",
+      "discovery": "Owner chooses: keep the chooser format-only, or allow spec-based 'if your priority is capacity per centimetre, the 6L dual-basket leads the verified three' sentences (which are checkable arithmetic from carried facts)."
+    }
+  ]
+}

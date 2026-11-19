@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "description": "The Associates tracking ID selected by the site owner, and the tagged Special Links built from it. The ID is owner-supplied input (brief of 2026-11-17), not a value any official public page states; whether it is registered, active and assigned to this site can only be confirmed inside Associates Central, so the published test protocol below must pass before the links are treated as attribution-ready. The supplied link.amazon short links are NOT claimed invalid or valid here: their compliance status is unresolved (Zone3 register, FLG-003), and they remain recorded verbatim in data/products.json and in the product-intent confirmation record.",
+  "created_utc": "2026-11-17",
+  "created_by": "arena/1f4a7a22-zone4",
+  "owner_input": "Owner brief, 2026-11-17: 'Selected Tracking ID: shopnow047c-20'. Recorded verbatim as owner input; no official source was consulted to obtain it.",
+  "engine_note": "The offline engine (engine/) reads its own partner tag from config.json or the ZONE4_PARTNER_TAG environment variable and never from a committed file; data/associates.json drives only the static-site builder (scripts/build_site.py)."
+ },
+ "tracking_id": {
+  "value": "shopnow047c-20",
+  "supplied_utc": "2026-11-17",
+  "supplied_by": "Site owner (session brief)",
+  "format_rule": "Participation Requirements 2(b): \"you must include your Associates ID or \\\"tag\\\" (appearing as XXXXX-##, or such other format as we may designate) as a parameter in the URL of each link you place on your Site to an Amazon Site.\"",
+  "format_matches": true,
+  "registered_and_active": null,
+  "registered_and_active_note": "Unverifiable from outside the account: the Associates Central pages that list tracking IDs are behind sign-in. Left null by the no-inference rule; to be set only from an Associates Central read (one-link-per-product test below).",
+  "marketplace": "US storefront inferred from the links themselves: all three canonical listing URLs resolve on www.amazon.com and the ID ends in -20, the shape the engine's locale table assigns to the US store. Program enrollment for that marketplace is confirmed only inside Associates Central.",
+  "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+  "source_ref": "Associates Program Policies, Participation Requirements 2(b) (format rule, read 2026-11-17)",
+  "flag": "F-57"
+ },
+ "special_links": [
+  {
+   "product_id": "P1",
+   "asin": "B0CDY277D3",
+   "submitted_link": "https://link.amazon/B04G1MEwY",
+   "special_link_url": "https://www.amazon.com/dp/B0CDY277D3?tag=shopnow047c-20",
+   "destination_host": "www.amazon.com",
+   "note": "Final destination URL, no shortener or cloaking in the published href (Participation Requirements 6(v)-(w)). The submitted short link stays recorded (not published as an href) and its status is unresolved, not judged (Zone3 FLG-003).",
+   "test_status": "Pending - protocol below, one link per product, inside Associates Central"
+  },
+  {
+   "product_id": "P2",
+   "asin": "B09B7SB46R",
+   "submitted_link": "https://link.amazon/B02NbDxp3",
+   "special_link_url": "https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20",
+   "destination_host": "www.amazon.com",
+   "note": "Final destination URL; same rules as P1.",
+   "test_status": "Pending - protocol below"
+  },
+  {
+   "product_id": "P3",
+   "asin": "B08DKYBTPH",
+   "submitted_link": "https://link.amazon/B00hJ57DV",
+   "special_link_url": "https://www.amazon.com/dp/B08DKYBTPH?tag=shopnow047c-20",
+   "destination_host": "www.amazon.com",
+   "note": "Final destination URL; the live page may append its own variant parameters (th=1 observed 2026-11-14 and 2026-11-17).",
+   "test_status": "Pending - protocol below"
+  }
+ ],
+ "test_protocol": {
+  "title": "One link per product, before scaling",
+  "steps": [
+   "1. Sign in to Associates Central and open Account Settings; confirm the tracking ID shopnow047c-20 is listed and active for the account and note which marketplace it belongs to.",
+   "2. From SiteStripe or the link builder, generate one tagged link per product for the three ASINs (B0CDY277D3, B09B7SB46R, B08DKYBTPH) and compare each generated URL with the special_link_url published here.",
+   "3. Click each of the three published Special Links once, from this site, and confirm the destination page loads the intended ASIN's listing.",
+   "4. After 24-48 hours, check the Associates Central report (Today's Earnings / Items dispatched) for clicks attributed to those three clicks; the tag is confirmed end-to-end only when the report shows them.",
+   "5. Record the result in data/associates.json (registered_and_active and test_status fields) with the date, then scale to the remaining links. If the report shows no attribution, stop and re-check the tag before any further publishing."
+  ],
+  "source_url": "https://affiliate-program.amazon.com/",
+  "source_ref": "Associates Central (account settings and reports; sign-in required)",
+  "rule_source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+  "rule_source_ref": "Participation Requirements 2(b) (Special Links and tag format)"
+ }
+}

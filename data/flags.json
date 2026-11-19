@@ -1,0 +1,120 @@
+{
+  "_meta": {
+    "description": "Flag register, split into open, resolved and historical sections. Open items do not block publication; they are published so the owner can review them with the sources attached. Full predecessor history is in data/imported/zone4/z4-flags.json (67 rows).",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2"
+  },
+  "open": [
+    {
+      "id": "FLG-01",
+      "severity": "medium",
+      "title": "Submitted short links are recorded verbatim; their compliance status is unresolved",
+      "what": "The five supplied links use https://link.amazon/... paths with nine-character codes. They are recorded exactly as supplied in data/intent-links.json. Nothing here claims they are valid or invalid: the predecessor register's FLG-003 remains unresolved.",
+      "why_it_matters": "Publishing an unvalidated link format could break attribution or policy rules (Participation Requirements 2(b), 6(v)-(w)).",
+      "evidence": ["https://link.amazon/B04G1MEwY", "https://link.amazon/B02NbDxp3", "https://link.amazon/B00hJ57DV", "https://link.amazon/B0c8moW59", "https://link.amazon/B0f3GKalj", "https://affiliate-program.amazon.com/help/operating/policies"],
+      "unblock_action": "Owner tests one link per product in the enrolled Associates workflow and confirms destination and tracking report (FLG-07)."
+    },
+    {
+      "id": "FLG-02",
+      "severity": "low",
+      "title": "Short-link path codes are nine characters; ASINs are ten",
+      "what": "The path codes (B04G1MEwY etc.) are not ASINs under Amazon's published ASIN definition; the intended ASINs (B0CDY277D3 etc.) were read from the official listing pages instead. The two identifier kinds are kept in separate fields.",
+      "evidence": ["https://sell.amazon.com/blog/what-is-an-asin", "data/intent-links.json"],
+      "unblock_action": "None needed - recorded so no reader or future session merges the two identifier kinds."
+    },
+    {
+      "id": "FLG-03",
+      "severity": "medium",
+      "title": "No published fact has been re-read in this environment",
+      "what": "This repository's build environment can only reach github.com and package registries, not amazon.com. Every product fact on the site is carried from the predecessor register with its official citation and last-read date (2026-11-14/16/17); none was re-derived here.",
+      "evidence": ["data/imported/zone4/z4-products.json", "https://www.amazon.com/dp/B0CDY277D3", "https://www.amazon.com/dp/B09B7SB46R", "https://www.amazon.com/dp/B08DKYBTPH"],
+      "unblock_action": "Manual re-check: open the three official listing URLs and confirm the published facts still match; or run a verification session with Amazon reachable."
+    },
+    {
+      "id": "FLG-04",
+      "severity": "high",
+      "title": "Tracking ID active status is unconfirmed",
+      "what": "shopnow047c-20 is owner-supplied input, recorded verbatim. Its format matches the XXXXX-## pattern; whether it is registered and active can only be seen inside Associates Central.",
+      "evidence": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "unblock_action": "Owner: confirm the ID in Associates Central (Account settings - Manage your tracking IDs)."
+    },
+    {
+      "id": "FLG-05",
+      "severity": "low",
+      "title": "Policy and legal sources are cited, not re-quoted, in this environment",
+      "what": "The Associates Operating Agreement, Program Policies, FTC guidance and Google Search Central pages are linked in the source register. Their wording is summarised from the predecessor register's reads (dated there); no sentence is presented as a verified quote from this session.",
+      "evidence": ["https://affiliate-program.amazon.com/help/operating/agreement", "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers", "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"],
+      "unblock_action": "Manual review of the linked pages; the summaries use section references so each rule can be checked in place."
+    },
+    {
+      "id": "FLG-06",
+      "severity": "medium",
+      "title": "P4 and P5 are held, not published",
+      "what": "The last two submitted links opened to meat-thermometer listings (provisional ASINs B0DHZTCNR5, B0DZFD6R9Z), outside the air-fryer scope of the brief. Identity was never confirmed by the owner in the enrolled Associates workflow, so they appear in the registers only - no product page, no outbound link, no published fact.",
+      "evidence": ["https://www.amazon.com/dp/B0DHZTCNR5", "https://www.amazon.com/dp/B0DZFD6R9Z", "data/intent-links.json"],
+      "unblock_action": "Owner decision: confirm or correct the intended ASINs in Associates Central, then either scope them in (with a verified listing read) or drop them from the register."
+    },
+    {
+      "id": "FLG-07",
+      "severity": "high",
+      "title": "Attribution is unverified until the one-link-per-product test passes",
+      "what": "The published Special Links for P1-P3 (final destination + tag=shopnow047c-20) match the carried product-intent record, and the predecessor register's destination checks observed the right ASINs. What has never been confirmed is that clicks actually report to the owner's Associates dashboard.",
+      "evidence": ["data/intent-links.json", "https://affiliate-program.amazon.com/help/operating/policies"],
+      "unblock_action": "Owner: click each published link once, then confirm the event appears in Associates Central reporting before scaling to more placements."
+    },
+    {
+      "id": "FLG-08",
+      "severity": "medium",
+      "title": "The analytics collector is shipped but not hosted",
+      "what": "GitHub Pages is static hosting: the self-hosted collector (collector/app.py) cannot run there. Event recording degrades gracefully to first-party local aggregation; the collector is a runnable reference for any host the owner picks.",
+      "evidence": ["collector/README.md", "collector/app.py"],
+      "unblock_action": "Owner decision (question Q-06): pick a host for the collector, deploy it, set window.CC_COLLECT_URL in assets/js/analytics.js."
+    },
+    {
+      "id": "FLG-09",
+      "severity": "low",
+      "title": "Search Console verification needs property access",
+      "what": "The sitemap, feed, canonicals and structured data are shipped; the Search Console property itself must be created and verified by whoever controls the domain property.",
+      "evidence": ["https://wingbangboozle1-lang.github.io/Prod2/sitemap.xml", "suggestions.html (SG-04)"],
+      "unblock_action": "Owner: follow the step list on the Suggestions page (SG-04) using a Google account that can manage the property."
+    },
+    {
+      "id": "FLG-10",
+      "severity": "low",
+      "title": "Product photography is not used, pending a sourcing decision",
+      "what": "The site's imagery is non-photographic brand graphics. Real product photography requires a sourcing decision (original photos, licensed stock, or API-served Amazon imagery) that only the owner can make; generated or scraped photos are barred by decision D-13.",
+      "evidence": ["data/decisions.json (D-13)", "open-questions.html (Q-05)"],
+      "unblock_action": "Owner: pick a photography path in the Open Questions page (Q-05)."
+    }
+  ],
+  "resolved": [
+    {
+      "id": "FLG-R01",
+      "title": "Short-link destinations identified for all five submitted links",
+      "resolution": "The predecessor register fetched each short link (follow redirects) on 2026-11-14 and re-read on 2026-11-16/17: P1 opened to B0CDY277D3, P2 to B09B7SB46R, P3 to B08DKYBTPH, P4 to B0DHZTCNR5, P5 to B0DZFD6R9Z. Observed redirects are recorded in their own field in data/intent-links.json.",
+      "date_utc": "2026-11-17",
+      "evidence": ["data/imported/zone4/z4-intent.json"]
+    },
+    {
+      "id": "FLG-R02",
+      "title": "Disclosure placement fixed site-wide",
+      "resolution": "The Associates identification statement sits in a strip under the masthead on every page (above the fold), repeats in the footer next to the Amazon IP notice, and every outbound Amazon link is marked rel=\"sponsored\". Verified by check.py on every build.",
+      "date_utc": "2026-11-19",
+      "evidence": ["https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers", "check.py"]
+    },
+    {
+      "id": "FLG-R03",
+      "title": "Flag page split into open / resolved / historical",
+      "resolution": "This page now separates the three sections, so open items cannot hide behind resolved history (predecessor flag F-35).",
+      "date_utc": "2026-11-19",
+      "evidence": []
+    }
+  ],
+  "historical": [
+    {
+      "id": "FLG-H",
+      "title": "Predecessor flag register (67 rows)",
+      "note": "The complete flag history of the predecessor register - including every corrected-and-kept-as-audit-record item - is preserved verbatim in data/imported/zone4/z4-flags.json. Nothing was deleted; items whose state was already settled there are summarised in the resolved section above rather than renumbered."
+    }
+  ]
+}

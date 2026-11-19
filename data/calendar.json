@@ -1,0 +1,20 @@
+{
+  "_meta": {
+    "description": "Publishing cadence and topic queue. The eight launch guides are shipped and listed in guides.json; the queue below is what comes next, one new guide every 14 days starting 2026-12-03, each added to sitemap.xml and feed.xml by the same build. Topics switch to measured queries after the SG-06 gate (Search Console + collector + 14 days of events).",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2",
+    "evidence_rule": "No topic is justified by a search-volume or trend figure. Each topic exists because it answers a question a buyer of the verified three formats can actually ask and the site can answer from verified fields."
+  },
+  "cadence": {"unit": "one new guide", "interval_days": 14, "next_due_utc": "2026-12-03"},
+  "queue": [
+    {"slot": 1, "due_utc": "2026-12-03", "title": "Dual-basket vs single-basket: when are two drawers actually better than one?", "answers_with": "Verified P1/P3 spec fields and the batch math in G6"},
+    {"slot": 2, "due_utc": "2026-12-17", "title": "Preheat, shake, or don't: which air fryer rituals change your food?", "answers_with": "Manual-ritual features verified on the three listings (shake reminder on P3, sync finish on P1)"},
+    {"slot": 3, "due_utc": "2026-12-31", "title": "Air fryer vs your oven: when does the countertop box win the weeknight?", "answers_with": "Wattage/footprint framing from G5; no performance claims"},
+    {"slot": 4, "due_utc": "2027-01-14", "title": "Dehydrate, rotisserie, rotisserie-adjacent: which second functions earn their buttons?", "answers_with": "Function-count facts from P2 including the 24-vs-25 discrepancy"},
+    {"slot": 5, "due_utc": "2027-01-28", "title": "The two-batch weeknight: a realistic air fryer meal plan for a family of four", "answers_with": "G6 batch math applied to a week; no recipes invented"},
+    {"slot": 6, "due_utc": "2027-02-11", "title": "Nonstick, ceramic, stainless: what the basket coating means for cleanup", "answers_with": "Materials fields verified for P1-P3"},
+    {"slot": 7, "due_utc": "2027-02-25", "title": "Reading a listing's 'what's in the box' like a pro", "answers_with": "Accessory logic from G8 applied to listing components"},
+    {"slot": 8, "due_utc": "2027-03-11", "title": "A year on the counter: what air fryer ownership actually costs in space and minutes", "answers_with": "Counter-space method (D-14) applied across the verified three"}
+  ],
+  "review_point": "2026-12-17: with Search Console and collector data in hand (SG-03/SG-02), re-rank the remaining slots from measured queries."
+}

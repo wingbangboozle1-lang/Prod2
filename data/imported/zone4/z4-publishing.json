@@ -1,0 +1,14 @@
+{
+  "_meta": {
+    "description": "Publishing cadence and the queue of question-shaped guides. Set by the agent under the owner's standing brief (no manual input). The owner can change the cadence at any time by editing this file.",
+    "set_utc": "2026-11-17"
+  },
+  "cadence": {
+    "unit": "one new guide",
+    "interval_days": 14,
+    "first_publish_utc": "2026-11-17",
+    "next_due_utc": "2026-12-01",
+    "rule": "Each new guide is added to data/guides.json, to docs/sitemap.xml and to docs/feed.xml by the same build. A guide is published only with its fact table and sources."
+  },
+  "measurement_rule": "The next topic is chosen from measured queries and on-site clicks only after the endpoint is hosted and at least 14 days of events exist. Until then the queue order is the editorial order below, and no traffic figure is claimed (F-15)."
+}

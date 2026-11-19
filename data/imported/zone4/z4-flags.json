@@ -1,0 +1,869 @@
+{
+  "_meta": {
+    "description": "Flagged irregularities and unverified items. Published on the Flagged for Review page. None of these block the merge (per the user's instruction). 'Needs review' means the user should decide.",
+    "as_of_utc": "2026-11-17",
+    "renumbered_from_parallel_sessions": {
+      "note": "Five flags arrived from parallel sessions under different numbers because each session numbered its own additions independently. They are renumbered here into this register's sequence so that every flag reference on the site resolves. The map records where each came from.",
+      "map": {
+        "F-31": "F-50",
+        "F-32": "F-51",
+        "F-33": "F-52",
+        "F-34": "F-53",
+        "F-35": "F-54"
+      }
+    },
+    "added_by_949aaac1_2026_11_14": {
+      "F-36": "New. The per-product commission rate was published without an official source for the per-ASIN category step. Found independently by two sessions and resolved on main; recorded here as the audit trail.",
+      "F-37": "New. Carousel-instability notes in data/products.json cited F-27 where they meant F-29."
+    },
+    "added_by_c5462690_2026_11_14": {
+      "F-38": "New. F-36 and F-37 were already taken by session arena/949aaac1-zone4 (PR #41) for the per-ASIN commission defect and the F-27/F-29 citation error, so this register's own new item continues the sequence at F-38 rather than reusing a number."
+    },
+    "added_by_00ba6c2e_2026_11_15": {
+      "F-39": "New. Two product names in shipped code. Found by reading docs/tracker.js and engine/sitegen.py against the published brand.",
+      "F-40": "New. Identical meta description on 16 of 21 pages, counted from the committed docs/ output.",
+      "F-41": "New. KPI label versus the set it computes, verified by evaluating the builder's own predicate against data/flags.json (21 vs 28).",
+      "F-42": "New. Documentation drift: test count, a check command that fails on a clean checkout, and generator ambiguity. Each item reproduced before it was recorded.",
+      "F-43": "New. Wrong flag cross-reference in data/sources.json (F-29 where F-35 was meant). Corrected in the same session that found it; the row is retained as the audit trail."
+    },
+    "added_by_d8564cd0_2026_11_15": "F-44 added by session arena/d8564cd0-zone4 (2026-11-15) from its own reads; full read record in data/verification-session-d8564cd0.json. First recorded as F-39 in that session's superseded commits; renumbered on rebase because arena/00ba6c2e-zone4 had taken F-39..F-43 concurrently. No existing flag was altered.",
+    "added_by_d2a62d6b_2026_11_15": {
+      "F-45": "New. A second dated attempt (2026-11-15, session arena/d2a62d6b-zone4) to re-read the product-details tables, including one automated-traffic interstitial, which was not circumvented because the Agent Terms prohibit working around access limits. Extends F-38 with a fresh date rather than repeating it.",
+      "F-46": "New. The editorial redesign and navigation split that session shipped are a proposed path until the owner signs them off, so they are recorded rather than assumed (S-17, S-21, D-21).",
+      "note": "That session also recorded the P2 listing-title drift that main already carries as F-44, found independently by arena/d8564cd0-zone4 on the same day. Its duplicate is not re-added; the two reads agree."
+    },
+    "added_by_c42349c3_2026_11_16": {
+      "F-47": "New. Displayed link text (link.amazon.com) differs from the link target (link.amazon); the displayed form lands on Amazon's internal sign-in page on three of three requests. Found on the 2026-11-16 re-check.",
+      "F-48": "New. The renumbering map in this _meta runs the opposite way from the board log, and the F-50 to F-54 numbers it names are not in the register.",
+      "F-44": "Dated update appended on 2026-11-16 (no status change)."
+    },
+    "added_by_4c552c78_2026_11_16": {
+      "F-49": "New. Default offer on the P1 and P3 pages was a used item sold by Amazon Resale on the 2026-11-16 read; found by arena/4c552c78-zone4. F-03 received a dated update note. F-29 and F-44 were re-read the same day and matched the dated notes already recorded by arena/c42349c3-zone4, so no duplicate note was added."
+    },
+    "added_by_a8e8b898_2026_11_16": "Append-only dated update notes to F-03, F-29, F-38 and F-44 from the independent 2026-11-16 re-verification pass (arena/a8e8b898-zone4); no flag added, removed or renumbered by this session.",
+    "added_by_f9f20f21_2026_11_16": {
+      "F-50": "New. P2's own page states two different accessory counts: the listing title says 'Six Cooking Accessories Included' and the page description says 'Included are 7 premium accessories'. Found on the 2026-11-16 read (arena/f9f20f21-zone4). First numbered F-49 in that session's in-flight commits; renumbered F-50 because F-49 was taken concurrently by arena/4c552c78-zone4 (the same situation as the F-38 note below).",
+      "F-38": "Dated update appended on 2026-11-16 (status unchanged).",
+      "F-44": "Dated update appended on 2026-11-16: a third consecutive-day read agrees (status unchanged).",
+      "F-48": "Resolved 2026-11-16 (arena/f9f20f21-zone4): direction confirmed against PR #28's merged diff; map rekeyed; engine reference corrected."
+    },
+    "added_by_c509aba1_2026_11_16": "F-46 resolved by the recorded decision D-21 (delegated 2026-11-16); dated carousel re-observation appended to F-29. No new flags from this session: its findings are in data/verification-session-c509aba1.json and in the decision log. Rebased onto main at b212865: this file was rebuilt from main's merged register and this session's edits re-applied deterministically, so concurrent sessions' flag notes coexist.",
+    "added_by_89900251_2026_11_16": {
+      "F-51": "New (written as F-47, renumbered on rebase). The brief's 'trendy topics and traffic' ask measured against the guidance the site already cites: Google lists trend-chasing as a warning sign of search-engine-first content, and Operating Agreement Section 4 makes no representation about traffic or commission income.",
+      "F-52": "New (written as F-49, renumbered on rebase). Headline template repetition: three of five H1s describe the site's own checking process, two differ only by 'two baskets'/'one basket', and four of five title tags contain 'Verified'. The most visible cause of the 'reads like AI slop' complaint.",
+      "F-53": "New (written as F-50, renumbered on rebase). The second paragraph of each product article prints the ASIN and a five-level category path as prose the sourced fact table already carries.",
+      "F-54": "New (written as F-51, renumbered on rebase). Ten stale cross-references pointing at flag numbers renumbered when three sessions' registers merged; all ten corrected, and the class of defect is recorded because verify.py checks that a reference exists, not that it points at the right finding.",
+      "dropped": "This session had opened its own flag (written as F-48) for the P2 title escalation. It is withdrawn as a duplicate: sessions arena/c42349c3-zone4, arena/a8e8b898-zone4 and arena/f9f20f21-zone4 had already recorded the same finding, with three agreeing reads, inside F-44 earlier the same day. This session's read is appended to F-44 as a fourth dated confirmation.",
+      "renumbered_on_rebase_2026_11_16": "F-47 to F-51 as written collided with main's F-47..F-50, added by three concurrent 2026-11-16 sessions. Renumbered to F-51..F-54 so that both registers survive; no other session's flag was touched."
+    },
+    "renumbering_notes": [
+      "arena/cc32105d-zone4's session-local F-55 (identifier-format check) renumbered to F-67 on integration on 2026-11-17: arena/68d67712-zone4 and arena/3d2ad125-zone4 had already taken F-55 to F-66 on main while this branch was in flight. Every cross-reference was rewritten. This session's planned F-56 (endpoint hosting limits of GitHub Pages) was dropped as a duplicate of F-59 on main."
+    ]
+  },
+  "flags": [
+    {
+      "id": "F-01",
+      "severity": "Medium",
+      "title": "Commission rate read from the official public table; the per-ASIN category assignment is still unconfirmed",
+      "detail": "The public official Associates Program Standard Commission Income Statement Table 1 lists “Physical Books, Kitchen, Automotive” at 4.50%; this category-level rate was re-read from the official page on 2026-11-14. The product page breadcrumbs do not establish which Associates commission category Amazon assigns to each ASIN, and no official source reviewed confirms that mapping. To avoid inference, the three product-level rate cells are left blank. Table 1 also lists Home at 3.00%, so assigning the Kitchen value to an individual item without confirmation would be unsafe. No product-level earnings estimate is made.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Category-level band verified; per-ASIN assignment unverified",
+      "action": "Confirm each ASIN’s commission category in Associates Central before assigning a product-level rate or calculating product earnings."
+    },
+    {
+      "id": "F-02",
+      "severity": "High",
+      "title": "Prices and star ratings withheld from the public site",
+      "detail": "Participation Requirements Section 2(b) allows prices and availability to be shown only if Amazon serves the link or the data comes from Creators API / PA API. Section 6(t) bars star ratings and review data unless obtained the same way. The verification read prices and ratings, but they are not published. The pricing and rating analysis the brief asks for therefore cannot be shown on a static site.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review",
+      "action": "Decide whether to (a) apply for PA-API / Creators API access, which requires review of its license terms (not reviewed in this pass), or (b) accept price and rating fields as withheld."
+    },
+    {
+      "id": "F-03",
+      "severity": "High",
+      "title": "Associates tag not visible in the resolved links",
+      "detail": "All three short links resolve to Amazon product URLs with tracking parameters (lv, channelId, plpRedirect, btn_ref, gaOptInStatus) but no 'tag=' parameter. Two of them carry a btn_ref value of the form srtok-..., which is an Amazon source token rather than a visible Associate ID. Commission attribution to a specific Associates ID therefore cannot be confirmed from the page, and Participation Requirement 2(b) requires the tag to be present in the URL of each link placed on the site. Re-checked 2026-11-14 and unchanged. Update 2026-11-15 (arena/f87cc71f-zone4): all three short links re-resolved; still no tag= parameter in any resolved URL. Unchanged. Update 2026-11-16 (arena/4c552c78-zone4): all three short links re-resolved on the same day to the stored ASINs (B0CDY277D3, B09B7SB46R, B08DKYBTPH); no tag= parameter in any resolved URL. Unchanged. Update 2026-11-16 (arena/a8e8b898-zone4): all three short links re-resolved to the same ASINs (B0CDY277D3, B09B7SB46R, B08DKYBTPH); still no 'tag=' parameter in any resolved URL. Unchanged. Update 2026-11-17: the user supplied `shopnow047c-20` as the selected tracking ID. It has not been confirmed as an active Partner Tag or applied to links in this session; the two new candidate URLs are separately unverified under F-55; the three repeated links have historical destination checks. No claim is made that any submitted short link is invalid.\nAll three short links resolve to Amazon product URLs with tracking parameters (lv, channelId, plpRedirect, btn_ref, gaOptInStatus) but no 'tag=' parameter. Two of them carry a btn_ref value of the form srtok-..., which is an Amazon source token rather than a visible Associate ID. Commission attribution to a specific Associates ID therefore cannot be confirmed from the page, and Participation Requirement 2(b) requires the tag to be present in the URL of each link placed on the site. Re-checked 2026-11-14 and unchanged. Update 2026-11-15 (arena/f87cc71f-zone4): all three short links re-resolved; still no tag= parameter in any resolved URL. Unchanged. Update 2026-11-16 (arena/4c552c78-zone4): all three short links re-resolved on the same day to the stored ASINs (B0CDY277D3, B09B7SB46R, B08DKYBTPH); no tag= parameter in any resolved URL. Unchanged. Update 2026-11-16 (arena/a8e8b898-zone4): all three short links re-resolved to the same ASINs (B0CDY277D3, B09B7SB46R, B08DKYBTPH); still no 'tag=' parameter in any resolved URL. Unchanged. Update 2026-11-17 (arena/cc32105d-zone4): all three supplied links re-resolved again with no tag= parameter in any resolved URL. The dated observations now also live per product in the product-intent record (data/products.json), kept separate from the intended-ASIN field (F-55). Update 2026-11-17 (arena/1f4a7a22-zone4): all three short links re-resolved to the stored ASINs, again with no 'tag=' parameter (data/verification-session-1f4a7a22.json). This flag keeps describing the supplied links: the site's own outbound hrefs are now the tagged Special Links (decisions D-01/D-14, recorded 2026-11-17 under the owner's brief), while the short links stay recorded verbatim, unjudged (Zone3 FLG-003 unresolved). Whether the selected tag is registered and active is F-57.",
+      "sources": [
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV"
+      ],
+      "status": "Needs review",
+      "action": "Confirm in Associates Central that shopnow047c-20 is the enrolled account Partner Tag, generate or validate Special Links for intended products, and confirm destination plus tracking report before replacing the published links."
+    },
+    {
+      "id": "F-04",
+      "severity": "Medium",
+      "title": "Short-link codes do not match the ASINs they resolve to",
+      "detail": "The codes B04G1MEwY, B02NbDxp3 and B00hJ57DV are not ASINs. They resolve to B0CDY277D3, B09B7SB46R and B08DKYBTPH. The ASIN from the resolved URL is used everywhere on the site.",
+      "sources": [
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV"
+      ],
+      "status": "Needs review",
+      "action": "Confirm each resolved ASIN is the intended product."
+    },
+    {
+      "id": "F-05",
+      "severity": "Low",
+      "title": "P2 brand and manufacturer confirmed from the Item details table",
+      "detail": "The 2026-11-14 re-read of the official P2 page resolved the ambiguity this flag recorded. The Item details table gives Brand Name 'Emeril' and Manufacturer 'Emeril Lagasse', Model Name 'Extra Large 26 QT French Door Air Fryer Oven', Model Number 4-00675-02X-VN, UPC 752356835682. The page links to the Emeril Store and carries a 'Top Brand: Emeril' module. The separate 'Innovation IQ' creator/review block is not a product brand or byline. The published brand and manufacturer are confirmed. The separate listing inconsistency in P2's cooking-function count is tracked as F-26.",
+      "sources": [
+        "https://www.amazon.com/dp/B09B7SB46R"
+      ],
+      "status": "Resolved 2026-11-14 (arena/3036372b-zone4)",
+      "action": "None. Keep re-checking the Item details table on every refresh cycle."
+    },
+    {
+      "id": "F-06",
+      "severity": "Medium",
+      "title": "Capacity units differ between title and specification",
+      "detail": "P1 title says '6 Quart' but the specification says '6 liters'. P2 title says '26QT' but the specification says '24.6 liters'. Units were not converted, so the two values were left exactly as listed.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R"
+      ],
+      "status": "Needs review",
+      "action": "Confirm the capacity the manufacturer states (quarts or liters) before using it in comparisons."
+    },
+    {
+      "id": "F-07",
+      "severity": "Low",
+      "title": "Colour differs between title and specification (P1)",
+      "detail": "The title ends in 'Black'; the specification table lists 'Black, Gray'.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ],
+      "status": "Needs review",
+      "action": "Confirm the colour option the user intends to promote."
+    },
+    {
+      "id": "F-08",
+      "severity": "Medium",
+      "title": "P3 is a size-variant family",
+      "detail": "The P3 page offers size options of 6, 8 and 9 quarts. The short link resolves to the 8-quart variant (ASIN B08DKYBTPH, with variation parameter th=1). Capacity values on the site are for the 8-quart variant only.",
+      "sources": [
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "status": "Needs review",
+      "action": "Confirm whether the user wants the 8-quart variant or the family."
+    },
+    {
+      "id": "F-09",
+      "severity": "Medium",
+      "title": "Snapshot was taken for a US delivery location",
+      "detail": "The product-page snapshots were read with a US delivery location set. This does not establish the user's location or intended storefront. Prices and availability may vary by delivery location; no location-specific prices or availability are published.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "status": "Needs review",
+      "action": "Confirm amazon.com is the intended storefront before promotion; if another marketplace is intended, verify its product links and local program terms."
+    },
+    {
+      "id": "F-10",
+      "severity": "Medium",
+      "title": "The also-viewed carousel may carry paid placements; the 'Sponsored' label is not product specific",
+      "detail": "Competitor ASINs come from Amazon's 'Customers who viewed this item also viewed' carousel. An earlier snapshot showed the 'Sponsored' label above the P2 carousel. On 2026-11-14 the label appeared above the P3 carousel on one read of the canonical page and above the P1 carousel on another read of the same day, and it was not seen on the P2 read or on the short-link reads. The label therefore varies between snapshots and cannot be attributed to a particular product. The nine ASINs are published as a dated snapshot of one recommendation widget, not as an organic ranking.",
+      "sources": [
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ],
+      "status": "Needs review",
+      "action": "Treat every competitor list as a shortlist, not as evidence of organic ranking or of a brand's market share."
+    },
+    {
+      "id": "F-11",
+      "severity": "High",
+      "title": "One-off reading for this record versus scaled automated retrieval",
+      "detail": "The Amazon Conditions of Use 'License and Access' section excludes 'any collection and use of any product listings, descriptions, or prices' and 'any use of data mining, robots, or similar data gathering and extraction tools'. The Associates IP License repeats the same exclusion for Program Content and grants a licence to 'copy and display Program Content solely on your Site'. The two instruments have to be read together: a licensed Associates site may display Program Content, but neither instrument grants a licence to scrape it at scale for a research database. This verification read three product pages once, kept identifiers, brand, category and structured specification fields, and published no price, rating or listing prose. Scaling that to automated product research would need review, or the Creators API / PA API route. The 'License and Access' text was confirmed again on 2026-11-14.",
+      "sources": [
+        "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088"
+      ],
+      "status": "Needs review",
+      "action": "Review with counsel before any scheduled or bulk product retrieval. Prefer manual records or Creators API / PA API data."
+    },
+    {
+      "id": "F-12",
+      "severity": "High",
+      "title": "AI content automation is restricted by Amazon Conditions of Use",
+      "detail": "The Conditions of Use bar using AI-generated content from Amazon Services to develop or improve large language or machine learning models. The planned AI article generation has therefore NOT been built. It must be reviewed before it is connected to any Amazon-derived data. Participation Requirements Section 5 also bars using Special Links or Program Content to develop machine learning models without express prior written approval (re-read 2026-11-14).",
+      "sources": [
+        "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review",
+      "action": "Decide the data sources for AI-generated articles and get a compliance review before automation."
+    },
+    {
+      "id": "F-13",
+      "severity": "Medium",
+      "title": "Earlier Pages workflow failure (resolved; root redirect is used)",
+      "detail": "An earlier 'Deploy static site to GitHub Pages' workflow failed before creating jobs. The repository's Pages source is main root (/); the root index redirects to docs/index.html. The failure was resolved by replacing the deployment workflow with site checks and confirming the subsequent Pages deployment succeeded (deployment details are in COORDINATION.md).",
+      "sources": [
+        "https://api.github.com/repos/kanlerxz87-cyber/Zone4/pages",
+        "https://github.com/kanlerxz87-cyber/Zone4/actions/runs/43582130565",
+        "https://github.com/kanlerxz87-cyber/Zone4/actions/runs/43584048548",
+        "https://github.com/kanlerxz87-cyber/Zone4/actions/runs/43584048157"
+      ],
+      "status": "Resolved; historical record",
+      "action": "See COORDINATION.md for the successful deployment and site-check run links."
+    },
+    {
+      "id": "F-14",
+      "severity": "Low",
+      "title": "Prior prototype records superseded",
+      "detail": "The prototype pages from earlier sessions (root index.html, products.html, insights.html, flagged.html) held blank product records and an unverified status. They are replaced by the verified records in this site (git history keeps them).",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/COORDINATION.md"
+      ],
+      "status": "Resolved by replacement",
+      "action": "None."
+    },
+    {
+      "id": "F-15",
+      "severity": "Medium",
+      "title": "Trend, popularity and conversion signals are unverified",
+      "detail": "The product pages show Amazon badges (for example 'Amazon's Choice' and 'bought in past month') and rank-like signals. These are not published, because reuse of Amazon-displayed sales and review metrics was not confirmed (F-02). No official source provides verified trend or conversion data for these products, so trend and conversion fields are blank.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "status": "Unverified (blank)",
+      "action": "Provide an official data source (for example, PA-API) or accept blank fields."
+    },
+    {
+      "id": "F-16",
+      "severity": "Low",
+      "title": "Creators API / PA API license terms not reviewed",
+      "detail": "The Program Policies incorporate an 'Associates Program IP License and Usage Requirements' section that governs Creators API and PA API use. It was not read line by line in this pass, so no API integration is claimed.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Open review item",
+      "action": "Read the IP License section before any API work."
+    },
+    {
+      "id": "F-17",
+      "severity": "Medium",
+      "title": "Policy section numbers were wrong in earlier records (corrected)",
+      "detail": "Earlier records cited several Participation Requirements items under the wrong section. On the Program Policies page (read 2026-11-14), items (a)–(f) belong to Section 3, and the items (g)–(z) follow heading '6. Content on your Site'. So the ratings rule is 6(t), not 3(t); the link-shortening rule is 6(w), not 3(w); the artificial-clicks rule is 6(s), not 3(s); the keyword rule is 6(e)–(f), not 3(f); incentives and customer-content rules are 6(g) and 6(p), not 3(g) and 3(p). The trademark-in-domain rule is Section 1(g), not 3(g). Commission Income Statement Section 2(g) was cited for link shortening, but it covers improperly formatted links. All citations are corrected in data/policies.json, data/sources.json, data/flags.json, data/content.json and README.md.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Corrected in this session; needs review",
+      "action": "Confirm the corrected section numbers against the Program Policies page."
+    },
+    {
+      "id": "F-18",
+      "severity": "Medium",
+      "title": "Brand, manufacturer and specification fields re-read on 2026-11-14",
+      "detail": "The 2026-11-14 re-read checked explicit Item details brand/manufacturer fields and specification rows on all three product pages. P1 and P3 list Brand Name Chefman and Manufacturer Chefman; P2 lists Brand Name Emeril and Manufacturer Emeril Lagasse. P2’s separate store link says “Visit the Emeril Store”; a separate creator/review block shows “Innovation IQ”. That creator/review label is not a product byline or brand. The listed specification fields were also checked. This gap is resolved; F-05 records the P2 brand/manufacturer confirmation.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "status": "Resolved 2026-11-14 (arena/3036372b-zone4)",
+      "action": "None. Re-check the same fields on every refresh cycle."
+    },
+    {
+      "id": "F-19",
+      "severity": "High",
+      "title": "Attributed click, order and revenue measurement is not connected; a local first-party click log is",
+      "detail": "The brief asks for click and conversion tracking. Two parts of that are built and two are not. Built: a first-party, local-only click log on the Analytics page. It records real user clicks on tracked links in the visitor's own browser, exports them as JSON or CSV, starts at zero, sends nothing to any server and never estimates a figure. It generates no click of its own, so it does not conflict with Participation Requirement 6(s) on artificial clicks. Not built: click-to-order attribution, unit-session percentage, revenue and commission. Those need an Associates ID, a tagged Special Link on every link, and the official Associates reporting, none of which are connected here. The supplied short links carry no visible Associates tag, so a locally recorded click cannot be reconciled against Amazon reporting.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Partly built; not connected",
+      "action": "Join the Associates Program, confirm the tag on the supplied links (F-03), then read attributed figures from the official Associates reporting and reconcile them against the local event log. Add a cookie or consent notice before enabling measurement on real traffic."
+    },
+    {
+      "id": "F-20",
+      "severity": "Medium",
+      "title": "Competitor labels were paraphrases; the exact listing-title prefixes are now used (RV-I1)",
+      "detail": "This flag recorded that the competitor labels in data/products.json were shortened paraphrases of the listing titles rather than the titles themselves, while the ASINs and the carousel order matched the official page. RV-I1 has now been applied: each label is the first part of the listing title exactly as it was shown on the 2026-11-14 read. Where a title was not seen on that read the label is blank rather than guessed. The ASIN remains the authoritative identifier and the site shows ASINs.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://affiliate-program.amazon.com/help/operating/participation/"
+      ],
+      "status": "Corrected in this session; kept as the audit record",
+      "action": "Keep the labels as read; if a label is blank, leave it blank and flag it (F-29)."
+    },
+    {
+      "id": "F-21",
+      "severity": "High",
+      "title": "Agent Terms apply to any automated research agent",
+      "detail": "IP License section 4 applies if a software agent is used to access, use or interact with Program Content, and defines an Agent as any software or service that takes autonomous or semi-autonomous action on behalf of, or at the instruction of, a person or entity. Such an agent must identify itself in every HTTP and HTTPS request by including 'Agent/[agent name]' in the user agent string, must not conceal or obfuscate that it is an agent, must not mimic the speed or pattern of human keystrokes or navigation, must not complete or circumvent CAPTCHAs or other measures that distinguish computers from humans, must answer truthfully when asked whether it is human or a computer, and must not circumvent any measure intended to limit access. Amazon may also limit or switch off agent access at its sole discretion. This session's verification read product pages with an automated retrieval tool and kept only identifiers and structured fields; if that approach is automated rather than one-off, the Agent Terms have to be met first.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review",
+      "action": "Before building the automated research agent described in the brief, implement the Agent/ user agent string, disclose the agent identity, and document how the tool avoids the prohibited behaviours. Get a compliance decision on whether scheduled retrieval is acceptable at all."
+    },
+    {
+      "id": "F-22",
+      "severity": "Medium",
+      "title": "Price tracking and price alerting are prohibited by default",
+      "detail": "Participation Requirement 6(y) states that, unless Amazon agrees otherwise, the site must not have price tracking or price alerting functionality. The brief asks for pricing analysis and continuous campaign optimisation. A price history chart or a drop alert built on Amazon prices would be exactly the functionality this requirement names, so the pricing and tracking plan on the Automation page records price movement as Not built rather than as a metric to fill in later.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review",
+      "action": "If price tracking is wanted, ask Amazon for the agreement the requirement refers to, or keep the analysis to the listed specifications only."
+    },
+    {
+      "id": "F-23",
+      "severity": "Medium",
+      "title": "Amazon Marks must not be used as search keywords",
+      "detail": "Trademark Guidelines 1 to 3 allow Amazon Marks to be used only by display on the site for the purpose of advertising the availability of products on an Amazon Site, with a corresponding Special Link, and Participation Requirement 6(e) bars using an Amazon Mark or a variant of one for use in any Search Engine. The site previously used 'Amazon' in the HTML title and the meta description of every page. That has been corrected: the title and meta description no longer contain the word, and the suggested article titles, meta descriptions, slugs and keyword targets contain no Amazon Mark either. The word remains in body text, where it is a factual reference to the retailer rather than a keyword, and the site is not a public storefront.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Implemented; confirm before launch",
+      "action": "Keep 'amazon' out of any title tag, meta description, slug, keyword field or paid-search term when this site is turned into a public storefront."
+    },
+    {
+      "id": "F-24",
+      "severity": "Medium",
+      "title": "API reuse, model training and submissions are restricted",
+      "detail": "IP License 2(e) bars accessing Creators API or PA API for aggregating, analysing, extracting or repurposing Product Advertising Content, or in connection with direct training or fine-tuning of a model, without express prior written approval. IP License 1 bars using Program Content to develop or improve large language or multimodal models, and Participation Requirement 5 bars using Special Links or Program Content to develop machine learning models without express prior written approval. IP License 3 also assigns to Amazon any material provided to it in connection with Program Content as a 'Your Submission'. None of this applies to the current site, which uses no API and provides no submission, but it constrains the automated platform described in the brief.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review",
+      "action": "Obtain express prior written approval before any API content is reused or any model is trained; do not submit Program Content for approval without checking the assignment in IP License 3."
+    },
+    {
+      "id": "F-25",
+      "severity": "Low",
+      "title": "The Amazon text disclaimer is shown, because Amazon listing titles are displayed",
+      "detail": "IP License Section 2(k) requires the text 'CERTAIN CONTENT THAT APPEARS ON THIS SITE COMES FROM AMAZON. THIS CONTENT IS PROVIDED AS IS AND IS SUBJECT TO CHANGE OR REMOVAL AT ANY TIME.' to appear in plain view when Product Advertising Content consisting of text is displayed. The site displays Amazon listing titles, and although those titles were read by hand from the official pages rather than served by an API, the conservative reading is that the notice applies. It is now shown on every page, above the main content, with the IP License section cited. This was requested by a parallel session as its F-24.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Implemented (conservative reading); confirm with Amazon if the site is ever reduced to non-Amazon text",
+      "action": "Keep the notice while any Amazon listing title is displayed on the site."
+    },
+    {
+      "id": "F-26",
+      "severity": "Medium",
+      "title": "P2 states two different cooking function counts",
+      "detail": "The P2 listing title says '24 cooking functions'. The 'About this item' section of the same page heads its list as '25 COOKING PRE-SETS' and then names eleven modes: Ribs, Defrost, Bake, Toast, Chicken, Pizza, Pastry, Slow Cook, Roast, Reheat and Keep Warm. The page does not explain the difference. This was found during the 2026-11-14 re-verification.\nThe P2 listing title says '24 cooking functions'. The 'About this item' section of the same page heads its list as '25 COOKING PRE-SETS' and then names eleven modes: Ribs, Defrost, Bake, Toast, Chicken, Pizza, Pastry, Slow Cook, Roast, Reheat and Keep Warm. The page does not explain the difference. This was found during the 2026-11-14 re-verification. Update 2026-11-17: the P2 listing title again reads '24 One-Touch Preset Options' - another dated sighting of the 24 side of the discrepancy on the same page that heads its feature list '25 COOKING PRE-SETS'.",
+      "sources": [
+        "https://www.amazon.com/dp/B09B7SB46R"
+      ],
+      "status": "Needs review",
+      "action": "Ask the seller which number is correct, or refer only to the named modes rather than to a count."
+    },
+    {
+      "id": "F-27",
+      "severity": "Medium",
+      "title": "Offline and email use of Program Content and Special Links is restricted",
+      "detail": "Participation Requirement 4 (Promotional Limitations) states that Program Content, Special Links and Amazon Marks must not be used offline, including in printed material, ebook, mailing or oral solicitation, and that email, SMS and direct messages carrying a Special Link must be solicited, meaning the recipient opted in. The brief's 'publish and manage affiliate links' step can be read as including outreach, so this is recorded as a constraint on that step rather than as a defect.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Informational",
+      "action": "If outreach is added, make it opt-in only and keep Program Content, Special Links and Amazon Marks out of any offline material."
+    },
+    {
+      "id": "F-28",
+      "severity": "Low",
+      "title": "Manufacturer confirmed for P1, P2 and P3 from the Item details tables",
+      "detail": "The Item details table was read for P2 (Manufacturer 'Emeril Lagasse') and was not read for P1 and P3, so the manufacturer field was left blank for those two rather than inferred from the brand. The final integration session read the Item details tables on all three product pages on 2026-11-14: P1 gives Brand Name 'Chefman' and Manufacturer 'Chefman' (Model Number RJ38-SQPF-3TDB-2W, UPC 810087845025), P3 gives Brand Name 'Chefman' and Manufacturer 'Chefman' (Part Number RJ38-SQSS-8T, UPC 816458024518), and P2 gives Brand Name 'Emeril' and Manufacturer 'Emeril Lagasse' (Model Number 4-00675-02X-VN, UPC 752356835682). The manufacturer is now published for all three products. The flag is kept so the earlier blank is on the record.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "status": "Resolved 2026-11-14 (arena/3036372b-zone4)",
+      "action": "None. Re-read the Item details table on every refresh cycle."
+    },
+    {
+      "id": "F-29",
+      "severity": "Medium",
+      "title": "The also-viewed carousel changes between page loads; some labels could not be read",
+      "detail": "The 'Customers who viewed this item also viewed' module does not return the same set, or the same order, on every load of the same product page. On the 2026-11-14 reads of the P2 page the first three entries appeared in two different orders, and on the P1 page one of the three stored ASINs had no readable title on that read, so its label is blank. The stored ASINs and their order are therefore a snapshot of one read, not a stable list, and the module is an advertising slot whose membership can change without notice. Update 2026-11-14 (arena/949aaac1-zone4): all three carousels were read again and every stored ASIN appeared in the stored order with the same titles, so the snapshot reproduced exactly on that read. The one label that had been left blank (B0CNSB81V6 on P1) was read on that pass as 'Nutrichef Double Basket Air Fryer 8.8 QT' and is now filled, so no label on the site is blank. The module is still an advertising slot whose membership can change without notice, so the flag stays open. Update 2026-11-15 (arena/f87cc71f-zone4): rotation observed directly on a later date — the third P2 carousel slot showed B0D1BGLW25 (Midea Flexify 26.4 QT) and the third P3 slot showed B09MR7QWKZ (Gourmia 8 Qt), replacing the stored B0F92GL7JH and B0C33CHG99 snapshots; the first two slots of each carousel matched the stored order and titles. Stored snapshots are kept as dated records; the flag's warning against deriving any ranking or share from these lists is confirmed. Update 2026-11-16 (arena/a8e8b898-zone4): on this read the P2 carousel slot 3 rotated to B0D1BGLW25 (Midea Flexify) and the P3 carousel slot 3 to B09MR7QWKZ (Gourmia 8 Qt), the same rotation recorded on 2026-11-15 by arena/d8564cd0-zone4 and arena/f87cc71f-zone4. Stored snapshots kept; the module remains volatile. Re-observed 2026-11-16 (arena/c509aba1-zone4): P2 also-viewed position 3 showed B0D1BGLW25 (Midea Flexify Classic French Door Toaster Oven Air Fryer Combo, 26.4 QT) and P3 position 3 showed B09MR7QWKZ (Gourmia Air Fryer - 8 Qt), matching the drift pattern F-44 records; the stored competitor rows are kept with their citation.\nThe 'Customers who viewed this item also viewed' module does not return the same set, or the same order, on every load of the same product page. On the 2026-11-14 reads of the P2 page the first three entries appeared in two different orders, and on the P1 page one of the three stored ASINs had no readable title on that read, so its label is blank. The stored ASINs and their order are therefore a snapshot of one read, not a stable list, and the module is an advertising slot whose membership can change without notice. Update 2026-11-14 (arena/949aaac1-zone4): all three carousels were read again and every stored ASIN appeared in the stored order with the same titles, so the snapshot reproduced exactly on that read. The one label that had been left blank (B0CNSB81V6 on P1) was read on that pass as 'Nutrichef Double Basket Air Fryer 8.8 QT' and is now filled, so no label on the site is blank. The module is still an advertising slot whose membership can change without notice, so the flag stays open. Update 2026-11-15 (arena/f87cc71f-zone4): rotation observed directly on a later date — the third P2 carousel slot showed B0D1BGLW25 (Midea Flexify 26.4 QT) and the third P3 slot showed B09MR7QWKZ (Gourmia 8 Qt), replacing the stored B0F92GL7JH and B0C33CHG99 snapshots; the first two slots of each carousel matched the stored order and titles. Stored snapshots are kept as dated records; the flag's warning against deriving any ranking or share from these lists is confirmed. Update 2026-11-16 (arena/a8e8b898-zone4): on this read the P2 carousel slot 3 rotated to B0D1BGLW25 (Midea Flexify) and the P3 carousel slot 3 to B09MR7QWKZ (Gourmia 8 Qt), the same rotation recorded on 2026-11-15 by arena/d8564cd0-zone4 and arena/f87cc71f-zone4. Stored snapshots kept; the module remains volatile. Re-observed 2026-11-16 (arena/c509aba1-zone4): P2 also-viewed position 3 showed B0D1BGLW25 (Midea Flexify Classic French Door Toaster Oven Air Fryer Combo, 26.4 QT) and P3 position 3 showed B09MR7QWKZ (Gourmia Air Fryer - 8 Qt), matching the drift pattern F-44 records; the stored competitor rows are kept with their citation. Update 2026-11-17 (arena/cc32105d-zone4): rotation observed in both directions today. The third carousel slots that had rotated away on later reads (P2 to B0D1BGLW25, P3 to B09MR7QWKZ) each showed the originally stored ASIN again on this read (P2 slot 3 = B0F92GL7JH, P3 slot 3 = B0C33CHG99), and P1's three slots again matched the stored order. The stored lists remain dated snapshots of an advertising slot, exactly as this flag says.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "status": "Documented; no ranking or share is derived from the lists",
+      "action": "Re-read the carousel on every refresh cycle; leave an unread label blank rather than filling it in."
+    },
+    {
+      "id": "F-30",
+      "severity": "Low",
+      "title": "The Amazon Conditions of Use help URL redirects to a different node id; the target is now recorded and the old citation still resolves",
+      "detail": "The Conditions of Use page is cited throughout this site as https://www.amazon.com/gp/help/customer/display.html?nodeId=508088, last updated August 14, 2026. Session arena/949aaac1-zone4 re-read that URL on 2026-11-14: it still returns the Conditions of Use page, but the page's own canonical URL is now https://www.amazon.com/gp/help/customer/display.html?nodeId=GLSBYFE9MGKKQXXM, which was also fetched directly and returned the same text with the same 'Last updated: August 14, 2026' line. The 'License and Access' wording this site relies on was re-read on that fetch and matches what the site quotes: the license excludes 'any collection and use of any product listings, descriptions, or prices' and 'any use of data mining, robots, or similar data gathering and extraction tools', and it bars using 'AI-generated content from the Amazon Services to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology'. Because nodeId=508088 still resolves through the redirect, the citation was not churned; both node ids are recorded here instead. Final-wrap-up read (arena/46c18cd1-zone4) adds one nuance supporting the decision not to churn the citation: Amazon's own Creators API documentation pages still link 'Conditions of use' to nodeId=508088 (seen 2026-11-14), so the old identifier remains a live Amazon-served redirect.",
+      "sources": [
+        "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088",
+        "https://www.amazon.com/gp/help/customer/display.html?nodeId=GLSBYFE9MGKKQXXM"
+      ],
+      "status": "Resolved 2026-11-14 (arena/949aaac1-zone4); the old citation still resolves, so it was kept",
+      "action": "No action needed. The old URL still resolves. If the citation is ever refreshed, use nodeId=GLSBYFE9MGKKQXXM and re-read the 'License and Access' wording at that time."
+    },
+    {
+      "id": "F-31",
+      "severity": "Medium",
+      "title": "Product specification fields are displayed without an approved content source",
+      "detail": "Capacity, dimensions, colour and material are shown on the product and category pages, and the listing titles are shown as row labels. They were read from the product page rather than from SiteStripe or the Creators API. This is the same exposure F-02 handles for prices and F-24 covers for the text disclaimer: Participation Requirements limit how Amazon-sourced content may be obtained, displayed and altered. Flag id chosen above the sequential range because F-17 to F-27 are in use by concurrent sessions. (Recorded by a parallel session under a different number in its own register; renumbered into this branch's register on 2026-11-14. See the renumbering map in _meta.)",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review",
+      "action": "Choose one: (a) re-source these fields through SiteStripe or the Creators API, or (b) withhold them as prices and ratings are withheld. The text disclaimer required by F-24 is already in place either way."
+    },
+    {
+      "id": "F-32",
+      "severity": "Low",
+      "title": "Short-link host is confirmed genuine, but its codes are tokens, not ASINs",
+      "detail": "Checked 2026-11-14: 'link.amazon' sits under the '.amazon' gTLD, which IANA shows as active and delegated to Amazon Registry Services, Inc. since 2020-06-02, so the supplied links are Amazon-controlled and not spoofed domains. The path segments B04G1MEwY, B02NbDxp3 and B00hJ57DV are 9 characters, so they are short-link tokens; amazon.com/dp/<token> legitimately returns Amazon's 'Page Not Found' document. Following the link itself reaches the correct product page, as recorded on each product row and in data/reverification-2026-11-14.json. (Recorded by a parallel session under a different number in its own register; renumbered into this branch's register on 2026-11-14. See the renumbering map in _meta.)",
+      "sources": [
+        "https://www.iana.org/domains/root/db/.amazon.html",
+        "https://sell.amazon.com/blog/what-is-an-asin"
+      ],
+      "status": "Informational — supports F-04",
+      "action": "None required. Recorded so a future pass does not mistake the 404 on the token for a missing product."
+    },
+    {
+      "id": "F-33",
+      "severity": "Medium",
+      "title": "API quota figures and the price-timestamp clause are not adopted",
+      "detail": "Third-party write-ups state 1 transaction per second and 8,640 transactions per day for new Creators API credentials, and a rule that a date/time stamp must sit next to displayed pricing when data is refreshed less often than hourly. Neither figure nor clause was read from an official page in this pass, so the engine holds api_tps, api_tpd and price_cache_max_seconds as null and keeps price display disabled by default rather than encoding an unverified limit. (Recorded by a parallel session under a different number in its own register; renumbered into this branch's register on 2026-11-14. See the renumbering map in _meta.)",
+      "sources": [
+        "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review",
+      "action": "Read the official API Rates page and the Participation Requirements price clause, then set those three engine config values."
+    },
+    {
+      "id": "F-34",
+      "severity": "Low",
+      "title": "Two Pages publishers and two CI pipelines are configured",
+      "detail": "Pages still builds from the repository root (legacy source 'main' /) while the root index.html redirects into docs/. Earlier runs show the legacy 'pages build and deployment' job being cancelled when the Actions deploy wins, and both site-checks.yml and the engine's ci.yml now run the same docs gates. Not silently reconfigured, because the Pages source is an account-level setting other sessions may be editing, and the legacy build is what makes the root redirect path work if Actions is ever disabled. (Recorded by a parallel session under a different number in its own register; renumbered into this branch's register on 2026-11-14. See the renumbering map in _meta.)",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/actions"
+      ],
+      "status": "Needs review",
+      "action": "Keep exactly one publisher (recommended: GitHub Actions deploying docs/) and remove the other workflow or the legacy source."
+    },
+    {
+      "id": "F-35",
+      "severity": "Medium",
+      "title": "Two official Creators API pages describe marketplace access differently",
+      "detail": "The onboarding page says the API may only be used for the marketplace you registered in; the FAQ says credentials work across marketplaces provided a valid Partner Tag and regional API approval exist for the target. The engine takes the narrower reading: one configured tag per marketplace, and an explicit marketplace entry is required before any call is attempted, so a misread cannot send US traffic through another locale's tag. (Recorded by a parallel session under a different number in its own register; renumbered into this branch's register on 2026-11-14. See the renumbering map in _meta.)",
+      "sources": [
+        "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/onboarding/sign-up-as-an-amazon-associate",
+        "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/frequently-asked-questions"
+      ],
+      "status": "Needs review",
+      "action": "Confirm the current wording for the locale you publish in before enabling a second marketplace."
+    },
+    {
+      "id": "F-36",
+      "severity": "Medium",
+      "title": "The site published a per-product commission rate that no official source confirms for these ASINs",
+      "detail": "Two sessions found the same defect on 2026-11-14 and reached the same conclusion about the fix, having got there from opposite directions. The product table published '4.50% (Kitchen band)' on all three product rows, sourced from Amazon's public Standard Commission Income Statement Table 1, which does list 'Physical Books, Kitchen, Automotive' at 4.50%. What Table 1 does not say is which commission category Amazon assigns to each of these three ASINs, and the table also carries a 'Home' band at 3.00%. Putting the Kitchen figure on a product row therefore applies a category-level rate to an individual item without an official source for that step, which this site's own rule forbids. At the same time, the rest of the site still described the rate as unverified and behind a sign-in, so the site contradicted itself: the index KPI read '0 of 3 Commission rates verified (F-01)', the executive-summary headline said commission rates are not published, an executive-summary bullet said the schedule was behind an Amazon sign-in, and finding A-05 said the category rate was unverified. Resolution adopted on main (PR #38, session arena/13dd55ca-zone4) and confirmed by this session: the official category-level Kitchen rate of 4.50% is stated in the narrative with its source, and the product-level rate cells are left blank until Amazon confirms each ASIN's commission category. Session arena/949aaac1-zone4 independently reached the same wording for the narrative text and adopted main's resolution for the cells rather than re-litigating it. The index KPI is now computed from the data instead of typed in, so it cannot drift from the table again.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+      ],
+      "status": "Resolved 2026-11-14; product-level cells blank, category-level rate stated with its source",
+      "action": "Confirm each ASIN's commission category in Associates Central (or via the Creators API category fields) before using any product-level rate. If an item is assigned to Home rather than Kitchen the rate is 3.00%."
+    },
+    {
+      "id": "F-37",
+      "severity": "Low",
+      "title": "Carousel-instability notes cited flag F-27 (offline and email use) instead of F-29",
+      "detail": "Found by session arena/949aaac1-zone4 on 2026-11-14 and corrected in the same session. The competitor notes attached to all three products in data/products.json ended with 'Carousel membership changes between page loads (F-27)', and the blank-label note on P1 pointed at F-27 as well. F-27 is the flag about offline, print, email and SMS use of Program Content, so those references pointed a reviewer at the wrong item; the carousel-instability flag is F-29. Both references now point at F-29. The reference resolved to a real flag, so no verifier caught it, which is recorded here because a cross-reference can be resolvable and still wrong.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ],
+      "status": "Corrected 2026-11-14 (arena/949aaac1-zone4); kept as the audit record",
+      "action": "None. F-27 keeps its own meaning and is still cited correctly in the not-built list."
+    },
+    {
+      "id": "F-38",
+      "severity": "Low",
+      "title": "Specification-table values rest on earlier same-day reads; this session could not re-read them",
+      "detail": "The final integration session (arena/c5462690-zone4, 2026-11-14) independently re-read the parts of each official product page that were retrievable: the short-link resolution, the listing title, the category breadcrumb and the also-viewed competitor set were re-read for all three products and match the records exactly. The product-details rows themselves (capacity, dimensions, colour, material, special features, brand, manufacturer, model number) could not be re-read by this session: every request for the lower part of the page returned advertising modules rather than the details table, across repeated attempts on all three ASINs, so the specification values published here rest on the 2026-11-14 reads recorded by sessions arena/3036372b-zone4 and arena/01ab2940-zone4, not on a fresh read by this session. They are not in doubt, but they are not independently re-confirmed here either, and that is stated rather than glossed over. The same session did independently confirm the two corrections PR #41 also made (the P1 label for B0CNSB81V6 and the F-27 to F-29 reference), which is a useful cross-check on the parts of the page that were readable. Update 2026-11-15 (arena/f87cc71f-zone4): a second independent session also could not re-read the specification tables — requests for the lower part of each page returned advertising modules (P1, P3 via the mobile route, which served the desktop layout) or a bot checkpoint (P2). The stored values are unchanged and not contradicted; the requested clean re-read is still outstanding. Identity fields (title tags for P1/P3, category breadcrumbs, short-link resolutions) WERE re-confirmed on 2026-11-15; see data/verification-session-f87cc71f.json. Update 2026-11-16 (arena/a8e8b898-zone4): a further read attempt of all three product pages returned review, advertising and 'About this Item' modules in place of the product-details/Item-details tables, so the specification fields still rest on the 2026-11-14 reads. The flag stands and no value was inferred or re-filled. Update 2026-11-16 (arena/f9f20f21-zone4): fresh reads of all three product pages again served a condensed 'Product summary' layout with no Item details / Product information table (P1 read at two URL variants, P2 and P3 at the canonical URL). Every value the pages did expose matches the stored record: P1 title, byline 'From Chefman', breadcrumb, capacity narrative (6-quart total / two 3-quart baskets), 200-450F range, Sync Finish, +2-minutes button, shake reminder, Hi-Fry, windows, auto shutoff, cETL, 120V/1700W, model RJ38-SQPF-3TDB-2W, TurboFry Touch line name, and all three also-viewed ASINs; P3 title, byline, 8-quart basket, four functions, 200-400F, 450F Hi-Fry, shake reminder, dishwasher-safe nonstick basket, stainless finish, model RJ38-SQSS-8T, and the 6/8/9-quart + colour variant lists; P2 byline 'From Emeril', 26-quart bullet, dual-speed fan, French doors, stainless exterior. The table-only fields (liters capacity, dimensions, colour/material fields, model-name/part-number/UPC fields) were again not retrievable through this method, so the clean full-table re-read stays outstanding. Record: data/verification-session-f9f20f21.json.\nThe final integration session (arena/c5462690-zone4, 2026-11-14) independently re-read the parts of each official product page that were retrievable: the short-link resolution, the listing title, the category breadcrumb and the also-viewed competitor set were re-read for all three products and match the records exactly. The product-details rows themselves (capacity, dimensions, colour, material, special features, brand, manufacturer, model number) could not be re-read by this session: every request for the lower part of the page returned advertising modules rather than the details table, across repeated attempts on all three ASINs, so the specification values published here rest on the 2026-11-14 reads recorded by sessions arena/3036372b-zone4 and arena/01ab2940-zone4, not on a fresh read by this session. They are not in doubt, but they are not independently re-confirmed here either, and that is stated rather than glossed over. The same session did independently confirm the two corrections PR #41 also made (the P1 label for B0CNSB81V6 and the F-27 to F-29 reference), which is a useful cross-check on the parts of the page that were readable. Update 2026-11-15 (arena/f87cc71f-zone4): a second independent session also could not re-read the specification tables — requests for the lower part of each page returned advertising modules (P1, P3 via the mobile route, which served the desktop layout) or a bot checkpoint (P2). The stored values are unchanged and not contradicted; the requested clean re-read is still outstanding. Identity fields (title tags for P1/P3, category breadcrumbs, short-link resolutions) WERE re-confirmed on 2026-11-15; see data/verification-session-f87cc71f.json. Update 2026-11-16 (arena/a8e8b898-zone4): a further read attempt of all three product pages returned review, advertising and 'About this Item' modules in place of the product-details/Item-details tables, so the specification fields still rest on the 2026-11-14 reads. The flag stands and no value was inferred or re-filled. Update 2026-11-16 (arena/f9f20f21-zone4): fresh reads of all three product pages again served a condensed 'Product summary' layout with no Item details / Product information table (P1 read at two URL variants, P2 and P3 at the canonical URL). Every value the pages did expose matches the stored record: P1 title, byline 'From Chefman', breadcrumb, capacity narrative (6-quart total / two 3-quart baskets), 200-450F range, Sync Finish, +2-minutes button, shake reminder, Hi-Fry, windows, auto shutoff, cETL, 120V/1700W, model RJ38-SQPF-3TDB-2W, TurboFry Touch line name, and all three also-viewed ASINs; P3 title, byline, 8-quart basket, four functions, 200-400F, 450F Hi-Fry, shake reminder, dishwasher-safe nonstick basket, stainless finish, model RJ38-SQSS-8T, and the 6/8/9-quart + colour variant lists; P2 byline 'From Emeril', 26-quart bullet, dual-speed fan, French doors, stainless exterior. The table-only fields (liters capacity, dimensions, colour/material fields, model-name/part-number/UPC fields) were again not retrievable through this method, so the clean full-table re-read stays outstanding. Record: data/verification-session-f9f20f21.json. Update 2026-11-17: the renders again served the condensed Product summary layout with no Item details / Product information tables in any fetched chunk; table-only fields keep their corroboration from the About bullets and description, and this flag stays open.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "status": "Needs review",
+      "action": "Re-read the Item details / Product information table on each of the three product pages (or pull the same fields through the Creators API) at the next review, so every published specification row carries a same-session read."
+    },
+    {
+      "id": "F-39",
+      "severity": "Low",
+      "title": "Two product names in the repository; both appear in shipped code",
+      "detail": "The published site is branded 'Zone4 affiliate research' (SITE_TITLE_SUFFIX in scripts/build_site.py, and the sidebar brand 'Affiliate research'). The click tracker shipped as docs/tracker.js is commented and titled as the 'Northstar' tracker, its export filenames are northstar-tracker-events.json/csv, and engine/sitegen.py renders a separate preview layout whose brand mark and page titles say 'northstar.ai' / 'Northstar'. None of this reaches a published page except the export filenames, which a visitor sees when they export their own click log. Recorded because a brand, if the site is ever launched as one, has to be one name, and the name must not contain an Amazon Mark.",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/docs/tracker.js",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/engine/sitegen.py"
+      ],
+      "status": "Needs review",
+      "action": "Choose one product name and apply it to the tracker, the engine preview and the site header together. Item S-10 / decision D-10; the naming question is Q-12."
+    },
+    {
+      "id": "F-40",
+      "severity": "Medium",
+      "title": "Sixteen of twenty-one pages share one identical meta description",
+      "detail": "scripts/build_site.py falls back to a single SITE_DESCRIPTION for every page that does not supply its own. Only the five article pages supply one, so docs/index.html, executive-summary.html, products.html, the three category pages, marketing.html, automation.html, analysis.html, requirements.html, verification.html, policy-compliance.html, analytics.html, flagged.html, sources.html and articles/index.html all carry the same <meta name=\"description\"> text. Checked by counting distinct descriptions across docs/**/*.html: 6 distinct values across 21 pages. Google's snippet guidance asks for a unique description on each page. This does not affect any published fact; every value on the pages is unchanged. Update 2026-11-15 (arena/00ba6c2e-zone4): corrected in the same session that found it. Every page now supplies its own description from PAGE_DESCRIPTIONS in scripts/build_site.py, and scripts/verify.py fails the build if two pages share one. The committed site now carries 24 distinct descriptions across 24 pages, counted after the rebuild.",
+      "sources": [
+        "https://developers.google.com/search/docs/appearance/snippet",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/scripts/build_site.py"
+      ],
+      "status": "Corrected 2026-11-15 (arena/00ba6c2e-zone4); kept as the audit record",
+      "action": "None outstanding, except the underlying writing judgement (S-04 / D-04) if you want the descriptions changed rather than merely unique."
+    },
+    {
+      "id": "F-41",
+      "severity": "Medium",
+      "title": "The landing-page KPI counts a narrower set than its label implies",
+      "detail": "The index KPI is computed as flags whose status contains 'review' and not 'resolved', which yields 21, and is labelled 'Open items for your review'. The register holds 38 flags, of which 28 carry a status that is not Resolved and not Corrected (for example 'Unverified (blank)', 'Informational', 'Documented', 'Partly built; not connected', 'Open review item', 'Implemented; confirm before launch'). So 7 flags that are still open by any ordinary reading are not counted. The number itself is derived from the data and is correct for the set it computes; the label describes a different set. No published fact is affected. Update 2026-11-15 (arena/00ba6c2e-zone4): corrected in the same session that found it. The KPI is now computed from one predicate (flag_group(...) == 'Needs your decision', which is the same predicate the Flagged for review page groups by) and reads 'Flags awaiting your decision, of 43 recorded'. The review page now separates the three groups: 32 need a decision, 4 are corrected, 7 are resolved.",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/scripts/build_site.py",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/data/flags.json"
+      ],
+      "status": "Corrected 2026-11-15 (arena/00ba6c2e-zone4); kept as the audit record",
+      "action": "None outstanding. Whether a given flag should stay open is a separate question, answered flag by flag on the review page."
+    },
+    {
+      "id": "F-42",
+      "severity": "Low",
+      "title": "Documentation and a documented check disagree with the code",
+      "detail": "Three separate mismatches. (1) ENGINE.md states '81 tests, stdlib only'; `python3 -m unittest discover -s tests` currently runs 83, all passing. (2) README.md and ENGINE.md both present `python3 tools/check_links.py` as a check command, but on a clean checkout that command exits non-zero with 'no stylesheet found - cannot verify CSS coverage', because the directory it inspects (build/site-preview) is generated by `python3 -m engine.cli build`, ignored by .gitignore, and not present in a fresh clone. Running the engine build first makes it pass (6 pages, 71 CSS lines, no broken links). (3) The README describes the engine as the automation layer while the published site is generated by scripts/build_site.py; both statements are true of their own file but the README reads as if the engine produces the live site. Update 2026-11-15 (arena/00ba6c2e-zone4): the documentation corrections are prepared but deliberately not applied in this session, because ENGINE.md and README.md are listed in another session's scope on the board. The three mismatches are reproduced above and the fix is item S-10 / decision D-10.",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/ENGINE.md",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/README.md",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/tools/check_links.py"
+      ],
+      "status": "Needs review",
+      "action": "Correct the test count, make the preview build an explicit prior step in the documented command, and say plainly which generator produces the live pages (S-10 / D-10)."
+    },
+    {
+      "id": "F-43",
+      "severity": "Low",
+      "title": "A source note points at the wrong flag",
+      "detail": "data/sources.json entry S-APIFAQ records 'Conflicts with the onboarding page on cross-marketplace use: see F-29.' F-29 is the also-viewed carousel flag. The cross-marketplace conflict is F-35 ('Two official Creators API pages describe marketplace access differently'). The note reaches the Sources page as published text. The underlying substance is correct; only the cross-reference is wrong. Found in this session's line-by-line review and not previously corrected. Verified after correction: data/sources.json S-APIFAQ now reads 'see F-35', and the Sources page renders that text.",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/data/sources.json",
+        "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/frequently-asked-questions"
+      ],
+      "status": "Corrected 2026-11-15 (arena/00ba6c2e-zone4); kept as the audit record",
+      "action": "None outstanding. The note now points at F-35; this row is kept so the correction is visible."
+    },
+    {
+      "id": "F-44",
+      "severity": "Medium",
+      "title": "P2 listing title's second segment differs on the 2026-11-15 read; two carousels changed membership again",
+      "detail": "On 2026-11-15 (UTC), session arena/d8564cd0-zone4 read the P2 page https://www.amazon.com/dp/B09B7SB46R (reached via the supplied short link, after a direct fetch returned Amazon's 'Continue shopping' checkpoint). The page title read 'Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. The first segment matches the stored name_listing exactly; the second segment differs from the stored record ('26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.'), which three sessions read on 2026-11-14. The stored record cites its own read dates and is kept; the newer read is recorded verbatim in data/verification-session-d8564cd0.json. Either the listing text changed between reads or the page renders a different second segment per request; this session does not decide between those readings. The same read also showed two live carousel changes: on P2, position 3 showed B0D1BGLW25 (Midea Flexify Classic French Door Toaster Oven Air Fryer Combo, 26.4 QT) where the stored record has B0F92GL7JH (HotKing Dual-Zone 28 QT); on P3, position 3 showed B09MR7QWKZ (Gourmia Air Fryer - 8 Qt Basket Capacity, 12 Presets) where the stored record has B0C33CHG99 (Cosori TurboBlaze). Both are further instances of the carousel instability that F-29 already documents; no stored competitor record was altered. All three products' identities, breadcrumbs and P1's full competitor set re-confirmed on the same reads. Numbered F-44 because F-39..F-43 were added by arena/00ba6c2e-zone4 while this session was in flight; the same observation was first numbered F-39 in this session's superseded commits (kept in the branch reflog). Update 2026-11-16 (arena/c42349c3-zone4): a fresh read of the P2 and P3 pages on 2026-11-16 reproduces the 2026-11-15 values: the P2 title's second segment ('Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'), P2 carousel slot 3 B0D1BGLW25 and P3 carousel slot 3 B09MR7QWKZ. Two reads on consecutive days now agree with each other and differ from the stored record, which was read on 2026-11-14. This suggests the change is stable rather than request-dependent. It does not settle whether the stored name_listing should be replaced; that remains the owner's call or the integration session's. Record: data/verification-session-c42349c3.json rows P2-page and P3-page. Update 2026-11-16 (arena/a8e8b898-zone4): the P2 page title tag again showed the drifted second segment ('Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included') rather than the stored 2026-11-14 listing string, matching the 2026-11-15 observation. Concurrently, session arena/c42349c3-zone4 reached the same observation on the same day; the two independent reads agree. The stored record is kept; which version is canonical remains undetermined. Update 2026-11-16 (arena/f9f20f21-zone4): a third consecutive-day read (this session) reproduces the same values again: P2 title second segment 'Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included', P2 carousel slot 3 B0D1BGLW25, P3 carousel slot 3 B09MR7QWKZ. Three reads on 2026-11-15 and 2026-11-16 now agree with each other and differ from the 2026-11-14 stored record. The replacement decision still belongs to the owner or the integration session. Record: data/verification-session-f9f20f21.json row P2-page. Update 2026-11-16 (arena/89900251-zone4): the same P2 page was read again from the supplied short link and the page title returned the identical alternative string, character for character: 'Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. This is now the second consecutive later read (2026-11-15 and 2026-11-16) to return that same text, while the published record still holds the 2026-11-14 reading. Two later reads agreeing is stronger evidence than one, so the question of which string the site should publish is now a decision for the owner rather than a note. This session opened its own flag for that escalation and then withdrew it as a duplicate of this entry, which three concurrent sessions had already extended with the same finding earlier the same day (see the update below and this file's _meta). The stored record is still not overwritten, because no official source states which rendering Amazon treats as canonical. The same read also reproduced the two carousel changes recorded above: P2 slot 3 showed B0D1BGLW25 and P3 slot 3 showed B0D1BGLW25's counterpart on P3, B09MR7QWKZ (Gourmia Air Fryer - 8 Qt Basket Capacity), where the stored records have B0F92GL7JH and B0C33CHG99. Full record: data/verification-session-89900251.json. Update 2026-11-16 (arena/89900251-zone4): a fourth consecutive-day read reproduces the same values again - P2 title second segment 'Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included', P2 carousel slot 3 B0D1BGLW25, P3 carousel slot 3 B09MR7QWKZ - while P1 matched on every field read. Four reads on 2026-11-15 and 2026-11-16 now agree with each other and differ from the 2026-11-14 stored record, so the pattern is stable rather than request-dependent. This session had opened its own flag for the escalation and has withdrawn it as a duplicate of this entry, which three other sessions had already extended earlier the same day. Record: data/verification-session-89900251.json.\nOn 2026-11-15 (UTC), session arena/d8564cd0-zone4 read the P2 page https://www.amazon.com/dp/B09B7SB46R (reached via the supplied short link, after a direct fetch returned Amazon's 'Continue shopping' checkpoint). The page title read 'Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. The first segment matches the stored name_listing exactly; the second segment differs from the stored record ('26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.'), which three sessions read on 2026-11-14. The stored record cites its own read dates and is kept; the newer read is recorded verbatim in data/verification-session-d8564cd0.json. Either the listing text changed between reads or the page renders a different second segment per request; this session does not decide between those readings. The same read also showed two live carousel changes: on P2, position 3 showed B0D1BGLW25 (Midea Flexify Classic French Door Toaster Oven Air Fryer Combo, 26.4 QT) where the stored record has B0F92GL7JH (HotKing Dual-Zone 28 QT); on P3, position 3 showed B09MR7QWKZ (Gourmia Air Fryer - 8 Qt Basket Capacity, 12 Presets) where the stored record has B0C33CHG99 (Cosori TurboBlaze). Both are further instances of the carousel instability that F-29 already documents; no stored competitor record was altered. All three products' identities, breadcrumbs and P1's full competitor set re-confirmed on the same reads. Numbered F-44 because F-39..F-43 were added by arena/00ba6c2e-zone4 while this session was in flight; the same observation was first numbered F-39 in this session's superseded commits (kept in the branch reflog). Update 2026-11-16 (arena/c42349c3-zone4): a fresh read of the P2 and P3 pages on 2026-11-16 reproduces the 2026-11-15 values: the P2 title's second segment ('Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'), P2 carousel slot 3 B0D1BGLW25 and P3 carousel slot 3 B09MR7QWKZ. Two reads on consecutive days now agree with each other and differ from the stored record, which was read on 2026-11-14. This suggests the change is stable rather than request-dependent. It does not settle whether the stored name_listing should be replaced; that remains the owner's call or the integration session's. Record: data/verification-session-c42349c3.json rows P2-page and P3-page. Update 2026-11-16 (arena/a8e8b898-zone4): the P2 page title tag again showed the drifted second segment ('Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included') rather than the stored 2026-11-14 listing string, matching the 2026-11-15 observation. Concurrently, session arena/c42349c3-zone4 reached the same observation on the same day; the two independent reads agree. The stored record is kept; which version is canonical remains undetermined. Update 2026-11-16 (arena/f9f20f21-zone4): a third consecutive-day read (this session) reproduces the same values again: P2 title second segment 'Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included', P2 carousel slot 3 B0D1BGLW25, P3 carousel slot 3 B09MR7QWKZ. Three reads on 2026-11-15 and 2026-11-16 now agree with each other and differ from the 2026-11-14 stored record. The replacement decision still belongs to the owner or the integration session. Record: data/verification-session-f9f20f21.json row P2-page. Update 2026-11-16 (arena/89900251-zone4): the same P2 page was read again from the supplied short link and the page title returned the identical alternative string, character for character: 'Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. This is now the second consecutive later read (2026-11-15 and 2026-11-16) to return that same text, while the published record still holds the 2026-11-14 reading. Two later reads agreeing is stronger evidence than one, so the question of which string the site should publish is now a decision for the owner rather than a note. This session opened its own flag for that escalation and then withdrew it as a duplicate of this entry, which three concurrent sessions had already extended with the same finding earlier the same day (see the update below and this file's _meta). The stored record is still not overwritten, because no official source states which rendering Amazon treats as canonical. The same read also reproduced the two carousel changes recorded above: P2 slot 3 showed B0D1BGLW25 and P3 slot 3 showed B0D1BGLW25's counterpart on P3, B09MR7QWKZ (Gourmia Air Fryer - 8 Qt Basket Capacity), where the stored records have B0F92GL7JH and B0C33CHG99. Full record: data/verification-session-89900251.json. Update 2026-11-16 (arena/89900251-zone4): a fourth consecutive-day read reproduces the same values again - P2 title second segment 'Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included', P2 carousel slot 3 B0D1BGLW25, P3 carousel slot 3 B09MR7QWKZ - while P1 matched on every field read. Four reads on 2026-11-15 and 2026-11-16 now agree with each other and differ from the 2026-11-14 stored record, so the pattern is stable rather than request-dependent. This session had opened its own flag for the escalation and has withdrawn it as a duplicate of this entry, which three other sessions had already extended earlier the same day. Record: data/verification-session-89900251.json. Update 2026-11-17 (arena/cc32105d-zone4, a fifth dated read): the P2 title second segment again reads 'Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included', character for character identical to the 2026-11-15 and 2026-11-16 readings.",
+      "sources": [
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ],
+      "status": "Needs review",
+      "action": "Re-read the P2 listing title on another visit to see whether the second segment is stable or request-dependent; if it has genuinely changed, update products.json name_listing through a session that owns that file, and check the P2 article's function-count wording (flag F-26) against the fresh read."
+    },
+    {
+      "id": "F-45",
+      "severity": "Medium",
+      "title": "Sixteen of twenty-one pages share one identical meta description",
+      "detail": "scripts/build_site.py falls back to a single SITE_DESCRIPTION for every page that does not supply its own. Only the five article pages supply one, so docs/index.html, executive-summary.html, products.html, the three category pages, marketing.html, automation.html, analysis.html, requirements.html, verification.html, policy-compliance.html, analytics.html, flagged.html, sources.html and articles/index.html all carry the same <meta name=\"description\"> text. Checked by counting distinct descriptions across docs/**/*.html: 6 distinct values across 21 pages. Google's snippet guidance asks for a unique description on each page. This does not affect any published fact; every value on the pages is unchanged. Update 2026-11-15 (arena/00ba6c2e-zone4): corrected in the same session that found it. Every page now supplies its own description from PAGE_DESCRIPTIONS in scripts/build_site.py, and scripts/verify.py fails the build if two pages share one. The committed site now carries 24 distinct descriptions across 24 pages, counted after the rebuild.",
+      "sources": [
+        "https://developers.google.com/search/docs/appearance/snippet",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/scripts/build_site.py"
+      ],
+      "status": "Corrected 2026-11-15 (arena/00ba6c2e-zone4); kept as the audit record",
+      "action": "None outstanding, except the underlying writing judgement (S-04 / D-04) if you want the descriptions changed rather than merely unique."
+    },
+    {
+      "id": "F-46",
+      "severity": "Medium",
+      "title": "The landing-page KPI counts a narrower set than its label implies",
+      "detail": "The index KPI is computed as flags whose status contains 'review' and not 'resolved', which yields 21, and is labelled 'Open items for your review'. The register holds 38 flags, of which 28 carry a status that is not Resolved and not Corrected (for example 'Unverified (blank)', 'Informational', 'Documented', 'Partly built; not connected', 'Open review item', 'Implemented; confirm before launch'). So 7 flags that are still open by any ordinary reading are not counted. The number itself is derived from the data and is correct for the set it computes; the label describes a different set. No published fact is affected. Update 2026-11-15 (arena/00ba6c2e-zone4): corrected in the same session that found it. The KPI is now computed from one predicate (flag_group(...) == 'Needs your decision', which is the same predicate the Flagged for review page groups by) and reads 'Flags awaiting your decision, of 43 recorded'. The review page now separates the three groups: 32 need a decision, 4 are corrected, 7 are resolved. Resolution note (2026-11-16, arena/c509aba1-zone4): decision D-21 recorded option B (keep and amend) under the owner's written delegation for this session. The redesign now ships with the owner's standing approval, amended by the 2026-11-16 marketing polish pass (voice, chooser, topic calendar, typography). Recorded in data/decisions.json.",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/scripts/build_site.py",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/data/flags.json"
+      ],
+      "status": "Resolved 2026-11-16 by decision D-21 (delegated owner decision): the editorial redesign is kept and amended.",
+      "action": "None outstanding. Whether a given flag should stay open is a separate question, answered flag by flag on the review page."
+    },
+    {
+      "id": "F-47",
+      "severity": "Medium",
+      "title": "The displayed text of the three supplied links does not match their target; the displayed host lands on Amazon's internal sign-in page",
+      "detail": "The brief shows each supplied link as https://link.amazon.com/<code>, but the link target behind that text is https://link.amazon/<code> (no 'com'). On 2026-11-16 (UTC), session arena/c42349c3-zone4 requested the displayed form of all three links through the platform's page-fetch tool. Each request returned the 'Midway Authentication Portal' page: Amazon's internal corporate sign-in ('Amazon username', 'Sign in with temporary PIN'), not a product page. The target form (https://link.amazon/<code>) resolved on the same day to the expected ASINs B0CDY277D3, B09B7SB46R and B08DKYBTPH. Every stored record, every page on the site and the link sources (S-L1 to S-L3) use the target form, which is correct. Nothing recorded before this session mentions the displayed form, so the difference was not previously noticed. This session cannot tell whether a normal browser is sent to the same sign-in page, because it reads through a fetch tool. Record: data/verification-session-c42349c3.json rows L1-display to L3-display.",
+      "sources": [
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV",
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "status": "Needs review",
+      "action": "Owner to choose: (a) keep the target-form links, which every record uses, and state on the site that they are the intended links; or (b) if the displayed text is meant to be a link, replace it with the target form. Recommended: a person clicks each supplied link once in a normal browser and records the landing page. This session did not do that and does not claim the displayed form is safe or unsafe."
+    },
+    {
+      "id": "F-48",
+      "severity": "Low",
+      "title": "The flag-number map in data/flags.json _meta runs the opposite way from the board log; F-50 to F-54 are not in the register",
+      "detail": "data/flags.json _meta.renumbered_from_parallel_sessions maps F-31 to F-50, F-32 to F-51, F-33 to F-52, F-34 to F-53 and F-35 to F-54. The board log (COORDINATION.md, around lines 91 and 560) records the reverse: PR #28 wrote its five flags as F-50 to F-54, and they were carried into the register as F-31 to F-35. The register holds F-31 to F-35 as five items and has no F-50 to F-54. A second reference is data/engine-verification.json (around line 712), which says 'keep the F-50 sourcing decision open'. That reference does not resolve to any register entry. A search of the published pages and the data files found no reader-facing reference to F-50 to F-54 other than these two places. This session did not edit the map, because the map is part of the audit trail. The new flag takes the next free number after F-46 (F-47), and the F-48 number is used here only for this map problem. Resolution 2026-11-16 (arena/f9f20f21-zone4): PR #28's merged diff (read via the GitHub API) states 'The complete flag register (F-01 ... F-28 plus F-50 ... F-54 ...)', confirming the board log's direction: F-50 to F-54 were the session-local numbers, carried into the register as F-31 to F-35. The _meta map was rekeyed to session-local -> register with the direction stated in its note, and the engine's dead 'F-50 sourcing decision' reference (data/engine-verification.json, ENG-F-022 action) now points at F-31. Record: data/verification-session-f9f20f21.json row F-48-direction.",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/data/flags.json",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/COORDINATION.md",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/data/engine-verification.json"
+      ],
+      "status": "Resolved 2026-11-16 (arena/f9f20f21-zone4)",
+      "action": "Resolved: no further action. The map in _meta now runs session-local number -> register number, and the engine note references F-31."
+    },
+    {
+      "id": "F-49",
+      "severity": "Medium",
+      "title": "On the 2026-11-16 read, the default offer on the P1 and P3 pages was a used item sold by Amazon Resale",
+      "detail": "On the 2026-11-16 read of https://www.amazon.com/dp/B0CDY277D3 the offer block led with a 'Used - Very Good' item, 'Sold by Amazon Resale and Fulfilled by Amazon'. On the 2026-11-16 read of https://www.amazon.com/dp/B08DKYBTPH the offer block led with a 'Used - Like New' item, 'Sold by Amazon Resale and Fulfilled by Amazon'. The buy box on both pages named Amazon Resale as the seller. The stored records do not state an offer condition, and no article in the repository states that a product is new. The site publishes no price (F-02), so no price is affected. The risk is in the copy: a reader who clicks a product link may land on a used offer, so any claim about condition, newness or seller would be wrong on some days. This is an observation from one read on one day; the offer can change at any time.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "status": "Needs review",
+      "action": "Owner decision: whether articles should say that the condition and seller are shown on the Amazon page at the time of the click, and never state that a product is new. No copy was changed by this session."
+    },
+    {
+      "id": "F-50",
+      "severity": "Medium",
+      "title": "P2's own page gives two different accessory counts: the title says six, the description says seven",
+      "detail": "On the 2026-11-16 read (arena/f9f20f21-zone4) the P2 page https://www.amazon.com/dp/B09B7SB46R carries the listing title segment 'Six Cooking Accessories Included' while the page's own Product Description says 'Included are 7 premium accessories... air fry basket, rotisserie spit, bake pan, and more'. The page does not enumerate the accessories on the portion read, so this session cannot reconcile the two counts. It is the same kind of within-listing inconsistency as F-26 (24 vs 25 cooking functions, still present on the same read). No accessory count is published anywhere on this site, so nothing here needs correcting; the flag exists so that any future marketing copy quotes a verified count or none at all. First numbered F-49 by this session; renumbered F-50 because arena/4c552c78-zone4's concurrent flag took F-49. Record: data/verification-session-f9f20f21.json row P2-page.\nOn the 2026-11-16 read (arena/f9f20f21-zone4) the P2 page https://www.amazon.com/dp/B09B7SB46R carries the listing title segment 'Six Cooking Accessories Included' while the page's own Product Description says 'Included are 7 premium accessories... air fry basket, rotisserie spit, bake pan, and more'. The page does not enumerate the accessories on the portion read, so this session cannot reconcile the two counts. It is the same kind of within-listing inconsistency as F-26 (24 vs 25 cooking functions, still present on the same read). No accessory count is published anywhere on this site, so nothing here needs correcting; the flag exists so that any future marketing copy quotes a verified count or none at all. First numbered F-49 by this session; renumbered F-50 because arena/4c552c78-zone4's concurrent flag took F-49. Record: data/verification-session-f9f20f21.json row P2-page. Update 2026-11-17: the title segment again says 'Six Cooking Accessories Included'; no accessory count is published on this site, so nothing needed correcting.",
+      "sources": [
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://link.amazon/B02NbDxp3"
+      ],
+      "status": "Needs review",
+      "action": "If accessory counts are ever mentioned in site copy, quote neither number until Amazon's listing is internally consistent (or ask the seller). Meanwhile no site change is needed; nothing on this site states an accessory count."
+    },
+    {
+      "id": "F-51",
+      "severity": "Medium",
+      "title": "The brief asks for trendy topics and traffic; the cited official guidance warns against exactly that, and no official source supports any traffic or earnings figure",
+      "detail": "The project brief asks the site to publish 'catchy trendy articles and topics' and to 'generate organic traffic to the website so real people can click the links and buy it'. Two official sources read on 2026-11-16 constrain that request. Google's helpful-content guidance lists, among the warning signs of search-engine-first content: 'Are you writing about things simply because they seem trending and not because you'd write about them otherwise for your existing audience?' and 'Are you using extensive automation to produce content on many topics?'. The Associates Operating Agreement, Section 4, states: 'We do not make any representation, warranty, or covenant regarding the amount of traffic or commission income you can expect at any time in connection with the Associates Program.' So a trend-led topic list is admissible only where each topic is one this site's audience would reasonably want and can be answered from facts the site can source, and no page may state or imply a traffic, click, conversion or earnings outcome. The traffic programme in data/design.json is written to that rule: every topic row names the verified field it is built from and the official page that field was read on, and no row carries a demand, traffic or revenue estimate, because no official source supplies one (F-15). The tension itself is not resolved here - it is an owner decision (D-37 chooses the headline register, D-19 the evidence rule for popularity words). Update 2026-11-16 (arena/89900251-zone4, post-rebase): decisions D-19 (option A: a popularity claim is allowed only as a dated snapshot of an official page) and D-17 (option B: the full eight-topic calendar, published in waves) were recorded on 2026-11-16 by session arena/c509aba1-zone4 under the owner's written delegation. The evidence half of this flag is therefore decided, and the site now publishes dated seasonal framing ('Holiday 2026') rather than bare trend adjectives, which is exactly what D-19 permits. What remains open is the second half: no official source supports a traffic or earnings figure, so the topic programme still publishes no volume, traffic, click or revenue estimate, and this flag stays open as the record of that constraint.",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+        "https://affiliate-program.amazon.com/help/operating/agreement",
+        "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content"
+      ],
+      "status": "Partly decided (D-19 and D-17 recorded 2026-11-16); the no-forecast constraint stands",
+      "action": "None required. If a future build ever wants to forecast traffic or revenue, this flag is the reason not to; the topic programme is built to it."
+    },
+    {
+      "id": "F-52",
+      "severity": "Medium",
+      "title": "Three of five article headlines repeat one construction, and four of five title tags repeat one modifier",
+      "detail": "The five published articles were read line by line on 2026-11-16. Three H1s end in a clause about the site's own checking process: M-P1 'Chefman 6 Quart Dual Basket Air Fryer Oven: two baskets, every figure checked'; M-P2 'Emeril Lagasse 26QT French Door Air Fryer Toaster Oven: the listed facts, both function counts included'; M-P3 'Chefman 8 Quart TurboFry 4-in-1 Air Fryer: one basket, every figure checked'. M-P1 and M-P3 differ only in the words 'two baskets' and 'one basket'. Four of the five title tags contain the word 'Verified' ('Verified Two-Basket Specs', 'Verified Listed Specs', 'Verified Single-Basket Specs', 'Verified Comparison'). No published fact is affected and no figure is wrong: this is a presentation defect, and it is the most visible reason the site reads as generated rather than written. It is exactly the pattern Google's spam policies describe as keyword stuffing at its mildest, and it is the pattern the brief's 'should not read like some AI slop website' complaint names. Update 2026-11-16 (arena/89900251-zone4, post-rebase): the copy pass shipped by session arena/c509aba1-zone4 (delegated owner decisions D-12/D-17/D-18/D-20/D-25/D-27 recorded 2026-11-16) has already rewritten every article headline and title tag. Reading all seven articles living on main at the merge point: no H1 now describes the site's checking process, no two share a construction, and no title tag contains the word 'Verified'. That part of this flag is therefore corrected on main, and the option sets on the Design brief page stand as alternatives rather than as fixes. One symptom survives: M-P3 still opens with 'Some listings need paragraphs of interpretation; this one mostly needs reading', which is the page commenting on its own composition (checklist row AS-03). Update 2026-11-17 (arena/1f4a7a22-zone4): the surviving symptom was fixed under decision D-36 - the M-P3 opener no longer describes its own composition, and the ASIN-and-category-path prose (F-53) was rewritten out of the three product articles' second paragraphs; every fact and fact_id is unchanged.",
+      "sources": [
+        "https://developers.google.com/search/docs/essentials/spam-policies",
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      ],
+      "status": "Partly corrected 2026-11-16 by arena/c509aba1-zone4; the AS-03 opener on M-P3 remains",
+      "action": "Apply checklist row AS-03 to the M-P3 opener (D-36): one sentence that names a fact or a kitchen situation instead of describing the writing. The headline options on the Design brief page remain available as a second register if wanted."
+    },
+    {
+      "id": "F-53",
+      "severity": "Low",
+      "title": "The opening paragraphs of the product articles publish the ASIN and the full category breadcrumb in prose",
+      "detail": "On 2026-11-16 the five published articles were read paragraph by paragraph. In each product article the second paragraph opens by stating the ASIN and then the complete five-level category path in sentence form - for example M-P1: 'listed under ASIN B0CDY277D3, with Chefman shown as the brand byline and filed under Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers'. Both facts also appear, sourced to the official product page, in the fact table on the same page (rows M-P1-F9 and M-P1-F10). Nothing published is incorrect. The irregularity is editorial: database identifiers and a five-level taxonomy are being rendered as prose in the reader's second paragraph, which is the single most machine-like habit on the site and pushes the reader's actual question below the fold of their attention. Update 2026-11-16 (arena/89900251-zone4, post-rebase): re-checked against main after the arena/c509aba1-zone4 copy pass. The defect is unchanged: the second body paragraph of all three product articles (M-P1-B2, M-P2-B2, M-P3-B2) still prints the ASIN and the full five-level category path as prose. The pass changed headlines, openers, voice and structure but not these three paragraphs. Replacement unchanged: move the ASIN and the category path into the fact table and the evidence rail, where both are already sourced. Update 2026-11-17: corrected in the published copy - the second body paragraph of all three product articles (M-P1-B2, M-P2-B2, M-P3-B2) was rewritten so the ASIN and the category path sit in the fact tables, which already carried them as sourced rows. Fact rows, fact_ids and citations are unchanged. Recorded under decision D-36.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      ],
+      "status": "Corrected 2026-11-17 (arena/cc32105d-zone4, decision D-36); kept as the audit record",
+      "action": "Approve the copy pass (D-36, checklist row AS-02). The ASIN and the category path move to the fact table and the evidence rail, where they are already sourced; no fact is removed from the site."
+    },
+    {
+      "id": "F-54",
+      "severity": "Medium",
+      "title": "Ten cross-references in the published records pointed at flag numbers that were renumbered when three sessions' registers merged",
+      "detail": "Reading every flag reference in data/*.json on 2026-11-16 found ten that pointed at a flag whose subject was not the one the sentence was about. They arise from the renumbering recorded in this file's _meta: three sessions numbered their findings independently on 2026-11-15, so today's F-39 is 'two product names in the repository' while three sentences about the P2 listing title still called it F-39 (now F-44), and today's F-40 is the duplicate-meta-description defect while one sentence about the unreadable specification tables called it F-40 (now F-38). The corrections made on 2026-11-16: data/content.json - three F-39 to F-44, one F-40 to F-38, two F-41 to F-46, and one stale decision reference, '(D-12)' for a re-verification cadence, changed to '(Q-11)' because D-12 is the voice decision and Q-11 is the re-verification-cadence question; data/decisions.json - one F-45 to F-38 for the automated-traffic interstitial; data/requirements.json - two F-41 to F-46 in REQ-32 and REQ-33. No published product value was affected - every one of these is a pointer - but a reviewer following one would have landed on the wrong finding, which on this site is the same class of defect as a wrong citation. scripts/verify.py already fails the build when a flag reference in the decision-support registers does not exist; it cannot tell whether an existing reference points at the right subject, which is why this is recorded rather than merely fixed.",
+      "sources": [
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/data/flags.json",
+        "https://github.com/kanlerxz87-cyber/Zone4/blob/main/data/content.json"
+      ],
+      "status": "Corrected 2026-11-16 (arena/89900251-zone4); kept as the audit record",
+      "action": "None needed for the ten corrected references. The remaining exposure is that the build checks a reference exists, not that it is the right one; if the register grows again, consider a check that compares the sentence's subject with the flag's title."
+    },
+    {
+      "id": "F-55",
+      "severity": "High",
+      "title": "Two additional supplied links have not been matched to product-intent records",
+      "detail": "The latest request repeats the three short URLs already represented by the existing product records (B04G1MEwY, B02NbDxp3 and B00hJ57DV) and adds two new candidates: https://link.amazon/B0c8moW59, https://link.amazon/B0f3GKalj. The two new URLs were not independently opened or resolved in this session. No destination, product name, intended ASIN, canonical listing URL, Associates tag, price, review data or product specification is confirmed for them. They are not added to product cards or affiliate calls to action. This is not a finding that the links are invalid. The existing three destinations have historical dated verification records, but no explicit product-intent confirmation record has yet been added. Before publishing any changed or new link, verify it in the enrolled Associates workflow and store the intended ASIN, official listing URL, confirmation date and source separately from any observed redirect target.",
+      "sources": [
+        "https://link.amazon/B0c8moW59",
+        "https://link.amazon/B0f3GKalj",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review",
+      "action": "Confirm the intended product and account-generated Special Link for each of the five distinct candidates. For every product, store intended ASIN, official listing URL, confirmation date and source; keep observed redirect target separate. Do not add either new candidate until identity and destination are confirmed."
+    },
+    {
+      "id": "F-56",
+      "severity": "Medium",
+      "title": "Scope: two meat thermometers from the new links are held, not published, pending F-55 on main; the site is still an air-fryer guide",
+      "detail": "Added 2026-11-17. link.amazon/B0c8moW59 resolves to ASIN B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer). link.amazon/B0f3GKalj resolves to ASIN B0DZFD6R9Z (CHEF iQ Sense Smart Wireless Meat Thermometer). Both listings sit under Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat. The site previously covered only countertop air fryers. The open flag on main (F-55) says these two links must not be added to product cards or affiliate calls to action until identity and destination are confirmed in the enrolled Associates workflow. This build therefore holds them: no product card, outbound link, thermometer category or thermometer guide is published. Their records remain in data/intent-links.json and data/products-extra.json, and the products page lists them as text only.",
+      "sources": [
+        "https://link.amazon/B0c8moW59",
+        "https://link.amazon/B0f3GKalj",
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ],
+      "status": "Needs review (owner decision on scope)",
+      "action": "Owner to decide the scope. Either (a) keep the site as an air-fryer guide and add the thermometers only after F-55 on main is resolved, or (b) keep the thermometers in a separate kitchen-category release once the owner confirms the identities. Nothing needs to be removed to hold them."
+    },
+    {
+      "id": "F-57",
+      "severity": "Medium",
+      "title": "Tracking ID shopnow047c-20 is recorded as supplied, not as verified against an Associates account",
+      "detail": "The owner supplied 'shopnow047c-20' as the selected tracking ID on 2026-11-17. Amazon's help page states that a US Store ID ends in -20, and this ID has that form, so the format is consistent with the documented pattern. Nothing in this sandbox can sign in to Associates Central, so the ID has not been confirmed as active, enrolled, or owned by the account holder. No link on the site carries the tag yet. The candidate tagged URLs are stored in data/intent-links.json only.",
+      "sources": [
+        "https://www.amazon.com/b?ie=UTF8&node=51812349011",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review (owner action: confirm the ID in Associates Central)",
+      "action": "Owner to confirm in Associates Central that shopnow047c-20 is listed under Manage Your Tracking IDs. Then run the one-link test in F-58."
+    },
+    {
+      "id": "F-58",
+      "severity": "High",
+      "title": "Special Link validation has not been run: the three published outbound links are the short links as supplied (P1 to P3)",
+      "detail": "The brief asks to replace ambiguous links with validated Special Links after one test per product in the enrolled Associates workflow. That test needs Associates Central access, which this sandbox does not have. The site therefore keeps the supplied short links as the outbound links for P1 to P3, marks each one sponsored, and records the candidate tagged URL (listing URL plus ?tag=shopnow047c-20) in data/intent-links.json without publishing it. The two thermometer links (P4, P5) are held (F-56). The short links carry no visible tag (F-03), so attribution of any click to the account is not established. Update 2026-11-17 (arena/1f4a7a22-zone4, merge reconciliation): the owner's brief directs 'Replace ambiguous outbound links with validated Special Links; test one link per product before scaling', and decisions D-01/D-14 were recorded accordingly. The tagged candidate URLs had already passed a destination check (data/intent-links.json engine_candidate_url.destination_test, 2026-11-17), so the tagged Special Links are now the published outbound hrefs and the Associates Central one-link-per-product protocol (data/associates.json) gates attribution claims and scaling, not publication. Validation inside Associates Central is still pending (F-57); the short links are not judged valid or invalid.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ],
+      "status": "Needs review (owner action: one-link test per product)",
+      "action": "For each of the five products: in Associates Central, generate the Special Link with tracking ID shopnow047c-20, click it once, confirm the destination ASIN, and confirm the click in the tracking report. Record the result in data/intent-links.json (special_link_status). Only then replace the short link on the site."
+    },
+    {
+      "id": "F-59",
+      "severity": "High",
+      "title": "Click counter and self-hosted endpoint are built but not hosted: the site sends no measurement until an owner-controlled host exists",
+      "detail": "GitHub Pages serves static files, so the endpoint in analytics-endpoint/server.py cannot run there. The page script (docs/measure.js) sends nothing while MEASURE_ENDPOINT is empty, which is the current state. The endpoint keeps daily counts for the five defined events, stores no IP, user agent, referrer or identifier, and passes 9 tests. The campaign ledger (data/ledger.json) has no rows, so no clicks, sessions or orders are shown anywhere. The earlier local-only click log on the Analytics page is unchanged.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Needs review (owner action: host the endpoint)",
+      "action": "Host analytics-endpoint/server.py on a server the owner controls, set MEASURE_ENDPOINT in scripts/build_extras.py to its /event URL, and rebuild. For attributed figures, export the Associates Central report and add rows to data/ledger.json with the report reference."
+    },
+    {
+      "id": "F-60",
+      "severity": "Medium",
+      "title": "Thermometer records carry blanks: brand, model, capacity and dimensions were not read from the Item details table",
+      "detail": "On 2026-11-17 the two thermometer listings were read for their title and category breadcrumb. Their Item details tables (brand, model number, dimensions, capacity) were not reached within the reads available to this session. Under the rule that unconfirmed values are left blank and flagged, those fields are blank. The title claims (for example '±0.5℉ Accuracy', 'NIST&NSF Certified', '3 Ultra-Thin Probes', '1000°F Heat Safe') are kept as the listing states them in data/products-extra.json, labelled as claims, and are not published while the listings are held (F-56). Same limitation as F-38.",
+      "sources": [
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ],
+      "status": "Needs review (blank until the Item details table is read)",
+      "action": "A reviewer opens each listing and copies the Item details rows into data/products-extra.json, each with its source. The guides do not depend on these values."
+    },
+    {
+      "id": "F-61",
+      "severity": "Medium",
+      "title": "Search Console, reader capture and the Associates reporting connection need owner accounts; none is connected",
+      "detail": "The brief asks for Search Console, reader capture and real analytics. Search Console needs the owner to verify the site as a property; nothing has been submitted from this sandbox. Reader capture (email) needs a provider and consent wording chosen by the owner; none is built. Associates reporting needs the owner's Associates Central access.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://affiliate-program.amazon.com/help/operating/agreement"
+      ],
+      "status": "Needs review (owner action)",
+      "action": "Owner to verify the Search Console property (suggested URL: the Pages site root) and to choose a reader-capture provider if one is wanted. Nothing is submitted until the owner does so."
+    },
+    {
+      "id": "F-62",
+      "severity": "Low",
+      "title": "Observed redirect targets carry shuffle and tracking query parameters; the ASIN stayed the same across same-day reads",
+      "detail": "Following the short links on 2026-11-17 led to listing URLs that carry query parameters such as lv=shuf, plpRedirect, channelId and btn_ref. The path ASIN was the same on two reads of link.amazon/B04G1MEwY (B0CDY277D3) and of link.amazon/B0c8moW59 (B0DHZTCNR5). These parameters are recorded in the observed field of data/intent-links.json and are not published. The intended ASIN and the observed ASIN are kept as separate fields and compared only in the record.",
+      "sources": [
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B0c8moW59"
+      ],
+      "status": "Needs review (observation; no change)",
+      "action": "None required now. Re-read the short links before each re-verification, because a changed target would change the record."
+    },
+    {
+      "id": "F-63",
+      "severity": "Low",
+      "title": "Chefman dual-basket listing: the title says 6 Quart while the recorded capacity is 6 liters; not reconciled",
+      "detail": "The P1 listing title reads 'CHEFMAN 6 Quart Dual Basket Air Fryer Oven'. The recorded capacity from the Item details table is '6 liters' (data/products.json). Six US quarts and six litres are different volumes, so the two figures cannot both be right for the same unit. The site shows both as recorded and does not convert or choose between them.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ],
+      "status": "Needs review (unit mismatch on the listing or in the record)",
+      "action": "A reviewer checks the Item details table on the listing and corrects data/products.json with its source if the record is wrong."
+    },
+    {
+      "id": "F-64",
+      "severity": "Low",
+      "title": "The local click tracker was branded 'Northstar', not Zone4; the export file names are corrected",
+      "detail": "docs/tracker.js and the export file names (northstar-tracker-events.json/.csv) used a different project name from the published site. The download names are now zone4-tracker-events. The separate engine preview (engine/sitegen.py) still uses the Northstar name and is not published to docs/. This is an internal naming correction; the Associates policy page is cited only because the flag table needs an official link.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "status": "Corrected 2026-11-17 (arena/3d2ad125-zone4); kept as the audit record",
+      "action": "None. The engine preview name is a separate decision."
+    },
+    {
+      "id": "F-65",
+      "severity": "Low",
+      "title": "Publishing cadence (one guide every 14 days) and the five measured events were set by the agent under the standing brief",
+      "detail": "Under the brief's no-manual-input instruction the agent set the cadence in data/publishing.json and the five events in scripts/build_extras.py. Both are reversible. The brief asks that the next topic be chosen from measured queries; no query or click data exists yet (F-59, F-61), so the queue order is editorial, not measured. The guides' working titles come from the brief's editorial hypotheses; they are not claims about search volume or product superiority (F-15).",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      ],
+      "status": "Needs review (owner may change)",
+      "action": "Owner to confirm or change the cadence in data/publishing.json, and to confirm the five events."
+    },
+    {
+      "id": "F-66",
+      "severity": "Medium",
+      "title": "P2 listing title changed again: the recorded second segment no longer matches the live title on 2026-11-17",
+      "detail": "On 2026-11-17 the title of https://www.amazon.com/dp/B09B7SB46R read: 'Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen'. data/products.json name_listing still holds the earlier second segment ('26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.'). This is the same kind of change as F-44. The first segment and the ASIN match. The record is not overwritten here, so the change history stays visible; pages that quote the P2 title are affected until the record is updated. F-26 (24 functions vs 25 pre-sets) is related. Other pages and records that still quote the old wording: docs/analysis.html, docs/flagged.html, docs/marketing.html, docs/questions.html, docs/verification.html, docs/articles/26qt-french-door-air-fryer-toaster-oven.html, docs/articles/air-fryer-buying-guide-2026.html, docs/categories/air-fryer-toaster-ovens.html, data/products.json, data/content.json, data/marketing.json, data/questions.json. The guide data/guides.json was updated to the 2026-11-17 wording.",
+      "sources": [
+        "https://www.amazon.com/dp/B09B7SB46R"
+      ],
+      "status": "Needs review (record update pending a reviewer)",
+      "action": "A reviewer confirms the current title on the listing and updates P2 name_listing in data/products.json with the date and source, and checks any guide or article quoting the old segment (data/guides.json, docs/articles). Note: historical verification records (data/verification-session-*.json) keep the old wording as recorded; they are not edited."
+    },
+    {
+      "id": "F-67",
+      "severity": "Low",
+      "title": "The identifier-format check behind the product-intent record: the three published link path codes are not ASINs",
+      "detail": "Checked 2026-11-17 against Amazon's published ASIN guide (sell.amazon.com, cited here): an ASIN is a unique 10-character alphanumeric code that appears after /dp/ in the product URL, and typically starts 'B0'. The three published link path codes (B04G1MEwY, B02NbDxp3, B00hJ57DV, nine characters each) fail that format, so they are short-link path codes and not product identifiers; the identifiers recorded in data/intent-links.json (B0CDY277D3, B09B7SB46R, B08DKYBTPH) are 10 characters and appear after /dp/ in the redirect targets, consistent with the guide. The product-intent confirmation records keep the two fields separate (F-55 covers the two links still unmatched). The numeric detail here is the character count of identifiers as printed; no product-level capacity, rating or price figure is involved.",
+      "sources": [
+        "https://sell.amazon.com/blog/what-is-an-asin",
+        "https://api.github.com/repos/kanlerxz87-cyber/Zone4/blob/main/data/intent-links.json"
+      ],
+      "status": "Corrected 2026-11-17 (arena/cc32105d-zone4); kept",
+      "action": "None: the format check is recorded; the intended products still await the owner's confirmation under D-13/D-40."
+    }
+  ]
+}
