@@ -398,3 +398,18 @@ _None. This session owned all scopes._
 | Serving note | The repo is served in legacy **`main /` (root)** mode; flipping to Actions mode403s for session tokens (admin-only). `scripts/build_site.py`'s INT-07 root mirror was retargeted: **`tools/build.py` now mirrors `docs/` → root** so the canonical URL carries the Prod2 publication; the Countercraft build stays verified at `site/` and is no longer mirrored. `pages.yml`'s `configure-pages`/`deploy-pages` steps were removed after `configure-pages` rewrote the legacy source once mid-session. |
 | Workflows on merge commit | verify-site: success · Self-hosted analytics tests: success · Deploy to GitHub Pages: success |
 | Checks at merge | `tools/checks.py` PASS · `scripts/verify_site.py` PASS · `npm test` PASS (2/2) |
+
+---
+
+# Session arena/236bc1ed-prod2 — claim (2026-11-19)
+
+Branch `arena/236bc1ed-prod2`, base `da11cd4` (`main`, PR #15). Single session: it works and is also the final integration pass for its own scope. No other session holds a claim at the time of writing.
+
+| Task | Status | Session | Scope (files) | Notes |
+|---|---|---|---|---|
+| T-12 Re-verify the 5 submitted short links against live Amazon listings | in progress | arena/236bc1ed-prod2 | `data/p2/intent-links.json` (observation fields only), `data/p2/verification-2026-11-19.json` | Observed redirects appended as dated observations; intent fields untouched unless a listing read changes. |
+| T-13 Marketing-polish suggestions (catchy, question-shaped topics; organic + click path) added to the review queue | in progress | arena/236bc1ed-prod2 | `data/p2/suggestions.json`, `data/p2/questions.json` | Proposals only. Nothing implemented until a reviewer accepts a path. |
+| T-14 Flagged-for-Review additions for irregularities found this session | in progress | arena/236bc1ed-prod2 | `data/p2/flags.json` | Every new flag carries an evidence link. |
+| T-15 Rebuild, gate (`tools/build.py` + `tools/checks.py`, `scripts/verify_site.py`), PR to `main`, merge, Pages deploy check, PR record here | pending | arena/236bc1ed-prod2 | `docs/`, root mirror, this file | Runs last. |
+
+Parallel-session note: no other claim touches `data/p2/*`, `docs/`, or the root mirror. Future sessions must claim before editing these.
