@@ -413,3 +413,16 @@ Branch `arena/236bc1ed-prod2`, base `da11cd4` (`main`, PR #15). Single session: 
 | T-15 Rebuild, gate (`tools/build.py` + `tools/checks.py`, `scripts/verify_site.py`), PR to `main`, merge, Pages deploy check, PR record here | pending | arena/236bc1ed-prod2 | `docs/`, root mirror, this file | Runs last. |
 
 Parallel-session note: no other claim touches `data/p2/*`, `docs/`, or the root mirror. Future sessions must claim before editing these.
+
+## Update — arena/236bc1ed-prod2 (same session, status changes)
+
+| Task | Status | Sources | Verification performed | Irregularities |
+|---|---|---|---|---|
+| T-12 Re-verify short links | done (partial: 2 of 5 re-fetched in this pass) | https://link.amazon/B04G1MEwY → https://www.amazon.com/dp/B0CDY277D3 ; https://link.amazon/B0c8moW59 → https://www.amazon.com/dp/B0DHZTCNR5 | Both short links fetched with redirects followed; final ASIN and listing title matched `data/p2/products.json`. Recorded in `data/p2/verification-2026-11-19.json` (`recheck_arena_236bc1ed`). P2, P3, P5 keep their 2026-11-19 reads. | F-P07 (coverage gap). No new mismatch. The short links are still not judged valid or invalid (FLG-003). |
+| T-13 Marketing-polish suggestions | done (proposals only; nothing implemented) | Evidence references: Program Policies 6(v)/6(w) (S-POL), FTC endorsements guidance (S-FTC2), Google helpful-content guidance (S-GHELP) as already in the source register | Suggestion text reviewed against the banned-claim list (D-19) and the no-price rule before build. | none new |
+| T-14 Flagged for Review additions | done | `data/p2/flags.json` F-P06, F-P07 | Each new flag carries an evidence link. | F-P06 (two registers disagree on publishing prices; the Prod2 build withholds them, the earlier Countercraft register holds them); F-P07 (partial re-read). Both open; neither blocks merge. |
+| T-15 Rebuild, gates, PR, merge, Pages | in progress | — | `tools/build.py` → `tools/checks.py` ALL CHECKS PASSED (20 pages); `scripts/verify_site.py` VERIFY OK (18 pages); `npm test` 2/2 pass | — |
+
+**Handoff note:** none. No other session held a claim on `data/p2/*` or `docs/` during this pass.
+
+**Scope note for the owner:** the new suggestions (SG-11 to SG-14) and questions (Q-P05 to Q-P07) are queued for review on the Suggestions and Open questions pages. Nothing in them is implemented.

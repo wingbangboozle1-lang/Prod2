@@ -218,6 +218,62 @@
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Defer until measured queries confirm demand (after SG-06).</p>
 </article>
+<article class="card s-card" id="SG-11">
+  <header><h3><code>SG-11</code> Run an answer-first article calendar of question-shaped guides, one per format decision</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Five guides exist, but the site has no written calendar for what comes next, so topic choice is instinct.</dd>
+    <dt>Proposal</dt><dd>Plan a rolling calendar of about one guide every two weeks, each titled as the buyer&#x27;s question (for example, &#x27;Is a dual-basket air fryer worth it for two dishes at once?&#x27;). Every answer uses only listed specs with their read dates. Topics are chosen from Search Console queries once SG-06 is live.</dd>
+    <dt>Evidence</dt><dd>Q-P02 (which guide next, on what evidence); the publishing-cadence question in data/p2/questions.json; VOICE.md rule 7 (questions are titles).</dd>
+    <dt>Expected impact</dt><dd>Medium-high organic potential; unmeasured until analytics runs.</dd>
+    <dt>Effort</dt><dd>Small per guide; the calendar itself is one document.</dd>
+    <dt>Risk</dt><dd>Low, provided no popularity claims are made (D-19 banned words stay banned).</dd>
+    <dt>Depends on</dt><dd>Q-P02, SG-06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06.</p>
+</article>
+<article class="card s-card" id="SG-12">
+  <header><h3><code>SG-12</code> Give every product its own buyer-first section: who it suits, what it does not do, what the listing says</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Product sections are spec tables. A shopper deciding between two machines needs a plain answer for each product first.</dd>
+    <dt>Proposal</dt><dd>On each product block, lead with a &#x27;Who it suits&#x27; line and a &#x27;Where it falls short&#x27; line, both drawn only from listed facts (for example, &#x27;Suits two dishes at the same temperature; the baskets are 3 qt each&#x27;). The sponsored link and paid-link label stay directly under that text.</dd>
+    <dt>Evidence</dt><dd>The existing product register (data/p2/products.json highlights); FTC guidance that endorsements must reflect honest experience (S-FTC2), which rules out invented hands-on claims.</dd>
+    <dt>Expected impact</dt><dd>Medium; likely the highest conversion-relevant change that needs no new data.</dd>
+    <dt>Effort</dt><dd>Small (copy in content/pages + one check that each block has both lines).</dd>
+    <dt>Risk</dt><dd>Low. Must not claim testing that did not happen (D-06).</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. It improves the shop feel without adding claims.</p>
+</article>
+<article class="card s-card" id="SG-13">
+  <header><h3><code>SG-13</code> Build one organic cluster per format, linked into a hub, before adding more formats</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Guides link to the comparison, but each format lacks a cluster that answers the search journey from question to purchase.</dd>
+    <dt>Proposal</dt><dd>Four clusters: dual-basket, oven-style, single-basket, instant-read vs leave-in thermometer. Each cluster has one hub page, two or three question guides, and the sponsored links where the reader is ready to act. Internal links follow the rule in SG-09.</dd>
+    <dt>Evidence</dt><dd>S-24 / D-27 (internal linking rule); the existing category pages; the brief&#x27;s requirement for clusters.</dd>
+    <dt>Expected impact</dt><dd>Medium-high for organic discovery; unmeasured until SG-06.</dd>
+    <dt>Effort</dt><dd>Medium (roughly one session per cluster).</dd>
+    <dt>Risk</dt><dd>Low; more pages mean more upkeep, which SG-09 automates.</dd>
+    <dt>Depends on</dt><dd>SG-09</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.</p>
+</article>
+<article class="card s-card" id="SG-14">
+  <header><h3><code>SG-14</code> Hold paid promotion and a newsletter until one clean attribution test exists</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Clicks cannot yet be tied to reports. Spending money or adding a list before attribution works would produce numbers the site cannot defend.</dd>
+    <dt>Proposal</dt><dd>Sequence the growth plan: (1) one-link-per-product test in Associates Central (Q-01 / F-58); (2) analytics endpoint and Search Console (SG-06); (3) only then consider reader email capture (SG-04) or any paid channel. No paid spend is planned in this proposal.</dd>
+    <dt>Evidence</dt><dd>F-57 and F-58 (attribution not verified); SG-04 (compliance cost before benefit); the measurement-before-automation brief item.</dd>
+    <dt>Expected impact</dt><dd>High for decision quality; prevents false confidence.</dd>
+    <dt>Effort</dt><dd>Owner-side access work; no build effort.</dd>
+    <dt>Risk</dt><dd>Low. Delay is the only cost.</dd>
+    <dt>Depends on</dt><dd>Q-01, SG-06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the sequencing rule for every growth decision.</p>
+</article>
 
 <p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>.</p>
 
