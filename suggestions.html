@@ -59,7 +59,7 @@
       <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
     <nav class="nav" aria-label="Site"><a href="compare.html">Compare</a><a href="products.html">Products</a><a href="buying-guide.html">Buying guide</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html" aria-current="page">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
   </div>
-  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate we earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links ((paid link)); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
+  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate we earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links, marked (paid link); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
 </header>
 <main id="main" class="wrap">
 <p class="eyebrow">The work behind it</p>
@@ -273,6 +273,48 @@
     <dt>Depends on</dt><dd>Q-01, SG-06</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the sequencing rule for every growth decision.</p>
+</article>
+<article class="card s-card" id="SG-15">
+  <header><h3><code>SG-15</code> Close the type gap between DESIGN_PROMPT.md and the shipped theme (or record a substitution)</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The adopted brief specifies Fraunces (display) and Inter (body). The shipped theme loads neither: --serif is an Iowan Old Style/Palatino/Georgia stack and --sans is system-ui. Palette tokens, fluid type and the hero match the brief, but the specified typefaces never load, so every page reads closer to a plain system page than the approved warm-editorial direction.</dd>
+    <dt>Proposal</dt><dd>Either (a) self-host Fraunces + Inter (subset woff2, font-display: swap) so the brief&#x27;s voice ships with no third-party requests — preserving the site&#x27;s send-nothing privacy posture — or (b) record a decision amending the brief&#x27;s typefaces to the current stacks. Reconcile the brief&#x27;s register ids and brand section first (F-P12).</dd>
+    <dt>Evidence</dt><dd>DESIGN_PROMPT.md &#x27;Direction: warm editorial&#x27; vs assets/css/site.css --serif/--sans; direction governed by D-18/D-P03.</dd>
+    <dt>Expected impact</dt><dd>Medium — the largest single gap between the approved brief and the shipped page; fixes all pages at once.</dd>
+    <dt>Effort</dt><dd>Small (font files + @font-face) or one recorded decision.</dd>
+    <dt>Risk</dt><dd>Low. Self-hosted fonts keep the no-third-party-request posture; a substitution decision keeps the brief honest.</dd>
+    <dt>Depends on</dt><dd>F-P12</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted.</p>
+</article>
+<article class="card s-card" id="SG-16">
+  <header><h3><code>SG-16</code> Design-token conformance pass against the brief&#x27;s non-negotiables</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The brief fixes values the shipped theme does not all meet: cards at 8px radius max (theme uses --radius: 10px), buttons with 44px minimum tap targets, sticky comparison anchors on mobile (brief section &#x27;Mobile-first rules&#x27;), and the disclosure strip&#x27;s paper-on-rule treatment. Some match, some silently differ, and nobody has audited the two against each other.</dd>
+    <dt>Proposal</dt><dd>Walk DESIGN_PROMPT.md line by line against assets/css/site.css and the page templates; conform the theme where the brief is right or amend the brief where the build is better, and record the outcome as one decision. Include the mobile rules: fluid type, tap targets, sticky anchors, no horizontal scroll traps.</dd>
+    <dt>Evidence</dt><dd>DESIGN_PROMPT.md (adopted brief, D-18) vs assets/css/site.css (shipped theme).</dd>
+    <dt>Expected impact</dt><dd>Medium — consistency across pages; prevents visual drift as new pages ship.</dd>
+    <dt>Effort</dt><dd>One session (audit + small CSS changes + one recorded decision).</dd>
+    <dt>Risk</dt><dd>Low — visual only; disclosure and link gates are unaffected.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept together with SG-15 as one visual pass: audit, conform, record, stop.</p>
+</article>
+<article class="card s-card" id="SG-17">
+  <header><h3><code>SG-17</code> Seasonal front-page merchandising scaffolding (grilling, gifting) tied to the calendar</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The front page is seasonless. Grilling season and holiday gifting are the natural windows for half the catalog (the two thermometers), and the brief asks for timely, catchy topics that still obey the evidence rule — seasonality must come from the calendar, never from invented popularity.</dd>
+    <dt>Proposal</dt><dd>Pre-build two seasonal swaps (late-spring grilling, November gifting): hero line, category-tile copy and one question-shaped guide slot each, written from listed facts and dated reads only. Decide the exact dates from Q-P07. Ship the scaffolding now; activate on the calendar; revert after the window.</dd>
+    <dt>Evidence</dt><dd>Q-P07 (seasonal window open); SG-03/SG-11 (thermometer cluster, answer-first calendar); D-19 permits calendar-based framing and bans popularity claims — the claims gate enforces both.</dd>
+    <dt>Expected impact</dt><dd>Medium organic potential in fixed windows; unmeasured until SG-06 measurement exists.</dd>
+    <dt>Effort</dt><dd>One session for scaffolding; near-zero per activation.</dd>
+    <dt>Risk</dt><dd>Low if copy stays calendar-based; the claims gate blocks scarcity/hype language.</dd>
+    <dt>Depends on</dt><dd>Q-P07</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated.</p>
 </article>
 
 <p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>.</p>

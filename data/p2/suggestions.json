@@ -205,6 +205,49 @@
             ],
             "status": "proposed",
             "recommendation": "Accept as the sequencing rule for every growth decision."
+        },
+        {
+            "id": "SG-15",
+            "title": "Close the type gap between DESIGN_PROMPT.md and the shipped theme (or record a substitution)",
+            "problem": "The adopted brief specifies Fraunces (display) and Inter (body). The shipped theme loads neither: --serif is an Iowan Old Style/Palatino/Georgia stack and --sans is system-ui. Palette tokens, fluid type and the hero match the brief, but the specified typefaces never load, so every page reads closer to a plain system page than the approved warm-editorial direction.",
+            "proposal": "Either (a) self-host Fraunces + Inter (subset woff2, font-display: swap) so the brief's voice ships with no third-party requests — preserving the site's send-nothing privacy posture — or (b) record a decision amending the brief's typefaces to the current stacks. Reconcile the brief's register ids and brand section first (F-P12).",
+            "evidence": "DESIGN_PROMPT.md 'Direction: warm editorial' vs assets/css/site.css --serif/--sans; direction governed by D-18/D-P03.",
+            "impact": "Medium — the largest single gap between the approved brief and the shipped page; fixes all pages at once.",
+            "effort": "Small (font files + @font-face) or one recorded decision.",
+            "risk": "Low. Self-hosted fonts keep the no-third-party-request posture; a substitution decision keeps the brief honest.",
+            "depends_on": [
+                "F-P12"
+            ],
+            "status": "proposed",
+            "recommendation": "Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted."
+        },
+        {
+            "id": "SG-16",
+            "title": "Design-token conformance pass against the brief's non-negotiables",
+            "problem": "The brief fixes values the shipped theme does not all meet: cards at 8px radius max (theme uses --radius: 10px), buttons with 44px minimum tap targets, sticky comparison anchors on mobile (brief section 'Mobile-first rules'), and the disclosure strip's paper-on-rule treatment. Some match, some silently differ, and nobody has audited the two against each other.",
+            "proposal": "Walk DESIGN_PROMPT.md line by line against assets/css/site.css and the page templates; conform the theme where the brief is right or amend the brief where the build is better, and record the outcome as one decision. Include the mobile rules: fluid type, tap targets, sticky anchors, no horizontal scroll traps.",
+            "evidence": "DESIGN_PROMPT.md (adopted brief, D-18) vs assets/css/site.css (shipped theme).",
+            "impact": "Medium — consistency across pages; prevents visual drift as new pages ship.",
+            "effort": "One session (audit + small CSS changes + one recorded decision).",
+            "risk": "Low — visual only; disclosure and link gates are unaffected.",
+            "depends_on": [],
+            "status": "proposed",
+            "recommendation": "Accept together with SG-15 as one visual pass: audit, conform, record, stop."
+        },
+        {
+            "id": "SG-17",
+            "title": "Seasonal front-page merchandising scaffolding (grilling, gifting) tied to the calendar",
+            "problem": "The front page is seasonless. Grilling season and holiday gifting are the natural windows for half the catalog (the two thermometers), and the brief asks for timely, catchy topics that still obey the evidence rule — seasonality must come from the calendar, never from invented popularity.",
+            "proposal": "Pre-build two seasonal swaps (late-spring grilling, November gifting): hero line, category-tile copy and one question-shaped guide slot each, written from listed facts and dated reads only. Decide the exact dates from Q-P07. Ship the scaffolding now; activate on the calendar; revert after the window.",
+            "evidence": "Q-P07 (seasonal window open); SG-03/SG-11 (thermometer cluster, answer-first calendar); D-19 permits calendar-based framing and bans popularity claims — the claims gate enforces both.",
+            "impact": "Medium organic potential in fixed windows; unmeasured until SG-06 measurement exists.",
+            "effort": "One session for scaffolding; near-zero per activation.",
+            "risk": "Low if copy stays calendar-based; the claims gate blocks scarcity/hype language.",
+            "depends_on": [
+                "Q-P07"
+            ],
+            "status": "proposed",
+            "recommendation": "Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated."
         }
     ]
 }

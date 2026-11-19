@@ -523,3 +523,33 @@ freshness ok) · `scripts/verify_site.py` VERIFY OK (18) · `npm test` 2/2 · CI
 - Still open (flagged, non-blocking): F-01, F-02, F-03, F-19, F-57, F-58, F-P06, F-P07, and the
   owner-only gates Q-01 / Q-19 / Q-23 / Q-27 (Associates Central validation, trademark, endpoint host,
   price policy). Those require account/host access this environment cannot reach and stay as decisions.
+---
+
+# Session arena/1ca951c0-prod2 — claim (2026-11-19)
+
+Branch `arena/1ca951c0-prod2`, based on consolidated `main` (`3cd056a`, after PRs #17–#21).
+Single Arena session: it works its scope and is also the integration pass for that scope,
+merging to `main` via a pull request. Claimed after rebasing onto `origin/main`; no other
+session holds an active claim on the files below at claim time.
+
+**Scope (non-overlapping with the merged #17–#20 claims, which covered the registers'
+suggestion/question/flag additions and the front-page copy pass):**
+
+| Task | Status | Session | Scope (files) | Notes |
+|---|---|---|---|---|
+| T-19 Fix three rendering defects found in a line-by-line review of the built pages: (a) disclosure strip renders `((paid link))` (double-paren artifact, all pages), (b) front page CTA renders a nested `<p>` inside `<p>`, (c) `products.html` ships duplicate `id="P1..P5"` (cards + fact headings) | in progress | arena/1ca951c0-prod2 | `tools/build.py` (DISCLOSURE_STRIP wording only), `content/pages/index.html` (CTA wrapper), `content/pages/products.html` (fact-heading anchors) | Fix the generator, not the output; output regenerated below. |
+| T-20 Put a gate in front of what can be automated: add an HTML-validity + cross-reference section to `tools/checks.py` (nested `<p>`, duplicate `id`s, the `((` artifact, fragment links `page.html#id` resolve, register ids F-/Q-/SG-/D- referenced in pages exist) | in progress | arena/1ca951c0-prod2 | `tools/checks.py` | Gate must fail on each defect class above if reintroduced. |
+| T-21 Design suggestion pass feeding `DESIGN_PROMPT.md` (the brief a redesign implements): queue the visual-overhaul suggestions not yet covered by SG-01..SG-14, and record the two fixed defects as resolved flags with evidence links | in progress | arena/1ca951c0-prod2 | `data/p2/suggestions.json`, `data/p2/flags.json`, `DESIGN_PROMPT.md` (queued-inputs note only) | Proposals only — nothing visual is implemented in this pass. |
+| T-22 Rebuild (`tools/build.py` → `docs/` + root mirror), run all gates, record sources/verification/irregularities here, PR → `main`, merge, confirm Pages deploy, record PR + merge result | pending | arena/1ca951c0-prod2 | `docs/`, root mirror, this file | Runs last. |
+
+**Verification boundary (this session):** this sandbox's egress allowlist does not include
+`amazon.com`, `ftc.gov` or `developers.google.com`, so no product fact or compliance text is
+re-fetched here; those keep their dated register citations (last live reads 2026-11-19,
+`data/p2/sources.json`, `data/p2/verification-2026-11-19.json`). What this session verifies
+directly: the built HTML of every published page, the generator sources, all gate runs, and
+internal cross-reference integrity. Nothing is marked verified that was not checked here.
+
+**Conflict log:** none at claim time. PR #16 (`arena/30a7028a-prod2`, stale since 14:17 UTC,
+based on the initial commit) was closed by another session at 21:51 UTC — no action needed
+here. Parallel sessions active during this pass: `arena/236bc1ed-prod2`, `arena/8ff10f50-prod2`,
+`arena/9f7a78d8-prod2` (all their PRs merged before this claim).
