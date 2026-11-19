@@ -1,18 +1,43 @@
 <p class="eyebrow">The work behind it</p>
-<h1>Suggestion queue: choose the path before we build</h1>
-<p class="lede">Every proposed improvement, with its evidence, expected impact, effort and risk. Nothing in this queue is implemented until a reviewer accepts a path — this page is the review surface the brief asked for.</p>
+<h1>Suggestions: the queue, and how to choose</h1>
+<p class="lede">Thirty-four proposals, each with two or three concrete paths. This page is where a redesign
+decision gets made: pick a path per item, and the build picks it up. Nothing here is implemented until a reviewer
+names a path — that rule is why the items below are still proposals rather than fait accompli.</p>
 
 <div class="callout">
   <h3>How to use this queue</h3>
-  <p>Each card ends with our recommendation and the dependencies that gate it. To proceed: pick <strong>accept</strong>, <strong>amend</strong>, or <strong>reject</strong> per item (a comment in the repo's <code>COORDINATION.md</code>, or an instruction in the brief, is enough). Accepted items move to the decision log with their date, then to the build. Proposed order if you want our sequence:</p>
-  <ol>
-    <li><strong><a href="#SG-06">SG-06</a></strong> — deploy measurement + Search Console. Nothing else compounds without it.</li>
-    <li><strong><a href="#SG-01">SG-01</a></strong> — brand rename after clearance (blocked on Q-19).</li>
-    <li><strong><a href="#SG-02">SG-02</a></strong> and <strong><a href="#SG-09">SG-09</a></strong> — cheap, on-thesis, low risk.</li>
-    <li><strong><a href="#SG-07">SG-07</a></strong> — the biggest content upgrade available, if real usage exists.</li>
-  </ol>
+  <p>Each item carries a <strong>problem</strong>, a <strong>proposal</strong>, its <strong>evidence</strong>, the
+  impact and effort as judged against what the registers actually contain, and then the paths: what changes, the
+  upside, the downside, the cost, and what it unlocks. The recommended path is marked; it is a recommendation, not
+  a decision made for you.</p>
+  <p>To accept, reply with the item and the path — <code>SG-15, path A</code> is enough, in the brief or in
+  <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/COORDINATION.md" rel="noopener" target="_blank">COORDINATION.md</a>.
+  A named reviewer can also set <code>owner_decision</code> and <code>owner_decision_date</code> on the item in
+  <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>,
+  and that shows up on the card and on the board below. To amend, say what changes; to reject, say so and the item
+  moves to the decision log with a reason. The unanswered questions that gate several of these are on the
+  <a href="questions.html">open questions</a> page.</p>
 </div>
 
+<h2 id="board">The board</h2>
+<p>Ranked by impact against effort. The ranking is editorial: there is no traffic or conversion data for this
+site, so nothing here is ordered by measured performance, and no item claims one
+(<a href="questions.html#Q-P14">Q-P14</a>).</p>
+{{suggestions_board}}
+
+<h2 id="the-queue">The queue, item by item</h2>
 {{suggestions}}
 
-<p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>.</p>
+<div class="callout callout-sage">
+  <h3>What we implemented without waiting, and why</h3>
+  <p>Three things in this pass were <em>not</em> gated on a decision, because they remove a risk rather than take
+  one: the disclosure strip now carries the required statement verbatim (SG-34); the register was re-verified
+  against live listings and the read dates published; and the presentation polish — tap targets, type scale, the
+  sticky comparison bar, the shop shelf on the front page — which changes no claim on the page
+  (<a href="decisions.html#D-P07">D-P07</a>, <a href="decisions.html#D-P08">D-P08</a>). Anything that would
+  change what the site <em>says</em> — verdicts, seasonal framing, price display, images — stayed in this queue.</p>
+</div>
+
+<p class="small-note">Machine-readable queue, including every path and its cost:
+<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>.
+The design briefs these items feed: <a href="design-prompt.html">the design prompt pack</a>.</p>

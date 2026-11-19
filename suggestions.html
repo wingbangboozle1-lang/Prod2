@@ -57,100 +57,45 @@
   <div class="wrap masthead-row">
     <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">Prod2</span>
       <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
-    <nav class="nav" aria-label="Site"><a href="compare.html">Compare</a><a href="products.html">Products</a><a href="buying-guide.html">Buying guide</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html" aria-current="page">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
+    <nav class="nav" aria-label="Site"><a href="compare.html">Compare</a><a href="products.html">Products</a><a href="buying-guide.html">Buying guide</a><a href="guides.html">Guides</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="analysis.html">Analysis &amp; findings</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html" aria-current="page">Suggestions</a><a href="design-prompt.html">Design prompt pack</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
   </div>
-  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate we earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links ((paid link)); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
+  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate I earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links ((paid link)); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
 </header>
 <main id="main" class="wrap">
 <p class="eyebrow">The work behind it</p>
-<h1>Suggestion queue: choose the path before we build</h1>
-<p class="lede">Every proposed improvement, with its evidence, expected impact, effort and risk. Nothing in this queue is implemented until a reviewer accepts a path — this page is the review surface the brief asked for.</p>
+<h1>Suggestions: the queue, and how to choose</h1>
+<p class="lede">Thirty-four proposals, each with two or three concrete paths. This page is where a redesign
+decision gets made: pick a path per item, and the build picks it up. Nothing here is implemented until a reviewer
+names a path — that rule is why the items below are still proposals rather than fait accompli.</p>
 
 <div class="callout">
   <h3>How to use this queue</h3>
-  <p>Each card ends with our recommendation and the dependencies that gate it. To proceed: pick <strong>accept</strong>, <strong>amend</strong>, or <strong>reject</strong> per item (a comment in the repo's <code>COORDINATION.md</code>, or an instruction in the brief, is enough). Accepted items move to the decision log with their date, then to the build. Proposed order if you want our sequence:</p>
-  <ol>
-    <li><strong><a href="#SG-06">SG-06</a></strong> — deploy measurement + Search Console. Nothing else compounds without it.</li>
-    <li><strong><a href="#SG-01">SG-01</a></strong> — brand rename after clearance (blocked on Q-19).</li>
-    <li><strong><a href="#SG-02">SG-02</a></strong> and <strong><a href="#SG-09">SG-09</a></strong> — cheap, on-thesis, low risk.</li>
-    <li><strong><a href="#SG-07">SG-07</a></strong> — the biggest content upgrade available, if real usage exists.</li>
-  </ol>
+  <p>Each item carries a <strong>problem</strong>, a <strong>proposal</strong>, its <strong>evidence</strong>, the
+  impact and effort as judged against what the registers actually contain, and then the paths: what changes, the
+  upside, the downside, the cost, and what it unlocks. The recommended path is marked; it is a recommendation, not
+  a decision made for you.</p>
+  <p>To accept, reply with the item and the path — <code>SG-15, path A</code> is enough, in the brief or in
+  <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/COORDINATION.md" rel="noopener" target="_blank">COORDINATION.md</a>.
+  A named reviewer can also set <code>owner_decision</code> and <code>owner_decision_date</code> on the item in
+  <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>,
+  and that shows up on the card and on the board below. To amend, say what changes; to reject, say so and the item
+  moves to the decision log with a reason. The unanswered questions that gate several of these are on the
+  <a href="questions.html">open questions</a> page.</p>
 </div>
 
+<h2 id="board">The board</h2>
+<p>Ranked by impact against effort. The ranking is editorial: there is no traffic or conversion data for this
+site, so nothing here is ordered by measured performance, and no item claims one
+(<a href="questions.html#Q-P14">Q-P14</a>).</p>
+<div class="table-scroll"><table class="data board"><thead><tr><th>ID</th><th>Suggestion</th><th>Theme</th><th>Expected impact</th><th>Effort</th><th>Paths (recommended marked *)</th><th>Status</th></tr></thead><tbody><tr id="SG-06-board"><td><a href="suggestions.html#SG-06"><code>SG-06</code></a></td><td><strong>Deploy the analytics endpoint and turn on Search Console</strong></td><td>Measurement</td><td>High — everything downstream (topics, optimization, revenue reporting) depends on it.</td><td>Low-medium (hosting + config), mostly owner-side access work.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-14-board"><td><a href="suggestions.html#SG-14"><code>SG-14</code></a></td><td><strong>Hold paid promotion and a newsletter until one clean attribution test exists</strong><br><span class=muted>Adopted as the sequencing rule for this pass: no paid spend and no list capture proposed in any page or calendar entry.</span></td><td>Growth</td><td>High for decision quality; prevents false confidence.</td><td>Owner-side access work; no build effort.</td><td>A*, B</td><td><span class="status status-recommended">to review</span></td></tr><tr id="SG-15-board"><td><a href="suggestions.html#SG-15"><code>SG-15</code></a></td><td><strong>Turn the front page into a shop shelf: one product rail above the fold, then the guides</strong><br><span class=muted>Implemented as a presentation-only change on 2026-11-19 under D-P08: the rail re-presents already-published listed facts and adds no claim. Revert is one commit.</span></td><td>Reader experience</td><td>High for click-through and time-to-first-CTA; neutral for ranking.</td><td>Low. Layout only; content already registered.</td><td>A*, B, C</td><td><span class="status status-recommended">to review</span></td></tr><tr id="SG-25-board"><td><a href="suggestions.html#SG-25"><code>SG-25</code></a></td><td><strong>Instrument the click path before testing anything on it</strong></td><td>Measurement</td><td>Indirect but compounding: it converts every later suggestion into a test.</td><td>Low to host; medium to keep the discipline.</td><td>A*, B</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-34-board"><td><a href="suggestions.html#SG-34"><code>SG-34</code></a></td><td><strong>Say the required disclosure sentence exactly, not as a paraphrase</strong><br><span class=muted>Implemented 2026-11-19 and recorded as D-P07: every page now opens with the exact statement Amazon&#x27;s help page quotes from the Operating Agreement, with the plain-language FTC-style sentence kept beside it and &#x27;(paid link)&#x27; kept next to each sponsored link. The gate constant was updated to require the exact sentence twice per page.</span></td><td>Compliance</td><td>Removes an unnecessary compliance exposure site-wide.</td><td>Minutes, one settings change and one gate constant.</td><td>A*, B, C</td><td><span class="status status-accepted">to review</span></td></tr><tr id="SG-19-board"><td><a href="suggestions.html#SG-19"><code>SG-19</code></a></td><td><strong>Answer first, then explain: a 40-word summary block and FAQ structured data on every guide</strong></td><td>Editorial &amp; SEO</td><td>High for organic entry and for skim-through retention; the cheapest on-page improvement on this list.</td><td>Medium across eight guides; mechanical once the template exists.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-11-board"><td><a href="suggestions.html#SG-11"><code>SG-11</code></a></td><td><strong>Run an answer-first article calendar of question-shaped guides, one per format decision</strong><br><span class=muted>Calendar table now published on the Analysis page; three guides added 2026-11-19 (eight articles in the format-first set, the count recorded in D-17).</span></td><td>Editorial &amp; SEO</td><td>Medium-high organic potential; unmeasured until analytics runs.</td><td>Small per guide; the calendar itself is one document.</td><td>A*, B</td><td><span class="status status-recommended">to review</span></td></tr><tr id="SG-21-board"><td><a href="suggestions.html#SG-21"><code>SG-21</code></a></td><td><strong>Rewrite titles and metas to a two-part pattern: the question, then the promise</strong></td><td>Editorial &amp; SEO</td><td>Medium-high on impressions-to-clicks; no effect without impressions, so pair with SG-06.</td><td>Low. Ten string edits in the page registry.</td><td>A*, B</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-12-board"><td><a href="suggestions.html#SG-12"><code>SG-12</code></a></td><td><strong>Give every product its own buyer-first section: who it suits, what it does not do, what the listing says</strong></td><td>Merchandising</td><td>Medium; likely the highest conversion-relevant change that needs no new data.</td><td>Small (copy in content/pages + one check that each block has both lines).</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-16-board"><td><a href="suggestions.html#SG-16"><code>SG-16</code></a></td><td><strong>Give every product a buyer-first verdict block: who it suits, where it falls short</strong></td><td>Merchandising</td><td>High for both trust and conversion; the single biggest content upgrade that needs no new data.</td><td>Low-medium. One pass over five products, no gate change needed.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-18-board"><td><a href="suggestions.html#SG-18"><code>SG-18</code></a></td><td><strong>Design an original illustration system in place of photography</strong></td><td>Brand</td><td>High on the &#x27;is this a real publication&#x27; question, which is what the current page lacks most.</td><td>Medium. Eight to twelve figures, plus a style block in the brief.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-32-board"><td><a href="suggestions.html#SG-32"><code>SG-32</code></a></td><td><strong>Close out open PR #16 before it can overwrite the live publication</strong></td><td>Operations</td><td>High on repository integrity; nothing reader-facing unless it merges, which is the risk.</td><td>Minutes of owner decision; an hour if content is ported.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-09-board"><td><a href="suggestions.html#SG-09"><code>SG-09</code></a></td><td><strong>Internal-linking rule as an automated check</strong></td><td>Editorial &amp; SEO</td><td>Medium — keeps the site&#x27;s structure intact as pages grow.</td><td>Small.</td><td>A*, B</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-26-board"><td><a href="suggestions.html#SG-26"><code>SG-26</code></a></td><td><strong>A no-slop lint in the publish gate</strong></td><td>Trust &amp; authority</td><td>Medium-high on the thing the owner flagged twice: not reading like generated filler.</td><td>Low. A list and four functions.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-17-board"><td><a href="suggestions.html#SG-17"><code>SG-17</code></a></td><td><strong>Per-page social preview cards instead of one site-wide image</strong></td><td>Reader experience</td><td>Medium for social and messaging click-through; zero ranking effect by itself.</td><td>Low-medium. A loop around the existing card generator.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-08-board"><td><a href="suggestions.html#SG-08"><code>SG-08</code></a></td><td><strong>Sticky mobile comparison bar on product pages</strong><br><span class=muted>Folded into SG-23 (mobile-first pass), which this session implemented for the comparison and product pages on 2026-11-19.</span></td><td>Reader experience</td><td>Medium conversion UX.</td><td>One session (CSS/JS + checks update).</td><td>A*</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-23-board"><td><a href="suggestions.html#SG-23"><code>SG-23</code></a></td><td><strong>Mobile-first pass: type scale, 44px tap targets, sticky comparison bar, no horizontal table traps</strong><br><span class=muted>Implemented 2026-11-19 under D-P08 (presentation only): fluid type scale, min-height tap targets, visible focus rings, a dismissible sticky comparison bar on the comparison and product pages, and table scroll affordances. This mirrors the owner&#x27;s register row S-20.</span></td><td>Reader experience</td><td>High for readable mobile dwell and for the tap that earns the commission.</td><td>Low-medium. CSS plus a small script.</td><td>A*, B</td><td><span class="status status-recommended">to review</span></td></tr><tr id="SG-20-board"><td><a href="suggestions.html#SG-20"><code>SG-20</code></a></td><td><strong>A counter-fit calculator shoppers can actually use</strong></td><td>Reader experience</td><td>Medium-high for engagement and for the &#x27;this site helped me&#x27; feeling that drives the click.</td><td>Low-medium. One script, one gate-safe template.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-22-board"><td><a href="suggestions.html#SG-22"><code>SG-22</code></a></td><td><strong>Show the freshness of every figure on the product block, not only on the method page</strong></td><td>Trust &amp; authority</td><td>Medium. It turns the site&#x27;s real advantage into something visible in one glance.</td><td>Low. One chip component plus one gate rule.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-27-board"><td><a href="suggestions.html#SG-27"><code>SG-27</code></a></td><td><strong>Name a publisher and an author entity the reader can contact</strong></td><td>Trust &amp; authority</td><td>Medium-high on trust, and it removes a real compliance ambiguity.</td><td>Low once the owner answers.</td><td>A, B*, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-28-board"><td><a href="suggestions.html#SG-28"><code>SG-28</code></a></td><td><strong>Make the comparison table filterable by constraint, not just readable</strong></td><td>Merchandising</td><td>Medium. Mainly future-proofs the page and reduces table abandonment.</td><td>Medium. One component, one empty state.</td><td>A*, B</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-01-board"><td><a href="suggestions.html#SG-01"><code>SG-01</code></a></td><td><strong>Adopt a consumer-facing brand name (after trademark clearance)</strong></td><td>Brand</td><td>Medium — brand recall, SERP click-through, linkability.</td><td>One session once a name clears.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-33-board"><td><a href="suggestions.html#SG-33"><code>SG-33</code></a></td><td><strong>Rebuild the automation plan on the Creators API, not PA-API 5</strong></td><td>Measurement</td><td>High for the roadmap; nothing changes on the live page either way.</td><td>Medium to plan; large to implement, and gated on access.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-03-board"><td><a href="suggestions.html#SG-03"><code>SG-03</code></a></td><td><strong>Build a seasonal thermometer cluster (grilling season, holiday gifts)</strong></td><td>Editorial &amp; SEO</td><td>Medium-high organic potential; unmeasured until analytics exist (Q-P02).</td><td>One session per guide.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-13-board"><td><a href="suggestions.html#SG-13"><code>SG-13</code></a></td><td><strong>Build one organic cluster per format, linked into a hub, before adding more formats</strong><br><span class=muted>Interim hub published at guides.html on 2026-11-19 (all eight guides plus both category pillars); per-format hubs still to come.</span></td><td>Editorial &amp; SEO</td><td>Medium-high for organic discovery; unmeasured until SG-06.</td><td>Medium (roughly one session per cluster).</td><td>A*, B</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-30-board"><td><a href="suggestions.html#SG-30"><code>SG-30</code></a></td><td><strong>Move to an owner-controlled domain, then verify Search Console on it</strong></td><td>Operations</td><td>Medium-high for any future ranking work, and it unblocks SG-06 and SG-25.</td><td>Low once the owner buys a domain.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-31-board"><td><a href="suggestions.html#SG-31"><code>SG-31</code></a></td><td><strong>One product register instead of two, with the price question settled inside it</strong></td><td>Operations</td><td>Medium on reviewer confidence; nothing reader-facing.</td><td>Low. A move, a pointer, two sentences.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-24-board"><td><a href="suggestions.html#SG-24"><code>SG-24</code></a></td><td><strong>Seasonal hubs, but only with dated official snapshots as the evidence</strong></td><td>Editorial &amp; SEO</td><td>Medium-high in the right weeks, near zero outside them.</td><td>One pass per season, plus capture discipline.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-29-board"><td><a href="suggestions.html#SG-29"><code>SG-29</code></a></td><td><strong>A printable one-page spec sheet for the five</strong></td><td>Reader experience</td><td>Low-medium on traffic, high on memorability.</td><td>Low. Print CSS and a URL list.</td><td>A*, B</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-02-board"><td><a href="suggestions.html#SG-02"><code>SG-02</code></a></td><td><strong>Publish the comparison table&#x27;s &#x27;counter depth&#x27; as the lead spec</strong></td><td>Merchandising</td><td>Medium — differentiation, matches the strongest guide.</td><td>Small (column reorder + one derived column in build).</td><td>A*, B</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-05-board"><td><a href="suggestions.html#SG-05"><code>SG-05</code></a></td><td><strong>Adopt a dated-snapshot price policy</strong></td><td>Compliance</td><td>Medium-high conversion relevance; adds upkeep to every pass.</td><td>Medium (rule + checks + one re-verification sweep).</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-07-board"><td><a href="suggestions.html#SG-07"><code>SG-07</code></a></td><td><strong>Add a &#x27;what it&#x27;s like to live with&#x27; layer once real usage exists</strong></td><td>Editorial &amp; SEO</td><td>High on E-E-A-T, if real.</td><td>Depends entirely on real usage.</td><td>A*, B, C</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-04-board"><td><a href="suggestions.html#SG-04"><code>SG-04</code></a></td><td><strong>Reader email capture with consent flow</strong></td><td>Growth</td><td>Medium — returning readers; but adds compliance surface.</td><td>Medium (form + consent text review + privacy note page).</td><td>A*, B</td><td><span class="status status-proposed">to review</span></td></tr><tr id="SG-10-board"><td><a href="suggestions.html#SG-10"><code>SG-10</code></a></td><td><strong>Second-format expansion: one more air-fryer format page (basket accessories, liners, racks)</strong></td><td>Editorial &amp; SEO</td><td>Medium organic potential; unmeasured (Q-P02).</td><td>One session.</td><td>A*, B</td><td><span class="status status-proposed">to review</span></td></tr></tbody></table></div><p class="table-note">34 items, ranked by impact against effort as recorded in <code>data/p2/suggestions.json</code>. Ranking is editorial judgement against the registers: no traffic or conversion data exists to rank on yet (<a href="questions.html#Q-P14">Q-P14</a>).</p>
 
-<article class="card s-card" id="SG-01">
-  <header><h3><code>SG-01</code> Adopt a consumer-facing brand name (after trademark clearance)</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>The wordmark &#x27;Prod2&#x27; is the project&#x27;s established name, not a shop name. A real brand name would help the site read as a publication and support a future domain.</dd>
-    <dt>Proposal</dt><dd>Shortlist 2-3 candidate names (e.g. &#x27;Counter &amp; Crisp&#x27;, &#x27;The Basket Guide&#x27;, &#x27;Crisp Ledger&#x27;), run each through a trademark search (Q-19), pick one, rename in one pass (masthead, titles, OG card), then consider a domain.</dd>
-    <dt>Evidence</dt><dd>D-18 kept the established name only because clearance (Q-19) was open; the constraint is clearance, not the name itself.</dd>
-    <dt>Expected impact</dt><dd>Medium — brand recall, SERP click-through, linkability.</dd>
-    <dt>Effort</dt><dd>One session once a name clears.</dd>
-    <dt>Risk</dt><dd>Trademark collision if skipped; mitigated by the clearance step.</dd>
-    <dt>Depends on</dt><dd>Q-19</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Do it after clearance. Ranked 1 by impact/effort among brand items.</p>
-</article>
-<article class="card s-card" id="SG-02">
-  <header><h3><code>SG-02</code> Publish the comparison table&#x27;s &#x27;counter depth&#x27; as the lead spec</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>Capacity is what listings lead with, but counter depth is what buyers underestimate (the brief&#x27;s counter-space thesis).</dd>
-    <dt>Proposal</dt><dd>Reorder comparison columns so counter depth and footprint lead; add a &#x27;capacity per cm of depth&#x27; derived column with its formula shown (D-26 published the analysis; this makes it the headline).</dd>
-    <dt>Evidence</dt><dd>D-26 adopted the capacity-per-depth analysis; the counter-space guide is the site&#x27;s most distinctive angle.</dd>
-    <dt>Expected impact</dt><dd>Medium — differentiation, matches the strongest guide.</dd>
-    <dt>Effort</dt><dd>Small (column reorder + one derived column in build).</dd>
-    <dt>Risk</dt><dd>Low. Derived values must show the formula to stay within the evidence rule.</dd>
-    <dt>Depends on</dt><dd>—</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Accept. Cheap, on-thesis.</p>
-</article>
-<article class="card s-card" id="SG-03">
-  <header><h3><code>SG-03</code> Build a seasonal thermometer cluster (grilling season, holiday gifts)</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>Half the catalog (P4/P5) has one guide only; seasonal demand for thermometers is a natural traffic window.</dd>
-    <dt>Proposal</dt><dd>Two question-shaped guides (&#x27;How accurate does a meat thermometer need to be?&#x27;, &#x27;Instant-read vs leave-in: which for which cook?&#x27;) plus a gift-guide page, timed to seasons, each linked into sitemap + feed.</dd>
-    <dt>Evidence</dt><dd>The publishing-cadence requirement; the thermometer products&#x27; listing themes (grill/BBQ, stocking stuffers).</dd>
-    <dt>Expected impact</dt><dd>Medium-high organic potential; unmeasured until analytics exist (Q-P02).</dd>
-    <dt>Effort</dt><dd>One session per guide.</dd>
-    <dt>Risk</dt><dd>Low — content only; no new claims needed beyond listed specs.</dd>
-    <dt>Depends on</dt><dd>Q-P04</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Accept after Q-P04, timed to season.</p>
-</article>
-<article class="card s-card" id="SG-04">
-  <header><h3><code>SG-04</code> Reader email capture with consent flow</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>RSS is the only capture channel; a newsletter would build a returning audience.</dd>
-    <dt>Proposal</dt><dd>Add a signup form with reviewed consent + privacy text, kept clear of affiliate links (Participation Requirement 6(g)); double opt-in; no incentives tied to clicks.</dd>
-    <dt>Evidence</dt><dd>Q-47; FTC disclosure guidance travels with the channel (S-FTC1).</dd>
-    <dt>Expected impact</dt><dd>Medium — returning readers; but adds compliance surface.</dd>
-    <dt>Effort</dt><dd>Medium (form + consent text review + privacy note page).</dd>
-    <dt>Risk</dt><dd>Medium — privacy liability if consent text is wrong; gated on review.</dd>
-    <dt>Depends on</dt><dd>Q-47</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Defer until traffic exists; the compliance cost is paid before any benefit arrives.</p>
-</article>
-<article class="card s-card" id="SG-05">
-  <header><h3><code>SG-05</code> Adopt a dated-snapshot price policy</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>Buyers want prices; the site withholds them (F-02) because they drift faster than re-verification.</dd>
-    <dt>Proposal</dt><dd>Publish price only with a mandatory read date + &#x27;check listing&#x27; link; checks enforce price/date pairing; re-verify at each publishing pass. Ratings stay withheld (they invite selection bias).</dd>
-    <dt>Evidence</dt><dd>F-02; D-19 shows the dated-snapshot pattern already works for popularity claims.</dd>
-    <dt>Expected impact</dt><dd>Medium-high conversion relevance; adds upkeep to every pass.</dd>
-    <dt>Effort</dt><dd>Medium (rule + checks + one re-verification sweep).</dd>
-    <dt>Risk</dt><dd>Medium — stale prices damage trust more than absent prices; must be automated before adoption.</dd>
-    <dt>Depends on</dt><dd>Q-27</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Only after the automated date-pairing check exists. Do not do this by hand.</p>
-</article>
+<h2 id="the-queue">The queue, item by item</h2>
+
 <article class="card s-card" id="SG-06">
   <header><h3><code>SG-06</code> Deploy the analytics endpoint and turn on Search Console</h3>
   <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Measurement</span><span class="s-rank">rank 1</span></p>
+  
   <dl>
     <dt>Problem</dt><dd>No first-party measurement exists (F-19); topic selection is instinct instead of measured queries (Q-P02).</dd>
     <dt>Proposal</dt><dd>Host analytics-endpoint/server.py on an owner-controlled HTTPS host; set settings.analytics_endpoint; verify the domain in Google Search Console; submit the sitemap; record weekly counts in the campaign ledger only from authorized reports.</dd>
@@ -161,108 +106,15 @@
     <dt>Depends on</dt><dd>Q-23</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the top operational priority. Nothing else compounds without it.</p>
-</article>
-<article class="card s-card" id="SG-07">
-  <header><h3><code>SG-07</code> Add a &#x27;what it&#x27;s like to live with&#x27; layer once real usage exists</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>S-06 (hands-on content) was recorded as not adopted because nobody has tested these appliances; listings can&#x27;t tell a reader what cleanup or noise is like.</dd>
-    <dt>Proposal</dt><dd>Either (a) owner supplies first-hand notes/photos for one product and the site adds a clearly-labeled experience section, or (b) keep spec-only and say so. Do not fabricate experience.</dd>
-    <dt>Evidence</dt><dd>Google&#x27;s thin-affiliation policy (S-GSPAM) rewards genuine experience; the current site is honest but thinner than ideal.</dd>
-    <dt>Expected impact</dt><dd>High on E-E-A-T, if real.</dd>
-    <dt>Effort</dt><dd>Depends entirely on real usage.</dd>
-    <dt>Risk</dt><dd>High if faked — never do this synthetically.</dd>
-    <dt>Depends on</dt><dd>Owner input</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available.</p>
-</article>
-<article class="card s-card" id="SG-08">
-  <header><h3><code>SG-08</code> Sticky mobile comparison bar on product pages</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>Mobile readers scroll long comparisons and lose the buy path (S-20 in the brief list).</dd>
-    <dt>Proposal</dt><dd>A sticky bottom bar on the comparison and category pages showing the currently scrolled product + its sponsored link; type-scale and tap-target pass first.</dd>
-    <dt>Evidence</dt><dd>Brief item S-20 (not yet implemented).</dd>
-    <dt>Expected impact</dt><dd>Medium conversion UX.</dd>
-    <dt>Effort</dt><dd>One session (CSS/JS + checks update).</dd>
-    <dt>Risk</dt><dd>Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).</dd>
-    <dt>Depends on</dt><dd>—</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Accept as a UX follow-up after the first traffic arrives.</p>
-</article>
-<article class="card s-card" id="SG-09">
-  <header><h3><code>SG-09</code> Internal-linking rule as an automated check</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>S-24&#x27;s rule (every article reaches the comparison, the buying guide and its category pillar) is satisfied today by hand and can rot.</dd>
-    <dt>Proposal</dt><dd>Extend tools/checks.py: each guide must link to compare.html, buying-guide.html and its category page; fail the build otherwise.</dd>
-    <dt>Evidence</dt><dd>S-24/D-27 adopted the rule; automation is the brief&#x27;s machinery-trust requirement.</dd>
-    <dt>Expected impact</dt><dd>Medium — keeps the site&#x27;s structure intact as pages grow.</dd>
-    <dt>Effort</dt><dd>Small.</dd>
-    <dt>Risk</dt><dd>None.</dd>
-    <dt>Depends on</dt><dd>—</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Accept. It is a gate, and gates are cheap once written.</p>
-</article>
-<article class="card s-card" id="SG-10">
-  <header><h3><code>SG-10</code> Second-format expansion: one more air-fryer format page (basket accessories, liners, racks)</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>Adjacent accessory queries (liners, racks) are how many readers enter the category.</dd>
-    <dt>Proposal</dt><dd>A small accessories guide that links back to the three formats; only listed facts; no accessory products added to the affiliate set until their own intent records exist.</dd>
-    <dt>Evidence</dt><dd>Topic-hub structure of the publishing plan (S-13/D-17).</dd>
-    <dt>Expected impact</dt><dd>Medium organic potential; unmeasured (Q-P02).</dd>
-    <dt>Effort</dt><dd>One session.</dd>
-    <dt>Risk</dt><dd>Low.</dd>
-    <dt>Depends on</dt><dd>—</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Defer until measured queries confirm demand (after SG-06).</p>
-</article>
-<article class="card s-card" id="SG-11">
-  <header><h3><code>SG-11</code> Run an answer-first article calendar of question-shaped guides, one per format decision</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>Five guides exist, but the site has no written calendar for what comes next, so topic choice is instinct.</dd>
-    <dt>Proposal</dt><dd>Plan a rolling calendar of about one guide every two weeks, each titled as the buyer&#x27;s question (for example, &#x27;Is a dual-basket air fryer worth it for two dishes at once?&#x27;). Every answer uses only listed specs with their read dates. Topics are chosen from Search Console queries once SG-06 is live.</dd>
-    <dt>Evidence</dt><dd>Q-P02 (which guide next, on what evidence); the publishing-cadence question in data/p2/questions.json; VOICE.md rule 7 (questions are titles).</dd>
-    <dt>Expected impact</dt><dd>Medium-high organic potential; unmeasured until analytics runs.</dd>
-    <dt>Effort</dt><dd>Small per guide; the calendar itself is one document.</dd>
-    <dt>Risk</dt><dd>Low, provided no popularity claims are made (D-19 banned words stay banned).</dd>
-    <dt>Depends on</dt><dd>Q-P02, SG-06</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06.</p>
-</article>
-<article class="card s-card" id="SG-12">
-  <header><h3><code>SG-12</code> Give every product its own buyer-first section: who it suits, what it does not do, what the listing says</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>Product sections are spec tables. A shopper deciding between two machines needs a plain answer for each product first.</dd>
-    <dt>Proposal</dt><dd>On each product block, lead with a &#x27;Who it suits&#x27; line and a &#x27;Where it falls short&#x27; line, both drawn only from listed facts (for example, &#x27;Suits two dishes at the same temperature; the baskets are 3 qt each&#x27;). The sponsored link and paid-link label stay directly under that text.</dd>
-    <dt>Evidence</dt><dd>The existing product register (data/p2/products.json highlights); FTC guidance that endorsements must reflect honest experience (S-FTC2), which rules out invented hands-on claims.</dd>
-    <dt>Expected impact</dt><dd>Medium; likely the highest conversion-relevant change that needs no new data.</dd>
-    <dt>Effort</dt><dd>Small (copy in content/pages + one check that each block has both lines).</dd>
-    <dt>Risk</dt><dd>Low. Must not claim testing that did not happen (D-06).</dd>
-    <dt>Depends on</dt><dd>—</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Accept. It improves the shop feel without adding claims.</p>
-</article>
-<article class="card s-card" id="SG-13">
-  <header><h3><code>SG-13</code> Build one organic cluster per format, linked into a hub, before adding more formats</h3>
-  <span class="status status-proposed">proposed</span></header>
-  <dl>
-    <dt>Problem</dt><dd>Guides link to the comparison, but each format lacks a cluster that answers the search journey from question to purchase.</dd>
-    <dt>Proposal</dt><dd>Four clusters: dual-basket, oven-style, single-basket, instant-read vs leave-in thermometer. Each cluster has one hub page, two or three question guides, and the sponsored links where the reader is ready to act. Internal links follow the rule in SG-09.</dd>
-    <dt>Evidence</dt><dd>S-24 / D-27 (internal linking rule); the existing category pages; the brief&#x27;s requirement for clusters.</dd>
-    <dt>Expected impact</dt><dd>Medium-high for organic discovery; unmeasured until SG-06.</dd>
-    <dt>Effort</dt><dd>Medium (roughly one session per cluster).</dd>
-    <dt>Risk</dt><dd>Low; more pages mean more upkeep, which SG-09 automates.</dd>
-    <dt>Depends on</dt><dd>SG-09</dd>
-  </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-06-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Host the endpoint and verify the Search Console property now</h4><dl><dt>What changes</dt><dd>The five events start accumulating; the sitemap gets submitted.</dd><dt>Upside</dt><dd>Every later topic choice rests on measured queries instead of instinct.</dd><dt>Downside</dt><dd>Needs somewhere to run a collector (Q-23) and a verified property (Q-P06).</dd><dt>Cost</dt><dd>Owner action, one afternoon</dd></dl></div><div class="path-card" id="SG-06-B"><p class="path-key">Path B</p><h4>Aggregate in the browser only, no endpoint</h4><dl><dt>What changes</dt><dd>Local counts stay on each visitor&#x27;s device; the ledger stays empty.</dd><dt>Upside</dt><dd>Zero infrastructure and zero privacy surface.</dd><dt>Downside</dt><dd>Nobody can read the numbers, so they cannot inform anything.</dd><dt>Cost</dt><dd>None</dd></dl></div><div class="path-card" id="SG-06-C"><p class="path-key">Path C</p><h4>Vendor analytics instead</h4><dl><dt>What changes</dt><dd>A hosted analytics script on every page.</dd><dt>Upside</dt><dd>Dashboards for free.</dd><dt>Downside</dt><dd>Conflicts with the cookieless posture the project recorded, and adds a consent surface.</dd><dt>Cost</dt><dd>One script tag</dd></dl><p class="path-unlocks"><strong>Unlocks:</strong> nothing recommended</p></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
 </article>
 <article class="card s-card" id="SG-14">
   <header><h3><code>SG-14</code> Hold paid promotion and a newsletter until one clean attribution test exists</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-recommended">recommended</span></header>
+  <p class="s-meta"><span class="s-theme">Growth</span><span class="s-rank">rank 2</span></p>
+  <p class="s-note">Adopted as the sequencing rule for this pass: no paid spend and no list capture proposed in any page or calendar entry.</p>
   <dl>
     <dt>Problem</dt><dd>Clicks cannot yet be tied to reports. Spending money or adding a list before attribution works would produce numbers the site cannot defend.</dd>
     <dt>Proposal</dt><dd>Sequence the growth plan: (1) one-link-per-product test in Associates Central (Q-01 / F-58); (2) analytics endpoint and Search Console (SG-06); (3) only then consider reader email capture (SG-04) or any paid channel. No paid spend is planned in this proposal.</dd>
@@ -273,21 +125,645 @@
     <dt>Depends on</dt><dd>Q-01, SG-06</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the sequencing rule for every growth decision.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-14-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Sequence: attribution test, then measurement, then growth</h4><dl><dt>What changes</dt><dd>Nothing new ships; the order is written into the calendar.</dd><dt>Upside</dt><dd>Every growth number the site later reports is defensible.</dd><dt>Downside</dt><dd>Growth looks slow for a few weeks.</dd><dt>Cost</dt><dd>None</dd></dl></div><div class="path-card" id="SG-14-B"><p class="path-key">Path B</p><h4>Grow now, measure later</h4><dl><dt>What changes</dt><dd>Publish faster, add channels, instrument afterwards.</dd><dt>Upside</dt><dd>More pages indexed sooner.</dd><dt>Downside</dt><dd>No way to say which page earned anything; exactly the pattern that makes a site read as generated.</dd><dt>Cost</dt><dd>Later cleanup, at higher cost</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-15">
+  <header><h3><code>SG-15</code> Turn the front page into a shop shelf: one product rail above the fold, then the guides</h3>
+  <span class="status status-recommended">recommended</span></header>
+  <p class="s-meta"><span class="s-theme">Reader experience</span><span class="s-rank">rank 2</span><span class="s-dp">feeds the design prompt</span></p>
+  <p class="s-note">Implemented as a presentation-only change on 2026-11-19 under D-P08: the rail re-presents already-published listed facts and adds no claim. Revert is one commit.</p>
+  <dl>
+    <dt>Problem</dt><dd>The home page opens with a method sentence and four format tiles. A buyer arriving from search sees process before product, so the page reads like a register export rather than a shop.</dd>
+    <dt>Proposal</dt><dd>Lead with a five-card product rail: name, format, the two listed numbers that decide the purchase, one sponsored CTA each. Put the format tiles under it and the guide shelf under that. No new facts, no ranking language, no images we do not have the right to use.</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s people-first guidance on showing the reader what they came for; the register&#x27;s own rule that only listed facts appear (S-GHELP). Compare page already does this in table form. <a class="src" href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" rel="noopener" target="_blank">Google: creating helpful, people-first content</a></dd>
+    <dt>Expected impact</dt><dd>High for click-through and time-to-first-CTA; neutral for ranking.</dd>
+    <dt>Effort</dt><dd>Low. Layout only; content already registered.</dd>
+    <dt>Risk</dt><dd>Low, as long as the rail carries no verdict wording the register cannot source.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. This is the cheapest change that moves the site from audit to shop.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-15-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Product rail first, guides second</h4><dl><dt>What changes</dt><dd>Front page reorders; every card links to its product section and one sponsored CTA.</dd><dt>Upside</dt><dd>Shoppers see the shelf in the first screen; the method stays one scroll away.</dd><dt>Downside</dt><dd>Slightly less prominent method line on entry.</dd><dt>Cost</dt><dd>Done in this pass</dd></dl></div><div class="path-card" id="SG-15-B"><p class="path-key">Path B</p><h4>Guides first, products second</h4><dl><dt>What changes</dt><dd>Editorial shelf leads; the rail moves below.</dd><dt>Upside</dt><dd>Reads like a magazine; more time on page.</dd><dt>Downside</dt><dd>Weakest at the moment of purchase intent, which is where the affiliate action happens.</dd><dt>Cost</dt><dd>Minutes</dd></dl><p class="path-unlocks"><strong>Unlocks:</strong> nothing extra</p></div><div class="path-card" id="SG-15-C"><p class="path-key">Path C</p><h4>Both above the fold in one grid</h4><dl><dt>What changes</dt><dd>Cards with a guide link inside each product card.</dd><dt>Upside</dt><dd>Shortest path from question to product.</dd><dt>Downside</dt><dd>Busier first screen; harder to keep the disclosure above it.</dd><dt>Cost</dt><dd>Minutes</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-25">
+  <header><h3><code>SG-25</code> Instrument the click path before testing anything on it</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Measurement</span><span class="s-rank">rank 2</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Redesigns, title rewrites and seasonal hubs all get argued from taste today, because nothing is counted. Five events are defined, the client exists, and no endpoint receives them (F-19).</dd>
+    <dt>Proposal</dt><dd>Deploy the existing collector, point the site at it, and define the five events&#x27; report before any layout change is proposed: outbound_click by ASIN, guide_read_75, category_click, feed_click, page_view. Then set one rule: a design change ships with its hypothesis and the metric that would falsify it.</dd>
+    <dt>Evidence</dt><dd>The owner&#x27;s Priority 4 row (measure before automating optimization) and D-P05, which fixed the five-event set. The project ledger is deliberately empty until an authorized first-party report exists. <a class="src" href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank">Google: qualifying outbound links</a></dd>
+    <dt>Expected impact</dt><dd>Indirect but compounding: it converts every later suggestion into a test.</dd>
+    <dt>Effort</dt><dd>Low to host; medium to keep the discipline.</dd>
+    <dt>Risk</dt><dd>Low; the collector is aggregate-only and stores nothing identifying.</dd>
+    <dt>Depends on</dt><dd>Q-23, Q-P06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the precondition for SG-15..SG-24 being argued about with numbers.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-25-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Host the existing collector on any Node host, keep the ledger empty</h4><dl><dt>What changes</dt><dd>Events accumulate; the ledger still only fills from authorized reports.</dd><dt>Upside</dt><dd>Measurement without inventing revenue numbers.</dd><dt>Downside</dt><dd>Someone must run a host (Q-23).</dd><dt>Cost</dt><dd>Owner action</dd></dl></div><div class="path-card" id="SG-25-B"><p class="path-key">Path B</p><h4>Local-only counters, revisit later</h4><dl><dt>What changes</dt><dd>Nothing leaves the browser.</dd><dt>Upside</dt><dd>No hosting.</dd><dt>Downside</dt><dd>No learning; the next pass repeats today&#x27;s guesswork.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-34">
+  <header><h3><code>SG-34</code> Say the required disclosure sentence exactly, not as a paraphrase</h3>
+  <span class="status status-accepted">accepted</span></header>
+  <p class="s-meta"><span class="s-theme">Compliance</span><span class="s-rank">rank 2</span></p>
+  <p class="s-note">Implemented 2026-11-19 and recorded as D-P07: every page now opens with the exact statement Amazon&#x27;s help page quotes from the Operating Agreement, with the plain-language FTC-style sentence kept beside it and &#x27;(paid link)&#x27; kept next to each sponsored link. The gate constant was updated to require the exact sentence twice per page.</p>
+  <dl>
+    <dt>Problem</dt><dd>The strip read &#x27;As an Amazon Associate we earn from qualifying purchases.&#x27; Amazon&#x27;s own help page states the required statement with &#x27;I earn&#x27;. A paraphrase of a mandated sentence is a compliance risk the site does not need, and which no reader benefit justifies.</dd>
+    <dt>Proposal</dt><dd>Put the required sentence in verbatim in the strip and the footer, keep the plain-language and paid-link wording as well (belt and braces for FTC conspicuousness), and let the gate require the exact string twice per page so a future pass cannot drop it.</dd>
+    <dt>Evidence</dt><dd>Amazon&#x27;s help topic on identifying yourself as an Associate (read 2026-11-19) quotes the required statement and the FTC clear-and-conspicuous standard; the Operating Agreement is the governing text. <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE" rel="noopener" target="_blank">Amazon: why identify yourself as an Associate, and how</a> <a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank">Associates Operating Agreement</a> <a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank">FTC endorsement disclosures</a></dd>
+    <dt>Expected impact</dt><dd>Removes an unnecessary compliance exposure site-wide.</dd>
+    <dt>Effort</dt><dd>Minutes, one settings change and one gate constant.</dd>
+    <dt>Risk</dt><dd>If the publisher is a company rather than an individual, &#x27;I&#x27; may need adjusting - see Q-P19; the exact wording Amazon prescribes is the safe default until the entity is named.</dd>
+    <dt>Depends on</dt><dd>Q-P19</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accepted and implemented in this pass. Revisit the pronoun only when the publisher entity is named.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-34-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Exact required sentence plus a plain-language line</h4><dl><dt>What changes</dt><dd>Both sentences appear in the strip and the footer on all pages.</dd><dt>Upside</dt><dd>Satisfies the mandated wording and the FTC clarity expectation at once.</dd><dt>Downside</dt><dd>Slightly longer strip; the gate keeps it from growing further.</dd><dt>Cost</dt><dd>Done in this pass</dd></dl></div><div class="path-card" id="SG-34-B"><p class="path-key">Path B</p><h4>Exact sentence only</h4><dl><dt>What changes</dt><dd>The plain-language line goes.</dd><dt>Upside</dt><dd>Minimal, compliant.</dd><dt>Downside</dt><dd>Loses the human explanation of what a paid link means here.</dd><dt>Cost</dt><dd>Minutes</dd></dl></div><div class="path-card" id="SG-34-C"><p class="path-key">Path C</p><h4>Keep the paraphrase</h4><dl><dt>What changes</dt><dd>Nothing.</dd><dt>Upside</dt><dd>No churn.</dd><dt>Downside</dt><dd>Leaves a mandated string unmet for a one-line saving.</dd><dt>Cost</dt><dd>None - do not do this</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-19">
+  <header><h3><code>SG-19</code> Answer first, then explain: a 40-word summary block and FAQ structured data on every guide</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Editorial &amp; SEO</span><span class="s-rank">rank 3</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Guides open with scene-setting paragraphs. A reader (and a crawler) has to scroll to find the answer, which is the opposite of how question-shaped pages earn their place.</dd>
+    <dt>Proposal</dt><dd>Each guide starts with a boxed &#x27;Short answer&#x27; of at most 40 words, then three to five H2 sections that each open with their own one-line answer, then a FAQ list mirroring the phrasing people type. Publish the FAQ block as FAQPage structured data in the same JSON-LD graph the build already emits, and validate the JSON-LD parses (the gate already does).</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s guidance on helpful, people-first content and on qualifying outbound links; the site already links every figure to its listing, which is the E-E-A-T signal to keep. <a class="src" href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" rel="noopener" target="_blank">Google: people-first content</a></dd>
+    <dt>Expected impact</dt><dd>High for organic entry and for skim-through retention; the cheapest on-page improvement on this list.</dd>
+    <dt>Effort</dt><dd>Medium across eight guides; mechanical once the template exists.</dd>
+    <dt>Risk</dt><dd>Low, if the short answer never says more than the sourced body text.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept and apply retroactively to all eight guides in one pass.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-19-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Short answer + FAQPage JSON-LD on every guide</h4><dl><dt>What changes</dt><dd>Template change in the build; eight content passes.</dd><dt>Upside</dt><dd>Answers the query where the query is answered, with machine-readable support.</dd><dt>Downside</dt><dd>FAQ markup is presentational for the reader; do not expect a guaranteed rich result.</dd><dt>Cost</dt><dd>One pass</dd></dl><p class="path-unlocks"><strong>Unlocks:</strong> SG-21</p></div><div class="path-card" id="SG-19-B"><p class="path-key">Path B</p><h4>Short answer only, no extra structured data</h4><dl><dt>What changes</dt><dd>Same prose change, no schema.</dd><dt>Upside</dt><dd>Simpler; nothing to maintain in two places.</dd><dt>Downside</dt><dd>Loses the explicit question/answer pairing the build could carry.</dd><dt>Cost</dt><dd>Half the effort</dd></dl></div><div class="path-card" id="SG-19-C"><p class="path-key">Path C</p><h4>Leave the prose as it is</h4><dl><dt>What changes</dt><dd>Nothing.</dd><dt>Upside</dt><dd>No churn.</dd><dt>Downside</dt><dd>The answer stays buried below the fold.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-11">
+  <header><h3><code>SG-11</code> Run an answer-first article calendar of question-shaped guides, one per format decision</h3>
+  <span class="status status-recommended">recommended</span></header>
+  <p class="s-meta"><span class="s-theme">Editorial &amp; SEO</span><span class="s-rank">rank 4</span><span class="s-dp">feeds the design prompt</span></p>
+  <p class="s-note">Calendar table now published on the Analysis page; three guides added 2026-11-19 (eight articles in the format-first set, the count recorded in D-17).</p>
+  <dl>
+    <dt>Problem</dt><dd>Five guides exist, but the site has no written calendar for what comes next, so topic choice is instinct.</dd>
+    <dt>Proposal</dt><dd>Plan a rolling calendar of about one guide every two weeks, each titled as the buyer&#x27;s question (for example, &#x27;Is a dual-basket air fryer worth it for two dishes at once?&#x27;). Every answer uses only listed specs with their read dates. Topics are chosen from Search Console queries once SG-06 is live.</dd>
+    <dt>Evidence</dt><dd>Q-P02 (which guide next, on what evidence); the publishing-cadence question in data/p2/questions.json; VOICE.md rule 7 (questions are titles).</dd>
+    <dt>Expected impact</dt><dd>Medium-high organic potential; unmeasured until analytics runs.</dd>
+    <dt>Effort</dt><dd>Small per guide; the calendar itself is one document.</dd>
+    <dt>Risk</dt><dd>Low, provided no popularity claims are made (D-19 banned words stay banned).</dd>
+    <dt>Depends on</dt><dd>Q-P02, SG-06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-11-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Adopt the 14-day cadence with the queue on the Analysis page</h4><dl><dt>What changes</dt><dd>Each pass adds one guide, one hub update, sitemap and feed in the same commit.</dd><dt>Upside</dt><dd>Predictable output; topic choice documented rather than improvised.</dd><dt>Downside</dt><dd>Cadence without measurement keeps guessing at demand until SG-06 lands.</dd><dt>Cost</dt><dd>One pass per fortnight</dd></dl></div><div class="path-card" id="SG-11-B"><p class="path-key">Path B</p><h4>Batch four guides in one pass, then pause</h4><dl><dt>What changes</dt><dd>Publish a small shelf at once, then hold for data.</dd><dt>Upside</dt><dd>Faster index coverage of one cluster.</dd><dt>Downside</dt><dd>Thinner review per article; no measured signal either way.</dd><dt>Cost</dt><dd>One long pass</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-21">
+  <header><h3><code>SG-21</code> Rewrite titles and metas to a two-part pattern: the question, then the promise</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Editorial &amp; SEO</span><span class="s-rank">rank 4</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Current titles are correct and a little flat, and the brand suffix repeats on every page. Searchers choose on the title line; this is the cheapest lever on click-through that does not require a traffic claim.</dd>
+    <dt>Proposal</dt><dd>Pattern: &#x27;&lt;the question a person types&gt; — &lt;what they get in 4 minutes&gt;&#x27;. Keep titles under 60 visible characters, front-load the query noun, and write each meta description to the page&#x27;s actual content (50-170 chars, enforced today). Ban the empty intensifiers the gate already bans; catchy here means specific, not loud.</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s snippet guidance says the description should accurately summarise the page and that unique descriptions per page matter (S-GSNIP); the gate already enforces uniqueness and length (S-04 in the owner&#x27;s register, implemented 2026-11-16). <a class="src" href="https://developers.google.com/search/docs/appearance/snippet" rel="noopener" target="_blank">Google: snippet and description guidance</a></dd>
+    <dt>Expected impact</dt><dd>Medium-high on impressions-to-clicks; no effect without impressions, so pair with SG-06.</dd>
+    <dt>Effort</dt><dd>Low. Ten string edits in the page registry.</dd>
+    <dt>Risk</dt><dd>Low; the gate fails a duplicate or out-of-range description, so drift is caught.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept, but do it after SG-19 so each title matches the answer the page now leads with.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-21-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Question + promise, brand suffix dropped from guides</h4><dl><dt>What changes</dt><dd>Titles read like answers; brand moves to the meta og:site_name.</dd><dt>Upside</dt><dd>Longer tail matched more precisely; less repetition.</dd><dt>Downside</dt><dd>Brand appears less in results for a small site that may want it.</dd><dt>Cost</dt><dd>Minutes</dd></dl></div><div class="path-card" id="SG-21-B"><p class="path-key">Path B</p><h4>Keep the brand suffix everywhere</h4><dl><dt>What changes</dt><dd>Nothing changes.</dd><dt>Upside</dt><dd>Brand consistency in results.</dd><dt>Downside</dt><dd>Every title starts with the same prefix, which is what the pattern was meant to fix.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-12">
+  <header><h3><code>SG-12</code> Give every product its own buyer-first section: who it suits, what it does not do, what the listing says</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Merchandising</span><span class="s-rank">rank 5</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Product sections are spec tables. A shopper deciding between two machines needs a plain answer for each product first.</dd>
+    <dt>Proposal</dt><dd>On each product block, lead with a &#x27;Who it suits&#x27; line and a &#x27;Where it falls short&#x27; line, both drawn only from listed facts (for example, &#x27;Suits two dishes at the same temperature; the baskets are 3 qt each&#x27;). The sponsored link and paid-link label stay directly under that text.</dd>
+    <dt>Evidence</dt><dd>The existing product register (data/p2/products.json highlights); FTC guidance that endorsements must reflect honest experience (S-FTC2), which rules out invented hands-on claims.</dd>
+    <dt>Expected impact</dt><dd>Medium; likely the highest conversion-relevant change that needs no new data.</dd>
+    <dt>Effort</dt><dd>Small (copy in content/pages + one check that each block has both lines).</dd>
+    <dt>Risk</dt><dd>Low. Must not claim testing that did not happen (D-06).</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. It improves the shop feel without adding claims.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-12-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Buyer-first block built only from listed facts</h4><dl><dt>What changes</dt><dd>Each product block leads with who it suits and where it falls short, both traceable to a listing line.</dd><dt>Upside</dt><dd>Reads like advice, stays defensible, and the source link is right there.</dd><dt>Downside</dt><dd>Limits how opinionated the verdict can sound.</dd><dt>Cost</dt><dd>One pass</dd></dl></div><div class="path-card" id="SG-12-B"><p class="path-key">Path B</p><h4>Verdicts after hands-on testing</h4><dl><dt>What changes</dt><dd>Same block, rewritten from real use.</dd><dt>Upside</dt><dd>Maximum trust and differentiation.</dd><dt>Downside</dt><dd>Blocked on SG-07 path B.</dd><dt>Cost</dt><dd>Owner budget (Q-P20)</dd></dl></div><div class="path-card" id="SG-12-C"><p class="path-key">Path C</p><h4>Leave the spec tables as they are</h4><dl><dt>What changes</dt><dd>Nothing changes.</dd><dt>Upside</dt><dd>No risk of over-claiming.</dd><dt>Downside</dt><dd>Shoppers still have to do the reading themselves.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-16">
+  <header><h3><code>SG-16</code> Give every product a buyer-first verdict block: who it suits, where it falls short</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Merchandising</span><span class="s-rank">rank 5</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Product sections are tables. A shopper torn between two machines has to do the synthesis the shop is supposed to do.</dd>
+    <dt>Proposal</dt><dd>Two lines per product, generated from listed fields only: &#x27;Suits…&#x27; and &#x27;Falls short because…&#x27;, each followed by the source link and read date. Add a standing sentence that the site has not cooked with the machine (D-06) so the verdict is honest about its basis.</dd>
+    <dt>Evidence</dt><dd>Thin-affiliation guidance: a useful affiliate page adds interpretation beyond the listing (S-GSPAM). D-12 already allows positions inside verified facts. <a class="src" href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank">Google: spam policies (thin affiliation)</a></dd>
+    <dt>Expected impact</dt><dd>High for both trust and conversion; the single biggest content upgrade that needs no new data.</dd>
+    <dt>Effort</dt><dd>Low-medium. One pass over five products, no gate change needed.</dd>
+    <dt>Risk</dt><dd>Medium if the wording drifts into superlatives; mitigate by adding the banned-claim lint (SG-26) to the same gate run.</dd>
+    <dt>Depends on</dt><dd>Q-P11</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept before any new product is added, so new stock inherits the format.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-16-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Listing-derived verdicts, labelled as such</h4><dl><dt>What changes</dt><dd>Five blocks; each sentence traceable to a listing line with its date.</dd><dt>Upside</dt><dd>Real interpretation, zero invented experience.</dd><dt>Downside</dt><dd>Verdicts stay as cautious as the specs allow.</dd><dt>Cost</dt><dd>One pass</dd></dl></div><div class="path-card" id="SG-16-B"><p class="path-key">Path B</p><h4>Wait for hands-on testing (SG-07 path B)</h4><dl><dt>What changes</dt><dd>Nothing published until someone cooks with the units.</dd><dt>Upside</dt><dd>Verdicts could then be authoritative and unique.</dd><dt>Downside</dt><dd>Indefinite delay; the site keeps reading like a register meanwhile.</dd><dt>Cost</dt><dd>Owner budget decision (Q-P20)</dd></dl></div><div class="path-card" id="SG-16-C"><p class="path-key">Path C</p><h4>Quote external expert or owner notes with attribution</h4><dl><dt>What changes</dt><dd>Attributed lines, clearly sourced.</dd><dt>Upside</dt><dd>Texture without invented testing.</dd><dt>Downside</dt><dd>Needs a real, nameable source per product; otherwise it is decoration.</dd><dt>Cost</dt><dd>Minutes per product</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-18">
+  <header><h3><code>SG-18</code> Design an original illustration system in place of photography</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Brand</span><span class="s-rank">rank 6</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>A shop without product images looks unfinished, and copying listing photos is not an option: images are Program Content. The gap has to be filled with something we own.</dd>
+    <dt>Proposal</dt><dd>Commission or generate a small, consistent set of original line diagrams drawn by this project: basket vs oven cavity, French-door clearance, dual-zone timing, probe placement in a roast, counter-depth footprint to scale. Each figure is labelled with the listed measurement it illustrates and links to the source. Style rules (stroke width, palette, no perspective shading) go into the design brief so the set stays coherent.</dd>
+    <dt>Evidence</dt><dd>Operating Agreement Section 1 treats Amazon&#x27;s images as Program Content, so the compliant route is our own artwork (S-OA). Our own diagrams also satisfy Google&#x27;s originality guidance. <a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank">Associates Operating Agreement</a></dd>
+    <dt>Expected impact</dt><dd>High on the &#x27;is this a real publication&#x27; question, which is what the current page lacks most.</dd>
+    <dt>Effort</dt><dd>Medium. Eight to twelve figures, plus a style block in the brief.</dd>
+    <dt>Risk</dt><dd>Low if figures only ever draw listed values; a diagram that implies a performance claim becomes a claim.</dd>
+    <dt>Depends on</dt><dd>Q-P05</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. It is the only visual upgrade available that does not depend on licensing anything.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-18-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Original measured diagrams, spec-labelled</h4><dl><dt>What changes</dt><dd>One figure per format decision, each captioned with the listed value and its source.</dd><dt>Upside</dt><dd>Ownable, defensible, and it looks like editorial intent.</dd><dt>Downside</dt><dd>Hand-drawn feel depends on execution; a bad diagram is worse than none.</dd><dt>Cost</dt><dd>One design pass</dd></dl></div><div class="path-card" id="SG-18-B"><p class="path-key">Path B</p><h4>Abstract brand art only</h4><dl><dt>What changes</dt><dd>Typographic and geometric art, no measured diagrams.</dd><dt>Upside</dt><dd>Cheap and safe.</dd><dt>Downside</dt><dd>Adds beauty but no understanding.</dd><dt>Cost</dt><dd>Minutes</dd></dl></div><div class="path-card" id="SG-18-C"><p class="path-key">Path C</p><h4>Copy listing photographs</h4><dl><dt>What changes</dt><dd>Product images on cards and guides.</dd><dt>Upside</dt><dd>Looks like a normal commerce page.</dd><dt>Downside</dt><dd>Program Content the site has no licence to host; take-down and account risk.</dd><dt>Cost</dt><dd>None - do not do this</dd></dl><p class="path-unlocks"><strong>Unlocks:</strong> nothing</p></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-32">
+  <header><h3><code>SG-32</code> Close out open PR #16 before it can overwrite the live publication</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Operations</span><span class="s-rank">rank 6</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>An open pull request from a stale base hand-authors root-level index.html, products.html, suggestions.html, flagged.html, sitemap.xml and feed.xml. On main those paths are generated mirrors of docs/. Merging it as-is replaces the live site with a second implementation and desynchronises the mirror the reproducibility check compares against.</dd>
+    <dt>Proposal</dt><dd>One of three: close it; retarget its generator at a subdirectory and re-open; or have an integration session port only its unique registers into data/. Whichever is chosen, record it here so the state is explicit.</dd>
+    <dt>Evidence</dt><dd>PR #16 file list; the mirror_to_root and reproducibility behaviour in main&#x27;s build and workflow files. Logged as RR-5/RR-6 in COORDINATION.md on 2026-11-19. <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/pull/16" rel="noopener" target="_blank">Pull request #16</a></dd>
+    <dt>Expected impact</dt><dd>High on repository integrity; nothing reader-facing unless it merges, which is the risk.</dd>
+    <dt>Effort</dt><dd>Minutes of owner decision; an hour if content is ported.</dd>
+    <dt>Risk</dt><dd>High if left alone through a busy merge window.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Decide this before any other merge activity in the repo.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-32-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Close it; carry its registers by hand if any are wanted</h4><dl><dt>What changes</dt><dd>No clobber; unique data reviewed one file at a time.</dd><dt>Upside</dt><dd>Nothing is lost and the live site is safe.</dd><dt>Downside</dt><dd>Any genuinely good pages there need a deliberate port.</dd><dt>Cost</dt><dd>Minutes</dd></dl></div><div class="path-card" id="SG-32-B"><p class="path-key">Path B</p><h4>Ask the author to rebase onto main and retarget a subdirectory</h4><dl><dt>What changes</dt><dd>PR becomes additive, published under its own path.</dd><dt>Upside</dt><dd>Their work ships without displacing the canonical build.</dd><dt>Downside</dt><dd>Two published sites, which the one-site rule exists to prevent.</dd><dt>Cost</dt><dd>One session</dd></dl></div><div class="path-card" id="SG-32-C"><p class="path-key">Path C</p><h4>Merge as-is</h4><dl><dt>What changes</dt><dd>Root becomes hand-authored again.</dd><dt>Upside</dt><dd>Fast.</dd><dt>Downside</dt><dd>Replaces the live publication and breaks the mirror&#x27;s reproducibility check.</dd><dt>Cost</dt><dd>None - do not do this</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-09">
+  <header><h3><code>SG-09</code> Internal-linking rule as an automated check</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Editorial &amp; SEO</span><span class="s-rank">rank 7</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>S-24&#x27;s rule (every article reaches the comparison, the buying guide and its category pillar) is satisfied today by hand and can rot.</dd>
+    <dt>Proposal</dt><dd>Extend tools/checks.py: each guide must link to compare.html, buying-guide.html and its category page; fail the build otherwise.</dd>
+    <dt>Evidence</dt><dd>S-24/D-27 adopted the rule; automation is the brief&#x27;s machinery-trust requirement.</dd>
+    <dt>Expected impact</dt><dd>Medium — keeps the site&#x27;s structure intact as pages grow.</dd>
+    <dt>Effort</dt><dd>Small.</dd>
+    <dt>Risk</dt><dd>None.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. It is a gate, and gates are cheap once written.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-09-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Add the rule to the publish gate now</h4><dl><dt>What changes</dt><dd>checks.py fails any guide that does not reach the comparison, the buying guide and its category pillar.</dd><dt>Upside</dt><dd>Cluster structure stops decaying as pages are added.</dd><dt>Downside</dt><dd>Existing pages must satisfy it the same commit, or the gate blocks the build.</dd><dt>Cost</dt><dd>One rule + page edits</dd></dl></div><div class="path-card" id="SG-09-B"><p class="path-key">Path B</p><h4>Keep it as a written rule only</h4><dl><dt>What changes</dt><dd>No new check.</dd><dt>Upside</dt><dd>No gate friction.</dd><dt>Downside</dt><dd>The next session forgets it, and clusters fray.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-26">
+  <header><h3><code>SG-26</code> A no-slop lint in the publish gate</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Trust &amp; authority</span><span class="s-rank">rank 7</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>The site&#x27;s single biggest reputational risk is reading machine-made. Today the gate checks compliance and sources, but nothing about prose, so an opener like &#x27;In today&#x27;s fast-paced kitchen&#x27; can ship.</dd>
+    <dt>Proposal</dt><dd>Extend the gate&#x27;s claims section with an editorial blocklist and shape rules: no throat-clearing openers, no &#x27;look no further&#x27;, &#x27;game-changer&#x27;, &#x27;elevate&#x27;, &#x27;unleash&#x27;, &#x27;delve&#x27;, &#x27;in the world of&#x27;, &#x27;whether you&#x27;re a beginner or a seasoned pro&#x27;; no adjective pile-ups (three or more in a row); no second-person promises the register cannot support; every guide has an H2 within its first 300 words; no em-dash abuse beyond a set count. Fail the build, like everything else.</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s guidance on originality and people-first content, plus its AI-content statement, both already in the source register; D-12 is the voice the rules encode. <a class="src" href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" rel="noopener" target="_blank">Google: creating helpful, people-first content</a> <a class="src" href="https://developers.google.com/search/blog/2023/02/google-search-and-ai-content" rel="noopener" target="_blank">Google: AI-generated content guidance</a></dd>
+    <dt>Expected impact</dt><dd>Medium-high on the thing the owner flagged twice: not reading like generated filler.</dd>
+    <dt>Effort</dt><dd>Low. A list and four functions.</dd>
+    <dt>Risk</dt><dd>Medium false positives; mitigate with an explicit per-page exemption file that the gate prints so exceptions are visible in review, not silent.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. Voice rules that live only in a document decay; rules in the gate do not.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-26-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Hard gate with visible exemptions</h4><dl><dt>What changes</dt><dd>checks.py grows an &#x27;editorial&#x27; section; exemptions printed in the run log.</dd><dt>Upside</dt><dd>Style becomes a release requirement.</dd><dt>Downside</dt><dd>Blocks a publish while a wording fix is trivial - the fix is usually one sentence.</dd><dt>Cost</dt><dd>One pass</dd></dl></div><div class="path-card" id="SG-26-B"><p class="path-key">Path B</p><h4>Warning-only lint in CI</h4><dl><dt>What changes</dt><dd>Reports, does not fail.</dd><dt>Upside</dt><dd>No friction.</dd><dt>Downside</dt><dd>Warnings get ignored within two passes, as every team knows.</dd><dt>Cost</dt><dd>Minutes</dd></dl></div><div class="path-card" id="SG-26-C"><p class="path-key">Path C</p><h4>Prose rules in VOICE.md only</h4><dl><dt>What changes</dt><dd>Nothing automated.</dd><dt>Upside</dt><dd>Zero build risk.</dd><dt>Downside</dt><dd>Nothing stops the next session.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-17">
+  <header><h3><code>SG-17</code> Per-page social preview cards instead of one site-wide image</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Reader experience</span><span class="s-rank">rank 8</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Every page shares one og:image, so a shared guide looks like a generic brand card and earns no click on its own merits.</dd>
+    <dt>Proposal</dt><dd>Generate one typographic card per guide and per category (title, the one listed figure that decides it, brand mark, disclosure line). Render them from the same registers with the existing Pillow helper, keep them text-only, and point og:image at the page-specific card.</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s page-experience guidance on presentation; S-18/D-22 forbid copied or generated product photography, which is exactly why a typographic card is the safe asset. <a class="src" href="https://developers.google.com/search/docs/appearance/page-experience" rel="noopener" target="_blank">Google: page experience</a></dd>
+    <dt>Expected impact</dt><dd>Medium for social and messaging click-through; zero ranking effect by itself.</dd>
+    <dt>Effort</dt><dd>Low-medium. A loop around the existing card generator.</dd>
+    <dt>Risk</dt><dd>Low. Text-only art cannot infringe program content.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the imagery answer while Q-P05 (usable product imagery) stays open.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-17-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Typographic cards per guide, generated in the build</h4><dl><dt>What changes</dt><dd>og:image and twitter:image become page-specific; files land in docs/assets/img.</dd><dt>Upside</dt><dd>Share previews read like articles, not like a template.</dd><dt>Downside</dt><dd>Adds a build artifact set to keep regenerated and committed.</dd><dt>Cost</dt><dd>One pass</dd></dl></div><div class="path-card" id="SG-17-B"><p class="path-key">Path B</p><h4>One card for the whole site</h4><dl><dt>What changes</dt><dd>Nothing changes.</dd><dt>Upside</dt><dd>Nothing to maintain.</dd><dt>Downside</dt><dd>Every share looks identical; links underperform in chat.</dd><dt>Cost</dt><dd>None</dd></dl></div><div class="path-card" id="SG-17-C"><p class="path-key">Path C</p><h4>Only after product imagery is licensed</h4><dl><dt>What changes</dt><dd>Cards wait for real photography.</dd><dt>Upside</dt><dd>Best-looking option if rights are secured.</dd><dt>Downside</dt><dd>Blocked on Q-P05 and API access (SG-33), so it may never ship.</dd><dt>Cost</dt><dd>Owner action</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-08">
+  <header><h3><code>SG-08</code> Sticky mobile comparison bar on product pages</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Reader experience</span><span class="s-rank">rank 9</span><span class="s-dp">feeds the design prompt</span></p>
+  <p class="s-note">Folded into SG-23 (mobile-first pass), which this session implemented for the comparison and product pages on 2026-11-19.</p>
+  <dl>
+    <dt>Problem</dt><dd>Mobile readers scroll long comparisons and lose the buy path (S-20 in the brief list).</dd>
+    <dt>Proposal</dt><dd>A sticky bottom bar on the comparison and category pages showing the currently scrolled product + its sponsored link; type-scale and tap-target pass first.</dd>
+    <dt>Evidence</dt><dd>Brief item S-20 (not yet implemented).</dd>
+    <dt>Expected impact</dt><dd>Medium conversion UX.</dd>
+    <dt>Effort</dt><dd>One session (CSS/JS + checks update).</dd>
+    <dt>Risk</dt><dd>Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as a UX follow-up after the first traffic arrives.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-08-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Ship it as part of the mobile-first pass</h4><dl><dt>What changes</dt><dd>A compact bar with the five short names and one sponsored CTA, sticky on small screens.</dd><dt>Upside</dt><dd>The buying action stays one tap away while reading.</dd><dt>Downside</dt><dd>Risks covering content on short viewports; needs a dismiss control.</dd><dt>Cost</dt><dd>Done inside SG-23</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-23">
+  <header><h3><code>SG-23</code> Mobile-first pass: type scale, 44px tap targets, sticky comparison bar, no horizontal table traps</h3>
+  <span class="status status-recommended">recommended</span></header>
+  <p class="s-meta"><span class="s-theme">Reader experience</span><span class="s-rank">rank 9</span><span class="s-dp">feeds the design prompt</span></p>
+  <p class="s-note">Implemented 2026-11-19 under D-P08 (presentation only): fluid type scale, min-height tap targets, visible focus rings, a dismissible sticky comparison bar on the comparison and product pages, and table scroll affordances. This mirrors the owner&#x27;s register row S-20.</p>
+  <dl>
+    <dt>Problem</dt><dd>Most of this traffic arrives on a phone. Wide data tables and small nav links are the two things that make a careful site feel like a tool.</dd>
+    <dt>Proposal</dt><dd>Fluid root size with a clamp; every link, button and radio at least 44px; a sticky bottom bar carrying one sponsored CTA with a dismiss control; tables keep horizontal scroll but gain a shadow cue and a sticky first column; disclosure stays above the fold at 320px, checked by the gate.</dd>
+    <dt>Evidence</dt><dd>Page-experience guidance on mobile presentation; the owner&#x27;s own S-20 row in the requirements register. <a class="src" href="https://developers.google.com/search/docs/appearance/page-experience" rel="noopener" target="_blank">Google: page experience</a></dd>
+    <dt>Expected impact</dt><dd>High for readable mobile dwell and for the tap that earns the commission.</dd>
+    <dt>Effort</dt><dd>Low-medium. CSS plus a small script.</dd>
+    <dt>Risk</dt><dd>Low; a fixed bar must not cover the footer or the disclosure, which is the gate&#x27;s job.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept and keep it as the baseline for future pages.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-23-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Ship the CSS/JS pass now, no content change</h4><dl><dt>What changes</dt><dd>Type scale, tap targets, sticky bar, table cues.</dd><dt>Upside</dt><dd>Immediate feel improvement with no factual exposure.</dd><dt>Downside</dt><dd>None material.</dd><dt>Cost</dt><dd>Done in this pass</dd></dl></div><div class="path-card" id="SG-23-B"><p class="path-key">Path B</p><h4>Rebuild the tables as card lists on small screens</h4><dl><dt>What changes</dt><dd>Each product becomes a stacked card below 40rem.</dd><dt>Upside</dt><dd>No sideways scrolling at all.</dd><dt>Downside</dt><dd>Two presentations of one register to keep in sync.</dd><dt>Cost</dt><dd>One extra pass</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-20">
+  <header><h3><code>SG-20</code> A counter-fit calculator shoppers can actually use</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Reader experience</span><span class="s-rank">rank 10</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>The counter-space analysis is a table. The reader&#x27;s real question is &#x27;will it fit where I want it&#x27;, which is arithmetic they have to do themselves.</dd>
+    <dt>Proposal</dt><dd>A no-network widget: the reader types their available depth and width, the page flags which of the five listed footprints clear it, and prints the clearance figures it compared against with links to the listings. Everything computed client-side from registered values; nothing stored; nothing sent anywhere.</dd>
+    <dt>Evidence</dt><dd>The chooser already proves the pattern (D-23). Page-experience guidance rewards interaction that answers the specific question. <a class="src" href="https://developers.google.com/search/docs/appearance/page-experience" rel="noopener" target="_blank">Google: page experience</a></dd>
+    <dt>Expected impact</dt><dd>Medium-high for engagement and for the &#x27;this site helped me&#x27; feeling that drives the click.</dd>
+    <dt>Effort</dt><dd>Low-medium. One script, one gate-safe template.</dd>
+    <dt>Risk</dt><dd>Medium on wording: a fit result is geometry, not a recommendation, and must say so; listing dimensions vary by read (F-29 style drift).</dd>
+    <dt>Depends on</dt><dd>SG-22</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept after SG-22 puts read dates on the product blocks, so the calculator can quote its own staleness.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-20-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Client-side, listed values only, with a dated-source line</h4><dl><dt>What changes</dt><dd>One input pair, five pass/fail rows, each linking to its listing.</dd><dt>Upside</dt><dd>Genuinely useful, zero data collection, defensible.</dd><dt>Downside</dt><dd>Only as fresh as the last register pass.</dd><dt>Cost</dt><dd>Low-medium</dd></dl></div><div class="path-card" id="SG-20-B"><p class="path-key">Path B</p><h4>Static printable checklist instead</h4><dl><dt>What changes</dt><dd>A measure-your-counter worksheet.</dd><dt>Upside</dt><dd>No script, works offline.</dd><dt>Downside</dt><dd>Loses the direct answer.</dd><dt>Cost</dt><dd>Minutes</dd></dl></div><div class="path-card" id="SG-20-C"><p class="path-key">Path C</p><h4>Skip it</h4><dl><dt>What changes</dt><dd>Nothing.</dd><dt>Upside</dt><dd>No maintenance.</dd><dt>Downside</dt><dd>Buyers do the arithmetic elsewhere and buy elsewhere.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-22">
+  <header><h3><code>SG-22</code> Show the freshness of every figure on the product block, not only on the method page</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Trust &amp; authority</span><span class="s-rank">rank 11</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Read dates exist in the data and on the method page, but on the product block a 2026-11-14 dimension looks identical to a figure read today. Buyers and reviewers both read that as staleness or as a claim of currency.</dd>
+    <dt>Proposal</dt><dd>A compact &#x27;read 2026-11-14 · re-check due 2026-12-14&#x27; chip on each product block and on the calculator, driven by the register&#x27;s read dates, plus a gate rule that no product fact may publish without one. Set the re-check interval as a decision (Q-P11) rather than a habit.</dd>
+    <dt>Evidence</dt><dd>F-02 and F-29 already document value drift; the register carries *_read for every field, so the chip is free. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">Associates Program Policies on Program Content display</a></dd>
+    <dt>Expected impact</dt><dd>Medium. It turns the site&#x27;s real advantage into something visible in one glance.</dd>
+    <dt>Effort</dt><dd>Low. One chip component plus one gate rule.</dd>
+    <dt>Risk</dt><dd>Low.</dd>
+    <dt>Depends on</dt><dd>Q-P11</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. It is the cheapest trust signal available and it is already computed.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-22-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Read date + re-check due chip, gate-enforced</h4><dl><dt>What changes</dt><dd>Every product fact carries its date inline; stale pages fail the build.</dd><dt>Upside</dt><dd>Honest, automated, and distinctive.</dd><dt>Downside</dt><dd>Requires the cadence to actually be kept.</dd><dt>Cost</dt><dd>Low</dd></dl></div><div class="path-card" id="SG-22-B"><p class="path-key">Path B</p><h4>Read date only, no due date</h4><dl><dt>What changes</dt><dd>Inline dates, no expiry rule.</dd><dt>Upside</dt><dd>No false precision.</dd><dt>Downside</dt><dd>Staleness is visible but nothing forces action.</dd><dt>Cost</dt><dd>Minutes</dd></dl></div><div class="path-card" id="SG-22-C"><p class="path-key">Path C</p><h4>Keep dates on the method page only</h4><dl><dt>What changes</dt><dd>Nothing changes.</dd><dt>Upside</dt><dd>Cleaner cards.</dd><dt>Downside</dt><dd>The site&#x27;s main differentiator stays hidden.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-27">
+  <header><h3><code>SG-27</code> Name a publisher and an author entity the reader can contact</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Trust &amp; authority</span><span class="s-rank">rank 12</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Bylines are absent and the disclosure speaks as &#x27;we&#x27;. A reader, a reviewer and FTC guidance all expect the party with the material connection to be identifiable, and right now nobody is.</dd>
+    <dt>Proposal</dt><dd>One decision (Q-P19): an individual name, a company name, or an explicit &#x27;editorial team of N, contact at &lt;address&gt;&#x27; line. Then put it in the masthead footer, the About page, Person/Organization structured data and the disclosure sentence, and add a one-paragraph correction address. No invented credentials; nothing is claimed beyond what is true.</dd>
+    <dt>Evidence</dt><dd>FTC disclosure guidance requires the connection to be clear to the reader; the Associates help page requires identifying yourself as an Associate with the Agreement&#x27;s statement. <a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank">FTC: Disclosures 101 for social media influencers</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE" rel="noopener" target="_blank">Amazon: why and how to identify yourself as an Associate</a></dd>
+    <dt>Expected impact</dt><dd>Medium-high on trust, and it removes a real compliance ambiguity.</dd>
+    <dt>Effort</dt><dd>Low once the owner answers.</dd>
+    <dt>Risk</dt><dd>Low; naming a person has privacy consequences, which is why the entity option exists.</dd>
+    <dt>Depends on</dt><dd>Q-P19</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Answer Q-P19 before the next content pass; it changes copy on every page.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card" id="SG-27-A"><p class="path-key">Path A</p><h4>Named individual author plus contact address</h4><dl><dt>What changes</dt><dd>Bylines on guides, Person schema, a mail address on the About page.</dd><dt>Upside</dt><dd>Strongest E-E-A-T signal available.</dd><dt>Downside</dt><dd>Personal exposure; the name becomes the brand.</dd><dt>Cost</dt><dd>Minutes after the decision</dd></dl></div><div class="path-card path-recommended" id="SG-27-B"><p class="path-key">Path B <span class=badge>recommended</span></p><h4>Entity or team name with an editorial address</h4><dl><dt>What changes</dt><dd>Organization only; the disclosure sentence says &#x27;we&#x27; truthfully.</dd><dt>Upside</dt><dd>Privacy preserved while the party is still identifiable.</dd><dt>Downside</dt><dd>Less personal trust signal.</dd><dt>Cost</dt><dd>Minutes after the decision</dd></dl></div><div class="path-card" id="SG-27-C"><p class="path-key">Path C</p><h4>Stay anonymous</h4><dl><dt>What changes</dt><dd>Nothing changes.</dd><dt>Upside</dt><dd>No new personal data published.</dd><dt>Downside</dt><dd>The disclosure wording question (F-P09) stays open and trust stays thin.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-28">
+  <header><h3><code>SG-28</code> Make the comparison table filterable by constraint, not just readable</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Merchandising</span><span class="s-rank">rank 13</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Five rows is small enough to scan today; the moment a sixth product lands, the table becomes the thing readers abandon. The decision is also rarely &#x27;which is best&#x27; - it is &#x27;which of these fits my constraint&#x27;.</dd>
+    <dt>Proposal</dt><dd>Client-side filter chips over listed attributes only - format, zones, capacity band, dishwasher-safe parts, max temperature - with a live count of matching products and a visible &#x27;no match, here is why&#x27; state that links back to the buying guide. Sort stays disabled: no ranking.</dd>
+    <dt>Evidence</dt><dd>The chooser (D-23) is the same idea in question form; the register holds every attribute the chips would use. <a class="src" href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank">Google: qualifying outbound links</a></dd>
+    <dt>Expected impact</dt><dd>Medium. Mainly future-proofs the page and reduces table abandonment.</dd>
+    <dt>Effort</dt><dd>Medium. One component, one empty state.</dd>
+    <dt>Risk</dt><dd>Low, if chips never encode a judgement (&#x27;best for families&#x27; is not a chip; &#x27;2+ independent zones&#x27; is).</dd>
+    <dt>Depends on</dt><dd>SG-15</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Do it when the sixth product is added, not before; the register is what grows, not the need.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-28-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Wait for a sixth product</h4><dl><dt>What changes</dt><dd>Nothing now.</dd><dt>Upside</dt><dd>No component to maintain for five rows.</dd><dt>Downside</dt><dd>Readers still scan the whole table.</dd><dt>Cost</dt><dd>None</dd></dl></div><div class="path-card" id="SG-28-B"><p class="path-key">Path B</p><h4>Ship chips now</h4><dl><dt>What changes</dt><dd>Filter UI on the comparison page.</dd><dt>Upside</dt><dd>Feels like a shopping tool immediately.</dd><dt>Downside</dt><dd>Thin utility at five products; risks implying a ranking by ordering.</dd><dt>Cost</dt><dd>Medium</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-01">
+  <header><h3><code>SG-01</code> Adopt a consumer-facing brand name (after trademark clearance)</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Brand</span><span class="s-rank">rank 14</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>The wordmark &#x27;Prod2&#x27; is the project&#x27;s established name, not a shop name. A real brand name would help the site read as a publication and support a future domain.</dd>
+    <dt>Proposal</dt><dd>Shortlist 2-3 candidate names (e.g. &#x27;Counter &amp; Crisp&#x27;, &#x27;The Basket Guide&#x27;, &#x27;Crisp Ledger&#x27;), run each through a trademark search (Q-19), pick one, rename in one pass (masthead, titles, OG card), then consider a domain.</dd>
+    <dt>Evidence</dt><dd>D-18 kept the established name only because clearance (Q-19) was open; the constraint is clearance, not the name itself.</dd>
+    <dt>Expected impact</dt><dd>Medium — brand recall, SERP click-through, linkability.</dd>
+    <dt>Effort</dt><dd>One session once a name clears.</dd>
+    <dt>Risk</dt><dd>Trademark collision if skipped; mitigated by the clearance step.</dd>
+    <dt>Depends on</dt><dd>Q-19</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Do it after clearance. Ranked 1 by impact/effort among brand items.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-01-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Keep the Prod2 wordmark until a name clears</h4><dl><dt>What changes</dt><dd>Nothing changes on the page; the rename stays queued.</dd><dt>Upside</dt><dd>Zero risk of a trademark collision or a half-migrated brand.</dd><dt>Downside</dt><dd>The wordmark still reads as a project codename, not a shop.</dd><dt>Cost</dt><dd>None</dd></dl></div><div class="path-card" id="SG-01-B"><p class="path-key">Path B</p><h4>Rename now to a shortlist candidate</h4><dl><dt>What changes</dt><dd>Masthead, titles, OG card and footer change in one pass; the old name stays in the URL.</dd><dt>Upside</dt><dd>Faster brand recall and a usable social handle.</dd><dt>Downside</dt><dd>Clearance (Q-19) is still open, so a collision would be discovered after publication.</dd><dt>Cost</dt><dd>One session</dd></dl></div><div class="path-card" id="SG-01-C"><p class="path-key">Path C</p><h4>Rename after clearance and move to a domain in the same pass</h4><dl><dt>What changes</dt><dd>New name plus custom domain (SG-30) applied once, with redirects.</dd><dt>Upside</dt><dd>One migration instead of two; the brand and the address land together.</dd><dt>Downside</dt><dd>Blocked on the owner&#x27;s domain decision (Q-P06).</dd><dt>Cost</dt><dd>One session + owner action</dd></dl><p class="path-unlocks"><strong>Unlocks:</strong> SG-30, SG-17</p></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-33">
+  <header><h3><code>SG-33</code> Rebuild the automation plan on the Creators API, not PA-API 5</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Measurement</span><span class="s-rank">rank 14</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Much of this project&#x27;s ambition - automated product research, price reads, review analysis, generated articles - assumes the Product Advertising API. Amazon&#x27;s own documentation page now states PA-API 5 is deprecated, is being replaced by the Creators API, and that calls to the old API return HTTP 403 AccessDenied.</dd>
+    <dt>Proposal</dt><dd>Rewrite the automation section of the plan and any engine documentation against the Creators API: what it returns, its display rules, its access requirements, and what still has to be done by hand. Until access exists, keep every register value dated and manual, which is what the site does today and what keeps it honest.</dd>
+    <dt>Evidence</dt><dd>Amazon&#x27;s Creators API documentation and its PA-API v5 deprecation notice, both read on 2026-11-19. Recorded as flag F-P08 with the same evidence. <a class="src" href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" rel="noopener" target="_blank">Amazon: PA-API 5 deprecation notice</a> <a class="src" href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction" rel="noopener" target="_blank">Amazon: Creators API introduction</a></dd>
+    <dt>Expected impact</dt><dd>High for the roadmap; nothing changes on the live page either way.</dd>
+    <dt>Effort</dt><dd>Medium to plan; large to implement, and gated on access.</dd>
+    <dt>Risk</dt><dd>Low to write down; the risk is building on the deprecated path.</dd>
+    <dt>Depends on</dt><dd>Q-P21</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the automation premise before any code is written against a product API.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-33-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Plan against the Creators API; keep the manual dated register meanwhile</h4><dl><dt>What changes</dt><dd>Docs and suggestion text updated; pipeline unbuilt.</dd><dt>Upside</dt><dd>No wasted implementation; the honest data path continues.</dd><dt>Downside</dt><dd>Automation stays aspirational until access lands.</dd><dt>Cost</dt><dd>Documentation pass</dd></dl></div><div class="path-card" id="SG-33-B"><p class="path-key">Path B</p><h4>Build a read-only cache layer now, API later</h4><dl><dt>What changes</dt><dd>A store that holds dated captures with source URLs and expires on policy.</dd><dt>Upside</dt><dd>The later API plugs into something real.</dd><dt>Downside</dt><dd>Two systems to verify, and it can drift into storing Program Content improperly.</dd><dt>Cost</dt><dd>One session</dd></dl></div><div class="path-card" id="SG-33-C"><p class="path-key">Path C</p><h4>Ignore API work entirely</h4><dl><dt>What changes</dt><dd>Nothing.</dd><dt>Upside</dt><dd>The site stays a hand-checked publication, which is defensible.</dd><dt>Downside</dt><dd>The stated automation goal quietly dies.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-03">
+  <header><h3><code>SG-03</code> Build a seasonal thermometer cluster (grilling season, holiday gifts)</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Editorial &amp; SEO</span><span class="s-rank">rank 15</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Half the catalog (P4/P5) has one guide only; seasonal demand for thermometers is a natural traffic window.</dd>
+    <dt>Proposal</dt><dd>Two question-shaped guides (&#x27;How accurate does a meat thermometer need to be?&#x27;, &#x27;Instant-read vs leave-in: which for which cook?&#x27;) plus a gift-guide page, timed to seasons, each linked into sitemap + feed.</dd>
+    <dt>Evidence</dt><dd>The publishing-cadence requirement; the thermometer products&#x27; listing themes (grill/BBQ, stocking stuffers).</dd>
+    <dt>Expected impact</dt><dd>Medium-high organic potential; unmeasured until analytics exist (Q-P02).</dd>
+    <dt>Effort</dt><dd>One session per guide.</dd>
+    <dt>Risk</dt><dd>Low — content only; no new claims needed beyond listed specs.</dd>
+    <dt>Depends on</dt><dd>Q-P04</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept after Q-P04, timed to season.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-03-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Build the thermometer cluster for the next dated window, titles only</h4><dl><dt>What changes</dt><dd>Two guides plus a hub section for the thermometers; no popularity claim anywhere.</dd><dt>Upside</dt><dd>A second category pillar so the site is not one-format deep.</dd><dt>Downside</dt><dd>Seasonal framing without a dated snapshot is an unsupported claim (F-15).</dd><dt>Cost</dt><dd>One publishing pass</dd></dl></div><div class="path-card" id="SG-03-B"><p class="path-key">Path B</p><h4>Seasonal framing with dated official snapshots</h4><dl><dt>What changes</dt><dd>Each seasonal claim cites a dated capture of an official Amazon category page.</dd><dt>Upside</dt><dd>Complies with the evidence rule and reads like an editorial calendar.</dd><dt>Downside</dt><dd>Every claim then needs re-capture each pass.</dd><dt>Cost</dt><dd>Adds upkeep to each pass</dd></dl><p class="path-unlocks"><strong>Unlocks:</strong> SG-24</p></div><div class="path-card" id="SG-03-C"><p class="path-key">Path C</p><h4>Hold until measured queries arrive</h4><dl><dt>What changes</dt><dd>No new thermometer pages.</dd><dt>Upside</dt><dd>Effort goes where demand is proven.</dd><dt>Downside</dt><dd>The cluster stays thin while SG-06 is unhosted.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-13">
+  <header><h3><code>SG-13</code> Build one organic cluster per format, linked into a hub, before adding more formats</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Editorial &amp; SEO</span><span class="s-rank">rank 15</span><span class="s-dp">feeds the design prompt</span></p>
+  <p class="s-note">Interim hub published at guides.html on 2026-11-19 (all eight guides plus both category pillars); per-format hubs still to come.</p>
+  <dl>
+    <dt>Problem</dt><dd>Guides link to the comparison, but each format lacks a cluster that answers the search journey from question to purchase.</dd>
+    <dt>Proposal</dt><dd>Four clusters: dual-basket, oven-style, single-basket, instant-read vs leave-in thermometer. Each cluster has one hub page, two or three question guides, and the sponsored links where the reader is ready to act. Internal links follow the rule in SG-09.</dd>
+    <dt>Evidence</dt><dd>S-24 / D-27 (internal linking rule); the existing category pages; the brief&#x27;s requirement for clusters.</dd>
+    <dt>Expected impact</dt><dd>Medium-high for organic discovery; unmeasured until SG-06.</dd>
+    <dt>Effort</dt><dd>Medium (roughly one session per cluster).</dd>
+    <dt>Risk</dt><dd>Low; more pages mean more upkeep, which SG-09 automates.</dd>
+    <dt>Depends on</dt><dd>SG-09</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-13-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>One hub per format, guides hanging off it</h4><dl><dt>What changes</dt><dd>Four hub pages, each answering the format question first and linking its guides and the comparison.</dd><dt>Upside</dt><dd>The classic structure search engines and readers both follow.</dd><dt>Downside</dt><dd>Needs SG-09 automated or the links rot quietly.</dd><dt>Cost</dt><dd>Two passes</dd></dl></div><div class="path-card" id="SG-13-B"><p class="path-key">Path B</p><h4>Single hub for the whole site</h4><dl><dt>What changes</dt><dd>One guides index only.</dd><dt>Upside</dt><dd>Cheap and coherent for a small site.</dd><dt>Downside</dt><dd>Weaker topical signal per format; the site stays one-topic thin.</dd><dt>Cost</dt><dd>One page (done as an interim)</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-30">
+  <header><h3><code>SG-30</code> Move to an owner-controlled domain, then verify Search Console on it</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Operations</span><span class="s-rank">rank 16</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Served from a GitHub Pages project path, the site has no brand address, no cookie domain for a collector, and no clean property to verify. Every growth suggestion above leans on this.</dd>
+    <dt>Proposal</dt><dd>One domain, HTTPS via Pages custom domain, base_url updated in settings, canonical/OG/sitemap/feed rebuilt, 301 from the Pages path left to GitHub, Search Console property verified, sitemap submitted. Trademark clearance (Q-19) happens before any rename so only one migration is needed.</dd>
+    <dt>Evidence</dt><dd>The site&#x27;s own canonical URLs and sitemap already point at the Pages path; the base_url setting is a one-line change, which is why this is cheap. <a class="src" href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank">Google: qualifying outbound links</a></dd>
+    <dt>Expected impact</dt><dd>Medium-high for any future ranking work, and it unblocks SG-06 and SG-25.</dd>
+    <dt>Effort</dt><dd>Low once the owner buys a domain.</dd>
+    <dt>Risk</dt><dd>Low; the main trap is leaving the old URLs canonical-conflicting, which the build&#x27;s single base_url prevents.</dd>
+    <dt>Depends on</dt><dd>Q-P06, Q-19</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Do it as soon as the owner has a name decision (SG-01) - one move, not two.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-30-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Domain now, name later</h4><dl><dt>What changes</dt><dd>Base URL changes; wordmark stays Prod2.</dd><dt>Upside</dt><dd>Unblocks verification while clearance continues.</dd><dt>Downside</dt><dd>A second migration when the rename lands.</dd><dt>Cost</dt><dd>Owner action</dd></dl></div><div class="path-card" id="SG-30-B"><p class="path-key">Path B</p><h4>Domain and rename in one pass</h4><dl><dt>What changes</dt><dd>Both at once after Q-19 clears.</dd><dt>Upside</dt><dd>Single cutover.</dd><dt>Downside</dt><dd>Delays every measurement-dependent item by the clearance.</dd><dt>Cost</dt><dd>Owner action</dd></dl></div><div class="path-card" id="SG-30-C"><p class="path-key">Path C</p><h4>Stay on the Pages path</h4><dl><dt>What changes</dt><dd>Nothing.</dd><dt>Upside</dt><dd>Zero cost.</dd><dt>Downside</dt><dd>Search Console property, endpoint cookies and brand all stay hostage.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-31">
+  <header><h3><code>SG-31</code> One product register instead of two, with the price question settled inside it</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Operations</span><span class="s-rank">rank 17</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Two registers ship from this repository: data/p2/ (no prices, no ratings) and the preserved Countercraft data/products.json (dated &#x27;as listed&#x27; prices). F-P06 records the disagreement. Reviewers should not have to guess which one the published page used.</dd>
+    <dt>Proposal</dt><dd>Declare data/p2/ canonical for the published site, move the price-carrying file to archive/ with a pointer, and state the rule at the top of both the method page and the register itself: values publish only from the canonical register; anything else is history, not data.</dd>
+    <dt>Evidence</dt><dd>F-P06, opened by a prior session on 2026-11-19; the one-site rule (INT-06) already covers the published output but not the data inputs. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">Associates Program Policies on Program Content</a></dd>
+    <dt>Expected impact</dt><dd>Medium on reviewer confidence; nothing reader-facing.</dd>
+    <dt>Effort</dt><dd>Low. A move, a pointer, two sentences.</dd>
+    <dt>Risk</dt><dd>Low; archive, do not delete, per the consolidation convention.</dd>
+    <dt>Depends on</dt><dd>Q-P15</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept now; it is the cheapest flag on this board to close.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-31-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>data/p2 canonical, the other archived</h4><dl><dt>What changes</dt><dd>One register feeds the published site; the other is labelled history.</dd><dt>Upside</dt><dd>The disagreement disappears without deleting anything.</dd><dt>Downside</dt><dd>The archived build loses its data if it is ever revived (git history keeps it).</dd><dt>Cost</dt><dd>Low</dd></dl></div><div class="path-card" id="SG-31-B"><p class="path-key">Path B</p><h4>Publish prices from the second register too</h4><dl><dt>What changes</dt><dd>Both surfaces carry dated prices.</dd><dt>Upside</dt><dd>Complete data in one place.</dd><dt>Downside</dt><dd>Overturns F-02 by side door; make it a decision (Q-27) or not at all.</dd><dt>Cost</dt><dd>Owner decision first</dd></dl></div><div class="path-card" id="SG-31-C"><p class="path-key">Path C</p><h4>Leave both as they are</h4><dl><dt>What changes</dt><dd>Nothing.</dd><dt>Upside</dt><dd>No work.</dd><dt>Downside</dt><dd>F-P06 stays open and every future session re-litigates it.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-24">
+  <header><h3><code>SG-24</code> Seasonal hubs, but only with dated official snapshots as the evidence</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Editorial &amp; SEO</span><span class="s-rank">rank 18</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Seasonality is where this category actually earns traffic, and the site currently has no seasonal surface. But seasonal framing without evidence is exactly the popularity claim the project&#x27;s own rule forbids.</dd>
+    <dt>Proposal</dt><dd>Two hub pages a year (gifting window, grilling window), written around use rather than hype: what people cook or give in that window, which of the five listed formats matches, and what the site can honestly say about timing. Any statement about what is popular carries a dated capture of an official Amazon category page and the capture is archived with the commit.</dd>
+    <dt>Evidence</dt><dd>F-15 and D-19 set the rule; the owner&#x27;s register row for S-16 adopted it on 2026-11-16. The Air Fryers category page is the pattern for a dated capture. <a class="src" href="https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&amp;node=17659096011" rel="nofollow noopener" target="_blank">Amazon Air Fryers category page (the kind of dated snapshot the rule allows)</a></dd>
+    <dt>Expected impact</dt><dd>Medium-high in the right weeks, near zero outside them.</dd>
+    <dt>Effort</dt><dd>One pass per season, plus capture discipline.</dd>
+    <dt>Risk</dt><dd>Medium: a stale seasonal page reads as decay; retire it on a date, don&#x27;t let it linger.</dd>
+    <dt>Depends on</dt><dd>SG-06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Queue it for the first full cycle after measurement exists; do not write seasonal copy against a feeling.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-24-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Seasonal hubs with archived dated captures</h4><dl><dt>What changes</dt><dd>Two timed hub pages, each with its evidence snapshot and a retirement date.</dd><dt>Upside</dt><dd>Editorial rhythm that stays honest.</dd><dt>Downside</dt><dd>Requires the capture habit to survive.</dd><dt>Cost</dt><dd>Two passes a year</dd></dl></div><div class="path-card" id="SG-24-B"><p class="path-key">Path B</p><h4>Evergreen use-frames only (&#x27;cooking for two&#x27;, &#x27;thanksgiving turkey&#x27;)</h4><dl><dt>What changes</dt><dd>Use-case pages with no date-bound claims.</dd><dt>Upside</dt><dd>No decay and no upkeep.</dd><dt>Downside</dt><dd>Misses the seasonal query spike.</dd><dt>Cost</dt><dd>One pass</dd></dl></div><div class="path-card" id="SG-24-C"><p class="path-key">Path C</p><h4>No seasonal surface</h4><dl><dt>What changes</dt><dd>Nothing.</dd><dt>Upside</dt><dd>Zero upkeep.</dd><dt>Downside</dt><dd>The site stays flat year-round in a category that is not.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-29">
+  <header><h3><code>SG-29</code> A printable one-page spec sheet for the five</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Reader experience</span><span class="s-rank">rank 19</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Kitchen decisions get made on the counter, with a tape measure, on paper. No affiliate site serves that, which makes it a cheap differentiator and a shareable asset.</dd>
+    <dt>Proposal</dt><dd>A print stylesheet plus a &#x27;Print this comparison&#x27; button on the comparison page: one page, five products, listed numbers, source dates, no images, sponsored links shown as their tagged URL in the footer of the printout so the paper path still attributes.</dd>
+    <dt>Evidence</dt><dd>Page-experience and utility guidance; the register already holds everything needed. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">Associates Program Policies on link and disclosure display</a></dd>
+    <dt>Expected impact</dt><dd>Low-medium on traffic, high on memorability.</dd>
+    <dt>Effort</dt><dd>Low. Print CSS and a URL list.</dd>
+    <dt>Risk</dt><dd>Low. Ensure the printed disclosure satisfies conspicuousness on paper as well.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept whenever the next CSS pass happens; it is nearly free there.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-29-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Print stylesheet on the comparison page</h4><dl><dt>What changes</dt><dd>One-page printout with dated sources and tagged URLs.</dd><dt>Upside</dt><dd>Genuinely useful, distinct, no new claims.</dd><dt>Downside</dt><dd>Print CSS is easy to break in later passes without a check.</dd><dt>Cost</dt><dd>Low</dd></dl></div><div class="path-card" id="SG-29-B"><p class="path-key">Path B</p><h4>A static PDF instead</h4><dl><dt>What changes</dt><dd>A hand-built PDF asset.</dd><dt>Upside</dt><dd>Controllable layout.</dd><dt>Downside</dt><dd>Goes stale on the next register pass; two sources of truth.</dd><dt>Cost</dt><dd>Minutes per pass</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-02">
+  <header><h3><code>SG-02</code> Publish the comparison table&#x27;s &#x27;counter depth&#x27; as the lead spec</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Merchandising</span><span class="s-rank">rank 20</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Capacity is what listings lead with, but counter depth is what buyers underestimate (the brief&#x27;s counter-space thesis).</dd>
+    <dt>Proposal</dt><dd>Reorder comparison columns so counter depth and footprint lead; add a &#x27;capacity per cm of depth&#x27; derived column with its formula shown (D-26 published the analysis; this makes it the headline).</dd>
+    <dt>Evidence</dt><dd>D-26 adopted the capacity-per-depth analysis; the counter-space guide is the site&#x27;s most distinctive angle.</dd>
+    <dt>Expected impact</dt><dd>Medium — differentiation, matches the strongest guide.</dd>
+    <dt>Effort</dt><dd>Small (column reorder + one derived column in build).</dd>
+    <dt>Risk</dt><dd>Low. Derived values must show the formula to stay within the evidence rule.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. Cheap, on-thesis.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-02-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Lead with capacity per inch of counter depth, computed and shown as a formula</h4><dl><dt>What changes</dt><dd>The comparison table re-orders its columns; the analysis stays on the comparison page.</dd><dt>Upside</dt><dd>Answers the question a buyer can actually act on, from listed values only.</dd><dt>Downside</dt><dd>Only three of five products have both figures, so the column is partly blank.</dd><dt>Cost</dt><dd>Minutes (column order + note)</dd></dl></div><div class="path-card" id="SG-02-B"><p class="path-key">Path B</p><h4>Keep the current column order</h4><dl><dt>What changes</dt><dd>Nothing changes.</dd><dt>Upside</dt><dd>No risk.</dd><dt>Downside</dt><dd>The most differentiating listed spec stays buried.</dd><dt>Cost</dt><dd>None</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-05">
+  <header><h3><code>SG-05</code> Adopt a dated-snapshot price policy</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Compliance</span><span class="s-rank">rank 22</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Buyers want prices; the site withholds them (F-02) because they drift faster than re-verification.</dd>
+    <dt>Proposal</dt><dd>Publish price only with a mandatory read date + &#x27;check listing&#x27; link; checks enforce price/date pairing; re-verify at each publishing pass. Ratings stay withheld (they invite selection bias).</dd>
+    <dt>Evidence</dt><dd>F-02; D-19 shows the dated-snapshot pattern already works for popularity claims.</dd>
+    <dt>Expected impact</dt><dd>Medium-high conversion relevance; adds upkeep to every pass.</dd>
+    <dt>Effort</dt><dd>Medium (rule + checks + one re-verification sweep).</dd>
+    <dt>Risk</dt><dd>Medium — stale prices damage trust more than absent prices; must be automated before adoption.</dd>
+    <dt>Depends on</dt><dd>Q-27</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Only after the automated date-pairing check exists. Do not do this by hand.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-05-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Prices stay unpublished</h4><dl><dt>What changes</dt><dd>Nothing changes.</dd><dt>Upside</dt><dd>No stale figure can appear; the site keeps its &#x27;we publish what we checked&#x27; identity.</dd><dt>Downside</dt><dd>Buyers leave to find a price, which costs click-through.</dd><dt>Cost</dt><dd>None</dd></dl></div><div class="path-card" id="SG-05-B"><p class="path-key">Path B</p><h4>Dated snapshot prices, gate-enforced</h4><dl><dt>What changes</dt><dd>Each price carries a read date and the build fails if the pair is incomplete; re-read each pass.</dd><dt>Upside</dt><dd>Closer to the money: shoppers see a number and a reason to trust it.</dd><dt>Downside</dt><dd>Stale prices are worse than none; and Program Content may only be displayed per the agreement.</dd><dt>Cost</dt><dd>Gate rule + one re-read per pass</dd></dl><p class="path-unlocks"><strong>Unlocks:</strong> Q-27 answered</p></div><div class="path-card" id="SG-05-C"><p class="path-key">Path C</p><h4>Prices only from the Creators API once it exists</h4><dl><dt>What changes</dt><dd>Automated fetch, cached with a timestamp; nothing manual.</dd><dt>Upside</dt><dd>Fresh figures without manual upkeep.</dd><dt>Downside</dt><dd>Depends on API access the project does not yet have (F-P08, SG-33).</dd><dt>Cost</dt><dd>Owner enrolment + API access</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-07">
+  <header><h3><code>SG-07</code> Add a &#x27;what it&#x27;s like to live with&#x27; layer once real usage exists</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Editorial &amp; SEO</span><span class="s-rank">rank 23</span><span class="s-dp">feeds the design prompt</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>S-06 (hands-on content) was recorded as not adopted because nobody has tested these appliances; listings can&#x27;t tell a reader what cleanup or noise is like.</dd>
+    <dt>Proposal</dt><dd>Either (a) owner supplies first-hand notes/photos for one product and the site adds a clearly-labeled experience section, or (b) keep spec-only and say so. Do not fabricate experience.</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s thin-affiliation policy (S-GSPAM) rewards genuine experience; the current site is honest but thinner than ideal.</dd>
+    <dt>Expected impact</dt><dd>High on E-E-A-T, if real.</dd>
+    <dt>Effort</dt><dd>Depends entirely on real usage.</dd>
+    <dt>Risk</dt><dd>High if faked — never do this synthetically.</dd>
+    <dt>Depends on</dt><dd>Owner input</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-07-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>No usage layer until someone cooks with a unit</h4><dl><dt>What changes</dt><dd>Guides keep saying what the listing states and stay silent about experience.</dd><dt>Upside</dt><dd>The site never implies a test that did not happen.</dd><dt>Downside</dt><dd>Readers get no first-hand texture, which is what most review sites fake.</dd><dt>Cost</dt><dd>None</dd></dl></div><div class="path-card" id="SG-07-B"><p class="path-key">Path B</p><h4>Buy one unit for testing</h4><dl><dt>What changes</dt><dd>A real test, a dated protocol, photos we own, and the verdict published with the method.</dd><dt>Upside</dt><dd>The strongest possible differentiator and a compliance-clean image source (we own the shots).</dd><dt>Downside</dt><dd>Cost and time; results must be reported even when unflattering.</dd><dt>Cost</dt><dd>Owner budget (Q-P20)</dd></dl></div><div class="path-card" id="SG-07-C"><p class="path-key">Path C</p><h4>Quote owner-supplied usage notes with attribution</h4><dl><dt>What changes</dt><dd>A short attributed note per product, marked as the owner&#x27;s experience.</dd><dt>Upside</dt><dd>Texture with no invented testing.</dd><dt>Downside</dt><dd>A single household is not a review panel; must be labelled as such.</dd><dt>Cost</dt><dd>Minutes</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-04">
+  <header><h3><code>SG-04</code> Reader email capture with consent flow</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Growth</span><span class="s-rank">rank 24</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>RSS is the only capture channel; a newsletter would build a returning audience.</dd>
+    <dt>Proposal</dt><dd>Add a signup form with reviewed consent + privacy text, kept clear of affiliate links (Participation Requirement 6(g)); double opt-in; no incentives tied to clicks.</dd>
+    <dt>Evidence</dt><dd>Q-47; FTC disclosure guidance travels with the channel (S-FTC1).</dd>
+    <dt>Expected impact</dt><dd>Medium — returning readers; but adds compliance surface.</dd>
+    <dt>Effort</dt><dd>Medium (form + consent text review + privacy note page).</dd>
+    <dt>Risk</dt><dd>Medium — privacy liability if consent text is wrong; gated on review.</dd>
+    <dt>Depends on</dt><dd>Q-47</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Defer until traffic exists; the compliance cost is paid before any benefit arrives.</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-04-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>Do not collect emails yet</h4><dl><dt>What changes</dt><dd>Nothing is added.</dd><dt>Upside</dt><dd>No consent surface to maintain and no new privacy claim to defend.</dd><dt>Downside</dt><dd>No owned audience between visits.</dd><dt>Cost</dt><dd>None</dd></dl></div><div class="path-card" id="SG-04-B"><p class="path-key">Path B</p><h4>Consented capture, first-party only</h4><dl><dt>What changes</dt><dd>A single opt-in field with a written purpose and a delete path; storage outside the repo.</dd><dt>Upside</dt><dd>Repeat readers without a third-party tracker.</dd><dt>Downside</dt><dd>Needs a host for the list plus consent text (Q-47); violates nothing only if it is real.</dd><dt>Cost</dt><dd>Owner action + hosting</dd></dl><p class="path-unlocks"><strong>Unlocks:</strong> SG-14</p></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
+</article>
+<article class="card s-card" id="SG-10">
+  <header><h3><code>SG-10</code> Second-format expansion: one more air-fryer format page (basket accessories, liners, racks)</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <p class="s-meta"><span class="s-theme">Editorial &amp; SEO</span><span class="s-rank">rank 26</span></p>
+  
+  <dl>
+    <dt>Problem</dt><dd>Adjacent accessory queries (liners, racks) are how many readers enter the category.</dd>
+    <dt>Proposal</dt><dd>A small accessories guide that links back to the three formats; only listed facts; no accessory products added to the affiliate set until their own intent records exist.</dd>
+    <dt>Evidence</dt><dd>Topic-hub structure of the publishing plan (S-13/D-17).</dd>
+    <dt>Expected impact</dt><dd>Medium organic potential; unmeasured (Q-P02).</dd>
+    <dt>Effort</dt><dd>One session.</dd>
+    <dt>Risk</dt><dd>Low.</dd>
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Defer until measured queries confirm demand (after SG-06).</p>
+  <h4 class="paths-h">Paths</h4>
+  <div class="path-grid"><div class="path-card path-recommended" id="SG-10-A"><p class="path-key">Path A <span class=badge>recommended</span></p><h4>No new format pages until a product is verified for them</h4><dl><dt>What changes</dt><dd>Site keeps five verified products.</dd><dt>Upside</dt><dd>Every page stays sourceable to a listing.</dd><dt>Downside</dt><dd>Topical breadth grows slowly.</dd><dt>Cost</dt><dd>None</dd></dl></div><div class="path-card" id="SG-10-B"><p class="path-key">Path B</p><h4>Add accessories as a text-only topic</h4><dl><dt>What changes</dt><dd>A guide about liners, racks and baskets framed as questions, linking only to the verified listings.</dd><dt>Upside</dt><dd>More entry points without new claims.</dd><dt>Downside</dt><dd>Cannot link to an unverified accessory without breaking the register rule.</dd><dt>Cost</dt><dd>One guide</dd></dl></div></div>
+  <p class="s-decision s-decision-open"><strong>Your move:</strong> accept a path (name it), amend it, or reject the item — then it moves to the <a href="decisions.html">decision log</a> and the build picks it up.</p>
 </article>
 
-<p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>.</p>
+<div class="callout callout-sage">
+  <h3>What we implemented without waiting, and why</h3>
+  <p>Three things in this pass were <em>not</em> gated on a decision, because they remove a risk rather than take
+  one: the disclosure strip now carries the required statement verbatim (SG-34); the register was re-verified
+  against live listings and the read dates published; and the presentation polish — tap targets, type scale, the
+  sticky comparison bar, the shop shelf on the front page — which changes no claim on the page
+  (<a href="decisions.html#D-P07">D-P07</a>, <a href="decisions.html#D-P08">D-P08</a>). Anything that would
+  change what the site <em>says</em> — verdicts, seasonal framing, price display, images — stayed in this queue.</p>
+</div>
+
+<p class="small-note">Machine-readable queue, including every path and its cost:
+<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>.
+The design briefs these items feed: <a href="design-prompt.html">the design prompt pack</a>.</p>
 
 </main>
+
 
 <footer class="footer">
   <div class="wrap footer-grid">
     <div>
       <p class="footer-brand">Prod2 <span>· Kitchen notes &amp; buying guides</span></p>
-      <p class="footer-disclosure">As an Amazon Associate we earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
+      <p class="footer-disclosure">As an Amazon Associate I earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
     </div>
-    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li></ul></div>
-    <div><h2>Compare &amp; shop</h2><ul><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
-    <div><h2>The work behind it</h2><ul><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+    <div><h2>Guides</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-dual-vs-single.html">Dual basket or one big basket?</a></li><li><a href="guide-probe-in-air-fryer.html">A leave-in probe in an air fryer?</a></li><li><a href="guide-air-fryer-gift.html">Air fryer as a gift: four checks</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li></ul></div>
+    <div><h2>Compare &amp; shop</h2><ul><li><a href="compare.html">Compare all products</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
+    <div><h2>The work behind it</h2><ul><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="analysis.html">Analysis &amp; findings</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="design-prompt.html">Design prompt pack</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
   </div>
   <p class="wrap footer-legal">Published 2026-11-19. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
   Product links are Amazon Associates Special Links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>

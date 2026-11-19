@@ -32,14 +32,28 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 DATA = ROOT / "data" / "p2"
 
-DISCLOSURE = "As an Amazon Associate we earn from qualifying purchases."
+# The disclosure sentence is not hardcoded here: the gate reads the settings file the build
+# reads, so the mandated wording and the enforced wording cannot drift apart. Dropped the
+# old hardcoded string (it had drifted from the statement Amazon prescribes — F-P09/D-P07).
+_settings = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))
+DISCLOSURE = _settings["disclosure_sentence"]
+PAID_LABEL = _settings["paid_link_label"]
 TRACKING_TAG = "tag=shopnow047c-20"
 
 GOVERNANCE = {"executive-summary.html", "method.html", "flagged.html", "questions.html",
               "suggestions.html", "decisions.html", "measurement.html", "compliance.html",
-              "privacy.html"}
+              "privacy.html", "analysis.html", "design-prompt.html"}
 BANNED_CLAIM_WORDS = ["trending", "best-selling", "best selling", "hottest", "viral",
                       "everyone is buying", "must-have", "amazon's choice"]
+# Reader-facing pages only: the voice rules in data/p2/design-prompts.json (DP-8) and VOICE.md.
+# Governance pages may quote the blocklist to explain it, so they are exempt like the rest.
+EDITORIAL_BLOCKLIST = [
+    "in today's fast-paced", "in today's busy kitchen", "look no further", "game-changer",
+    "game changer", "elevate your", "unleash", "delve", "whether you're a beginner",
+    "whether you are a beginner", "a world of", "revolutionize", "seamlessly",
+    "the perfect gift for", "you won't want to miss", "don't miss out",
+]
+READ_DATE_RE = re.compile(r"read \d{4}-\d{2}-\d{2}")
 PRICE_RE = re.compile(r"\$\s?\d")
 RATING_RE = re.compile(r"out of 5 stars")
 
@@ -199,6 +213,33 @@ def main() -> int:
                     fail(f"{f.name}: banned popularity claim word '{w}' (D-19)")
     if not FAILURES:
         ok("no prices, ratings or banned popularity claims")
+
+    # --------------------------------------------------------------- editorial
+    # The voice rules the project wrote for itself (VOICE.md, design prompt DP-8) are worth
+    # nothing if they live only in a document: an unadopted style guide decays within two
+    # passes. This section enforces the narrow, checkable part. Exemptions are printed in the
+    # run log so a deliberate exception stays visible in review rather than silent.
+    check("editorial")
+    exempt_file = ROOT / "data" / "p2" / "editorial-exemptions.json"
+    exempt = {}
+    if exempt_file.exists():
+        exempt = json.loads(exempt_file.read_text(encoding="utf-8"))
+    exempt_pages = set(exempt.get("pages", []))
+    lint_pages = [f for f in html_files
+                  if f.name not in GOVERNANCE and f.name not in exempt_pages]
+    for f in lint_pages:
+        low = f.read_text(encoding="utf-8").lower()
+        for w in EDITORIAL_BLOCKLIST:
+            if w in low:
+                fail(f"{f.name}: throat-clearing / filler phrase '{w}' (VOICE.md, DP-8)")
+    for name in ("products.html", "compare.html"):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        if not READ_DATE_RE.search(text):
+            fail(f"{name}: no 'read YYYY-MM-DD' date next to published figures (G8/SG-22)")
+    if not FAILURES:
+        if exempt_pages:
+            print(f"   note: editorial lint exemptions active for {sorted(exempt_pages)}")
+        ok(f"voice lint on {len(lint_pages)} reader pages; read dates present on register tables")
 
     # ------------------------------------------------------------------ chrome
     check("chrome")

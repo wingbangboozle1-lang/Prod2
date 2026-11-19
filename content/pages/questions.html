@@ -1,12 +1,36 @@
 <p class="eyebrow">The work behind it</p>
-<h1>Open questions and missing information</h1>
-<p class="lede">What we know, what we don't, and how to find out. Each card names what is missing and who can answer it — because decisions made without these answers are guesses.</p>
+<h1>Open questions: what must be answered, and how</h1>
+<p class="lede">Twenty-seven questions sit here. Each one records what is already known (with its dated source),
+what is missing, what the answer would change, who can give it, and what the site does while nobody has. The ones
+that gate a decision are listed first.</p>
 
-<div class="callout callout-sage">
-  <h3>Why this page exists</h3>
-  <p>The brief asks for a clear list of the questions, information and answers that must be addressed before decisions can reasonably be made — and for suggestions that discover the missing information. This register is that list; the <a href="suggestions.html">suggestion queue</a> proposes the paths, and the <a href="decisions.html">decision log</a> records what was chosen.</p>
+<div class="callout">
+  <h3>The short version</h3>
+  <p>Nothing on this list blocks publication: the site is live, correct and conservative, and the blank cells are
+  marked as blank. What these questions gate is everything past "correct" — whether a click can be said to
+  attribute, whether a price may be printed, who is speaking in the disclosure, where measurement data goes, and
+  whether an owner has looked at the nine decisions
+  <a href="analysis.html#decision-board">ranked on the analysis page</a>. If nobody answers, the site keeps
+  publishing the safe version of every one of those, forever.</p>
+  <p>The full register, with the answer fields:
+  <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/questions.json" rel="noopener" target="_blank">data/p2/questions.json</a>.
+  To answer, fill <code>owner_answer</code> and <code>owner_answer_date</code> on the item — or reply here in the
+  brief or in <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/COORDINATION.md" rel="noopener" target="_blank">COORDINATION.md</a>
+  with the question ID and the answer; both are picked up by the next session, and answers become entries in the
+  <a href="decisions.html">decision log</a>.</p>
 </div>
 
+<h2 id="gate">The gate: what each question decides</h2>
+{{questions_board}}
+
+<h2 id="the-cards">Question by question</h2>
 {{questions}}
 
-<p class="small-note">Machine-readable register: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/questions.json" rel="noopener" target="_blank">data/p2/questions.json</a>.</p>
+<div class="callout callout-sage">
+  <h3>How to read a question that is still open</h3>
+  <p>Open does not mean neglected. It means a session found something it could not verify from an official source,
+  or a decision it had no authority to make, and wrote it down instead of guessing. The corresponding
+  <a href="flagged.html">flags</a> carry the evidence; the <a href="suggestions.html">queue</a> carries what to do
+  about them. That chain — question, flag, suggestion, decision — is the whole method, and it is why the site can
+  afford to leave things blank.</p>
+</div>

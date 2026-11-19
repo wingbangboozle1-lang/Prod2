@@ -1,210 +1,1694 @@
 {
-    "_meta": {
-        "description": "Suggestion queue. Every item is a proposed change with its evidence, expected impact, effort, risk and dependencies. Nothing here is implemented until the owner (or a delegated reviewer) picks a path: accept, amend, or reject. Status values: proposed | recommended | accepted | rejected. This is the review surface the brief asked for: choose the best path before implementing.",
-        "updated_utc": "2026-11-19"
+ "_meta": {
+  "description": "Suggestion queue. Every item is a proposed change with its evidence, expected impact, effort, risk and dependencies. Nothing here is implemented until the owner (or a delegated reviewer) picks a path: accept, amend, or reject. Status values: proposed | recommended | accepted | rejected. This is the review surface the brief asked for: choose the best path before implementing.",
+  "updated_utc": "2026-11-19",
+  "paths_note": "Every item carries paths: 2-3 concrete ways to take it, each with what changes, the upside, the downside, the cost and what it unlocks. The recommended path is marked. A reviewer records a choice by setting status to accepted (or rejected) and naming the path in the same object; the decision log then carries it. rank orders the whole board by impact against effort as judged against the registers, not against any traffic data - none exists (SG-25)."
+ },
+ "suggestions": [
+  {
+   "id": "SG-06",
+   "title": "Deploy the analytics endpoint and turn on Search Console",
+   "problem": "No first-party measurement exists (F-19); topic selection is instinct instead of measured queries (Q-P02).",
+   "proposal": "Host analytics-endpoint/server.py on an owner-controlled HTTPS host; set settings.analytics_endpoint; verify the domain in Google Search Console; submit the sitemap; record weekly counts in the campaign ledger only from authorized reports.",
+   "evidence": "The brief's measurement-first priority; the machinery ships with this build.",
+   "impact": "High — everything downstream (topics, optimization, revenue reporting) depends on it.",
+   "effort": "Low-medium (hosting + config), mostly owner-side access work.",
+   "risk": "Low — the endpoint stores counts only, no visitor data.",
+   "depends_on": [
+    "Q-23"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept as the top operational priority. Nothing else compounds without it.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Host the endpoint and verify the Search Console property now",
+     "what_changes": "The five events start accumulating; the sitemap gets submitted.",
+     "upside": "Every later topic choice rests on measured queries instead of instinct.",
+     "downside": "Needs somewhere to run a collector (Q-23) and a verified property (Q-P06).",
+     "cost": "Owner action, one afternoon",
+     "unlocks": "",
+     "recommended": true
     },
-    "suggestions": [
-        {
-            "id": "SG-01",
-            "title": "Adopt a consumer-facing brand name (after trademark clearance)",
-            "problem": "The wordmark 'Prod2' is the project's established name, not a shop name. A real brand name would help the site read as a publication and support a future domain.",
-            "proposal": "Shortlist 2-3 candidate names (e.g. 'Counter & Crisp', 'The Basket Guide', 'Crisp Ledger'), run each through a trademark search (Q-19), pick one, rename in one pass (masthead, titles, OG card), then consider a domain.",
-            "evidence": "D-18 kept the established name only because clearance (Q-19) was open; the constraint is clearance, not the name itself.",
-            "impact": "Medium — brand recall, SERP click-through, linkability.",
-            "effort": "One session once a name clears.",
-            "risk": "Trademark collision if skipped; mitigated by the clearance step.",
-            "depends_on": [
-                "Q-19"
-            ],
-            "status": "proposed",
-            "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items."
-        },
-        {
-            "id": "SG-02",
-            "title": "Publish the comparison table's 'counter depth' as the lead spec",
-            "problem": "Capacity is what listings lead with, but counter depth is what buyers underestimate (the brief's counter-space thesis).",
-            "proposal": "Reorder comparison columns so counter depth and footprint lead; add a 'capacity per cm of depth' derived column with its formula shown (D-26 published the analysis; this makes it the headline).",
-            "evidence": "D-26 adopted the capacity-per-depth analysis; the counter-space guide is the site's most distinctive angle.",
-            "impact": "Medium — differentiation, matches the strongest guide.",
-            "effort": "Small (column reorder + one derived column in build).",
-            "risk": "Low. Derived values must show the formula to stay within the evidence rule.",
-            "depends_on": [],
-            "status": "proposed",
-            "recommendation": "Accept. Cheap, on-thesis."
-        },
-        {
-            "id": "SG-03",
-            "title": "Build a seasonal thermometer cluster (grilling season, holiday gifts)",
-            "problem": "Half the catalog (P4/P5) has one guide only; seasonal demand for thermometers is a natural traffic window.",
-            "proposal": "Two question-shaped guides ('How accurate does a meat thermometer need to be?', 'Instant-read vs leave-in: which for which cook?') plus a gift-guide page, timed to seasons, each linked into sitemap + feed.",
-            "evidence": "The publishing-cadence requirement; the thermometer products' listing themes (grill/BBQ, stocking stuffers).",
-            "impact": "Medium-high organic potential; unmeasured until analytics exist (Q-P02).",
-            "effort": "One session per guide.",
-            "risk": "Low — content only; no new claims needed beyond listed specs.",
-            "depends_on": [
-                "Q-P04"
-            ],
-            "status": "proposed",
-            "recommendation": "Accept after Q-P04, timed to season."
-        },
-        {
-            "id": "SG-04",
-            "title": "Reader email capture with consent flow",
-            "problem": "RSS is the only capture channel; a newsletter would build a returning audience.",
-            "proposal": "Add a signup form with reviewed consent + privacy text, kept clear of affiliate links (Participation Requirement 6(g)); double opt-in; no incentives tied to clicks.",
-            "evidence": "Q-47; FTC disclosure guidance travels with the channel (S-FTC1).",
-            "impact": "Medium — returning readers; but adds compliance surface.",
-            "effort": "Medium (form + consent text review + privacy note page).",
-            "risk": "Medium — privacy liability if consent text is wrong; gated on review.",
-            "depends_on": [
-                "Q-47"
-            ],
-            "status": "proposed",
-            "recommendation": "Defer until traffic exists; the compliance cost is paid before any benefit arrives."
-        },
-        {
-            "id": "SG-05",
-            "title": "Adopt a dated-snapshot price policy",
-            "problem": "Buyers want prices; the site withholds them (F-02) because they drift faster than re-verification.",
-            "proposal": "Publish price only with a mandatory read date + 'check listing' link; checks enforce price/date pairing; re-verify at each publishing pass. Ratings stay withheld (they invite selection bias).",
-            "evidence": "F-02; D-19 shows the dated-snapshot pattern already works for popularity claims.",
-            "impact": "Medium-high conversion relevance; adds upkeep to every pass.",
-            "effort": "Medium (rule + checks + one re-verification sweep).",
-            "risk": "Medium — stale prices damage trust more than absent prices; must be automated before adoption.",
-            "depends_on": [
-                "Q-27"
-            ],
-            "status": "proposed",
-            "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand."
-        },
-        {
-            "id": "SG-06",
-            "title": "Deploy the analytics endpoint and turn on Search Console",
-            "problem": "No first-party measurement exists (F-19); topic selection is instinct instead of measured queries (Q-P02).",
-            "proposal": "Host analytics-endpoint/server.py on an owner-controlled HTTPS host; set settings.analytics_endpoint; verify the domain in Google Search Console; submit the sitemap; record weekly counts in the campaign ledger only from authorized reports.",
-            "evidence": "The brief's measurement-first priority; the machinery ships with this build.",
-            "impact": "High — everything downstream (topics, optimization, revenue reporting) depends on it.",
-            "effort": "Low-medium (hosting + config), mostly owner-side access work.",
-            "risk": "Low — the endpoint stores counts only, no visitor data.",
-            "depends_on": [
-                "Q-23"
-            ],
-            "status": "proposed",
-            "recommendation": "Accept as the top operational priority. Nothing else compounds without it."
-        },
-        {
-            "id": "SG-07",
-            "title": "Add a 'what it's like to live with' layer once real usage exists",
-            "problem": "S-06 (hands-on content) was recorded as not adopted because nobody has tested these appliances; listings can't tell a reader what cleanup or noise is like.",
-            "proposal": "Either (a) owner supplies first-hand notes/photos for one product and the site adds a clearly-labeled experience section, or (b) keep spec-only and say so. Do not fabricate experience.",
-            "evidence": "Google's thin-affiliation policy (S-GSPAM) rewards genuine experience; the current site is honest but thinner than ideal.",
-            "impact": "High on E-E-A-T, if real.",
-            "effort": "Depends entirely on real usage.",
-            "risk": "High if faked — never do this synthetically.",
-            "depends_on": [
-                "Owner input"
-            ],
-            "status": "proposed",
-            "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available."
-        },
-        {
-            "id": "SG-08",
-            "title": "Sticky mobile comparison bar on product pages",
-            "problem": "Mobile readers scroll long comparisons and lose the buy path (S-20 in the brief list).",
-            "proposal": "A sticky bottom bar on the comparison and category pages showing the currently scrolled product + its sponsored link; type-scale and tap-target pass first.",
-            "evidence": "Brief item S-20 (not yet implemented).",
-            "impact": "Medium conversion UX.",
-            "effort": "One session (CSS/JS + checks update).",
-            "risk": "Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).",
-            "depends_on": [],
-            "status": "proposed",
-            "recommendation": "Accept as a UX follow-up after the first traffic arrives."
-        },
-        {
-            "id": "SG-09",
-            "title": "Internal-linking rule as an automated check",
-            "problem": "S-24's rule (every article reaches the comparison, the buying guide and its category pillar) is satisfied today by hand and can rot.",
-            "proposal": "Extend tools/checks.py: each guide must link to compare.html, buying-guide.html and its category page; fail the build otherwise.",
-            "evidence": "S-24/D-27 adopted the rule; automation is the brief's machinery-trust requirement.",
-            "impact": "Medium — keeps the site's structure intact as pages grow.",
-            "effort": "Small.",
-            "risk": "None.",
-            "depends_on": [],
-            "status": "proposed",
-            "recommendation": "Accept. It is a gate, and gates are cheap once written."
-        },
-        {
-            "id": "SG-10",
-            "title": "Second-format expansion: one more air-fryer format page (basket accessories, liners, racks)",
-            "problem": "Adjacent accessory queries (liners, racks) are how many readers enter the category.",
-            "proposal": "A small accessories guide that links back to the three formats; only listed facts; no accessory products added to the affiliate set until their own intent records exist.",
-            "evidence": "Topic-hub structure of the publishing plan (S-13/D-17).",
-            "impact": "Medium organic potential; unmeasured (Q-P02).",
-            "effort": "One session.",
-            "risk": "Low.",
-            "depends_on": [],
-            "status": "proposed",
-            "recommendation": "Defer until measured queries confirm demand (after SG-06)."
-        },
-        {
-            "id": "SG-11",
-            "title": "Run an answer-first article calendar of question-shaped guides, one per format decision",
-            "problem": "Five guides exist, but the site has no written calendar for what comes next, so topic choice is instinct.",
-            "proposal": "Plan a rolling calendar of about one guide every two weeks, each titled as the buyer's question (for example, 'Is a dual-basket air fryer worth it for two dishes at once?'). Every answer uses only listed specs with their read dates. Topics are chosen from Search Console queries once SG-06 is live.",
-            "evidence": "Q-P02 (which guide next, on what evidence); the publishing-cadence question in data/p2/questions.json; VOICE.md rule 7 (questions are titles).",
-            "impact": "Medium-high organic potential; unmeasured until analytics runs.",
-            "effort": "Small per guide; the calendar itself is one document.",
-            "risk": "Low, provided no popularity claims are made (D-19 banned words stay banned).",
-            "depends_on": [
-                "Q-P02",
-                "SG-06"
-            ],
-            "status": "proposed",
-            "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06."
-        },
-        {
-            "id": "SG-12",
-            "title": "Give every product its own buyer-first section: who it suits, what it does not do, what the listing says",
-            "problem": "Product sections are spec tables. A shopper deciding between two machines needs a plain answer for each product first.",
-            "proposal": "On each product block, lead with a 'Who it suits' line and a 'Where it falls short' line, both drawn only from listed facts (for example, 'Suits two dishes at the same temperature; the baskets are 3 qt each'). The sponsored link and paid-link label stay directly under that text.",
-            "evidence": "The existing product register (data/p2/products.json highlights); FTC guidance that endorsements must reflect honest experience (S-FTC2), which rules out invented hands-on claims.",
-            "impact": "Medium; likely the highest conversion-relevant change that needs no new data.",
-            "effort": "Small (copy in content/pages + one check that each block has both lines).",
-            "risk": "Low. Must not claim testing that did not happen (D-06).",
-            "depends_on": [],
-            "status": "proposed",
-            "recommendation": "Accept. It improves the shop feel without adding claims."
-        },
-        {
-            "id": "SG-13",
-            "title": "Build one organic cluster per format, linked into a hub, before adding more formats",
-            "problem": "Guides link to the comparison, but each format lacks a cluster that answers the search journey from question to purchase.",
-            "proposal": "Four clusters: dual-basket, oven-style, single-basket, instant-read vs leave-in thermometer. Each cluster has one hub page, two or three question guides, and the sponsored links where the reader is ready to act. Internal links follow the rule in SG-09.",
-            "evidence": "S-24 / D-27 (internal linking rule); the existing category pages; the brief's requirement for clusters.",
-            "impact": "Medium-high for organic discovery; unmeasured until SG-06.",
-            "effort": "Medium (roughly one session per cluster).",
-            "risk": "Low; more pages mean more upkeep, which SG-09 automates.",
-            "depends_on": [
-                "SG-09"
-            ],
-            "status": "proposed",
-            "recommendation": "Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one."
-        },
-        {
-            "id": "SG-14",
-            "title": "Hold paid promotion and a newsletter until one clean attribution test exists",
-            "problem": "Clicks cannot yet be tied to reports. Spending money or adding a list before attribution works would produce numbers the site cannot defend.",
-            "proposal": "Sequence the growth plan: (1) one-link-per-product test in Associates Central (Q-01 / F-58); (2) analytics endpoint and Search Console (SG-06); (3) only then consider reader email capture (SG-04) or any paid channel. No paid spend is planned in this proposal.",
-            "evidence": "F-57 and F-58 (attribution not verified); SG-04 (compliance cost before benefit); the measurement-before-automation brief item.",
-            "impact": "High for decision quality; prevents false confidence.",
-            "effort": "Owner-side access work; no build effort.",
-            "risk": "Low. Delay is the only cost.",
-            "depends_on": [
-                "Q-01",
-                "SG-06"
-            ],
-            "status": "proposed",
-            "recommendation": "Accept as the sequencing rule for every growth decision."
-        }
-    ]
+    {
+     "key": "B",
+     "label": "Aggregate in the browser only, no endpoint",
+     "what_changes": "Local counts stay on each visitor's device; the ledger stays empty.",
+     "upside": "Zero infrastructure and zero privacy surface.",
+     "downside": "Nobody can read the numbers, so they cannot inform anything.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Vendor analytics instead",
+     "what_changes": "A hosted analytics script on every page.",
+     "upside": "Dashboards for free.",
+     "downside": "Conflicts with the cookieless posture the project recorded, and adds a consent surface.",
+     "cost": "One script tag",
+     "unlocks": "nothing recommended",
+     "recommended": false
+    }
+   ],
+   "theme": "Measurement",
+   "rank": 1,
+   "feeds_design_prompt": false
+  },
+  {
+   "id": "SG-14",
+   "title": "Hold paid promotion and a newsletter until one clean attribution test exists",
+   "problem": "Clicks cannot yet be tied to reports. Spending money or adding a list before attribution works would produce numbers the site cannot defend.",
+   "proposal": "Sequence the growth plan: (1) one-link-per-product test in Associates Central (Q-01 / F-58); (2) analytics endpoint and Search Console (SG-06); (3) only then consider reader email capture (SG-04) or any paid channel. No paid spend is planned in this proposal.",
+   "evidence": "F-57 and F-58 (attribution not verified); SG-04 (compliance cost before benefit); the measurement-before-automation brief item.",
+   "impact": "High for decision quality; prevents false confidence.",
+   "effort": "Owner-side access work; no build effort.",
+   "risk": "Low. Delay is the only cost.",
+   "depends_on": [
+    "Q-01",
+    "SG-06"
+   ],
+   "status": "recommended",
+   "recommendation": "Accept as the sequencing rule for every growth decision.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Sequence: attribution test, then measurement, then growth",
+     "what_changes": "Nothing new ships; the order is written into the calendar.",
+     "upside": "Every growth number the site later reports is defensible.",
+     "downside": "Growth looks slow for a few weeks.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Grow now, measure later",
+     "what_changes": "Publish faster, add channels, instrument afterwards.",
+     "upside": "More pages indexed sooner.",
+     "downside": "No way to say which page earned anything; exactly the pattern that makes a site read as generated.",
+     "cost": "Later cleanup, at higher cost",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Growth",
+   "rank": 2,
+   "feeds_design_prompt": false,
+   "note": "Adopted as the sequencing rule for this pass: no paid spend and no list capture proposed in any page or calendar entry."
+  },
+  {
+   "id": "SG-15",
+   "title": "Turn the front page into a shop shelf: one product rail above the fold, then the guides",
+   "theme": "Reader experience",
+   "rank": 2,
+   "feeds_design_prompt": true,
+   "status": "recommended",
+   "note": "Implemented as a presentation-only change on 2026-11-19 under D-P08: the rail re-presents already-published listed facts and adds no claim. Revert is one commit.",
+   "problem": "The home page opens with a method sentence and four format tiles. A buyer arriving from search sees process before product, so the page reads like a register export rather than a shop.",
+   "proposal": "Lead with a five-card product rail: name, format, the two listed numbers that decide the purchase, one sponsored CTA each. Put the format tiles under it and the guide shelf under that. No new facts, no ranking language, no images we do not have the right to use.",
+   "evidence": "Google's people-first guidance on showing the reader what they came for; the register's own rule that only listed facts appear (S-GHELP). Compare page already does this in table form.",
+   "impact": "High for click-through and time-to-first-CTA; neutral for ranking.",
+   "effort": "Low. Layout only; content already registered.",
+   "risk": "Low, as long as the rail carries no verdict wording the register cannot source.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: creating helpful, people-first content",
+     "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    }
+   ],
+   "recommendation": "Accept. This is the cheapest change that moves the site from audit to shop.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Product rail first, guides second",
+     "what_changes": "Front page reorders; every card links to its product section and one sponsored CTA.",
+     "upside": "Shoppers see the shelf in the first screen; the method stays one scroll away.",
+     "downside": "Slightly less prominent method line on entry.",
+     "cost": "Done in this pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Guides first, products second",
+     "what_changes": "Editorial shelf leads; the rail moves below.",
+     "upside": "Reads like a magazine; more time on page.",
+     "downside": "Weakest at the moment of purchase intent, which is where the affiliate action happens.",
+     "cost": "Minutes",
+     "unlocks": "nothing extra",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Both above the fold in one grid",
+     "what_changes": "Cards with a guide link inside each product card.",
+     "upside": "Shortest path from question to product.",
+     "downside": "Busier first screen; harder to keep the disclosure above it.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-25",
+   "title": "Instrument the click path before testing anything on it",
+   "theme": "Measurement",
+   "rank": 2,
+   "feeds_design_prompt": false,
+   "status": "proposed",
+   "problem": "Redesigns, title rewrites and seasonal hubs all get argued from taste today, because nothing is counted. Five events are defined, the client exists, and no endpoint receives them (F-19).",
+   "proposal": "Deploy the existing collector, point the site at it, and define the five events' report before any layout change is proposed: outbound_click by ASIN, guide_read_75, category_click, feed_click, page_view. Then set one rule: a design change ships with its hypothesis and the metric that would falsify it.",
+   "evidence": "The owner's Priority 4 row (measure before automating optimization) and D-P05, which fixed the five-event set. The project ledger is deliberately empty until an authorized first-party report exists.",
+   "impact": "Indirect but compounding: it converts every later suggestion into a test.",
+   "effort": "Low to host; medium to keep the discipline.",
+   "risk": "Low; the collector is aggregate-only and stores nothing identifying.",
+   "depends_on": [
+    "Q-23",
+    "Q-P06"
+   ],
+   "links": [
+    {
+     "label": "Google: qualifying outbound links",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+    }
+   ],
+   "recommendation": "Accept as the precondition for SG-15..SG-24 being argued about with numbers.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Host the existing collector on any Node host, keep the ledger empty",
+     "what_changes": "Events accumulate; the ledger still only fills from authorized reports.",
+     "upside": "Measurement without inventing revenue numbers.",
+     "downside": "Someone must run a host (Q-23).",
+     "cost": "Owner action",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Local-only counters, revisit later",
+     "what_changes": "Nothing leaves the browser.",
+     "upside": "No hosting.",
+     "downside": "No learning; the next pass repeats today's guesswork.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-34",
+   "title": "Say the required disclosure sentence exactly, not as a paraphrase",
+   "theme": "Compliance",
+   "rank": 2,
+   "feeds_design_prompt": false,
+   "status": "accepted",
+   "note": "Implemented 2026-11-19 and recorded as D-P07: every page now opens with the exact statement Amazon's help page quotes from the Operating Agreement, with the plain-language FTC-style sentence kept beside it and '(paid link)' kept next to each sponsored link. The gate constant was updated to require the exact sentence twice per page.",
+   "problem": "The strip read 'As an Amazon Associate we earn from qualifying purchases.' Amazon's own help page states the required statement with 'I earn'. A paraphrase of a mandated sentence is a compliance risk the site does not need, and which no reader benefit justifies.",
+   "proposal": "Put the required sentence in verbatim in the strip and the footer, keep the plain-language and paid-link wording as well (belt and braces for FTC conspicuousness), and let the gate require the exact string twice per page so a future pass cannot drop it.",
+   "evidence": "Amazon's help topic on identifying yourself as an Associate (read 2026-11-19) quotes the required statement and the FTC clear-and-conspicuous standard; the Operating Agreement is the governing text.",
+   "impact": "Removes an unnecessary compliance exposure site-wide.",
+   "effort": "Minutes, one settings change and one gate constant.",
+   "risk": "If the publisher is a company rather than an individual, 'I' may need adjusting - see Q-P19; the exact wording Amazon prescribes is the safe default until the entity is named.",
+   "depends_on": [
+    "Q-P19"
+   ],
+   "links": [
+    {
+     "label": "Amazon: why identify yourself as an Associate, and how",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE"
+    },
+    {
+     "label": "Associates Operating Agreement",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+     "label": "FTC endorsement disclosures",
+     "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+    }
+   ],
+   "recommendation": "Accepted and implemented in this pass. Revisit the pronoun only when the publisher entity is named.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Exact required sentence plus a plain-language line",
+     "what_changes": "Both sentences appear in the strip and the footer on all pages.",
+     "upside": "Satisfies the mandated wording and the FTC clarity expectation at once.",
+     "downside": "Slightly longer strip; the gate keeps it from growing further.",
+     "cost": "Done in this pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Exact sentence only",
+     "what_changes": "The plain-language line goes.",
+     "upside": "Minimal, compliant.",
+     "downside": "Loses the human explanation of what a paid link means here.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Keep the paraphrase",
+     "what_changes": "Nothing.",
+     "upside": "No churn.",
+     "downside": "Leaves a mandated string unmet for a one-line saving.",
+     "cost": "None - do not do this",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-19",
+   "title": "Answer first, then explain: a 40-word summary block and FAQ structured data on every guide",
+   "theme": "Editorial & SEO",
+   "rank": 3,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Guides open with scene-setting paragraphs. A reader (and a crawler) has to scroll to find the answer, which is the opposite of how question-shaped pages earn their place.",
+   "proposal": "Each guide starts with a boxed 'Short answer' of at most 40 words, then three to five H2 sections that each open with their own one-line answer, then a FAQ list mirroring the phrasing people type. Publish the FAQ block as FAQPage structured data in the same JSON-LD graph the build already emits, and validate the JSON-LD parses (the gate already does).",
+   "evidence": "Google's guidance on helpful, people-first content and on qualifying outbound links; the site already links every figure to its listing, which is the E-E-A-T signal to keep.",
+   "impact": "High for organic entry and for skim-through retention; the cheapest on-page improvement on this list.",
+   "effort": "Medium across eight guides; mechanical once the template exists.",
+   "risk": "Low, if the short answer never says more than the sourced body text.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: people-first content",
+     "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    }
+   ],
+   "recommendation": "Accept and apply retroactively to all eight guides in one pass.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Short answer + FAQPage JSON-LD on every guide",
+     "what_changes": "Template change in the build; eight content passes.",
+     "upside": "Answers the query where the query is answered, with machine-readable support.",
+     "downside": "FAQ markup is presentational for the reader; do not expect a guaranteed rich result.",
+     "cost": "One pass",
+     "unlocks": "SG-21",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Short answer only, no extra structured data",
+     "what_changes": "Same prose change, no schema.",
+     "upside": "Simpler; nothing to maintain in two places.",
+     "downside": "Loses the explicit question/answer pairing the build could carry.",
+     "cost": "Half the effort",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Leave the prose as it is",
+     "what_changes": "Nothing.",
+     "upside": "No churn.",
+     "downside": "The answer stays buried below the fold.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-11",
+   "title": "Run an answer-first article calendar of question-shaped guides, one per format decision",
+   "problem": "Five guides exist, but the site has no written calendar for what comes next, so topic choice is instinct.",
+   "proposal": "Plan a rolling calendar of about one guide every two weeks, each titled as the buyer's question (for example, 'Is a dual-basket air fryer worth it for two dishes at once?'). Every answer uses only listed specs with their read dates. Topics are chosen from Search Console queries once SG-06 is live.",
+   "evidence": "Q-P02 (which guide next, on what evidence); the publishing-cadence question in data/p2/questions.json; VOICE.md rule 7 (questions are titles).",
+   "impact": "Medium-high organic potential; unmeasured until analytics runs.",
+   "effort": "Small per guide; the calendar itself is one document.",
+   "risk": "Low, provided no popularity claims are made (D-19 banned words stay banned).",
+   "depends_on": [
+    "Q-P02",
+    "SG-06"
+   ],
+   "status": "recommended",
+   "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Adopt the 14-day cadence with the queue on the Analysis page",
+     "what_changes": "Each pass adds one guide, one hub update, sitemap and feed in the same commit.",
+     "upside": "Predictable output; topic choice documented rather than improvised.",
+     "downside": "Cadence without measurement keeps guessing at demand until SG-06 lands.",
+     "cost": "One pass per fortnight",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Batch four guides in one pass, then pause",
+     "what_changes": "Publish a small shelf at once, then hold for data.",
+     "upside": "Faster index coverage of one cluster.",
+     "downside": "Thinner review per article; no measured signal either way.",
+     "cost": "One long pass",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Editorial & SEO",
+   "rank": 4,
+   "feeds_design_prompt": true,
+   "note": "Calendar table now published on the Analysis page; three guides added 2026-11-19 (eight articles in the format-first set, the count recorded in D-17)."
+  },
+  {
+   "id": "SG-21",
+   "title": "Rewrite titles and metas to a two-part pattern: the question, then the promise",
+   "theme": "Editorial & SEO",
+   "rank": 4,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Current titles are correct and a little flat, and the brand suffix repeats on every page. Searchers choose on the title line; this is the cheapest lever on click-through that does not require a traffic claim.",
+   "proposal": "Pattern: '<the question a person types> — <what they get in 4 minutes>'. Keep titles under 60 visible characters, front-load the query noun, and write each meta description to the page's actual content (50-170 chars, enforced today). Ban the empty intensifiers the gate already bans; catchy here means specific, not loud.",
+   "evidence": "Google's snippet guidance says the description should accurately summarise the page and that unique descriptions per page matter (S-GSNIP); the gate already enforces uniqueness and length (S-04 in the owner's register, implemented 2026-11-16).",
+   "impact": "Medium-high on impressions-to-clicks; no effect without impressions, so pair with SG-06.",
+   "effort": "Low. Ten string edits in the page registry.",
+   "risk": "Low; the gate fails a duplicate or out-of-range description, so drift is caught.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: snippet and description guidance",
+     "url": "https://developers.google.com/search/docs/appearance/snippet"
+    }
+   ],
+   "recommendation": "Accept, but do it after SG-19 so each title matches the answer the page now leads with.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Question + promise, brand suffix dropped from guides",
+     "what_changes": "Titles read like answers; brand moves to the meta og:site_name.",
+     "upside": "Longer tail matched more precisely; less repetition.",
+     "downside": "Brand appears less in results for a small site that may want it.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Keep the brand suffix everywhere",
+     "what_changes": "Nothing changes.",
+     "upside": "Brand consistency in results.",
+     "downside": "Every title starts with the same prefix, which is what the pattern was meant to fix.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-12",
+   "title": "Give every product its own buyer-first section: who it suits, what it does not do, what the listing says",
+   "problem": "Product sections are spec tables. A shopper deciding between two machines needs a plain answer for each product first.",
+   "proposal": "On each product block, lead with a 'Who it suits' line and a 'Where it falls short' line, both drawn only from listed facts (for example, 'Suits two dishes at the same temperature; the baskets are 3 qt each'). The sponsored link and paid-link label stay directly under that text.",
+   "evidence": "The existing product register (data/p2/products.json highlights); FTC guidance that endorsements must reflect honest experience (S-FTC2), which rules out invented hands-on claims.",
+   "impact": "Medium; likely the highest conversion-relevant change that needs no new data.",
+   "effort": "Small (copy in content/pages + one check that each block has both lines).",
+   "risk": "Low. Must not claim testing that did not happen (D-06).",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Accept. It improves the shop feel without adding claims.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Buyer-first block built only from listed facts",
+     "what_changes": "Each product block leads with who it suits and where it falls short, both traceable to a listing line.",
+     "upside": "Reads like advice, stays defensible, and the source link is right there.",
+     "downside": "Limits how opinionated the verdict can sound.",
+     "cost": "One pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Verdicts after hands-on testing",
+     "what_changes": "Same block, rewritten from real use.",
+     "upside": "Maximum trust and differentiation.",
+     "downside": "Blocked on SG-07 path B.",
+     "cost": "Owner budget (Q-P20)",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Leave the spec tables as they are",
+     "what_changes": "Nothing changes.",
+     "upside": "No risk of over-claiming.",
+     "downside": "Shoppers still have to do the reading themselves.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Merchandising",
+   "rank": 5,
+   "feeds_design_prompt": true
+  },
+  {
+   "id": "SG-16",
+   "title": "Give every product a buyer-first verdict block: who it suits, where it falls short",
+   "theme": "Merchandising",
+   "rank": 5,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Product sections are tables. A shopper torn between two machines has to do the synthesis the shop is supposed to do.",
+   "proposal": "Two lines per product, generated from listed fields only: 'Suits…' and 'Falls short because…', each followed by the source link and read date. Add a standing sentence that the site has not cooked with the machine (D-06) so the verdict is honest about its basis.",
+   "evidence": "Thin-affiliation guidance: a useful affiliate page adds interpretation beyond the listing (S-GSPAM). D-12 already allows positions inside verified facts.",
+   "impact": "High for both trust and conversion; the single biggest content upgrade that needs no new data.",
+   "effort": "Low-medium. One pass over five products, no gate change needed.",
+   "risk": "Medium if the wording drifts into superlatives; mitigate by adding the banned-claim lint (SG-26) to the same gate run.",
+   "depends_on": [
+    "Q-P11"
+   ],
+   "links": [
+    {
+     "label": "Google: spam policies (thin affiliation)",
+     "url": "https://developers.google.com/search/docs/essentials/spam-policies"
+    }
+   ],
+   "recommendation": "Accept before any new product is added, so new stock inherits the format.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Listing-derived verdicts, labelled as such",
+     "what_changes": "Five blocks; each sentence traceable to a listing line with its date.",
+     "upside": "Real interpretation, zero invented experience.",
+     "downside": "Verdicts stay as cautious as the specs allow.",
+     "cost": "One pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Wait for hands-on testing (SG-07 path B)",
+     "what_changes": "Nothing published until someone cooks with the units.",
+     "upside": "Verdicts could then be authoritative and unique.",
+     "downside": "Indefinite delay; the site keeps reading like a register meanwhile.",
+     "cost": "Owner budget decision (Q-P20)",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Quote external expert or owner notes with attribution",
+     "what_changes": "Attributed lines, clearly sourced.",
+     "upside": "Texture without invented testing.",
+     "downside": "Needs a real, nameable source per product; otherwise it is decoration.",
+     "cost": "Minutes per product",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-18",
+   "title": "Design an original illustration system in place of photography",
+   "theme": "Brand",
+   "rank": 6,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "A shop without product images looks unfinished, and copying listing photos is not an option: images are Program Content. The gap has to be filled with something we own.",
+   "proposal": "Commission or generate a small, consistent set of original line diagrams drawn by this project: basket vs oven cavity, French-door clearance, dual-zone timing, probe placement in a roast, counter-depth footprint to scale. Each figure is labelled with the listed measurement it illustrates and links to the source. Style rules (stroke width, palette, no perspective shading) go into the design brief so the set stays coherent.",
+   "evidence": "Operating Agreement Section 1 treats Amazon's images as Program Content, so the compliant route is our own artwork (S-OA). Our own diagrams also satisfy Google's originality guidance.",
+   "impact": "High on the 'is this a real publication' question, which is what the current page lacks most.",
+   "effort": "Medium. Eight to twelve figures, plus a style block in the brief.",
+   "risk": "Low if figures only ever draw listed values; a diagram that implies a performance claim becomes a claim.",
+   "depends_on": [
+    "Q-P05"
+   ],
+   "links": [
+    {
+     "label": "Associates Operating Agreement",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    }
+   ],
+   "recommendation": "Accept. It is the only visual upgrade available that does not depend on licensing anything.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Original measured diagrams, spec-labelled",
+     "what_changes": "One figure per format decision, each captioned with the listed value and its source.",
+     "upside": "Ownable, defensible, and it looks like editorial intent.",
+     "downside": "Hand-drawn feel depends on execution; a bad diagram is worse than none.",
+     "cost": "One design pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Abstract brand art only",
+     "what_changes": "Typographic and geometric art, no measured diagrams.",
+     "upside": "Cheap and safe.",
+     "downside": "Adds beauty but no understanding.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Copy listing photographs",
+     "what_changes": "Product images on cards and guides.",
+     "upside": "Looks like a normal commerce page.",
+     "downside": "Program Content the site has no licence to host; take-down and account risk.",
+     "cost": "None - do not do this",
+     "unlocks": "nothing",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-32",
+   "title": "Close out open PR #16 before it can overwrite the live publication",
+   "theme": "Operations",
+   "rank": 6,
+   "feeds_design_prompt": false,
+   "status": "proposed",
+   "problem": "An open pull request from a stale base hand-authors root-level index.html, products.html, suggestions.html, flagged.html, sitemap.xml and feed.xml. On main those paths are generated mirrors of docs/. Merging it as-is replaces the live site with a second implementation and desynchronises the mirror the reproducibility check compares against.",
+   "proposal": "One of three: close it; retarget its generator at a subdirectory and re-open; or have an integration session port only its unique registers into data/. Whichever is chosen, record it here so the state is explicit.",
+   "evidence": "PR #16 file list; the mirror_to_root and reproducibility behaviour in main's build and workflow files. Logged as RR-5/RR-6 in COORDINATION.md on 2026-11-19.",
+   "impact": "High on repository integrity; nothing reader-facing unless it merges, which is the risk.",
+   "effort": "Minutes of owner decision; an hour if content is ported.",
+   "risk": "High if left alone through a busy merge window.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Pull request #16",
+     "url": "https://github.com/wingbangboozle1-lang/Prod2/pull/16"
+    }
+   ],
+   "recommendation": "Decide this before any other merge activity in the repo.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Close it; carry its registers by hand if any are wanted",
+     "what_changes": "No clobber; unique data reviewed one file at a time.",
+     "upside": "Nothing is lost and the live site is safe.",
+     "downside": "Any genuinely good pages there need a deliberate port.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Ask the author to rebase onto main and retarget a subdirectory",
+     "what_changes": "PR becomes additive, published under its own path.",
+     "upside": "Their work ships without displacing the canonical build.",
+     "downside": "Two published sites, which the one-site rule exists to prevent.",
+     "cost": "One session",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Merge as-is",
+     "what_changes": "Root becomes hand-authored again.",
+     "upside": "Fast.",
+     "downside": "Replaces the live publication and breaks the mirror's reproducibility check.",
+     "cost": "None - do not do this",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-09",
+   "title": "Internal-linking rule as an automated check",
+   "problem": "S-24's rule (every article reaches the comparison, the buying guide and its category pillar) is satisfied today by hand and can rot.",
+   "proposal": "Extend tools/checks.py: each guide must link to compare.html, buying-guide.html and its category page; fail the build otherwise.",
+   "evidence": "S-24/D-27 adopted the rule; automation is the brief's machinery-trust requirement.",
+   "impact": "Medium — keeps the site's structure intact as pages grow.",
+   "effort": "Small.",
+   "risk": "None.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Accept. It is a gate, and gates are cheap once written.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Add the rule to the publish gate now",
+     "what_changes": "checks.py fails any guide that does not reach the comparison, the buying guide and its category pillar.",
+     "upside": "Cluster structure stops decaying as pages are added.",
+     "downside": "Existing pages must satisfy it the same commit, or the gate blocks the build.",
+     "cost": "One rule + page edits",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Keep it as a written rule only",
+     "what_changes": "No new check.",
+     "upside": "No gate friction.",
+     "downside": "The next session forgets it, and clusters fray.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Editorial & SEO",
+   "rank": 7,
+   "feeds_design_prompt": false
+  },
+  {
+   "id": "SG-26",
+   "title": "A no-slop lint in the publish gate",
+   "theme": "Trust & authority",
+   "rank": 7,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "The site's single biggest reputational risk is reading machine-made. Today the gate checks compliance and sources, but nothing about prose, so an opener like 'In today's fast-paced kitchen' can ship.",
+   "proposal": "Extend the gate's claims section with an editorial blocklist and shape rules: no throat-clearing openers, no 'look no further', 'game-changer', 'elevate', 'unleash', 'delve', 'in the world of', 'whether you're a beginner or a seasoned pro'; no adjective pile-ups (three or more in a row); no second-person promises the register cannot support; every guide has an H2 within its first 300 words; no em-dash abuse beyond a set count. Fail the build, like everything else.",
+   "evidence": "Google's guidance on originality and people-first content, plus its AI-content statement, both already in the source register; D-12 is the voice the rules encode.",
+   "impact": "Medium-high on the thing the owner flagged twice: not reading like generated filler.",
+   "effort": "Low. A list and four functions.",
+   "risk": "Medium false positives; mitigate with an explicit per-page exemption file that the gate prints so exceptions are visible in review, not silent.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: creating helpful, people-first content",
+     "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    },
+    {
+     "label": "Google: AI-generated content guidance",
+     "url": "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content"
+    }
+   ],
+   "recommendation": "Accept. Voice rules that live only in a document decay; rules in the gate do not.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Hard gate with visible exemptions",
+     "what_changes": "checks.py grows an 'editorial' section; exemptions printed in the run log.",
+     "upside": "Style becomes a release requirement.",
+     "downside": "Blocks a publish while a wording fix is trivial - the fix is usually one sentence.",
+     "cost": "One pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Warning-only lint in CI",
+     "what_changes": "Reports, does not fail.",
+     "upside": "No friction.",
+     "downside": "Warnings get ignored within two passes, as every team knows.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Prose rules in VOICE.md only",
+     "what_changes": "Nothing automated.",
+     "upside": "Zero build risk.",
+     "downside": "Nothing stops the next session.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-17",
+   "title": "Per-page social preview cards instead of one site-wide image",
+   "theme": "Reader experience",
+   "rank": 8,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Every page shares one og:image, so a shared guide looks like a generic brand card and earns no click on its own merits.",
+   "proposal": "Generate one typographic card per guide and per category (title, the one listed figure that decides it, brand mark, disclosure line). Render them from the same registers with the existing Pillow helper, keep them text-only, and point og:image at the page-specific card.",
+   "evidence": "Google's page-experience guidance on presentation; S-18/D-22 forbid copied or generated product photography, which is exactly why a typographic card is the safe asset.",
+   "impact": "Medium for social and messaging click-through; zero ranking effect by itself.",
+   "effort": "Low-medium. A loop around the existing card generator.",
+   "risk": "Low. Text-only art cannot infringe program content.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: page experience",
+     "url": "https://developers.google.com/search/docs/appearance/page-experience"
+    }
+   ],
+   "recommendation": "Accept as the imagery answer while Q-P05 (usable product imagery) stays open.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Typographic cards per guide, generated in the build",
+     "what_changes": "og:image and twitter:image become page-specific; files land in docs/assets/img.",
+     "upside": "Share previews read like articles, not like a template.",
+     "downside": "Adds a build artifact set to keep regenerated and committed.",
+     "cost": "One pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "One card for the whole site",
+     "what_changes": "Nothing changes.",
+     "upside": "Nothing to maintain.",
+     "downside": "Every share looks identical; links underperform in chat.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Only after product imagery is licensed",
+     "what_changes": "Cards wait for real photography.",
+     "upside": "Best-looking option if rights are secured.",
+     "downside": "Blocked on Q-P05 and API access (SG-33), so it may never ship.",
+     "cost": "Owner action",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-08",
+   "title": "Sticky mobile comparison bar on product pages",
+   "problem": "Mobile readers scroll long comparisons and lose the buy path (S-20 in the brief list).",
+   "proposal": "A sticky bottom bar on the comparison and category pages showing the currently scrolled product + its sponsored link; type-scale and tap-target pass first.",
+   "evidence": "Brief item S-20 (not yet implemented).",
+   "impact": "Medium conversion UX.",
+   "effort": "One session (CSS/JS + checks update).",
+   "risk": "Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Accept as a UX follow-up after the first traffic arrives.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Ship it as part of the mobile-first pass",
+     "what_changes": "A compact bar with the five short names and one sponsored CTA, sticky on small screens.",
+     "upside": "The buying action stays one tap away while reading.",
+     "downside": "Risks covering content on short viewports; needs a dismiss control.",
+     "cost": "Done inside SG-23",
+     "unlocks": "",
+     "recommended": true
+    }
+   ],
+   "theme": "Reader experience",
+   "rank": 9,
+   "feeds_design_prompt": true,
+   "note": "Folded into SG-23 (mobile-first pass), which this session implemented for the comparison and product pages on 2026-11-19."
+  },
+  {
+   "id": "SG-23",
+   "title": "Mobile-first pass: type scale, 44px tap targets, sticky comparison bar, no horizontal table traps",
+   "theme": "Reader experience",
+   "rank": 9,
+   "feeds_design_prompt": true,
+   "status": "recommended",
+   "note": "Implemented 2026-11-19 under D-P08 (presentation only): fluid type scale, min-height tap targets, visible focus rings, a dismissible sticky comparison bar on the comparison and product pages, and table scroll affordances. This mirrors the owner's register row S-20.",
+   "problem": "Most of this traffic arrives on a phone. Wide data tables and small nav links are the two things that make a careful site feel like a tool.",
+   "proposal": "Fluid root size with a clamp; every link, button and radio at least 44px; a sticky bottom bar carrying one sponsored CTA with a dismiss control; tables keep horizontal scroll but gain a shadow cue and a sticky first column; disclosure stays above the fold at 320px, checked by the gate.",
+   "evidence": "Page-experience guidance on mobile presentation; the owner's own S-20 row in the requirements register.",
+   "impact": "High for readable mobile dwell and for the tap that earns the commission.",
+   "effort": "Low-medium. CSS plus a small script.",
+   "risk": "Low; a fixed bar must not cover the footer or the disclosure, which is the gate's job.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: page experience",
+     "url": "https://developers.google.com/search/docs/appearance/page-experience"
+    }
+   ],
+   "recommendation": "Accept and keep it as the baseline for future pages.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Ship the CSS/JS pass now, no content change",
+     "what_changes": "Type scale, tap targets, sticky bar, table cues.",
+     "upside": "Immediate feel improvement with no factual exposure.",
+     "downside": "None material.",
+     "cost": "Done in this pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Rebuild the tables as card lists on small screens",
+     "what_changes": "Each product becomes a stacked card below 40rem.",
+     "upside": "No sideways scrolling at all.",
+     "downside": "Two presentations of one register to keep in sync.",
+     "cost": "One extra pass",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-20",
+   "title": "A counter-fit calculator shoppers can actually use",
+   "theme": "Reader experience",
+   "rank": 10,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "The counter-space analysis is a table. The reader's real question is 'will it fit where I want it', which is arithmetic they have to do themselves.",
+   "proposal": "A no-network widget: the reader types their available depth and width, the page flags which of the five listed footprints clear it, and prints the clearance figures it compared against with links to the listings. Everything computed client-side from registered values; nothing stored; nothing sent anywhere.",
+   "evidence": "The chooser already proves the pattern (D-23). Page-experience guidance rewards interaction that answers the specific question.",
+   "impact": "Medium-high for engagement and for the 'this site helped me' feeling that drives the click.",
+   "effort": "Low-medium. One script, one gate-safe template.",
+   "risk": "Medium on wording: a fit result is geometry, not a recommendation, and must say so; listing dimensions vary by read (F-29 style drift).",
+   "depends_on": [
+    "SG-22"
+   ],
+   "links": [
+    {
+     "label": "Google: page experience",
+     "url": "https://developers.google.com/search/docs/appearance/page-experience"
+    }
+   ],
+   "recommendation": "Accept after SG-22 puts read dates on the product blocks, so the calculator can quote its own staleness.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Client-side, listed values only, with a dated-source line",
+     "what_changes": "One input pair, five pass/fail rows, each linking to its listing.",
+     "upside": "Genuinely useful, zero data collection, defensible.",
+     "downside": "Only as fresh as the last register pass.",
+     "cost": "Low-medium",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Static printable checklist instead",
+     "what_changes": "A measure-your-counter worksheet.",
+     "upside": "No script, works offline.",
+     "downside": "Loses the direct answer.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Skip it",
+     "what_changes": "Nothing.",
+     "upside": "No maintenance.",
+     "downside": "Buyers do the arithmetic elsewhere and buy elsewhere.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-22",
+   "title": "Show the freshness of every figure on the product block, not only on the method page",
+   "theme": "Trust & authority",
+   "rank": 11,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Read dates exist in the data and on the method page, but on the product block a 2026-11-14 dimension looks identical to a figure read today. Buyers and reviewers both read that as staleness or as a claim of currency.",
+   "proposal": "A compact 'read 2026-11-14 · re-check due 2026-12-14' chip on each product block and on the calculator, driven by the register's read dates, plus a gate rule that no product fact may publish without one. Set the re-check interval as a decision (Q-P11) rather than a habit.",
+   "evidence": "F-02 and F-29 already document value drift; the register carries *_read for every field, so the chip is free.",
+   "impact": "Medium. It turns the site's real advantage into something visible in one glance.",
+   "effort": "Low. One chip component plus one gate rule.",
+   "risk": "Low.",
+   "depends_on": [
+    "Q-P11"
+   ],
+   "links": [
+    {
+     "label": "Associates Program Policies on Program Content display",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "recommendation": "Accept. It is the cheapest trust signal available and it is already computed.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Read date + re-check due chip, gate-enforced",
+     "what_changes": "Every product fact carries its date inline; stale pages fail the build.",
+     "upside": "Honest, automated, and distinctive.",
+     "downside": "Requires the cadence to actually be kept.",
+     "cost": "Low",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Read date only, no due date",
+     "what_changes": "Inline dates, no expiry rule.",
+     "upside": "No false precision.",
+     "downside": "Staleness is visible but nothing forces action.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Keep dates on the method page only",
+     "what_changes": "Nothing changes.",
+     "upside": "Cleaner cards.",
+     "downside": "The site's main differentiator stays hidden.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-27",
+   "title": "Name a publisher and an author entity the reader can contact",
+   "theme": "Trust & authority",
+   "rank": 12,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Bylines are absent and the disclosure speaks as 'we'. A reader, a reviewer and FTC guidance all expect the party with the material connection to be identifiable, and right now nobody is.",
+   "proposal": "One decision (Q-P19): an individual name, a company name, or an explicit 'editorial team of N, contact at <address>' line. Then put it in the masthead footer, the About page, Person/Organization structured data and the disclosure sentence, and add a one-paragraph correction address. No invented credentials; nothing is claimed beyond what is true.",
+   "evidence": "FTC disclosure guidance requires the connection to be clear to the reader; the Associates help page requires identifying yourself as an Associate with the Agreement's statement.",
+   "impact": "Medium-high on trust, and it removes a real compliance ambiguity.",
+   "effort": "Low once the owner answers.",
+   "risk": "Low; naming a person has privacy consequences, which is why the entity option exists.",
+   "depends_on": [
+    "Q-P19"
+   ],
+   "links": [
+    {
+     "label": "FTC: Disclosures 101 for social media influencers",
+     "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+    },
+    {
+     "label": "Amazon: why and how to identify yourself as an Associate",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE"
+    }
+   ],
+   "recommendation": "Answer Q-P19 before the next content pass; it changes copy on every page.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Named individual author plus contact address",
+     "what_changes": "Bylines on guides, Person schema, a mail address on the About page.",
+     "upside": "Strongest E-E-A-T signal available.",
+     "downside": "Personal exposure; the name becomes the brand.",
+     "cost": "Minutes after the decision",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "B",
+     "label": "Entity or team name with an editorial address",
+     "what_changes": "Organization only; the disclosure sentence says 'we' truthfully.",
+     "upside": "Privacy preserved while the party is still identifiable.",
+     "downside": "Less personal trust signal.",
+     "cost": "Minutes after the decision",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "C",
+     "label": "Stay anonymous",
+     "what_changes": "Nothing changes.",
+     "upside": "No new personal data published.",
+     "downside": "The disclosure wording question (F-P09) stays open and trust stays thin.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-28",
+   "title": "Make the comparison table filterable by constraint, not just readable",
+   "theme": "Merchandising",
+   "rank": 13,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Five rows is small enough to scan today; the moment a sixth product lands, the table becomes the thing readers abandon. The decision is also rarely 'which is best' - it is 'which of these fits my constraint'.",
+   "proposal": "Client-side filter chips over listed attributes only - format, zones, capacity band, dishwasher-safe parts, max temperature - with a live count of matching products and a visible 'no match, here is why' state that links back to the buying guide. Sort stays disabled: no ranking.",
+   "evidence": "The chooser (D-23) is the same idea in question form; the register holds every attribute the chips would use.",
+   "impact": "Medium. Mainly future-proofs the page and reduces table abandonment.",
+   "effort": "Medium. One component, one empty state.",
+   "risk": "Low, if chips never encode a judgement ('best for families' is not a chip; '2+ independent zones' is).",
+   "depends_on": [
+    "SG-15"
+   ],
+   "links": [
+    {
+     "label": "Google: qualifying outbound links",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+    }
+   ],
+   "recommendation": "Do it when the sixth product is added, not before; the register is what grows, not the need.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Wait for a sixth product",
+     "what_changes": "Nothing now.",
+     "upside": "No component to maintain for five rows.",
+     "downside": "Readers still scan the whole table.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Ship chips now",
+     "what_changes": "Filter UI on the comparison page.",
+     "upside": "Feels like a shopping tool immediately.",
+     "downside": "Thin utility at five products; risks implying a ranking by ordering.",
+     "cost": "Medium",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-01",
+   "title": "Adopt a consumer-facing brand name (after trademark clearance)",
+   "problem": "The wordmark 'Prod2' is the project's established name, not a shop name. A real brand name would help the site read as a publication and support a future domain.",
+   "proposal": "Shortlist 2-3 candidate names (e.g. 'Counter & Crisp', 'The Basket Guide', 'Crisp Ledger'), run each through a trademark search (Q-19), pick one, rename in one pass (masthead, titles, OG card), then consider a domain.",
+   "evidence": "D-18 kept the established name only because clearance (Q-19) was open; the constraint is clearance, not the name itself.",
+   "impact": "Medium — brand recall, SERP click-through, linkability.",
+   "effort": "One session once a name clears.",
+   "risk": "Trademark collision if skipped; mitigated by the clearance step.",
+   "depends_on": [
+    "Q-19"
+   ],
+   "status": "proposed",
+   "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Keep the Prod2 wordmark until a name clears",
+     "what_changes": "Nothing changes on the page; the rename stays queued.",
+     "upside": "Zero risk of a trademark collision or a half-migrated brand.",
+     "downside": "The wordmark still reads as a project codename, not a shop.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Rename now to a shortlist candidate",
+     "what_changes": "Masthead, titles, OG card and footer change in one pass; the old name stays in the URL.",
+     "upside": "Faster brand recall and a usable social handle.",
+     "downside": "Clearance (Q-19) is still open, so a collision would be discovered after publication.",
+     "cost": "One session",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Rename after clearance and move to a domain in the same pass",
+     "what_changes": "New name plus custom domain (SG-30) applied once, with redirects.",
+     "upside": "One migration instead of two; the brand and the address land together.",
+     "downside": "Blocked on the owner's domain decision (Q-P06).",
+     "cost": "One session + owner action",
+     "unlocks": "SG-30, SG-17",
+     "recommended": false
+    }
+   ],
+   "theme": "Brand",
+   "rank": 14,
+   "feeds_design_prompt": true
+  },
+  {
+   "id": "SG-33",
+   "title": "Rebuild the automation plan on the Creators API, not PA-API 5",
+   "theme": "Measurement",
+   "rank": 14,
+   "feeds_design_prompt": false,
+   "status": "proposed",
+   "problem": "Much of this project's ambition - automated product research, price reads, review analysis, generated articles - assumes the Product Advertising API. Amazon's own documentation page now states PA-API 5 is deprecated, is being replaced by the Creators API, and that calls to the old API return HTTP 403 AccessDenied.",
+   "proposal": "Rewrite the automation section of the plan and any engine documentation against the Creators API: what it returns, its display rules, its access requirements, and what still has to be done by hand. Until access exists, keep every register value dated and manual, which is what the site does today and what keeps it honest.",
+   "evidence": "Amazon's Creators API documentation and its PA-API v5 deprecation notice, both read on 2026-11-19. Recorded as flag F-P08 with the same evidence.",
+   "impact": "High for the roadmap; nothing changes on the live page either way.",
+   "effort": "Medium to plan; large to implement, and gated on access.",
+   "risk": "Low to write down; the risk is building on the deprecated path.",
+   "depends_on": [
+    "Q-P21"
+   ],
+   "links": [
+    {
+     "label": "Amazon: PA-API 5 deprecation notice",
+     "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+    },
+    {
+     "label": "Amazon: Creators API introduction",
+     "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction"
+    }
+   ],
+   "recommendation": "Accept as the automation premise before any code is written against a product API.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Plan against the Creators API; keep the manual dated register meanwhile",
+     "what_changes": "Docs and suggestion text updated; pipeline unbuilt.",
+     "upside": "No wasted implementation; the honest data path continues.",
+     "downside": "Automation stays aspirational until access lands.",
+     "cost": "Documentation pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Build a read-only cache layer now, API later",
+     "what_changes": "A store that holds dated captures with source URLs and expires on policy.",
+     "upside": "The later API plugs into something real.",
+     "downside": "Two systems to verify, and it can drift into storing Program Content improperly.",
+     "cost": "One session",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Ignore API work entirely",
+     "what_changes": "Nothing.",
+     "upside": "The site stays a hand-checked publication, which is defensible.",
+     "downside": "The stated automation goal quietly dies.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-03",
+   "title": "Build a seasonal thermometer cluster (grilling season, holiday gifts)",
+   "problem": "Half the catalog (P4/P5) has one guide only; seasonal demand for thermometers is a natural traffic window.",
+   "proposal": "Two question-shaped guides ('How accurate does a meat thermometer need to be?', 'Instant-read vs leave-in: which for which cook?') plus a gift-guide page, timed to seasons, each linked into sitemap + feed.",
+   "evidence": "The publishing-cadence requirement; the thermometer products' listing themes (grill/BBQ, stocking stuffers).",
+   "impact": "Medium-high organic potential; unmeasured until analytics exist (Q-P02).",
+   "effort": "One session per guide.",
+   "risk": "Low — content only; no new claims needed beyond listed specs.",
+   "depends_on": [
+    "Q-P04"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept after Q-P04, timed to season.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Build the thermometer cluster for the next dated window, titles only",
+     "what_changes": "Two guides plus a hub section for the thermometers; no popularity claim anywhere.",
+     "upside": "A second category pillar so the site is not one-format deep.",
+     "downside": "Seasonal framing without a dated snapshot is an unsupported claim (F-15).",
+     "cost": "One publishing pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Seasonal framing with dated official snapshots",
+     "what_changes": "Each seasonal claim cites a dated capture of an official Amazon category page.",
+     "upside": "Complies with the evidence rule and reads like an editorial calendar.",
+     "downside": "Every claim then needs re-capture each pass.",
+     "cost": "Adds upkeep to each pass",
+     "unlocks": "SG-24",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Hold until measured queries arrive",
+     "what_changes": "No new thermometer pages.",
+     "upside": "Effort goes where demand is proven.",
+     "downside": "The cluster stays thin while SG-06 is unhosted.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Editorial & SEO",
+   "rank": 15,
+   "feeds_design_prompt": true
+  },
+  {
+   "id": "SG-13",
+   "title": "Build one organic cluster per format, linked into a hub, before adding more formats",
+   "problem": "Guides link to the comparison, but each format lacks a cluster that answers the search journey from question to purchase.",
+   "proposal": "Four clusters: dual-basket, oven-style, single-basket, instant-read vs leave-in thermometer. Each cluster has one hub page, two or three question guides, and the sponsored links where the reader is ready to act. Internal links follow the rule in SG-09.",
+   "evidence": "S-24 / D-27 (internal linking rule); the existing category pages; the brief's requirement for clusters.",
+   "impact": "Medium-high for organic discovery; unmeasured until SG-06.",
+   "effort": "Medium (roughly one session per cluster).",
+   "risk": "Low; more pages mean more upkeep, which SG-09 automates.",
+   "depends_on": [
+    "SG-09"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "One hub per format, guides hanging off it",
+     "what_changes": "Four hub pages, each answering the format question first and linking its guides and the comparison.",
+     "upside": "The classic structure search engines and readers both follow.",
+     "downside": "Needs SG-09 automated or the links rot quietly.",
+     "cost": "Two passes",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Single hub for the whole site",
+     "what_changes": "One guides index only.",
+     "upside": "Cheap and coherent for a small site.",
+     "downside": "Weaker topical signal per format; the site stays one-topic thin.",
+     "cost": "One page (done as an interim)",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Editorial & SEO",
+   "rank": 15,
+   "feeds_design_prompt": true,
+   "note": "Interim hub published at guides.html on 2026-11-19 (all eight guides plus both category pillars); per-format hubs still to come."
+  },
+  {
+   "id": "SG-30",
+   "title": "Move to an owner-controlled domain, then verify Search Console on it",
+   "theme": "Operations",
+   "rank": 16,
+   "feeds_design_prompt": false,
+   "status": "proposed",
+   "problem": "Served from a GitHub Pages project path, the site has no brand address, no cookie domain for a collector, and no clean property to verify. Every growth suggestion above leans on this.",
+   "proposal": "One domain, HTTPS via Pages custom domain, base_url updated in settings, canonical/OG/sitemap/feed rebuilt, 301 from the Pages path left to GitHub, Search Console property verified, sitemap submitted. Trademark clearance (Q-19) happens before any rename so only one migration is needed.",
+   "evidence": "The site's own canonical URLs and sitemap already point at the Pages path; the base_url setting is a one-line change, which is why this is cheap.",
+   "impact": "Medium-high for any future ranking work, and it unblocks SG-06 and SG-25.",
+   "effort": "Low once the owner buys a domain.",
+   "risk": "Low; the main trap is leaving the old URLs canonical-conflicting, which the build's single base_url prevents.",
+   "depends_on": [
+    "Q-P06",
+    "Q-19"
+   ],
+   "links": [
+    {
+     "label": "Google: qualifying outbound links",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+    }
+   ],
+   "recommendation": "Do it as soon as the owner has a name decision (SG-01) - one move, not two.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Domain now, name later",
+     "what_changes": "Base URL changes; wordmark stays Prod2.",
+     "upside": "Unblocks verification while clearance continues.",
+     "downside": "A second migration when the rename lands.",
+     "cost": "Owner action",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Domain and rename in one pass",
+     "what_changes": "Both at once after Q-19 clears.",
+     "upside": "Single cutover.",
+     "downside": "Delays every measurement-dependent item by the clearance.",
+     "cost": "Owner action",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Stay on the Pages path",
+     "what_changes": "Nothing.",
+     "upside": "Zero cost.",
+     "downside": "Search Console property, endpoint cookies and brand all stay hostage.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-31",
+   "title": "One product register instead of two, with the price question settled inside it",
+   "theme": "Operations",
+   "rank": 17,
+   "feeds_design_prompt": false,
+   "status": "proposed",
+   "problem": "Two registers ship from this repository: data/p2/ (no prices, no ratings) and the preserved Countercraft data/products.json (dated 'as listed' prices). F-P06 records the disagreement. Reviewers should not have to guess which one the published page used.",
+   "proposal": "Declare data/p2/ canonical for the published site, move the price-carrying file to archive/ with a pointer, and state the rule at the top of both the method page and the register itself: values publish only from the canonical register; anything else is history, not data.",
+   "evidence": "F-P06, opened by a prior session on 2026-11-19; the one-site rule (INT-06) already covers the published output but not the data inputs.",
+   "impact": "Medium on reviewer confidence; nothing reader-facing.",
+   "effort": "Low. A move, a pointer, two sentences.",
+   "risk": "Low; archive, do not delete, per the consolidation convention.",
+   "depends_on": [
+    "Q-P15"
+   ],
+   "links": [
+    {
+     "label": "Associates Program Policies on Program Content",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "recommendation": "Accept now; it is the cheapest flag on this board to close.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "data/p2 canonical, the other archived",
+     "what_changes": "One register feeds the published site; the other is labelled history.",
+     "upside": "The disagreement disappears without deleting anything.",
+     "downside": "The archived build loses its data if it is ever revived (git history keeps it).",
+     "cost": "Low",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Publish prices from the second register too",
+     "what_changes": "Both surfaces carry dated prices.",
+     "upside": "Complete data in one place.",
+     "downside": "Overturns F-02 by side door; make it a decision (Q-27) or not at all.",
+     "cost": "Owner decision first",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Leave both as they are",
+     "what_changes": "Nothing.",
+     "upside": "No work.",
+     "downside": "F-P06 stays open and every future session re-litigates it.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-24",
+   "title": "Seasonal hubs, but only with dated official snapshots as the evidence",
+   "theme": "Editorial & SEO",
+   "rank": 18,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Seasonality is where this category actually earns traffic, and the site currently has no seasonal surface. But seasonal framing without evidence is exactly the popularity claim the project's own rule forbids.",
+   "proposal": "Two hub pages a year (gifting window, grilling window), written around use rather than hype: what people cook or give in that window, which of the five listed formats matches, and what the site can honestly say about timing. Any statement about what is popular carries a dated capture of an official Amazon category page and the capture is archived with the commit.",
+   "evidence": "F-15 and D-19 set the rule; the owner's register row for S-16 adopted it on 2026-11-16. The Air Fryers category page is the pattern for a dated capture.",
+   "impact": "Medium-high in the right weeks, near zero outside them.",
+   "effort": "One pass per season, plus capture discipline.",
+   "risk": "Medium: a stale seasonal page reads as decay; retire it on a date, don't let it linger.",
+   "depends_on": [
+    "SG-06"
+   ],
+   "links": [
+    {
+     "label": "Amazon Air Fryers category page (the kind of dated snapshot the rule allows)",
+     "url": "https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011"
+    }
+   ],
+   "recommendation": "Queue it for the first full cycle after measurement exists; do not write seasonal copy against a feeling.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Seasonal hubs with archived dated captures",
+     "what_changes": "Two timed hub pages, each with its evidence snapshot and a retirement date.",
+     "upside": "Editorial rhythm that stays honest.",
+     "downside": "Requires the capture habit to survive.",
+     "cost": "Two passes a year",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Evergreen use-frames only ('cooking for two', 'thanksgiving turkey')",
+     "what_changes": "Use-case pages with no date-bound claims.",
+     "upside": "No decay and no upkeep.",
+     "downside": "Misses the seasonal query spike.",
+     "cost": "One pass",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "No seasonal surface",
+     "what_changes": "Nothing.",
+     "upside": "Zero upkeep.",
+     "downside": "The site stays flat year-round in a category that is not.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-29",
+   "title": "A printable one-page spec sheet for the five",
+   "theme": "Reader experience",
+   "rank": 19,
+   "feeds_design_prompt": false,
+   "status": "proposed",
+   "problem": "Kitchen decisions get made on the counter, with a tape measure, on paper. No affiliate site serves that, which makes it a cheap differentiator and a shareable asset.",
+   "proposal": "A print stylesheet plus a 'Print this comparison' button on the comparison page: one page, five products, listed numbers, source dates, no images, sponsored links shown as their tagged URL in the footer of the printout so the paper path still attributes.",
+   "evidence": "Page-experience and utility guidance; the register already holds everything needed.",
+   "impact": "Low-medium on traffic, high on memorability.",
+   "effort": "Low. Print CSS and a URL list.",
+   "risk": "Low. Ensure the printed disclosure satisfies conspicuousness on paper as well.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Associates Program Policies on link and disclosure display",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "recommendation": "Accept whenever the next CSS pass happens; it is nearly free there.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Print stylesheet on the comparison page",
+     "what_changes": "One-page printout with dated sources and tagged URLs.",
+     "upside": "Genuinely useful, distinct, no new claims.",
+     "downside": "Print CSS is easy to break in later passes without a check.",
+     "cost": "Low",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "A static PDF instead",
+     "what_changes": "A hand-built PDF asset.",
+     "upside": "Controllable layout.",
+     "downside": "Goes stale on the next register pass; two sources of truth.",
+     "cost": "Minutes per pass",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-02",
+   "title": "Publish the comparison table's 'counter depth' as the lead spec",
+   "problem": "Capacity is what listings lead with, but counter depth is what buyers underestimate (the brief's counter-space thesis).",
+   "proposal": "Reorder comparison columns so counter depth and footprint lead; add a 'capacity per cm of depth' derived column with its formula shown (D-26 published the analysis; this makes it the headline).",
+   "evidence": "D-26 adopted the capacity-per-depth analysis; the counter-space guide is the site's most distinctive angle.",
+   "impact": "Medium — differentiation, matches the strongest guide.",
+   "effort": "Small (column reorder + one derived column in build).",
+   "risk": "Low. Derived values must show the formula to stay within the evidence rule.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Accept. Cheap, on-thesis.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Lead with capacity per inch of counter depth, computed and shown as a formula",
+     "what_changes": "The comparison table re-orders its columns; the analysis stays on the comparison page.",
+     "upside": "Answers the question a buyer can actually act on, from listed values only.",
+     "downside": "Only three of five products have both figures, so the column is partly blank.",
+     "cost": "Minutes (column order + note)",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Keep the current column order",
+     "what_changes": "Nothing changes.",
+     "upside": "No risk.",
+     "downside": "The most differentiating listed spec stays buried.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Merchandising",
+   "rank": 20,
+   "feeds_design_prompt": true
+  },
+  {
+   "id": "SG-05",
+   "title": "Adopt a dated-snapshot price policy",
+   "problem": "Buyers want prices; the site withholds them (F-02) because they drift faster than re-verification.",
+   "proposal": "Publish price only with a mandatory read date + 'check listing' link; checks enforce price/date pairing; re-verify at each publishing pass. Ratings stay withheld (they invite selection bias).",
+   "evidence": "F-02; D-19 shows the dated-snapshot pattern already works for popularity claims.",
+   "impact": "Medium-high conversion relevance; adds upkeep to every pass.",
+   "effort": "Medium (rule + checks + one re-verification sweep).",
+   "risk": "Medium — stale prices damage trust more than absent prices; must be automated before adoption.",
+   "depends_on": [
+    "Q-27"
+   ],
+   "status": "proposed",
+   "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Prices stay unpublished",
+     "what_changes": "Nothing changes.",
+     "upside": "No stale figure can appear; the site keeps its 'we publish what we checked' identity.",
+     "downside": "Buyers leave to find a price, which costs click-through.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Dated snapshot prices, gate-enforced",
+     "what_changes": "Each price carries a read date and the build fails if the pair is incomplete; re-read each pass.",
+     "upside": "Closer to the money: shoppers see a number and a reason to trust it.",
+     "downside": "Stale prices are worse than none; and Program Content may only be displayed per the agreement.",
+     "cost": "Gate rule + one re-read per pass",
+     "unlocks": "Q-27 answered",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Prices only from the Creators API once it exists",
+     "what_changes": "Automated fetch, cached with a timestamp; nothing manual.",
+     "upside": "Fresh figures without manual upkeep.",
+     "downside": "Depends on API access the project does not yet have (F-P08, SG-33).",
+     "cost": "Owner enrolment + API access",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Compliance",
+   "rank": 22,
+   "feeds_design_prompt": true
+  },
+  {
+   "id": "SG-07",
+   "title": "Add a 'what it's like to live with' layer once real usage exists",
+   "problem": "S-06 (hands-on content) was recorded as not adopted because nobody has tested these appliances; listings can't tell a reader what cleanup or noise is like.",
+   "proposal": "Either (a) owner supplies first-hand notes/photos for one product and the site adds a clearly-labeled experience section, or (b) keep spec-only and say so. Do not fabricate experience.",
+   "evidence": "Google's thin-affiliation policy (S-GSPAM) rewards genuine experience; the current site is honest but thinner than ideal.",
+   "impact": "High on E-E-A-T, if real.",
+   "effort": "Depends entirely on real usage.",
+   "risk": "High if faked — never do this synthetically.",
+   "depends_on": [
+    "Owner input"
+   ],
+   "status": "proposed",
+   "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "No usage layer until someone cooks with a unit",
+     "what_changes": "Guides keep saying what the listing states and stay silent about experience.",
+     "upside": "The site never implies a test that did not happen.",
+     "downside": "Readers get no first-hand texture, which is what most review sites fake.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Buy one unit for testing",
+     "what_changes": "A real test, a dated protocol, photos we own, and the verdict published with the method.",
+     "upside": "The strongest possible differentiator and a compliance-clean image source (we own the shots).",
+     "downside": "Cost and time; results must be reported even when unflattering.",
+     "cost": "Owner budget (Q-P20)",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Quote owner-supplied usage notes with attribution",
+     "what_changes": "A short attributed note per product, marked as the owner's experience.",
+     "upside": "Texture with no invented testing.",
+     "downside": "A single household is not a review panel; must be labelled as such.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Editorial & SEO",
+   "rank": 23,
+   "feeds_design_prompt": true
+  },
+  {
+   "id": "SG-04",
+   "title": "Reader email capture with consent flow",
+   "problem": "RSS is the only capture channel; a newsletter would build a returning audience.",
+   "proposal": "Add a signup form with reviewed consent + privacy text, kept clear of affiliate links (Participation Requirement 6(g)); double opt-in; no incentives tied to clicks.",
+   "evidence": "Q-47; FTC disclosure guidance travels with the channel (S-FTC1).",
+   "impact": "Medium — returning readers; but adds compliance surface.",
+   "effort": "Medium (form + consent text review + privacy note page).",
+   "risk": "Medium — privacy liability if consent text is wrong; gated on review.",
+   "depends_on": [
+    "Q-47"
+   ],
+   "status": "proposed",
+   "recommendation": "Defer until traffic exists; the compliance cost is paid before any benefit arrives.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Do not collect emails yet",
+     "what_changes": "Nothing is added.",
+     "upside": "No consent surface to maintain and no new privacy claim to defend.",
+     "downside": "No owned audience between visits.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Consented capture, first-party only",
+     "what_changes": "A single opt-in field with a written purpose and a delete path; storage outside the repo.",
+     "upside": "Repeat readers without a third-party tracker.",
+     "downside": "Needs a host for the list plus consent text (Q-47); violates nothing only if it is real.",
+     "cost": "Owner action + hosting",
+     "unlocks": "SG-14",
+     "recommended": false
+    }
+   ],
+   "theme": "Growth",
+   "rank": 24,
+   "feeds_design_prompt": false
+  },
+  {
+   "id": "SG-10",
+   "title": "Second-format expansion: one more air-fryer format page (basket accessories, liners, racks)",
+   "problem": "Adjacent accessory queries (liners, racks) are how many readers enter the category.",
+   "proposal": "A small accessories guide that links back to the three formats; only listed facts; no accessory products added to the affiliate set until their own intent records exist.",
+   "evidence": "Topic-hub structure of the publishing plan (S-13/D-17).",
+   "impact": "Medium organic potential; unmeasured (Q-P02).",
+   "effort": "One session.",
+   "risk": "Low.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Defer until measured queries confirm demand (after SG-06).",
+   "paths": [
+    {
+     "key": "A",
+     "label": "No new format pages until a product is verified for them",
+     "what_changes": "Site keeps five verified products.",
+     "upside": "Every page stays sourceable to a listing.",
+     "downside": "Topical breadth grows slowly.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Add accessories as a text-only topic",
+     "what_changes": "A guide about liners, racks and baskets framed as questions, linking only to the verified listings.",
+     "upside": "More entry points without new claims.",
+     "downside": "Cannot link to an unverified accessory without breaking the register rule.",
+     "cost": "One guide",
+     "unlocks": "",
+     "recommended": false
+    }
+   ],
+   "theme": "Editorial & SEO",
+   "rank": 26,
+   "feeds_design_prompt": false
+  }
+ ]
 }
