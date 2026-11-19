@@ -30,10 +30,11 @@
 - Front page built as a shop, not an audit (D-P08): a method promise, a five-card product rail carrying the two
   deciding figures and the date each was read, format tiles, the guide shelf, then the sourced table. The
   verification machinery is one click away rather than first.
-- **Eight** question-led guides (basket vs oven · capacity · dual vs single basket · cleanup and counter
-  space · multi-function questions · air fryer as a gift · thermometer accuracy · probe in an air fryer), a guide
+- **Nine** question-led guides (basket vs oven · capacity · dual vs single basket · cleanup and counter
+  space · multi-function questions · air fryer as a gift · thermometer accuracy · probe in an air fryer ·
+  instant-read vs leave-in), a guide
   index, a buying guide, two format pages, and a sourced comparison table with the three-question chooser (D-23), the
-  counter-space analysis (D-26) and a read date on every published figure. 26 pages in total, including an
+  counter-space analysis (D-26) and a read date on every published figure. 27 pages in total, including an
   **analysis page** (coverage matrix, capacity-to-footprint ranking, three-stage funnel, owner priority board,
   verification ledger) and a **design prompt pack** page.
 - Disclosure strip under the masthead on **every** page + footer repeat; every product link marked sponsored.

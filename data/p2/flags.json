@@ -192,6 +192,15 @@
             "evidence": "https://link.amazon/B02NbDxp3",
             "evidence_note": "Submitted link for P2; the three unrefreshed short links are listed in data/p2/intent-links.json.",
             "how_to_resolve": "Re-read all five short links in the next publishing pass. Not automated yet; a check that fails on a redirect change would close this gap."
+        },
+        {
+            "id": "F-P08",
+            "status": "open",
+            "title": "Session-8ff10f50 dimension values not re-confirmed in this pass",
+            "detail": "This session (arena/8ff10f50-prod2) could not re-read the official Amazon listings to confirm the product-table dimensions (D×W×H) and derived capacity-per-depth ratio for P1-P3 — the sandbox cannot reach amazon.com (egress is github.com, npm and PyPI only). Those values carry earlier read dates (2026-11-14) and are published with them, pending an owner re-read. Per the publication rule, values that cannot be confirmed from an official source at publishing time should be left blank and flagged rather than trusted by default; no value was inferred or filled in this pass.",
+            "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+            "evidence_note": "data/p2/products.json (dimensions_read 2026-11-14); data/p2/verification-2026-11-19.json (carried_prior_reads)",
+            "how_to_resolve": "Owner re-reads the three air-fryer listings and either re-confirms the dimensions (update read date) or blanks them and marks them unverified until confirmed."
         }
     ]
 }

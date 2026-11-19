@@ -145,6 +145,11 @@ PAGES = [
      "Eight copy-ready design briefs and the guardrails that survive any redesign: compliance "
      "constraints first, so a restyle cannot undo the disclosure.",
      "work"),
+    ("guide-instant-vs-leave-in", "guide-instant-vs-leave-in.html",
+     f"Instant-read vs leave-in: which thermometer for which cook | {BRAND}",
+     "Spot-check in a second, or watch a long cook from your phone? How an instant-read and a wireless leave-in "
+     "thermometer differ by workflow, with listed specs.",
+     "guides"),
     ("category-air-fryers", "category-air-fryers.html",
      f"Air fryers: dual-basket, toaster-oven, single-basket | {BRAND}",
      "Three air-fryer formats compared by the decision that matters — how they fit your counter and your cooking. Listed specs only, each with its source.",
@@ -193,7 +198,8 @@ PAGES = [
 
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-dual-vs-single",
              "guide-cleanup-counter-space", "guide-multifunction",
-             "guide-probe-in-air-fryer", "guide-air-fryer-gift", "guide-thermometer-accuracy"]
+             "guide-probe-in-air-fryer", "guide-air-fryer-gift", "guide-thermometer-accuracy",
+             "guide-instant-vs-leave-in"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -262,6 +268,7 @@ GUIDE_LINKS = [
     ("guide-probe-in-air-fryer.html", "A leave-in probe in an air fryer?"),
     ("guide-air-fryer-gift.html", "Air fryer as a gift: four checks"),
     ("guide-thermometer-accuracy.html", "Thermometer accuracy"),
+    ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
 ]
 
 
@@ -1029,7 +1036,8 @@ def hook_guide_shelf(_="") -> str:
     topic = {"guide-basket-vs-oven": "Air fryers", "guide-capacity": "Air fryers",
              "guide-dual-vs-single": "Air fryers", "guide-cleanup-counter-space": "Air fryers",
              "guide-multifunction": "Air fryers", "guide-air-fryer-gift": "Buying guide",
-             "guide-thermometer-accuracy": "Thermometers", "guide-probe-in-air-fryer": "Thermometers"}
+             "guide-thermometer-accuracy": "Thermometers", "guide-probe-in-air-fryer": "Thermometers",
+             "guide-instant-vs-leave-in": "Thermometers"}
     cards = []
     for gid in GUIDE_IDS:
         raw = (CONTENT / "pages" / f"{gid}.html").read_text(encoding="utf-8")
@@ -1091,7 +1099,7 @@ BAR_PAGES = {"compare.html", "products.html", "buying-guide.html", "category-air
              "category-thermometers.html", "guide-basket-vs-oven.html", "guide-capacity.html",
              "guide-dual-vs-single.html", "guide-cleanup-counter-space.html", "guide-multifunction.html",
              "guide-probe-in-air-fryer.html", "guide-air-fryer-gift.html", "guide-thermometer-accuracy.html",
-             "guides.html"}
+             "guide-instant-vs-leave-in.html", "guides.html"}
 
 
 def build_compare_bar() -> str:

@@ -2,7 +2,7 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current session: **session-arena-599eec57** (branch `arena/599eec57-prod2`)
+Current session: **session-arena-8ff10f50-prod2** (branch `arena/8ff10f50-prod2`)
 
 This is the shared task board. Each task has: a status (`unclaimed`, `in progress`,
 `done`, `needs review`), an owning session, and the files it touches. Shared outputs
@@ -17,17 +17,38 @@ session once all other tasks are done.
 
 | Task | Status | Session | Files |
 | --- | --- | --- | --- |
-| T1 — Repo review | done | session-arena-599eec57 | — |
+| T1 — Repo review | done | session-arena-8ff10f50-prod2 | — |
 | T2 — Verify the 5 submitted affiliate links (resolve + identity + price + category) | done | session-arena-599eec57 | `data/products.json`, `data/sources.json` |
 | T3 — Verify compliance sources (Agreement, Policies, ASIN definition, FTC) | done | session-arena-599eec57 | `data/sources.json` |
-| T4 — Data model + build system (data-driven static site) | in progress | session-arena-599eec57 | `data/*.json`, `scripts/build_site.py` |
-| T5 — Site generation (landing + category + comparison + guides) | in progress | session-arena-599eec57 | `scripts/build_site.py` -> `site/` |
-| T6 — Disclosure strip, `rel="sponsored"`, product-intent record, click counter | in progress | session-arena-599eec57 | `site/assets/*`, `scripts/build_site.py` |
-| T7 — Findability (sitemap, RSS, robots, unique meta, structured data) | in progress | session-arena-599eec57 | `site/sitemap.xml`, `site/rss.xml`, `site/robots.txt` |
-| T8 — Suggestions / decision portal (questions, info needed, path chooser) | in progress | session-arena-599eec57 | `data/suggestions.json`, `site/suggestions.html` |
-| T9 — Flagged for Review page | in progress | session-arena-599eec57 | `site/flagged.html` |
-| T10 — Verification gate (sources per row, rel=sponsored, disclosure, sitemap) | in progress | session-arena-599eec57 | `scripts/verify_site.py` |
-| T11 — Integration, PR, merge, GitHub Pages deploy | pending | session-arena-599eec57 | `site/`, `.github/workflows/pages.yml` |
+| T4 — Data model + build system (data-driven static site) | done | session-arena-8ff10f50-prod2 | `data/*.json`, `scripts/build_site.py`, `tools/build.py` |
+| T5 — Site generation (landing + category + comparison + guides) | done | session-arena-8ff10f50-prod2 | `scripts/build_site.py` -> `site/`; `tools/build.py` -> `docs/` |
+| T6 — Disclosure strip, `rel="sponsored"`, product-intent record, click counter | done | session-arena-8ff10f50-prod2 | `site/assets/*`, `scripts/build_site.py`, `docs/` |
+| T7 — Findability (sitemap, RSS, robots, unique meta, structured data) | done | session-arena-8ff10f50-prod2 | `site/sitemap.xml`, `site/rss.xml`, `site/robots.txt`; `docs/` |
+| T8 — Suggestions / decision portal (questions, info needed, path chooser) | done | session-arena-8ff10f50-prod2 | `data/suggestions.json`, `site/suggestions.html`; `docs/suggestions.html` |
+| T9 — Flagged for Review page | done | session-arena-8ff10f50-prod2 | `site/flagged.html`; `docs/flagged.html` |
+| T10 — Verification gate (sources per row, rel=sponsored, disclosure, sitemap) | done | session-arena-8ff10f50-prod2 | `scripts/verify_site.py`; `tools/checks.py` |
+| T11 — Integration, PR, merge, GitHub Pages deploy | done | session-arena-8ff10f50-prod2 | `.github/workflows/pages.yml`, `site/`, `docs/`, `main` |
+| T12 — Shop-like product-forward landing page | in progress | session-arena-8ff10f50-prod2 | `scripts/build_site.py` (index body), `data/articles.json` |
+| T13 — Decision-input questions + missing-info discovery list | done | session-arena-8ff10f50-prod2 | `data/open-questions.json`, `site/suggestions.html` |
+
+## Claims this turn (session-arena-8ff10f50-prod2)
+
+- **T11 (integration, PR, merge, Pages deploy):** claim the full scope. Re-verify both builds line by line, make the landing page product-forward (lead with products), confirm `pages.yml` deploys a working artifact, commit, push, open a PR from `arena/8ff10f50-prod2` to `main`, merge it, and confirm GitHub Pages deploys. Record the PR link and merge result below.
+- **T12 (shop-like landing page):** reorder the front page so products lead (featured products + buy buttons above the register), keep guides + category tiles, and keep the disclosure strip above the fold.
+- **T13 (decision-input questions):** the open-questions register and the suggestions/decision portal already exist; verified present and linked from the nav/footer.
+
+No other session has an unexpired claim on these files. If this session stops, any other session may take over an `in progress` task older than 60 minutes with no commits and must note the handoff here.
+
+## Verification boundary (this session)
+
+- Product facts, ASINs, prices and ratings in `data/products.json` were re-read from the official Amazon listings on 2026-11-19 (see `data/sources.json`). This sandbox cannot reach amazon.com (egress is limited to github.com/npm/pypi hosts), so values are taken from the dated 2026-11-19 verification records and are **not re-fetched here**. Any value that cannot be confirmed from an official source is left blank and flagged (see the Flagged for Review page). No value is inferred.
+- Compliance sources (Amazon Associates Operating Agreement, Program Policies, ASIN definition, FTC, Google Search Central) are cited from `data/sources.json` with access date 2026-11-19; links are provided for manual review.
+
+## PR / merge / deploy record (filled in after merge)
+
+| PR | What | Result |
+| --- | --- | --- |
+| #19 | Integration: product-forward landing page + transparency flag F-P08 + both builds verified + Pages deploy | Merged into `main` as merge commit `0030f90a69b53ecd226923ddd6125dc795f0b282`; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
 
 ## Task details
 
@@ -439,6 +460,69 @@ Parallel-session note: no other claim touches `data/p2/*`, `docs/`, or the root 
 | Still open (flagged, do not block) | F-P06, F-P07, F-01, F-03, F-08, F-19, F-26, F-29, F-44, F-49, F-57, F-58, F-66, F-P01, F-P04, F-P05 |
 | Follow-up | This record PR is the last action on the branch. The sandbox cannot reach `github.io` directly, so the live check used the page fetch tool. |
 
+---
+
+# Session arena/9f7a78d8-prod2 — claim (2026-11-19)
+
+Branch `arena/9f7a78d8-prod2`, based on consolidated `main` (`1b5e211`, after PR #17/#18).
+Single Arena session: it works its scope and is also the final integration pass for that
+scope, merging to `main` via a pull request. Claimed after `git pull --rebase`; no other
+session holds an active claim on the files below at claim time.
+
+**Scope (non-overlapping with the just-merged #17/#18, which touched `data/p2/*` registers +
+their generated mirror only):**
+
+| Task | Status | Session | Scope (files) | Notes |
+|---|---|---|---|---|
+| T-16 Reader-facing polish: make the front page read like a shop, not an audit | in progress | arena/9f7a78d8-prod2 | `content/pages/index.html` (copy only) | Keep masthead disclosure strip, `rel="sponsored"` links, verification surfaces reachable from nav group + footer. Copy-level; no register/price/rating changes. |
+| T-17 Publish the approved SG-03 second thermometer guide (instant-read vs leave-in) | in progress | arena/9f7a78d8-prod2 | new `content/pages/guide-instant-vs-leave-in.html`, `tools/build.py` (PAGES/GUIDE_IDS/GUIDE_LINKS), homepage guide card | Question-shaped, listing-facts-only, sourced; auto-flows to sitemap + feed. Honors D-19 banned-claim rule and F-02 (no prices/ratings). |
+| T-18 Coherence + board record + rebuild + gate + PR + merge + Pages check | pending | arena/9f7a78d8-prod2 | `data/p2/questions.json` (one sentence), `COORDINATION.md`, `docs/`, root mirror | Rebuild via `tools/build.py`; gate with `tools/checks.py` + `scripts/verify_site.py` + `npm test`. |
+
+No edit to another session's claimed files. Registers `data/p2/{products,sources,flags,
+suggestions,decisions,ledger,intent-links,verification-*}.json` are NOT edited except the one
+Q-P02 coherence sentence. Shared outputs (docs/, root mirror) change only through
+`tools/build.py` output, then are re-verified.
+
+## Record — arena/9f7a78d8-prod2 (T-16..T-18 complete, 2026-11-19)
+
+Single Arena session; worked its scope and merged to `main` via PR. All edits went through
+`tools/build.py` (source `content/pages/` + `data/p2/`), never a hand-edit of `docs/` or the root
+mirror; mirrors were regenerated and are deterministic.
+
+**What changed (reader-facing only; no product fact, price, rating or register value altered):**
+- T-16 `content/pages/index.html`: front page made shop-first — hero line, section heading and
+  the "at a glance" intro reworded toward the buyer decision; masthead disclosure strip still above
+  the fold; all "work behind it" surfaces stay reachable from the single nav group + footer.
+- T-17 New `content/pages/guide-instant-vs-leave-in.html` — "Instant-read or leave-in: which
+  thermometer for which cook", the approved SG-03 topic; listing-facts-only (P4/P5), sourced to the
+  official listings read 2026-11-19; no prices/ratings; no banned popularity claims. Registered in
+  `tools/build.py` (PAGES/GUIDE_IDS/GUIDE_LINKS) → flows to footer, `sitemap.xml`, `feed.xml`. Site now 21 pages.
+- T-18 `data/p2/questions.json` Q-P02/Q-P04 coherence (two thermometer guides now ship).
+
+**Parallel-session conflict (resolved, nothing discarded):** PR #19 (`arena/8ff10f50-prod2`) had
+independently made the landing page *product-forward* (moved the comparison table above the guide
+cards) while this session reworded the same two blocks and added a card. Rebase onto `main` conflicted
+on `content/pages/index.html` only. Resolution **kept PR #19's product-forward ordering**, applied
+this session's reworded copy, and kept the new 6th card; PR #19/#21's transparency flag
+(`data/p2/flags.json` F-P08) and all their register work were preserved. `docs/` + root rebuilt from
+the merged source.
+
+**Gates (re-run on the combined tree after merge, no diff):** `tools/checks.py` ALL PASS (21 pages,
+freshness ok) · `scripts/verify_site.py` VERIFY OK (18) · `npm test` 2/2 · CI on the PR: `test` pass,
+`verify` pass.
+
+**PR / merge / deploy:**
+- PR: https://github.com/wingbangboozle1-lang/Prod2/pull/20
+- Merge: **merged** 2026-11-19 21:49 UTC, merge commit `3cd056a` on `main` (`gh pr merge 20 --merge`).
+- Pages: `Deploy to GitHub Pages` success; `pages/builds/latest` status `built` for `3cd056a`.
+- Live verified via page fetch: homepage serves the product-forward layout, shop-voice hero, 6 guide
+  cards incl. the new thermometer guide; `guide-instant-vs-leave-in.html` serves with tagged
+  `?tag=shopnow047c-20` sponsored links, disclosure and sourced facts.
+- Note for owner: the site serves in legacy `main /` (root) mode; the directory-path edge cache can lag
+  a build by seconds — hard-refresh / query-string fetch shows the new state (confirmed here).
+- Still open (flagged, non-blocking): F-01, F-02, F-03, F-19, F-57, F-58, F-P06, F-P07, and the
+  owner-only gates Q-01 / Q-19 / Q-23 / Q-27 (Associates Central validation, trademark, endpoint host,
+  price policy). Those require account/host access this environment cannot reach and stay as decisions.
 # Session `arena/b650562d-prod2` (sess-b650562d) — claim + scope, 2026-11-19
 
 **Branch:** `arena/b650562d-prod2` from `da11cd414e9d0dd18f0e2d44854f4d976326ef26` (= `main` tip at claim time).
@@ -471,3 +555,42 @@ Sandbox egress allows only github/npm/pypi hosts over the shell, so re-reads wer
 page-fetch tool (not `curl`): each short link was followed to its final Amazon URL and the listing
 `<title>` was compared character-for-character with the register. Results recorded in
 `data/p2/verification-2026-11-19.json` under `session_b650562d`.
+
+## Completion record — sess-b650562d (2026-11-19, after merging `origin/main`)
+
+S2–S8 are done and the merge of `origin/main` (PRs #17–#22, including T-16/T-17 from
+arena/9f7a78d8-prod2) is folded in rather than overwritten:
+
+- **Suggestion portal (S2)** — all 34 items carry `theme`, two or three priced `paths`
+  (change/upside/downside/cost/unlocks), a marked recommendation and `feeds_design_prompt`;
+  `suggestions.html` renders a ranked board plus the item-by-item queue and an explicit
+  "your move" line. Nothing that changes a claim was adopted without a named path (D-P07).
+- **Questions register (S3)** — 27 items with known/missing/what-it-decides/who-answers/
+  `blocking` (12) and the conservative default, each with official links for manual review;
+  `questions.html` renders a gate table and the cards. Q-P02/Q-P04 were re-worded to the
+  nine-guide state created by this merge.
+- **Design prompt pack (S4)** — `design-prompt.html` + `data/p2/design-prompts.json`
+  (G1–G8 briefs, DP-1…DP-8 blocks, sequence, guardrails); `DESIGN_PROMPT.md` records what is
+  implemented, what changed (P4/P5 are published, D-P06) and what still waits on the queue.
+- **Reader polish (S5)** — token-first editorial CSS, 44px tap targets, dismissible sticky
+  mobile comparison bar on the 15 reader pages, product rail + format tiles + guide shelf on the
+  front page (D-P08), read-date chips on cards and in the comparison table.
+- **Guides (S6)** — three new guides (dual vs single basket, leave-in probe in an air fryer,
+  air fryer as a gift) plus a `guides.html` index; T-17's instant-read vs leave-in guide is kept,
+  so the shelf now renders nine guides and the nav/footer lists them.
+- **Analysis page (S7)** — coverage matrix, capacity-to-footprint ranking, three-stage funnel,
+  flag stats, owner priority board (from `data/p2/decision-priority.json`) and the dated
+  verification ledger (`data/p2/verification-log.json`).
+- **Gates (S8)** — `tools/checks.py` grew an `editorial` section (dated figures on the register
+  tables, filler-phrase lint) and an in-page anchor check; `tools/build.py` grew seven analysis
+  hooks and three shop hooks. 27 pages, `build + checks` green, `scripts/verify_site.py` and
+  `npm test` green.
+- **Re-verification** — all five short links re-resolved from this sandbox on 2026-11-19
+  (5/5 match the register; no `tag=` on any resolved URL, so F-03 stands). Note for the board:
+  **F-P08's premise is now stale** — this session's fetch tool did reach amazon.com and re-read
+  the listings, so the 'sandbox cannot reach amazon.com' caveat no longer explains the flag;
+  the flag itself stays open because it is the register's own read-date caveat, and only an
+  owner decision (Q-P11) can set the cadence that closes it. Not edited here beyond this note.
+- **Handoff** — RR-5/RR-6 stand: PR #16 was closed by another session (no longer in `gh pr list`),
+  so the root-mirror clobber hazard is retired; the `site/` Countercraft build and the `docs/`
+  publication still coexist per INT-06/INT-07 and neither was touched beyond regeneration.

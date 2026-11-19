@@ -79,7 +79,7 @@ python3 analytics-endpoint/server.py --port 8787
 ## Test count
 
 `tools/checks.py` runs **9 check sections** covering 70+ individual assertions across
-26 pages. The engine has no other entry points; everything the site publishes flows
+27 pages. The engine has no other entry points; everything the site publishes flows
 through the build and the gate. The build also mirrors `docs/` to the repository root because
 this repo's Pages is in legacy root mode (INT-07) — the mirror is purged and rewritten on every
 build, so hand-edits to root copies of generated pages are lost by design.
