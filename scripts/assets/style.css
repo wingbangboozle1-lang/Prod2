@@ -1,4 +1,4 @@
-/* Countertop Journal: plain, readable, no external fonts or scripts. */
+/* Counter Notes: plain, readable, no external fonts or scripts. */
 :root {
   --paper: #faf7f2;
   --card: #ffffff;
@@ -117,3 +117,16 @@ table.data td .buy { margin-top: 6px; min-height: 36px; font-size: 14px; width: 
   .dek { font-size: 17px; }
   table.data { min-width: 560px; }
 }
+
+/* Ported guide classes (from the Counter Notes v1 guides) */
+.page-hero { padding: 12px 0 8px; }
+.page-hero h1 { font-size: clamp(28px, 4vw, 38px); }
+.eyebrow { margin: 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 700; }
+.page-hero p { font-size: 18px; color: #3d3831; max-width: 720px; }
+.callout { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin: 18px 0; }
+.criteria { display: grid; gap: 12px; margin: 14px 0; }
+.criterion { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+.criterion p { margin: 4px 0; font-size: 16px; }
+.criterion-q { font-weight: 700; font-family: Georgia, serif; font-size: 17px !important; }
+.criterion .label { color: var(--muted); font-size: 14px; font-weight: 600; }
+.content h2 { margin-top: 30px; }

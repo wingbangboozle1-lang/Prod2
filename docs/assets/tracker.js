@@ -1,5 +1,5 @@
 /*
- * Outbound-click counter for Countertop Journal.
+ * Outbound-click counter for Counter Notes.
  *
  * Privacy posture:
  *  - No cookies, no local storage, no fingerprinting, no third-party scripts.

@@ -17,7 +17,7 @@ DATA = json.loads((ROOT / "data" / "products.json").read_text(encoding="utf-8"))
 BASE = "https://wingbangboozle1-lang.github.io/Prod2/"
 TRACK = DATA["tracking_id"]
 FETCHED = DATA["fetched_on"]
-SITE_NAME = "Countertop Journal"  # working name (FR-12)
+SITE_NAME = "Counter Notes"  # brand taken from PR #1 on main; owner to confirm (FR-12)
 PRODUCTS = DATA["products"]
 FLAGS = DATA["flags"]
 BY_ID = {p["id"]: p for p in PRODUCTS}
@@ -229,121 +229,72 @@ def write_page(path, title, desc, body, jsonld=None):
 AIR = [p for p in PRODUCTS if p["category"] == "air-fryers"]
 THERMO = [p for p in PRODUCTS if p["category"] == "meat-thermometers"]
 
-GUIDES = [
-    {
-        "slug": "basket-or-oven-style-air-fryer-what-to-compare",
-        "title": "Basket or oven-style air fryer: what should you compare?",
-        "desc": "Working-title guide: the questions to answer before choosing between a basket air fryer and an oven-style air fryer, with the listing spec each product states.",
-        "blurb": "Two designs show up in the listings we checked. This guide lists what to compare before choosing.",
-        "body": """
-<p>Two designs show up in the listings we checked: a basket air fryer, and a countertop air-fryer oven with a door. The listing titles name the form. They do not say which one suits a given kitchen, and this guide does not rank them.</p>
-<h2>What the listings say</h2>
-<ul>
-  <li><strong>{P01}</strong>: “2 Independent 3Qt” baskets, as printed in the title.</li>
-  <li><strong>{P02}</strong>: “24 One-Touch Preset Options” and “Six Cooking Accessories Included”, as printed.</li>
-  <li><strong>{P03}</strong>: “4-in-1” with a “450°F Hi-Fry Option”, as printed.</li>
-</ul>
-<h2>Questions to answer before you compare</h2>
-<ol>
-  <li>How many people do you cook for, and do you cook two dishes at once? Two baskets and a single chamber are different layouts, and we have not tested either.</li>
-  <li>How much counter depth and door clearance do you have? We did not extract listing dimensions (<a href="flagged.html#FR-08">FR-08</a>), so measure your space and read the dimensions section on each listing yourself.</li>
-  <li>Which functions do you actually use: air fry, bake, broil, dehydrate, toast? Check the function list on each listing, not the number of presets.</li>
-  <li>Who will clean it, and which parts does the listing describe as dishwasher-safe?</li>
-</ol>
-<h2>What we cannot tell you</h2>
-<p>We have not tested these appliances, and no ratings or performance results appear on this site. Anything printed on a listing is the seller’s or manufacturer’s statement, not ours.</p>
-""",
-        "links": ["air-fryers.html", "products.html", "guides/air-fryer-capacity-checklist.html",
-                  "guides/cleanup-and-counter-space-tradeoffs.html",
-                  "guides/multi-function-kitchen-appliance-questions.html"],
-    },
-    {
-        "slug": "air-fryer-capacity-checklist",
-        "title": "A no-hype checklist for comparing air fryer capacity",
-        "desc": "Working-title guide: a plain checklist for reading air fryer capacity figures as listed, with the capacity printed on each listing we checked.",
-        "blurb": "A checklist for reading capacity figures as the listing states them.",
-        "body": """
-<p>Capacity figures are the first thing people compare, and they are easy to misread. This checklist keeps to what the listings state.</p>
-<h2>How the listings state capacity</h2>
-<ul>
-  <li><strong>{P01}</strong>: “6 Quart Dual Basket” in the title, with “2 Independent 3Qt” baskets. The title gives a total figure and a per-basket figure. Read both as stated.</li>
-  <li><strong>{P02}</strong>: “26QT” in the title.</li>
-  <li><strong>{P03}</strong>: “8 Qt” in the title.</li>
-</ul>
-<h2>Checklist</h2>
-<ol>
-  <li>Use one unit. Compare quarts with quarts, not with litres from another listing.</li>
-  <li>Check whether a figure is per basket or total.</li>
-  <li>Compare the figure each listing states. Do not assume two brands measure capacity the same way.</li>
-  <li>Think about the food you cook most, and how many batches you would need.</li>
-  <li>Check the dimensions on the listing (we did not extract them; <a href="flagged.html#FR-08">FR-08</a>) before you assume a larger number fits your counter.</li>
-</ol>
-<h2>What this guide does not do</h2>
-<p>It does not say a capacity is “enough” for any household, and it does not rank these products.</p>
-""",
-        "links": ["air-fryers.html", "products.html", "guides/basket-or-oven-style-air-fryer-what-to-compare.html",
-                  "guides/cleanup-and-counter-space-tradeoffs.html",
-                  "guides/multi-function-kitchen-appliance-questions.html"],
-    },
-    {
-        "slug": "cleanup-and-counter-space-tradeoffs",
-        "title": "How to assess cleanup and counter-space trade-offs",
-        "desc": "Working-title guide: questions for weighing cleanup and counter space before buying an air fryer, with the cleanup features each listing prints.",
-        "blurb": "Cleanup and counter space: the trade-offs to write down before you buy.",
-        "body": """
-<p>Cleanup and counter space decide whether an appliance gets used. This guide lists what to check, and what the listings say.</p>
-<h2>Cleanup, as the listings state it</h2>
-<ul>
-  <li><strong>{P01}</strong>: “Dishwasher Safe Frying Baskets” in the title.</li>
-  <li><strong>{P03}</strong>: “XL Nonstick Dishwasher-Safe Basket” in the title.</li>
-  <li><strong>{P02}</strong>: “Six Cooking Accessories Included” in the title. The title does not say the accessories are dishwasher-safe, so check the listing before you assume it.</li>
-</ul>
-<h2>Counter space</h2>
-<p>We did not extract listing dimensions (<a href="flagged.html#FR-08">FR-08</a>), so no size comparison is made here. Measure your counter depth and the clearance the appliance needs, then compare with the dimensions section of each listing.</p>
-<h2>Trade-offs to write down</h2>
-<ol>
-  <li>How often will you use it? Daily use changes how much cleaning effort matters.</li>
-  <li>Where will it live? A permanent spot and a cupboard-stored appliance need different footprints.</li>
-  <li>Will accessories fit in your dishwasher, and will they fit in a cupboard once stored?</li>
-  <li>Does the manufacturer’s manual ask for clear space around the appliance? Check the manual, not only the listing.</li>
-</ol>
-""",
-        "links": ["air-fryers.html", "products.html", "guides/basket-or-oven-style-air-fryer-what-to-compare.html",
-                  "guides/air-fryer-capacity-checklist.html",
-                  "guides/multi-function-kitchen-appliance-questions.html"],
-    },
-    {
-        "slug": "multi-function-kitchen-appliance-questions",
-        "title": "Questions to ask before buying a multi-function kitchen appliance",
-        "desc": "Working-title guide: questions to ask before buying a multi-function kitchen appliance, using the function, preset and accessory claims printed on the listings.",
-        "blurb": "Function lists, presets and accessories: the questions to ask before you buy.",
-        "body": """
-<p>Multi-function appliances list many functions. The useful question is which of them you will use. This guide shows the claims printed on the listings so you can check them.</p>
-<h2>Claims printed on the listings</h2>
-<ul>
-  <li><strong>{P02}</strong>: “24 One-Touch Preset Options” and “Six Cooking Accessories Included”.</li>
-  <li><strong>{P03}</strong>: “Bake, Dehydrate, Frozen” and a “450°F Hi-Fry Option”.</li>
-</ul>
-<h2>Questions to ask</h2>
-<ol>
-  <li>Which functions will you use each week? Write them down before you look at preset counts.</li>
-  <li>Does the maximum temperature on the listing cover the dishes you cook? Check the number on the listing.</li>
-  <li>Which accessories come in the box, and which would you have to buy separately?</li>
-  <li>What does the warranty cover? We did not verify warranty terms; read the manufacturer’s statement on the listing.</li>
-  <li>Does the appliance fit your counter and your storage space? See <a href="guides/cleanup-and-counter-space-tradeoffs.html">the cleanup and counter-space guide</a>.</li>
-</ol>
-<h2>On claims</h2>
-<p>A printed claim is a claim, not a test result. We have not verified the functions, temperatures or accessory counts beyond what the listing titles state.</p>
-""",
-        "links": ["air-fryers.html", "products.html", "guides/basket-or-oven-style-air-fryer-what-to-compare.html",
-                  "guides/air-fryer-capacity-checklist.html",
-                  "guides/cleanup-and-counter-space-tradeoffs.html"],
-    },
-]
+ARCHIVE_GUIDES = ROOT / "archive" / "counter-notes-v1" / "guides"
+GUIDE_SLUGS = ["basket-or-oven", "capacity-checklist", "cleanup-and-space", "questions-before-buying"]
+STALE_SENTENCES = {
+    "We have not verified or tested the five submitted product links.":
+        'We have resolved the five submitted short links to Amazon listings, but have not confirmed which products were intended or tested them (<a href="../flagged.html#FR-02">FR-02</a>).',
+    "We have not verified the identity or destination of the submitted short links.":
+        'We have resolved the five submitted short links to Amazon listings, but have not confirmed which products were intended (<a href="../flagged.html#FR-02">FR-02</a>).',
+}
 
-GUIDE_TOKENS = {"{P01}": "Chefman 6-quart dual-basket air fryer",
-                "{P02}": "Emeril Lagasse 26QT French door air fryer toaster oven",
-                "{P03}": "Chefman 8-quart TurboFry air fryer"}
+
+def criteria_tables_to_blocks(fragment):
+    """Guide checklists are criteria, not data. Render them as labelled blocks, not table rows,
+    so the data-row source rule applies only to real data tables. Text is unchanged."""
+    def convert(m):
+        table = m.group(0)
+        headers = [re.sub(r"<[^>]+>", "", h).strip() for h in re.findall(r"<th[^>]*>(.*?)</th>", table, re.S)]
+        rows = re.findall(r"<tr[^>]*>(.*?)</tr>", table, re.S)
+        blocks = []
+        for r in rows:
+            cells = re.findall(r"<td[^>]*>(.*?)</td>", r, re.S)
+            if not cells:
+                continue
+            parts = []
+            for i, c in enumerate(cells):
+                label = headers[i] if i < len(headers) else ""
+                text = c.strip()
+                if i == 0:
+                    parts.append(f'<p class="criterion-q">{text}</p>')
+                else:
+                    parts.append(f'<p><span class="label">{label}:</span> {text}</p>')
+            blocks.append('<div class="criterion">' + "".join(parts) + "</div>")
+        return '<div class="criteria">' + "".join(blocks) + "</div>"
+    return re.sub(r"<table[^>]*>.*?</table>", convert, fragment, flags=re.S)
+
+
+def load_guides():
+    """Load the four guides written by session d12d2304 (archived v1 copies), keeping their text.
+
+    Only the two sentences that predate the 2026-11-19 link resolution are updated.
+    """
+    out = []
+    for slug in GUIDE_SLUGS:
+        src = (ARCHIVE_GUIDES / (slug + ".html")).read_text(encoding="utf-8")
+        h_title = html.unescape(re.search(r"<title>(.*?)</title>", src, re.S).group(1)).split(" | ")[0].strip()
+        desc = html.unescape(re.search(r'<meta name="description" content="([^"]*)"', src).group(1))
+        main = re.search(r"<main[^>]*>(.*?)</main>", src, re.S).group(1)
+        hits = 0
+        for old, new in STALE_SENTENCES.items():
+            if old in main:
+                main = main.replace(old, new)
+                hits += 1
+        assert hits == 1, f"{slug}: expected one stale sentence, found {hits}"
+        main = criteria_tables_to_blocks(main)
+        h1 = re.search(r"<h1>(.*?)</h1>", main, re.S).group(1)
+        out.append({"slug": slug, "title": h_title, "h1": html.unescape(re.sub(r"<[^>]+>", "", h1)).strip(),
+                    "desc": desc, "body": main})
+    return out
+
+
+GUIDES = load_guides()
+GUIDE_LINKS = {
+    "basket-or-oven": ["air-fryers.html", "products.html"],
+    "capacity-checklist": ["air-fryers.html", "products.html"],
+    "cleanup-and-space": ["air-fryers.html", "products.html"],
+    "questions-before-buying": ["air-fryers.html", "products.html"],
+}
 
 
 def fix_guide_paths(fragment):
@@ -361,12 +312,8 @@ def fix_guide_paths(fragment):
 
 
 def guide_body(g):
-    body = g["body"]
-    for tok, name in GUIDE_TOKENS.items():
-        pid = {"{P01}": "P01", "{P02}": "P02", "{P03}": "P03"}[tok]
-        p = BY_ID[pid]
-        body = body.replace(tok, f'<a href="{esc(p["official_listing_url"])}" rel="sponsored noopener">{esc(name)}</a>')
-    return fix_guide_paths(body)
+    # Ported bodies already use links relative to guides/; do not rewrite them.
+    return g["body"]
 
 
 def guide_href(target):
@@ -394,7 +341,7 @@ def build():
 
     # ---------------- Home (front page)
     cards = "".join(product_card(p) for p in PRODUCTS)
-    guide_cards = "".join(guide_card("guides/" + g["slug"] + ".html", g["title"], g["blurb"]) for g in GUIDES)
+    guide_cards = "".join(guide_card("guides/" + g["slug"] + ".html", g["h1"], g["desc"]) for g in GUIDES)
     home = f"""
 <section class="hero">
   <p class="kicker">Front page · working edition</p>
@@ -435,7 +382,7 @@ def build():
   <p class="note"><a href="analysis.html">Full analysis and build status</a> · <a href="products.html">full product table</a> · <a href="executive-summary.html">executive summary</a></p>
 </section>
 """
-    write_page("index.html", "Countertop Journal: air fryers and meat thermometers, with listing sources",
+    write_page("index.html", "Counter Notes: air fryers and meat thermometers, with listing sources",
                "Five Amazon products for air fryers and meat thermometers, each with its listing source, observed ASIN, and what is still unverified.",
                home,
                {"@context": "https://schema.org", "@type": "WebSite", "name": SITE_NAME, "url": BASE,
@@ -456,10 +403,7 @@ def build():
 <section>
   <h2 class="section-h">Questions before you choose</h2>
   <ul class="plain">
-    <li><a href="guides/basket-or-oven-style-air-fryer-what-to-compare.html">Basket or oven-style: what should you compare?</a></li>
-    <li><a href="guides/air-fryer-capacity-checklist.html">A checklist for comparing capacity</a></li>
-    <li><a href="guides/cleanup-and-counter-space-tradeoffs.html">Cleanup and counter-space trade-offs</a></li>
-    <li><a href="guides/multi-function-kitchen-appliance-questions.html">Questions before a multi-function appliance</a></li>
+    {"".join(f'<li><a href="../guides/{g["slug"]}.html">{esc(g["h1"])}</a></li>'.replace("../guides/", "guides/") for g in GUIDES)}
   </ul>
 </section>
 """
@@ -515,27 +459,27 @@ def build():
                prod_body)
 
     # ---------------- Guides
-    gcards = "".join(guide_card(g["slug"] + ".html", g["title"], g["blurb"]) for g in GUIDES)
+    gcards = "".join(guide_card(g["slug"] + ".html", g["h1"], g["desc"]) for g in GUIDES)
     write_page("guides/index.html", "Guides: questions to answer before buying an air fryer",
-               "Four working-title guides on air fryer comparison, capacity, cleanup and multi-function appliances, each linked to its category and product table.",
+               "Four guides on air fryer comparison, capacity, cleanup and multi-function appliances, each linked to its category and product table.",
                f"""<section class="hero compact"><p class="kicker">Guides</p><h1>Questions to answer before you buy</h1>
-<p class="dek">Four working-title guides. Each lists what to compare, quotes what the listings state, and says what we have not verified.</p></section>
+<p class="dek">Four guides. Each lists what to compare, quotes what the listings state, and says what we have not verified.</p></section>
 <section><div class="grid">{gcards}</div></section>
 <section><p class="note">Working titles are editorial hypotheses, not claims about popularity or search volume (<a href="../flagged.html#FR-13">FR-13</a>).</p></section>""")
 
     for g in GUIDES:
         path = "guides/" + g["slug"] + ".html"
+        others = [("guides/" + o["slug"] + ".html") for o in GUIDES if o["slug"] != g["slug"]]
+        links = GUIDE_LINKS[g["slug"]] + others
         body = f"""
 <article class="article">
-  <p class="kicker">Guide · working title · added {esc(FETCHED)}</p>
-  <h1>{esc(g["title"])}</h1>
-  <p class="byline">By the Editorial team (no named author supplied, <a href="../flagged.html#FR-11">FR-11</a>)</p>
   {guide_body(g)}
-  <p class="note">Product names link to the Amazon listing they describe. Data as checked {esc(FETCHED)}.</p>
-  {related(g["links"])}
+  <p class="note">Editorial team byline; no named author supplied (<a href="../flagged.html#FR-11">FR-11</a>). Links to Amazon open the listing they describe. Listings checked {esc(FETCHED)}.</p>
+  {related(links)}
 </article>"""
-        write_page(path, g["title"], g["desc"], body,
-                   jsonld_article(g["title"], g["desc"], path, FETCHED))
+        title = f'{g["title"]} | {SITE_NAME}'
+        write_page(path, title, g["desc"], body,
+                   jsonld_article(g["h1"], g["desc"], path, FETCHED))
 
     # ---------------- Analysis
     findings = [
@@ -557,13 +501,13 @@ def build():
         ["Special Link validation per product (brief)", "Not done: owner test required (FR-03)", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 1")],
         ["Privacy-preserving outbound-click counter", "Partial: client-side event, nothing transmitted (FR-09)", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decision log (internal)")],
         ["Self-hosted analytics endpoint and five defined events", "Not implemented: no server on GitHub Pages; 1 of 5 events defined (FR-09)", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decision log (internal)")],
-        ["Question-shaped guides (S-07, S-13)", "Partial: four working titles", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content")],
+        ["Question-shaped guides (S-07, S-13)", "Implemented: four guides from PR #1, texts kept; no measured query data (FR-13)", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content")],
         ["Sitemap and RSS feed for each guide", "Implemented; search-console submission owner action (FR-10)", link("https://developers.google.com/search/docs/appearance/page-experience", "Google: page experience (cited)")],
         ["Structured data (S-09)", "Partial: JSON-LD on category and guide pages; no social preview image", link("https://developers.google.com/search/docs/appearance/page-experience", "Google: page experience (cited)")],
         ["Product photography (S-18)", "Not implemented: decision needed (FR-07)", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 1")],
         ["Three-question chooser above the table (S-19)", "Not implemented: awaiting option choice (SUG-07)", link("https://www.amazon.com/dp/B0CDY277D3", "B0CDY277D3 listing")],
         ["Counter-space analysis (S-23)", "Not implemented: dimensions not extracted (FR-08)", link("https://www.amazon.com/dp/B0CDY277D3", "B0CDY277D3 listing")],
-        ["Authorship, navigation and brand (publication polish)", "Partial: navigation and footer done; no named author; brand working name (FR-11, FR-12)", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content")],
+        ["Authorship, navigation and brand (publication polish)", "Partial: navigation and footer done; no named author; brand from PR #1, not yet confirmed (FR-11, FR-12)", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content")],
         ["Measurement ledger, empty until first-party reports exist", "Implemented as empty", link("https://affiliate-program.amazon.com/help/operating/policies", "Associates Program Policies (Commission Income Statement)")],
         ["Verification gate in the workflow (disclosure, sponsored links, links, claims)", "Implemented: scripts/verify_site.py; GitHub Actions workflow", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 5")],
     ]
@@ -597,7 +541,7 @@ def build():
         ["Q-06", "Which guide topics do people search for?", "Working titles only.", "Measured query data from first-party sources.", "Search Console queries after verification, and site analytics once the endpoint decision is made.", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content"), "FR-10, FR-13"],
         ["Q-07", "Where will analytics run, and what do the five events mean?", "One event (outbound_click) is built, with nothing sent.", "Hosting decision and the definitions of the other four events.", "Owner names the events; hosting is chosen; a consent review is done.", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decision log (internal)"), "FR-09"],
         ["Q-08", "Who is the author?", "Byline is “Editorial team”.", "A named person, or a decision to publish as a team.", "Owner decision.", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content"), "FR-11"],
-        ["Q-09", "What is the brand name?", "Working name: Countertop Journal.", "Decision.", "Owner decision; check trademark availability before adoption.", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decision log (internal)"), "FR-12"],
+        ["Q-09", "What is the brand name?", "Working name: Counter Notes (from PR #1), not yet confirmed.", "Decision.", "Owner decision; check trademark availability before adoption.", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decision log (internal)"), "FR-12"],
         ["Q-10", "Are product photos allowed, and from where?", "No photos used.", "Image source and licence.", "Owner decision; Program Content terms apply to Amazon images.", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 1"), "FR-07"],
         ["Q-11", "Does the disclosure wording meet current FTC guidance?", "Associates wording verified verbatim; FTC page checked (dated November 2019).", "Counsel review of current FTC guidance and placement.", "Counsel review.", link("https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers", "FTC: Disclosures 101"), "FR-14"],
         ["Q-12", "How often should new guides be published?", "No cadence has been set.", "Owner choice of cadence.", "Decision recorded in Suggestions.", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content"), "SUG-05"],
@@ -635,7 +579,7 @@ def build():
             ("C", "No fixed cadence; publish when a question is confirmed by first-party data."),
         ], "Argument: C until Search Console data exists (FR-10). A fixed cadence would be a choice, not evidence."),
         ("SUG-06", "Brand name", [
-            ("A", "Keep “Countertop Journal”."),
+            ("A", "Keep “Counter Notes” (PR #1 name)."),
             ("B", "Choose a new name, after a trademark check."),
         ], "Argument: decide after the trademark check. The name is a working name only (FR-12)."),
         ("SUG-07", "Three-question chooser above the comparison tables (S-19)", [
@@ -784,13 +728,13 @@ def build():
   <h2>Reader data</h2>
   <p>The site sets no cookies and loads no third-party analytics or tracking script. Outbound clicks are counted only in the page’s own memory and sent nowhere until an endpoint is chosen (<a href="flagged.html#FR-09">FR-09</a>). Our hosting provider, GitHub Pages, keeps its own standard server logs, which we do not control.</p>
 </article>"""
-    write_page("about.html", "About Countertop Journal: editorial team, affiliate disclosure and checking method",
+    write_page("about.html", "About Counter Notes: editorial team, affiliate disclosure and checking method",
                "About the site: who writes it, the Associates disclosure, how each product row is checked, and what reader data is collected.",
                about_body)
 
     # ---------------- 404
-    write_page("404.html", "Page not found: Countertop Journal",
-               "This page does not exist. Return to the Countertop Journal front page.",
+    write_page("404.html", "Page not found: Counter Notes",
+               "This page does not exist. Return to the Counter Notes front page.",
                '<section class="hero compact"><h1>Page not found</h1><p class="dek">Try the <a href="index.html">front page</a>, or see the <a href="products.html">product table</a>.</p></section>')
 
     write_feeds_and_sitemap()
@@ -801,7 +745,7 @@ def write_feeds_and_sitemap():
     items = ""
     for g in GUIDES:
         items += f"""  <item>
-    <title>{esc(g["title"])}</title>
+    <title>{esc(g["h1"])}</title>
     <link>{BASE}guides/{g["slug"]}.html</link>
     <guid isPermaLink="true">{BASE}guides/{g["slug"]}.html</guid>
     <pubDate>{today_rfc}</pubDate>

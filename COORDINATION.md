@@ -20,7 +20,8 @@ Statuses: `unclaimed` · `in progress` · `done` · `needs review`. Items marked
 | T9 Executive summary, analysis, sources | done | f2613c86 | `docs/executive-summary.html`, `docs/analysis.html`, `docs/sources.html` | |
 | T10 Verification gate and CI | done | f2613c86 | `scripts/verify_site.py`, `.github/workflows/verify.yml` | Runs on push and pull request. |
 | T11 Publish to GitHub Pages | in progress | f2613c86 | repo Pages setting (source: main `/docs`) | Set after merge. Status recorded below. |
-| T12 Integration: merge, re-verify, PR, merge to main | in progress | f2613c86 | all | PR and merge result recorded below. |
+| T12 Integration with PR #1 (session d12d2304): one site, one brand, one Pages source | in progress | f2613c86 | all | Conflicts in COORDINATION.md and README.md resolved (see Handoffs). PR and merge result recorded below. |
+| T13 Port the four PR #1 guides into the generated site | done | f2613c86 | `archive/counter-notes-v1/`, `scripts/build_site.py`, `docs/guides/` | Texts kept; two sentences about the short links updated to match the 2026-11-19 resolution. Original root site archived, not deleted. |
 
 ## Sources (official unless labelled)
 
@@ -55,15 +56,57 @@ See the Flagged for Review page (`docs/flagged.html`) for the full list with sou
 
 ## Handoffs and conflicts
 
-- No other session has claimed a task on this repository. No merge conflicts occurred.
+- **Conflict, 2026-11-19:** session `arena/d12d2304-prod2` merged PR #1 to `main` while this session was working. It had published a product-free site ("Counter Notes") at the repository root and a Pages workflow for `main`. The overlap was in `COORDINATION.md` and `README.md` (add/add conflicts).
+- **Resolution:** nothing was discarded. (a) Their root site moved, unchanged, to `archive/counter-notes-v1/` (`git mv`, history kept). (b) Their four guide texts were ported into the generated site with their wording; only two sentences that predated the 2026-11-19 link resolution were updated. (c) Their brand "Counter Notes" was kept, so the site has one name. (d) Their `pages.yml` was kept and changed to publish only the generated `docs/` folder, after the verify gate. (e) Their board and log are reproduced verbatim below.
+- **Superseded in part:** their `evidence.html` says the five short links were not yet resolved. That was accurate before this session. The generated `products.html`, `analysis.html` and `flagged.html` replace it.
+- **Disclosure line:** their header said product links are published "only after destination and tracking checks". Product buttons on the generated site go live before the Special Link test (FR-03). The generated disclosure does not repeat that promise. Owner decision: SUG-02.
 - The brief's `session-<id>/<task>` branch naming conflicts with the session branch rule; the session branch is used.
 
 ## Pull request and merge
 
-- PR: _to be recorded after creation_
-- Merge result: _to be recorded after merge_
-- Pages: _to be recorded after deploy_
+- PR: https://github.com/wingbangboozle1-lang/Prod2/pull/2 (opened by f2613c86, base `main`)
+- Merge result: _recorded in the final commit on this branch after the merge_
+- Pages: _recorded in the final commit on this branch after the deploy check_
 
 ## Log
 
-- 2026-11-19: Claimed T1 to T12 (session f2613c86). Repository contained only README.md; all content built in this session.
+- 2026-11-19: Claimed T1 to T12 (session f2613c86). Repository contained only README.md at base; all content built in this session.
+- 2026-11-19: PR #2 opened from `arena/f2613c86-prod2`. Merge refused (conflict) because PR #1 (session d12d2304) had been merged to `main` in the meantime. Resolved as above; see Handoffs.
+- 2026-11-19: CI `verify-site` passed on the pre-merge commit. It is re-run on the resolved branch.
+
+---
+
+## History: session arena/d12d2304-prod2 (verbatim from `main` at commit 7e39a59, PR #1)
+
+
+This repository initially contained only a minimal README and no prior coordination board. Work was performed on the Arena-assigned branch `arena/d12d2304-prod2`; branch names are fixed by the workspace. No other session claims were present at initial inspection.
+
+| Task | Status | Owner | Files in scope | Notes |
+|---|---|---|---|---|
+| Create a publication-style, evidence-conscious affiliate site and decision-support pages | done | arena/d12d2304-prod2 | `index.html`, `suggestions.html`, `evidence.html`, `guides/`, `assets/`, `.github/workflows/`, `README.md`, `COORDINATION.md`, `feed.xml`, `sitemap.xml`, `robots.txt` | Static publication, decision room, source register, feed, sitemap, and Pages workflow added. Deployment still requires checking GitHub Pages settings and workflow. |
+
+## Verification / handoff log
+
+### Evidence boundaries and irregularities
+
+- The five user-provided `https://link.amazon/...` URLs are opaque short links. Their intended products, ASINs, official listing URLs, destination behavior, Special Link compliance, and tracking report status have not been verified. Their path tokens are not treated as ASINs; the submitted URL/source, intended product fields, and observed redirect field are separate. No conclusion that the supplied links are invalid is made.
+- No product-level specifications, pricing, ratings, reviews, popularity, commission, conversion, or revenue assertions are included. Guides are decision frameworks, not hands-on testing or product recommendations.
+- No analytics endpoint, Search Console property, or report data exists in this repository. The five event names are proposed only; the campaign ledger remains empty. A privacy-reviewed backend and account/property setup are required.
+- Site canonical URLs target the expected GitHub Pages project address `https://wingbangboozle1-lang.github.io/Prod2/`; this is a deployment assumption pending confirmation of the actual Pages origin/custom domain.
+- Original product photos were not available. No stock, copied, or generated product photography was used; the front-page abstract editorial illustration is CSS.
+
+### Official-source checks performed 2026-11-19
+
+- Amazon Associates Operating Agreement: https://affiliate-program.amazon.com/help/operating/agreement — fetched current page; it states the Associates links must use provided tagged Special Link formats and section 5 gives the Associate identification statement. Page indicated updated October 15, 2025.
+- Amazon Associates Program Policies: https://affiliate-program.amazon.com/help/operating/policies — fetched current page; page indicated updated April 14, 2026. It incorporates the policies by reference into the Agreement.
+- FTC Disclosures 101: https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers — fetched official FTC page, including disclosure visibility/clarity and no claims about experiences with products not tried.
+- Google Search Central outbound-link qualification: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links — fetched; specifies `rel="sponsored"` for advertising or paid placements.
+- Google Search Central people-first content guidance: https://developers.google.com/search/docs/fundamentals/creating-helpful-content — fetched; supports original, useful, non-search-engine-first editorial standards.
+- Source links are provided on `evidence.html` and `suggestions.html` for manual review. No official product-specific sources could be checked because the products themselves remain unidentified.
+
+### Checks performed
+
+- `git diff --check` passed.
+- HTML check covered all 7 HTML pages: unique page titles present; descriptions and disclosure strips present; local links resolve; the five product URLs carry `rel="sponsored"` (also `nofollow`); sitemap and RSS XML parse successfully.
+- First Pages workflow attempt failed because `upload-pages-artifact` was given a multiline path list; fixed by assembling an explicit `_site` artifact. The artifact upload/build then passed, but deployment from the feature branch was blocked by GitHub Pages environment protection. The workflow now deploys only from `main`; verify the post-merge main-branch run and hosted site before calling it live.
+- Link/source validation is not a substitute for checking actual hosted Pages deployment, Search Console, or Associates link reports. Those remain flagged, not marked verified.

@@ -100,8 +100,14 @@
       "title": "The supplied short-link tokens do not match the ASIN format, and each resolves to a different ASIN",
       "detail": "Each link.amazon token is 9 characters (for example B04G1MEwY). Amazon describes an ASIN as a 10-character code. Each token redirects to a different product page ASIN (see the products table). The token therefore cannot be treated as an ASIN. The intended ASIN is recorded as unverified, and the redirect target is kept in a separate field.",
       "sources": [
-        {"label": "link.amazon/B04G1MEwY (redirects to B0CDY277D3)", "url": "https://link.amazon/B04G1MEwY"},
-        {"label": "Amazon Seller Central forum: ASIN is a 10-character identifier (Amazon-hosted, secondary; formal help page not retrieved)", "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/736a09d1-bb16-4add-bb57-229805c9f2d9"}
+        {
+          "label": "link.amazon/B04G1MEwY (redirects to B0CDY277D3)",
+          "url": "https://link.amazon/B04G1MEwY"
+        },
+        {
+          "label": "Amazon Seller Central forum: ASIN is a 10-character identifier (Amazon-hosted, secondary; formal help page not retrieved)",
+          "url": "https://sellercentral.amazon.com/seller-forums/discussions/t/736a09d1-bb16-4add-bb57-229805c9f2d9"
+        }
       ],
       "status": "Open: owner review"
     },
@@ -111,8 +117,14 @@
       "title": "Intended ASIN not confirmed for any of the five links",
       "detail": "No official source confirms which product the owner intended for each link. The register in the Zone4 repository lists the same question as open (D-13 and D-40). Intended-ASIN cells are blank on the site.",
       "sources": [
-        {"label": "Zone4 decision log (D-13, D-40 open; internal register, not an official source)", "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"},
-        {"label": "Observed listings for the five products", "url": "https://www.amazon.com/dp/B0CDY277D3"}
+        {
+          "label": "Zone4 decision log (D-13, D-40 open; internal register, not an official source)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        },
+        {
+          "label": "Observed listings for the five products",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        }
       ],
       "status": "Open: owner decision"
     },
@@ -122,8 +134,14 @@
       "title": "Special Link validation not performed",
       "detail": "The brief requires one test link per product in the enrolled Associates workflow, checking destination and tracking report, before scaling. That needs the owner's Associates account, which this session cannot access. Not tested.",
       "sources": [
-        {"label": "Associates Operating Agreement, Section 1 (Special Links must use the tagged formats Amazon provides)", "url": "https://affiliate-program.amazon.com/help/operating/agreement"},
-        {"label": "Associates Program Policies, Commission Income Statement 2(g) (links not properly formatted are not tracked)", "url": "https://affiliate-program.amazon.com/help/operating/policies"}
+        {
+          "label": "Associates Operating Agreement, Section 1 (Special Links must use the tagged formats Amazon provides)",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "label": "Associates Program Policies, Commission Income Statement 2(g) (links not properly formatted are not tracked)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "status": "Open: owner test required"
     },
@@ -133,8 +151,14 @@
       "title": "Site links use the standard tagged format, pending FR-03",
       "detail": "Product buttons use https://www.amazon.com/dp/ASIN?tag=shopnow047c-20 with the observed redirect ASIN. This is the tagged format pattern, but it has not been validated in the Associates workflow. The supplied short links are not declared invalid; their status is unresolved in the register (FLG-003).",
       "sources": [
-        {"label": "Associates Operating Agreement, Section 1", "url": "https://affiliate-program.amazon.com/help/operating/agreement"},
-        {"label": "Zone4 decision log (D-40, Special Links question open)", "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"}
+        {
+          "label": "Associates Operating Agreement, Section 1",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "label": "Zone4 decision log (D-40, Special Links question open)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
       ],
       "status": "Open: pending FR-03"
     },
@@ -144,8 +168,14 @@
       "title": "Prices and ratings are not published",
       "detail": "Prices and ratings were visible on the listing pages on 2026-11-19. They change over time, and the Creators API decision (D-02) is open, so the site leaves these cells blank. Observed values are not copied into the site.",
       "sources": [
-        {"label": "Zone4 decision log (D-02, Creators API question open)", "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"},
-        {"label": "Listing pages", "url": "https://www.amazon.com/dp/B0CDY277D3"}
+        {
+          "label": "Zone4 decision log (D-02, Creators API question open)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        },
+        {
+          "label": "Listing pages",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        }
       ],
       "status": "Open: owner decision"
     },
@@ -155,7 +185,10 @@
       "title": "Per-product commission rates are not published",
       "detail": "The Commission Income Statement describes standard commission as a percentage of qualifying revenue, but the per-category rate table was not confirmed for these products. No commission figure appears on the site.",
       "sources": [
-        {"label": "Associates Program Policies: Commission Income Statement, Section 3 and Appendix", "url": "https://affiliate-program.amazon.com/help/operating/policies"}
+        {
+          "label": "Associates Program Policies: Commission Income Statement, Section 3 and Appendix",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "status": "Open: rate not verified"
     },
@@ -165,7 +198,10 @@
       "title": "No product photography; image source undecided (S-18)",
       "detail": "The Operating Agreement treats images in Program Content as Amazon material. The site uses typographic cards only. Owner decision needed before any photo is added.",
       "sources": [
-        {"label": "Associates Operating Agreement, Section 1 (Program Content includes data, images and text)", "url": "https://affiliate-program.amazon.com/help/operating/agreement"}
+        {
+          "label": "Associates Operating Agreement, Section 1 (Program Content includes data, images and text)",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
       ],
       "status": "Open: owner decision"
     },
@@ -175,7 +211,10 @@
       "title": "Dimensions were not extracted, so the counter-space analysis (S-23) is not published",
       "detail": "Dimensions were not confirmed for these listings in this session. Counter-depth-per-capacity analysis is not published.",
       "sources": [
-        {"label": "Listing pages (dimensions section not extracted)", "url": "https://www.amazon.com/dp/B0CDY277D3"}
+        {
+          "label": "Listing pages (dimensions section not extracted)",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        }
       ],
       "status": "Open: data gap"
     },
@@ -185,7 +224,10 @@
       "title": "Analytics: no server endpoint is hosted, and only one of the five events is defined in the materials",
       "detail": "GitHub Pages serves static files, so the self-hosted endpoint in the brief cannot run here. The site includes a client-side outbound_click event with an empty endpoint setting, so nothing is transmitted. The brief names five defined events, but their definitions are not in the materials, so only outbound_click is implemented. Hosting and consent decisions (D-41, D-43) are open.",
       "sources": [
-        {"label": "Zone4 decision log (D-41 and D-43 open; endpoint built but not hosted, F-59)", "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"}
+        {
+          "label": "Zone4 decision log (D-41 and D-43 open; endpoint built but not hosted, F-59)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
       ],
       "status": "Open: owner decision"
     },
@@ -195,8 +237,14 @@
       "title": "Search Console verification and sitemap/feed submission need the owner",
       "detail": "Sitemap (sitemap.xml) and feed (feed.xml) are generated. Verification in Google Search Console requires an owner account (D-42). Not done.",
       "sources": [
-        {"label": "Zone4 decision log (D-42 open)", "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"},
-        {"label": "Google Search Central: page experience", "url": "https://developers.google.com/search/docs/appearance/page-experience"}
+        {
+          "label": "Zone4 decision log (D-42 open)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        },
+        {
+          "label": "Google Search Central: page experience",
+          "url": "https://developers.google.com/search/docs/appearance/page-experience"
+        }
       ],
       "status": "Open: owner action"
     },
@@ -206,27 +254,36 @@
       "title": "No author identity was supplied",
       "detail": "Bylines read 'Editorial team'. No person is named or implied. Naming an author requires the owner's input.",
       "sources": [
-        {"label": "Google Search Central: creating helpful content (people-first presentation)", "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"}
+        {
+          "label": "Google Search Central: creating helpful content (people-first presentation)",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        }
       ],
       "status": "Open: owner decision"
     },
     {
       "id": "FR-12",
       "severity": "Low",
-      "title": "The brand name is a working name",
-      "detail": "'Countertop Journal' is a working name for the site and is not a decision. S-15 remains open.",
+      "title": "The brand name 'Counter Notes' was adopted on main (PR #1) and is not yet confirmed by the owner",
+      "detail": "'Counter Notes' is the name settled by session d12d2304 in PR #1. This session kept it so the site has one brand. The owner has not confirmed it. Trademark availability has not been checked.",
       "sources": [
-        {"label": "Zone4 decision log (D-18 visual direction and brand name)", "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"}
+        {
+          "label": "Zone4 decision log (D-18 visual direction and brand name; internal)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
       ],
       "status": "Open: owner decision"
     },
     {
       "id": "FR-13",
       "severity": "Medium",
-      "title": "Guide topics are working hypotheses with no measured demand data",
-      "detail": "The four guide titles are the working titles from the brief. No search volume, trend, or popularity figure was verified, so the site makes no trending or popularity claim. The first measured queries will come from Search Console (FR-10).",
+      "title": "Guide topics are working titles with no measured demand data",
+      "detail": "The four guides are the texts from PR #1 (archived under archive/counter-notes-v1/). Their titles are the working titles from the brief. No search volume, trend, or popularity figure was verified, so the site makes no trending or popularity claim. The first measured queries will come from Search Console (FR-10).",
       "sources": [
-        {"label": "Google Search Central: creating helpful content", "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"}
+        {
+          "label": "Google Search Central: creating helpful content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        }
       ],
       "status": "Open: data gap"
     },
@@ -236,7 +293,10 @@
       "title": "The FTC guidance used is dated November 2019",
       "detail": "The FTC 'Disclosures 101 for Social Media Influencers' page carries a November 2019 date. The site relies on it only for disclosure placement principles. Applicability to a website, and any newer FTC guidance, need review by counsel.",
       "sources": [
-        {"label": "FTC: Disclosures 101 for Social Media Influencers", "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"}
+        {
+          "label": "FTC: Disclosures 101 for Social Media Influencers",
+          "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+        }
       ],
       "status": "Open: counsel review"
     },
@@ -246,7 +306,10 @@
       "title": "Several files named in the brief are not in this repository",
       "detail": "The repository (wingbangboozle1-lang/Prod2) contained only README.md. COORDINATION.md was created here. ENGINE.md, DESIGN_PROMPT.md, data/sources.json, docs/tracker.js and the Zone4 flagged page are not in this repository. Their contents were not verified and are not relied on. Only the Zone4 decision log was fetched.",
       "sources": [
-        {"label": "Zone4 decision log (fetched)", "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"}
+        {
+          "label": "Zone4 decision log (fetched)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
       ],
       "status": "Open: owner review"
     },
@@ -256,7 +319,10 @@
       "title": "Zone3 flag reference FLG-003 was not fetched",
       "detail": "The brief links https://kanlerxz87-cyber.github.io/Zone3/flagged.html#FLG-003. It was not fetched, and the site does not rely on it.",
       "sources": [
-        {"label": "Link cited in the brief (not fetched)", "url": "https://kanlerxz87-cyber.github.io/Zone3/flagged.html#FLG-003"}
+        {
+          "label": "Link cited in the brief (not fetched)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone3/flagged.html#FLG-003"
+        }
       ],
       "status": "Open: not checked"
     },
@@ -266,7 +332,10 @@
       "title": "The Amazon 'content notice' from the Zone4 header is not reproduced",
       "detail": "The Zone4 header carries an all-caps Amazon content notice citing IP License 2(k). The exact text was not verified against the Program Policies IP section in this session, so it is not reproduced.",
       "sources": [
-        {"label": "Associates Program Policies (IP License section)", "url": "https://affiliate-program.amazon.com/help/operating/policies"}
+        {
+          "label": "Associates Program Policies (IP License section)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "status": "Open: verify wording"
     },
@@ -276,7 +345,10 @@
       "title": "GitHub Pages source changed to main /docs",
       "detail": "The repository's Pages source was a legacy build from main /. The site is published from /docs, so the setting is changed as part of the deployment.",
       "sources": [
-        {"label": "GitHub Docs: configuring a publishing source for GitHub Pages", "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"}
+        {
+          "label": "GitHub Docs: configuring a publishing source for GitHub Pages",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+        }
       ],
       "status": "Done in this session; reversible"
     }
