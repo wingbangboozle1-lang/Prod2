@@ -1,0 +1,10 @@
+{
+  "name": "counter-notes-self-hosted-analytics",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "python3 scripts/verify_site.py && node --test tests/server.test.mjs",
+    "reset-events": "rm -f var/events-aggregate.json"
+  }
+}

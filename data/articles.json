@@ -1,0 +1,134 @@
+{
+  "generated": "2026-11-19",
+  "note": "Question-shaped guides. Titles are working editorial titles, not claims about popularity, search volume or product superiority. [[product:ID|Label]] tokens are converted by the build to rel=\"sponsored\" outbound links to the verified listing.",
+  "articles": [
+    {
+      "slug": "basket-or-oven-air-fryer",
+      "title": "Basket or oven-style air fryer: what should you compare?",
+      "meta_description": "Basket-style and oven-style air fryers solve different cooking problems. Here is what to compare before you choose, without the hype.",
+      "category": "Air Fryer Ovens",
+      "category_slug": "air-fryer-ovens",
+      "read_time": "6 min read",
+      "product_asin": "",
+      "related": ["air-fryer-capacity-checklist", "how-many-quarts", "cleanup-and-counter-space"],
+      "body": "<p>The first question most people skip is the one that decides everything else: do you want a basket you can pull out, or an oven you can see into? A basket-style air fryer cooks one layer of food in a shallow drawer. An oven-style air fryer is a small countertop convection oven with a door, often with a rotisserie or multiple racks. They can both make crispy food, but they behave differently.</p><p>If you mostly cook for one or two people and want fries or vegetables fast, a basket model is the simpler everyday tool. If you want to roast a whole chicken, bake a sheet of cookies, or cook two things at once, an oven-style model gives you more room and more control. The trade is counter space and price.</p><p>When you compare, look at four things: how much food the basket or cavity actually holds, how much bench the unit takes up, how easy the parts are to clean, and whether the controls match how you actually cook. Our <a href=\"../comparison.html\">comparison table</a> lists the verified capacities of the air fryer ovens we track.</p><p>A practical pick for a small kitchen is the [[product:cc-03|Chefman 8 Qt TurboFry]], a single-basket model that bakes, dehydrates and air-fries. For a larger, door-style convection cooker, the [[product:cc-02|Emeril Lagasse 26QT French Door]] gives you room to cook multiple things at once.</p>",
+      "faqs": [
+        { "q": "Which is easier to clean, a basket or an oven style?", "a": "Basket models usually have one nonstick drawer that goes in the dishwasher. Oven styles have a door, racks and sometimes rotisserie parts, so there are more surfaces to wash. Check whether the parts are dishwasher-safe on the listing." },
+        { "q": "Does oven-style always mean more capacity?", "a": "Often, but capacity is measured differently. A basket is quoted by quarts of the drawer; an oven-style by total quarts of the cavity. Compare the quoted quarts, not the shape." },
+        { "q": "Can a basket air fryer bake?", "a": "Many 4-in-1 and 5-in-1 basket models add bake and dehydrate modes. They bake well for small batches; for full sheets or roasts, an oven style is easier." }
+      ]
+    },
+    {
+      "slug": "air-fryer-capacity-checklist",
+      "title": "A no-hype checklist for comparing air fryer capacity",
+      "meta_description": "Capacity is the most misunderstood air fryer spec. Use this checklist to compare quarts, basket depth and real batch size before you buy.",
+      "category": "Air Fryer Ovens",
+      "category_slug": "air-fryer-ovens",
+      "read_time": "5 min read",
+      "product_asin": "",
+      "related": ["how-many-quarts", "basket-or-oven-air-fryer", "air-fryer-footprint"],
+      "body": "<p>Quarts are the number everyone quotes, but they do not always mean the same thing. A 6-quart basket and a 6-quart oven-style cavity hold food in very different shapes. The honest way to compare capacity is to ask what you will actually put in the unit on a normal night.</p><p>Start with the number of people you cook for and the largest single thing you cook. Four people and a whole chicken needs a different machine than two people and a batch of fries. Then look at the quoted capacity on the listing and the shape of the cooking area, not just the quarts.</p><p>Check the verified capacities in our <a href=\"../air-fryer-ovens.html\">air fryer ovens category</a>: the Chefman 6 Quart Dual Basket, the Chefman 8 Qt TurboFry, and the Emeril 26QT. The dual-basket design of the [[product:cc-01|CHEFMAN 6 Quart Dual Basket]] lets you cook two layers at once, which is a real capacity boost for a 6-quart-class unit.</p><p>Finally, measure your counter before you buy. Capacity and footprint are linked, and the <a href=\"../comparison.html\">counter-space analysis</a> shows how to weigh them together.</p>",
+      "faqs": [
+        { "q": "Is a 6-quart air fryer enough for a family of four?", "a": "Usually yes for everyday foods, especially a dual-basket model that cooks two layers. For roasts or large batches, a larger unit helps." },
+        { "q": "What does dual basket mean?", "a": "Two separate drawers that can run the same or different settings at once, effectively doubling the usable batch size of a single-basket unit of similar quarts." },
+        { "q": "Should I round up on capacity?", "a": "If you often cook for guests or freeze batches, rounding up avoids cooking in shifts. If counter space is tight, match capacity to your real batch size." }
+      ]
+    },
+    {
+      "slug": "cleanup-and-counter-space",
+      "title": "How to assess cleanup and counter-space trade-offs",
+      "meta_description": "The best air fryer is the one you will actually use and clean. Learn how to weigh cleanup effort against the counter space it takes.",
+      "category": "Air Fryer Ovens",
+      "category_slug": "air-fryer-ovens",
+      "read_time": "5 min read",
+      "product_asin": "",
+      "related": ["air-fryer-footprint", "basket-or-oven-air-fryer", "air-fryer-capacity-checklist"],
+      "body": "<p>Two habits kill air fryer use: the unit takes the whole counter, and cleaning feels like a second chore. Decide both before you buy. A unit you cannot leave out is a unit you will not use; a basket you have to scrub by hand will end up in the cupboard.</p><p>For cleanup, the key question is whether the removable parts are dishwasher-safe. Basket-style models usually have one nonstick drawer and a tray. Oven-style models add a door, racks and grease catch, so there are more parts. Look for nonstick coatings and a grease catch that is easy to empty.</p><p>For counter space, measure the footprint and the clearance you need around it. Our <a href=\"../comparison.html\">counter-space analysis</a> compares capacity per unit of counter depth so you can see what each model really costs on your bench.</p><p>If you want the simplest clean-up in a compact footprint, the [[product:cc-03|Chefman 8 Qt TurboFry]] has a single dishwasher-safe basket. If you want a door-style cooker with more parts to wash, the [[product:cc-02|Emeril Lagasse 26QT French Door]] trades more cleaning for more cooking room.</p>",
+      "faqs": [
+        { "q": "Can I leave an air fryer on the counter?", "a": "If it fits with clearance and you use it often, yes. Measure depth and the space above it before deciding; some models need room for hot air at the rear." },
+        { "q": "Which parts usually need hand washing?", "a": "The heating element and the unit's body should stay dry. The basket, tray and grease catch are usually the dishwasher-safe parts. Check the listing for 'dishwasher-safe'." },
+        { "q": "Does a larger unit always need more cleaning?", "a": "It has more surfaces, yes. A single-basket model is generally the least fuss to clean day to day." }
+      ]
+    },
+    {
+      "slug": "multi-function-appliance-questions",
+      "title": "Questions to ask before buying a multi-function kitchen appliance",
+      "meta_description": "Multi-function appliances promise a lot. Ask these questions first so you buy the one that fits your kitchen, not the one with the longest feature list.",
+      "category": "Air Fryer Ovens",
+      "category_slug": "air-fryer-ovens",
+      "read_time": "6 min read",
+      "product_asin": "",
+      "related": ["basket-or-oven-air-fryer", "how-many-quarts", "cleanup-and-counter-space"],
+      "body": "<p>A multi-function appliance can replace several single-purpose tools, or it can do a dozen things mediocrely. The difference is usually in how you use it. Before you buy, answer a few plain questions.</p><p>What do you cook most? If your week is fries, vegetables and reheating, a focused air fryer is enough. If you also bake, roast and dehydrate, a 4-in-1 or oven-style model earns its place. What modes will you actually use, and are they easy to reach? A long preset list you never tap is just a longer manual.</p><p>How much room does it take, and how do you clean it? Both are in our <a href=\"../comparison.html\">comparison</a> and <a href=\"../comparison.html#counter-space\">counter-space analysis</a>. And is the price gap to a single-purpose model worth the extra functions you will use?</p><p>Two multi-function examples we track: the [[product:cc-03|Chefman 8 Qt TurboFry 4-in-1]], which air-fries, bakes, dehydrates and handles frozen food, and the [[product:cc-02|Emeril Lagasse 26QT French Door]], an oven-style cooker with 24 presets and six accessories.</p>",
+      "faqs": [
+        { "q": "Are more presets better?", "a": "Not necessarily. Choose the modes you will use, and make sure the core controls are easy to operate. A few well-designed presets beat a long list you never touch." },
+        { "q": "Should I buy one appliance or two single-purpose ones?", "a": "If your kitchen and budget are tight, one good multi-function unit often covers more use cases than two small single-purpose tools." },
+        { "q": "What is the real cost of a multi-function unit?", "a": "The purchase price plus the counter space it occupies and the time to clean it. Compare those together, not just the feature count." }
+      ]
+    },
+    {
+      "slug": "how-many-quarts",
+      "title": "How many quarts do you actually need? A capacity guide",
+      "meta_description": "Quart size is the easiest air fryer spec to over- or under-buy. Match quarts to your household and your largest dish with this guide.",
+      "category": "Air Fryer Ovens",
+      "category_slug": "air-fryer-ovens",
+      "read_time": "4 min read",
+      "product_asin": "",
+      "related": ["air-fryer-capacity-checklist", "basket-or-oven-air-fryer", "air-fryer-footprint"],
+      "body": "<p>Quarts tell you the volume of the cooking area, but the useful number is how many servings fit in one go. A 4-quart basket is a couple of servings. A 6-quart dual basket can feed four without cooking in shifts. An 8-quart or larger oven-style cavity handles a big batch or a roast.</p><p>Match the quarts to your household and your largest dish. Two people and small batches are fine with a 4- to 6-quart basket. A family of four benefits from 6 quarts or more, especially a dual-basket design. If you roast or bake large items, look at the oven-style models with the biggest cavity you can fit.</p><p>Here are the verified capacities of the models we track on the <a href=\"../air-fryer-ovens.html\">air fryer ovens page</a>: 6 quarts (dual basket), 8 quarts, and 26 quarts. The [[product:cc-01|CHEFMAN 6 Quart Dual Basket]] is a good middle ground if you want two layers without a huge footprint.</p>",
+      "faqs": [
+        { "q": "What size air fryer for two people?", "a": "A 4- to 6-quart basket is usually plenty for two people and everyday foods." },
+        { "q": "What size for a family of four?", "a": "6 quarts or more, ideally a dual-basket model so you can cook a full batch at once." },
+        { "q": "Do quarts matter more than shape?", "a": "They matter together. Compare the quoted quarts and the shape of the cooking area, and check the largest dish it can hold." }
+      ]
+    },
+    {
+      "slug": "digital-vs-smart-thermometer",
+      "title": "Digital or smart: which meat thermometer fits your kitchen?",
+      "meta_description": "A fast digital probe and a WiFi smart thermometer solve different problems. Here is how to choose between them without over-buying.",
+      "category": "Meat Thermometers",
+      "category_slug": "meat-thermometers",
+      "read_time": "5 min read",
+      "product_asin": "",
+      "related": ["wireless-thermometer-need", "cleanup-and-counter-space"],
+      "body": "<p>Most cooks need one of two things: a fast reading when you poke a probe into a thick piece of meat, or a thermometer that sits in the food and lets you walk away. A digital instant-read probe does the first. A smart wireless thermometer does the second.</p><p>Choose a fast digital probe if you grill or cook steaks, burgers and poultry and want a reading in about a second. Choose a smart wireless model if you smoke, roast or braise for hours and want to monitor the temperature from another room. The smart model trades simplicity for connectivity and a base unit.</p><p>For a fast, everyday digital probe, the [[product:cc-04|ThermoMaven 1 Sec Professional Digital]] reads in about a second with a bright auto-rotating display. For long cooks where you want to monitor remotely, the [[product:cc-05|CHEF iQ Sense Smart Wireless]] runs on WiFi with probes that stay in the food.</p><p>See both on the <a href=\"../meat-thermometers.html\">meat thermometers page</a> and the <a href=\"../comparison.html\">comparison table</a>.</p>",
+      "faqs": [
+        { "q": "What is an instant-read thermometer used for?", "a": "Quick checks on steaks, burgers, chicken and finer cooks where you insert a probe and read the temperature immediately." },
+        { "q": "When do I need a wireless thermometer?", "a": "For long, low-and-slow cooks where you want to keep monitoring the core temperature without standing at the grill." },
+        { "q": "Can a digital probe replace a smart thermometer?", "a": "For quick reads, yes. For unattended long cooks, no. They serve different jobs." }
+      ]
+    },
+    {
+      "slug": "air-fryer-footprint",
+      "title": "What an air fryer's footprint really costs your counter",
+      "meta_description": "Capacity and counter space are the same decision. Learn how to read an air fryer's footprint so you buy the right size for your kitchen.",
+      "category": "Air Fryer Ovens",
+      "category_slug": "air-fryer-ovens",
+      "read_time": "4 min read",
+      "product_asin": "",
+      "related": ["cleanup-and-counter-space", "how-many-quarts", "air-fryer-capacity-checklist"],
+      "body": "<p>An air fryer's footprint is the square it takes on your counter, and it is the constraint that decides how much capacity you can actually have. The honest comparison is capacity per unit of counter depth, not quarts alone.</p><p>Measure the depth of your usable counter and the width you can give the appliance. Then compare each model's capacity against the depth it needs. A compact single-basket model can deliver useful capacity in a small footprint; a large oven-style unit needs a wide, deep bench and clearance behind it.</p><p>Our <a href=\"../comparison.html#counter-space\">counter-space analysis</a> sets out the formula and compares the models we track. The key inputs are the quoted capacity and the unit's counter depth; the per-model depth figures must be confirmed from each official listing before they are published, so they are flagged rather than guessed.</p><p>If counter space is tight, a single-basket model like the [[product:cc-03|Chefman 8 Qt TurboFry]] is the more bench-friendly choice. If you have room, the [[product:cc-02|Emeril Lagasse 26QT French Door]] buys you a lot more cooking volume.</p>",
+      "faqs": [
+        { "q": "How much counter depth does an air fryer need?", "a": "At least the unit's own depth, plus clearance at the rear and top for hot air. Check the listing for dimensions before you buy." },
+        { "q": "Is a taller air fryer always deeper?", "a": "Not necessarily. Compare the footprint dimensions, not the height, and check clearance for the door or drawer." },
+        { "q": "What is the best way to compare capacity to footprint?", "a": "Compare capacity per unit of counter depth so you weigh usable volume against the bench it costs." }
+      ]
+    },
+    {
+      "slug": "wireless-thermometer-need",
+      "title": "Do you need a wireless thermometer? A simple decision guide",
+      "meta_description": "Wireless meat thermometers cost more than a probe. Use this guide to decide if the convenience is worth it for your cooking.",
+      "category": "Meat Thermometers",
+      "category_slug": "meat-thermometers",
+      "read_time": "4 min read",
+      "product_asin": "",
+      "related": ["digital-vs-smart-thermometer", "multi-function-appliance-questions"],
+      "body": "<p>A wireless thermometer is a convenience purchase, and convenience is worth it only if it fits how you cook. Ask whether you regularly cook something long enough that you want to leave the kitchen.</p><p>You likely do not need a wireless model if you mostly sear, grill quick items or cook on the stovetop. A fast digital probe covers those. You probably do want a wireless model if you smoke, roast, braise or use a grill for hours and want to monitor from another room.</p><p>If the answer is yes, look for stable connectivity, probes rated for the temperatures you use, and a base that is easy to read. The [[product:cc-05|CHEF iQ Sense Smart Wireless]] runs on WiFi with a long range and heat-safe probes for grill, oven and smoker. If you decide a probe is enough, the [[product:cc-04|ThermoMaven 1 Sec Professional Digital]] is a fast, simple everyday tool.</p><p>Compare both on the <a href=\"../meat-thermometers.html\">meat thermometers page</a>.</p>",
+      "faqs": [
+        { "q": "Are wireless thermometers worth the price?", "a": "For long, unattended cooks, yes. For quick reads, a fast probe is enough and cheaper." },
+        { "q": "What range do I need?", "a": "Match the range to your cooking. Grill and smoker temps go high; an oven-safe probe with a high heat rating covers more cases." },
+        { "q": "Can I use a wireless thermometer for quick reads?", "a": "Yes, but it is more setup than a simple probe for a single fast check. Pick based on your typical cook length." }
+      ]
+    }
+  ]
+}

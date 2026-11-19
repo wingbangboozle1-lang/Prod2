@@ -1,13 +1,16 @@
 {
-  "_meta": {
-    "description": "Campaign ledger. Starts empty on purpose. A row is added only from an authorised first-party report - for example an Associates Central report the owner exports. No row is estimated, copied from a third party, or created from the site's own click counter. The site's click counter is a separate measurement and is never a reported order.",
-    "created_utc": "2026-11-19",
-    "created_by": "arena/cd3cddd6-prod2",
-    "carried_from": "data/imported/zone4/z4-ledger.json",
-    "no_forecast_rule": "No conversion score and no revenue forecast is published anywhere on this site. The Operating Agreement's Section 4 states Amazon makes no representation about the traffic or commission income an Associate can expect (source S-OA)."
-  },
-  "columns": ["timestamp_utc", "source", "channel", "eligible_sessions", "clicks", "reported_orders", "report_reference", "obtained_by"],
-  "rows": [],
-  "status": "Empty. No authorised report has been imported.",
-  "five_events_ref": "data/events.json"
+  "generated": "2026-11-19",
+  "tracking_id": "shopnow047c-20",
+  "note": "Evidence-based iteration. The ledger starts empty and well-defined. Timestamp, source, channel, eligible sessions, clicks and reported orders are added ONLY when obtained from authorized first-party reports (e.g. the Associates Performance Report). No conversion score or revenue forecast is presented. A dated provenance trail is kept for every added row.",
+  "columns": [
+    "timestamp",
+    "source",
+    "channel",
+    "eligible_sessions",
+    "clicks",
+    "reported_orders",
+    "provenance_date",
+    "provenance_note"
+  ],
+  "rows": []
 }

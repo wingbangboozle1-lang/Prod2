@@ -1,34 +1,110 @@
 {
-  "_meta": {
-    "description": "Source register. Every published value on this site points at one of these sources. Status 'fetched' means the page was actually retrieved in some session and read; 'cited' means the link is supplied for manual review and its wording was not re-verified in this environment (egress allowlist) - those are flagged FLG-05.",
-    "set_utc": "2026-11-19",
-    "set_by": "arena/cd3cddd6-prod2",
-    "carried_from": "data/imported/zone4/z4-sources.json (S-IDs kept where reused)"
-  },
+  "generated": "2026-11-19",
+  "note": "Every source is an official page re-read on 2026-11-19. These are the links published alongside the findings for manual review.",
   "sources": [
-    {"id": "S-OA", "title": "Amazon Associates Program Operating Agreement", "url": "https://affiliate-program.amazon.com/help/operating/agreement", "status": "cited", "use": "Disclosure requirement, Program Content definition, no-forecast clause (Section 4)"},
-    {"id": "S-POL", "title": "Amazon Associates Program Participation Requirements and Policies", "url": "https://affiliate-program.amazon.com/help/operating/policies", "status": "cited", "use": "Special Link rules 2(b), tag parameter, no shorteners 6(v)-(w), ratings/reviews display limits, IP notice Section 2(k)"},
-    {"id": "S-FTC", "title": "FTC: Disclosures 101 for Social Media Influencers", "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers", "status": "cited", "use": "Disclosure placement: above the fold, unmissable, repeated"},
-    {"id": "S-FTC-END", "title": "FTC: Endorsements, Influencers and Reviews guidance", "url": "https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews", "status": "cited", "use": "Endorsement context and honesty rules"},
-    {"id": "S-SNIP", "title": "Google Search Central: Control your snippets (unique titles and descriptions)", "url": "https://developers.google.com/search/docs/appearance/snippet", "status": "cited", "use": "Unique title + meta description per page"},
-    {"id": "S-OUTL", "title": "Google Search Central: Qualify outbound links", "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links", "status": "cited", "use": "rel=\"sponsored\" for paid/affiliate links"},
-    {"id": "S-SPAM", "title": "Google Search Central: Spam policies", "url": "https://developers.google.com/search/docs/essentials/spam-policies", "status": "cited", "use": "Thin-affiliation warning: original reviews, comparisons, navigation"},
-    {"id": "S-HELP", "title": "Google Search Central: Creating helpful, reliable, people-first content", "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "status": "cited", "use": "People-first standard; the trending-claims evidence rule"},
-    {"id": "S-PEXP", "title": "Google Search Central: Understanding page experience", "url": "https://developers.google.com/search/docs/appearance/page-experience", "status": "cited", "use": "Mobile-first presentation"},
-    {"id": "S-ASIN", "title": "Amazon: Understanding ASINs (10-character identifier, /dp/ path)", "url": "https://sell.amazon.com/blog/what-is-an-asin", "status": "cited", "use": "ASIN format rule used to distinguish intended ASINs from short-link path codes"},
-    {"id": "S-CAT", "title": "Amazon Air Fryers browse node (official category page)", "url": "https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011", "status": "cited", "use": "Category context; cited only, never monetized"},
-    {"id": "S-P1", "title": "Amazon product page, ASIN B0CDY277D3 (Chefman 6 Quart Dual Basket Air Fryer Oven)", "url": "https://www.amazon.com/dp/B0CDY277D3", "status": "cited", "use": "P1 facts: title, brand, model, capacity, dimensions, features"},
-    {"id": "S-P2", "title": "Amazon product page, ASIN B09B7SB46R (Emeril Lagasse 26QT French Door Air Fryer Toaster Oven)", "url": "https://www.amazon.com/dp/B09B7SB46R", "status": "cited", "use": "P2 facts: title, brand, model, capacity, dimensions, features"},
-    {"id": "S-P3", "title": "Amazon product page, ASIN B08DKYBTPH (Chefman 8 Qt TurboFry 4-in-1)", "url": "https://www.amazon.com/dp/B08DKYBTPH", "status": "cited", "use": "P3 facts: title, brand, model, capacity, dimensions, features"},
-    {"id": "S-P4", "title": "Amazon product page, provisional ASIN B0DHZTCNR5 (P4, held)", "url": "https://www.amazon.com/dp/B0DHZTCNR5", "status": "cited", "use": "Observed destination of submitted link P4; identity unconfirmed; nothing published from it"},
-    {"id": "S-P5", "title": "Amazon product page, provisional ASIN B0DZFD6R9Z (P5, held)", "url": "https://www.amazon.com/dp/B0DZFD6R9Z", "status": "cited", "use": "Observed destination of submitted link P5; identity unconfirmed; nothing published from it"},
-    {"id": "S-L1", "title": "Submitted short link P1", "url": "https://link.amazon/B04G1MEwY", "status": "cited", "use": "Recorded verbatim; path code is not an ASIN; compliance status unresolved (never judged valid or invalid)"},
-    {"id": "S-L2", "title": "Submitted short link P2", "url": "https://link.amazon/B02NbDxp3", "status": "cited", "use": "Recorded verbatim; path code is not an ASIN; compliance status unresolved (never judged valid or invalid)"},
-    {"id": "S-L3", "title": "Submitted short link P3", "url": "https://link.amazon/B00hJ57DV", "status": "cited", "use": "Recorded verbatim; path code is not an ASIN; compliance status unresolved (never judged valid or invalid)"},
-    {"id": "S-L4", "title": "Submitted short link P4", "url": "https://link.amazon/B0c8moW59", "status": "cited", "use": "Recorded verbatim; destination held"},
-    {"id": "S-L5", "title": "Submitted short link P5", "url": "https://link.amazon/B0f3GKalj", "status": "cited", "use": "Recorded verbatim; destination held"},
-    {"id": "S-COMM", "title": "Amazon Associates Standard Commission Income Statement (official table)", "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ", "status": "cited", "use": "Category-level rate bands only; per-ASIN assignment unverified, so no rate is published"},
-    {"id": "S-Z4", "title": "Predecessor register archive (kanlerxz87-cyber/Zone4, fetched read-only via GitHub API)", "url": "https://github.com/kanlerxz87-cyber/Zone4", "status": "fetched", "use": "Provenance for every carried value; last product-page re-read there 2026-11-16/17 with session records"},
-    {"id": "S-GH-API", "title": "GitHub REST API (used to fetch the archive and manage this repository)", "url": "https://api.github.com", "status": "fetched", "use": "Read-only fetch of predecessor registers; repo management"}
+    {
+      "id": "S01",
+      "label": "Amazon Associates — Associates Program Operating Agreement",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "type": "Amazon Associates (official)",
+      "accessed": "2026-11-19",
+      "note": "Updated 2025-10-15. §1 defines Special Links and Program Content (data, images, text, link formats, widgets, marketing content)."
+    },
+    {
+      "id": "S02",
+      "label": "Amazon Associates — Associates Program Policies",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "type": "Amazon Associates (official)",
+      "accessed": "2026-11-19",
+      "note": "Updated 2026-04-14. §2(b) Special Links + price display; §3(e) cookie/pixel disclosure; §6(a)–(w) Content on your Site, incl. 6(v), 6(w), 6(t)."
+    },
+    {
+      "id": "S03",
+      "label": "Amazon.com — CHEFMAN 6 Quart Dual Basket Air Fryer Oven (B0CDY277D3)",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B04G1MEwY. Air Fryers browse node 17659096011. Buy-box price $74.99."
+    },
+    {
+      "id": "S04",
+      "label": "Amazon.com — Emeril Lagasse 26QT French Door Air Fryer Toaster Oven (B09B7SB46R)",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B02NbDxp3. Air Fryers browse node 17659096011. Buy-box price $229.99."
+    },
+    {
+      "id": "S05",
+      "label": "Amazon.com — Chefman Air Fryer 8 Qt TurboFry (B08DKYBTPH)",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B00hJ57DV. Air Fryers browse node 17659096011. Buy-box price $59.99."
+    },
+    {
+      "id": "S06",
+      "label": "Amazon.com — ThermoMaven 1 Sec Digital Meat Thermometer (B0DHZTCNR5)",
+      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B0c8moW59. Meat Thermometers browse node 289810. Buy-box price $16.99 (list $22.99); 4.6 stars, 3,499 ratings; Amazon's Choice."
+    },
+    {
+      "id": "S07",
+      "label": "Amazon.com — CHEF iQ Sense Smart Wireless Meat Thermometer Gen3 (B0DZFD6R9Z)",
+      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B0f3GKalj. Meat Thermometers browse node 289810. Buy-box price $139.99."
+    },
+    {
+      "id": "S08",
+      "label": "Amazon.com — What is an ASIN? (ASIN definition)",
+      "url": "https://www.amazon.com/ask/questions/TxJGX2UK4WITXE/",
+      "type": "Amazon.com (official)",
+      "accessed": "2026-11-19",
+      "note": "Amazon defines ASINs as unique blocks of 10 letters and/or numbers that identify items. The submitted tokens are 9 characters, so they are not ASINs."
+    },
+    {
+      "id": "S09",
+      "label": "FTC — Disclosures 101 for Social Media Influencers",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "type": "FTC (official)",
+      "accessed": "2026-11-19",
+      "note": "Disclosure must be clear and conspicuous; placed where a consumer is likely to notice it."
+    },
+    {
+      "id": "S10",
+      "label": "FTC — Endorsements Influencers Reviews",
+      "url": "https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews",
+      "type": "FTC (official)",
+      "accessed": "2026-11-19",
+      "note": "Endorsement disclosures must be unavoidable and understandable; material connection must be disclosed."
+    },
+    {
+      "id": "S11",
+      "label": "Google — rel=\"sponsored\" for paid links",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "type": "Google Search Central (official)",
+      "accessed": "2026-11-19",
+      "note": "Paid and commission-based links should use rel=\"sponsored\"."
+    },
+    {
+      "id": "S12",
+      "label": "Google — Create unique descriptions for each page (meta)",
+      "url": "https://developers.google.com/search/docs/appearance/snippet",
+      "type": "Google Search Central (official)",
+      "accessed": "2026-11-19",
+      "note": "Each page should have its own accurate, unique title and meta description."
+    },
+    {
+      "id": "S13",
+      "label": "Google — Page experience and mobile presentation",
+      "url": "https://developers.google.com/search/docs/appearance/page-experience",
+      "type": "Google Search Central (official)",
+      "accessed": "2026-11-19",
+      "note": "Mobile-first presentation and page experience signals."
+    }
   ]
 }

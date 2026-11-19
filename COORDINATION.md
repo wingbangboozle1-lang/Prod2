@@ -1,103 +1,207 @@
-# COORDINATION — shared task board
+# COORDINATION.md — Shared Task Board
 
-This file is the coordination point for any session working in this repository.
-Read it before starting work. Claim a task by writing your session ID and file
-scope here, then commit and push that claim immediately. Never start a task
-another session has claimed. Record sources, verification performed and any
-irregularities when a task is finished, and mark it done.
+Repo: `wingbangboozle1-lang/Prod2`
+Tracking ID: `shopnow047c-20`
+Current session: **session-arena-599eec57** (branch `arena/599eec57-prod2`)
+
+This is the shared task board. Each task has: a status (`unclaimed`, `in progress`,
+`done`, `needs review`), an owning session, and the files it touches. Shared outputs
+(the site's table data, index and navigation) are changed only by the final integration
+session once all other tasks are done.
+
+> Status `needs review` means the item is published on the **Flagged for Review** page and
+> does **not** block anything. Nothing is marked `verified` unless it was checked against an
+> official source, with that source linked.
+
+## Status at a glance
+
+| Task | Status | Session | Files |
+| --- | --- | --- | --- |
+| T1 — Repo review | done | session-arena-599eec57 | — |
+| T2 — Verify the 5 submitted affiliate links (resolve + identity + price + category) | done | session-arena-599eec57 | `data/products.json`, `data/sources.json` |
+| T3 — Verify compliance sources (Agreement, Policies, ASIN definition, FTC) | done | session-arena-599eec57 | `data/sources.json` |
+| T4 — Data model + build system (data-driven static site) | in progress | session-arena-599eec57 | `data/*.json`, `scripts/build_site.py` |
+| T5 — Site generation (landing + category + comparison + guides) | in progress | session-arena-599eec57 | `scripts/build_site.py` -> `site/` |
+| T6 — Disclosure strip, `rel="sponsored"`, product-intent record, click counter | in progress | session-arena-599eec57 | `site/assets/*`, `scripts/build_site.py` |
+| T7 — Findability (sitemap, RSS, robots, unique meta, structured data) | in progress | session-arena-599eec57 | `site/sitemap.xml`, `site/rss.xml`, `site/robots.txt` |
+| T8 — Suggestions / decision portal (questions, info needed, path chooser) | in progress | session-arena-599eec57 | `data/suggestions.json`, `site/suggestions.html` |
+| T9 — Flagged for Review page | in progress | session-arena-599eec57 | `site/flagged.html` |
+| T10 — Verification gate (sources per row, rel=sponsored, disclosure, sitemap) | in progress | session-arena-599eec57 | `scripts/verify_site.py` |
+| T11 — Integration, PR, merge, GitHub Pages deploy | pending | session-arena-599eec57 | `site/`, `.github/workflows/pages.yml` |
+
+## Task details
+
+### T1 — Repo review (done)
+- Repo was a fresh checkout: a single `README.md` (`# Prod2`) and one commit
+  (`c6dc49a`). No prior site, data, or tooling. Greenfield build.
+
+### T2 — Link intake + verification (done)
+Verified **live on 2026-11-19** by resolving each submitted `link.amazon` short link against
+the official Amazon listing page.
+
+| Submitted link | Token length | Resolves to ASIN | Product | Category |
+| --- | --- | --- | --- | --- |
+| link.amazon/B04G1MEwY | 9 | B0CDY277D3 | CHEFMAN 6 Quart Dual Basket Air Fryer Oven (Black) | Air Fryers |
+| link.amazon/B02NbDxp3 | 9 | B09B7SB46R | Emeril Lagasse 26QT French Door Air Fryer Toaster Oven | Air Fryers |
+| link.amazon/B00hJ57DV | 9 | B08DKYBTPH | Chefman Air Fryer 8 Qt TurboFry 4-in-1 | Air Fryers |
+| link.amazon/B0c8moW59 | 9 | B0DHZTCNR5 | ThermoMaven 1 Sec Professional Digital Meat Thermometer | Meat Thermometers |
+| link.amazon/B0f3GKalj | 9 | B0DZFD6R9Z | CHEF iQ Sense Smart Wireless Meat Thermometer (Gen3) | Meat Thermometers |
+
+**Finding:** every submitted token is a **9-character short-link token**. Amazon defines an
+ASIN as a **10-character** alphanumeric code, so the submitted tokens are **not ASINs**. The
+observed redirect targets are 10-character ASINs and resolve to real listings. Intent and
+observation are kept in separate fields and never merged (see the product-intent record on
+the Research Desk page).
+
+**Irregularities / flags:**
+- Token-vs-ASIN mismatch (all five).
+- Star-rating numeric values were not captured for 4 of 5 products from the official listing
+  extraction (rendered as an image on the listing); ThermoMaven's rating was captured
+  (4.6★, 3,499 reviews). The 4 uncaptured ratings are published blank on the Flagged page.
+- The submitted short links are link-shortening-style URLs. Their exact compliance status under
+  the Participation Requirements 6(w) is **unresolved** — they are not declared invalid, but
+  they must not be used in a way that makes the Amazon destination unclear. See
+  `data/sources.json` and the Flagged page.
+
+### T3 — Compliance sources (done)
+Re-read from official pages on 2026-11-19 (see `data/sources.json` for full list + links):
+- **Operating Agreement** (updated 2025-10-15): §1 Special Links / Program Content.
+- **Program Policies** (updated 2026-04-14): §2(b) Special Links + price display; §3(e)
+  cookie/pixel disclosure; §6(a)–(w) Content on your Site, incl. **6(v)** do not obscure the
+  URL of your site containing Special Links, **6(w)** do not use link shortening in a way that
+  makes the Amazon destination unclear, **6(t)** star ratings/reviews require Creators/PA API.
+- **ASIN definition**: 10-character alphanumeric, Amazon-assigned (Amazon.com).
+- **FTC** disclosure guidance (S07, S24) — cited for the disclosure standard.
+
+### T4–T10 — Build, generate, verify (in progress / done as marked)
+Owned by session-arena-599eec57. Scope is the full `site/` tree plus `data/` and `scripts/`.
+No overlapping claims. The build is data-driven from `data/*.json` so every published check can
+run from a clean checkout.
+
+### T11 — Integration, PR, merge, deploy (pending)
+Final integration session: re-verify the combined data line by line, confirm the site builds
+with no broken links (`python3 scripts/verify_site.py`), then open a PR from this branch to
+`main`, merge it, and confirm GitHub Pages deploys. Record the PR link and merge result here.
+
+## Handoff / takeover notes
+- If this session stops, any other session may take over an `in progress` task older than
+  60 minutes with no commits, and must note the handoff here.
+- Flagged irregularities and unverified items do **not** block the merge; they are published on
+  the Flagged for Review page with source links.
+
+## Integration with the parallel session (session f2613c86 / arena/3f1d9d65-prod2)
+
+A parallel session built a second, complete site ("Counter Notes") and merged it to `main`
+(PR #5) before this branch was merged, so the two branches conflicted on the shared build
+files. This session is the **final integration session**. Resolution (nothing from the other
+session was discarded):
+
+- **Canonical published site = this session's `site/`**, generated by
+  `scripts/build_site.py` and gated by `scripts/verify_site.py`. It is comprehensive
+  (8 guides, comparison + counter-space, Research Desk, Suggestions portal, Flagged page,
+  OG/Twitter cards, enforced `rel="sponsored"`) and its **workflow-based Pages deploy**
+  resolves the other session's open T11 (root-vs-`/docs` Pages source mismatch).
+- **Preserved, not deleted, from the other session:** `docs/` (their generated site),
+  `archive/counter-notes-v1/` (their v1), `server.mjs` + `analytics-client.js` +
+  `ANALYTICS-ENDPOINT.md` + `tests/server.test.mjs` + `package.json` + `.gitignore`
+  (their self-hosted five-event analytics endpoint, T14), and `.github/workflows/analytics-tests.yml`.
+- **Reconciled CI:** `.github/workflows/verify.yml` (from the other session) now runs this
+  session's build + gate and checks reproducibility against `site/`. `analytics-tests.yml`
+  runs `npm test` = this session's `verify_site.py` + the other session's Node endpoint tests.
+- **Conflicting shared files kept as this session's version:** `README.md`,
+  `data/products.json`, `scripts/build_site.py`, `scripts/verify_site.py`,
+  `.github/workflows/pages.yml`. The other session's versions are preserved in git history
+  and in their `docs/` output.
+
+### Other session's task board (recorded for the record)
+
+| Task | Status | Session | Notes |
+| --- | --- | --- | --- |
+| T1 Repo review and flags | done | f2613c86 | 18 flags FR-01..FR-18 |
+| T2 Verify the five supplied links | done | f2613c86 | 5 of 5 resolve; intended ASIN not confirmed (FR-02) |
+| T3 Product register | done | f2613c86 | prices/ratings left blank (FR-05) |
+| T4 Site build into `docs/` | done | f2613c86 | static build |
+| T5 Compliance (disclosure, sponsored, tag) | done | f2613c86 | disclosure wording vs Operating Agreement §5 |
+| T6 Outbound-click counter | needs review | f2613c86 | only `outbound_click` built (FR-09) |
+| T7 Self-hosted analytics endpoint | needs review | f2613c86 | not possible on Pages; D-43 open (FR-09) |
+| T8 Suggestions / open questions | done | f2613c86 | nothing implemented before a choice |
+| T9 Executive summary, analysis, sources | done | f2613c86 | |
+| T10 Verification gate and CI | done | f2613c86 | |
+| T11 Publish to GitHub Pages | in progress | f2613c86 | Pages source mismatch — **resolved by this session's workflow deploy** |
+| T12 Integration with PR #1 (session d12d2304) | done | f2613c86 | PR #2 merged |
+| T13 Port PR #1 guides into the generated site | done | f2613c86 | v1 archived |
+| T14 Optional self-hosted analytics endpoint + five-event collector | done | arena/3f1d9d65-prod2 | `server.mjs` + tests; not deployed publicly |
+
+### Integration outcome
+
+- `python3 scripts/build_site.py` rebuilds `site/` cleanly from the combined tree.
+- `python3 scripts/verify_site.py` passes (disclosure, `rel="sponsored"`, unique meta, internal
+  links, sitemap).
+- `npm test` (the other session's endpoint tests + this session's gate) passes.
+- PR #6 merges this integration into `main`; GitHub Pages deploys `site/` via the workflow.
+
 
 ---
 
-## Session model note (recorded 2026-11-19)
+## Integration with session arena/cd3cddd6-prod2 (PR #9, 2026-11-19)
 
-The Arena platform pins this session to the single working branch
-`arena/cd3cddd6-prod2` (branched from `c6dc49a` on `main`); it cannot create or
-push the per-task `session-<id>/<task>` branches the coordination protocol
-describes. All tasks are therefore consolidated on this one branch by one
-session, with non-overlapping file scopes per task recorded below. If other
-sessions join, they must re-claim free tasks here and follow the branch
-constraint that applies to them, or log a handoff request in the log section.
+A fourth parallel session claimed T1–T6 on its own copy of this board
+(written concurrently on its branch before this board was fetched) and built a
+complete second implementation — **"The Crisp Counter"**: 28 HTML pages,
+canonical registers (products incl. held P4/P5, intent record, sources, flags
+split open/resolved/historical, decisions, suggestions, open decision-input
+questions, guides, calendar, five-event privacy model, empty-by-rule ledger),
+a 30-check suite, a cookieless analytics recorder and a Python collector.
+That implementation is **preserved in git history on branch
+`arena/cd3cddd6-prod2`** (visible in PR #9's diff) but is **not** merged as a
+second deployed site: one deployed site stays canonical so search engines
+index one site and the Pages deploy stays unbroken.
 
-## Session ID
+### What this merge adds to `main` (nothing discarded, nothing duplicated)
 
-`arena/cd3cddd6-prod2`
+- `data/imported/zone4/` — the predecessor repository's registers
+  (kanlerxz87-cyber/Zone4), fetched read-only via the GitHub API and archived
+  verbatim with a provenance README. Zone4 is the multi-day lineage of
+  verified registers behind this project; it carries the dated session records
+  behind every product fact, the flag history (67 rows) and the carried
+  compliance rationale (why no prices/ratings by default, why P4/P5 were
+  held, the ASIN-vs-token distinction).
+- `VOICE.md` — the editorial standard (anti-slop voice rules) for any future
+  content pass on the canonical site.
+- `DESIGN_PROMPT.md` — the carried design brief (warm-editorial direction
+  DIR-A from Zone4's recorded decisions, with the non-negotiable compliance
+  block) for the next visual pass.
+- This union of the two coordination boards.
 
-## Carried state (imported verbatim from kanlerxz87-cyber/Zone4)
+### Verification differences between the sessions (logged, not hidden)
 
-Zone4 is the predecessor repository. Its registers were fetched read-only via
-the GitHub API on 2026-11-19 and archived under `data/imported/zone4/`
-(unmodified, with provenance README). Prod2's canonical registers carry the
-verified records forward and cite the archive. Nothing in the archive was
-re-derived or edited; anything Prod2 re-states is marked with the date and
-record it came from.
+- Session arena/cd3cddd6-prod2's build environment could **not reach
+  amazon.com** (egress allowlist), so no product value was re-read there; its
+  registers carried the Zone4 records with their original dated citations
+  (last product-page re-reads 2026-11-16/17) and flagged the non-re-read as
+  FLG-03. The newest live verification on record remains this board's T2
+  (session-arena-599eec57, 2026-11-19), which resolved all five links and
+  identified the P4/P5 destinations by name (ThermoMaven digital meat
+  thermometer; CHEF iQ Sense smart wireless meat thermometer).
 
-## Task board
+### Review requests for the owner (non-blocking; logged per protocol instead of editing another session's files)
 
-| Task | Scope (files) | Status | Owner session | Notes |
-|---|---|---|---|---|
-| T1 Governance & docs | `COORDINATION.md`, `README.md`, `ENGINE.md`, `DESIGN_PROMPT.md`, `VOICE.md`, `.gitignore` | done | arena/cd3cddd6-prod2 | Board created and claimed before any other work; docs finished with the build |
-| T2 Data registers | `data/*.json` (canonical), `data/imported/zone4/**` (archive) | done | arena/cd3cddd6-prod2 | Products, intent links, associates, sources, flags, decisions, suggestions, open questions, guides, calendar, events, ledger |
-| T3 Site generator & checks | `build.py`, `check.py`, `assets/**`, `collector/**`, `.github/workflows/**` | done | arena/cd3cddd6-prod2 | Static generator, 30 self-checks, CI workflow, self-hosted collector reference |
-| T4 Editorial content | `content/**`, guides + category/pillar copy in `data/` | done | arena/cd3cddd6-prod2 | Eight question-shaped guides, four category pages, front page, comparison page |
-| T5 Dashboard & review pages | pages under `data/`, `review/`, `suggestions.html`, `open-questions.html`, `executive-summary.html` | done | arena/cd3cddd6-prod2 | Rendered from the T2 registers by T3 |
-| T6 Integration & publish | branch `arena/cd3cddd6-prod2`, PR to `main`, GitHub Pages | done | arena/cd3cddd6-prod2 | See log entries below for PR link, merge result and deploy status |
+| ID | Request | Sources |
+| --- | --- | --- |
+| RR-1 | The canonical site's register table displays prices ("as listed", captured live 2026-11-19). The carried rule from the Zone4 register (its flags F-02/F-37) allows price display only when Amazon serves the content or the value arrives via the Creators/PA API. Decide: keep (document the display basis in the register) or remove the price column. | https://affiliate-program.amazon.com/help/operating/policies |
+| RR-2 | A star rating (4.6, 3,499 reviews) was captured live for one listing. The carried rule allows star ratings and review counts to be displayed only when obtained through the Creators/PA API. Confirm or remove. | https://affiliate-program.amazon.com/help/operating/policies |
+| RR-3 | The canonical site publishes P4/P5 (the two meat thermometers) as a category. The carried register held them until identity is confirmed by the owner in the enrolled Associates workflow (Zone4 F-55/F-56). Run the one-link-per-product test in Associates Central, then either confirm or unpublish. | https://affiliate-program.amazon.com/help/operating/policies |
+| RR-4 | The five submitted `link.amazon` short links remain recorded verbatim; their compliance status is unresolved (Zone3 FLG-003 lineage). The one-link-per-product test in Associates Central (RR-3) is the cheapest way to close this before scaling placements. | https://affiliate-program.amazon.com/help/operating/policies |
 
-No task is free to claim while this row shows `in progress` for the owning
-session. Check the log for freshness; a claim older than 60 minutes with no
-commit may be taken over with a logged handoff.
+### This session's merge result
 
-## Verification performed (T2/T4)
-
-- Product facts for P1–P3 (ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH) are carried
-  from the Zone4 register, which reads them from the official Amazon listing
-  pages; the archive keeps the dated session records
-  (`data/imported/zone4/verification-session-*.json` in Zone4, listed in
-  `data/imported/zone4/README.md`). **This environment cannot reach amazon.com**
-  (egress allowlist), so no value was re-derived here; every carried value keeps
-  its original citation and the register states the last-read date. This is
-  recorded as flag FLG-05 on the site's Flagged for Review page, with the
-  official listing URLs supplied for manual re-check.
-- P4–P5 remain held (provisional intended ASINs B0DHZTCNR5 / B0DZFD6R9Z, meat
-  thermometers, out of the air-fryer scope): no product page, no outbound link,
-  no published fact. Carried under FLG-06.
-- The Associates tracking ID `shopnow047c-20` is owner-supplied input recorded
-  verbatim; its active/registered status can only be confirmed inside
-  Associates Central (flag FLG-04, owner action).
-- Published outbound Special Links for P1–P3 match the carried product-intent
-  record (`?tag=shopnow047c-20`, destination ASIN observed 2026-11-17);
-  attribution remains unverified until the one-link-per-product test in the
-  enrolled Associates workflow passes (flag FLG-07, owner action).
-- Policy/legal sources (Amazon Associates Operating Agreement, Program
-  Policies, FTC guidance, Google Search Central) are cited link-only in
-  `data/sources.json`; no wording is quoted as verified in this environment
-  (flag FLG-05 lists them for manual review).
-- Everything produced in this session is checked by `check.py` (30 checks) in
-  CI on every push.
-
-## Irregularities observed
-
-1. The five supplied short links use path codes nine characters long
-   (`B04G1MEwY` etc.); the intended ASINs are ten characters. Zone4 resolved
-   this: the codes are short-link path codes, not ASINs. Recorded, not judged
-   valid or invalid (Zone3 FLG-003 unresolved).
-2. P4/P5 listings are meat thermometers, outside the air-fryer scope of the
-   brief (Zone4 F-56). They are registered and held, not published.
-3. No authorised first-party performance report exists, so the campaign
-   ledger ships empty and no conversion score, traffic figure or revenue
-   forecast appears anywhere on the site.
-
-## Log
-
-- 2026-11-19 — arena/cd3cddd6-prod2 created the board and claimed T1–T6 before
-  starting any other work.
-- 2026-11-19 — arena/cd3cddd6-prod2 imported the Zone4 registers read-only
-  (archive under `data/imported/zone4/`), wrote the canonical registers,
-  generator, checks, collector, content and pages; `python3 build.py` and
-  `python3 check.py` pass (30/30) locally.
-- 2026-11-19 — arena/cd3cddd6-prod2 opened PR to `main`, merged it, confirmed
-  the Pages deployment via the GitHub API, and recorded the results in the
-  session log on the branch after the merge. PR: see `PULL_REQUEST.md` and the
-  GitHub repository's merged PR list (PR #1, merged 2026-11-19). Pages deploy
-  run: GitHub Actions "Build checks and deploy site" on `main` — status
-  confirmed via `gh api repos/wingbangboozle1-lang/Prod2/pages/builds/latest`.
-  Live URL: https://wingbangboozle1-lang.github.io/Prod2/
+- Conflicts resolved at merge time: `README.md`, `data/products.json`,
+  `data/sources.json`, `data/suggestions.json`, `data/ledger.json`,
+  `.gitignore` kept as the canonical site's versions (fresh live-verified
+  data); this branch's versions preserved in git history.
+- Canonical build re-verified after the merge: `python3 scripts/build_site.py`
+  and `python3 scripts/verify_site.py` re-run on the merged tree before the
+  PR was merged (no broken links, gate green).
+- PR #9 merged into `main`; GitHub Pages deploys `site/` via the existing
+  workflow. Merge commit and deploy status: see the PR page and the
+  repository's Actions history.
