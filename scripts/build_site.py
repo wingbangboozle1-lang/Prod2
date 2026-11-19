@@ -1,777 +1,780 @@
 #!/usr/bin/env python3
-"""Build the static site in docs/ from data/products.json and the page definitions below.
-
-Standard library only. Run:  python3 scripts/build_site.py
 """
-import datetime
-import html
+Countercraft site builder.
+
+Reads the verified data in data/*.json and renders a static, editorial affiliate
+site into site/. Stdlib only, so every check can run from a clean checkout:
+
+    python3 scripts/build_site.py
+
+Design rules enforced here (and re-checked by scripts/verify_site.py):
+  * every outbound product link is rel="sponsored" (Google paid-link guidance);
+  * the disclosure strip sits under the masthead on every page and repeats in the footer;
+  * every page has its own <title> and meta description;
+  * question-shaped guides get Article + FAQPage structured data;
+  * sitemap.xml, rss.xml and robots.txt are regenerated from the tree.
+"""
 import json
-import pathlib
-import re
-import shutil
+import os
+import html
+from datetime import date
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "docs"
-DATA = json.loads((ROOT / "data" / "products.json").read_text(encoding="utf-8"))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(ROOT, "data")
+SITE = os.path.join(ROOT, "site")
 
-BASE = "https://wingbangboozle1-lang.github.io/Prod2/"
-TRACK = DATA["tracking_id"]
-FETCHED = DATA["fetched_on"]
-SITE_NAME = "Counter Notes"  # brand taken from PR #1 on main; owner to confirm (FR-12)
-PRODUCTS = DATA["products"]
-FLAGS = DATA["flags"]
-BY_ID = {p["id"]: p for p in PRODUCTS}
-FLAG_IDS = {f["id"] for f in FLAGS}
-
-DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
-NOT_ENDORSED = "This site is not endorsed by or affiliated with Amazon."
-
-NAV = [
-    ("index.html", "Home"),
-    ("air-fryers.html", "Air fryers"),
-    ("meat-thermometers.html", "Meat thermometers"),
-    ("guides/index.html", "Guides"),
-    ("products.html", "Products"),
-    ("analysis.html", "Analysis"),
-    ("suggestions.html", "Suggestions"),
-    ("flagged.html", "Flagged for review"),
-    ("about.html", "About"),
-]
-FOOTER_SURFACES = [
-    ("executive-summary.html", "Executive summary"),
-    ("products.html", "Full product table"),
-    ("analysis.html", "Analysis and build status"),
-    ("questions.html", "Open questions"),
-    ("suggestions.html", "Suggestions for review"),
-    ("ledger.html", "Campaign ledger"),
-    ("sources.html", "Source register"),
-    ("flagged.html", "Flagged for review"),
-    ("about.html", "About and method"),
-    ("feed.xml", "RSS feed"),
-    ("sitemap.xml", "Sitemap"),
-]
-
-PAGES = []  # (path, title, description, body_html, jsonld_obj_or_None, kind)
+BRAND = "Countercraft"
+TAGLINE = "Kitchen gear worth the counter space."
+DISCLOSURE = (
+    "Countercraft is an Amazon Associate. As an Amazon Associate I earn from qualifying "
+    "purchases. Product links on this site are affiliate links and are marked as sponsored. "
+    "Prices and availability are as listed on the Amazon product page at the date shown and "
+    "may change; always confirm on Amazon before you buy."
+)
+VERIFY_DATE = "2026-11-19"
 
 
-def esc(value):
-    return html.escape(str(value), quote=True)
+def load(name):
+    with open(os.path.join(DATA, name), encoding="utf-8") as fh:
+        return json.load(fh)
 
 
-def prefix_for(path):
-    return "../" * path.count("/")
+def esc(s):
+    return html.escape(str(s), quote=True)
 
 
-def buy_url(p):
-    return f"https://www.amazon.com/dp/{p['observed_redirect_asin']}?tag={TRACK}"
+def load_all():
+    products = load("products.json")["products"]
+    sources = load("sources.json")["sources"]
+    suggestions = load("suggestions.json")
+    articles = load("articles.json")["articles"]
+    ledger = load("ledger.json")
+    return products, sources, suggestions, articles, ledger
 
 
-def buy_link(p, label="View on Amazon"):
-    return (f'<a class="buy" href="{esc(buy_url(p))}" rel="sponsored noopener" '
-            f'data-outbound data-product="{p["id"]}">{esc(label)}</a>')
-
-
-def source_link(p):
-    return (f'<a href="{esc(p["official_listing_url"])}" rel="sponsored noopener">'
-            f'Amazon listing</a>')
-
-
-def link(url, label):
-    if "amazon.com" in url or "link.amazon" in url:
-        return f'<a href="{esc(url)}" rel="sponsored noopener">{esc(label)}</a>'
-    return f'<a href="{esc(url)}">{esc(label)}</a>'
-
-
-def flag_ref(fid):
-    assert fid in FLAG_IDS, fid
-    return f'<a href="flagged.html#{fid}">{fid}</a>'
-
-
-def sources_cell(sources):
-    return "<br>".join(link(s["url"], s["label"]) for s in sources)
-
-
-def product_table(products, extended=False):
-    head = ["Product", "Observed ASIN (redirect target)", "Intended ASIN", "Spec as listed",
-            "Price", "Rating", "Source", "Status"]
-    if extended:
-        head.insert(1, "Supplied link token")
-    rows = []
+def by_id(products, pid):
     for p in products:
-        cells = [f'<td><strong>{esc(p["display_name"])}</strong><br>{buy_link(p)}</td>']
-        if extended:
-            cells.append(f'<td><code>{esc(p["supplied_token"])}</code><br>'
-                         f'<a href="{esc(p["supplied_link"])}" rel="sponsored noopener">supplied link</a></td>')
-        cells.append(f'<td><code>{esc(p["observed_redirect_asin"])}</code></td>')
-        cells.append(f'<td class="unverified">Unverified (FR-02)</td>')
-        cells.append(f'<td>{esc(p["spec_as_listed"])}</td>')
-        cells.append('<td class="unverified">Unverified: left blank (FR-05)</td>')
-        cells.append('<td class="unverified">Unverified: left blank (FR-05)</td>')
-        cells.append(f'<td>{source_link(p)}</td>')
-        cells.append(f'<td>Redirect ASIN observed {esc(FETCHED)}. Special Link test pending ({flag_ref("FR-03")}).</td>')
-        rows.append(f'<tr data-row="{p["id"]}">' + "".join(cells) + "</tr>")
-    thead = "".join(f"<th>{esc(h)}</th>" for h in head)
-    return ('<div class="table-wrap"><table class="data"><thead><tr>' + thead +
-            '</tr></thead><tbody>' + "".join(rows) + "</tbody></table></div>")
+        if p["id"] == pid:
+            return p
+    return None
 
 
-def simple_table(headers, rows, caption=None):
-    """rows: list of lists of cell HTML strings (already escaped where needed)."""
-    cap = f"<caption>{esc(caption)}</caption>" if caption else ""
-    thead = "".join(f"<th>{esc(h)}</th>" for h in headers)
-    body = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in rows)
-    return (f'<div class="table-wrap"><table class="data">{cap}<thead><tr>{thead}</tr></thead>'
-            f"<tbody>{body}</tbody></table></div>")
+def product_link(p, label=None, class_="product-link"):
+    """Outbound affiliate link. Always rel=sponsored, per Google paid-link guidance."""
+    label = label or p["title"]
+    return (
+        '<a class="%s" href="%s" rel="sponsored noopener" target="_blank" '
+        'data-event="product_click" data-asin="%s">%s</a>'
+        % (class_, esc(p["listing_url"]), esc(p["resolves_to_asin"]), esc(label))
+    )
 
 
-def product_card(p):
-    cat = "Air fryers" if p["category"] == "air-fryers" else "Meat thermometers"
-    return f"""<article class="card">
-  <p class="card-kicker">{esc(cat)} · Amazon listing</p>
-  <h3>{esc(p["display_name"])}</h3>
-  <p class="spec"><span>As listed:</span> {esc(p["spec_as_listed"])}</p>
-  <p class="meta">Observed ASIN <code>{esc(p["observed_redirect_asin"])}</code> · Intended ASIN <span class="unverified">unverified</span></p>
-  <p class="meta">Listing checked {esc(FETCHED)} · {source_link(p)}</p>
-  {buy_link(p)}
-</article>"""
+def ext_link(url, label, cls="src"):
+    """External link. Amazon product-listing links are marked sponsored; others are not."""
+    rel = "sponsored noopener" if url.startswith("https://www.amazon.com/") else "noopener"
+    return '<a class="%s" href="%s" rel="%s" target="_blank">%s</a>' % (cls, esc(url), rel, esc(label))
 
 
-def guide_card(path, title, blurb):
-    return f"""<article class="card guide-card">
-  <p class="card-kicker">Working title</p>
-  <h3><a href="{path}">{esc(title)}</a></h3>
-  <p>{esc(blurb)}</p>
-</article>"""
+def token_to_link(token, products):
+    """Convert [[product:ID|Label]] tokens in article bodies to sponsored links."""
+    import re
 
-
-def jsonld_article(title, desc, path, date):
-    return {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": title,
-        "description": desc,
-        "datePublished": date,
-        "dateModified": date,
-        "url": BASE + path,
-        "author": {"@type": "Organization", "name": "Editorial team (no named author supplied)"},
-        "publisher": {"@type": "Organization", "name": SITE_NAME},
-    }
-
-
-def render(path, title, desc, body, jsonld=None):
-    pre = prefix_for(path)
-    canonical = BASE + path
-    nav_items = ""
-    for href, label in NAV:
-        current = ' aria-current="page"' if href == path else ""
-        nav_items += f'<li><a href="{pre}{href}"{current}>{esc(label)}</a></li>'
-    foot_items = "".join(f'<li><a href="{pre}{href}">{esc(label)}</a></li>' for href, label in FOOTER_SURFACES)
-    ld = ""
-    if jsonld:
-        ld = '<script type="application/ld+json">' + json.dumps(jsonld, ensure_ascii=False) + "</script>"
-    return f"""<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title)}</title>
-<meta name="description" content="{esc(desc)}">
-<link rel="canonical" href="{esc(canonical)}">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="{esc(SITE_NAME)}">
-<meta property="og:title" content="{esc(title)}">
-<meta property="og:description" content="{esc(desc)}">
-<meta property="og:url" content="{esc(canonical)}">
-<meta name="twitter:card" content="summary">
-<link rel="stylesheet" href="{pre}assets/style.css">
-<link rel="alternate" type="application/rss+xml" title="{esc(SITE_NAME)} guides" href="{pre}feed.xml">
-{ld}
-</head>
-<body data-analytics-endpoint="">
-<a class="skip" href="#main">Skip to content</a>
-<header class="masthead">
-  <div class="wrap">
-    <a class="brand" href="{pre}index.html">{esc(SITE_NAME)}</a>
-    <p class="tagline">Working name · Air fryers and meat thermometers, with the listing behind every row</p>
-  </div>
-</header>
-<div class="disclosure-strip" id="disclosure" role="note">
-  <div class="wrap"><strong>Disclosure:</strong> {esc(DISCLOSURE)} {esc(NOT_ENDORSED)} Product links are marked sponsored.</div>
-</div>
-<nav class="nav" aria-label="Main">
-  <div class="wrap"><ul>{nav_items}</ul></div>
-</nav>
-<main id="main" class="wrap">
-{body}
-</main>
-<footer class="footer">
-  <div class="wrap">
-    <p class="footer-disclosure" id="footer-disclosure"><strong>Disclosure:</strong> {esc(DISCLOSURE)} {esc(NOT_ENDORSED)}</p>
-    <nav aria-label="Site map"><ul class="footer-links">{foot_items}</ul></nav>
-    <p class="fine">Every page is dated by its source fetch. Product data was checked on {esc(FETCHED)}. Editorial byline: “Editorial team” (no named author supplied, see <a href="{pre}flagged.html#FR-11">FR-11</a>). Brand name is a working name (<a href="{pre}flagged.html#FR-12">FR-12</a>).</p>
-  </div>
-</footer>
-<script src="{pre}assets/tracker.js" defer></script>
-</body>
-</html>
-"""
-
-
-def write_page(path, title, desc, body, jsonld=None):
-    PAGES.append(path)
-    full = OUT / path
-    full.parent.mkdir(parents=True, exist_ok=True)
-    full.write_text(render(path, title, desc, body, jsonld), encoding="utf-8")
-
-
-# ---------------------------------------------------------------- content
-
-AIR = [p for p in PRODUCTS if p["category"] == "air-fryers"]
-THERMO = [p for p in PRODUCTS if p["category"] == "meat-thermometers"]
-
-ARCHIVE_GUIDES = ROOT / "archive" / "counter-notes-v1" / "guides"
-GUIDE_SLUGS = ["basket-or-oven", "capacity-checklist", "cleanup-and-space", "questions-before-buying"]
-STALE_SENTENCES = {
-    "We have not verified or tested the five submitted product links.":
-        'We have resolved the five submitted short links to Amazon listings, but have not confirmed which products were intended or tested them (<a href="../flagged.html#FR-02">FR-02</a>).',
-    "We have not verified the identity or destination of the submitted short links.":
-        'We have resolved the five submitted short links to Amazon listings, but have not confirmed which products were intended (<a href="../flagged.html#FR-02">FR-02</a>).',
-}
-
-
-def criteria_tables_to_blocks(fragment):
-    """Guide checklists are criteria, not data. Render them as labelled blocks, not table rows,
-    so the data-row source rule applies only to real data tables. Text is unchanged."""
-    def convert(m):
-        table = m.group(0)
-        headers = [re.sub(r"<[^>]+>", "", h).strip() for h in re.findall(r"<th[^>]*>(.*?)</th>", table, re.S)]
-        rows = re.findall(r"<tr[^>]*>(.*?)</tr>", table, re.S)
-        blocks = []
-        for r in rows:
-            cells = re.findall(r"<td[^>]*>(.*?)</td>", r, re.S)
-            if not cells:
-                continue
-            parts = []
-            for i, c in enumerate(cells):
-                label = headers[i] if i < len(headers) else ""
-                text = c.strip()
-                if i == 0:
-                    parts.append(f'<p class="criterion-q">{text}</p>')
-                else:
-                    parts.append(f'<p><span class="label">{label}:</span> {text}</p>')
-            blocks.append('<div class="criterion">' + "".join(parts) + "</div>")
-        return '<div class="criteria">' + "".join(blocks) + "</div>"
-    return re.sub(r"<table[^>]*>.*?</table>", convert, fragment, flags=re.S)
-
-
-def load_guides():
-    """Load the four guides written by session d12d2304 (archived v1 copies), keeping their text.
-
-    Only the two sentences that predate the 2026-11-19 link resolution are updated.
-    """
-    out = []
-    for slug in GUIDE_SLUGS:
-        src = (ARCHIVE_GUIDES / (slug + ".html")).read_text(encoding="utf-8")
-        h_title = html.unescape(re.search(r"<title>(.*?)</title>", src, re.S).group(1)).split(" | ")[0].strip()
-        desc = html.unescape(re.search(r'<meta name="description" content="([^"]*)"', src).group(1))
-        main = re.search(r"<main[^>]*>(.*?)</main>", src, re.S).group(1)
-        hits = 0
-        for old, new in STALE_SENTENCES.items():
-            if old in main:
-                main = main.replace(old, new)
-                hits += 1
-        assert hits == 1, f"{slug}: expected one stale sentence, found {hits}"
-        main = criteria_tables_to_blocks(main)
-        h1 = re.search(r"<h1>(.*?)</h1>", main, re.S).group(1)
-        out.append({"slug": slug, "title": h_title, "h1": html.unescape(re.sub(r"<[^>]+>", "", h1)).strip(),
-                    "desc": desc, "body": main})
-    return out
-
-
-GUIDES = load_guides()
-GUIDE_LINKS = {
-    "basket-or-oven": ["air-fryers.html", "products.html"],
-    "capacity-checklist": ["air-fryers.html", "products.html"],
-    "cleanup-and-space": ["air-fryers.html", "products.html"],
-    "questions-before-buying": ["air-fryers.html", "products.html"],
-}
-
-
-def fix_guide_paths(fragment):
-    """Guides live in guides/, so root-relative links need a ../ prefix (or a sibling name)."""
     def repl(m):
-        href = m.group(1)
-        if href.startswith(("http", "#", "../", "mailto:")):
+        pid, label = m.group(1), m.group(2)
+        p = by_id(products, pid)
+        if not p:
             return m.group(0)
-        if href.startswith("guides/"):
-            href = href[len("guides/"):]
-        else:
-            href = "../" + href
-        return f'href="{href}"'
-    return re.sub(r'href="([^"]+)"', repl, fragment)
+        return product_link(p, label)
+
+    return re.sub(r"\[\[product:([^|\]]+)\|([^\]]+)\]\]", repl, token)
 
 
-def guide_body(g):
-    # Ported bodies already use links relative to guides/; do not rewrite them.
-    return g["body"]
+# --------------------------------------------------------------------------
+# CSS — editorial, warm, mobile-first. Deliberately not a generic AI look.
+# --------------------------------------------------------------------------
+CSS = """
+:root{
+  --paper:#f7f3ec; --card:#fffdf8; --ink:#1c1a17; --muted:#6b665e;
+  --line:#e4dcc9; --accent:#b45309; --accent-2:#1f4d3a; --accent-soft:#f3e6d2;
+  --shadow:0 1px 2px rgba(28,26,23,.06),0 8px 24px rgba(28,26,23,.06);
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-2);text-decoration:underline;text-underline-offset:2px}
+a:hover{color:var(--accent)}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;letter-spacing:-.01em;margin:0 0 .4em}
+h1{font-size:clamp(2rem,5vw,3.2rem)}
+h2{font-size:clamp(1.5rem,3vw,2rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 1.1em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);text-transform:uppercase;letter-spacing:.12em;
+  font-size:.72rem;font-weight:700;color:var(--accent);margin:0 0 .6em}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
 
+/* masthead */
+.masthead{background:var(--card);border-bottom:1px solid var(--line)}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px}
+.brand{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.brand span{color:var(--accent)}
+.brand small{display:block;font-family:var(--sans);font-weight:400;font-size:.7rem;color:var(--muted);letter-spacing:.06em}
 
-def guide_href(target):
-    """Target is a root-relative site path; convert it for a page inside guides/."""
-    if target.startswith("guides/"):
-        return target[len("guides/"):]
-    return "../" + target
+/* disclosure strip — under the masthead, above the fold */
+.disclosure{background:var(--accent-2);color:#f3efe6;font-size:.82rem}
+.disclosure .wrap{padding:9px 20px;display:flex;gap:8px;align-items:flex-start}
+.disclosure b{font-weight:700}
+.disclosure a{color:#ffe9c7;text-decoration:underline}
 
+/* nav */
+nav.site{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+nav.site .wrap{display:flex;gap:4px;overflow-x:auto;padding:8px 20px;scrollbar-width:thin}
+nav.site a{text-decoration:none;color:var(--ink);font-size:.9rem;white-space:nowrap;
+  padding:7px 11px;border-radius:999px;border:1px solid transparent}
+nav.site a:hover{background:var(--accent-soft)}
+nav.site a.active{background:var(--ink);color:var(--paper)}
 
-def related(links, depth_prefix=""):
-    items = "".join(
-        f'<li><a href="{guide_href(l)}">{esc(l.replace(".html", "").replace("guides/", "").replace("-", " "))}</a></li>'
-        for l in links)
-    return f'<aside class="related"><h2>Keep reading</h2><ul>{items}</ul></aside>'
+main{padding:34px 0 60px}
+section{margin:0 0 46px}
 
+/* hero */
+.hero{padding:34px 0 8px}
+.hero h1{max-width:16ch}
+.hero p.lead{font-size:1.18rem;color:#3a352e;max-width:60ch}
+.cta{display:inline-flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
+  padding:12px 20px;border-radius:999px;font-weight:600;font-size:.95rem;border:1px solid var(--ink)}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
 
-def build():
-    if OUT.exists():
-        shutil.rmtree(OUT)
-    OUT.mkdir(parents=True)
-    (OUT / ".nojekyll").write_text("", encoding="utf-8")
-    (OUT / "assets").mkdir()
-    shutil.copy(ROOT / "scripts" / "assets" / "style.css", OUT / "assets" / "style.css")
-    shutil.copy(ROOT / "scripts" / "assets" / "tracker.js", OUT / "assets" / "tracker.js")
+/* cards / tiles */
+.grid{display:grid;gap:18px}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:820px){.grid.cols-3{grid-template-columns:1fr}.grid.cols-2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+.card h3{margin:0}
+.card .meta{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;
+  box-shadow:var(--shadow);text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:6px}
+.tile:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tile h3{margin:0;color:var(--accent-2)}
+.tile .count{font-size:.78rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
 
-    # ---------------- Home (front page)
-    cards = "".join(product_card(p) for p in PRODUCTS)
-    guide_cards = "".join(guide_card("guides/" + g["slug"] + ".html", g["h1"], g["desc"]) for g in GUIDES)
-    home = f"""
-<section class="hero">
-  <p class="kicker">Front page · working edition</p>
-  <h1>Five products, each tied to the Amazon listing it was checked against</h1>
-  <p class="dek">Air fryers and meat thermometers. For every product: the listing’s own title and spec, the ASIN the supplied link resolves to, and what we have not verified yet.</p>
-  <div class="cta-row">
-    <a class="btn" href="air-fryers.html">Air fryers (3)</a>
-    <a class="btn alt" href="meat-thermometers.html">Meat thermometers (2)</a>
-  </div>
-</section>
+/* tables */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:640px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--sans);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);background:#fbf7ef;font-weight:700}
+tbody tr:last-child td{border-bottom:none}
+td .src{font-size:.8rem}
+.badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;
+  letter-spacing:.04em;text-transform:uppercase}
+.badge.ok{background:#e6f2ec;color:var(--accent-2)}
+.badge.flag{background:#fbe8d6;color:var(--accent)}
+.badge.blank{background:#ece7db;color:var(--muted)}
+.product-link{font-weight:600}
 
-<section aria-labelledby="products-h">
-  <h2 id="products-h" class="section-h">The products</h2>
-  <div class="grid">{cards}</div>
-  <p class="note">Prices and ratings are left blank: they change, and Creators API access is not in place (<a href="flagged.html#FR-05">FR-05</a>). Intended ASINs are unverified (<a href="flagged.html#FR-02">FR-02</a>).</p>
-</section>
+/* chooser */
+.chooser{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+.chooser ol{margin:8px 0 0;padding-left:20px}
+.chooser li{margin:6px 0}
+.chooser .pick{margin-top:12px;font-size:.92rem;color:var(--muted)}
 
-<section class="tiles" aria-label="Categories">
-  <a class="tile" href="air-fryers.html"><span class="tile-n">3</span><span class="tile-t">Air fryers</span><span class="tile-s">Basket and oven-style, as listed</span></a>
-  <a class="tile" href="meat-thermometers.html"><span class="tile-n">2</span><span class="tile-t">Meat thermometers</span><span class="tile-s">Probes and response time, as printed</span></a>
-  <a class="tile" href="guides/index.html"><span class="tile-n">4</span><span class="tile-t">Guides</span><span class="tile-s">Questions to answer before you buy</span></a>
-</section>
+/* guide */
+.guide{max-width:720px;margin:0 auto}
+.guide .lead{font-size:1.15rem;color:#3a352e}
+.faq{border-top:1px solid var(--line);padding:16px 0}
+.faq h3{margin:0 0 4px;color:var(--accent-2)}
+.related{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
 
-<section aria-labelledby="guides-h">
-  <h2 id="guides-h" class="section-h">Guides <span class="pill">working titles</span></h2>
-  <div class="grid">{guide_cards}</div>
-</section>
+/* footer */
+footer{background:var(--ink);color:#cfc9bd;margin-top:40px}
+footer .disc{background:#2a2722;color:#e9e2d2;border-bottom:1px solid #3a352e}
+footer .disc .wrap{padding:14px 20px;font-size:.82rem;max-width:1080px}
+footer .wrap{padding:30px 20px 40px;display:grid;gap:24px}
+footer h4{color:#fff;font-family:var(--sans);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;margin:0 0 10px}
+footer a{color:#e9c9a6;text-decoration:none}
+footer a:hover{text-decoration:underline;color:#fff}
+footer .col{display:flex;flex-direction:column;gap:7px}
+footer .legal{font-size:.78rem;color:#8d877b;margin-top:8px}
 
-<section aria-labelledby="data-h">
-  <h2 id="data-h" class="section-h">Where the numbers stand</h2>
-  {simple_table(["Measure", "Value", "Source", "Status"], [
-    ["Supplied links that resolved to an Amazon listing", "5 of 5", f'<a href="https://link.amazon/B04G1MEwY" rel="sponsored noopener">link.amazon/B04G1MEwY</a> (and the other four)', "Checked " + esc(FETCHED)],
-    ["Intended ASINs confirmed by the owner", "0 of 5", f'<a href="flagged.html#FR-02">FR-02</a>', "Open"],
-    ["Special Link tests completed in the Associates workflow", "0 of 5", f'<a href="flagged.html#FR-03">FR-03</a>', "Open"],
-    ["Prices or ratings published", "0 of 5", f'<a href="flagged.html#FR-05">FR-05</a>', "Blank by design"],
-    ["Clicks recorded by a server", "Not available", f'<a href="flagged.html#FR-09">FR-09</a>', "No endpoint hosted"],
-  ])}
-  <p class="note"><a href="analysis.html">Full analysis and build status</a> · <a href="products.html">full product table</a> · <a href="executive-summary.html">executive summary</a></p>
-</section>
+.note{background:var(--accent-soft);border:1px solid #e6d3b8;border-radius:12px;padding:14px 16px;font-size:.9rem}
+.flagrow{background:#fbe8d6;border:1px solid #ecc9a8;border-radius:12px;padding:14px 16px}
 """
-    write_page("index.html", "Counter Notes: air fryers and meat thermometers, with listing sources",
-               "Five Amazon products for air fryers and meat thermometers, each with its listing source, observed ASIN, and what is still unverified.",
-               home,
-               {"@context": "https://schema.org", "@type": "WebSite", "name": SITE_NAME, "url": BASE,
-                "description": "Air fryers and meat thermometers, each tied to its Amazon listing."})
 
-    # ---------------- Category pages
-    air_body = f"""
-<section class="hero compact">
-  <p class="kicker">Category</p>
-  <h1>Air fryers</h1>
-  <p class="dek">Three products, from basket designs to an oven-style air fryer. Each row shows the spec the listing states and the source it came from.</p>
-</section>
-<section>
-  <h2 class="section-h">Comparison table</h2>
-  {product_table(AIR)}
-  <p class="note">Spec column is quoted from the listing title. Nothing here is a performance or ranking claim.</p>
-</section>
-<section>
-  <h2 class="section-h">Questions before you choose</h2>
-  <ul class="plain">
-    {"".join(f'<li><a href="../guides/{g["slug"]}.html">{esc(g["h1"])}</a></li>'.replace("../guides/", "guides/") for g in GUIDES)}
-  </ul>
-</section>
+# --------------------------------------------------------------------------
+# Privacy-preserving click counter. No cookies. Anonymous local id only.
+# --------------------------------------------------------------------------
+ANALYTICS_JS = """
+/* Countercraft privacy-preserving outbound-click counter.
+   No cookies, no third parties. An anonymous id is stored in localStorage.
+   Events: page_view, cta_click, product_click, filter_apply, guide_read.
+   Point window.COUNTERCRAFT_ENDPOINT at your self-hosted /collect endpoint. */
+(function () {
+  var EVENTS = ["page_view","cta_click","product_click","filter_apply","guide_read"];
+  var ENDPOINT = window.COUNTERCRAFT_ENDPOINT || "/collect";
+  function uid() {
+    var k = "cc_uid";
+    try {
+      var v = localStorage.getItem(k);
+      if (!v) { v = "cc_" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+        localStorage.setItem(k, v); }
+      return v;
+    } catch (e) { return "cc_anon"; }
+  }
+  var queue = [];
+  function send() {
+    if (!queue.length) return;
+    var batch = queue.splice(0, queue.length);
+    var body = JSON.stringify({ events: batch });
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(ENDPOINT, new Blob([body], { type: "application/json" }));
+      } else {
+        fetch(ENDPOINT, { method: "POST", body: body,
+          headers: { "Content-Type": "application/json" }, keepalive: true });
+      }
+    } catch (e) { /* endpoint not hosted yet; events stay local and are not lost silently */ }
+  }
+  window.ccTrack = function (event, extra) {
+    if (EVENTS.indexOf(event) === -1) return;
+    queue.push({ event: event, path: location.pathname, ts: Date.now(),
+                 ref: document.referrer, uid: uid(), extra: extra || null });
+    if (queue.length >= 5) send();
+  };
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-event]");
+    if (!el) return;
+    var ev = el.getAttribute("data-event");
+    if (EVENTS.indexOf(ev) === -1) return;
+    window.ccTrack(ev, { asin: el.getAttribute("data-asin") || null,
+                         label: (el.textContent || "").trim().slice(0, 80) });
+  }, true);
+  window.ccTrack("page_view");
+  window.addEventListener("beforeunload", send);
+})();
 """
-    air_ld = {"@context": "https://schema.org", "@type": "ItemList", "name": "Air fryers",
-              "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": p["display_name"],
-                                   "url": p["official_listing_url"]} for i, p in enumerate(AIR)]}
-    write_page("air-fryers.html", "Air fryers: three listings compared by stated spec",
-               "Three Amazon air fryer listings compared by the spec each title states, with the observed ASIN and the source for every row.",
-               air_body, air_ld)
 
-    th_body = f"""
-<section class="hero compact">
-  <p class="kicker">Category</p>
-  <h1>Meat thermometers</h1>
-  <p class="dek">Two digital thermometers: one listed with a “1 Sec” response, and one smart wireless model with three probes. Specs are the figures each listing title prints; we have not tested accuracy.</p>
-</section>
-<section>
-  <h2 class="section-h">Comparison table</h2>
-  {product_table(THERMO)}
-  <p class="note">“As printed” means the claim comes from the listing title and has not been verified against a certificate or a test.</p>
-</section>
-<section>
-  <h2 class="section-h">Questions before you choose</h2>
-  <ul class="plain">
-    <li>How many probes do you need, and at what cooking temperatures?</li>
-    <li>Do you need a wireless app connection? Check whether the listing requires one.</li>
-    <li>Which waterproof and heat-safety ratings matter to you? Check the rating’s issuing body, not only the printed number.</li>
-    <li>Is a printed certification (for example NIST) something you want to verify yourself? Check the certifying body’s own records.</li>
-  </ul>
-</section>
-"""
-    th_ld = {"@context": "https://schema.org", "@type": "ItemList", "name": "Meat thermometers",
-             "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": p["display_name"],
-                                  "url": p["official_listing_url"]} for i, p in enumerate(THERMO)]}
-    write_page("meat-thermometers.html", "Meat thermometers: two listings with printed specs",
-               "Two Amazon meat thermometer listings with the specs printed in each title, the observed ASIN and the source for every row.",
-               th_body, th_ld)
 
-    # ---------------- Full product table
-    prod_body = f"""
-<section class="hero compact">
-  <p class="kicker">Data</p>
-  <h1>All products</h1>
-  <p class="dek">The full register: the supplied link, the ASIN it redirects to, the intended ASIN (unverified), and the source for each row.</p>
-</section>
-<section>
-  {product_table(PRODUCTS, extended=True)}
-  <p class="note">Observed ASIN and intended ASIN are kept in separate columns on purpose. Observed values come from the redirect; intended values come from the owner and are not yet confirmed.</p>
-</section>
-"""
-    write_page("products.html", "All products: full register with supplied links and sources",
-               "Full register of the five supplied Amazon links: supplied token, observed redirect ASIN, unverified intended ASIN, spec as listed, and source.",
-               prod_body)
+def ldjson(obj):
+    return '<script type="application/ld+json">%s</script>' % json.dumps(obj)
 
-    # ---------------- Guides
-    gcards = "".join(guide_card(g["slug"] + ".html", g["h1"], g["desc"]) for g in GUIDES)
-    write_page("guides/index.html", "Guides: questions to answer before buying an air fryer",
-               "Four guides on air fryer comparison, capacity, cleanup and multi-function appliances, each linked to its category and product table.",
-               f"""<section class="hero compact"><p class="kicker">Guides</p><h1>Questions to answer before you buy</h1>
-<p class="dek">Four guides. Each lists what to compare, quotes what the listings state, and says what we have not verified.</p></section>
-<section><div class="grid">{gcards}</div></section>
-<section><p class="note">Working titles are editorial hypotheses, not claims about popularity or search volume (<a href="../flagged.html#FR-13">FR-13</a>).</p></section>""")
 
-    for g in GUIDES:
-        path = "guides/" + g["slug"] + ".html"
-        others = [("guides/" + o["slug"] + ".html") for o in GUIDES if o["slug"] != g["slug"]]
-        links = GUIDE_LINKS[g["slug"]] + others
-        body = f"""
-<article class="article">
-  {guide_body(g)}
-  <p class="note">Editorial team byline; no named author supplied (<a href="../flagged.html#FR-11">FR-11</a>). Links to Amazon open the listing they describe. Listings checked {esc(FETCHED)}.</p>
-  {related(links)}
-</article>"""
-        title = f'{g["title"]} | {SITE_NAME}'
-        write_page(path, title, g["desc"], body,
-                   jsonld_article(g["h1"], g["desc"], path, FETCHED))
-
-    # ---------------- Analysis
-    findings = [
-        ["Supplied short links that resolved to an Amazon product page", "5 of 5", link("https://link.amazon/B0c8moW59", "link.amazon (5 tokens)"), "Verified " + FETCHED],
-        ["Distinct observed redirect ASINs", "5", link("https://www.amazon.com/dp/B0CDY277D3", "B0CDY277D3 listing"), "Verified " + FETCHED],
-        ["Supplied tokens in the 10-character ASIN format", "0 of 5", link("https://sellercentral.amazon.com/seller-forums/discussions/t/736a09d1-bb16-4add-bb57-229805c9f2d9", "Amazon Seller Central forum (secondary)"), "Irregular: see FR-01"],
-        ["Intended ASINs confirmed", "0 of 5", link("https://www.amazon.com/dp/B0CDY277D3", "B0CDY277D3 listing"), "Unverified: FR-02"],
-        ["Prices and ratings published", "0 of 5", link("https://www.amazon.com/dp/B0CDY277D3", "B0CDY277D3 listing"), "Blank by design: FR-05"],
-        ["Associates disclosure wording", "“As an Amazon Associate I earn from qualifying purchases.”", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 5"), "Verified verbatim"],
-        ["Special Link tests in the Associates workflow", "0 of 5", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 1"), "Open: FR-03"],
-        ["Guide topics backed by measured demand data", "0 of 4", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content"), "Open: FR-13"],
-        ["Outbound product links marked rel=\"sponsored\"", "All product links", link("https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links", "Google: qualify outbound links"), "Enforced by verify script"],
+def layout(active, title, description, body, extra_head="", breadcrumbs=None):
+    crumbs = ""
+    if breadcrumbs:
+        items = "".join(
+            '<li><a href="%s">%s</a></li>' % (esc(href), esc(label)) if href else "<li>%s</li>" % esc(label)
+            for href, label in breadcrumbs
+        )
+        crumbs = '<nav class="crumbs small muted" aria-label="Breadcrumb"><ol style="list-style:none;display:flex;gap:8px;padding:0;margin:0 0 18px;flex-wrap:wrap">%s</ol></nav>' % items
+    nav_items = [
+        ("/index.html", "Home"),
+        ("/air-fryer-ovens.html", "Air Fryer Ovens"),
+        ("/meat-thermometers.html", "Meat Thermometers"),
+        ("/comparison.html", "Comparison"),
+        ("/guides.html", "Guides"),
+        ("/research-desk.html", "Research Desk"),
+        ("/suggestions.html", "Suggestions"),
+        ("/flagged.html", "Flagged"),
+        ("/about.html", "About"),
     ]
-    status_rows = [
-        ["Product pages with titles and meta descriptions (S-04)", "Implemented; checked by the verify script", link("https://developers.google.com/search/docs/appearance/snippet", "Google: snippet guidance (cited, not fetched)")],
-        ["Outbound product links marked sponsored (S-05)", "Implemented", link("https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links", "Google: qualify outbound links")],
-        ["Disclosure under the masthead and in the footer, every page", "Implemented", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 5")],
-        ["Product-intent record with separate observed and intended fields", "Implemented (intended fields unverified)", link("https://sellercentral.amazon.com/seller-forums/discussions/t/736a09d1-bb16-4add-bb57-229805c9f2d9", "ASIN description (secondary)")],
-        ["Special Link validation per product (brief)", "Not done: owner test required (FR-03)", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 1")],
-        ["Privacy-preserving outbound-click counter", "Partial: client-side event, nothing transmitted (FR-09)", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decision log (internal)")],
-        ["Self-hosted analytics endpoint and five defined events", "Not implemented: no server on GitHub Pages; 1 of 5 events defined (FR-09)", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decision log (internal)")],
-        ["Question-shaped guides (S-07, S-13)", "Implemented: four guides from PR #1, texts kept; no measured query data (FR-13)", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content")],
-        ["Sitemap and RSS feed for each guide", "Implemented; search-console submission owner action (FR-10)", link("https://developers.google.com/search/docs/appearance/page-experience", "Google: page experience (cited)")],
-        ["Structured data (S-09)", "Partial: JSON-LD on category and guide pages; no social preview image", link("https://developers.google.com/search/docs/appearance/page-experience", "Google: page experience (cited)")],
-        ["Product photography (S-18)", "Not implemented: decision needed (FR-07)", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 1")],
-        ["Three-question chooser above the table (S-19)", "Not implemented: awaiting option choice (SUG-07)", link("https://www.amazon.com/dp/B0CDY277D3", "B0CDY277D3 listing")],
-        ["Counter-space analysis (S-23)", "Not implemented: dimensions not extracted (FR-08)", link("https://www.amazon.com/dp/B0CDY277D3", "B0CDY277D3 listing")],
-        ["Authorship, navigation and brand (publication polish)", "Partial: navigation and footer done; no named author; brand from PR #1, not yet confirmed (FR-11, FR-12)", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content")],
-        ["Measurement ledger, empty until first-party reports exist", "Implemented as empty", link("https://affiliate-program.amazon.com/help/operating/policies", "Associates Program Policies (Commission Income Statement)")],
-        ["Verification gate in the workflow (disclosure, sponsored links, links, claims)", "Implemented: scripts/verify_site.py; GitHub Actions workflow", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 5")],
+    nav = "".join(
+        '<a href="%s" class="%s">%s</a>' % (href, "active" if href == active else "", label)
+        for href, label in nav_items
+    )
+    disc = '<div class="disclosure"><div class="wrap"><b>Disclosure.</b> <span>%s</span></div></div>' % esc(DISCLOSURE)
+    footer_disc = '<div class="disc"><div class="wrap"><b>Disclosure.</b> %s</div></div>' % esc(DISCLOSURE)
+    footer_nav = "".join('<a href="%s">%s</a>' % (h, l) for h, l in nav_items)
+    footer = (
+        "<footer>%s<div class='wrap'>"
+        "<div class='col'><h4>%s</h4><a href='/index.html'>%s</a><span class='small'>%s</span></div>"
+        "<div class='col'><h4>Shop</h4>%s</div>"
+        "<div class='col'><h4>Measure &amp; review</h4>"
+        "<a href='/research-desk.html'>Research Desk</a>"
+        "<a href='/suggestions.html'>Suggestions</a>"
+        "<a href='/flagged.html'>Flagged for Review</a>"
+        "<a href='/about.html'>About &amp; compliance</a></div>"
+        "<div class='col'><h4>Find this site</h4>"
+        "<a href='/sitemap.xml'>Sitemap</a>"
+        "<a href='/rss.xml'>RSS feed</a>"
+        "<a href='/robots.txt'>robots.txt</a></div>"
+        "<p class='legal'>%s · Tracking ID %s · Data verified %s · No cookies. "
+        "Outbound product links are affiliate links marked as sponsored.</p>"
+        "</div></footer>"
+    ) % (footer_disc, esc(BRAND), esc(BRAND), esc(TAGLINE), footer_nav, esc(DISCLOSURE), "shopnow047c-20", VERIFY_DATE)
+    canon = "https://wingbangboozle1-lang.github.io/Prod2" + (active or "/index.html")
+    doc = (
+        "<!doctype html><html lang='en'><head><meta charset='utf-8'>"
+        "<meta name='viewport' content='width=device-width,initial-scale=1'>"
+        "<title>%s</title>"
+        "<meta name='description' content='%s'>"
+        "<link rel='canonical' href='%s'>"
+        "<link rel='alternate' type='application/rss+xml' title='%s' href='rss.xml'>"
+        "<link rel='sitemap' type='application/xml' href='sitemap.xml'>"
+        "<link rel='icon' href='data:,'>"
+        "<meta property='og:type' content='website'>"
+        "<meta property='og:title' content='%s'>"
+        "<meta property='og:description' content='%s'>"
+        "<meta property='og:image' content='https://wingbangboozle1-lang.github.io/Prod2/assets/social.png'>"
+        "<meta property='og:url' content='%s'>"
+        "<meta name='twitter:card' content='summary_large_image'>"
+        "<meta name='twitter:title' content='%s'>"
+        "<meta name='twitter:description' content='%s'>"
+        "<meta name='twitter:image' content='https://wingbangboozle1-lang.github.io/Prod2/assets/social.png'>"
+        "<style>%s</style>%s</head><body>"
+        "<header class='masthead'><div class='wrap'>"
+        "<a class='brand' href='/index.html'>%s<small>%s</small></a>"
+        "<span class='small muted'>Verified %s</span></div></header>%s"
+        "<nav class='site'><div class='wrap'>%s</div></nav>"
+        "<main><div class='wrap'>%s%s</div></main>%s"
+        "<script>%s</script></body></html>"
+    ) % (
+        esc(title), esc(description), canon, esc(BRAND),
+        esc(title), esc(description), canon,
+        esc(title), esc(description),
+        CSS, extra_head, esc(BRAND), esc(TAGLINE), VERIFY_DATE, disc, nav, crumbs, body, footer, ANALYTICS_JS,
+    )
+    return doc
+
+
+def write(path, content):
+    full = os.path.join(SITE, path)
+    os.makedirs(os.path.dirname(full), exist_ok=True)
+    with open(full, "w", encoding="utf-8") as fh:
+        fh.write(content)
+
+
+def price_cell(p):
+    if p["price_usd"]:
+        return "%s" % esc(p["price_usd"])
+    return ""
+
+
+def rating_cell(p):
+    if p["rating_stars"]:
+        return "%s★ (%s)" % (esc(p["rating_stars"]), esc(p["rating_reviews"]))
+    return ""
+
+
+def source_cell(p):
+    return ext_link(p["source_url"], "source ↗")
+
+
+def build_pages(products, sources, suggestions, articles, ledger):
+    air = [p for p in products if p["category_slug"] == "air-fryer-ovens"]
+    meat = [p for p in products if p["category_slug"] == "meat-thermometers"]
+
+    # ---- index (editorial front page) -------------------------------------
+    featured = [a for a in articles[:4]]
+    featured_cards = "".join(
+        "<a class='tile' href='guides/%s.html' data-event='cta_click' data-label='guide'>"
+        "<span class='count'>%s · %s</span><h3>%s</h3>"
+        "<span class='small muted'>%s</span></a>"
+        % (esc(a["slug"]), esc(a["category"]), esc(a["read_time"]), esc(a["title"]), esc(a["meta_description"]))
+        for a in featured
+    )
+    cat_tiles = "".join(
+        "<a class='tile' href='%s.html' data-event='cta_click' data-label='category'>"
+        "<span class='count'>%d verified listings</span><h3>%s</h3>"
+        "<span class='small muted'>Browse the checked listings and what each one is for.</span></a>"
+        % (esc(cat["slug"]), len(cat["items"]), esc(cat["label"]))
+        for cat in [{"slug": "air-fryer-ovens", "label": "Air Fryer Ovens", "items": air},
+                    {"slug": "meat-thermometers", "label": "Meat Thermometers", "items": meat}]
+    )
+    # mini register preview (the "data" part, below the fold)
+    reg_rows = "".join(
+        "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
+        % (esc(p["brand"]), esc(p["resolves_to_asin"]), price_cell(p), rating_cell(p) or "<span class='badge blank'>unverified</span>", source_cell(p))
+        for p in products
+    )
+    index_body = (
+        "<section class='hero'><p class='eyebrow'>The counter-space edit</p>"
+        "<h1>Kitchen gear worth the counter space.</h1>"
+        "<p class='lead'>%s We check the listings before we write, so the comparisons are built on "
+        "what the product page actually says — not guesswork. Start with the guides, then dig into the "
+        "verified data when you want the detail.</p>"
+        "<div class='cta'><a class='btn' href='comparison.html' data-event='cta_click' data-label='compare'>Compare the models</a>"
+        "<a class='btn ghost' href='guides.html' data-event='cta_click' data-label='guides'>Read the guides</a></div></section>"
+        "<section><p class='eyebrow'>Featured guides</p><div class='grid cols-2'>%s</div></section>"
+        "<section><p class='eyebrow'>Shop by category</p><div class='grid cols-2'>%s</div></section>"
+        "<section><p class='eyebrow'>The register</p><p class='muted small'>Every listing we track, with the source for each row. "
+        "Values we could not confirm from an official source are left blank and flagged.</p>"
+        "<div class='table-wrap'><table><thead><tr><th>Brand</th><th>ASIN</th><th>Price (as listed)</th><th>Rating</th><th>Source</th></tr></thead>"
+        "<tbody>%s</tbody></table></div>"
+        "<p class='small muted' style='margin-top:10px'>Full detail, the product-intent record and the campaign ledger are on the "
+        "<a href='research-desk.html'>Research Desk</a>.</p></section>"
+    ) % (esc(TAGLINE), featured_cards, cat_tiles, reg_rows)
+    index_head = ldjson({
+        "@context": "https://schema.org", "@type": "WebSite", "name": BRAND,
+        "url": "https://wingbangboozle1-lang.github.io/Prod2/",
+        "description": TAGLINE,
+    })
+    write("index.html", layout("index.html", "%s — %s" % (BRAND, TAGLINE),
+                               "%s Kitchen gear and buying guides, checked against the official Amazon listings before we write." % BRAND,
+                               index_body, index_head))
+
+    # ---- category pages ---------------------------------------------------
+    for cat_slug, cat_label, items in [("air-fryer-ovens", "Air Fryer Ovens", air), ("meat-thermometers", "Meat Thermometers", meat)]:
+        rows = "".join(
+            "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
+            % (esc(p["brand"]), esc(p["title"]), esc(p["capacity_qt"]) or "—",
+               price_cell(p), rating_cell(p) or "<span class='badge blank'>unverified</span>",
+               esc(p["browse_node_label"]), source_cell(p))
+            for p in items
+        )
+        cards = "".join(
+            "<div class='card'><span class='meta'>%s</span><h3>%s</h3>"
+            "<p class='small'>%s</p><p class='small'>Price: %s</p>%s</div>"
+            % (esc(p["browse_node_label"]), esc(p["title"]), esc(p["flags"][0] if p["flags"] else "Verified listing."),
+               esc(p["price_usd"]), product_link(p, "View on Amazon ↗", "btn ghost"))
+            for p in items
+        )
+        body = (
+            "<section><p class='eyebrow'>Category</p><h1>%s</h1>"
+            "<p class='lead'>%d verified listings in this category. Each row links to its official Amazon source. "
+            "Capacity, price and rating are as listed on %s; anything we could not confirm is left blank and flagged.</p>"
+            "<div class='grid cols-2'>%s</div></section>"
+            "<section><h2>The listings</h2><div class='table-wrap'><table>"
+            "<thead><tr><th>Brand</th><th>Listing</th><th>Capacity</th><th>Price (as listed)</th><th>Rating</th><th>Browse node</th><th>Source</th></tr></thead>"
+            "<tbody>%s</tbody></table></div>"
+            "<p class='small muted' style='margin-top:10px'>Compare across categories on the <a href='comparison.html'>comparison page</a>, "
+            "or read a <a href='guides.html'>guide</a>.</p></section>"
+        ) % (esc(cat_label), len(items), VERIFY_DATE, cards, rows)
+        write(cat_slug + ".html", layout(cat_slug + ".html", "%s — %s" % (BRAND, cat_label),
+                                         "%d verified %s listings, each with a link to its official Amazon source." % (len(items), cat_label),
+                                         body, ldjson({"@context": "https://schema.org", "@type": "CollectionPage", "name": cat_label,
+                                                       "url": "https://wingbangboozle1-lang.github.io/Prod2/" + cat_slug + ".html"})))
+
+    # ---- comparison page --------------------------------------------------
+    comp_rows = "".join(
+        "<tr><td><strong>%s</strong><br><span class='small muted'>%s</span></td>"
+        "<td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
+        % (esc(p["title"]), esc(p["brand"]), esc(p["capacity_qt"]) or "—",
+           esc(p["price_usd"]), rating_cell(p) or "<span class='badge blank'>unverified</span>",
+           esc(p["category"]), source_cell(p))
+        for p in products
+    )
+    chooser = (
+        "<div class='chooser'><p class='eyebrow'>Three questions before you compare</p>"
+        "<h2>Which one is for you?</h2><ol>"
+        "<li><strong>How many people do you cook for?</strong> Match quarts to your household so you cook one batch, not three.</li>"
+        "<li><strong>What is the largest thing you cook?</strong> A roast or big sheet needs a door-style oven; fries and vegetables suit a basket.</li>"
+        "<li><strong>How much bench can you give it?</strong> Capacity and footprint are the same decision — see the counter-space analysis below.</li>"
+        "</ol><p class='pick'>Answer those, then read the table from the row that fits.</p></div>"
+    )
+    # counter-space analysis: capacity per unit depth. Depth figures are NOT verified,
+    # so they are left blank and flagged rather than guessed.
+    cs_rows = "".join(
+        "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
+        % (esc(p["brand"]), esc(p["capacity_qt"]) or "—",
+           "<span class='badge flag'>depth unverified</span>",
+           "<span class='badge blank'>not computed</span>")
+        for p in products if p["capacity_qt"]
+    )
+    cs = (
+        "<section id='counter-space'><h2>Counter-space analysis</h2>"
+        "<p>Capacity and footprint are one decision. The honest metric is <strong>capacity per unit of counter depth</strong>: "
+        "how many quarts you get for each centimetre of bench the unit occupies.</p>"
+        "<p class='note'>The formula is <code>capacity (qt) ÷ counter depth (cm)</code>. Counter-depth figures must be read from each "
+        "official listing's product-information table. We have not captured them yet, so they are left blank and flagged rather than guessed. "
+        "Once captured from the official source, fill the depth column and the ratio computes automatically.</p>"
+        "<div class='table-wrap'><table><thead><tr><th>Brand</th><th>Capacity (qt)</th><th>Counter depth</th><th>qt per cm</th></tr></thead>"
+        "<tbody>%s</tbody></table></div></section>"
+    ) % cs_rows
+    body = (
+        "<section><p class='eyebrow'>Comparison</p><h1>Compare the models</h1>"
+        "<p class='lead'>Every figure below is as listed on the official Amazon page on %s. Ratings we could not capture from the listing "
+        "are left blank and flagged, never guessed.</p></section>"
+        "%s"
+        "<section><h2>At a glance</h2><div class='table-wrap'><table>"
+        "<thead><tr><th>Listing</th><th>Capacity</th><th>Price (as listed)</th><th>Rating</th><th>Category</th><th>Source</th></tr></thead>"
+        "<tbody>%s</tbody></table></div></section>%s"
+    ) % (VERIFY_DATE, chooser, comp_rows, cs)
+    write("comparison.html", layout("comparison.html", "Air Fryer &amp; Thermometer Comparison — %s" % BRAND,
+                                   "Compare the verified air fryer and meat thermometer listings side by side, with a three-question chooser and a counter-space analysis.",
+                                   body, ldjson({"@context": "https://schema.org", "@type": "ItemList", "name": "Model comparison",
+                                                 "url": "https://wingbangboozle1-lang.github.io/Prod2/comparison.html"})))
+
+    # ---- guides index ----------------------------------------------------
+    guide_list = "".join(
+        "<a class='tile' href='guides/%s.html' data-event='cta_click' data-label='guide'>"
+        "<span class='count'>%s · %s</span><h3>%s</h3><span class='small muted'>%s</span></a>"
+        % (esc(a["slug"]), esc(a["category"]), esc(a["read_time"]), esc(a["title"]), esc(a["meta_description"]))
+        for a in articles
+    )
+    body = (
+        "<section><p class='eyebrow'>Guides</p><h1>Question-shaped buying guides</h1>"
+        "<p class='lead'>One page per question a buyer actually has. Each guide links to the comparison and to its category, "
+        "and every product it mentions links to the verified Amazon listing.</p></section>"
+        "<section><div class='grid cols-2'>%s</div></section>"
+    ) % guide_list
+    write("guides.html", layout("guides.html", "Guides — %s" % BRAND,
+                                "Question-shaped buying guides for air fryers and meat thermometers, each linking to verified Amazon listings.",
+                                body))
+
+    # ---- guide pages -----------------------------------------------------
+    for a in articles:
+        faq_html = "".join(
+            "<div class='faq'><h3>%s</h3><p>%s</p></div>" % (esc(f["q"]), esc(f["a"])) for f in a["faqs"]
+        )
+        rel = "".join(
+            "<li><a href='/guides/%s.html'>%s</a></li>" % (esc(r), esc(next((x["title"] for x in articles if x["slug"] == r), r)))
+            for r in a["related"]
+        )
+        body = (
+            "<article class='guide'><p class='eyebrow'>%s · %s</p><h1>%s</h1>"
+            "<p class='lead muted small'>%s</p>%s"
+            "<h2>Questions people ask</h2>%s"
+            "<div class='related'><h3>Keep reading</h3><ul>%s</ul>"
+            "<p class='small muted'>Compare the products in this guide on the <a href='/comparison.html'>comparison page</a> "
+            "or browse the <a href='/%s.html'>%s</a> category.</p></div></article>"
+        ) % (esc(a["category"]), esc(a["read_time"]), esc(a["title"]), esc(a["meta_description"]),
+             token_to_link(a["body"], products), faq_html, rel, esc(a["category_slug"]), esc(a["category"]))
+        faq_ld = {"@context": "https://schema.org", "@type": "FAQPage",
+                  "mainEntity": [{"@type": "Question", "name": f["q"],
+                                  "acceptedAnswer": {"@type": "Answer", "text": f["a"]}} for f in a["faqs"]]}
+        article_ld = {"@context": "https://schema.org", "@type": "Article",
+                      "headline": a["title"], "description": a["meta_description"],
+                      "datePublished": VERIFY_DATE, "author": {"@type": "Organization", "name": BRAND}}
+        head = ldjson(article_ld) + ldjson(faq_ld)
+        write("guides/%s.html" % a["slug"],
+              layout("guides.html", "%s — %s" % (a["title"], BRAND), a["meta_description"], body, head,
+                     breadcrumbs=[("/guides.html", "Guides"), (None, a["title"])]))
+
+    # ---- research desk (the dashboard) ------------------------------------
+    pi_rows = "".join(
+        "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
+        % (esc(p["submitted_link"]), esc(p["resolves_to_asin"]),
+           esc(p["listing_url"]),
+           "<span class='badge blank'>not provided</span>", "<span class='badge blank'>not provided</span>",
+           "<span class='badge blank'>pending</span>", "<span class='badge blank'>not provided</span>",
+           esc(p["verification_date"]))
+        for p in products
+    )
+    full_rows = "".join(
+        "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
+        % (esc(p["brand"]), esc(p["resolves_to_asin"]), esc(p["category"]),
+           esc(p["capacity_qt"]) or "—", price_cell(p),
+           rating_cell(p) or "<span class='badge blank'>unverified</span>",
+           esc(p["browse_node_label"]), source_cell(p))
+        for p in products
+    )
+    prov_rows = "".join(
+        "<tr><td>%s</td><td>%s</td><td>%s</td></tr>" % (esc(s["id"]), esc(s["label"]),
+                                                        ext_link(s["url"], s["type"] + " ↗"))
+        for s in sources
+    )
+    ledger_cols = "".join("<th>%s</th>" % esc(c) for c in ledger["columns"])
+    body = (
+        "<section><p class='eyebrow'>Research Desk</p><h1>The register, the record and the ledger</h1>"
+        "<p class='lead'>This is the working surface behind the shop. Every listing, its source, the "
+        "product-intent confirmation record, and an empty campaign ledger that stays empty until we have an "
+        "authorized first-party report to fill it.</p></section>"
+        "<section><h2>All entries</h2><div class='table-wrap'><table>"
+        "<thead><tr><th>Brand</th><th>ASIN</th><th>Category</th><th>Capacity</th><th>Price (as listed)</th><th>Rating</th><th>Browse node</th><th>Source</th></tr></thead>"
+        "<tbody>%s</tbody></table></div></section>"
+        "<section><h2>Product-intent confirmation record</h2>"
+        "<p class='note'>Intent and observation are different facts and are kept in separate fields, never merged. "
+        "The intended ASIN, intended listing URL, confirmation date and intended source are blank because the submitted "
+        "links are 9-character short-link tokens, not ASINs, and nothing public binds a short code to a product. "
+        "The observed redirect target is measured and populated.</p>"
+        "<div class='table-wrap'><table><thead><tr><th>Submitted link</th><th>Observed ASIN</th><th>Observed listing URL</th>"
+        "<th>Intended ASIN</th><th>Intended URL</th><th>Confirm. date</th><th>Intended source</th><th>Verified</th></tr></thead>"
+        "<tbody>%s</tbody></table></div></section>"
+        "<section><h2>Campaign ledger</h2>"
+        "<p class='note'>Evidence-based iteration. The ledger starts empty and well-defined. Timestamp, source, channel, "
+        "eligible sessions, clicks and reported orders are added only from authorized first-party reports. No conversion "
+        "score or revenue forecast is presented.</p>"
+        "<div class='table-wrap'><table><thead><tr>%s</tr></thead><tbody><tr><td colspan='%d' class='muted'>No entries yet — awaiting an authorized first-party report.</td></tr></tbody></table></div></section>"
+        "<section><h2>Source register</h2><div class='table-wrap'><table><thead><tr><th>ID</th><th>Source</th><th>Link</th></tr></thead>"
+        "<tbody>%s</tbody></table></div></section>"
+    ) % (full_rows, pi_rows, ledger_cols, len(ledger["columns"]), prov_rows)
+    write("research-desk.html", layout("research-desk.html", "Research Desk — %s" % BRAND,
+                                       "Verified product register, product-intent confirmation record, campaign ledger and source register.",
+                                       body))
+
+    # ---- suggestions / decision portal ------------------------------------
+    q_html = ""
+    for q in suggestions["open_questions"]:
+        opts = "".join("<li><strong>%s</strong> — <span class='muted'>%s</span></li>" % (esc(o["label"]), esc(o["tradeoff"]))
+                       for o in q["options"])
+        q_html += (
+            "<div class='card'><span class='meta'>Question %s</span><h3>%s</h3>"
+            "<p><strong>What we know:</strong> %s</p><p><strong>What we do not know:</strong> %s</p>"
+            "<h4>Options</h4><ul>%s</ul>"
+            "<p><strong>Recommendation:</strong> %s</p>"
+            "<p class='small muted'><strong>How to find out:</strong> %s</p></div>"
+        ) % (esc(q["id"]), esc(q["question"]), esc(q["what_we_know"]), esc(q["what_we_do_not_know"]),
+             opts, esc(q["recommendation"]), esc(q["how_to_discover"]))
+    sug_html = "".join(
+        "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><span class='badge %s'>%s</span></td></tr>"
+        % (esc(s["id"]), esc(s["title"]), esc(s["description"]), esc(s["expected_outcome"]),
+           "ok" if s["status"] == "implemented" else "flag", esc(s["status"]))
+        for s in suggestions["suggestions"]
+    )
+    paths = "".join(
+        "<div class='card'><span class='meta'>%s</span><h3>%s</h3><p>%s</p><p class='small muted'>%s</p></div>"
+        % (esc(p["id"]), esc(p["label"]), esc(p["summary"]), esc(p["why"]))
+        for p in suggestions["path_chooser"]
+    )
+    body = (
+        "<section><p class='eyebrow'>Decision portal</p><h1>Suggestions &amp; open questions</h1>"
+        "<p class='lead'>Nothing here is decided for you. Below is the list of questions that need answers before a "
+        "decision can be made, what we have and do not have, and the suggestions for discovering what is missing. "
+        "Review, pick a path, then implement.</p></section>"
+        "<section><h2>Open questions to resolve first</h2><div class='grid cols-2'>%s</div></section>"
+        "<section><h2>Suggestions to improve decision-making</h2><div class='table-wrap'><table>"
+        "<thead><tr><th>ID</th><th>Suggestion</th><th>What it does</th><th>Expected outcome</th><th>Status</th></tr></thead>"
+        "<tbody>%s</tbody></table></div></section>"
+        "<section><h2>Path chooser</h2><p class='muted small'>Three ways to proceed. The recommended path leads with the "
+        "products and puts a gate in front of the parts that need a decision.</p><div class='grid cols-3'>%s</div></section>"
+    ) % (q_html, sug_html, paths)
+    write("suggestions.html", layout("suggestions.html", "Suggestions &amp; Open Questions — %s" % BRAND,
+                                     "Open questions, missing information and suggested improvements, with a path chooser for the next decision.",
+                                     body))
+
+    # ---- flagged ---------------------------------------------------------
+    flags = []
+    for p in products:
+        for f in p["flags"]:
+            flags.append({"product": p, "flag": f})
+    flag_rows = "".join(
+        "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
+        % (esc(p["brand"]), esc(fl["flag"]),
+           esc(p["source_url"]),
+           ext_link(p["source_url"], "review ↗"))
+        for fl in flags
+    )
+    shortlink_rows = "".join(
+        "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
+        % (esc(p["submitted_link"]), esc(p["resolves_to_asin"]),
+           "<span class='badge flag'>unresolved</span>",
+           ext_link("https://affiliate-program.amazon.com/help/operating/policies", "policy ↗"))
+        for p in products
+    )
+    body = (
+        "<section><p class='eyebrow'>Flagged for review</p><h1>Irregularities &amp; unverified items</h1>"
+        "<p class='lead'>These are published, not hidden, and they do not block the site. Each one carries its source so you "
+        "can review and request changes. Nothing here is inferred — where we could not confirm a value from an official "
+        "source, it is left blank.</p></section>"
+        "<section><h2>Token vs. ASIN</h2><p class='note'>All five submitted links carry 9-character short-link tokens. "
+        "Amazon defines an ASIN as a 10-character code, so the submitted tokens are not ASINs. They resolve to real 10-character "
+        "ASINs. This is a fact, not a judgement on the links.</p></section>"
+        "<section><h2>Uncaptured values</h2><div class='table-wrap'><table>"
+        "<thead><tr><th>Product</th><th>Flag</th><th>Source</th><th>Review</th></tr></thead><tbody>%s</tbody></table></div></section>"
+        "<section><h2>Short-link compliance status</h2>"
+        "<p class='note'>The submitted short links are not declared invalid, but their exact compliance status is unresolved. "
+        "Program Policies 6(w) addresses link shortening that makes the Amazon destination unclear. Recommend replacing with "
+        "tagged Special Links before scaling.</p>"
+        "<div class='table-wrap'><table><thead><tr><th>Submitted link</th><th>Resolves to</th><th>Status</th><th>Review</th></tr></thead>"
+        "<tbody>%s</tbody></table></div></section>"
+    ) % (flag_rows, shortlink_rows)
+    write("flagged.html", layout("flagged.html", "Flagged for Review — %s" % BRAND,
+                                 "Irregularities and unverified items published with their source links for manual review.",
+                                 body))
+
+    # ---- about -----------------------------------------------------------
+    src_list = "".join(
+        "<li><strong>%s</strong> — %s %s</li>"
+        % (esc(s["id"]), esc(s["label"]), ext_link(s["url"], s["url"]))
+        for s in sources
+    )
+    body = (
+        "<section><p class='eyebrow'>About</p><h1>About &amp; compliance</h1>"
+        "<p class='lead'>%s is an editorial affiliate shop. We write buyer questions and compare the listings we track "
+        "against the official Amazon product pages. We do not guess: where a value cannot be confirmed from an official "
+        "source, it is left blank and flagged.</p></section>"
+        "<section><h2>How we verify</h2><p>Each listing is resolved from the submitted link to its official Amazon product "
+        "page. Identity, category, browse node, capacity and price are read from that page. Ratings are shown only where "
+        "captured from the official listing. Every table row links to its source.</p></section>"
+        "<section><h2>Compliance</h2>"
+        "<ul>"
+        "<li><strong>Disclosure.</strong> The Associates statement sits under the masthead on every page and repeats in the footer.</li>"
+        "<li><strong>Sponsored links.</strong> Every outbound product link carries <code>rel=\"sponsored\"</code>.</li>"
+        "<li><strong>Special Links.</strong> Outbound links should be tagged Special Links generated in Associates Central; "
+        "the submitted short links are flagged for review under Program Policies 6(w).</li>"
+        "<li><strong>Ratings &amp; prices.</strong> Ratings require Creators/PA API (6(t)); prices are shown as listed with a date and a live link (2(b)).</li>"
+        "<li><strong>No tracking cookies.</strong> The click counter uses an anonymous local id only.</li>"
+        "</ul></section>"
+        "<section><h2>Sources</h2><ul>%s</ul></section>"
+    ) % (esc(BRAND), src_list)
+    write("about.html", layout("about.html", "About &amp; Compliance — %s" % BRAND,
+                               "How Countercraft verifies listings and stays compliant with Amazon Associates and FTC disclosure requirements.",
+                               body))
+
+    # ---- 404 -------------------------------------------------------------
+    body = "<section><h1>Page not found</h1><p class='lead'>That page does not exist. Head back to the <a href='index.html'>front page</a> or browse the <a href='guides.html'>guides</a>.</p></section>"
+    write("404.html", layout("index.html", "Page not found — %s" % BRAND, "The page you requested does not exist.", body))
+
+    # ---- assets ----------------------------------------------------------
+    write("assets/style.css", CSS)
+    write("assets/analytics.js", ANALYTICS_JS)
+
+
+def build_seo(products, sources, articles):
+    base = "https://wingbangboozle1-lang.github.io/Prod2"
+    pages = [
+        ("index.html", "Weekly", VERIFY_DATE),
+        ("air-fryer-ovens.html", "Weekly", VERIFY_DATE),
+        ("meat-thermometers.html", "Weekly", VERIFY_DATE),
+        ("comparison.html", "Weekly", VERIFY_DATE),
+        ("guides.html", "Weekly", VERIFY_DATE),
+        ("research-desk.html", "Weekly", VERIFY_DATE),
+        ("suggestions.html", "Monthly", VERIFY_DATE),
+        ("flagged.html", "Weekly", VERIFY_DATE),
+        ("about.html", "Monthly", VERIFY_DATE),
     ]
-    analysis_body = f"""
-<section class="hero compact"><p class="kicker">Data · analysis</p><h1>Analysis and build status</h1>
-<p class="dek">What the verified data shows, what it does not show, and where each requirement stands.</p></section>
-<section><h2 class="section-h">Findings</h2>
-{simple_table(["Finding", "Value", "Source", "Status"], findings)}
-<p class="note">No conversion score, revenue forecast, or ranking is presented. The campaign ledger is empty by design (<a href="ledger.html">ledger</a>).</p></section>
-<section><h2 class="section-h">Build status against the requirements</h2>
-{simple_table(["Requirement", "Status", "Source"], status_rows)}
-</section>
-<section><h2 class="section-h">Reading the findings</h2>
-<ul class="plain">
-  <li>The five supplied links all resolve, so the links work. We cannot say they are the intended products until the owner confirms it (<a href="flagged.html#FR-02">FR-02</a>).</li>
-  <li>Every product row links to its Amazon listing; nothing on the site is copied from a listing except the title spec, marked “as listed”.</li>
-  <li>The strongest next step is confirmation, not content: intended ASINs and one Special Link test per product. See <a href="suggestions.html">Suggestions</a>.</li>
-</ul></section>
-"""
-    write_page("analysis.html", "Analysis: what the verified data shows and where each requirement stands",
-               "Verified findings for the five supplied Amazon links, with source links, and the build status of each requirement.",
-               analysis_body)
+    for a in articles:
+        pages.append(("guides/%s.html" % a["slug"], "Weekly", VERIFY_DATE))
 
-    # ---------------- Questions
-    qrows = [
-        ["Q-01", "Are the five supplied links the intended products?", "Each link resolves to one Amazon listing (observed ASIN).", "Owner confirmation of intended ASIN for each link.", "Owner confirms against the product they meant; the listing is the reference.", link("https://www.amazon.com/dp/B0CDY277D3", "P01 listing (example)"), "FR-02"],
-        ["Q-02", "Do tagged product links track as Special Links?", "Standard tagged format is used on the site.", "A test per product in the enrolled Associates workflow.", "One test link per product; confirm destination and the tracking report.", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 1"), "FR-03, FR-04"],
-        ["Q-03", "What is the commission rate for each product?", "Standard commission is a percentage of qualifying revenue.", "Per-product or per-category rate.", "Associates rate card and Commission Income Statement, read against each product’s category.", link("https://affiliate-program.amazon.com/help/operating/policies", "Associates Program Policies"), "FR-06"],
-        ["Q-04", "Can prices and ratings be shown?", "Visible on listings on 2026-11-19.", "Permission and access route for price and rating data.", "Creators API introduction and prerequisites.", link("https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction", "Creators API introduction"), "FR-05"],
-        ["Q-05", "What are the listing dimensions, and does the appliance fit?", "Capacity as stated in titles.", "Dimensions, extracted from each listing.", "Read the dimensions section of each listing on a dated snapshot.", link("https://www.amazon.com/dp/B0CDY277D3", "P01 listing"), "FR-08"],
-        ["Q-06", "Which guide topics do people search for?", "Working titles only.", "Measured query data from first-party sources.", "Search Console queries after verification, and site analytics once the endpoint decision is made.", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content"), "FR-10, FR-13"],
-        ["Q-07", "Where will analytics run, and what do the five events mean?", "One event (outbound_click) is built, with nothing sent.", "Hosting decision and the definitions of the other four events.", "Owner names the events; hosting is chosen; a consent review is done.", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decision log (internal)"), "FR-09"],
-        ["Q-08", "Who is the author?", "Byline is “Editorial team”.", "A named person, or a decision to publish as a team.", "Owner decision.", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content"), "FR-11"],
-        ["Q-09", "What is the brand name?", "Working name: Counter Notes (from PR #1), not yet confirmed.", "Decision.", "Owner decision; check trademark availability before adoption.", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decision log (internal)"), "FR-12"],
-        ["Q-10", "Are product photos allowed, and from where?", "No photos used.", "Image source and licence.", "Owner decision; Program Content terms apply to Amazon images.", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement, Section 1"), "FR-07"],
-        ["Q-11", "Does the disclosure wording meet current FTC guidance?", "Associates wording verified verbatim; FTC page checked (dated November 2019).", "Counsel review of current FTC guidance and placement.", "Counsel review.", link("https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers", "FTC: Disclosures 101"), "FR-14"],
-        ["Q-12", "How often should new guides be published?", "No cadence has been set.", "Owner choice of cadence.", "Decision recorded in Suggestions.", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Google: creating helpful content"), "SUG-05"],
-    ]
-    q_body = f"""
-<section class="hero compact"><p class="kicker">Decisions</p><h1>Open questions</h1>
-<p class="dek">What must be answered before a decision can reasonably be made. For each: what we have, what is missing, and where to find it.</p></section>
-<section>{simple_table(["ID", "Question", "What we have", "What is missing", "How to find it", "Source", "Flag"], qrows)}</section>
-"""
-    write_page("questions.html", "Open questions: what must be answered before each decision",
-               "The open questions behind the site: what the verified data answers, what it does not, and how each gap can be closed from an official source.",
-               q_body)
+    sitemap = ["<?xml version='1.0' encoding='UTF-8'?>",
+               "<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>"]
+    for path, _, _ in pages:
+        sitemap.append("  <url><loc>%s/%s</loc><lastmod>%s</lastmod></url>" % (base, path, VERIFY_DATE))
+    sitemap.append("</urlset>")
+    write("sitemap.xml", "\n".join(sitemap))
 
-    # ---------------- Suggestions
-    sugs = [
-        ("SUG-01", "Confirm the intended ASIN for each supplied link", [
-            ("A", "Owner confirms each product against the one they meant; the site updates the intended-ASIN field."),
-            ("B", "Keep the observed ASIN only, and label the link as the redirect target."),
-        ], "Argument: A first. It is the only way to close FR-02, and it costs one check per link."),
-        ("SUG-02", "Run the Special Link test before scaling", [
-            ("A", "Test one link per product now, then record destination and tracking report."),
-            ("B", "Replace the product buttons with the supplied short links until the test is done."),
-        ], "Argument: A. The brief requires the test before scaling, and the supplied short links’ status is unresolved (FLG-003)."),
-        ("SUG-03", "Price and rating display", [
-            ("A", "Keep both blank until API access is in place."),
-            ("B", "Apply for Creators API access, then publish prices and ratings from it."),
-        ], "Argument: A now, B when access is confirmed. Observed listing values change and are not safe to copy."),
-        ("SUG-04", "Where the analytics endpoint runs", [
-            ("A", "Keep it client-only; nothing is sent until an endpoint is chosen."),
-            ("B", "Host a first-party endpoint outside GitHub Pages, after a consent and privacy review."),
-        ], "Argument: A until the consent review (D-41) is done. The endpoint is not hosted on GitHub Pages either way."),
-        ("SUG-05", "Publishing cadence for new guides", [
-            ("A", "Two guides per month, one per product category."),
-            ("B", "One guide per month, added only when a measured query supports it."),
-            ("C", "No fixed cadence; publish when a question is confirmed by first-party data."),
-        ], "Argument: C until Search Console data exists (FR-10). A fixed cadence would be a choice, not evidence."),
-        ("SUG-06", "Brand name", [
-            ("A", "Keep “Counter Notes” (PR #1 name)."),
-            ("B", "Choose a new name, after a trademark check."),
-        ], "Argument: decide after the trademark check. The name is a working name only (FR-12)."),
-        ("SUG-07", "Three-question chooser above the comparison tables (S-19)", [
-            ("A", "Add the chooser, with each answer pointing to a listing spec."),
-            ("B", "Skip it until dimensions are extracted (FR-08)."),
-        ], "Argument: A for the air fryers page only, using capacity and function as listed."),
-        ("SUG-08", "Add a fifth guide for meat thermometers", [
-            ("A", "Write a guide on probe count and printed specs."),
-            ("B", "Keep the category questions on the category page only."),
-        ], "Argument: B until a question is confirmed by first-party data (FR-13)."),
-        ("SUG-09", "Product photography (S-18)", [
-            ("A", "No photography; typographic cards only."),
-            ("B", "Owner-supplied photographs with written licence."),
-        ], "Argument: A. Amazon images are Program Content under the Operating Agreement (FR-07)."),
-        ("SUG-10", "Search Console", [
-            ("A", "Owner verifies the site and submits sitemap.xml and feed.xml."),
-            ("B", "Defer until the analytics decision is made."),
-        ], "Argument: A. It is the only source of measured queries, and it is an owner action (FR-10)."),
-    ]
-    sug_html = ""
-    for sid, title, opts, arg in sugs:
-        opt_items = "".join(f'<li><strong>{oid}.</strong> {esc(text)}</li>' for oid, text in opts)
-        sug_html += f"""<article class="card sug" id="{sid}">
-  <p class="card-kicker">{sid} · awaiting choice</p>
-  <h3>{esc(title)}</h3>
-  <ul class="plain">{opt_items}</ul>
-  <p class="meta"><em>{esc(arg)}</em></p>
-</article>"""
-    s_body = f"""
-<section class="hero compact"><p class="kicker">Suggestions</p><h1>Choose the path before anything changes</h1>
-<p class="dek">Each item lists the options. Nothing here is implemented until an option is chosen. The recommendation is an argument, not a decision.</p></section>
-<section><div class="grid">{sug_html}</div></section>
-<section><p class="note">To choose, reply with the suggestion ID and option letter (for example “SUG-01 A”). Decisions are recorded in the flags and questions pages.</p></section>
-"""
-    write_page("suggestions.html", "Suggestions: choose the path before any change",
-               "Ten suggestions with options, each awaiting a choice. Nothing is implemented until an option is picked.",
-               s_body)
+    rss_items = []
+    for a in articles:
+        rss_items.append(
+            "    <item><title>%s</title><link>%s/guides/%s.html</link>"
+            "<guid isPermaLink='true'>%s/guides/%s.html</guid>"
+            "<pubDate>%sT09:00:00Z</pubDate><description>%s</description></item>"
+            % (esc(a["title"]), base, a["slug"], base, a["slug"], VERIFY_DATE, esc(a["meta_description"])))
+    rss = (
+        "<?xml version='1.0' encoding='UTF-8'?>"
+        "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>"
+        "<channel><title>%s</title><link>%s/</link><description>%s</description>"
+        "<language>en-us</language><atom:link href='%s/rss.xml' rel='self' type='application/rss+xml'/>%s"
+        "</channel></rss>"
+    ) % (esc(BRAND), base, esc(TAGLINE), base, "\n".join(rss_items))
+    write("rss.xml", rss)
 
-    # ---------------- Executive summary
-    es_body = f"""
-<article class="article">
-  <p class="kicker">Executive summary · as of {esc(FETCHED)}</p>
-  <h1>Executive summary</h1>
-  <h2>What the site is</h2>
-  <p>A static, text-first product site for five Amazon products in two categories: air fryers and meat thermometers. It is published from this repository through GitHub Pages.</p>
-  <h2>What is verified</h2>
-  <ul>
-    <li>All five supplied short links resolve to Amazon product pages. The observed ASINs are in the product table (<a href="products.html">products</a>).</li>
-    <li>The Associates disclosure wording is taken verbatim from Section 5 of the Operating Agreement (<a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="sponsored noopener">source</a>).</li>
-    <li>Every product link is marked sponsored, and the verify script checks it on every build.</li>
-  </ul>
-  <h2>What is not verified, and why it matters</h2>
-  <ul>
-    <li>The intended ASIN for each link is not confirmed (<a href="flagged.html#FR-02">FR-02</a>). The site shows the observed redirect target and keeps the intended field blank.</li>
-    <li>Special Link tests have not been run (<a href="flagged.html#FR-03">FR-03</a>). This needs the owner’s Associates account.</li>
-    <li>No price, rating, commission rate or dimension is published (<a href="flagged.html#FR-05">FR-05</a>, <a href="flagged.html#FR-06">FR-06</a>, <a href="flagged.html#FR-08">FR-08</a>).</li>
-    <li>No server-side analytics runs; GitHub Pages cannot host the endpoint (<a href="flagged.html#FR-09">FR-09</a>).</li>
-  </ul>
-  <h2>Decisions the owner needs to make</h2>
-  <p>Ten items are on the <a href="suggestions.html">suggestions page</a>. The first three decide whether the product links can be relied on: confirm intended ASINs, run the Special Link test, and decide on price display.</p>
-  <h2>What the site does not claim</h2>
-  <p>No ranking, no performance result, no ‘trending’ or popularity claim, no conversion score, and no revenue forecast. The campaign ledger is empty (<a href="ledger.html">ledger</a>).</p>
-  <h2>Flagged for review</h2>
-  <p>There are {len(FLAGS)} flagged items, with sources, on the <a href="flagged.html">Flagged for Review page</a>. Flags do not block publication.</p>
-</article>"""
-    write_page("executive-summary.html", "Executive summary: five Amazon products, what is verified, and what is not",
-               "Executive summary of the site: the five supplied products, what is verified from official sources, what is not, and the decisions still open.",
-               es_body)
-
-    # ---------------- Ledger
-    ledger_body = f"""
-<section class="hero compact"><p class="kicker">Measurement</p><h1>Campaign ledger</h1>
-<p class="dek">Empty by design. Rows are added only from authorised first-party reports. No estimates, forecasts or scores are shown.</p></section>
-<section>
-  <p class="empty">No entries yet. No first-party report has been added. Clicks recorded in a browser are not counted here.</p>
-  <h2 class="section-h">Fields a row must carry</h2>
-  <div class="table-wrap"><table class="data"><thead><tr><th>Timestamp (UTC)</th><th>Source (first-party report)</th><th>Channel</th><th>Eligible sessions</th><th>Clicks</th><th>Reported orders</th><th>Provenance note</th></tr></thead><tbody></tbody></table></div>
-  <p class="note">Source requirements: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="sponsored noopener">Associates Program Policies (Commission Income Statement)</a>. Measurement decisions are open (<a href="flagged.html#FR-09">FR-09</a>).</p>
-</section>
-"""
-    write_page("ledger.html", "Campaign ledger: empty until first-party reports are added",
-               "The campaign ledger is empty by design. It will hold only rows drawn from authorised first-party reports, with provenance.",
-               ledger_body)
-
-    # ---------------- Sources
-    src_rows = [
-        ["GitHub Docs: configuring a publishing source for GitHub Pages", "Publishing from a branch and /docs folder (FR-18)", FETCHED, "Fetched", link("https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site", "GitHub Docs: publishing source")],
-        ["Associates Program Operating Agreement", "Disclosure wording (Section 5), Special Links (Section 1), Program Content (Section 1)", FETCHED, "Fetched", link("https://affiliate-program.amazon.com/help/operating/agreement", "Operating Agreement")],
-        ["Associates Program Policies", "Commission Income Statement, Participation Requirements, link formatting (2(g))", FETCHED, "Fetched (chunks 0–2 of 11)", link("https://affiliate-program.amazon.com/help/operating/policies", "Program Policies")],
-        ["Google: qualify outbound links (rel=sponsored)", "Link attribute for paid links", FETCHED, "Fetched", link("https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links", "Qualify outbound links")],
-        ["FTC: Disclosures 101 for Social Media Influencers", "Disclosure placement principles (dated November 2019)", FETCHED, "Fetched", link("https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers", "Disclosures 101")],
-        ["link.amazon short links (5)", "Supplied links and redirect targets", FETCHED, "Fetched", link("https://link.amazon/B04G1MEwY", "link.amazon/B04G1MEwY")],
-        ["Amazon listing pages (5)", "Titles, observed ASIN and spec as listed", FETCHED, "Fetched (title and first chunk)", link("https://www.amazon.com/dp/B0CDY277D3", "P01 listing")],
-        ["Zone4 decision log (internal register)", "Open decisions (D-02, D-13, D-40, D-41, D-42, D-43); not an official source", FETCHED, "Fetched", link("https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html", "Zone4 decisions")],
-        ["Amazon Seller Central forum (ASIN description)", "10-character ASIN description (secondary, Amazon-hosted)", "Search result", "Not the formal help page", link("https://sellercentral.amazon.com/seller-forums/discussions/t/736a09d1-bb16-4add-bb57-229805c9f2d9", "Seller Central forum")],
-        ["Google: snippet guidance", "Titles and descriptions (S-04)", "Cited in brief", "Not fetched", link("https://developers.google.com/search/docs/appearance/snippet", "Snippet guidance")],
-        ["Google: creating helpful content", "Editorial standard (cited in brief)", "Cited in brief", "Not fetched", link("https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "Creating helpful content")],
-        ["Google: page experience", "Mobile presentation (cited in brief)", "Cited in brief", "Not fetched", link("https://developers.google.com/search/docs/appearance/page-experience", "Page experience")],
-        ["Creators API introduction", "Prerequisites for price and rating data (cited in register)", "Cited in register", "Not fetched", link("https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction", "Creators API")],
-    ]
-    src_body = f"""
-<section class="hero compact"><p class="kicker">Data · sources</p><h1>Source register</h1>
-<p class="dek">Every source used, what it was used for, and whether it was fetched in this session or only cited.</p></section>
-<section>{simple_table(["Source", "Used for", "Date", "Status", "Link"], src_rows)}</section>
-"""
-    write_page("sources.html", "Source register: official sources and how each was checked",
-               "Source register for the Amazon affiliate site: each official source, what it supports, and whether it was fetched or only cited.",
-               src_body)
-
-    # ---------------- Flagged
-    frows = []
-    for f in FLAGS:
-        frows.append([f'<span id="{f["id"]}"><strong>{f["id"]}</strong></span>', esc(f["severity"]),
-                      f'<strong>{esc(f["title"])}</strong><br><span class="small">{esc(f["detail"])}</span>',
-                      sources_cell(f["sources"]), esc(f["status"])])
-    flag_rows = "".join(f'<tr data-row="flag">' + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in frows)
-    flagged_body = f"""
-<section class="hero compact"><p class="kicker">Flagged for review</p><h1>Flagged for review</h1>
-<p class="dek">Irregularities, unverified values and open items. Each carries its source. Flags do not block publication; they are here so you can review them and ask for changes.</p></section>
-<section>
-  <div class="table-wrap"><table class="data"><thead><tr><th>ID</th><th>Severity</th><th>Issue</th><th>Sources</th><th>Status</th></tr></thead><tbody>
-  {flag_rows}
-  </tbody></table></div>
-</section>
-"""
-    write_page("flagged.html", "Flagged for review: irregularities and unverified items with sources",
-               "Flagged for review: irregularities, unverified values and open items, each with its source, for the owner to review.",
-               flagged_body)
-
-    # ---------------- About
-    about_body = f"""
-<article class="article">
-  <p class="kicker">About</p>
-  <h1>About this site and how it is checked</h1>
-  <h2>Who writes it</h2>
-  <p>The Editorial team. No named author has been supplied (<a href="flagged.html#FR-11">FR-11</a>). The brand name is a working name (<a href="flagged.html#FR-12">FR-12</a>).</p>
-  <h2>Affiliate relationship</h2>
-  <p>{esc(DISCLOSURE)} {esc(NOT_ENDORSED)} Product links go to Amazon and carry the Associates tracking tag. They are marked sponsored.</p>
-  <h2>How a product row is checked</h2>
-  <ol>
-    <li>The supplied short link is followed to the Amazon product page it redirects to. That ASIN is recorded as the observed redirect target.</li>
-    <li>The intended ASIN is recorded separately and left unverified until the owner confirms it.</li>
-    <li>Spec values are quoted from the listing title, marked “as listed”. Prices, ratings and commission rates are left blank.</li>
-    <li>Every row carries a link to its official source. The verify script checks this on each build.</li>
-  </ol>
-  <h2>Reader data</h2>
-  <p>The site sets no cookies and loads no third-party analytics or tracking script. Outbound clicks are counted only in the page’s own memory and sent nowhere until an endpoint is chosen (<a href="flagged.html#FR-09">FR-09</a>). Our hosting provider, GitHub Pages, keeps its own standard server logs, which we do not control.</p>
-</article>"""
-    write_page("about.html", "About Counter Notes: editorial team, affiliate disclosure and checking method",
-               "About the site: who writes it, the Associates disclosure, how each product row is checked, and what reader data is collected.",
-               about_body)
-
-    # ---------------- 404
-    write_page("404.html", "Page not found: Counter Notes",
-               "This page does not exist. Return to the Counter Notes front page.",
-               '<section class="hero compact"><h1>Page not found</h1><p class="dek">Try the <a href="index.html">front page</a>, or see the <a href="products.html">product table</a>.</p></section>')
-
-    write_feeds_and_sitemap()
+    robots = (
+        "User-agent: *\nAllow: /\n"
+        "Sitemap: %s/sitemap.xml\n" % base
+    )
+    write("robots.txt", robots)
+    write(".nojekyll", "")
 
 
-def write_feeds_and_sitemap():
-    today_rfc = "Wed, 19 Nov 2026 00:00:00 +0000"
-    items = ""
-    for g in GUIDES:
-        items += f"""  <item>
-    <title>{esc(g["h1"])}</title>
-    <link>{BASE}guides/{g["slug"]}.html</link>
-    <guid isPermaLink="true">{BASE}guides/{g["slug"]}.html</guid>
-    <pubDate>{today_rfc}</pubDate>
-    <description>{esc(g["desc"])}</description>
-  </item>
-"""
-    feed = f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
-<channel>
-  <title>{esc(SITE_NAME)} guides</title>
-  <link>{BASE}</link>
-  <description>Working-title guides on air fryers and meat thermometers.</description>
-  <language>en-us</language>
-  <lastBuildDate>{today_rfc}</lastBuildDate>
-{items}</channel>
-</rss>
-"""
-    (OUT / "feed.xml").write_text(feed, encoding="utf-8")
-    urls = sorted(set(PAGES))
-    sm = "".join(f"  <url><loc>{BASE}{u}</loc><lastmod>{FETCHED}</lastmod></url>\n" for u in urls if u != "404.html")
-    (OUT / "sitemap.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + sm + "</urlset>\n", encoding="utf-8")
-    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}sitemap.xml\n", encoding="utf-8")
+def main():
+    os.makedirs(SITE, exist_ok=True)
+    products, sources, suggestions, articles, ledger = load_all()
+    build_pages(products, sources, suggestions, articles, ledger)
+    build_seo(products, sources, articles)
+    print("Built site/ with %d products, %d articles, %d sources."
+          % (len(products), len(articles), len(sources)))
 
 
 if __name__ == "__main__":
-    build()
-    print(f"built {len(set(PAGES))} pages into {OUT}")
+    main()

@@ -1,0 +1,110 @@
+{
+  "generated": "2026-11-19",
+  "note": "Every source is an official page re-read on 2026-11-19. These are the links published alongside the findings for manual review.",
+  "sources": [
+    {
+      "id": "S01",
+      "label": "Amazon Associates — Associates Program Operating Agreement",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "type": "Amazon Associates (official)",
+      "accessed": "2026-11-19",
+      "note": "Updated 2025-10-15. §1 defines Special Links and Program Content (data, images, text, link formats, widgets, marketing content)."
+    },
+    {
+      "id": "S02",
+      "label": "Amazon Associates — Associates Program Policies",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "type": "Amazon Associates (official)",
+      "accessed": "2026-11-19",
+      "note": "Updated 2026-04-14. §2(b) Special Links + price display; §3(e) cookie/pixel disclosure; §6(a)–(w) Content on your Site, incl. 6(v), 6(w), 6(t)."
+    },
+    {
+      "id": "S03",
+      "label": "Amazon.com — CHEFMAN 6 Quart Dual Basket Air Fryer Oven (B0CDY277D3)",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B04G1MEwY. Air Fryers browse node 17659096011. Buy-box price $74.99."
+    },
+    {
+      "id": "S04",
+      "label": "Amazon.com — Emeril Lagasse 26QT French Door Air Fryer Toaster Oven (B09B7SB46R)",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B02NbDxp3. Air Fryers browse node 17659096011. Buy-box price $229.99."
+    },
+    {
+      "id": "S05",
+      "label": "Amazon.com — Chefman Air Fryer 8 Qt TurboFry (B08DKYBTPH)",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B00hJ57DV. Air Fryers browse node 17659096011. Buy-box price $59.99."
+    },
+    {
+      "id": "S06",
+      "label": "Amazon.com — ThermoMaven 1 Sec Digital Meat Thermometer (B0DHZTCNR5)",
+      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B0c8moW59. Meat Thermometers browse node 289810. Buy-box price $16.99 (list $22.99); 4.6 stars, 3,499 ratings; Amazon's Choice."
+    },
+    {
+      "id": "S07",
+      "label": "Amazon.com — CHEF iQ Sense Smart Wireless Meat Thermometer Gen3 (B0DZFD6R9Z)",
+      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "type": "Amazon.com product listing (official)",
+      "accessed": "2026-11-19",
+      "note": "Resolved from https://link.amazon/B0f3GKalj. Meat Thermometers browse node 289810. Buy-box price $139.99."
+    },
+    {
+      "id": "S08",
+      "label": "Amazon.com — What is an ASIN? (ASIN definition)",
+      "url": "https://www.amazon.com/ask/questions/TxJGX2UK4WITXE/",
+      "type": "Amazon.com (official)",
+      "accessed": "2026-11-19",
+      "note": "Amazon defines ASINs as unique blocks of 10 letters and/or numbers that identify items. The submitted tokens are 9 characters, so they are not ASINs."
+    },
+    {
+      "id": "S09",
+      "label": "FTC — Disclosures 101 for Social Media Influencers",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "type": "FTC (official)",
+      "accessed": "2026-11-19",
+      "note": "Disclosure must be clear and conspicuous; placed where a consumer is likely to notice it."
+    },
+    {
+      "id": "S10",
+      "label": "FTC — Endorsements Influencers Reviews",
+      "url": "https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews",
+      "type": "FTC (official)",
+      "accessed": "2026-11-19",
+      "note": "Endorsement disclosures must be unavoidable and understandable; material connection must be disclosed."
+    },
+    {
+      "id": "S11",
+      "label": "Google — rel=\"sponsored\" for paid links",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "type": "Google Search Central (official)",
+      "accessed": "2026-11-19",
+      "note": "Paid and commission-based links should use rel=\"sponsored\"."
+    },
+    {
+      "id": "S12",
+      "label": "Google — Create unique descriptions for each page (meta)",
+      "url": "https://developers.google.com/search/docs/appearance/snippet",
+      "type": "Google Search Central (official)",
+      "accessed": "2026-11-19",
+      "note": "Each page should have its own accurate, unique title and meta description."
+    },
+    {
+      "id": "S13",
+      "label": "Google — Page experience and mobile presentation",
+      "url": "https://developers.google.com/search/docs/appearance/page-experience",
+      "type": "Google Search Central (official)",
+      "accessed": "2026-11-19",
+      "note": "Mobile-first presentation and page experience signals."
+    }
+  ]
+}
