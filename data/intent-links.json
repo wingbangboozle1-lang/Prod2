@@ -1,0 +1,98 @@
+{
+  "_meta": {
+    "description": "Product-intent confirmation record. For each submitted link: the intended ASIN and the official listing URL the site publishes, the date and source of that confirmation, and the observed redirect target recorded in a separate field. The two are never merged. The short-link path codes are not ASINs.",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2",
+    "carried_from": "data/imported/zone4/z4-intent.json (confirmed 2026-11-17 there; ASIN format rule per Amazon's published ASIN guide, source S-ASIN)",
+    "fields_rule": "intended_asin and observed_redirect are separate fields with separate dates. They are never merged or averaged."
+  },
+  "tracking_id": "shopnow047c-20",
+  "tracking_id_status": "owner-supplied (2026-11-17); format matches the XXXXX-## pattern in Participation Requirements 2(b); registered/active status unconfirmed (FLG-04)",
+  "links": [
+    {
+      "product_id": "P1",
+      "submitted_url": "https://link.amazon/B04G1MEwY",
+      "link_path_code": "B04G1MEwY",
+      "intended_asin": "B0CDY277D3",
+      "intent_basis": "ASIN read from the official listing page (imported register, 2026-11-14; re-read 2026-11-16)",
+      "official_listing_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "confirmation_date_utc": "2026-11-17",
+      "confirmation_source": "Official listing page title and breadcrumb, read by the predecessor register (imported z4-intent.json)",
+      "observed_redirect": {
+        "date_utc": "2026-11-17",
+        "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
+        "observed_asin": "B0CDY277D3"
+      },
+      "published_outbound_url": "https://www.amazon.com/dp/B0CDY277D3?tag=shopnow047c-20",
+      "attribution_status": "unverified pending one-link test (FLG-07)"
+    },
+    {
+      "product_id": "P2",
+      "submitted_url": "https://link.amazon/B02NbDxp3",
+      "link_path_code": "B02NbDxp3",
+      "intended_asin": "B09B7SB46R",
+      "intent_basis": "ASIN read from the official listing page (imported register, 2026-11-14; re-read 2026-11-16)",
+      "official_listing_url": "https://www.amazon.com/dp/B09B7SB46R",
+      "confirmation_date_utc": "2026-11-17",
+      "confirmation_source": "Official listing page title and breadcrumb, read by the predecessor register (imported z4-intent.json)",
+      "observed_redirect": {
+        "date_utc": "2026-11-17",
+        "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R",
+        "observed_asin": "B09B7SB46R"
+      },
+      "published_outbound_url": "https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20",
+      "attribution_status": "unverified pending one-link test (FLG-07)"
+    },
+    {
+      "product_id": "P3",
+      "submitted_url": "https://link.amazon/B00hJ57DV",
+      "link_path_code": "B00hJ57DV",
+      "intended_asin": "B08DKYBTPH",
+      "intent_basis": "ASIN read from the official listing page (imported register, 2026-11-14; re-read 2026-11-16)",
+      "official_listing_url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "confirmation_date_utc": "2026-11-17",
+      "confirmation_source": "Official listing page title and breadcrumb, read by the predecessor register (imported z4-intent.json)",
+      "observed_redirect": {
+        "date_utc": "2026-11-17",
+        "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH",
+        "observed_asin": "B08DKYBTPH"
+      },
+      "published_outbound_url": "https://www.amazon.com/dp/B08DKYBTPH?tag=shopnow047c-20",
+      "attribution_status": "unverified pending one-link test (FLG-07)"
+    },
+    {
+      "product_id": "P4",
+      "submitted_url": "https://link.amazon/B0c8moW59",
+      "link_path_code": "B0c8moW59",
+      "intended_asin": "B0DHZTCNR5",
+      "intent_basis": "Provisional: the listing the short link opened to, as observed by the predecessor register. Not confirmed by the owner.",
+      "official_listing_url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "confirmation_date_utc": "2026-11-17",
+      "confirmation_source": "Provisional only - predecessor register observation (imported z4-intent.json)",
+      "observed_redirect": {
+        "date_utc": "2026-11-17",
+        "final_url_without_query": "https://www.amazon.com/dp/B0DHZTCNR5",
+        "observed_asin": "B0DHZTCNR5"
+      },
+      "published_outbound_url": null,
+      "attribution_status": "held (FLG-06): do not publish the short link or the tagged URL until identity is confirmed in the enrolled Associates workflow"
+    },
+    {
+      "product_id": "P5",
+      "submitted_url": "https://link.amazon/B0f3GKalj",
+      "link_path_code": "B0f3GKalj",
+      "intended_asin": "B0DZFD6R9Z",
+      "intent_basis": "Provisional: the listing the short link opened to, as observed by the predecessor register. Not confirmed by the owner.",
+      "official_listing_url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "confirmation_date_utc": "2026-11-17",
+      "confirmation_source": "Provisional only - predecessor register observation (imported z4-intent.json)",
+      "observed_redirect": {
+        "date_utc": "2026-11-17",
+        "final_url_without_query": "https://www.amazon.com/dp/B0DZFD6R9Z",
+        "observed_asin": "B0DZFD6R9Z"
+      },
+      "published_outbound_url": null,
+      "attribution_status": "held (FLG-06): do not publish the short link or the tagged URL until identity is confirmed in the enrolled Associates workflow"
+    }
+  ]
+}

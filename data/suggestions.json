@@ -1,0 +1,154 @@
+{
+  "_meta": {
+    "description": "Suggestions register - the dedicated review queue. Every proposed change lands here first with its evidence, effort, risk and the decision it needs; nothing is implemented from a suggestion until its status moves past 'proposed'. Review workflow: proposed -> under review -> needs a decision -> adopted (implemented, moves to decisions.json) or declined (kept with the reason).",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2",
+    "how_to_review": "Read a row, check its evidence links, then set status to 'under review' by editing this file; when a path is chosen, record the choice in data/decisions.json and flip the row to 'adopted' (or 'declined' with a reason). Adopted rows are carried out in a named task on COORDINATION.md."
+  },
+  "suggestions": [
+    {
+      "id": "SG-01",
+      "title": "Confirm the tracking ID and run the one-link-per-product test before adding more link placements",
+      "category": "Compliance",
+      "status": "needs a decision (owner action)",
+      "what": "Owner logs into Associates Central, confirms shopnow047c-20 is active, clicks each of the three published Special Links once, and confirms each event reports back.",
+      "why": "Attribution is the whole revenue model and it has never been observed reporting (FLG-04, FLG-07). Every extra placement multiplies unverified surface area.",
+      "effort": "S (under an hour)",
+      "risk": "None - the site already works without it.",
+      "evidence": ["https://affiliate-program.amazon.com/help/operating/policies", "data/intent-links.json"],
+      "decision_needed": "None - this is an action, not a choice."
+    },
+    {
+      "id": "SG-02",
+      "title": "Choose a host for the analytics collector",
+      "category": "Measurement",
+      "status": "needs a decision",
+      "what": "Deploy collector/app.py (a dependency-free Python reference endpoint) to any host that runs a small service, then set window.CC_COLLECT_URL in assets/js/analytics.js.",
+      "why": "GitHub Pages cannot run the endpoint; until it is hosted, events aggregate only in the visitor's browser and true funnels cannot be measured (FLG-08).",
+      "effort": "S-M",
+      "risk": "Low: the endpoint stores anonymous JSONL and needs no database; pick a host with a log-drain if retention matters.",
+      "evidence": ["collector/README.md", "data/events.json"],
+      "decision_needed": "Which host (any small VPS, Fly.io, Render, Cloudflare Worker with KV). Costs and data-residency terms differ; none is endorsed here."
+    },
+    {
+      "id": "SG-03",
+      "title": "Set up Search Console and submit the sitemap",
+      "category": "Organic traffic",
+      "status": "needs a decision (owner action)",
+      "what": "Create a URL-prefix property for https://wingbangboozle1-lang.github.io/Prod2/, verify (HTML file or meta tag), submit sitemap.xml, then request indexing for the front page and the three category pages.",
+      "why": "Search Console is the only authorised source of query-level data; the publishing cadence is supposed to switch from editorial order to measured queries once it exists (FLG-09).",
+      "effort": "S",
+      "risk": "None.",
+      "evidence": ["https://wingbangboozle1-lang.github.io/Prod2/sitemap.xml", "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"],
+      "decision_needed": "Who owns the Google account that holds the property."
+    },
+    {
+      "id": "SG-04",
+      "title": "Pick the photography path for product imagery",
+      "category": "Design",
+      "status": "needs a decision",
+      "what": "Choose how product images are sourced when photography is introduced: (a) shoot original photos of products the site actually has, (b) license stock kitchen photography for editorial scenes only, (c) serve Amazon imagery through the Creators/PA API once connected, or (d) stay non-photographic.",
+      "why": "Decision D-13 bars generated and copied photography outright; the design reads clean without photos, but a shop page with zero product imagery is a known conversion handicap. Path (c) is the only one that shows the actual products and it requires API access (Q-04).",
+      "effort": "S (choice) / M-C (execution depends on path)",
+      "risk": "Path (a) needs the products on hand; path (b) must avoid product-specific claims the photo implies; path (c) needs the API decision first.",
+      "evidence": ["https://affiliate-program.amazon.com/help/operating/policies", "open-questions.html (Q-04, Q-05)"],
+      "decision_needed": "Path a/b/c/d, and budget if b."
+    },
+    {
+      "id": "SG-05",
+      "title": "Connect the Creators/PA API for prices and availability - or keep them off permanently",
+      "category": "Compliance",
+      "status": "needs a decision",
+      "what": "Decide whether the site applies for Creators API access. If yes, prices, availability and star ratings can be displayed under the API terms with their refresh rules; if no, the current no-price rule becomes permanent policy.",
+      "why": "The current register deliberately shows no price or rating (Participation Requirement 2(b) and the ratings rule 6(t) as carried). A shop without prices converts worse; the API is the compliant way to show them.",
+      "effort": "M",
+      "risk": "API terms constrain display and staleness; engineering cost to keep values fresh.",
+      "evidence": ["https://affiliate-program.amazon.com/help/operating/policies", "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction"],
+      "decision_needed": "Apply or not; if not, record the permanent no-price rule."
+    },
+    {
+      "id": "SG-06",
+      "title": "Switch the topic queue to measured queries after 14 days of data",
+      "category": "Organic traffic",
+      "status": "proposed",
+      "what": "Once Search Console exists (SG-03) and the collector is hosted (SG-02), rebuild data/calendar.json's queue from the queries that actually produce impressions, keeping the evidence rule: no topic without a question it can answer from verified fields.",
+      "why": "The cadence rule already says measurement should take over from editorial instinct; this is the concrete switch, gated so it does not run on zero data.",
+      "effort": "S",
+      "risk": "Low; the evidence rule (D-08) caps what a topic can claim.",
+      "evidence": ["data/calendar.json", "data/site.json (publishing.measurement_rule)"],
+      "decision_needed": "Confirm the 14-day gate."
+    },
+    {
+      "id": "SG-07",
+      "title": "Add a 'what readers ask next' module fed by real queries",
+      "category": "Organic traffic",
+      "status": "proposed",
+      "what": "After measurement exists, surface the next question-shaped guide on the front page and the guides hub, driven by measured queries rather than the calendar.",
+      "why": "Turns the publishing cadence into a visible loop and gives returning readers a reason to come back. Waits on measurement access.",
+      "effort": "S",
+      "risk": "None beyond SG-06's gate.",
+      "evidence": ["data/imported/zone4/z4-suggestions.json (S-44 there)"],
+      "decision_needed": "Approve after SG-06."
+    },
+    {
+      "id": "SG-08",
+      "title": "Keep RSS as reader capture; decide email capture only with a privacy basis",
+      "category": "Reader capture",
+      "status": "under review",
+      "what": "Keep the shipped RSS feed and subscribe affordances as the only capture channel. Email capture (an opt-in form) is added only after someone answers the consent basis, retention period and privacy notice questions.",
+      "why": "Email is the strongest capture channel but it creates legal obligations nobody has answered yet; RSS ships today with zero obligations.",
+      "effort": "S (RSS is shipped) / M (email done properly)",
+      "risk": "Email done casually would be a privacy failure, not a growth feature.",
+      "evidence": ["feed.xml", "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"],
+      "decision_needed": "Email yes/no; if yes, consent basis and retention (Q-11)."
+    },
+    {
+      "id": "SG-09",
+      "title": "Product pages: one per verified product, kept to the verified fact table",
+      "category": "Site structure",
+      "status": "proposed",
+      "what": "When the shop grows past one product per category, add a page per product holding the full verified fact table, the intent record summary and the comparison links. Today each category page carries its single product, so the page-per-product step waits.",
+      "why": "Per-product pages rank for model-specific queries, but a page-per-product site with one product per page is thin; the category structure avoids thin pages until there is real depth.",
+      "effort": "S per product",
+      "risk": "Thin-content risk if created prematurely (S-SPAM).",
+      "evidence": ["https://developers.google.com/search/docs/essentials/spam-policies"],
+      "decision_needed": "Trigger: second verified product in any category."
+    },
+    {
+      "id": "SG-10",
+      "title": "Sortable comparison table once more than three verified products exist",
+      "category": "Site structure",
+      "status": "proposed",
+      "what": "Keep the current static comparison table (fast, no JS dependency) until more than three products are verified; then add client-side sorting and a sticky column header.",
+      "why": "Sorting three rows adds complexity without helping anyone; the trigger keeps the page simple now and useful later.",
+      "effort": "S",
+      "risk": "None.",
+      "evidence": ["compare/index.html"],
+      "decision_needed": "Trigger confirmation."
+    },
+    {
+      "id": "SG-11",
+      "title": "Seasonal module: holiday cooking guide slot",
+      "category": "Editorial",
+      "status": "proposed",
+      "what": "Reserve one calendar slot in December for a seasonal cooking question (e.g. reheating sides for a crowd) written to the same evidence rule - question-shaped, answerable from verified facts, no gift-list hype.",
+      "why": "Seasonality is a real traffic pattern, but the evidence rule bars 'trending' claims; a seasonal question page earns the traffic the honest way. December slot is time-sensitive.",
+      "effort": "S-M",
+      "risk": "Low; slot can be skipped without breaking the cadence.",
+      "evidence": ["data/calendar.json"],
+      "decision_needed": "Approve the December slot and pick the question."
+    },
+    {
+      "id": "SG-12",
+      "title": "Publish a 'how we verify' explainer as the site's trust page",
+      "category": "Trust",
+      "status": "adopted",
+      "what": "The Methodology page ships with this build: line-by-line rules, what a fact table row requires, and how carried values keep their provenance.",
+      "why": "The verification angle is the site's differentiator; making the method public turns governance into content.",
+      "effort": "S",
+      "risk": "None.",
+      "evidence": ["review/methodology.html"],
+      "decision_needed": "None - shipped 2026-11-19 (decision D-17)."
+    }
+  ]
+}

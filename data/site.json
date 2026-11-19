@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "description": "Site configuration: brand, navigation, base URL, disclosure wording. Single navigation group in the header; every dashboard surface reachable from the footer directory.",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2"
+  },
+  "brand": {
+    "name": "The Crisp Counter",
+    "tagline": "Air fryer decisions, minus the hype.",
+    "promise": "Three air fryers. Every fact checked.",
+    "method_line": "A small, source-checked guide to the countertop air fryers people actually buy - with every published figure read from an official listing page and the receipts kept visible.",
+    "name_provenance": "New brand for this repository, proposed as suggestion SG-31 and recorded as decision D-01 on 2026-11-19. The predecessor site kept its project codename (Zone4, decision D-18 there); this site is a publication and needed a reader-facing name. Trademark clearance is an open item (question Q-10).",
+    "voice_id": "VOICE.md"
+  },
+  "base_url": "https://wingbangboozle1-lang.github.io/Prod2/",
+  "nav_group": [
+    {"href": "index.html", "label": "Home", "path": ""},
+    {"href": "shop/index.html", "label": "Shop", "path": "shop/"},
+    {"href": "guides/index.html", "label": "Guides", "path": "guides/"},
+    {"href": "compare/index.html", "label": "Compare", "path": "compare/"},
+    {"href": "about.html", "label": "About", "path": ""}
+  ],
+  "footer_directory": {
+    "title": "Site data & governance",
+    "links": [
+      {"href": "data/products.html", "label": "Product register"},
+      {"href": "data/sources.html", "label": "Source register"},
+      {"href": "data/ledger.html", "label": "Campaign ledger"},
+      {"href": "data/events.html", "label": "Events & privacy"},
+      {"href": "review/flagged.html", "label": "Flagged for review"},
+      {"href": "review/decisions.html", "label": "Decision log"},
+      {"href": "review/methodology.html", "label": "Methodology"},
+      {"href": "suggestions.html", "label": "Suggestions"},
+      {"href": "open-questions.html", "label": "Open questions"},
+      {"href": "executive-summary.html", "label": "Executive summary"},
+      {"href": "about.html", "label": "About & disclosure"},
+      {"href": "feed.xml", "label": "RSS feed"}
+    ]
+  },
+  "disclosure": {
+    "strip": "As an Amazon Associate, the publisher of this site earns from qualifying purchases. This notice appears above the fold on every page.",
+    "wording_source": "Carried verbatim from the predecessor register (data/imported/zone4/z4-content.json, observed on the Associates help topic GPXFHVYZMTGPUMPE as cited there).",
+    "footer_note": "When you buy through links marked as sponsored on this site, the publisher may earn a commission from Amazon. The commission never changes the price you pay.",
+    "amazon_ip_notice": "CERTAIN CONTENT THAT APPEARS ON THIS SITE COMES FROM AMAZON. THIS CONTENT IS PROVIDED AS IS AND IS SUBJECT TO CHANGE OR REMOVAL AT ANY TIME.",
+    "amazon_ip_notice_reason": "Program Content displayed as text (listing titles), so the Section 2(k) notice is shown in plain view as the conservative reading. Carried from the predecessor register (F-25 there)."
+  },
+  "publishing": {
+    "cadence": "One new question-shaped guide every 14 days, added to sitemap.xml and feed.xml by the same build.",
+    "next_due_utc": "2026-12-03",
+    "measurement_rule": "Topics are chosen from measured queries only after Search Console and the collector endpoint exist and at least 14 days of events are recorded. Until then the queue order is editorial, and no traffic figure is claimed.",
+    "carried_from": "data/imported/zone4/z4-publishing.json (cadence set 2026-11-17; re-stated here with the new queue)"
+  }
+}

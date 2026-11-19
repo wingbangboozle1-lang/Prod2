@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "description": "The Associates tracking ID selected by the site owner, and the rules this site applies to it. The ID is owner-supplied input (brief of 2026-11-17); whether it is registered, active and assigned to this site can only be confirmed inside Associates Central.",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2",
+    "carried_from": "data/imported/zone4/z4-associates.json"
+  },
+  "tracking_id": {
+    "value": "shopnow047c-20",
+    "supplied_utc": "2026-11-17",
+    "supplied_by": "Site owner (session brief)",
+    "format_matches": "XXXXX-## pattern per Participation Requirements 2(b) (source S-POL)",
+    "registered_and_active": "unconfirmed (FLG-04) - confirm in Associates Central before treating any link as attribution-ready"
+  },
+  "link_rules": [
+    "Every outbound link to an Amazon site on this site is the final destination URL plus the tag parameter - no link shortener, no obscure redirects (Participation Requirements 2(b), 6(v), 6(w)).",
+    "Every outbound Amazon link carries rel=\"sponsored\" and the disclosure adjacency required by the FTC guidance (source S-FTC).",
+    "P4/P5 links are never published while held (FLG-06).",
+    "Attribution for any link is unverified until the one-link-per-product test passes in the enrolled Associates workflow (FLG-07).",
+    "No price, availability, star rating, review count or popularity badge is displayed from Amazon pages: Participation Requirement 2(b) allows those only when Amazon serves the content or it comes through the Creators/PA API, neither of which is connected (carried rule, F-02/F-37 there)."
+  ]
+}

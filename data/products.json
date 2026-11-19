@@ -1,0 +1,126 @@
+{
+  "_meta": {
+    "description": "Canonical product register. P1-P3 facts were read from the official Amazon listing pages by the predecessor register (imported verbatim at data/imported/zone4/z4-products.json; last re-read there 2026-11-16/17). This environment cannot reach amazon.com, so no fact was re-derived here: each value keeps its official citation and its last-read date. P4-P5 are held and never published.",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2",
+    "carried_from": "data/imported/zone4/z4-products.json",
+    "withheld_everywhere": ["price", "star rating", "review count", "popularity badges", "commission rate per ASIN", "any traffic or conversion figure"]
+  },
+  "products": [
+    {
+      "id": "P1",
+      "status": "verified-carried",
+      "asin": "B0CDY277D3",
+      "name_short": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven",
+      "name_listing": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+      "category": "Dual-basket air fryers",
+      "brand": "Chefman",
+      "model_name": "Turbo Fry\u00ae Touch",
+      "model_number": "RJ38-SQPF-3TDB-2W",
+      "capacity": "6 liters (2 independent 3-quart baskets)",
+      "dimensions": "13.38\"D x 11.81\"W x 10.63\"H",
+      "color": "Black, Gray",
+      "material": "Metal, Plastic",
+      "special_features": ["Automatic Shut-Off", "Dual Zone Features", "Hi-Fry", "+2Min Button", "Mute", "Easy-view windows", "Sync Finish"],
+      "official_listing_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "facts_last_read_utc": "2026-11-16",
+      "facts_source": "Official Amazon listing page (imported register z4-products.json P1, read 2026-11-14, re-read 2026-11-16)",
+      "special_link_published": "https://www.amazon.com/dp/B0CDY277D3?tag=shopnow047c-20",
+      "attribution_status": "unverified pending one-link test (FLG-07)",
+      "flags": ["FLG-05", "FLG-07"]
+    },
+    {
+      "id": "P2",
+      "status": "verified-carried",
+      "asin": "B09B7SB46R",
+      "name_short": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven",
+      "name_listing": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.",
+      "category": "Air fryer toaster ovens",
+      "brand": "Emeril",
+      "model_name": "Extra Large 26 QT French Door Air Fryer Oven",
+      "model_number": "4-00675-02X-VN",
+      "capacity": "24.6 liters",
+      "dimensions": "16.9\"D x 15.8\"W x 14.8\"H",
+      "color": "Stainless Steel",
+      "material": "Stainless Steel",
+      "special_features": ["Automatic Shut-Off", "Programmable", "Temperature Control", "Timer", "French doors", "Dual-speed fan", "Rotisserie"],
+      "function_count_note": "The listing title says 24 cooking functions; the predecessor register observed a 25-function panel (F-26 there). The discrepancy is stated, not smoothed over.",
+      "official_listing_url": "https://www.amazon.com/dp/B09B7SB46R",
+      "facts_last_read_utc": "2026-11-16",
+      "facts_source": "Official Amazon listing page (imported register z4-products.json P2, read 2026-11-14, re-read 2026-11-16)",
+      "special_link_published": "https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20",
+      "attribution_status": "unverified pending one-link test (FLG-07)",
+      "flags": ["FLG-05", "FLG-07"]
+    },
+    {
+      "id": "P3",
+      "status": "verified-carried",
+      "asin": "B08DKYBTPH",
+      "name_short": "Chefman Air Fryer 8 Qt TurboFry 4-in-1",
+      "name_listing": "Chefman Air Fryer 8 Qt | TurboFry\u00ae 4-in-1 with 450\u00b0F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+      "category": "Single-basket air fryers",
+      "brand": "Chefman",
+      "model_name": "Square Air Fryer",
+      "model_number": "RJ38-SQSS-8T",
+      "capacity": "8 quarts",
+      "dimensions": "12.75\"D x 13.5\"W x 10\"H",
+      "color": "Stainless steel",
+      "material": "Plastic, Stainless Steel",
+      "special_features": ["Automatic Shut-Off", "LED Shake Reminder", "Programmable", "450\u00b0F Hi-Fry", "Dishwasher-safe basket"],
+      "official_listing_url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "facts_last_read_utc": "2026-11-16",
+      "facts_source": "Official Amazon listing page (imported register z4-products.json P3, read 2026-11-14, re-read 2026-11-16)",
+      "special_link_published": "https://www.amazon.com/dp/B08DKYBTPH?tag=shopnow047c-20",
+      "attribution_status": "unverified pending one-link test (FLG-07)",
+      "flags": ["FLG-05", "FLG-07"]
+    },
+    {
+      "id": "P4",
+      "status": "held-unpublished",
+      "asin": null,
+      "intended_asin_provisional": "B0DHZTCNR5",
+      "submitted_url": "https://link.amazon/B0c8moW59",
+      "name_short": null,
+      "note": "Listing observed by the predecessor register is a meat thermometer, outside the air-fryer scope of the brief (F-56 there). Identity not confirmed by the owner in the enrolled Associates workflow. No product page, no outbound link, no published fact.",
+      "official_listing_url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "facts_last_read_utc": null,
+      "facts_source": null,
+      "special_link_published": null,
+      "flags": ["FLG-06"]
+    },
+    {
+      "id": "P5",
+      "status": "held-unpublished",
+      "asin": null,
+      "intended_asin_provisional": "B0DZFD6R9Z",
+      "submitted_url": "https://link.amazon/B0f3GKalj",
+      "name_short": null,
+      "note": "Listing observed by the predecessor register is a meat thermometer, outside the air-fryer scope of the brief (F-56 there). Identity not confirmed by the owner in the enrolled Associates workflow. No product page, no outbound link, no published fact.",
+      "official_listing_url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "facts_last_read_utc": null,
+      "facts_source": null,
+      "special_link_published": null,
+      "flags": ["FLG-06"]
+    }
+  ],
+  "categories": [
+    {
+      "id": "dual-basket",
+      "name": "Dual-basket air fryers",
+      "summary": "Two independent baskets, one body. Cook two foods at two settings, or a full sides-and-main plate at once - at the cost of a wider footprint.",
+      "products": ["P1"]
+    },
+    {
+      "id": "toaster-ovens",
+      "name": "Air fryer toaster ovens",
+      "summary": "The multi-function option: air fry plus toast, bake, broil and rotisserie in a door-front oven. Biggest capacity, deepest counter reach.",
+      "products": ["P2"]
+    },
+    {
+      "id": "single-basket",
+      "name": "Single-basket air fryers",
+      "summary": "The classic drawer. One basket, simple controls, easiest cleanup - the format most people picture when someone says air fryer.",
+      "products": ["P3"]
+    }
+  ]
+}
