@@ -1,0 +1,125 @@
+title: Flagged for Review — Countertop Dispatch
+description: Every irregularity found during verification, with evidence, source links and the action needed. Blanks and conflicts are published here rather than quietly filled in.
+nav: flagged.html
+---
+<div class="wrap section">
+  <div class="section-head">
+    <h1>Flagged for Review</h1>
+    <span class="more">8 flags · 0 critical, 2 high, 4 medium, 2 low</span>
+  </div>
+  <p class="lede">Everything below is an irregularity we found and did <strong>not</strong> fix by guessing. Each flag names the evidence, the source, and the action needed. Flags do not block the site from being published — they are the reason it can be trusted.</p>
+
+  <div class="callout flag">
+    <strong>House rule</strong>
+    A flag is opened whenever a value could not be confirmed from an official source, two official statements conflict, or a policy prevents us from showing something a reader might expect. Closing a flag requires evidence, not effort.
+  </div>
+
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>ID</th><th>Severity</th><th>What was observed</th><th>Evidence</th><th>Action needed</th></tr></thead>
+      <tbody>
+        <tr id="FLG-P01">
+          <td><strong>FLG-P01</strong></td>
+          <td>High</td>
+          <td>All five submitted tokens are 9 characters long (B04G1MEwY, B02NbDxp3, B00hJ57DV, B0c8moW59, B0f3GKalj). Official Amazon documentation defines an ASIN as a 10-character code. Direct <span class="mono">/dp/&lt;token&gt;</span> requests return "Page Not Found" for all five, yet each <span class="mono">link.amazon/…</span> short link resolves to a real 10-character listing.</td>
+          <td class="src">
+            <a href="https://sell.amazon.com/blog/what-is-an-asin" rel="noopener">S-04 · ASIN definition (official)</a><br>
+            <a href="https://www.amazon.com/dp/B04G1MEwY?tag=shopnow047c-20" rel="noopener sponsored">S-20 · /dp/B04G1MEwY → Page Not Found</a><br>
+            <a href="https://www.amazon.com/dp/B0c8moW59?tag=shopnow047c-20" rel="noopener sponsored">S-21 · /dp/B0c8moW59 → Page Not Found</a><br>
+            <a href="https://www.amazon.com/dp/B0f3GKalj?tag=shopnow047c-20" rel="noopener sponsored">S-22 · /dp/B0f3GKalj → Page Not Found</a><br>
+            <a href="{prefix}data/submitted-links.json" rel="noopener">submitted-links.json (token lengths)</a>
+          </td>
+          <td>Owner confirms intent per link (S-01) or supplies correct 10-char ASINs. Until then <span class="mono">intended.*</span> stays null in product-intent.json.</td>
+        </tr>
+        <tr id="FLG-P02">
+          <td><strong>FLG-P02</strong></td>
+          <td>High</td>
+          <td>The <span class="mono">link.amazon/…</span> short-link format is not named in the Associates Program Policies text we fetched. Its exact compliance status is unresolved. <strong>We do not declare these links invalid</strong> — they demonstrably resolve — and we do not declare them compliant either.</td>
+          <td class="src">
+            <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener">S-02 · Program Policies</a><br>
+            <a href="https://kanlerxz87-cyber.github.io/Zone3/flagged.html" rel="noopener">Zone3 FLG-003 (cross-reference)</a><br>
+            <a href="{prefix}data/submitted-links.json" rel="noopener">submitted-links.json (observations)</a>
+          </td>
+          <td>Test one link inside the enrolled Associates workflow and read the tracking report (S-03), or ask Associates support. On-site links already use standard Special Links with the tag.</td>
+        </tr>
+        <tr id="FLG-P03">
+          <td><strong>FLG-P03</strong></td>
+          <td>Medium</td>
+          <td>Per-product commission rate cannot be assigned. The rate schedule page redirects to Associates sign-in; Amazon does not publicly state which Table 1 row a given ASIN is charged against.</td>
+          <td class="src">
+            <a href="https://affiliate-program.amazon.com/help/operating/schedule" rel="noopener">S-03 · schedule (sign-in gated)</a><br>
+            <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener">S-19 · Standard Commission Income Statement, Table 1</a>
+          </td>
+          <td>Owner reads the custom rate card after sign-in; commission cells stay blank until then. Reference rates are published on <a href="{prefix}analysis.html">analysis.html</a>.</td>
+        </tr>
+        <tr id="FLG-P04">
+          <td><strong>FLG-P04</strong></td>
+          <td>Medium</td>
+          <td>Price cells show <span class="mono">withheld</span> on every table. Amazon's Program Policies state that a site may show prices only if Amazon serves them in the link, or if obtained via Creators API / PA API with an adjacent date/time stamp and the prescribed disclaimer. We obtained prices by direct page observation, which satisfies neither path.</td>
+          <td class="src">
+            <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener">S-02 · Program Policies (price rule)</a><br>
+            <a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener">S-01 · Operating Agreement</a>
+          </td>
+          <td>Owner decision S-02: keep withholding, apply for API access, or embed Amazon-served price widgets.</td>
+        </tr>
+        <tr id="FLG-P05">
+          <td><strong>FLG-P05</strong></td>
+          <td>Medium</td>
+          <td>Star ratings and review counts observed during verification are not published anywhere on this site. The Program Policies restrict displaying customer reviews or star ratings unless obtained through Creators API / PA API with a link back.</td>
+          <td class="src">
+            <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener">S-02 · Program Policies (review/rating rule)</a>
+          </td>
+          <td>Same owner decision as FLG-P04 (S-02). Readers can always see current ratings by opening the listing.</td>
+        </tr>
+        <tr id="FLG-P06">
+          <td><strong>FLG-P06</strong></td>
+          <td>Medium</td>
+          <td>The Chefman Dual Basket listing conflicts with itself on capacity: title and description say "6 Quart"; the specification table says "Capacity: 6 Liters". 6 qt ≈ 5.68 L, so the two statements differ by ~6%. Both are recorded as printed; we do not pick a winner.</td>
+          <td class="src">
+            <a href="https://www.amazon.com/dp/B0CDY277D3?tag=shopnow047c-20" rel="noopener sponsored">S-14 · listing (title vs spec table)</a>
+          </td>
+          <td>Owner may ask the brand or Amazon which is correct; until then the table shows both statements (6 qt total, FLG-linked).</td>
+        </tr>
+        <tr id="FLG-P07">
+          <td><strong>FLG-P07</strong></td>
+          <td>Low</td>
+          <td>Dimensions for P4 (ThermoMaven) and P5 (CHEF iQ Sense) are blank — this verification pass captured title-level facts for the thermometers but not their specification tables.</td>
+          <td class="src">
+            <a href="https://www.amazon.com/dp/B0DHZTCNR5?tag=shopnow047c-20" rel="noopener sponsored">S-17 · P4 listing</a><br>
+            <a href="https://www.amazon.com/dp/B0DZFD6R9Z?tag=shopnow047c-20" rel="noopener sponsored">S-18 · P5 listing</a>
+          </td>
+          <td>One more fetch pass over both spec tables (suggestion S-05), or leave blank if footprint is judged irrelevant for probes.</td>
+        </tr>
+        <tr id="FLG-P08">
+          <td><strong>FLG-P08</strong></td>
+          <td>Low</td>
+          <td>Wattage and warranty cells are partially blank: wattage stated only on the TurboFry listing (900W); warranty stated only on the Emeril listing (12 months). The blanks on the other rows were not inferred from sibling models.</td>
+          <td class="src">
+            <a href="https://www.amazon.com/dp/B08DKYBTPH?tag=shopnow047c-20" rel="noopener sponsored">S-16 · 900W stated</a><br>
+            <a href="https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20" rel="noopener sponsored">S-15 · 12-month warranty stated</a><br>
+            <a href="https://www.amazon.com/dp/B0CDY277D3?tag=shopnow047c-20" rel="noopener sponsored">S-14 · no wattage/warranty in captured fields</a>
+          </td>
+          <td>Re-read the two listings' spec tables and fill only what is stated (suggestion S-06).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Observations recorded but not flagged</h2>
+  <ul class="prose-list">
+    <li>All five short links carried <span class="mono">lv=shuf</span> and <span class="mono">plpRedirect=mhFallback</span> parameters on their redirect targets. Recorded as observed; not treated as product data.</li>
+    <li>Tagged-link tests for all five ASINs with <span class="mono">?tag=shopnow047c-20</span> resolved to the correct listings on 19 Nov 2026 — a pass, not an irregularity.</li>
+    <li>The submitted set spans two categories (air fryers, meat thermometers). Not an error; documented as <a href="{prefix}analysis.html">Finding B</a>.</li>
+  </ul>
+
+  <div class="related">
+    <h3>Next</h3>
+    <ul>
+      <li><a href="{prefix}suggestions.html">Suggestions &amp; open questions</a></li>
+      <li><a href="{prefix}products.html">Product table (flags inline)</a></li>
+      <li><a href="{prefix}compliance.html">Disclosure &amp; compliance</a></li>
+      <li><a href="{prefix}analysis.html">Analysis &amp; findings</a></li>
+      <li><a href="{prefix}summary.html">Executive summary</a></li>
+    </ul>
+  </div>
+</div>
