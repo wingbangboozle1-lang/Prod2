@@ -242,6 +242,32 @@ a.src { color: var(--sage-deep); font-weight: 600; text-decoration: underline; t
   padding: .12rem .55rem; font-size: .8rem; font-weight: 600; color: var(--ink-soft);
 }
 
+/* ---------- start-here path + reader capture ---------- */
+.byline { margin: 1.1rem 0 0; font-size: .85rem; }
+.start-here { margin: 2.4rem 0; }
+.steps {
+  list-style: none; padding: 0; counter-reset: step; display: grid;
+  gap: .95rem; max-width: 52rem; margin: 1.2rem 0 0;
+}
+.steps li {
+  counter-increment: step; position: relative; padding-left: 3.1rem;
+  border-left: 1px solid var(--rule); padding-top: .1rem; padding-bottom: .1rem;
+}
+.steps li::before {
+  content: counter(step); position: absolute; left: -.05rem; top: .05rem;
+  width: 2.1rem; height: 2.1rem; border-radius: 50%; background: var(--terracotta);
+  color: #fff; font-family: var(--sans); font-weight: 700; font-size: .95rem;
+  display: grid; place-items: center;
+}
+.steps a { font-weight: 600; }
+.feed-capture {
+  background: #fff; border: 1px solid var(--rule); border-left: 4px solid var(--sage);
+  border-radius: var(--radius); padding: 1.5rem 1.7rem; margin: 2.2rem 0;
+  display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.6rem; align-items: center;
+}
+.feed-capture h2 { margin-top: 0; }
+.feed-capture p:last-child { margin-bottom: 0; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 60rem) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -255,6 +281,7 @@ a.src { color: var(--sage-deep); font-weight: 600; text-decoration: underline; t
   .nav a, .nav-work summary { font-size: .9rem; }
   .format-tiles { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
+  .feed-capture { grid-template-columns: 1fr; }
   .toc ul { columns: 1; }
   main { padding-top: 1.5rem; }
   .disclosure-more { display: block; }

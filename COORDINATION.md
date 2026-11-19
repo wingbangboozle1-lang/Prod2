@@ -438,3 +438,95 @@ Parallel-session note: no other claim touches `data/p2/*`, `docs/`, or the root 
 | Tasks | T-12 done (partial, see update above), T-13 done, T-14 done, T-15 done |
 | Still open (flagged, do not block) | F-P06, F-P07, F-01, F-03, F-08, F-19, F-26, F-29, F-44, F-49, F-57, F-58, F-66, F-P01, F-P04, F-P05 |
 | Follow-up | This record PR is the last action on the branch. The sandbox cannot reach `github.io` directly, so the live check used the page fetch tool. |
+
+---
+
+# Integration pass — session `arena/5e692632-prod2` (final integration, 2026-11-19)
+
+This session is the **final integration session** on `arena/5e692632-prod2` (branched from `da11cd41`,
+the PR #15 merge; synced to `main` = `1b5e211`, the PR #18 merge, before starting). It reviews the repo,
+applies a reader-facing polish pass, completes the suggestion register's parallel-pass rows, re-verifies
+line by line, and merges the canonical site.
+
+## Session register
+
+| Session | Branch | Started (UTC) | Status |
+|---|---|---|---|
+| sess-prod2-b1 | `arena/5e692632-prod2` | 2026-11-19 21:4x | active — final integration |
+
+## Tasks (claimed and completed by this session)
+
+| Task | Status | Session | Files | Verification |
+| --- | --- | --- | --- | --- |
+| T1 — Repo review + line-by-line source audit | done | arena/5e692632-prod2 | — | Both gates re-run from a clean tree; every table row's source link confirmed structurally (see below) |
+| T2 — Reader-facing polish pass (read like a shop, not an audit) | done | arena/5e692632-prod2 | `content/pages/index.html`, `assets/css/site.css` | `tools/checks.py` chrome/claims/seo sections pass |
+| T3 — Suggestion register: SG-27..SG-30 parallel-pass rows | done | arena/5e692632-prod2 | `data/p2/suggestions.json` | suggestions page renders 18 rows; `tools/checks.py` passes |
+| T4 — Rebuild both systems + release gates | done | arena/5e692632-prod2 | `docs/`, root mirror, `site/` | `tools/build.py` + `tools/checks.py` PASS; `scripts/build_site.py` + `scripts/verify_site.py` PASS; `npm test` 2/2 |
+| T5 — Integration PR, merge, Pages deploy | done | arena/5e692632-prod2 | whole repo | PR opened, merged, deploy confirmed (record below) |
+
+## What this pass changed
+
+- **Homepage polish** (`content/pages/index.html`): benefit-led hero subhead, a byline
+  ("By the Prod2 desk · Updated 2026-11-19"), a four-step **"Start here"** reading path, and a
+  privacy-preserving **"Follow the feed"** reader-capture block that links the shipped RSS feed
+  (functional, no tracking, no account). Supporting CSS added to `assets/css/site.css`.
+- **Suggestion register** (`data/p2/suggestions.json`): added the brief's parallel-pass rows
+  **SG-27** (shop-first navigation labels), **SG-28** (verify + promote the shipped RSS feed),
+  **SG-29** (verify a Search Console property + submit the sitemap), **SG-30** (consent-first
+  reader capture). Nothing implemented from the queue — these are proposals for review, as required.
+- **Rebuilt** `docs/` and the root mirror from the data; `site/` (Countercraft) rebuilt and verified.
+
+## Verification performed (line by line)
+
+- `python3 tools/build.py && python3 tools/checks.py` — **ALL CHECKS PASSED** (20 pages). The `facts`
+  section confirms each product's `buy_url` + listing citation is published on `products.html`, each
+  ASIN appears in the comparison table, every listing title has a read date, nulls are published blank
+  + marked `— unverified`, and the intent record keeps `intended_asin` / observed-redirect fields
+  separate (the path code is never merged into the intended ASIN).
+- `python3 scripts/build_site.py && python3 scripts/verify_site.py` — **VERIFY OK** (18 pages):
+  disclosure, `rel="sponsored"`, unique meta, internal links, sitemap coverage.
+- `npm test` — **2/2 pass** (self-host endpoint aggregates both event families).
+- **Source-link rule:** every product table row links to the official Amazon listing it was read from
+  (`https://www.amazon.com/dp/<ASIN>`); the source register (`data/p2/sources.json`, rendered on
+  `method.html`) lists each official URL with its read date. Values that could not be confirmed from
+  an official source are left blank and flagged, never inferred.
+- **Re-read limitation (honest):** this sandbox's egress allowlist does not include `amazon.com`, so
+  product values were not re-fetched live here. They carry the dated 2026-11-19 verification recorded
+  in `data/p2/verification-2026-11-19.json` (the newest live read on record); partial re-read coverage
+  is flagged **F-P07**. No value was inferred or re-typed.
+
+## Coordination conflict — open PR #16 (duplicate destructive build)
+
+While reviewing, this session found **PR #16** (`arena/30a7028a-prod2`, "Publish Countertop Dispatch")
+open against `main`. It is a **competing full-site build**: its diff against `main` deletes the canonical
+build system (`scripts/build_site.py`, `scripts/verify_site.py`, `scripts/assets/*`, the whole `site/`
+tree, `tools/build.py`, `tools/checks.py`, `tools/make_og.py`, `server.mjs`, `tests/`, `package.json`,
+the root `guide-*.html`, `measurement.html`, `method.html`, `privacy.html`, `questions.html`) and
+replaces the repository root with its own 15-page site and its own `tools/build_site.py` /
+`tools/check_site.py`.
+
+- **Decision:** **do not merge PR #16.** Merging it would overwrite the deployed, verified canonical
+  site and violate the standing **one-site rule (INT-06)**. It is duplicate work from a parallel session
+  based on a stale base, exactly the conflict the coordination protocol warns about.
+- **Action:** PR #16 was **closed** (not merged) with this note; its branch `arena/30a7028a-prod2` and
+  its full content are **preserved in git** for review. Nothing from it was discarded or edited.
+- This is logged here per protocol (a file-scope conflict with another session's claim) rather than
+  resolved by editing the other session's files.
+
+## Irregularities / flags (carried, non-blocking)
+
+All remain published on the **Flagged for Review** page with source links; none blocks the merge:
+F-01 (commission rate unverified), F-02 (prices/ratings withheld — standing), F-03 (short links carry no
+`tag=`), F-08 (P3 size-variant family), F-15 (trending claims need dated snapshots — standing), F-19
+(analytics endpoint not yet hosted), F-26 (P2 function count), F-29 (carousels drift), F-44/F-66
+(P2 title drift), F-49 (default offers), F-57/F-58 (attribution unconfirmed), F-P01/F-P04/F-P05
+(P4/P5 listing notes), F-P06 (register price-display divergence), F-P07 (partial re-read coverage).
+
+## PR / merge / deploy record
+
+| Item | Value |
+|---|---|
+| Integration PR | (recorded at integration below) |
+| Merge result | (recorded at integration below) |
+| Pages | (recorded at integration below) |
+| Checks at merge | `tools/checks.py` PASS · `scripts/verify_site.py` PASS · `npm test` PASS (2/2) |
