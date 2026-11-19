@@ -1,0 +1,57 @@
+{
+  "generated_on": "2026-11-19",
+  "tracking_id": "shopnow047c-20",
+  "note": "Submitted short links are recorded exactly as supplied. They are NOT declared invalid; their exact compliance status is unresolved (see flagged.html FLG-P02, cross-referencing Zone3 FLG-003). Observations only.",
+  "links": [
+    {
+      "id": "L1",
+      "submitted_url": "https://link.amazon/B04G1MEwY",
+      "token": "B04G1MEwY",
+      "token_length": 9,
+      "observed_destination": "https://www.amazon.com/dp/B0CDY277D3",
+      "observed_on": "2026-11-19",
+      "observation_source": "S-09",
+      "listing_source": "S-14"
+    },
+    {
+      "id": "L2",
+      "submitted_url": "https://link.amazon/B02NbDxp3",
+      "token": "B02NbDxp3",
+      "token_length": 9,
+      "observed_destination": "https://www.amazon.com/dp/B09B7SB46R",
+      "observed_on": "2026-11-19",
+      "observation_source": "S-10",
+      "listing_source": "S-15"
+    },
+    {
+      "id": "L3",
+      "submitted_url": "https://link.amazon/B00hJ57DV",
+      "token": "B00hJ57DV",
+      "token_length": 9,
+      "observed_destination": "https://www.amazon.com/dp/B08DKYBTPH",
+      "observed_on": "2026-11-19",
+      "observation_source": "S-11",
+      "listing_source": "S-16"
+    },
+    {
+      "id": "L4",
+      "submitted_url": "https://link.amazon/B0c8moW59",
+      "token": "B0c8moW59",
+      "token_length": 9,
+      "observed_destination": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "observed_on": "2026-11-19",
+      "observation_source": "S-12",
+      "listing_source": "S-17"
+    },
+    {
+      "id": "L5",
+      "submitted_url": "https://link.amazon/B0f3GKalj",
+      "token": "B0f3GKalj",
+      "token_length": 9,
+      "observed_destination": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "observed_on": "2026-11-19",
+      "observation_source": "S-13",
+      "listing_source": "S-18"
+    }
+  ]
+}
