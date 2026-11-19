@@ -40,6 +40,7 @@ DECISIONS = load("decisions.json")["decisions"]
 LEDGER = load("ledger.json")
 EVENTS = load("events.json")
 DESIGN = load("design-prompts.json")
+PRIORITY = load("decision-priority.json")
 VERLOG = load("verification-log.json")["entries"]
 
 # How long a guide takes to read, computed from the fragment that is actually published
@@ -842,6 +843,60 @@ def hook_flag_stats(_="") -> str:
             f'</div>')
 
 
+
+def _ref_link(ref: str) -> str:
+    """Link an SG-/Q-/F-/D- id to the page that carries it, so a ranked decision is a table of
+    jump-offs rather than a list of acronyms."""
+    ref = ref.strip().rstrip(",")
+    if not ref:
+        return ""
+    if not re.fullmatch(r"(?:SG|Q|F|D|DP|G)-P?\d+", ref):
+        # a phrase, not an id - 'every growth item below it' stays plain text rather than
+        # becoming a link to an anchor that cannot exist.
+        return esc(ref)
+    if ref.startswith("SG-"):
+        page = "suggestions.html"
+    elif ref.startswith("Q-"):
+        page = "questions.html"
+    elif ref.startswith("F-"):
+        page = "flagged.html"
+    elif ref.startswith("D-"):
+        page = "decisions.html"
+    elif ref.startswith("DP-") or ref.startswith("G"):
+        page = "design-prompt.html"
+    else:
+        return f"<code>{esc(ref)}</code>"
+    return f'<a href="{page}#{esc(ref)}">{esc(ref)}</a>'
+
+
+def _refs(text: str) -> str:
+    """Turn ids inside a sentence into links, leaving the sentence itself untouched."""
+    return re.sub(r"\b((?:SG|Q|F|D|DP|G)-P?\d[\w-]*)\b", lambda m: _ref_link(m.group(1)), esc(text))
+
+
+def hook_priority_board(_="") -> str:
+    """The owner's board: the ranked decisions this project is waiting on, each with what it is
+    waiting for and what moves once it is answered. Ranking is judgement, recorded as such —
+    there is no traffic or revenue data here to rank against (Q-P14)."""
+    out = []
+    for d in PRIORITY["ordering"]:
+        unblocks = " ".join(_ref_link(u) for u in d.get("unblocks", [])) or '<span class="muted">—</span>'
+        out.append(
+            f'<li class="prio"><span class="prio-num">{d["rank"]}</span>'
+            f'<p class="prio-item">{esc(d["decision"])}</p>'
+            f'<p class="muted">{_refs(d["item"])}</p>'
+            f'<p>{esc(d["why"])}</p>'
+            f'<p class="prio-wait"><strong>Waiting on:</strong> {esc(d["waiting_on"])} '
+            f'<span class="badge">effort: {esc(d["effort"])}</span></p>'
+            f'<p class="prio-unblocks"><strong>Then moves:</strong> {unblocks}</p></li>')
+    return ('<ol class="prio-list">' + "".join(out) + "</ol>"
+            f'<p class="table-note">{len(PRIORITY["ordering"])} ranked items, from '
+            '<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/decision-priority.json" '
+            'rel="noopener" target="_blank">data/p2/decision-priority.json</a>. Answering one is usually a '
+            'sentence; each answer becomes a dated entry in the '
+            '<a href="decisions.html">decision log</a> and moves the queue under it.</p>')
+
+
 def hook_design_pack(_="") -> str:
     import json as _json
     blocks = []
@@ -971,16 +1026,20 @@ def hook_guide_shelf(_="") -> str:
     """The guide shelf: the question as the title, the tag, and a length measured from the
     page itself (words counted at build time - no audience or popularity claim)."""
     titles = {p[0]: p[2] for p in PAGES}
+    topic = {"guide-basket-vs-oven": "Air fryers", "guide-capacity": "Air fryers",
+             "guide-dual-vs-single": "Air fryers", "guide-cleanup-counter-space": "Air fryers",
+             "guide-multifunction": "Air fryers", "guide-air-fryer-gift": "Buying guide",
+             "guide-thermometer-accuracy": "Thermometers", "guide-probe-in-air-fryer": "Thermometers"}
     cards = []
     for gid in GUIDE_IDS:
         raw = (CONTENT / "pages" / f"{gid}.html").read_text(encoding="utf-8")
         deck = re.search(r'class="lede">(.*?)</p>', raw, re.S)
-        h2 = len(re.findall(r"<h2\b", raw))
         cards.append(
-            f'<article class="card guide-card"><h3><a href="{gid}.html">'
+            f'<article class="card guide-card"><p class="eyebrow">{esc(topic.get(gid, "Guide"))}</p>'
+            f'<h3><a href="{gid}.html">'
             f'{esc(titles[gid].split(" | ")[0])}</a></h3>'
             f'<p>{esc((deck.group(1).strip() if deck else "")[:180])}</p>'
-            f'<p class="muted">{guide_stat(gid)} · {h2} sections</p></article>')
+            f'<p class="muted">{guide_stat(gid)}</p></article>')
     return '<div class="card-grid guide-shelf">' + "".join(cards) + '</div>'
 
 
@@ -1083,6 +1142,7 @@ HOOKS = {
     "coverage_matrix": hook_coverage_matrix,
     "funnel": hook_funnel,
     "decision_board": hook_decision_board,
+    "priority_board": hook_priority_board,
     "verification_ledger": hook_verification_ledger,
     "flag_stats": hook_flag_stats,
     "design_pack": hook_design_pack,

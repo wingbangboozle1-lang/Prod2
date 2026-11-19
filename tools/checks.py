@@ -163,8 +163,22 @@ def main() -> int:
             target = href.split("#")[0]
             if target and not (DOCS / target).exists():
                 fail(f"{f.name}: broken internal link -> {href}")
+
+    # In-page anchors resolve. A register id that scrolls nowhere is not a typo, it is a broken
+    # promise to a reviewer who was told to jump to SG-24 and lands at the top of the page.
+    anchors = {f.name: set(re.findall(r'id="([^"]+)"', f.read_text(encoding="utf-8"))) for f in html_files}
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for page, frag in re.findall(r'href="([a-zA-Z0-9._\-]+\.html)#([^"#]+)"', text):
+            if page not in anchors:
+                fail(f"{f.name}: in-page link to a page that does not exist -> {page}#{frag}")
+            elif frag not in anchors[page]:
+                fail(f"{f.name}: broken anchor -> {page}#{frag}")
+        for frag in re.findall(r'href="#([^"#]+)"', text):
+            if frag not in anchors[f.name]:
+                fail(f"{f.name}: broken same-page anchor -> #{frag}")
     if not FAILURES:
-        ok("amazon link policy holds; internal links resolve")
+        ok("amazon link policy holds; internal links and in-page anchors resolve")
 
     # ------------------------------------------------------------------ facts
     check("facts")

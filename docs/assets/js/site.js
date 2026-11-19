@@ -52,8 +52,24 @@
     );
   }
 
+  /* The mobile compare bar (SG-23): dismissible, and it stays dismissed. No cookie, no
+     storage beyond a single localStorage flag, no personal data - see privacy.html. */
+  function initCompareBar() {
+    var bar = document.getElementById("compare-bar");
+    var close = document.getElementById("compare-bar-close");
+    if (!bar || !close) return;
+    try {
+      if (window.localStorage.getItem("p2-bar-dismissed") === "1") bar.hidden = true;
+    } catch (e) { /* private mode: leave the bar up */ }
+    close.addEventListener("click", function () {
+      bar.hidden = true;
+      try { window.localStorage.setItem("p2-bar-dismissed", "1"); } catch (e) {}
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     var btn = document.getElementById("chooser-run");
     if (btn) btn.addEventListener("click", runChooser);
+    initCompareBar();
   });
 })();
