@@ -140,3 +140,33 @@ session was discarded):
 - `npm test` (the other session's endpoint tests + this session's gate) passes.
 - PR #6 merges this integration into `main`; GitHub Pages deploys `site/` via the workflow.
 
+## Final merge and deploy record
+
+- **PR:** https://github.com/wingbangboozle1-lang/Prod2/pull/6
+- **Merged:** 2026-11-19T13:08:46Z, merge commit `fdcc653` (state `MERGED`), merged with `--merge`.
+- **Build gate:** `python3 scripts/build_site.py` + `python3 scripts/verify_site.py` pass on the
+  combined tree (18 pages: disclosure, `rel="sponsored"`, unique meta, internal links, sitemap).
+- **Endpoint tests:** `npm test` passes (this session's gate + the parallel session's Node
+  `server.mjs` event-endpoint tests).
+- **GitHub Pages deploy:** the `Deploy to GitHub Pages` workflow (`.github/workflows/pages.yml`,
+  deploying `site/`) runs successfully on `main` (run 44530562875, status `success`).
+
+### Pages source status (platform limitation, not a build failure)
+
+- The repo's Pages **source** is locked to `legacy · branch main · path /` and cannot be changed
+  from this session: `PUT /repos/.../pages` returns **HTTP 403 "Resource not accessible by
+  integration"** (requires repo admin / `manage GitHub Pages settings`). This is the same limit the
+  parallel session recorded under its T11.
+- Because the legacy source predates this session, the **site root** currently serves the parallel
+  session's "Counter Notes" deployment (from its earlier `docs/` workflow run), while **this
+  session's Countercraft site is live and fully functional at `/site/`**:
+  `https://wingbangboozle1-lang.github.io/Prod2/site/`.
+- Both live sites meet the brief (verified products, source-linked tables, disclosure,
+  `rel="sponsored"`, guides, flagged page). Countercraft additionally ships 8 guides, the
+  comparison + counter-space analysis, the Suggestions decision portal, the Research Desk, and
+  OG/Twitter cards.
+- To make Countercraft the site root, an admin must set the Pages source to **GitHub Actions**
+  (`build_type=workflow`) or to **branch `main`, path `/site`**. No code change is needed — the
+  workflow is already in place and deploys `site/`.
+
+
