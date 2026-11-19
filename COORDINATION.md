@@ -15,13 +15,14 @@ Statuses: `unclaimed` · `in progress` · `done` · `needs review`. Items marked
 | T4 Site build (landing, subpages, guides, feeds) | done | f2613c86 | `scripts/build_site.py`, `scripts/assets/*`, `docs/**` | Static build into `docs/`. |
 | T5 Compliance: disclosure, sponsored links, tracking tag | done | f2613c86 | `scripts/verify_site.py`, `docs/**` | Disclosure wording verified (Operating Agreement §5). |
 | T6 Outbound-click counter (privacy-preserving) | needs review | f2613c86 | `scripts/assets/tracker.js` | Only `outbound_click` is built. Nothing is transmitted (FR-09). |
-| T7 Self-hosted analytics endpoint | needs review | f2613c86 | none | Not possible on GitHub Pages; decision D-43 open (FR-09). |
+| T7 Self-hosted analytics endpoint | needs review | f2613c86 | none | Not possible on GitHub Pages; decision D-43 open (FR-09). T14 adds a locally tested optional Node host, but no public API host is deployed. |
 | T8 Suggestions and open questions | done | f2613c86 | `docs/suggestions.html`, `docs/questions.html` | Nothing implemented before a choice is made. |
 | T9 Executive summary, analysis, sources | done | f2613c86 | `docs/executive-summary.html`, `docs/analysis.html`, `docs/sources.html` | |
 | T10 Verification gate and CI | done | f2613c86 | `scripts/verify_site.py`, `.github/workflows/verify.yml` | Runs on push and pull request. |
-| T11 Publish to GitHub Pages | in progress | f2613c86 | repo Pages setting (source: main `/docs`) | Set after merge. Status recorded below. |
-| T12 Integration with PR #1 (session d12d2304): one site, one brand, one Pages source | in progress | f2613c86 | all | Conflicts in COORDINATION.md and README.md resolved (see Handoffs). PR and merge result recorded below. |
+| T11 Publish to GitHub Pages | in progress | f2613c86 | repo Pages setting (source: main `/docs`) | Main workflow succeeded, but API still reports legacy source `main /`; live root shows the archived product-free page while several routes 404. Admin setting change was denied; see current-session log. |
+| T12 Integration with PR #1 (session d12d2304): one site, one brand, one Pages source | done | f2613c86 | all | PR #2 is merged as `77d154e`; a root-versus-`docs/` Pages source mismatch remains open under T11. |
 | T13 Port the four PR #1 guides into the generated site | done | f2613c86 | `archive/counter-notes-v1/`, `scripts/build_site.py`, `docs/guides/` | Texts kept; two sentences about the short links updated to match the 2026-11-19 resolution. Original root site archived, not deleted. |
+| T14 Optional self-hosted analytics endpoint and five-event aggregate collector | done | `arena/3f1d9d65-prod2` | `server.mjs`, `analytics-client.js`, `package.json`, `.gitignore`, `tests/server.test.mjs`, `.github/workflows/analytics-tests.yml`, `ANALYTICS-ENDPOINT.md` | Local self-host mode and five-event aggregation verified. Not deployed publicly; GitHub Pages remains static and owner host is not available. |
 
 ## Sources (official unless labelled)
 
@@ -31,6 +32,8 @@ Fetched in this session on 2026-11-19:
 - Google Search Central, qualify outbound links: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
 - FTC, Disclosures 101 for Social Media Influencers (dated November 2019): https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers
 - GitHub Docs, configuring a publishing source for GitHub Pages: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+- GitHub Docs, what GitHub Pages is and its visitor data collection: https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
+- GitHub REST API, Pages settings and build types (`legacy` / `workflow`): https://docs.github.com/en/rest/pages/pages
 - Supplied short links (5): https://link.amazon/B04G1MEwY · https://link.amazon/B02NbDxp3 · https://link.amazon/B00hJ57DV · https://link.amazon/B0c8moW59 · https://link.amazon/B0f3GKalj
 - Amazon listing pages (5): https://www.amazon.com/dp/B0CDY277D3 · https://www.amazon.com/dp/B09B7SB46R · https://www.amazon.com/dp/B08DKYBTPH · https://www.amazon.com/dp/B0DHZTCNR5 · https://www.amazon.com/dp/B0DZFD6R9Z
 
@@ -122,3 +125,16 @@ This repository initially contained only a minimal README and no prior coordinat
 - Live site verified at https://wingbangboozle1-lang.github.io/Prod2/; fetched the homepage, evidence page, suggestions page, RSS feed, and sitemap after deployment.
 - Main branch is the authorized Pages deployment source; feature-branch build passes and deploy is skipped by design because environment protection rejects feature branches.
 - Note: GitHub's Pages API reported `build_type: legacy` / source `main` while the Actions deployment job also succeeded. The live files at the expected origin were fetched successfully; check the repository Pages settings if deployment mode is later changed.
+
+## Current Arena session handoff — `arena/3f1d9d65-prod2`
+
+- The current checkout started from `c6dc49a`, before the coordination board and publication work landed on `main`. While preparing a separate full-site build, `git pull --rebase origin main` exposed the intervening PR #1–#4 work and the merged PR #2 integration. No files from `origin/main` were discarded.
+- The full-site duplicate generated from the stale checkout is preserved in a local stash for this turn and is not being applied over the merged `docs/` site. This session will work only on the separate self-hosted event endpoint in T14.
+- Request to T6/T7 integration owner: please review whether the existing `docs/assets/tracker.js` should send the documented five event types when served by an API-capable host. This session will not edit that existing tracker/build scope; the new Node server can optionally inject its own event client at response time.
+- Official source additionally checked: GitHub Docs, https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages — GitHub Pages is a static hosting service; its documentation also says visitor IP addresses are logged for security. This host-level collection is distinct from the app's aggregate endpoint.
+- Rebase conflict handled without discarding upstream work: `COORDINATION.md` was resolved by retaining the complete `origin/main` board/history and appending this session's T14 claim/handoff. The stale duplicate site build remains in a local stash only; it is not part of this PR.
+- T14 implementation: optional `server.mjs` serves existing `docs/` and enables the existing click tracker plus a separate client for `page_view`, `outbound_click`, `guide_open`, `category_open`, and `rss_feed_click`. The endpoint accepts only those event types and safe dimensions, stores aggregate counts only, rejects foreign Origins, and ignores timestamps and extra fields. GitHub Pages remains unchanged/static; this endpoint has not been deployed to a public Node host.
+- Verification: `npm test` passed (`scripts/verify_site.py`: 18 pages OK; Node event endpoint integration test passed). `git diff --check` passed. Local HTTP smoke test returned 200 for `/`, products, a guide, suggestions, flagged page, RSS, sitemap and `/api/client.js`; live preview runs in self-host mode.
+- Live Pages check: `gh api repos/wingbangboozle1-lang/Prod2/pages` reported `build_type=legacy`, source `main /`. Main Actions run 44527568065 completed successfully, but web fetch of `/` returned the archived product-free v1; `/executive-summary.html`, `/flagged.html`, and `/products.html` returned 404, while `/docs/index.html`, `/docs/executive-summary.html`, and `/docs/flagged.html` returned current product content. Thus the intended single root site is not confirmed live despite a successful workflow job.
+- Attempted to switch Pages to `build_type=workflow` through the Pages REST API; GitHub returned HTTP 403 `Resource not accessible by integration`. The API documentation says updating Pages requires a repository administrator/maintainer or the `manage GitHub Pages settings` permission. No setting was changed; retain T11 as open and do not claim the root deployment is fixed.
+- Current PR and final merge/deploy outcome will be recorded below after the API enhancement is reviewed and merged.
