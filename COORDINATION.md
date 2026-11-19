@@ -143,18 +143,80 @@ session was discarded):
 
 ---
 
+# FINAL INTEGRATION PASS — session `arena/9386098f-prod2` (sess-prod2-a1), 2026-11-19
+
+At consolidation time the repository contained **four independent session builds**:
+
+| Build | Brand | Location | From | Status at consolidation |
+|---|---|---|---|---|
+| 1 | Counter Notes v1 (root) | `archive/counter-notes-v1/` | PR #1 (d12d2304) | Archived |
+| 2 | Counter Notes (generated) | `docs/` | PRs #2–#5 (f2613c86 + 3f1d9d65) | Was canonical per its board |
+| 3 | The Counter Edit | branch `arena/9386098f-prod2` (pre-reset), now `archive/counter-edit-build/` | sess-prod2-a1 (this session) | Built in parallel from stale base |
+| 4 | Countercraft | `site/` | PR #6 (599eec57) + PR #7 | Declared canonical on main |
+
+**Decision (INT-06): canonical = `site/` (Countercraft)** — the latest merged state of `main`, already
+data-driven, gated by `scripts/verify_site.py`, and deployed by `pages.yml`. Everything else archived,
+nothing deleted. The pre-reset state of this branch (its own full build + its ports into `docs/`) is
+recoverable from git reflog; its unique content is preserved in `archive/counter-edit-build/`.
+
+## What this integration pass did
+
+- `docs/` → `archive/counter-notes-docs/` (git mv, history kept). Its generator source survives in
+  git history (it had been replaced on `main` by Countercraft's).
+- Fixed a real bug on main: canonical/og URLs lacked a slash (`…/Prod2index.html`) on every page —
+  fixed in `scripts/build_site.py` and the whole `site/` regenerated + committed.
+- `site/assets/analytics.js`: endpoint default changed from active `"/collect"` (which beaconed to a
+  nonexistent path on GitHub Pages) to **off by default**; events stay in the page unless an endpoint
+  is explicitly configured — restores the project's own privacy posture (FR-09).
+- `server.mjs`: serves `site/` now; whitelist extended to the union of all three event taxonomies
+  (tracker events, self-host client events, Countercraft events); safe aggregate keys for each;
+  self-host injection sets `window.COUNTERCRAFT_ENDPOINT="/api/events"` on served pages.
+- `analytics-client.js` (self-host only) no longer double-sends `page_view`.
+- `tests/server.test.mjs`: adapted + two new tests (integration events, Countercraft events) —
+  `npm test` green.
+- `pages.yml`: `enablement: true` on configure-pages (INT-04/T11 — CI may flip Pages to workflow mode).
+- README updated: one-site rule, archives, endpoint.
+
+## Session register (this session)
+
+| Session | Branch | Started (UTC) | Status |
+|---|---|---|---|
+| sess-prod2-a1 | `arena/9386098f-prod2` | 2026-11-19 12:40 | active — final integration |
+
+## Conflict log
+
+- Two `git pull --rebase` operations collided with concurrent merges to `main` (PR #5→#6→#7 landed
+  during this session's work). First rebase resolved by union-merging boards; second collision was
+  resolved by resetting this branch onto consolidated `main` and re-applying the integration as new
+  commits — **no upstream content was discarded at any point**; the branch's prior state remains in
+  reflog and its content in `archive/`.
+- Independent convergence: three sessions separately resolved all five submitted short links live on
+  2026-11-19 to the same observed ASINs (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z);
+  all note the submitted tokens are 9 characters, not 10-character ASINs, and make **no claim** about
+  the short links' compliance status (FR-01/FR-02/F-02 equivalents).
+
+## PR / merge / deploy record
+
+- PR: https://github.com/wingbangboozle1-lang/Prod2/pull/8 (base `main`)
+- Merge result: recorded after merge below.
+- Pages: recorded after deploy verification below.
+
+---
+
 ## Integration with session arena/cd3cddd6-prod2 (PR #9, 2026-11-19)
 
-A fourth parallel session claimed T1–T6 on its own copy of this board
-(written concurrently on its branch before this board was fetched) and built a
-complete second implementation — **"The Crisp Counter"**: 28 HTML pages,
-canonical registers (products incl. held P4/P5, intent record, sources, flags
-split open/resolved/historical, decisions, suggestions, open decision-input
-questions, guides, calendar, five-event privacy model, empty-by-rule ledger),
-a 30-check suite, a cookieless analytics recorder and a Python collector.
-That implementation is **preserved in git history on branch
-`arena/cd3cddd6-prod2`** (visible in PR #9's diff) but is **not** merged as a
-second deployed site: one deployed site stays canonical so search engines
+A fourth parallel session claimed T1–T6 on its own copy of this board (written
+concurrently on its branch) and built a complete second implementation —
+**"The Crisp Counter"**: 28 HTML pages, canonical registers (products incl.
+held P4/P5, intent record with separated intended/observed fields, sources
+with fetched/cited status, flags split open/resolved/historical, 21 recorded
+decisions, suggestions queue, open decision-input questions, publishing
+calendar, five-event privacy model, empty-by-rule ledger), a 30-check suite,
+a cookieless analytics recorder and a Python collector. That implementation
+is **preserved in git history on branch `arena/cd3cddd6-prod2`** (visible in
+PR #9's diff at commit `3ba2231`) but is **not** merged as a second deployed
+site: one deployed site stays canonical (`site/`, per the standing
+integration decision and this pass's INT-06 consolidation) so search engines
 index one site and the Pages deploy stays unbroken.
 
 ### What this merge adds to `main` (nothing discarded, nothing duplicated)
@@ -162,16 +224,16 @@ index one site and the Pages deploy stays unbroken.
 - `data/imported/zone4/` — the predecessor repository's registers
   (kanlerxz87-cyber/Zone4), fetched read-only via the GitHub API and archived
   verbatim with a provenance README. Zone4 is the multi-day lineage of
-  verified registers behind this project; it carries the dated session records
-  behind every product fact, the flag history (67 rows) and the carried
-  compliance rationale (why no prices/ratings by default, why P4/P5 were
-  held, the ASIN-vs-token distinction).
+  verified registers behind this project: the dated session records behind
+  every product fact, the 67-row flag history, and the carried compliance
+  rationale (why prices/ratings stay off by default, why P4/P5 were held, the
+  ASIN-vs-token distinction).
 - `VOICE.md` — the editorial standard (anti-slop voice rules) for any future
   content pass on the canonical site.
 - `DESIGN_PROMPT.md` — the carried design brief (warm-editorial direction
   DIR-A from Zone4's recorded decisions, with the non-negotiable compliance
   block) for the next visual pass.
-- This union of the two coordination boards.
+- This union of the coordination boards.
 
 ### Verification differences between the sessions (logged, not hidden)
 
@@ -179,8 +241,8 @@ index one site and the Pages deploy stays unbroken.
   amazon.com** (egress allowlist), so no product value was re-read there; its
   registers carried the Zone4 records with their original dated citations
   (last product-page re-reads 2026-11-16/17) and flagged the non-re-read as
-  FLG-03. The newest live verification on record remains this board's T2
-  (session-arena-599eec57, 2026-11-19), which resolved all five links and
+  FLG-03. This agrees with this board's T2 and the convergence note above:
+  the newest live verification on record is the 2026-11-19 read, which
   identified the P4/P5 destinations by name (ThermoMaven digital meat
   thermometer; CHEF iQ Sense smart wireless meat thermometer).
 
@@ -197,11 +259,12 @@ index one site and the Pages deploy stays unbroken.
 
 - Conflicts resolved at merge time: `README.md`, `data/products.json`,
   `data/sources.json`, `data/suggestions.json`, `data/ledger.json`,
-  `.gitignore` kept as the canonical site's versions (fresh live-verified
-  data); this branch's versions preserved in git history.
-- Canonical build re-verified after the merge: `python3 scripts/build_site.py`
-  and `python3 scripts/verify_site.py` re-run on the merged tree before the
-  PR was merged (no broken links, gate green).
+  `.gitignore`, `COORDINATION.md` kept as the canonical site's versions
+  (fresh live-verified data + this pass's INT-06 consolidation); this
+  branch's versions preserved in git history.
+- Canonical build re-verified on the merged tree before the PR merged:
+  `python3 scripts/build_site.py` and `python3 scripts/verify_site.py` pass
+  (18 pages; no broken links).
 - PR #9 merged into `main`; GitHub Pages deploys `site/` via the existing
   workflow. Merge commit and deploy status: see the PR page and the
   repository's Actions history.

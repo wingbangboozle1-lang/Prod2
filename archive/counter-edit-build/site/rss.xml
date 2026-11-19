@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Counter Edit</title>
+    <link>https://wingbangboozle1-lang.github.io/Prod2/Prod2/</link>
+    <atom:link href="https://wingbangboozle1-lang.github.io/Prod2/Prod2/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>Air-fryer decisions, minus the noise. Question-shaped buyer guides with every claim sourced.</description>
+    <language>en</language>
+    <lastBuildDate>Thu, 19 Nov 2026 09:00:00 +0000</lastBuildDate>
+        <item>
+      <title>Basket or oven-style air fryer: what should you compare?</title>
+      <link>https://wingbangboozle1-lang.github.io/Prod2/Prod2/guides/basket-or-oven-style-air-fryer.html</link>
+      <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/Prod2/guides/basket-or-oven-style-air-fryer.html</guid>
+      <pubDate>Thu, 19 Nov 2026 09:00:00 +0000</pubDate>
+      <description>Two very different machines share one name. The fastest way to choose is to answer three questions about how you actually cook.</description>
+    </item>
+    <item>
+      <title>A no-hype checklist for comparing air fryer capacity</title>
+      <link>https://wingbangboozle1-lang.github.io/Prod2/Prod2/guides/air-fryer-capacity-checklist.html</link>
+      <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/Prod2/guides/air-fryer-capacity-checklist.html</guid>
+      <pubDate>Thu, 19 Nov 2026 09:00:00 +0000</pubDate>
+      <description>Quarts are a marketing unit. Five checks tell you what a fryer will actually hold — before the box lies to you.</description>
+    </item>
+    <item>
+      <title>How to assess cleanup and counter-space trade-offs</title>
+      <link>https://wingbangboozle1-lang.github.io/Prod2/Prod2/guides/cleanup-and-counter-space-trade-offs.html</link>
+      <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/Prod2/guides/cleanup-and-counter-space-trade-offs.html</guid>
+      <pubDate>Thu, 19 Nov 2026 09:00:00 +0000</pubDate>
+      <description>The two costs an appliance keeps charging after the receipt: sink minutes and square centimetres. Here is how to price both.</description>
+    </item>
+    <item>
+      <title>Questions to ask before buying a multi-function kitchen appliance</title>
+      <link>https://wingbangboozle1-lang.github.io/Prod2/Prod2/guides/multi-function-appliance-questions.html</link>
+      <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/Prod2/guides/multi-function-appliance-questions.html</guid>
+      <pubDate>Thu, 19 Nov 2026 09:00:00 +0000</pubDate>
+      <description>“Air fryer” has become a feature, not a category. Nine questions separate a workhorse from a drawer-filler.</description>
+    </item>
+  </channel>
+</rss>

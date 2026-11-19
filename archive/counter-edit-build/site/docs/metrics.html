@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metrics plan — The Counter Edit</title>
+<meta name="description" content="Five privacy-preserving events, ledger provenance rules, and the ban on invented baselines.">
+<meta name="author" content="The Counter Edit desk">
+<link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/docs/metrics.html">
+<meta property="og:site_name" content="The Counter Edit">
+<meta property="og:title" content="Metrics plan — The Counter Edit">
+<meta property="og:description" content="Five privacy-preserving events, ledger provenance rules, and the ban on invented baselines.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/docs/metrics.html">
+<meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Metrics plan — The Counter Edit">
+<meta name="twitter:description" content="Five privacy-preserving events, ledger provenance rules, and the ban on invented baselines.">
+<meta name="twitter:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-image.jpg">
+<link rel="icon" type="image/svg+xml" href="/Prod2/favicon.svg">
+<link rel="alternate" type="application/rss+xml" title="The Counter Edit &mdash; new guides" href="/Prod2/rss.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/Prod2/assets/css/style.css">
+
+<script>window.TCE_ENDPOINT = "";</script>
+<script defer src="/Prod2/assets/js/tce.js"></script>
+</head><body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="disclosure" data-disclosure>
+  <div class="wrap"><span class="tag">Affiliate disclosure</span>
+  <span>The Counter Edit earns from qualifying purchases as an Amazon Associate. Product links on this site are paid affiliate links to Amazon.com &mdash; the price you pay never changes. <a href="/Prod2/disclosure.html">How this works</a></span></div>
+</div>
+<header class="site-head">
+  <div class="wrap">
+    <a class="wordmark" href="/Prod2/index.html"><span class="dot"></span>The Counter Edit</a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="/Prod2/guides/index.html">Guides</a></li>
+        <li><a href="/Prod2/compare.html">Compare</a></li>
+        <li><a href="/Prod2/products.html">The Shelf</a></li>
+        <li><a href="/Prod2/about.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap"><section class="page-head" style="padding-bottom:0;">
+      <p class="kicker">Measurement</p>
+      <h1 style="font-family:var(--font-display);font-weight:640;font-size:clamp(1.8rem,4vw,2.5rem);margin:0 0 10px;">The metrics plan</h1>
+      <p class="lede">Five events, one empty ledger, strict provenance rules, and a permanent ban on invented baselines.</p>
+    </section></div>
+  <div class="wrap"><div style="display:flex;gap:14px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin:18px 0 26px;font-size:0.88rem;box-shadow:var(--shadow);"><a href="/Prod2/docs/index.html" style="text-decoration:none;color:var(--ink-soft);">Dashboard</a><a href="/Prod2/docs/requirements.html" style="text-decoration:none;color:var(--ink-soft);">Requirements</a><a href="/Prod2/docs/decisions.html" style="text-decoration:none;color:var(--ink-soft);">Decisions</a><a href="/Prod2/docs/flagged.html" style="text-decoration:none;color:var(--ink-soft);">Flagged</a><a href="/Prod2/docs/suggestions.html" style="text-decoration:none;color:var(--ink-soft);">Suggestions</a><a href="/Prod2/docs/open-questions.html" style="text-decoration:none;color:var(--ink-soft);">Open questions</a><a href="/Prod2/docs/metrics.html" style="text-decoration:none;font-weight:700;color:var(--brand-deep);">Metrics</a><a href="/Prod2/docs/sources.html" style="text-decoration:none;color:var(--ink-soft);">Sources</a></div>
+  <div class="prose" style="max-width:none;">
+  <div class="section-head"><h2>The five events</h2></div>
+  <div class="data-table-wrap"><table class="data"><thead><tr><th>Event</th><th>Name</th><th>Trigger</th><th>Payload</th><th>Feeds</th></tr></thead><tbody><tr><td>E1</td><td>page_view</td><td>any page load</td><td>path, same-origin referrer</td><td>arrival measurement per page</td></tr><tr><td>E2</td><td>outbound_product_click</td><td>click on a marked Amazon link</td><td>product id, position, host, page</td><td>ledger &lsquo;clicks&rsquo; column per product</td></tr><tr><td>E3</td><td>chooser_completed</td><td>chooser submit</td><td>answers, recommendation</td><td>which buyer paths are taken</td></tr><tr><td>E4</td><td>article_half_read</td><td>scroll crosses 50% / 100%</td><td>guide path, depth bucket</td><td>arrivals vs actual readers</td></tr><tr><td>E5</td><td>disclosure_viewed</td><td>disclosure enters viewport</td><td>path</td><td>FTC clear-and-conspicuous evidence</td></tr></tbody></table></div>
+  <p>Implementation: <code>site/assets/js/tce.js</code>. Events queue in <code>localStorage</code> (last 200)
+  and beacon only to a self-hosted endpoint set via <code>window.TCE_ENDPOINT</code> &mdash; unset by default, so
+  nothing leaves the browser today. No cookies, no third-party scripts, no identifiers.</p>
+
+  <div class="section-head" style="margin-top:30px;"><h2>Ledger rules</h2></div>
+  <ol>
+    <li>One row per authorized first-party report; the report tool and export date go in <code>provenance</code>.</li>
+    <li>Rows without provenance are invalid and must be removed.</li>
+    <li><code>clicks</code> may be reconciled against E2 aggregates; <code>reported_orders</code> comes only from the Associates console.</li>
+    <li>No conversion score, ranking or revenue forecast is derived &mdash; ever (<a href="/Prod2/docs/decisions.html#D-07">D-07</a>).</li>
+  </ol>
+
+  <div class="section-head" style="margin-top:30px;"><h2>Why the ledger starts empty</h2></div>
+  <p>Because every number in it must be authorized and provenanced. An empty, well-defined ledger is honest; a
+  seeded one is fiction that later optimization will trust. The first row arrives with the first real report.</p>
+
+  <div class="section-head" style="margin-top:30px;"><h2>Search Console loop (once T-10 lands)</h2></div>
+  <p>Weekly: export measured queries &rarr; log with provenance &rarr; compare against the working calendar &rarr;
+  next guide topic follows the strongest measured question, recorded in the decision log. Instinct retires.</p>
+  </div>
+  </div>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">The Counter Edit</div>
+        <p style="margin:0 0 8px; color:#cfc7b8;">Question-shaped buyer guides for air fryers and the
+        thermometers that keep them honest. Independent, reader-first, and boring where it matters
+        &mdash; every claim carries its source.</p>
+        <p style="margin:0; font-size:0.82rem; color:#8a8177;">Provisional brand name &mdash; see the
+        <a href="/Prod2/docs/suggestions.html">suggestions page</a> for the open decision.</p>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="/Prod2/guides/index.html">All guides</a></li>
+          <li><a href="/Prod2/compare.html">Compare the five</a></li>
+          <li><a href="/Prod2/products.html">The Shelf</a></li>
+          <li><a href="/Prod2/rss.xml">RSS feed</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Data room</h4>
+        <ul>
+          <li><a href="/Prod2/docs/index.html">Dashboard</a></li>
+          <li><a href="/Prod2/docs/requirements.html">Requirements</a></li>
+          <li><a href="/Prod2/docs/decisions.html">Decisions</a></li>
+          <li><a href="/Prod2/docs/flagged.html">Flagged for review</a></li>
+          <li><a href="/Prod2/docs/suggestions.html">Suggestions</a></li>
+          <li><a href="/Prod2/docs/open-questions.html">Open questions</a></li>
+          <li><a href="/Prod2/docs/metrics.html">Metrics plan</a></li>
+          <li><a href="/Prod2/docs/sources.html">Source register</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-disclosure">
+      <strong>Disclosure:</strong> As an Amazon Associate, The Counter Edit earns from qualifying purchases.
+      outbound product links to Amazon.com on this site are marked <code>rel="sponsored"</code> and carry our
+      Associates tracking ID (<code>shopnow047c-20</code>). They are advertising, and they are labeled as such above the
+      fold on every page. Prices and availability on Amazon change without notice; we do not publish prices
+      we cannot verify at the moment you read. This site is independent and is not owned by or endorsed by Amazon.
+      Compliance references: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="nofollow noopener" target="_blank">Associates Program Policies</a>
+      &middot; <a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="nofollow noopener" target="_blank">FTC Disclosures 101</a>.
+    </div>
+    <div class="foot-legal">
+      <span>&copy; 2026 The Counter Edit. Illustrations are our own; no product photography is used pending the S-18 decision.</span>
+      <span><a href="/Prod2/disclosure.html">Disclosure policy</a> &middot; <a href="/Prod2/docs/index.html">Data room</a></span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
