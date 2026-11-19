@@ -391,10 +391,10 @@ _None. This session owned all scopes._
 
 | Item | Value |
 |---|---|
-| Integration PR | https://github.com/wingbangboozle1-lang/Prod2/pull/8 |
-| Merge result | **merged** 2026-11-19 — merge commit `f152eac` on `main` |
+| Integration PRs | https://github.com/wingbangboozle1-lang/Prod2/pull/8 (integration, merged as `f152eac`) · https://github.com/wingbangboozle1-lang/Prod2/pull/13 (post-deploy record, noindex removal) · https://github.com/wingbangboozle1-lang/Prod2/pull/14 (root-mirror retarget + Pages-mutation removal) |
+| Merge result | **all merged** 2026-11-19 — integration merge commit `f152eac`, final state `c12ec7f` on `main` |
 | Pages | **deployed** — https://wingbangboozle1-lang.github.io/Prod2/ (legacy `main /` root serving; API status `built`) |
-| Live verification | Fetched live pages 2026-11-19: homepage title "Find the format that fits your kitchen \| Prod2"; all product links carry `?tag=shopnow047c-20` + paid-link disclosure; chooser, guides, dashboards and review surfaces resolve. (Serving source verified by probe: root mirror answers at `/`, `404.html` and repo paths serve.) |
+| Live verification | Fetched live pages 2026-11-19 (post-PR-14 Pages build `c12ec7f`): homepage "Find the format that fits your kitchen \| Prod2"; `compliance.html` and `guide-capacity.html` serve the publication with masthead disclosure + og-card; all product links carry `?tag=shopnow047c-20` + paid-link disclosure; chooser, guides, dashboards and review surfaces resolve. |
 | Serving note | The repo is served in legacy **`main /` (root)** mode; flipping to Actions mode403s for session tokens (admin-only). `scripts/build_site.py`'s INT-07 root mirror was retargeted: **`tools/build.py` now mirrors `docs/` → root** so the canonical URL carries the Prod2 publication; the Countercraft build stays verified at `site/` and is no longer mirrored. `pages.yml`'s `configure-pages`/`deploy-pages` steps were removed after `configure-pages` rewrote the legacy source once mid-session. |
 | Workflows on merge commit | verify-site: success · Self-hosted analytics tests: success · Deploy to GitHub Pages: success |
 | Checks at merge | `tools/checks.py` PASS · `scripts/verify_site.py` PASS · `npm test` PASS (2/2) |
