@@ -30,7 +30,7 @@ import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
-DATA = ROOT / "data"
+DATA = ROOT / "data" / "p2"
 
 DISCLOSURE = "As an Amazon Associate we earn from qualifying purchases."
 TRACKING_TAG = "tag=shopnow047c-20"
@@ -154,7 +154,7 @@ def main() -> int:
 
     # ------------------------------------------------------------------ facts
     check("facts")
-    products = json.loads((DATA / "p2-products.json").read_text(encoding="utf-8"))["products"]
+    products = json.loads((DATA / "products.json").read_text(encoding="utf-8"))["products"]
     intents = json.loads((DATA / "intent-links.json").read_text(encoding="utf-8"))["links"]
     prod_html = (DOCS / "products.html").read_text(encoding="utf-8")
     compare_html = (DOCS / "compare.html").read_text(encoding="utf-8")

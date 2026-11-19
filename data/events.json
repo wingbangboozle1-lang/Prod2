@@ -1,21 +1,22 @@
 {
   "_meta": {
-    "description": "Site-side measurement contract. These five local events are what docs/assets/js/measure.js can record and what analytics-endpoint/server.py accepts. Counts only: no IP, no user agent, no referrer, no cookies, no visitor identifiers. The campaign ledger's five events (impression/click/session/order/refund) are a separate, report-only system — see data/ledger.json and decision D-P05.",
-    "updated_utc": "2026-11-19"
+    "description": "The five defined events and the privacy rules for recording them. The client-side counter (assets/js/analytics.js) records first-party, cookieless events; the self-hosted collector (collector/app.py) is the optional endpoint. Events mirror the carried attribution model in the ledger.",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2",
+    "carried_from": "data/imported/zone4/z4-ledger.json (five-event attribution model)"
   },
   "events": [
-    {"name": "page_view", "definition": "A page finished loading.", "fields": "path", "sent": "only when settings.analytics_endpoint is set"},
-    {"name": "outbound_click", "definition": "A visitor clicked a sponsored product link.", "fields": "path, asin, target_host", "sent": "only when settings.analytics_endpoint is set"},
-    {"name": "guide_read_75", "definition": "A reader scrolled through 75% of a guide.", "fields": "path", "sent": "only when settings.analytics_endpoint is set"},
-    {"name": "category_click", "definition": "A reader clicked a category tile.", "fields": "path, target", "sent": "only when settings.analytics_endpoint is set"},
-    {"name": "feed_click", "definition": "A reader clicked the RSS/feed link.", "fields": "path", "sent": "only when settings.analytics_endpoint is set"}
+    {"id": "EV-01", "name": "page_view", "definition": "A page of this site was loaded by a visitor. Recorded client-side, first-party only.", "where": "analytics.js, on load", "privacy": "No cookies; path and timestamp only; no IP, no user-agent stored."},
+    {"id": "EV-02", "name": "product_link_click", "definition": "A visitor activated a Special Link (any anchor to an Amazon site, all marked rel=sponsored). Starts the attribution session as Amazon measures it.", "where": "analytics.js click listener on sponsored anchors", "privacy": "Records the destination path and timestamp only."},
+    {"id": "EV-03", "name": "chooser_step", "definition": "A visitor answered a step of the three-question chooser on the comparison page.", "where": "chooser.js", "privacy": "Step index and chosen label; nothing else."},
+    {"id": "EV-04", "name": "article_read", "definition": "A visitor scrolled a guide past the three-quarter mark of the article body.", "where": "analytics.js scroll listener on guide pages", "privacy": "Path and timestamp only."},
+    {"id": "EV-05", "name": "guide_to_compare_click", "definition": "A visitor followed a guide's link to the comparison page - the site's core conversion path.", "where": "analytics.js click listener on data-cc=guide-to-compare anchors", "privacy": "Path and timestamp only."}
   ],
-  "endpoint_contract": {
-    "method": "POST",
-    "url": "settings.analytics_endpoint (e.g. https://your-host/event)",
-    "body": "{\"event\": \"...\", \"path\": \"/page.html\", \"asin\": \"B0CDY277D3\"}",
-    "accepted_events": ["page_view", "outbound_click", "guide_read_75", "category_click", "feed_click"],
-    "server_behavior": "Validates the body, increments daily per-path counts, writes counts only. Never reads or stores the client address, user agent, referrer or cookies; writes no request log.",
-    "status": "Deployable (analytics-endpoint/server.py), not yet hosted — F-19. While settings.analytics_endpoint is empty the site sends nothing anywhere; the browser-local log is for the visitor's own view only."
-  }
+  "privacy_commitments": [
+    "No cookies, no fingerprinting, no cross-site identifiers, no IP addresses stored, no user-agent strings stored.",
+    "Aggregation first: counts accumulate in the visitor's browser (localStorage) and are the primary display; the collector receives anonymous event lines only if window.CC_COLLECT_URL is configured.",
+    "The click counter is a first-party measurement and is never presented as a reported order; orders enter the ledger only from authorised Associates Central reports (D-10).",
+    "Retention when the collector is hosted: event lines are kept 90 days by default, then rotated; the owner sets the final policy when choosing the host (Q-06)."
+  ],
+  "ledger_link": "data/ledger.json"
 }

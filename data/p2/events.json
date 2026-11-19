@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "description": "Site-side measurement contract. These five local events are what docs/assets/js/measure.js can record and what analytics-endpoint/server.py accepts. Counts only: no IP, no user agent, no referrer, no cookies, no visitor identifiers. The campaign ledger's five events (impression/click/session/order/refund) are a separate, report-only system — see data/p2/ledger.json and decision D-P05.",
+    "updated_utc": "2026-11-19"
+  },
+  "events": [
+    {"name": "page_view", "definition": "A page finished loading.", "fields": "path", "sent": "only when settings.analytics_endpoint is set"},
+    {"name": "outbound_click", "definition": "A visitor clicked a sponsored product link.", "fields": "path, asin, target_host", "sent": "only when settings.analytics_endpoint is set"},
+    {"name": "guide_read_75", "definition": "A reader scrolled through 75% of a guide.", "fields": "path", "sent": "only when settings.analytics_endpoint is set"},
+    {"name": "category_click", "definition": "A reader clicked a category tile.", "fields": "path, target", "sent": "only when settings.analytics_endpoint is set"},
+    {"name": "feed_click", "definition": "A reader clicked the RSS/feed link.", "fields": "path", "sent": "only when settings.analytics_endpoint is set"}
+  ],
+  "endpoint_contract": {
+    "method": "POST",
+    "url": "settings.analytics_endpoint (e.g. https://your-host/event)",
+    "body": "{\"event\": \"...\", \"path\": \"/page.html\", \"asin\": \"B0CDY277D3\"}",
+    "accepted_events": ["page_view", "outbound_click", "guide_read_75", "category_click", "feed_click"],
+    "server_behavior": "Validates the body, increments daily per-path counts, writes counts only. Never reads or stores the client address, user agent, referrer or cookies; writes no request log.",
+    "status": "Deployable (analytics-endpoint/server.py), not yet hosted — F-19. While settings.analytics_endpoint is empty the site sends nothing anywhere; the browser-local log is for the visitor's own view only."
+  }
+}

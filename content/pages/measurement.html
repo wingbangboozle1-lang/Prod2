@@ -16,10 +16,10 @@
   <li>an outbound click records only the ASIN and the target host — never the full URL;</li>
   <li><strong>nothing leaves the browser</strong> while no analytics endpoint is configured — events are counted in the visitor's own localStorage only.</li>
 </ul>
-<p>Status: machinery shipped, endpoint not yet hosted (<a href="flagged.html#F-19">F-19</a>). While <code>data/settings.json → analytics_endpoint</code> is empty, the site sends nothing anywhere.</p>
+<p>Status: machinery shipped, endpoint not yet hosted (<a href="flagged.html#F-19">F-19</a>). While <code>data/p2/settings.json → analytics_endpoint</code> is empty, the site sends nothing anywhere.</p>
 
 <h2>The self-hosted analytics endpoint</h2>
-<p><code>analytics-endpoint/server.py</code> (standard-library Python) accepts exactly the five local events, validates the body (event name, site path, ASIN format), and stores daily counts per event and path. It never reads or stores the client address, user agent, referrer or cookies, and it writes no request log. Deploy it on any owner-controlled HTTPS host, set the endpoint URL in <code>data/settings.json</code>, rebuild — done.</p>
+<p><code>analytics-endpoint/server.py</code> (standard-library Python) accepts exactly the five local events, validates the body (event name, site path, ASIN format), and stores daily counts per event and path. It never reads or stores the client address, user agent, referrer or cookies, and it writes no request log. Deploy it on any owner-controlled HTTPS host, set the endpoint URL in <code>data/p2/settings.json</code>, rebuild — done.</p>
 
 <h2>The campaign ledger</h2>
 {{ledger_table}}

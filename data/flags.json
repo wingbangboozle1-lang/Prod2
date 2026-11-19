@@ -1,179 +1,120 @@
 {
   "_meta": {
-    "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
-    "updated_utc": "2026-11-19"
+    "description": "Flag register, split into open, resolved and historical sections. Open items do not block publication; they are published so the owner can review them with the sources attached. Full predecessor history is in data/imported/zone4/z4-flags.json (67 rows).",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2"
   },
-  "flags": [
+  "open": [
     {
-      "id": "F-01",
-      "status": "open",
-      "title": "Product-level commission rate is unverified",
-      "detail": "The official Standard Commission Income Statement Table 1 lists Kitchen at 4.50% and Home at 3.00%. No official source reviewed maps these ASINs to a commission category, so every product-level rate is published blank. Do not infer a rate from the category band.",
-      "evidence": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
-      "evidence_note": "S-COMM, read 2026-11-14/2026-11-17",
-      "how_to_resolve": "Read the product-level rate from an Associates Central report after enrollment (owner action)."
+      "id": "FLG-01",
+      "severity": "medium",
+      "title": "Submitted short links are recorded verbatim; their compliance status is unresolved",
+      "what": "The five supplied links use https://link.amazon/... paths with nine-character codes. They are recorded exactly as supplied in data/intent-links.json. Nothing here claims they are valid or invalid: the predecessor register's FLG-003 remains unresolved.",
+      "why_it_matters": "Publishing an unvalidated link format could break attribution or policy rules (Participation Requirements 2(b), 6(v)-(w)).",
+      "evidence": ["https://link.amazon/B04G1MEwY", "https://link.amazon/B02NbDxp3", "https://link.amazon/B00hJ57DV", "https://link.amazon/B0c8moW59", "https://link.amazon/B0f3GKalj", "https://affiliate-program.amazon.com/help/operating/policies"],
+      "unblock_action": "Owner tests one link per product in the enrolled Associates workflow and confirms destination and tracking report (FLG-07)."
     },
     {
-      "id": "F-02",
-      "status": "standing",
-      "title": "Prices and star ratings are not published",
-      "detail": "Prices, ratings and review counts change constantly and would need a dated-snapshot discipline this site has not adopted (see D-19 for the evidence rule). They are visible on every listing and were observed during verification, but are withheld from all published pages. The site compares formats and listed specifications instead.",
-      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-      "evidence_note": "S-P1; standing editorial rule carried from the prior register",
-      "how_to_resolve": "Owner decision: adopt a dated-snapshot price policy (queued as suggestion SG-05) or keep the rule."
+      "id": "FLG-02",
+      "severity": "low",
+      "title": "Short-link path codes are nine characters; ASINs are ten",
+      "what": "The path codes (B04G1MEwY etc.) are not ASINs under Amazon's published ASIN definition; the intended ASINs (B0CDY277D3 etc.) were read from the official listing pages instead. The two identifier kinds are kept in separate fields.",
+      "evidence": ["https://sell.amazon.com/blog/what-is-an-asin", "data/intent-links.json"],
+      "unblock_action": "None needed - recorded so no reader or future session merges the two identifier kinds."
     },
     {
-      "id": "F-03",
-      "status": "open",
-      "title": "Supplied short links carry no tag= parameter",
-      "detail": "Every observed redirect of the five owner-supplied short links shows Amazon source-token parameters but no tag= parameter. Without an enrolled tag the clicks cannot be attributed. The site therefore publishes tagged Special Links built from the verified ASINs (D-01/D-14), and claims no attributed click or order.",
-      "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
-      "evidence_note": "S-POL; observations in data/verification-2026-11-19.json",
-      "how_to_resolve": "Run the one-link-per-product test in Associates Central (F-58)."
+      "id": "FLG-03",
+      "severity": "medium",
+      "title": "No published fact has been re-read in this environment",
+      "what": "This repository's build environment can only reach github.com and package registries, not amazon.com. Every product fact on the site is carried from the predecessor register with its official citation and last-read date (2026-11-14/16/17); none was re-derived here.",
+      "evidence": ["data/imported/zone4/z4-products.json", "https://www.amazon.com/dp/B0CDY277D3", "https://www.amazon.com/dp/B09B7SB46R", "https://www.amazon.com/dp/B08DKYBTPH"],
+      "unblock_action": "Manual re-check: open the three official listing URLs and confirm the published facts still match; or run a verification session with Amazon reachable."
     },
     {
-      "id": "F-08",
-      "status": "open",
-      "title": "P3 belongs to a 6/8/9-quart size-variant family",
-      "detail": "Four GTINs are listed on the B08DKYBTPH page, confirming a size-variant family. A buyer (or a cart) can end up with a different size than the 8 qt record published here.",
-      "evidence": "https://www.amazon.com/dp/B08DKYBTPH",
-      "evidence_note": "S-P3, Item details read 2026-11-14",
-      "how_to_resolve": "None needed for publication; buyers are warned on the product row."
+      "id": "FLG-04",
+      "severity": "high",
+      "title": "Tracking ID active status is unconfirmed",
+      "what": "shopnow047c-20 is owner-supplied input, recorded verbatim. Its format matches the XXXXX-## pattern; whether it is registered and active can only be seen inside Associates Central.",
+      "evidence": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "unblock_action": "Owner: confirm the ID in Associates Central (Account settings - Manage your tracking IDs)."
     },
     {
-      "id": "F-15",
-      "status": "standing",
-      "title": "Popularity and 'trending' claims need dated snapshots",
-      "detail": "Per decision D-19, a popularity claim is allowed only as a dated snapshot of an official page (page + read date named in the copy). Bare adjectives like 'trending' or 'best-selling' are banned from the copy rules.",
-      "evidence": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
-      "evidence_note": "S-GHELP; rule adopted 2026-11-16 (carried)",
-      "how_to_resolve": "Standing rule; enforced by tools/checks.py word blacklist."
+      "id": "FLG-05",
+      "severity": "low",
+      "title": "Policy and legal sources are cited, not re-quoted, in this environment",
+      "what": "The Associates Operating Agreement, Program Policies, FTC guidance and Google Search Central pages are linked in the source register. Their wording is summarised from the predecessor register's reads (dated there); no sentence is presented as a verified quote from this session.",
+      "evidence": ["https://affiliate-program.amazon.com/help/operating/agreement", "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers", "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"],
+      "unblock_action": "Manual review of the linked pages; the summaries use section references so each rule can be checked in place."
     },
     {
-      "id": "F-19",
-      "status": "open",
-      "title": "Analytics endpoint is deployable but not yet hosted",
-      "detail": "GitHub Pages is static hosting. The privacy-preserving counter (docs/assets/js/measure.js) and the self-hosted endpoint (analytics-endpoint/server.py) ship with the site, but no server is deployed and settings.analytics_endpoint is empty, so the site sends nothing anywhere. Browser-local counts are visible to each visitor only and are not shared data.",
-      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/analytics-endpoint/server.py",
-      "evidence_note": "Shipped 2026-11-19",
-      "how_to_resolve": "Host server.py somewhere owner-controlled, set settings.analytics_endpoint, rebuild (owner action; see measurement page)."
+      "id": "FLG-06",
+      "severity": "medium",
+      "title": "P4 and P5 are held, not published",
+      "what": "The last two submitted links opened to meat-thermometer listings (provisional ASINs B0DHZTCNR5, B0DZFD6R9Z), outside the air-fryer scope of the brief. Identity was never confirmed by the owner in the enrolled Associates workflow, so they appear in the registers only - no product page, no outbound link, no published fact.",
+      "evidence": ["https://www.amazon.com/dp/B0DHZTCNR5", "https://www.amazon.com/dp/B0DZFD6R9Z", "data/intent-links.json"],
+      "unblock_action": "Owner decision: confirm or correct the intended ASINs in Associates Central, then either scope them in (with a verified listing read) or drop them from the register."
     },
     {
-      "id": "F-26",
-      "status": "open",
-      "title": "P2's listing states its cooking-function count in two ways",
-      "detail": "Listing sections have described the B09B7SB46R as having 24 cooking functions / 24 one-touch presets, while another count of 25 appeared in prior reads of a different section. The site publishes '24 as listed' with the read date and never a synthesized number.",
-      "evidence": "https://www.amazon.com/dp/B09B7SB46R",
-      "evidence_note": "S-P2; prior reads 2026-11-14/2026-11-16, title read 2026-11-19",
-      "how_to_resolve": "Count the presets on the listing during a dated re-read (any session)."
+      "id": "FLG-07",
+      "severity": "high",
+      "title": "Attribution is unverified until the one-link-per-product test passes",
+      "what": "The published Special Links for P1-P3 (final destination + tag=shopnow047c-20) match the carried product-intent record, and the predecessor register's destination checks observed the right ASINs. What has never been confirmed is that clicks actually report to the owner's Associates dashboard.",
+      "evidence": ["data/intent-links.json", "https://affiliate-program.amazon.com/help/operating/policies"],
+      "unblock_action": "Owner: click each published link once, then confirm the event appears in Associates Central reporting before scaling to more placements."
     },
     {
-      "id": "F-29",
-      "status": "open",
-      "title": "'Also viewed' carousels change between reads",
-      "detail": "Carousel membership and order on the three air-fryer listings changed again on the 2026-11-19 read (P1 slots 2/3 swapped vs 2026-11-14; P3 slot 2 replaced). Carousel data is stored as dated observations only and is never presented as a stable 'competitor set'.",
-      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-      "evidence_note": "S-P1; observations in data/verification-2026-11-19.json",
-      "how_to_resolve": "Standing volatility; re-read on each verification pass."
+      "id": "FLG-08",
+      "severity": "medium",
+      "title": "The analytics collector is shipped but not hosted",
+      "what": "GitHub Pages is static hosting: the self-hosted collector (collector/app.py) cannot run there. Event recording degrades gracefully to first-party local aggregation; the collector is a runnable reference for any host the owner picks.",
+      "evidence": ["collector/README.md", "collector/app.py"],
+      "unblock_action": "Owner decision (question Q-06): pick a host for the collector, deploy it, set window.CC_COLLECT_URL in assets/js/analytics.js."
     },
     {
-      "id": "F-44",
-      "status": "open",
-      "title": "P2's listing title second segment drifts between reads",
-      "detail": "The B09B7SB46R listing title's second segment changed across the 2026-11-14, 2026-11-15 and 2026-11-19 reads. The site publishes the current string with its read date and keeps previous strings in the register (see also F-66).",
-      "evidence": "https://www.amazon.com/dp/B09B7SB46R",
-      "evidence_note": "S-P2; strings recorded in data/verification-2026-11-19.json and data/p2-products.json",
-      "how_to_resolve": "Standing volatility; the register keeps the dated history."
+      "id": "FLG-09",
+      "severity": "low",
+      "title": "Search Console verification needs property access",
+      "what": "The sitemap, feed, canonicals and structured data are shipped; the Search Console property itself must be created and verified by whoever controls the domain property.",
+      "evidence": ["https://wingbangboozle1-lang.github.io/Prod2/sitemap.xml", "suggestions.html (SG-04)"],
+      "unblock_action": "Owner: follow the step list on the Suggestions page (SG-04) using a Google account that can manage the property."
     },
     {
-      "id": "F-49",
-      "status": "open",
-      "title": "Default offers can be used items (Amazon Resale)",
-      "detail": "On the 2026-11-16 reads the default offers on B0CDY277D3 and B08DKYBTPH were used items sold by Amazon Resale. Buyers should check the seller and condition on the listing. Not re-observed on the 2026-11-19 read.",
-      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-      "evidence_note": "S-P1; prior read 2026-11-16 (S-PRIOR4)",
-      "how_to_resolve": "Standing buyer warning."
+      "id": "FLG-10",
+      "severity": "low",
+      "title": "Product photography is not used, pending a sourcing decision",
+      "what": "The site's imagery is non-photographic brand graphics. Real product photography requires a sourcing decision (original photos, licensed stock, or API-served Amazon imagery) that only the owner can make; generated or scraped photos are barred by decision D-13.",
+      "evidence": ["data/decisions.json (D-13)", "open-questions.html (Q-05)"],
+      "unblock_action": "Owner: pick a photography path in the Open Questions page (Q-05)."
+    }
+  ],
+  "resolved": [
+    {
+      "id": "FLG-R01",
+      "title": "Short-link destinations identified for all five submitted links",
+      "resolution": "The predecessor register fetched each short link (follow redirects) on 2026-11-14 and re-read on 2026-11-16/17: P1 opened to B0CDY277D3, P2 to B09B7SB46R, P3 to B08DKYBTPH, P4 to B0DHZTCNR5, P5 to B0DZFD6R9Z. Observed redirects are recorded in their own field in data/intent-links.json.",
+      "date_utc": "2026-11-17",
+      "evidence": ["data/imported/zone4/z4-intent.json"]
     },
     {
-      "id": "F-55",
-      "status": "resolved",
-      "title": "Two newly submitted short links were unverified — resolved 2026-11-19",
-      "detail": "The brief's two additional links (link.amazon/B0c8moW59, link.amazon/B0f3GKalj) were unresolved at the time of the prior register (they were excluded from product pages then — that exclusion did not mean either was invalid). The 2026-11-19 session resolved both: B0DHZTCNR5 (ThermoMaven 1-sec thermometer) and B0DZFD6R9Z (CHEF iQ Sense Gen3), read their official listings, and added them to the register as P4/P5. Product-intent records for all five links remain separate from observed redirects.",
-      "evidence": "https://www.amazon.com/dp/B0DHZTCNR5",
-      "evidence_note": "S-P4, S-P5; data/verification-2026-11-19.json",
-      "how_to_resolve": "Resolved 2026-11-19. Attribution of these links remains governed by F-57/F-58."
+      "id": "FLG-R02",
+      "title": "Disclosure placement fixed site-wide",
+      "resolution": "The Associates identification statement sits in a strip under the masthead on every page (above the fold), repeats in the footer next to the Amazon IP notice, and every outbound Amazon link is marked rel=\"sponsored\". Verified by check.py on every build.",
+      "date_utc": "2026-11-19",
+      "evidence": ["https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers", "check.py"]
     },
     {
-      "id": "F-57",
-      "status": "open",
-      "title": "Tracking ID registration is confirmable only inside Associates Central",
-      "detail": "The owner supplied shopnow047c-20 and its format matches the documented US Store ID pattern (ends in -20). Whether it is registered, active, and belongs to an enrolled account cannot be confirmed from outside Associates Central. Until then the site publishes the links but claims no attributed click, order or revenue.",
-      "evidence": "https://www.amazon.com/b?ie=UTF8&node=51812349011",
-      "evidence_note": "S-TAG, read 2026-11-17",
-      "how_to_resolve": "Owner logs into Associates Central and confirms the Partner Tag (Q-01)."
-    },
+      "id": "FLG-R03",
+      "title": "Flag page split into open / resolved / historical",
+      "resolution": "This page now separates the three sections, so open items cannot hide behind resolved history (predecessor flag F-35).",
+      "date_utc": "2026-11-19",
+      "evidence": []
+    }
+  ],
+  "historical": [
     {
-      "id": "F-58",
-      "status": "open",
-      "title": "One-link-per-product Associates test not yet run",
-      "detail": "The enrolled-workflow test (generate/validate one Special Link per product, confirm destination and a test click in the reporting) gates attribution claims and scaling — not publication. It cannot run from a build sandbox.",
-      "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
-      "evidence_note": "S-POL",
-      "how_to_resolve": "Owner runs the test per the protocol on the measurement page."
-    },
-    {
-      "id": "F-66",
-      "status": "open",
-      "title": "P2 title-segment drift (prior-register instance)",
-      "detail": "Prior instance of F-44: the stored second title segment dated 2026-11-14 differed from the 2026-11-15 read. Carried for history; the 2026-11-19 read extended the drift record again.",
-      "evidence": "https://www.amazon.com/dp/B09B7SB46R",
-      "evidence_note": "S-P2; S-PRIOR4",
-      "how_to_resolve": "Merged into F-44 going forward; kept for the dated trail."
-    },
-    {
-      "id": "F-67",
-      "status": "standing",
-      "title": "Short-link path codes are not ASINs",
-      "detail": "Amazon defines an ASIN as a 10-character alphanumeric identifier appearing after /dp/ in the product URL (S-ASIN). The submitted path codes (e.g. B04G1MEwY) are nine characters and live in the short-link path. They are recorded as link_path_code only and are never used as ASINs.",
-      "evidence": "https://sell.amazon.com/blog/what-is-an-asin",
-      "evidence_note": "S-ASIN, read 2026-11-17",
-      "how_to_resolve": "Standing rule."
-    },
-    {
-      "id": "F-P01",
-      "status": "open",
-      "title": "P4's page shows two different waterproofing subtitle strings",
-      "detail": "The B0DHZTCNR5 page <title> says 'IP67 Waterproof for Grill BBQ' while the Product Summary heading on the same page says 'Highly Waterproof for Grill BBQ Camping'. Both are recorded verbatim; published copy uses the <title> string with its 2026-11-19 read date and states IP67 only as 'listed in the title'.",
-      "evidence": "https://www.amazon.com/dp/B0DHZTCNR5",
-      "evidence_note": "S-P4, read 2026-11-19",
-      "how_to_resolve": "Confirm the certified IP rating from the manufacturer's documentation if it becomes available (owner)."
-    },
-    {
-      "id": "F-P02",
-      "status": "resolved",
-      "title": "Product scope: thermometers joined an air-fryer catalog — resolved 2026-11-19",
-      "detail": "The owner's brief lists five products to market; three resolve to air fryers and two (resolved 2026-11-19) to meat thermometers. The publication organizes them by format under one kitchen theme (countertop cooking + doneness tools) per decision D-P01. Not an irregularity in the data — recorded so the scope change is visible.",
-      "evidence": "https://www.amazon.com/dp/B0DZFD6R9Z",
-      "evidence_note": "S-P5; decision D-P01",
-      "how_to_resolve": "Resolved by D-P01 (2026-11-19)."
-    },
-    {
-      "id": "F-P04",
-      "status": "open",
-      "title": "P1 capacity unit wording differs between title and spec table",
-      "detail": "The B0CDY277D3 title states 6 Quart (2 × 3Qt baskets); the spec table read 2026-11-14 states '6 liters'. 6 qt is about 5.7 L, so the two wordings are not equal. Published copy uses the title wording with its read date; both readings are recorded.",
-      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-      "evidence_note": "S-P1; title read 2026-11-19, spec table read 2026-11-14",
-      "how_to_resolve": "Re-read the spec table in a dated session and record whichever the listing shows."
-    },
-    {
-      "id": "F-P05",
-      "status": "open",
-      "title": "P5 is a size-variant listing (1/2/3/4 probes)",
-      "detail": "The B0DZFD6R9Z listing offers 1/2/3/4-probe configurations. This record is the 3-probe Gen3 configuration shown in the title. Buyers should confirm the probe count in the variant selector.",
-      "evidence": "https://www.amazon.com/dp/B0DZFD6R9Z",
-      "evidence_note": "S-P5, read 2026-11-19",
-      "how_to_resolve": "Standing buyer warning."
+      "id": "FLG-H",
+      "title": "Predecessor flag register (67 rows)",
+      "note": "The complete flag history of the predecessor register - including every corrected-and-kept-as-audit-record item - is preserved verbatim in data/imported/zone4/z4-flags.json. Nothing was deleted; items whose state was already settled there are summarised in the resolved section above rather than renumbered."
     }
   ]
 }

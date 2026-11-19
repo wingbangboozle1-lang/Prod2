@@ -17,7 +17,7 @@ import re
 import shutil
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
+DATA = ROOT / "data" / "p2"
 CONTENT = ROOT / "content"
 ASSETS_SRC = ROOT / "assets"
 DOCS = ROOT / "docs"
@@ -30,14 +30,14 @@ def load(name: str):
 
 
 SETTINGS = load("settings.json")
-PRODUCTS = load("p2-products.json")["products"]
+PRODUCTS = load("products.json")["products"]
 INTENTS = load("intent-links.json")["links"]
-SOURCES = load("p2-sources.json")["sources"]
+SOURCES = load("sources.json")["sources"]
 FLAGS = load("flags.json")["flags"]
 QUESTIONS = load("questions.json")["questions"]
-SUGGESTIONS = load("p2-suggestions.json")["suggestions"]
+SUGGESTIONS = load("suggestions.json")["suggestions"]
 DECISIONS = load("decisions.json")["decisions"]
-LEDGER = load("p2-ledger.json")
+LEDGER = load("ledger.json")
 EVENTS = load("events.json")
 
 BRAND = SETTINGS["brand"]["name"]

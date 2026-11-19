@@ -1,0 +1,262 @@
+{
+ "disclosure": "As an Amazon Associate I earn from qualifying purchases.",
+ "disclosure_source": "https://affiliate-program.amazon.com/help/operating/agreement",
+ "observed_date": "2026-11-14",
+ "executive_summary": {
+  "headline": "Three previously verified countertop air fryers - a dual-basket, a single-basket and a French-door toaster oven - compared on their officially listed facts. Two newly added link destinations remain unverified and are excluded. The publication keeps source receipts visible and missing information explicit.",
+  "bullets": [
+   "Product register: the three links repeated in the latest brief have dated destination checks to ASINs B0CDY277D3, B09B7SB46R and B08DKYBTPH; the latest prior re-check is 2026-11-16. Two further links (B0c8moW59 and B0f3GKalj) are unverified and excluded under F-55. This is not a finding that they are invalid.",
+   "Tracking ID: shopnow047c-20 was supplied by the user, but its active account association and use in validated Special Links are not confirmed. The three prior resolved URLs had no visible tag parameter at the 2026-11-16 re-check (F-03). Validate destination and report before scaling.",
+   "Reader-facing publication: the site has a three-question chooser, three format categories, a product comparison and seven question-led articles, each with sourced fact rows. The topic titles are editorial hypotheses, not popularity or search-volume claims.",
+   "Measurement: the Analytics page stores outbound-click events in each visitor browser only. There is no server endpoint or connected Associates conversion report. S-38 proposes five events for review; the event taxonomy is not implemented. The campaign ledger remains empty until authorized first-party reports are available.",
+   "Search groundwork: unique page metadata, Open Graph fields, structured data, sitemap, robots.txt and a generated RSS feed are present. Search Console is not verified and no search queries or impressions are recorded. RSS item publication dates are omitted because no verified per-article dates exist.",
+   "Policy boundaries: prices, ratings, review counts and per-product commission assignments remain withheld or blank. No trend, conversion or revenue estimate is published. Automated product research is gated on account/API access and terms review.",
+   "Decision support: 40 costed suggestions, 49 questions and 42 decisions (30 recorded; 12 open) are published alongside the site, each question naming the flag, suggestion and decision it sits behind.",
+   "Disclosure and navigation: the Associates disclosure appears below the masthead and repeats in every footer. Product purchase links use rel=\"sponsored\"; verification checks that attribute, disclosure placement, footer coverage, all site-directory links and the single navigation group.",
+   "Anti-slop fix and delegated decision round (2026-11-17): the last machine-output defect (F-53, identifiers printed as prose in the product openers) is corrected under recorded decision D-36; D-35 (warm-editorial specification adopted), D-37 (steady headline register kept) and D-38 (storefront reading order) were recorded to reconcile the register with the published site. The identifier-format check behind the product-intent record is recorded as F-67: the link path codes are not ASINs, verified against Amazon's published ASIN guide.",
+   "Re-verified 2026-11-17 (arena/cc32105d-zone4, 15-row record in data/verification-session-cc32105d.json): the three supplied links re-resolve to the recorded ASINs with no tag parameter (F-03 stands); P2's second title segment again reads the later variant (F-44, fifth agreeing read; F-26 and F-50 stand); the carousel slots that had rotated away each showed the originally stored ASIN again (F-29). Commission Table 1 and the Operating Agreement (2025-10-15) and Program Policies (2026-04-14) dates re-read unchanged."
+  ],
+  "decisions_needed": [
+   "D-01: confirm that shopnow047c-20 is the active Partner Tag for an enrolled Associates account; generate or validate each Special Link and confirm its destination plus a reporting event.",
+   "D-40: confirm intended product identity for the five distinct links and keep intended ASIN/listing URL/date/source separate from observed redirect targets.",
+   "D-41: decide whether to remain browser-local or review a first-party analytics endpoint and separate reader opt-in; consent, retention and event payloads must be decided first.",
+   "D-02 and D-08: confirm API access and per-ASIN commission categories before publishing prices, ratings or product-level commission values.",
+   "D-15 and D-16: define authorized research automation and measurement/privacy boundaries before any data collection or scaling.",
+   "D-22: choose a lawful source for real product photography; no product photography is currently published.",
+   "D-35, D-36 and D-37: review the proposed design specification, remaining copy pass and headline alternatives before further editorial changes.",
+   "D-39: decide whether to move the design tokens into a switchable layer before further design work; a proposal, not a prerequisite for reading the current site.",
+   "D-42: decide whether to verify the site in a search console (owner account required; Q-48, S-40)."
+  ]
+ },
+ "analysis": [
+  {
+   "id": "A-01",
+   "finding": "All three products are in one niche: countertop air fryers and air-fry toaster ovens.",
+   "basis": "Breadcrumb on all three product pages: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
+   "sources": [
+    "https://www.amazon.com/dp/B0CDY277D3",
+    "https://www.amazon.com/dp/B09B7SB46R",
+    "https://www.amazon.com/dp/B08DKYBTPH"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-02",
+   "finding": "Two of the three products share a brand (Chefman). The third brand is Emeril.",
+   "basis": "Brand bylines on P1 and P3 read Chefman. P2's Item details table lists Brand Name Emeril and Manufacturer Emeril Lagasse (F-05 resolved 2026-11-14). P2's separate store link and creator/review block are not used as brand fields. The product records were re-read on 2026-11-14 (F-18).",
+   "sources": [
+    "https://www.amazon.com/dp/B0CDY277D3",
+    "https://www.amazon.com/dp/B08DKYBTPH",
+    "https://www.amazon.com/dp/B09B7SB46R"
+   ],
+   "confidence": "Verified for P1 and P3 (byline and specification table re-read 2026-11-14); P2 brand confirmed from the Item details table (F-05 resolved)"
+  },
+  {
+   "id": "A-03",
+   "finding": "The set spans three formats: a 6-litre dual-basket oven (P1), an 8-quart single-basket air fryer (P3) and a 24.6-litre French-door toaster oven (P2).",
+   "basis": "Capacity fields as listed. The units differ across title and specification (F-06), so values are shown as listed, not compared numerically.",
+   "sources": [
+    "https://www.amazon.com/dp/B0CDY277D3",
+    "https://www.amazon.com/dp/B09B7SB46R",
+    "https://www.amazon.com/dp/B08DKYBTPH"
+   ],
+   "confidence": "Verified as listed"
+  },
+  {
+   "id": "A-04",
+   "finding": "Amazon's own 'also viewed' lists show competing air fryers from at least six other brands. P1 and P3 each list another Chefman model.",
+   "basis": "Also-viewed carousel, first three items per product (Gourmia, Nutrichef, Ninja, HotKing, Emeril, Cosori, Chefman). 'Sponsored' labels appeared on some reads (F-10).",
+   "sources": [
+    "https://www.amazon.com/dp/B0CDY277D3",
+    "https://www.amazon.com/dp/B09B7SB46R",
+    "https://www.amazon.com/dp/B08DKYBTPH"
+   ],
+   "confidence": "Verified as shown (re-read 2026-11-14); sponsored labels vary (F-10)"
+  },
+  {
+   "id": "A-05",
+   "finding": "Commission potential cannot be estimated on this site.",
+   "basis": "The public Standard Commission Income Statement Table 1 lists Kitchen at 4.50%, but no official source reviewed here confirms which commission category Amazon assigns to these ASINs (F-01). Prices are withheld under policy (F-02), and attributed sessions, orders and revenue are not connected. No product-level rate or earnings figure is published.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Official Kitchen category rate verified; per-ASIN category assignment unverified"
+  },
+  {
+   "id": "A-06",
+   "finding": "Trend and conversion performance cannot be measured from verified sources.",
+   "basis": "No official trend or conversion data was available. Amazon's on-page popularity badges are not reproduced (F-15).",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Unverified (blank)"
+  },
+  {
+   "id": "A-07",
+   "finding": "Attribution to the user's Associates account is not confirmed.",
+   "basis": "The resolved product URLs carry no 'tag=' parameter (F-03).",
+   "sources": [
+    "https://link.amazon/B04G1MEwY",
+    "https://link.amazon/B02NbDxp3",
+    "https://link.amazon/B00hJ57DV"
+   ],
+   "confidence": "Unverified"
+  },
+  {
+   "id": "A-08",
+   "finding": "The Amazon AI clauses restrict training on Amazon content, not the writing of articles. The binding limits on an automated content pipeline are the API reuse clause and the data-mining exclusion.",
+   "basis": "Conditions of Use 'License and Access' bars using AI-generated content from the Amazon Services to develop or improve models. IP License section 1 bars using Program Content to develop or improve models, section 2(e) bars accessing Creators API or PA API for aggregating, analysing, extracting or repurposing Product Advertising Content, or for direct training or fine-tuning, without express prior written approval, and Participation Requirement 5 bars using Special Links or Program Content to develop machine learning models. None of these bars writing pages with an AI tool from a licensed source.",
+   "sources": [
+    "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088",
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-09",
+   "finding": "The brief's research agent is governed directly by the Agent Terms in the IP License.",
+   "basis": "IP License section 4: an Agent is any software or service that takes autonomous or semi-autonomous action on behalf of, or at the instruction of, a person or entity. Section 4(c) requires the user agent string 'Agent/[agent name]', forbids concealing that an agent is involved, forbids mimicking human speed or navigation patterns and completing CAPTCHAs, and requires truthful answers about being human or computer. Section 4(b) lets Amazon limit agent access at its sole discretion.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-10",
+   "finding": "Amazon requires original content on the site when linking to product lists, which the marketing content kit satisfies.",
+   "basis": "Participation Requirement 2(b): 'When linking to pages with Product lists you must have additional original content on your Site that is relevant to the Special Link.' The kit supplies three articles, a comparison page and a buying guide written for this site.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-11",
+   "finding": "Price tracking is prohibited unless Amazon agrees otherwise, so the brief's pricing-analysis goal has a hard limit.",
+   "basis": "Participation Requirement 6(y): 'Unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality.' The tracking plan records price movement as Not built for that reason.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-12",
+   "finding": "Amazon Marks must not be used as search keywords, so the site's title, meta description and suggested keywords were changed to avoid the word.",
+   "basis": "Trademark Guidelines 1 to 3 and Participation Requirement 6(e). The site title, meta description, article title tags, meta descriptions, slugs and keyword targets now contain no Amazon Mark. Flag F-23.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-13",
+   "finding": "The marketing content kit is complete and every factual statement in it is tied to an official source row.",
+   "basis": "data/marketing.json holds three product articles, one comparison page and one buying guide. Each carries a fact table in which every row has a source link, a keyword list whose volume cells are blank, a compliance note list and a call to action with the required disclosure.",
+   "sources": [
+    "https://www.amazon.com/dp/B0CDY277D3",
+    "https://www.amazon.com/dp/B09B7SB46R",
+    "https://www.amazon.com/dp/B08DKYBTPH"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-14",
+   "finding": "The set contains two listing inconsistencies beyond the capacity unit mismatch: P2's cooking function count and the carousel's 'Sponsored' label.",
+   "basis": "P2's title says 24 cooking functions while its feature section heads a list of 25 cooking pre-sets (F-26). The 'Sponsored' label appeared on the P3 carousel on one read and on the P1 carousel on another read of the same day, so it is not product specific (F-10).",
+   "sources": [
+    "https://www.amazon.com/dp/B09B7SB46R",
+    "https://www.amazon.com/dp/B0CDY277D3",
+    "https://www.amazon.com/dp/B08DKYBTPH"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-15",
+   "finding": "First-party click measurement can be built without the Associates API and without violating the artificial-clicks rule.",
+   "basis": "Participation Requirement 6(s) bars artificially generated clicks or impressions. The Analytics page generates no click: it observes real user clicks on tracked links and stores them in the visitor's own browser, with no network call and no estimated figure. Attribution to orders or commission still needs the official Associates reporting and a tagged link, so those cells stay blank. Flag F-19.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-16",
+   "finding": "Organic growth and paid search are governed by different parts of the same policy document, and the paid route is much narrower than most affiliate playbooks assume.",
+   "basis": "Participation Requirement 6(f) permits buying paid search advertisements, but not on Proprietary Terms (Amazon Marks and their variations or misspellings), and the resulting advertisement must send users to your own site rather than directly or indirectly to an Amazon Site. Separately, Commission Income Statement 2(c), 2(d) and 2(e) disqualify purchases referred by a prohibited paid search placement, by a link displayed on a search engine, and by a redirecting link. The practical consequence is that a campaign built on brand-adjacent keywords would disqualify the very purchases it produces, which is why the Suggestions board proposes organic-first.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-17",
+   "finding": "Google's published standard is about the purpose of automation, not the presence of it, so the anti-slop requirement and the ranking requirement point the same way.",
+   "basis": "Google's official guidance states that using automation, including AI, to generate content with the primary purpose of manipulating ranking in search results is a violation of its spam policies, and that appropriate use of AI or automation is not against its guidelines. It also advises that AI is worth considering as a way to produce content that is helpful and original, and not as an inexpensive way to game rankings. The same publisher asks whether content provides original information, reporting, research or analysis that is beyond the obvious. The redesign and the editorial suggestions are written against that standard rather than against volume.",
+   "sources": [
+    "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content",
+    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+   ],
+   "confidence": "Verified"
+  },
+  {
+   "id": "A-18",
+   "finding": "The listings change faster than a static record can, so every published value is a dated snapshot and the date is part of the claim.",
+   "basis": "Re-read on 2026-11-15: the P2 listing title on the official product page is a different string from the one recorded on 2026-11-14 from the same page, while the ASIN, brand and breadcrumb are unchanged (F-39). On the same read, the third slot of the P2 and P3 also-viewed carousels held different ASINs from the stored snapshot, while P1's three slots matched (F-29). The IP License itself says the content is provided as is and is subject to change or removal at any time.",
+   "sources": [
+    "https://www.amazon.com/dp/B09B7SB46R",
+    "https://www.amazon.com/dp/B08DKYBTPH",
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "confidence": "Verified"
+  }
+ ],
+ "categories": {
+  "dual-basket-air-fryers": {
+   "title": "Dual-basket air fryers",
+   "intro": "Air fryers with two cooking baskets. Covers P1 (CHEFMAN 6 Quart Dual Basket Air Fryer Oven).",
+   "product_ids": [
+    "P1"
+   ]
+  },
+  "single-basket-air-fryers": {
+   "title": "Single-basket air fryers",
+   "intro": "Countertop air fryers with one basket. Covers P3 (Chefman Air Fryer 8 Qt TurboFry 4-in-1). The P3 page lists size variants of 6, 8 and 9 quarts (F-08).",
+   "product_ids": [
+    "P3"
+   ]
+  },
+  "air-fryer-toaster-ovens": {
+   "title": "Air-fry toaster ovens",
+   "intro": "Larger multi-function ovens that also air fry, toast and roast. Covers P2 (Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven). Brand: Emeril (F-05 resolved).",
+   "product_ids": [
+    "P2"
+   ]
+  }
+ },
+ "not_built": [
+  "Conversion, order, unit-session and revenue attribution (needs Associates reporting and a tagged link). The Analytics page records first-party clicks locally and publishes no attributed figure. Flag F-19.",
+  "Automated product research at scale (needs a compliance decision under the Agent Terms, and Creators API access rather than page retrieval). Flags F-11, F-21.",
+  "Price, rating and review analysis on the public site (withheld under 2(b) and 6(t), and price tracking is prohibited by default). Flags F-02, F-22.",
+  "Commission calculations and earnings projections (the public table gives category rates, but product-specific category assignments, prices and attributed order data are not verified/connected). Flag F-01.",
+  "API integration of any kind, including reusing or fine-tuning on API content (needs express prior written approval). Flags F-16, F-24, F-25.",
+  "Price tracking, price alerting and cross-retailer price comparison (restricted by 6(y) and 6(z)). Flag F-22.",
+  "Email or outreach campaigns carrying Special Links (would need to be opt-in only, and Program Content must stay out of offline material). Flag F-27.",
+  "Campaign optimisation (needs the attributed data above; the loop itself is specified on the Automation page).",
+  "Product photography on the site. No image is published, because the only honest routes are your own photographs of the actual units or images served through approved tools, and neither exists yet (F-31, suggestion S-04).",
+  "A paid-search campaign. Not attempted: it is constrained by Participation Requirement 6(f) and Commission Income Statement 2(c) to 2(e), and no budget decision has been made (F-23, decision D-09).",
+  "A self-hosted analytics endpoint and shared five-event stream. GitHub Pages is static; the five event names in S-38 are proposals only (D-41).",
+  "Search Console verification and measured query/impression reporting; property access is not connected (S-09).",
+  "Reader signup or email capture; no personal information is collected and no consent/provider review has been completed (D-41)."
+ ],
+ "site_disclaimer": {
+  "text": "CERTAIN CONTENT THAT APPEARS ON THIS SITE COMES FROM AMAZON. THIS CONTENT IS PROVIDED AS IS AND IS SUBJECT TO CHANGE OR REMOVAL AT ANY TIME.",
+  "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+  "source_ref": "IP License, Section 2(k)",
+  "reason": "IP License Section 2(k) requires this text in plain view when Product Advertising Content consisting of text is displayed. This site displays Amazon listing titles, so the notice is shown as the conservative reading of the clause. Flag F-25."
+ },
+ "rechecked_utc": "2026-11-17",
+ "recheck_note_2026_11_16": "arena/c509aba1-zone4 independently re-read the three supplied short links (all resolve to the recorded ASINs), the three product pages (titles and breadcrumbs match the stored records; P2's second title segment matches the 2026-11-15 variant reading recorded in F-44), the public commission table (Kitchen 4.50%, Home 3.00% in Table 1), the Operating Agreement (updated 2025-10-15), the disclosure help page (exact sentence confirmed) and FTC Disclosures 101. Record: data/verification-session-c509aba1.json.",
+ "_meta_note_89900251_2026_11_16": "rechecked_utc advanced from 2026-11-15 to 2026-11-16 by arena/89900251-zone4 after this session re-resolved all three supplied short links and re-read the cited official pages. Four executive-summary bullets and two decisions_needed entries were appended for the design brief, the two presentation defects, the re-verification and the stale cross-reference corrections.",
+ "recheck_note_2026_11_17": "arena/cc32105d-zone4 re-read the three short links, the three listing pages, the Standard Commission Income Statement Table 1, the Operating Agreement and the Program Policies on 2026-11-17; the record is data/verification-session-cc32105d.json (15 rows). Nothing diverged from the stored values beyond the dated drift already flagged (F-29, F-44, F-50); Item details tables were again not exposed (F-38)."
+}

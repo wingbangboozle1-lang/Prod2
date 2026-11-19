@@ -30,7 +30,7 @@ Self-hosted analytics endpoint (deployable, not yet hosted — flag F-19):
 
 ```bash
 python3 analytics-endpoint/server.py --port 8787
-# then set analytics_endpoint in data/settings.json and rebuild
+# then set analytics_endpoint in data/p2/settings.json and rebuild
 ```
 
 ## What the gate checks (tools/checks.py)
@@ -50,9 +50,9 @@ python3 analytics-endpoint/server.py --port 8787
 
 | Layer | Enforcement |
 |---|---|
-| `data/products.json` | every published value carries `*_source` (register id) and `*_read` (UTC date); nulls are null, never guessed |
-| `data/intent-links.json` | intent fields (`intended_asin`, `official_listing_url`, `confirmation_date_utc`, `confirmation_source`) and observation fields (`observed_redirect`, `observed_redirect_history`) are separate structures and are never merged |
-| `data/flags.json` | anything unconfirmed is blank on the page **and** flagged with an evidence link |
+| `data/p2/products.json` | every published value carries `*_source` (register id) and `*_read` (UTC date); nulls are null, never guessed |
+| `data/p2/intent-links.json` | intent fields (`intended_asin`, `official_listing_url`, `confirmation_date_utc`, `confirmation_source`) and observation fields (`observed_redirect`, `observed_redirect_history`) are separate structures and are never merged |
+| `data/p2/flags.json` | anything unconfirmed is blank on the page **and** flagged with an evidence link |
 | `tools/checks.py` | `facts` and `claims` sections fail the build when a cited value disappears, a blank gets filled without a source, or a banned claim slips into copy |
 | content rule | manufacturer claims ("±0.5°F", "NIST-certified") are quoted as the listing's statements with dates — never adopted as the site's own |
 

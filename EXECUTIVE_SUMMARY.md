@@ -43,12 +43,12 @@
 
 - Privacy-preserving outbound-click counter (`assets/js/measure.js`): five local events, no cookies/identifiers, ASIN + host only; **transmits nothing until an endpoint is configured**.
 - Self-hosted endpoint (`analytics-endpoint/server.py`): counts only, no IP/UA/referrer/logs. Deployable — not hosted (F-19).
-- Campaign ledger (`data/ledger.json`): the five defined events (impression, click, session, order, refund) with the official attribution windows; empty until an authorized report exists.
+- Campaign ledger (`data/p2/ledger.json`): the five defined events (impression, click, session, order, refund) with the official attribution windows; empty until an authorized report exists.
 
 ## Verification & governance trail
 
-- 2026-11-19 session record: `data/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
-- Source register with read dates: `method.html` / `data/sources.json`.
+- 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
+- Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
 - Gate: `python3 tools/build.py && python3 tools/checks.py` — 8 sections, green on the merged build.
 
@@ -113,7 +113,7 @@ never merged (see the product-intent confirmation record on the Research Desk).
 - **FTC** disclosure guidance (Disclosures 101; Endorsements, Influencers, Reviews).
 - **Google** — rel="sponsored" for paid links; unique meta descriptions; page experience.
 
-Full source list with links: `data/sources.json` and the **About** page.
+Full source list with links: `data/p2/sources.json` and the **About** page.
 
 ## What was built
 
@@ -227,12 +227,12 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 
 - Privacy-preserving outbound-click counter (`assets/js/measure.js`): five local events, no cookies/identifiers, ASIN + host only; **transmits nothing until an endpoint is configured**.
 - Self-hosted endpoint (`analytics-endpoint/server.py`): counts only, no IP/UA/referrer/logs. Deployable — not hosted (F-19).
-- Campaign ledger (`data/ledger.json`): the five defined events (impression, click, session, order, refund) with the official attribution windows; empty until an authorized report exists.
+- Campaign ledger (`data/p2/ledger.json`): the five defined events (impression, click, session, order, refund) with the official attribution windows; empty until an authorized report exists.
 
 ## Verification & governance trail
 
-- 2026-11-19 session record: `data/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
-- Source register with read dates: `method.html` / `data/sources.json`.
+- 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
+- Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
 - Gate: `python3 tools/build.py && python3 tools/checks.py` — 8 sections, green on the merged build.
 

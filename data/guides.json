@@ -1,0 +1,106 @@
+{
+  "_meta": {
+    "description": "Guide register. Eight question-shaped guides ship at launch: the four brief hypotheses plus four spec-backed topics in the same shape. Every guide is written to VOICE.md, ends at the verified three, and satisfies the internal-linking rule (comparison, category page, two sibling guides). Titles are working titles, not claims about search volume (evidence rule D-08).",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2",
+    "fact_rule": "A guide may state a product fact only with its product register citation. Nothing else about products is claimed."
+  },
+  "guides": [
+    {
+      "id": "G1",
+      "slug": "basket-or-oven-style-air-fryer-what-to-compare",
+      "title": "Basket or oven-style air fryer: what should you actually compare?",
+      "cluster": "types",
+      "category_page": "shop/index.html",
+      "sibling_links": [
+        "air-fryer-capacity-checklist",
+        "questions-before-a-multi-function-kitchen-appliance"
+      ],
+      "description": "The honest comparison list between drawer-basket and door-front ovens: heat position, usable space, batch logic, cleanup and footprint."
+    },
+    {
+      "id": "G2",
+      "slug": "air-fryer-capacity-checklist",
+      "title": "A no-hype checklist for comparing air fryer capacity",
+      "cluster": "capacity",
+      "category_page": "shop/index.html",
+      "sibling_links": [
+        "how-much-air-fryer-capacity-does-a-family-of-four-need",
+        "basket-or-oven-style-air-fryer-what-to-compare"
+      ],
+      "description": "Quarts, litres, 'serves X' - capacity labels are marketing territory. The five comparisons that survive contact with a real kitchen."
+    },
+    {
+      "id": "G3",
+      "slug": "counter-space-and-cleanup-trade-offs",
+      "title": "Cleanup vs counter space: how to judge the trade-off before you buy",
+      "cluster": "cleanup",
+      "category_page": "counter-space.html",
+      "sibling_links": [
+        "will-it-fit-measuring-your-counter-for-an-air-fryer",
+        "air-fryer-accessories-which-extras-earn-their-drawer-space"
+      ],
+      "description": "The two costs a listing never prints: what it takes to clean after every cook, and what it takes to live with on the counter. How to weigh both in ten minutes."
+    },
+    {
+      "id": "G4",
+      "slug": "questions-before-a-multi-function-kitchen-appliance",
+      "title": "Questions to ask before buying a multi-function kitchen appliance",
+      "cluster": "multi-function",
+      "category_page": "shop/air-fryer-toaster-ovens.html",
+      "sibling_links": [
+        "basket-or-oven-style-air-fryer-what-to-compare",
+        "air-fryer-accessories-which-extras-earn-their-drawer-space"
+      ],
+      "description": "Seven questions that separate the multi-function appliance you'll use weekly from the 12-in-1 that becomes a toaster. Includes the function-count trap."
+    },
+    {
+      "id": "G5",
+      "slug": "how-to-read-an-air-fryer-spec-sheet",
+      "title": "Quarts, watts and fine print: how to read an air fryer spec sheet",
+      "cluster": "capacity",
+      "category_page": "shop/index.html",
+      "sibling_links": [
+        "air-fryer-capacity-checklist",
+        "counter-space-and-cleanup-trade-offs"
+      ],
+      "description": "What the numbers on the box measure, which matter for your cooking, and the fine print (cord length, clearance, wattage) that quietly decides satisfaction."
+    },
+    {
+      "id": "G6",
+      "slug": "how-much-air-fryer-capacity-does-a-family-of-four-need",
+      "title": "How much air fryer capacity does a family of four actually need?",
+      "cluster": "capacity",
+      "category_page": "shop/index.html",
+      "sibling_links": [
+        "air-fryer-capacity-checklist",
+        "basket-or-oven-style-air-fryer-what-to-compare"
+      ],
+      "description": "Batch math without the marketing: what a family weeknight looks like in a 4-qt, a 6-litre dual-basket and a 26-qt oven - and when two batches beat one big basket."
+    },
+    {
+      "id": "G7",
+      "slug": "will-it-fit-measuring-your-counter-for-an-air-fryer",
+      "title": "Will it fit? Measuring your counter for an air fryer in five minutes",
+      "cluster": "cleanup",
+      "category_page": "counter-space.html",
+      "sibling_links": [
+        "counter-space-and-cleanup-trade-offs",
+        "how-to-read-an-air-fryer-spec-sheet"
+      ],
+      "description": "The five-minute measuring routine that prevents the most common regret: depth, clearance, door swing and the circuit question - before you order."
+    },
+    {
+      "id": "G8",
+      "slug": "air-fryer-accessories-which-extras-earn-their-drawer-space",
+      "title": "Air fryer accessories: which extras earn their drawer space?",
+      "cluster": "multi-function",
+      "category_page": "shop/index.html",
+      "sibling_links": [
+        "questions-before-a-multi-function-kitchen-appliance",
+        "counter-space-and-cleanup-trade-offs"
+      ],
+      "description": "A sorter for the accessory aisle: what improves airflow or batch size, what blocks both, and why the box suggests parchment you shouldn't preheat with."
+    }
+  ]
+}

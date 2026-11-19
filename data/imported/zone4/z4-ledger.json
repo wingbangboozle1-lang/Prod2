@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "description": "Campaign ledger. Starts empty on purpose. A row is added only from an authorised first-party report (for example an Associates Central report that the owner exports). No row is estimated, copied from a third party or created from the site's own click counter. The site's click counter is a separate measurement and is never a reported order.",
+    "created_utc": "2026-11-17",
+    "created_by": "arena/3d2ad125-zone4",
+    "no_forecast_rule": "No conversion score and no revenue forecast is published anywhere. Operating Agreement Section 4 (re-read verbatim 2026-11-17): Amazon makes no representation about the traffic or commission income an Associate can expect."
+  },
+  "columns": [
+    "timestamp_utc",
+    "source",
+    "channel",
+    "eligible_sessions",
+    "clicks",
+    "reported_orders",
+    "report_reference",
+    "obtained_by"
+  ],
+  "rows": [],
+  "status": "Empty. No authorised report has been imported.",
+  "five_events": [
+    {
+      "event": "impression",
+      "definition": "A tracked unit was shown to a visitor (client-side, first-party only). Recorded by the local tracker; carries no attribution on its own.",
+      "window": "n/a",
+      "ledger_type": "engine.tracking EVENT_TYPES[0]"
+    },
+    {
+      "event": "click",
+      "definition": "A visitor activated a Special Link on this site. Starts the attribution Session.",
+      "window": "Session opens at the click and ends at the first of: 24 hours elapsing, an order being placed, or the customer clicking another publisher's Special Link.",
+      "ledger_type": "engine.tracking EVENT_TYPES[1]"
+    },
+    {
+      "event": "session",
+      "definition": "The attribution Session record opened by a click, as Amazon measures it.",
+      "window": "24 hours / order / competing Special Link, whichever comes first (Commission Income Statement 1(b)).",
+      "ledger_type": "engine.tracking EVENT_TYPES[2]"
+    },
+    {
+      "event": "order",
+      "definition": "A Qualifying Purchase attributed to a Special Link: 1-Click purchases during the Session, or cart orders completed no later than 89 days after the initial click.",
+      "window": "During the Session, or up to 89 days for cart orders; the product must ship and be paid for within 180 days of purchase (Commission Income Statement 1(b)(iii)).",
+      "ledger_type": "engine.tracking EVENT_TYPES[3]"
+    },
+    {
+      "event": "refund",
+      "definition": "A returned or refunded order, which reduces reported commission; recorded only when the Associates report states it.",
+      "window": "As reported by Associates Central.",
+      "ledger_type": "engine.tracking EVENT_TYPES[4]"
+    }
+  ],
+  "provenance": [
+    {
+      "date_utc": "2026-11-16",
+      "entry": "Raw event ledger defined (data/tracking.jsonl, engine/tracking.py): append-only JSONL, five event types, synthetic events refused; shipped with the 2026-11-16 sessions' work.",
+      "record": "data/tracking.jsonl"
+    },
+    {
+      "date_utc": "2026-11-17",
+      "entry": "Campaign rollup schema defined by this file (six columns, five event types, authorized-sources rule, provenance trail); zero rows - no authorized report is connected, so every published performance cell stays blank (F-19).",
+      "record": "data/ledger.json"
+    },
+    {
+      "date_utc": "2026-11-17",
+      "entry": "Owner selected tracking ID shopnow047c-20 (brief of 2026-11-17); tagged Special Links published; attribution confirmation pending the one-link-per-product Associates Central test (data/associates.json, flag F-55).",
+      "record": "data/associates.json"
+    },
+    {
+      "date_utc": "2026-11-17",
+      "entry": "Merge reconciliation (arena/1f4a7a22-zone4): this ledger file (data/ledger.json, defined by arena/3d2ad125-zone4) is the campaign ledger; the parallel campaign-ledger.json was withdrawn as a duplicate and its five-event definitions, official attribution windows and provenance trail were folded in here. engine.tracking gained the optional channel field the same day.",
+      "record": "data/ledger.json"
+    }
+  ]
+}

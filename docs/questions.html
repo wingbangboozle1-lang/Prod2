@@ -100,7 +100,7 @@
   <dl>
     <dt>What we know</dt><dd>analytics-endpoint/server.py is standard-library Python, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.</dd>
     <dt>What is missing</dt><dd>Which host the owner wants (any VM/container/Function that speaks HTTPS).</dd>
-    <dt>How to discover it</dt><dd>Owner picks a host; run the server; set the endpoint in data/settings.json; rebuild. See the measurement page for the event contract.</dd>
+    <dt>How to discover it</dt><dd>Owner picks a host; run the server; set the endpoint in data/p2/settings.json; rebuild. See the measurement page for the event contract.</dd>
     <dt>Answerable by</dt><dd>The owner.</dd>
     <dt>Blocks</dt><dd>Shared click/conversion data, SG-06</dd>
     <dt>Flags</dt><dd><a href="flagged.html#F-19">F-19</a></dd>
@@ -184,7 +184,7 @@
   </dl>
 </article>
 
-<p class="small-note">Machine-readable register: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/questions.json" rel="noopener" target="_blank">data/questions.json</a>.</p>
+<p class="small-note">Machine-readable register: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/questions.json" rel="noopener" target="_blank">data/p2/questions.json</a>.</p>
 
 </main>
 

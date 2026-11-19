@@ -49,7 +49,7 @@ form; the page tracker transmits nothing unless an endpoint is explicitly config
 
 Five submitted `link.amazon` short links, each resolved against its official Amazon listing.
 All five tokens are 9-character short-link tokens, not 10-character ASINs; they resolve to real
-listings. See `data/products.json` and the **Research Desk** page.
+listings. See `data/p2/products.json` and the **Research Desk** page.
 
 ## Compliance
 

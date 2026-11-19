@@ -1,134 +1,30 @@
 {
   "_meta": {
-    "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
-    "updated_utc": "2026-11-19"
+    "description": "Decision log for this repository. D-01..D-20 are recorded for Prod2 on 2026-11-19 by session arena/cd3cddd6-prod2; carried intents from the predecessor register are named where they exist. Statuses: Recorded, Partly recorded (a named part is still open), Carried (predecessor decision re-stated without change).",
+    "set_utc": "2026-11-19",
+    "set_by": "arena/cd3cddd6-prod2"
   },
   "decisions": [
-    {
-      "id": "D-01",
-      "question": "Regenerate the product links under tracking ID shopnow047c-20 as tagged Special Links?",
-      "status": "Recorded (carried 2026-11-17)",
-      "recorded_choice": "Option A with the verification gate kept: outbound product links are published as tagged Special Links https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20 — final destination URL, tag as parameter, no shortener. Attribution stays 'pending confirmation' until the Associates Central one-link-per-product test passes (F-57/F-58). The supplied short links stay recorded and unjudged (FLG-003 unresolved).",
-      "sources": ["https://affiliate-program.amazon.com/help/operating/agreement"]
-    },
-    {
-      "id": "D-05",
-      "question": "Should product links carry rel=\"sponsored\"?",
-      "status": "Recorded (carried 2026-11-16)",
-      "recorded_choice": "Yes. Every paid link carries rel=\"sponsored\" (plus nofollow noopener) without replacing the required disclosure sentence, per Google's outbound-link guidance.",
-      "sources": ["https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"]
-    },
-    {
-      "id": "D-06",
-      "question": "Will any product be hands-on tested, or is this a specification publication?",
-      "status": "Recorded (carried 2026-11-16) — not adopted as hands-on",
-      "recorded_choice": "Specification publication until real usage exists (see suggestion SG-07). The site states what listings say and what they do not say; it never simulates experience.",
-      "sources": ["https://developers.google.com/search/docs/essentials/spam-policies"]
-    },
-    {
-      "id": "D-12",
-      "question": "Should the copy take positions or stay strictly descriptive?",
-      "status": "Recorded (carried 2026-11-16)",
-      "recorded_choice": "Option A: the copy may conclude, rank within verified facts and address the reader directly, while every factual claim resolves to a sourced fact row. This voice pass follows that rule.",
-      "sources": ["https://developers.google.com/search/docs/fundamentals/creating-helpful-content"]
-    },
-    {
-      "id": "D-14",
-      "question": "Which marketplace and tracking ID receive purchases?",
-      "status": "Recorded (carried 2026-11-17)",
-      "recorded_choice": "US storefront (www.amazon.com, where all canonical listings resolve) and tracking ID shopnow047c-20 (owner-supplied; ends in -20 as US Store IDs do). Registration and report attribution confirmed only inside Associates Central; until then the site publishes the links but claims no attributed click or order.",
-      "sources": ["https://affiliate-program.amazon.com/help/operating/policies"]
-    },
-    {
-      "id": "D-17",
-      "question": "Which topics does the content program publish first?",
-      "status": "Recorded (carried 2026-11-16)",
-      "recorded_choice": "Format-first question guides: basket vs oven style; capacity checklist; cleanup and counter-space trade-offs; questions before buying a multi-function appliance. These are working titles, not claims about popularity or product superiority.",
-      "sources": ["https://developers.google.com/search/docs/fundamentals/creating-helpful-content"]
-    },
-    {
-      "id": "D-18",
-      "question": "Which visual direction and brand name should the site adopt?",
-      "status": "Recorded (carried 2026-11-16)",
-      "recorded_choice": "Option A: warm editorial (kitchen-magazine: serif display, warm palette, story-led hero). Brand: the project's established name, no new trade name while name clearance (Q-19) is open. Ported to this project as D-P03.",
-      "sources": ["https://developers.google.com/search/docs/fundamentals/creating-helpful-content", "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"]
-    },
-    {
-      "id": "D-19",
-      "question": "What evidence rule governs 'trending' and popularity claims?",
-      "status": "Recorded (carried 2026-11-16)",
-      "recorded_choice": "Option A: a popularity claim is allowed only as a dated snapshot of an official page; otherwise evergreen or calendar-based framing. Written into the copy rules and enforced by checks.",
-      "sources": ["https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011"]
-    },
-    {
-      "id": "D-21",
-      "question": "Keep the editorial front page or revert to dashboard styling?",
-      "status": "Recorded (carried 2026-11-16)",
-      "recorded_choice": "Editorial front page: hero, featured guides, category tiles, then the data. Every dashboard surface stays reachable from the footer and one navigation group.",
-      "sources": ["https://developers.google.com/search/docs/fundamentals/creating-helpful-content"]
-    },
-    {
-      "id": "D-23",
-      "question": "Build the three-question 'which one is for you' chooser?",
-      "status": "Recorded (carried 2026-11-16)",
-      "recorded_choice": "Option A: built from published listed values only (capacity, dimensions, format), with the reasoning shown and sources linked.",
-      "sources": ["https://www.amazon.com/dp/B0CDY277D3"]
-    },
-    {
-      "id": "D-26",
-      "question": "Publish the counter-space analysis (capacity per unit of counter depth)?",
-      "status": "Recorded (carried 2026-11-16)",
-      "recorded_choice": "Yes — published with the formula shown and each input linked to its listing row.",
-      "sources": ["https://www.amazon.com/dp/B0CDY277D3"]
-    },
-    {
-      "id": "D-27",
-      "question": "Standing internal-linking rule on every article?",
-      "status": "Recorded (carried 2026-11-16)",
-      "recorded_choice": "Yes: every article reaches the comparison, the buying guide and its category pillar. Links must not obscure where they go (Participation Requirements 6(v)/(w)).",
-      "sources": ["https://affiliate-program.amazon.com/help/operating/policies"]
-    },
-    {
-      "id": "D-P01",
-      "question": "Should the two newly resolved thermometer products join the air-fryer catalog on this site?",
-      "status": "Recorded 2026-11-19",
-      "recorded_choice": "Yes. The owner's brief lists all five links as products to market; P4/P5 resolved to meat thermometers on 2026-11-19. The publication organizes by format under one kitchen theme — countertop cooking and doneness tools — with the thermometers in their own category so nobody lands on the wrong shelf.",
-      "sources": ["https://www.amazon.com/dp/B0DHZTCNR5", "https://www.amazon.com/dp/B0DZFD6R9Z"]
-    },
-    {
-      "id": "D-P02",
-      "question": "Does the 2026-11-19 verification resolve F-55 (two unverified candidate links)?",
-      "status": "Recorded 2026-11-19",
-      "recorded_choice": "Yes, with the caveat that 'resolved' means destination-verified and listing-read — it does not mean tag-attributed (F-57/F-58 remain open) and it does not judge the supplied short links (FLG-003 unresolved).",
-      "sources": ["https://www.amazon.com/dp/B0DHZTCNR5", "https://www.amazon.com/dp/B0DZFD6R9Z"]
-    },
-    {
-      "id": "D-P03",
-      "question": "What wordmark ships on this build?",
-      "status": "Recorded 2026-11-19",
-      "recorded_choice": "'Prod2' with the descriptor 'Kitchen notes & buying guides' — the project's established name, mirroring the carried D-18 rationale (no new trade name while Q-19 is open). A consumer-facing rename is queued as SG-01.",
-      "sources": ["https://affiliate-program.amazon.com/help/operating/policies"]
-    },
-    {
-      "id": "D-P04",
-      "question": "How is the site built and gated?",
-      "status": "Recorded 2026-11-19",
-      "recorded_choice": "Static site under docs/ rendered by tools/build.py from data/*.json and content/ fragments; tools/checks.py is the publish gate (disclosure, sponsored links, unique titles/meta, sourced facts, no broken links, sitemap/feed integrity) and runs from a clean checkout with stdlib Python only.",
-      "sources": []
-    },
-    {
-      "id": "D-P05",
-      "question": "Which events does measurement record?",
-      "status": "Recorded 2026-11-19",
-      "recorded_choice": "Two defined sets, never mixed: (1) the campaign ledger's five events — impression, click, session, order, refund — with the Commission Income Statement attribution windows, filled only from authorized first-party reports; (2) the site endpoint's five local events — page_view, outbound_click, guide_read_75, category_click, feed_click — counts only, no visitor data. No conversion score or revenue forecast is published anywhere.",
-      "sources": ["https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"]
-    },
-    {
-      "id": "D-P06",
-      "question": "What is the outbound link form for the two newly verified products (P4/P5)?",
-      "status": "Recorded 2026-11-19",
-      "recorded_choice": "Same form as P1-P3: tagged Special Link https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20 with rel=\"sponsored\" and the (paid link) label, destination-verified 2026-11-19; attribution pending F-57/F-58.",
-      "sources": ["https://affiliate-program.amazon.com/help/operating/policies"]
-    }
+    {"id": "D-01", "title": "Adopt the publication brand 'The Crisp Counter'", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "The predecessor site published under its project codename (Zone4, its D-18 kept the codename pending clearance). This site is a reader-facing publication and needs a name a reader can remember; 'The Crisp Counter' names the kitchen surface every air fryer competes for. Clearance is open question Q-10.", "evidence": ["data/site.json", "suggestions.html (SG-31)"]},
+    {"id": "D-02", "title": "Adopt the warm-editorial design direction with non-photographic brand graphics", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Carries the predecessor's DIR-A warm-editorial direction (its D-35): serif display over a warm paper palette, story-led hero, rule-topped cards. Graphics are drawn, not photographed, until the photography question is decided (Q-05, FLG-10).", "evidence": ["DESIGN_PROMPT.md", "assets/css/main.css"]},
+    {"id": "D-03", "title": "Unique title and meta description on every page", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Per Google's snippet guidance; enforced by check.py (unique, non-trivial lengths). Carries predecessor S-04.", "evidence": ["https://developers.google.com/search/docs/appearance/snippet"]},
+    {"id": "D-04", "title": "Every outbound Amazon link carries rel=\"sponsored\"; disclosure adjacent", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Google's outbound-link qualification plus the FTC placement guidance. The generator adds the rel automatically; the check fails the build if an Amazon link is unmarked or the disclosure strip is missing. Carries predecessor S-05.", "evidence": ["https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links", "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"]},
+    {"id": "D-05", "title": "Front page is a storefront: shop, guides and comparison first; dashboards in the footer directory", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "The reader-facing goal: lead with products, keep every dashboard surface reachable from the footer and a single navigation group. Carries predecessor D-38/S-17.", "evidence": ["index.html", "data/site.json"]},
+    {"id": "D-06", "title": "Eight question-shaped guides ship at launch; cadence of one new guide per 14 days", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "The four brief hypotheses plus four spec-backed topics in the same shape. Each new guide joins sitemap.xml and feed.xml in the same build. Carries predecessor S-07/S-13 and its publishing cadence.", "evidence": ["data/guides.json", "data/calendar.json", "feed.xml"]},
+    {"id": "D-07", "title": "Voice standard adopted before any copy was written", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Every guide and page is written to VOICE.md; the anti-slop lint enforces the banned patterns on reader-facing pages. Carries predecessor S-12.", "evidence": ["VOICE.md", "check.py"]},
+    {"id": "D-08", "title": "Evidence rule for 'trending' and popularity claims", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "No page states that a product or topic is trending, best-selling or most popular without a dated official source; none exists, so no such claim appears. The lint bans the words on reader-facing pages. Carries predecessor S-16/F-15.", "evidence": ["check.py", "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"]},
+    {"id": "D-09", "title": "Five defined events; privacy-preserving counter; self-hosted collector as reference code", "status": "Partly recorded", "date_utc": "2026-11-19", "rationale": "The five events mirror the attribution model in the carried ledger (impression, click, session, order, refund as reported events) and the client records the two it can observe honestly (page_view, product_link_click, plus engagement events in its own namespace). Hosting the collector is open (Q-06, FLG-08).", "evidence": ["data/events.json", "assets/js/analytics.js", "collector/app.py"]},
+    {"id": "D-10", "title": "Campaign ledger stays empty until an authorised first-party report exists", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Rows are added only from an authorised Associates Central report with a report reference. No conversion score, no revenue forecast, anywhere. Carries the predecessor ledger and its OA Section 4 note.", "evidence": ["data/ledger.json", "https://affiliate-program.amazon.com/help/operating/agreement"]},
+    {"id": "D-11", "title": "Product-intent record keeps intended and observed fields separate", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "For each submitted link: intended ASIN, official listing URL, confirmation date and source; observed redirect targets in their own field with their own date. The fields are never merged. Check-enforced.", "evidence": ["data/intent-links.json", "check.py"]},
+    {"id": "D-12", "title": "Three-question chooser above the comparison table", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Chooser asks about counter space, typical cooking and cleanup preference, then names which spec priorities matter - it recommends formats, never products, so it stays honest while attribution is unverified. Carries predecessor S-19.", "evidence": ["compare/index.html", "assets/js/chooser.js"]},
+    {"id": "D-13", "title": "No generated or copied product photography; drawn brand graphics only", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Carries predecessor S-18's rule: real product photography needs a sourcing decision (original, licensed stock, or API-served imagery) which is open as Q-05. Until then the site ships no photography at all.", "evidence": ["open-questions.html (Q-05)"]},
+    {"id": "D-14", "title": "Counter-space analysis published as a method with verified-only product rows", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Capacity per centimetre of counter depth for the verified three, with the arithmetic shown so a reader can run it on any shortlist. Carries predecessor S-23.", "evidence": ["counter-space.html"]},
+    {"id": "D-15", "title": "Mobile-first presentation: fluid type, 44px tap targets, sticky compare bar", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Per Google's page-experience guidance. Carries predecessor S-20.", "evidence": ["assets/css/main.css", "https://developers.google.com/search/docs/appearance/page-experience"]},
+    {"id": "D-16", "title": "Internal linking: every guide reaches the comparison, a category page and at least two sibling guides", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Check-enforced. Carries predecessor S-24.", "evidence": ["check.py"]},
+    {"id": "D-17", "title": "Flag page split open / resolved / historical; checks run from a clean checkout", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Carries predecessor S-10/S-11: docs must match code (ENGINE.md's check count is asserted by check.py) and CI runs build + checks on every push.", "evidence": ["ENGINE.md", "check.py", ".github/workflows/site.yml"]},
+    {"id": "D-18", "title": "Docs and code reconciled: one build, one check suite, no hand-maintained counts", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "ENGINE.md documents the pipeline the two scripts actually implement; the check count line is verified against the code on every run.", "evidence": ["ENGINE.md"]},
+    {"id": "D-19", "title": "Suggestions and open questions are published pages, not private notes", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "The brief asks for a dedicated suggestions section someone can review before changes are made, and a clear list of questions, information and answers needed before decisions. Both registers are rendered from data, so a review can happen without touching the build.", "evidence": ["suggestions.html", "open-questions.html"]},
+    {"id": "D-20", "title": "P4/P5 stay unpublished while held", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Carried from the predecessor register (F-55/F-56 there): identity never confirmed by the owner; listings observed outside the air-fryer scope. They appear in the registers, never on shop pages.", "evidence": ["data/products.json", "data/intent-links.json"]},
+    {"id": "D-21", "title": "Amazon IP notice (Section 2(k)) shown in the footer of every page", "status": "Recorded", "date_utc": "2026-11-19", "rationale": "Carried conservative reading from the predecessor register: listing titles are Program Content displayed as text, so the notice is shown in plain view on every page.", "evidence": ["data/site.json", "https://affiliate-program.amazon.com/help/operating/policies"]}
   ]
 }

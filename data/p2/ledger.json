@@ -39,7 +39,7 @@
     {
       "date_utc": "2026-11-19",
       "entry": "Ledger schema defined by this build (arena/44093825-prod2): eight columns, five event types with official attribution windows, authorized-sources rule, provenance trail; zero rows — no authorized report is connected, so every published performance cell stays blank (F-19).",
-      "record": "data/p2-ledger.json"
+      "record": "data/p2/ledger.json"
     }
   ]
 }

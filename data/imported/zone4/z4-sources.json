@@ -1,0 +1,310 @@
+{
+  "_meta": {
+    "description": "Registry of every source used. 'accessible' records whether the page content was read during a verification pass. Pass 1: session arena/1eb689b8-zone4. Pass 2, full line-by-line re-read of every cited section: session arena/857e9efd-zone4 and session arena/3036372b-zone4, 2026-11-14 UTC.",
+    "official_hosts": [
+      "www.amazon.com",
+      "amazon.com",
+      "link.amazon",
+      "affiliate-program.amazon.com",
+      "www.ftc.gov",
+      "api.github.com",
+      "github.com"
+    ],
+    "added_by_00ba6c2e_2026_11_15": "Five Google Search Central pages and one Amazon disclosure help page were added as sources on 2026-11-15 because the decision-support register cites them. Each was read in this session; the specific section relied on is named in the 'used_for' field. S-APIFAQ's notes field was corrected to point at F-35 instead of F-29 (see flag F-43)."
+  },
+  "sources": [
+    {
+      "id": "S-API",
+      "title": "Amazon Creators API documentation — introduction",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
+      "publisher": "Amazon Associates Central",
+      "accessible": true,
+      "used_for": "API operations and the four access prerequisites, including 10 qualifying sales in 30 days",
+      "notes": "Read 2026-11-14 by session arena/8592c4f6-zone4."
+    },
+    {
+      "id": "S-APIFAQ",
+      "title": "Amazon Creators API documentation — FAQ",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/frequently-asked-questions",
+      "publisher": "Amazon Associates Central",
+      "accessible": true,
+      "used_for": "OAuth 2.0 client-credentials flow, 10-identifier batching limit, per-marketplace approval",
+      "notes": "Read 2026-11-14 by session arena/8592c4f6-zone4. Conflicts with the onboarding page on cross-marketplace use: see F-35."
+    },
+    {
+      "id": "S-ASIN",
+      "title": "Understanding ASINs — Amazon seller documentation",
+      "url": "https://sell.amazon.com/blog/what-is-an-asin",
+      "publisher": "Amazon (Sell on Amazon)",
+      "accessible": true,
+      "used_for": "An ASIN is 10 alphanumeric characters and follows /dp/ in the URL, which is why a 9-character short-link token is not an ASIN",
+      "notes": "Read 2026-11-14 by session arena/8592c4f6-zone4."
+    },
+    {
+      "id": "S-CAT",
+      "title": "Amazon 'Air Fryers' browse node (breadcrumb target on all three product pages)",
+      "url": "https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011",
+      "publisher": "Amazon.com",
+      "accessible": false,
+      "used_for": "Category identity only (breadcrumb text read on the product pages). The browse page itself was not fetched."
+    },
+    {
+      "id": "S-CHECK",
+      "title": "GitHub Actions Site checks run for PR #15 merge",
+      "url": "https://github.com/kanlerxz87-cyber/Zone4/actions/runs/43584048548",
+      "publisher": "GitHub (official Actions run)",
+      "accessible": true,
+      "used_for": "Successful Site checks for merge commit de08965020c574200bb24bd0808ada10975be58c, checked 2026-11-14."
+    },
+    {
+      "id": "S-COMM",
+      "title": "Amazon Associates Standard Commission Income Statement (official Table 1 rate schedule)",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "publisher": "Amazon Associates Central",
+      "accessible": true,
+      "used_for": "Fixed commission rates by category, bounty events, fine-art cap, 0.00% exclusions",
+      "notes": "Read directly by the final integration session on 2026-11-14. Table 1 lists: Luxury Beauty / Luxury Stores Beauty / Amazon Explore 10.00%; Digital Music / Physical Music / Handmade / Digital Videos 5.00%; Physical Books / Kitchen / Automotive 4.50%; Fire Tablet, Kindle, Luxury Stores Fashion, Apparel, Fire TV, Echo, Ring, Watches, Jewelry, Luggage, Shoes, Handbags and Accessories 4.00%; Toys, Furniture, Home, Home Improvement, Lawn and Garden, Pets, Headphones, Beauty, Musical Instruments, Business and Industrial Supplies, Outdoors, Tools, Sports, Baby Products, Amazon Coins 3.00%; PC and PC Components 2.50%; Televisions and Digital Video Games 2.00%; Amazon Fresh, Physical Video Games, Grocery, Health and Personal Care 1.00%; Gift Cards, Wireless Service Plans, Alcohol, Digital Kindle subscriptions, Vehicle Leasing and Sales, Pet Prescription Medications, Restaurant-prepared Food, Amazon Appstore, Prime Now and Amazon Pay Places 0.00%; Coach 0.00%; All Other Categories 4.00%. This is the official public table, which is why the rate is no longer blank. The commission category Amazon assigns to a specific ASIN is still not confirmable from outside Associates Central (F-01). Re-read 2026-11-16 (arena/4c552c78-zone4): Table 1 still lists 'Physical Books, Kitchen, Automotive' at 4.50% and 'Home' at 3.00%. Unchanged."
+    },
+    {
+      "id": "S-COU",
+      "title": "Amazon Conditions of Use (last updated August 14, 2026)",
+      "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088",
+      "publisher": "Amazon.com (official)",
+      "accessible": true,
+      "used_for": "'License and Access' section, read 2026-11-14: the licence excludes 'any collection and use of any product listings, descriptions, or prices' and 'any use of data mining, robots, or similar data gathering and extraction tools'; it also bars using AI-generated content from the Amazon Services to develop or improve large language or multimodal models or other machine learning technology.",
+      "notes": "Re-confirmed 2026-11-14 (final wrap-up, arena/46c18cd1-zone4): the cited nodeId=508088 URL redirects to nodeId=GLSBYFE9MGKKQXXM ('Conditions of Use', last updated August 14, 2026); the 'License and Access' clauses above were re-read verbatim on that target. Amazon's own docs pages still link the old URL. Citation update is a next-review action (F-30). Re-read 2026-11-16 (arena/4c552c78-zone4): 'Last updated: August 14, 2026' (the cited nodeId=508088 redirects to nodeId=GLSBYFE9MGKKQXXM). Its 'License and Access' section was read again; it also bars 'meta tags or any other \"hidden text\" utilizing Amazon's name or trademarks' without written consent. A check of the built site on 2026-11-16 found no page title or meta description that uses the Amazon name."
+    },
+    {
+      "id": "S-DEPLOY",
+      "title": "GitHub Pages deployment run for PR #15 merge",
+      "url": "https://github.com/kanlerxz87-cyber/Zone4/actions/runs/43584048157",
+      "publisher": "GitHub (official Pages deployment run)",
+      "accessible": true,
+      "used_for": "Successful Pages deployment for merge commit de08965020c574200bb24bd0808ada10975be58c, checked 2026-11-14."
+    },
+    {
+      "id": "S-FTC",
+      "title": "FTC: Disclosures 101 for Social Media Influencers (November 2019)",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "publisher": "U.S. Federal Trade Commission (official)",
+      "accessible": true,
+      "used_for": "Read in full 2026-11-14: the disclosure must be hard to miss and placed with the endorsement message; use simple, clear language; a material connection includes a financial relationship; do not talk about a product you have not tried; do not make claims the advertiser cannot prove."
+    },
+    {
+      "id": "S-GOOGLE",
+      "title": "Creating helpful, reliable, people-first content",
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "publisher": "Google Search Central",
+      "accessible": true,
+      "used_for": "Editorial self-assessment applied to generated drafts before the publish gate",
+      "notes": "Read 2026-11-14 by session arena/8592c4f6-zone4."
+    },
+    {
+      "id": "S-HELP",
+      "title": "Associates Central help: 'Why do I have to identify myself as an Associate?'",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE",
+      "publisher": "Amazon Associates (official help)",
+      "accessible": true,
+      "used_for": "Re-read 2026-11-14. Link-level disclosure must be clear and conspicuous and placed near each affiliate link or review; the Operating Agreement statement must clearly and conspicuously appear on the Site."
+    },
+    {
+      "id": "S-IANA",
+      "title": "IANA root zone database — .amazon",
+      "url": "https://www.iana.org/domains/root/db/.amazon.html",
+      "publisher": "IANA",
+      "accessible": true,
+      "used_for": "'.amazon' is an active gTLD delegated to Amazon Registry Services since 2020-06-02, so link.amazon is Amazon-controlled",
+      "notes": "Read 2026-11-14 by session arena/8592c4f6-zone4."
+    },
+    {
+      "id": "S-IPL",
+      "title": "Associates Program IP License and Usage Requirements, including Section 4 (Agent Terms)",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "publisher": "Amazon Associates (official)",
+      "accessible": true,
+      "used_for": "IP License section 1 (limited licence to Program Content; no data mining, robots or similar extraction tools; no use of Program Content to develop or improve models); section 2(b) to 2(k) (account identifiers, usage requirements, no repurposing or model training without prior written approval, caching limits, price timestamps and disclaimers, the 'CERTAIN CONTENT THAT APPEARS' disclaimer); section 3 (Your Submissions); section 4 (Agent Terms: identification, transparency, no concealment, no CAPTCHA solving, truthful responses, Amazon may limit access).",
+      "notes": "Same page as S-PP; listed separately because the site cites the IP License and Agent Terms directly."
+    },
+    {
+      "id": "S-L1",
+      "title": "Amazon short link (user supplied)",
+      "url": "https://link.amazon/B04G1MEwY",
+      "publisher": "Amazon.com",
+      "accessible": true,
+      "used_for": "Resolved to ASIN B0CDY277D3. The resolved URL contains no Associates tag parameter. Resolution re-checked 2026-11-14 by arena/3036372b-zone4. Resolved to ASIN B0CDY277D3 (re-resolved 2026-11-14). The resolved URL contains no Associates tag parameter (lv, btn_type, btn_ref, channelId, plpRedirect and th appear instead).",
+      "notes": "Re-resolved 2026-11-16 (arena/4c552c78-zone4) to B0CDY277D3."
+    },
+    {
+      "id": "S-L2",
+      "title": "Amazon short link (user supplied)",
+      "url": "https://link.amazon/B02NbDxp3",
+      "publisher": "Amazon.com",
+      "accessible": true,
+      "used_for": "Resolved to ASIN B09B7SB46R. The resolved URL contains no Associates tag parameter. Resolution re-checked 2026-11-14 by arena/3036372b-zone4. Resolved to ASIN B09B7SB46R (re-resolved 2026-11-14). The resolved URL contains no Associates tag parameter (lv, btn_type, btn_ref, channelId, plpRedirect and th appear instead).",
+      "notes": "Re-resolved 2026-11-16 (arena/4c552c78-zone4) to B09B7SB46R."
+    },
+    {
+      "id": "S-L3",
+      "title": "Amazon short link (user supplied)",
+      "url": "https://link.amazon/B00hJ57DV",
+      "publisher": "Amazon.com",
+      "accessible": true,
+      "used_for": "Resolved to ASIN B08DKYBTPH. The resolved URL contains no Associates tag parameter. Resolution re-checked 2026-11-14 by arena/3036372b-zone4. Resolved to ASIN B08DKYBTPH (re-resolved 2026-11-14). The resolved URL contains no Associates tag parameter (lv, btn_type, btn_ref, channelId, plpRedirect and th appear instead).",
+      "notes": "Re-resolved 2026-11-16 (arena/4c552c78-zone4) to B08DKYBTPH."
+    },
+    {
+      "id": "S-OA",
+      "title": "Associates Program Operating Agreement (updated October 15, 2025)",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "publisher": "Amazon Associates (official)",
+      "accessible": true,
+      "used_for": "Section 1: Special Links must use the tagged link formats. Section 5: the required disclosure sentence 'As an Amazon Associate I earn from qualifying purchases.', plus the bar on misrepresenting or embellishing the relationship. Section 7: service offerings are provided 'AS IS'. Re-read in full 2026-11-14.",
+      "notes": "Re-read 2026-11-16 (arena/4c552c78-zone4): 'Updated: October 15, 2025'. Unchanged."
+    },
+    {
+      "id": "S-P1",
+      "title": "Amazon product page, ASIN B0CDY277D3 (Chefman dual basket air fryer)",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "publisher": "Amazon.com (retailer, official product page)",
+      "accessible": true,
+      "used_for": "Listing title, brand byline, category breadcrumb, specification table, also-viewed ASINs, price and rating (withheld from site) On the 2026-11-14 read, carousel positions 2 and 3 differed from the stored list (F-23); the 'Sponsored' label was not seen on that read (F-10).",
+      "notes": "Redirect target of https://link.amazon/B04G1MEwY. Re-read 2026-11-14 by arena/3036372b-zone4: title, brand byline, breadcrumb, the full specification table (special features, dimensions, colour, capacity, material) and the also-viewed carousel all match. The snapshot shows a US delivery location, which does not establish the user's location. Redirect target of https://link.amazon/B04G1MEwY. Snapshot showed a US delivery location. Re-read 2026-11-14: title, breadcrumb and also-viewed ASINs matched the records. Byline and specification table were not re-read in that pass (F-18)."
+    },
+    {
+      "id": "S-P2",
+      "title": "Amazon product page, ASIN B09B7SB46R (Emeril Lagasse 26QT air fryer toaster oven)",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "publisher": "Amazon.com (retailer, official product page)",
+      "accessible": true,
+      "used_for": "Listing title, Item details brand/manufacturer, category breadcrumb, specification table, also-viewed ASINs, and the separate store and creator/review blocks; price and rating withheld.",
+      "notes": "The product page's Item details table lists Brand Name Emeril and Manufacturer Emeril Lagasse. The page separately links to the Emeril Store and displays an Innovation IQ creator/review block; that block is not used as the product-brand field. P2's capacity and function-count inconsistencies and the changing also-viewed carousel are flagged."
+    },
+    {
+      "id": "S-P3",
+      "title": "Amazon product page, ASIN B08DKYBTPH (Chefman Air Fryer 8 Qt TurboFry)",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "publisher": "Amazon.com (retailer, official product page)",
+      "accessible": true,
+      "used_for": "Listing title, brand byline, category breadcrumb, specification table, size variants, also-viewed ASINs, price and rating (withheld from site)",
+      "notes": "Redirect target of https://link.amazon/B00hJ57DV, with variation parameter th=1. Size variants 6, 8 and 9 quarts are offered on the page. Re-read 2026-11-14 by arena/3036372b-zone4: title, brand byline, breadcrumb, the full specification table and the also-viewed carousel all match. Redirect target of https://link.amazon/B00hJ57DV, with variation parameter th=1 (re-resolved 2026-11-14). Size variants 6, 8 and 9 quarts are offered on the page. Re-read 2026-11-14: title, breadcrumb and also-viewed ASINs matched. A 'Sponsored' label appeared above the carousel on one read of the canonical page (F-10). Byline and specification table not re-read (F-18)."
+    },
+    {
+      "id": "S-PEER",
+      "title": "Parallel-session re-verification record (2026-11-14)",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "publisher": "Amazon Associates (official)",
+      "accessible": true,
+      "used_for": "Cross-check of the P2 Item details table, the corrected Participation Requirements numbering and the Agent Terms and IP License sections, recorded by session arena/cd6113ca-zone4 and merged by the final integration session.",
+      "notes": "The page is the same official Program Policies page as S-PP; this entry records the parallel session's independent reading so a reviewer can see that two sessions reached the same corrections independently."
+    },
+    {
+      "id": "S-POL",
+      "title": "Amazon Associates Program Policies (stated update 2026-04-14)",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "publisher": "Amazon Associates Central",
+      "accessible": true,
+      "used_for": "Session and attribution windows (24 h, 89-day cart, 180-day ship) and the Participation Requirements prohibitions encoded as site gates",
+      "notes": "Read 2026-11-14 by session arena/8592c4f6-zone4; complements S-PP. Re-read 2026-11-16 (arena/4c552c78-zone4): 'Updated: April 14, 2026'. Unchanged."
+    },
+    {
+      "id": "S-PP",
+      "title": "Associates Program Policies (updated April 14, 2026)",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "publisher": "Amazon Associates (official)",
+      "accessible": true,
+      "used_for": "Commission Income Statement sections 1, 2(a) to 2(k), 3 and 4; Participation Requirements sections 1, 2(a), 2(b), 3(a) to 3(f), 4, 5, 6(a) to 6(z); Trademark Guidelines 1 to 8; Associates Program IP License sections 1, 2(a) to 2(k), 3 and 4 (Agent Terms); Products Statement 1 to 3; Influencer Program Policy; Creator Ads Boost. Every section cited on this site was re-read on 2026-11-14. Note for reviewers: the lettered Participation Requirements run 3(a) to 3(f) under 'Responsibility for Your Site' and 6(a) to 6(z) under 'Content on your Site', so the ratings rule is 6(t) and not 3(t). Re-read 2026-11-14 (page updated April 14, 2026). Commission Income Statement sections 1–2 (Qualifying Purchases, Qualifying Revenue, disqualified purchases incl. 2(c) paid search and 2(d)–(e) search and redirecting links); Standard Commission Income is in the Appendix, which links to the schedule URL (see S-SCHED). Participation Requirements sections 1(g) (trademark in domain or tag), 2(b) (prices and availability; Associates ID as parameter), 5 (no machine-learning use without approval), 6(e)–(f) (Amazon keywords), 6(g) (incentives), 6(p) (links in customer content), 6(s) (artificial clicks), 6(t) (reviews and star ratings), 6(w) (link shortening), 6(y), 6(z). IP License sections 2(k) (text disclaimer) and 4 (Agent Terms), re-read 2026-11-14 (F-23, F-24).",
+      "notes": "Re-read 2026-11-16 (arena/4c552c78-zone4): the page header still reads 'Updated: April 14, 2026'. Unchanged."
+    },
+    {
+      "id": "S-REPO",
+      "title": "GitHub Pages configuration for kanlerxz87-cyber/Zone4 (GitHub REST API)",
+      "url": "https://api.github.com/repos/kanlerxz87-cyber/Zone4/pages",
+      "publisher": "GitHub (official API)",
+      "accessible": true,
+      "used_for": "Pages configuration read from the GitHub API on 2026-11-14: legacy build from main root (/), status 'built', HTTPS enforced, public entry point https://kanlerxz87-cyber.github.io/Zone4/. The repository root index.html redirects to docs/index.html."
+    },
+    {
+      "id": "S-SCHED",
+      "title": "Associates Program Standard Commission Income schedule (historic sign-in-gated Appendix link; superseded by S-COMM)",
+      "url": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "publisher": "Amazon Associates (official)",
+      "accessible": false,
+      "used_for": "Historical verification only. This Appendix link redirects to sign-in; the public official Table 1 is cited as S-COMM and used for the category-level reference rate.",
+      "notes": "Superseded for rate data by the public Associates Program Standard Commission Income Statement at S-COMM. The Kitchen 4.50% category rate is confirmed there; per-ASIN commission-category assignment remains unverified."
+    },
+    {
+      "id": "S-TG",
+      "title": "Associates Program Trademark Guidelines",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "publisher": "Amazon Associates (official)",
+      "accessible": true,
+      "used_for": "Guidelines 1 to 3: Amazon Marks may be used only by display on the Site for the purpose of advertising the availability of products on an Amazon Site, with a corresponding Special Link; they may not be used in a way that implies sponsorship or endorsement, nor offline or in email.",
+      "notes": "Same page as S-PP; listed separately because the site cites the trademark rules directly."
+    },
+    {
+      "id": "S-WF",
+      "title": "Repository Actions run for 'Deploy static site to GitHub Pages' (prior session)",
+      "url": "https://github.com/kanlerxz87-cyber/Zone4/actions/runs/43582130565",
+      "publisher": "GitHub (official)",
+      "accessible": false,
+      "used_for": "Recorded failure in the prior session's log in COORDINATION.md. Not re-read in this pass; the failing workflow was replaced."
+    },
+    {
+      "id": "S-SPAM",
+      "title": "Google Search Central — Spam policies for Google web search",
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "publisher": "Google Search Central",
+      "accessible": true,
+      "used_for": "Thin affiliation (copied merchant descriptions without added value), scaled content abuse (many pages generated without value), and link-spam qualification of paid links.",
+      "notes": "Read 2026-11-15 by session arena/00ba6c2e-zone4 for the decision-support pages (suggestions, open questions, decision log)."
+    },
+    {
+      "id": "S-SNIP",
+      "title": "Google Search Central — Control your snippets in search results",
+      "url": "https://developers.google.com/search/docs/appearance/snippet",
+      "publisher": "Google Search Central",
+      "accessible": true,
+      "used_for": "The requirement to write a unique meta description for each page, which is the basis of S-04 and F-40.",
+      "notes": "Read 2026-11-15 by session arena/00ba6c2e-zone4 for the decision-support pages (suggestions, open questions, decision log)."
+    },
+    {
+      "id": "S-PEXP",
+      "title": "Google Search Central — Understanding page experience in Google Search results",
+      "url": "https://developers.google.com/search/docs/appearance/page-experience",
+      "publisher": "Google Search Central",
+      "accessible": true,
+      "used_for": "Page-experience self-assessment questions used for S-09 and D-09.",
+      "notes": "Read 2026-11-15 by session arena/00ba6c2e-zone4 for the decision-support pages (suggestions, open questions, decision log)."
+    },
+    {
+      "id": "S-OUTL",
+      "title": "Google Search Central — Qualify outbound links",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "publisher": "Google Search Central",
+      "accessible": true,
+      "used_for": "rel=\"sponsored\" for paid links, which is the basis of S-05 and D-05.",
+      "notes": "Read 2026-11-15 by session arena/00ba6c2e-zone4 for the decision-support pages (suggestions, open questions, decision log)."
+    },
+    {
+      "id": "S-GSC-AI",
+      "title": "Google Search's guidance about AI-generated content (official Google Search Central blog post, 8 February 2023)",
+      "url": "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content",
+      "publisher": "Google Search Central",
+      "accessible": true,
+      "used_for": "The standard the editorial suggestions are judged against: automation used primarily to manipulate rankings is a spam violation, appropriate use of automation is not against the guidelines, AI gives content no special gains in search, and bylines and automation disclosures are worth considering.",
+      "notes": "Read in full on 2026-11-15 by session arena/d2a62d6b-zone4 and quoted verbatim in the questions register (Q-23 to Q-37). Google's own wording is repeated rather than paraphrased wherever it is relied on."
+    }
+  ],
+  "non_official_reference_only": [
+    {
+      "title": "Geniuslink: Amazon affiliate commission rates historical guide",
+      "url": "https://geniuslink.com/blog/amazon-affiliate-commission-rates-historical-guide/",
+      "reason": "Third-party. Lists Kitchen at 4.5%. Not used as a data value."
+    },
+    {
+      "title": "EcomChief: Amazon affiliate commission rates 2026",
+      "url": "https://ecomchief.com/blogs/news-1/amazon-affiliate-commission-rates-2026",
+      "reason": "Third-party. Lists Kitchen at 4.5% in one table and 5% in another, so the sources conflict. Not used as a data value."
+    }
+  ]
+}
