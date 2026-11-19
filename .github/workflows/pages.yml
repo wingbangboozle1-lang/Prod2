@@ -1,8 +1,12 @@
 name: Publish static site to GitHub Pages
 
+# Originally added by session d12d2304 (PR #1). Updated in the integration session:
+# the site is now generated into docs/ by scripts/build_site.py, verified by
+# scripts/verify_site.py, and only the generated docs/ folder is published.
+
 on:
   push:
-    branches: ['**']
+    branches: ['main']
   workflow_dispatch:
 
 permissions:
@@ -20,19 +24,26 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build the site
+        run: python3 scripts/build_site.py
+      - name: Verify the built site (gate; a failure blocks deployment)
+        run: python3 scripts/verify_site.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Assemble static site artifact
         run: |
+          rm -rf _site
           mkdir -p _site
-          cp index.html suggestions.html evidence.html feed.xml sitemap.xml robots.txt _site/
-          cp -R assets guides _site/
+          cp -R docs/. _site/
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
   deploy:
-    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

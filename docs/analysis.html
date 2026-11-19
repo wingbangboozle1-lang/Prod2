@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analysis: what the verified data shows and where each requirement stands</title>
+<meta name="description" content="Verified findings for the five supplied Amazon links, with source links, and the build status of each requirement.">
+<link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/analysis.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Counter Notes">
+<meta property="og:title" content="Analysis: what the verified data shows and where each requirement stands">
+<meta property="og:description" content="Verified findings for the five supplied Amazon links, with source links, and the build status of each requirement.">
+<meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/analysis.html">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="alternate" type="application/rss+xml" title="Counter Notes guides" href="feed.xml">
+
+</head>
+<body data-analytics-endpoint="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="index.html">Counter Notes</a>
+    <p class="tagline">Working name · Air fryers and meat thermometers, with the listing behind every row</p>
+  </div>
+</header>
+<div class="disclosure-strip" id="disclosure" role="note">
+  <div class="wrap"><strong>Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. This site is not endorsed by or affiliated with Amazon. Product links are marked sponsored.</div>
+</div>
+<nav class="nav" aria-label="Main">
+  <div class="wrap"><ul><li><a href="index.html">Home</a></li><li><a href="air-fryers.html">Air fryers</a></li><li><a href="meat-thermometers.html">Meat thermometers</a></li><li><a href="guides/index.html">Guides</a></li><li><a href="products.html">Products</a></li><li><a href="analysis.html" aria-current="page">Analysis</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="about.html">About</a></li></ul></div>
+</nav>
+<main id="main" class="wrap">
+
+<section class="hero compact"><p class="kicker">Data · analysis</p><h1>Analysis and build status</h1>
+<p class="dek">What the verified data shows, what it does not show, and where each requirement stands.</p></section>
+<section><h2 class="section-h">Findings</h2>
+<div class="table-wrap"><table class="data"><thead><tr><th>Finding</th><th>Value</th><th>Source</th><th>Status</th></tr></thead><tbody><tr><td>Supplied short links that resolved to an Amazon product page</td><td>5 of 5</td><td><a href="https://link.amazon/B0c8moW59" rel="sponsored noopener">link.amazon (5 tokens)</a></td><td>Verified 2026-11-19</td></tr><tr><td>Distinct observed redirect ASINs</td><td>5</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" rel="sponsored noopener">B0CDY277D3 listing</a></td><td>Verified 2026-11-19</td></tr><tr><td>Supplied tokens in the 10-character ASIN format</td><td>0 of 5</td><td><a href="https://sellercentral.amazon.com/seller-forums/discussions/t/736a09d1-bb16-4add-bb57-229805c9f2d9" rel="sponsored noopener">Amazon Seller Central forum (secondary)</a></td><td>Irregular: see FR-01</td></tr><tr><td>Intended ASINs confirmed</td><td>0 of 5</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" rel="sponsored noopener">B0CDY277D3 listing</a></td><td>Unverified: FR-02</td></tr><tr><td>Prices and ratings published</td><td>0 of 5</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" rel="sponsored noopener">B0CDY277D3 listing</a></td><td>Blank by design: FR-05</td></tr><tr><td>Associates disclosure wording</td><td>“As an Amazon Associate I earn from qualifying purchases.”</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="sponsored noopener">Operating Agreement, Section 5</a></td><td>Verified verbatim</td></tr><tr><td>Special Link tests in the Associates workflow</td><td>0 of 5</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="sponsored noopener">Operating Agreement, Section 1</a></td><td>Open: FR-03</td></tr><tr><td>Guide topics backed by measured demand data</td><td>0 of 4</td><td><a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content">Google: creating helpful content</a></td><td>Open: FR-13</td></tr><tr><td>Outbound product links marked rel="sponsored"</td><td>All product links</td><td><a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links">Google: qualify outbound links</a></td><td>Enforced by verify script</td></tr></tbody></table></div>
+<p class="note">No conversion score, revenue forecast, or ranking is presented. The campaign ledger is empty by design (<a href="ledger.html">ledger</a>).</p></section>
+<section><h2 class="section-h">Build status against the requirements</h2>
+<div class="table-wrap"><table class="data"><thead><tr><th>Requirement</th><th>Status</th><th>Source</th></tr></thead><tbody><tr><td>Product pages with titles and meta descriptions (S-04)</td><td>Implemented; checked by the verify script</td><td><a href="https://developers.google.com/search/docs/appearance/snippet">Google: snippet guidance (cited, not fetched)</a></td></tr><tr><td>Outbound product links marked sponsored (S-05)</td><td>Implemented</td><td><a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links">Google: qualify outbound links</a></td></tr><tr><td>Disclosure under the masthead and in the footer, every page</td><td>Implemented</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="sponsored noopener">Operating Agreement, Section 5</a></td></tr><tr><td>Product-intent record with separate observed and intended fields</td><td>Implemented (intended fields unverified)</td><td><a href="https://sellercentral.amazon.com/seller-forums/discussions/t/736a09d1-bb16-4add-bb57-229805c9f2d9" rel="sponsored noopener">ASIN description (secondary)</a></td></tr><tr><td>Special Link validation per product (brief)</td><td>Not done: owner test required (FR-03)</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="sponsored noopener">Operating Agreement, Section 1</a></td></tr><tr><td>Privacy-preserving outbound-click counter</td><td>Partial: client-side event, nothing transmitted (FR-09)</td><td><a href="https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html">Zone4 decision log (internal)</a></td></tr><tr><td>Self-hosted analytics endpoint and five defined events</td><td>Not implemented: no server on GitHub Pages; 1 of 5 events defined (FR-09)</td><td><a href="https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html">Zone4 decision log (internal)</a></td></tr><tr><td>Question-shaped guides (S-07, S-13)</td><td>Implemented: four guides from PR #1, texts kept; no measured query data (FR-13)</td><td><a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content">Google: creating helpful content</a></td></tr><tr><td>Sitemap and RSS feed for each guide</td><td>Implemented; search-console submission owner action (FR-10)</td><td><a href="https://developers.google.com/search/docs/appearance/page-experience">Google: page experience (cited)</a></td></tr><tr><td>Structured data (S-09)</td><td>Partial: JSON-LD on category and guide pages; no social preview image</td><td><a href="https://developers.google.com/search/docs/appearance/page-experience">Google: page experience (cited)</a></td></tr><tr><td>Product photography (S-18)</td><td>Not implemented: decision needed (FR-07)</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="sponsored noopener">Operating Agreement, Section 1</a></td></tr><tr><td>Three-question chooser above the table (S-19)</td><td>Not implemented: awaiting option choice (SUG-07)</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" rel="sponsored noopener">B0CDY277D3 listing</a></td></tr><tr><td>Counter-space analysis (S-23)</td><td>Not implemented: dimensions not extracted (FR-08)</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" rel="sponsored noopener">B0CDY277D3 listing</a></td></tr><tr><td>Authorship, navigation and brand (publication polish)</td><td>Partial: navigation and footer done; no named author; brand from PR #1, not yet confirmed (FR-11, FR-12)</td><td><a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content">Google: creating helpful content</a></td></tr><tr><td>Measurement ledger, empty until first-party reports exist</td><td>Implemented as empty</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="sponsored noopener">Associates Program Policies (Commission Income Statement)</a></td></tr><tr><td>Verification gate in the workflow (disclosure, sponsored links, links, claims)</td><td>Implemented: scripts/verify_site.py; GitHub Actions workflow</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="sponsored noopener">Operating Agreement, Section 5</a></td></tr></tbody></table></div>
+</section>
+<section><h2 class="section-h">Reading the findings</h2>
+<ul class="plain">
+  <li>The five supplied links all resolve, so the links work. We cannot say they are the intended products until the owner confirms it (<a href="flagged.html#FR-02">FR-02</a>).</li>
+  <li>Every product row links to its Amazon listing; nothing on the site is copied from a listing except the title spec, marked “as listed”.</li>
+  <li>The strongest next step is confirmation, not content: intended ASINs and one Special Link test per product. See <a href="suggestions.html">Suggestions</a>.</li>
+</ul></section>
+
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer-disclosure" id="footer-disclosure"><strong>Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. This site is not endorsed by or affiliated with Amazon.</p>
+    <nav aria-label="Site map"><ul class="footer-links"><li><a href="executive-summary.html">Executive summary</a></li><li><a href="products.html">Full product table</a></li><li><a href="analysis.html">Analysis and build status</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions for review</a></li><li><a href="ledger.html">Campaign ledger</a></li><li><a href="sources.html">Source register</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="about.html">About and method</a></li><li><a href="feed.xml">RSS feed</a></li><li><a href="sitemap.xml">Sitemap</a></li></ul></nav>
+    <p class="fine">Every page is dated by its source fetch. Product data was checked on 2026-11-19. Editorial byline: “Editorial team” (no named author supplied, see <a href="flagged.html#FR-11">FR-11</a>). Brand name is a working name (<a href="flagged.html#FR-12">FR-12</a>).</p>
+  </div>
+</footer>
+<script src="assets/tracker.js" defer></script>
+</body>
+</html>
