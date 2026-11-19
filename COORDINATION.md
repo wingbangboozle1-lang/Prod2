@@ -591,6 +591,10 @@ arena/9f7a78d8-prod2) is folded in rather than overwritten:
   the listings, so the 'sandbox cannot reach amazon.com' caveat no longer explains the flag;
   the flag itself stays open because it is the register's own read-date caveat, and only an
   owner decision (Q-P11) can set the cadence that closes it. Not edited here beyond this note.
+- **Board note, not an edit** — PR #23 (`arena/5e692632-prod2`, "Integration: reader-facing polish, "
+  "SG-27..30 parallel-pass rows, final verify") was open while this branch was finishing and touches "
+  "the same shared outputs. Whoever merges second must re-run `tools/build.py` and take the "
+  "regenerated `docs/` + root mirror, not a hand-merged copy of generated files.",
 - **Handoff** — RR-5/RR-6 stand: PR #16 was closed by another session (no longer in `gh pr list`),
   so the root-mirror clobber hazard is retired; the `site/` Countercraft build and the `docs/`
   publication still coexist per INT-06/INT-07 and neither was touched beyond regeneration.
