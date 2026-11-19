@@ -802,8 +802,37 @@ def main() -> None:
     build_feed()
     build_sitemap()
     build_robots()
+    (DOCS / ".nojekyll").write_text("")
     print(f"built {len(PAGES)} pages -> {DOCS}")
+
+
+def mirror_to_root():
+    """Legacy "main /" Pages serves the repo root. Mirror the publication there so
+    the canonical URL carries it (INT-07's approach, retargeted to this build).
+    Purge artifacts of the previous mirror (site/ output) first so no stale pages
+    linger at root. Writes .nojekyll so the root is served as static files."""
+    site = ROOT / "site"
+    if site.is_dir():
+        for src in site.rglob("*"):
+            if src.is_file():
+                rel = src.relative_to(site)
+                dst = ROOT / rel
+                if dst.is_file():
+                    dst.unlink()
+        for src in sorted(site.rglob("*"), reverse=True):
+            d = ROOT / src.relative_to(site)
+            if d.is_dir() and not any(d.iterdir()):
+                d.rmdir()
+    for src in DOCS.rglob("*"):
+        if src.is_file():
+            dst = ROOT / src.relative_to(DOCS)
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dst)
+    (ROOT / ".nojekyll").write_text("")
+    (DOCS / ".nojekyll").write_text("")
+    print("mirrored docs/ -> repo root")
 
 
 if __name__ == "__main__":
     main()
+    mirror_to_root()

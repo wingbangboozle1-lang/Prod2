@@ -393,7 +393,8 @@ _None. This session owned all scopes._
 |---|---|
 | Integration PR | https://github.com/wingbangboozle1-lang/Prod2/pull/8 |
 | Merge result | **merged** 2026-11-19 — merge commit `f152eac` on `main` |
-| Pages | **deployed** — https://wingbangboozle1-lang.github.io/Prod2/ (Pages source: `main` / `docs` folder; API status `built`) |
-| Live verification | Fetched live homepage 2026-11-19: title "Find the format that fits your kitchen \| Prod2", all product links carry `?tag=shopnow047c-20` + paid-link disclosure, chooser/guides/dashboards/review surfaces resolve |
+| Pages | **deployed** — https://wingbangboozle1-lang.github.io/Prod2/ (legacy `main /` root serving; API status `built`) |
+| Live verification | Fetched live pages 2026-11-19: homepage title "Find the format that fits your kitchen \| Prod2"; all product links carry `?tag=shopnow047c-20` + paid-link disclosure; chooser, guides, dashboards and review surfaces resolve. (Serving source verified by probe: root mirror answers at `/`, `404.html` and repo paths serve.) |
+| Serving note | The repo is served in legacy **`main /` (root)** mode; flipping to Actions mode403s for session tokens (admin-only). `scripts/build_site.py`'s INT-07 root mirror was retargeted: **`tools/build.py` now mirrors `docs/` → root** so the canonical URL carries the Prod2 publication; the Countercraft build stays verified at `site/` and is no longer mirrored. `pages.yml`'s `configure-pages`/`deploy-pages` steps were removed after `configure-pages` rewrote the legacy source once mid-session. |
 | Workflows on merge commit | verify-site: success · Self-hosted analytics tests: success · Deploy to GitHub Pages: success |
 | Checks at merge | `tools/checks.py` PASS · `scripts/verify_site.py` PASS · `npm test` PASS (2/2) |
