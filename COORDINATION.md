@@ -1212,3 +1212,29 @@ Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Sing
 - F-P23 / Q-P14: event-vocabulary contract (resolved in code by the W-01 pass; the gate asserts the five names; whether a collector is deployed for live traffic was not checked this session).
 - F-P24: short-link discrepancy (blocker 3).
 - F-P17 / F-02: carousel prices and ratings belong to other ASINs; the site withholds prices and ratings.
+---
+
+## ACTIVE CLAIM — session arena/e292fb4d-prod2 (2026-11-20, Pages exposure + short-link re-read + integration)
+
+Branched from `main` at `0a4b573` (PR #46 merged; fast-forwarded, no local commits existed). Other open PRs
+(#35, #41, #43, #45, #47) are **not touched**; their scopes overlap `docs/` and this board and are logged here only.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Stop serving the whole repository from the live host: switch the Pages source from `main /` (root mode, F-P19/F-P20) to the GitHub Actions artifact built from `docs/`, then prove the live host no longer serves `data/`, `tools/`, `archive/` | in progress | arena/e292fb4d-prod2 | repository Pages setting (API), `COORDINATION.md`, `data/p2/flags.json` (resolution only if proven) |
+| X-02 Re-read the five `link.amazon` short links and the five `/dp/` listings (2026-11-20) to re-test F-P24 | in progress | arena/e292fb4d-prod2 | `data/p2/live-check-2026-11-20-e292fb4d.json` (new), `COORDINATION.md` |
+| X-03 Rebuild, gate, PR to main, merge, Pages live check; record here | in progress | arena/e292fb4d-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+### Results — arena/e292fb4d-prod2 (2026-11-20), part 1 (X-02)
+
+- **X-02 · short-link re-read (done, F-P24 still open).** All five `link.amazon` URLs were fetched with the fetch
+  tool on 2026-11-20. **All five resolved to `https://www.amazon.com/` (homepage, title "Amazon.com. Spend less.
+  Smile more.")**, none to a product page. This differs from the 06:5x read by `arena/722181aa-prod2` (four homepage,
+  one HTTP 500) only in the fifth link. The cause is still unknown and is **not** concluded here (not claimed invalid).
+  Record: `data/p2/live-check-2026-11-20-e292fb4d.json`; F-P24 detail carries this third observation. Intended-ASIN
+  fields unchanged. The five `/dp/` listings were **not** re-read in this pass (read twice today by other sessions).
+- **Pages build observation.** The legacy Pages build for `40673a3` (PR #48, COORDINATION-only change) reported
+  `errored` ("Page build failed."); the next build for `51a02ac` reported `built`. Single failed build, now superseded;
+  recorded here, not treated as a site defect.
+- **Pages settings (X-01).** Source is still `legacy`, `main /` (root mirror). Repository admin rights are present
+  (`permissions.admin = true`). Change scheduled after this PR merges, so the deploy artifact is from final `main`.
