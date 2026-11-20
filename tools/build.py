@@ -55,9 +55,17 @@ PROD_BY_ID = {p["id"]: p for p in PRODUCTS}
 # ---------------------------------------------------------------------------
 PAGES = [
     ("index", "index.html",
-     f"Find the format that fits your kitchen | {BRAND}",
-     "Three air fryers and two meat thermometers compared by format, capacity and counter fit. Every figure links to the official listing it was read from.",
+     f"Air fryers and meat thermometers, chosen by format | {BRAND}",
+     "Three air fryers in three formats and two meat thermometers, compared by capacity, counter fit and cleanup. Every figure cites the official listing it came from.",
      "home"),
+    ("shop", "shop.html",
+     f"Shop: the five kitchen tools we follow | {BRAND}",
+     "One shelf: three air fryer formats and two thermometer workflows, filtered by what you cook and how much counter you can spare. Paid links, marked.",
+     "shop"),
+    ("about", "about.html",
+     f"About {BRAND}: who writes this and how we check | {BRAND}",
+     "Who edits this site, the four rules every page follows, how figures are read and dated, and exactly what we cannot tell you yet.",
+     "about"),
     ("compare", "compare.html",
      f"Compare the five products side by side | {BRAND}",
      "One sourced comparison table: format, capacity, dimensions, counter depth and listed features — plus a three-question chooser and the counter-space analysis.",
@@ -188,23 +196,29 @@ def listing_link(p: dict, label: str = "listing") -> str:
             f'rel="noopener" target="_blank">{esc(label)}</a>')
 
 
-def buy_link(p: dict, text: str | None = None) -> str:
+def buy_link(p: dict, text: str | None = None, cls: str = "btn btn-buy") -> str:
     label = text or f"See the {p['name_short']} on Amazon"
-    return amazon_link(p["buy_url"], label, "btn") + f' <span class="paid">{esc(PAID_LABEL)}</span>'
+    return amazon_link(p["buy_url"], label, cls) + f' <span class="paid">{esc(PAID_LABEL)}</span>'
 
 
 # ---------------------------------------------------------------------------
 # Layout chrome
 # ---------------------------------------------------------------------------
+# Reader navigation: what a shopper needs. Six links, one group.
+# D-06 (2026-11-20): the previous nav carried eleven links, five of which were
+# dashboard surfaces. Those move to the footer's "The work behind it" directory,
+# which the gate still requires on every page.
 NAV_READER = [
-    ("compare.html", "Compare"),
-    ("products.html", "Products"),
-    ("guides.html", "Guides"),
-    ("buying-guide.html", "Buying guide"),
+    ("shop.html", "Shop"),
     ("category-air-fryers.html", "Air fryers"),
     ("category-thermometers.html", "Thermometers"),
+    ("guides.html", "Guides"),
+    ("compare.html", "Compare"),
+    ("about.html", "About"),
 ]
+# Everything an owner, reviewer or search engine needs, reachable from every page.
 NAV_WORK = [
+    ("about.html", "About &amp; standards"),
     ("executive-summary.html", "Executive summary"),
     ("method.html", "Method &amp; sources"),
     ("flagged.html", "Flagged for review"),
@@ -252,12 +266,12 @@ def build_footer() -> str:
     def lis(items):
         return "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in items)
     guides = lis(GUIDE_LINKS)
-    shop = lis([("compare.html", "Compare the five"), ("products.html", "Products &amp; specs"),
-                ("category-air-fryers.html", "Air fryers"), ("category-thermometers.html", "Thermometers"),
-                ("buying-guide.html", "Buying guide")])
+    shop = lis([("shop.html", "Shop the shelf"), ("compare.html", "Compare the five"),
+                ("products.html", "Products &amp; specs"), ("category-air-fryers.html", "Air fryers"),
+                ("category-thermometers.html", "Thermometers"), ("buying-guide.html", "Buying guide")])
     read = lis([("guides.html", "All guides"), ("buying-guide.html", "Buying guide"),
                 ("guides.html#subscribe", "Follow the feed"), ("guides.html#ask", "Ask a question"),
-                ("guides.html#byline", "Who writes this")])
+                ("about.html", "Who writes this")])
     work = lis(NAV_WORK)
     return f"""
 <footer class="footer">
@@ -282,7 +296,6 @@ DISCLOSURE_STRIP = (f'<div class="disclosure" role="note">'
                     f'<span class="disclosure-more">Product links on this site are paid links, marked {esc(PAID_LABEL)}; '
                     f'we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span>'
                     f'</div>')
-
 
 # ---------------------------------------------------------------------------
 # Data-rendering hooks
@@ -557,30 +570,59 @@ def hook_local_events(_="") -> str:
             '<th>Fields</th></tr></thead><tbody>' + rows + '</tbody></table></div>')
 
 
+# Product imagery: drawn, ours, and deliberately generic. No Amazon product
+# photography is copied onto this site; each card is a format illustration so a
+# reader sees the shape of the appliance, not a brand's asset (see about.html).
+PRODUCT_IMAGES = {
+    "P1": ("assets/img/fmt-dual-basket.png", "Two-basket air fryer, drawn from the format"),
+    "P2": ("assets/img/fmt-toaster-oven.png", "French-door air fryer toaster oven, drawn from the format"),
+    "P3": ("assets/img/fmt-single-basket.png", "Single-basket air fryer, drawn from the format"),
+    "P4": ("assets/img/fmt-instant-read.png", "Folding instant-read thermometer, drawn from the format"),
+    "P5": ("assets/img/fmt-wireless-probe.png", "Wireless leave-in probe and hub, drawn from the format"),
+}
+# Plain-English positioning. Every claim here restates a listed feature that is
+# already published on the card; these are the "who is this for" line, not a ranking.
+PRODUCT_BEST_FOR = {
+    "P1": "Two dishes, one finish time",
+    "P2": "Sheet-pan meals and rack cooking",
+    "P3": "One big basket, the least counter",
+    "P4": "A one-second spot check",
+    "P5": "Long cooks, watched from away",
+}
+PRODUCT_BUY_LABEL = {
+    "P1": "Check price on Amazon",
+    "P2": "Check price on Amazon",
+    "P3": "Check price on Amazon",
+    "P4": "Check price on Amazon",
+    "P5": "Check price on Amazon",
+}
+
+
 def hook_product_cards(_="") -> str:
-    BEST_FOR = {
-        "P1": "Two dishes at once, finished together",
-        "P2": "Sheet-pan meals, rack cooking, French doors",
-        "P3": "One big basket, smallest footprint",
-        "P4": "Fast doneness checks, ±0.5°F as listed",
-        "P5": "Monitor away from the heat, wireless",
-    }
     cards = []
     for p in PRODUCTS:
+        src, alt = PRODUCT_IMAGES[p["id"]]
         cards.append(f"""
 <article class="card product-card" id="{esc(p['id'])}">
-  <p class="eyebrow">{esc(p['format'])}</p>
-  <h3>{esc(p['name_short'])}</h3>
-  <p class="muted">{esc(p['asin'])}</p>
-  <ul>
-    <li>{esc(p.get('highlight_1') or '')}</li>
-    <li>{esc(p.get('highlight_2') or '')}</li>
-    <li>{esc(p.get('highlight_3') or '')}</li>
-  </ul>
-  <p>{buy_link(p)}</p>
-  <p class="muted"><strong>Best for:</strong> {BEST_FOR.get(p['id'], '')}. Listed facts sourced to {listing_link(p, 'the official listing')} (read {esc(p.get('name_listing_read') or '')}).</p>
+  <a class="thumb" href="{esc(p['buy_url'])}" rel="sponsored nofollow noopener" target="_blank"
+     data-affiliate="1" tabindex="-1" aria-hidden="true">
+    <img src="{esc(BASE)}/{src}" alt="" loading="lazy" width="1200" height="900">
+    <span class="rank">{esc(p['format'])}</span>
+  </a>
+  <div class="body">
+    <p class="eyebrow">Best for: {esc(PRODUCT_BEST_FOR[p['id']])}</p>
+    <h3><a href="products.html#{esc(p['id'])}" style="color:inherit;text-decoration:none">{esc(p['name_short'])}</a></h3>
+    <p class="muted asin">{esc(p['asin'])}</p>
+    <ul>
+      <li>{esc(p.get('highlight_1') or '')}</li>
+      <li>{esc(p.get('highlight_2') or '')}</li>
+      <li>{esc(p.get('highlight_3') or '')}</li>
+    </ul>
+    <p class="buy-row">{buy_link(p, PRODUCT_BUY_LABEL[p['id']])}</p>
+    <p class="source-line">Listed facts sourced to {listing_link(p, 'the official listing')}; listing re-checked {esc(p.get('last_live_read') or p.get('name_listing_read') or '')}. Illustration, not the product photo.</p>
+  </div>
 </article>""")
-    return '<div class="card-grid">' + "".join(cards) + '</div>'
+    return '<div class="shelf">' + "".join(cards) + '</div>'
 
 
 def hook_facts(pid: str) -> str:
@@ -595,7 +637,11 @@ def hook_guide_links(_="") -> str:
 
 
 def hook_comparison_cta(_="") -> str:
-    return ('<p class="cta-row">' + buy_link(PROD_BY_ID["P1"], "Compare all five") +
+    # Fixed 2026-11-20: this used to be a paid Amazon link labelled "Compare all
+    # five", which pointed at P1's listing. A comparison call to action must lead
+    # to the comparison, not to one product (misleading-label risk under
+    # Program Policies §2(b)).
+    return ('<p class="cta-row"><a class="btn" href="compare.html">Compare all five side by side</a>'
             ' <a class="btn btn-ghost" href="buying-guide.html">Read the buying guide</a></p>')
 
 
@@ -655,7 +701,7 @@ def hook_reader_capture(_="") -> str:
     return f"""
 <div class="card capture-card" id="ask">
   <h3>What should we answer next?</h3>
-  <p>Every guide here starts from a real buyer question. Ask yours — if it fits the five products we follow, it enters the <a href="guides.html">guide queue</a>.</p>
+  <p>Every guide here starts from a real buyer question. Ask yours in one line — if it fits the five products we follow, it enters the <a href="guides.html">guide queue</a>.</p>
   <form class="capture-form" data-capture="{esc(state)}" data-capture-endpoint="{esc(endpoint)}">
     <label for="capture-question">Your question</label>
     <textarea id="capture-question" name="question" rows="3" required
@@ -675,7 +721,7 @@ def hook_byline(_="") -> str:
 <div class="byline-strip" id="byline">
   <div>
     <h3>Who writes this</h3>
-    <p>{esc(BRAND)} is an edited buying guide, not a store and not a lab. The editing rule is short: every figure on this site was read from an official product listing or an official policy page on a dated pass, and the citation sits next to it. Nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>), so nothing pretends otherwise. The voice standard is published in the repo (<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/VOICE.md" rel="noopener" target="_blank">VOICE.md</a>), and the receipts stay visible on the <a href="method.html">method page</a>.</p>
+    <p>{esc(BRAND)} is an edited buying guide, not a store and not a lab. Every figure was read from an official listing or an official policy page on a dated pass, and the citation sits next to it. Nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>), so nothing pretends otherwise. <a href="about.html">Read the four rules every page follows</a>, or go straight to the <a href="method.html">receipts</a>.</p>
   </div>
   <p class="byline-meta">Published {esc(BUILD_DATE)} · <a href="feed.xml" data-feed="1">RSS</a> · <a href="https://github.com/wingbangboozle1-lang/Prod2" rel="noopener" target="_blank">Source register on GitHub</a></p>
 </div>"""
@@ -755,6 +801,43 @@ def hook_guides_index(_="") -> str:
     return "".join(out)
 
 
+def hook_shop_grid(_="") -> str:
+    """The shelf with filter chips. Filters are progressive enhancement: with no
+    JavaScript every card is simply visible, so the page still sells."""
+    groups = [
+        ("af", "Air fryers", [p for p in PRODUCTS if p["format"].lower().find("thermometer") == -1]),
+        ("th", "Thermometers", [p for p in PRODUCTS if p["format"].lower().find("thermometer") != -1]),
+    ]
+    chips = ['<a class="chip is-active" href="shop.html" aria-pressed="true">All <span class="count">5</span></a>']
+    for pid, label, members in groups:
+        chips.append(f'<button type="button" class="chip" data-filter="{pid}" aria-pressed="false">'
+                     f'{esc(label)} <span class="count">{len(members)}</span></button>')
+    # format-level filters, one per distinct listed format
+    fmt_chips = []
+    seen = set()
+    for p in PRODUCTS:
+        f = p["format"]
+        if f in seen:
+            continue
+        seen.add(f)
+        slug = f.lower().replace(" ", "-").replace("&", "and")
+        fmt_chips.append(f'<button type="button" class="chip" data-format="{esc(slug)}" aria-pressed="false">'
+                         f'{esc(f)}</button>')
+    cards = hook_product_cards("")
+    return (f'<div class="filter-bar" role="group" aria-label="Filter the shelf">'
+            f'<span class="label">Show</span>{"".join(chips)}</div>'
+            f'<div class="filter-bar" role="group" aria-label="Filter by format">'
+            f'<span class="label">Format</span>{"".join(fmt_chips)}</div>'
+            f'{cards}'
+            '<p class="filter-status" id="filter-status" role="status" aria-live="polite"></p>')
+
+
+def hook_compare_table(_="") -> str:
+    """The decision-grade comparison table: attributed columns, sourced cells,
+    blanks that stay blank. Wraps the existing products_table output."""
+    return hook_products_table("")
+
+
 HOOKS = {
     "products_table": hook_products_table,
     "air_fryer_table": hook_air_fryer_table,
@@ -784,6 +867,8 @@ HOOKS = {
     "queue": hook_queue,
     "questions_summary": hook_questions_summary,
     "guides_index": hook_guides_index,
+    "shop_grid": hook_shop_grid,
+    "compare_table": hook_compare_table,
 }
 
 
@@ -926,7 +1011,7 @@ LAYOUT = """<!DOCTYPE html>
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <a class="wordmark" href="{base}/index.html"><span class="wordmark-name">{brand}</span>
+    <a class="wordmark" href="{base}/index.html"><span class="wordmark-name">{brand}<span class="wordmark-dot">.</span></span>
       <span class="wordmark-desc">{descriptor}</span></a>
     {nav}
   </div>
@@ -1008,6 +1093,10 @@ def main() -> None:
     DOCS.mkdir(exist_ok=True)
     (DOCS / "assets").mkdir(exist_ok=True)
     if ASSETS_SRC.exists():
+        # Mirror, do not overlay: an asset deleted or replaced in assets/ must
+        # disappear from docs/assets/ too, or the freshness check fails forever.
+        if (DOCS / "assets").exists():
+            shutil.rmtree(DOCS / "assets")
         shutil.copytree(ASSETS_SRC, DOCS / "assets", dirs_exist_ok=True)
     for page_id, path, title, desc, section in PAGES:
         build_page(page_id, path, title, desc, section)

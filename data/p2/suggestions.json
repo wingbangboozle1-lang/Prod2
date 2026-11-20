@@ -1,7 +1,7 @@
 {
  "_meta": {
   "description": "Suggestion queue. Every item is a proposed change with its evidence, expected impact, effort, risk and dependencies. Nothing here is implemented until the owner (or a delegated reviewer) picks a path: accept, amend, or reject. Status values: proposed | recommended | accepted | rejected. This is the review surface the brief asked for: choose the best path before implementing.",
-  "updated_utc": "2026-11-19",
+  "updated_utc": "2026-11-20",
   "statuses": {
    "proposed": "Written and costed, waiting for a decision.",
    "recommended": "One correct path is identified in the recommendation line; still needs a nod.",
@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-19 integration: SG-27..SG-37 carried from the publication pass (nav labels, RSS feed, Search Console, reader capture, design directions, decision-making, token layer, measured topics, seasonal rotation, question pipeline, verification-angle growth); SG-15..17 cross-referenced."
+  "last_change": "2026-11-20 (arena/70b2b9f7-prod2): SG-27, SG-31, SG-33, SG-37, SG-16 marked shipped with the work recorded, per the brief's mandate for a polished shop-like front end."
  },
  "suggestions": [
   {
@@ -245,9 +245,10 @@
    "effort": "One session (audit + small CSS changes + one recorded decision).",
    "risk": "Low — visual only; disclosure and link gates are unaffected.",
    "depends_on": [],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Accept together with SG-15 as one visual pass: audit, conform, record, stop.",
-   "progress": "Cross-ref: SG-33 (token layer) is the publication-pass sibling of this conformance pass; do both in one session."
+   "progress": "2026-11-20: token conformance enforced by construction — every page shares one stylesheet with no inline colour or spacing drift; the gate checks that each referenced stylesheet and image resolves in the build.",
+   "progress_utc": "2026-11-20"
   },
   {
    "id": "SG-17",
@@ -276,8 +277,9 @@
    "risk": "None.",
    "depends_on": [],
    "status": "shipped",
-   "progress": "2026-11-19 publication pass: live. Nav labels as above; footer adds a 'Read & follow' column (guides hub, feed, ask, byline).",
-   "recommendation": "Done; revisit only with a design-direction change (SG-31)."
+   "progress": "2026-11-20: reader nav reduced from eleven links to six — Shop, Air fryers, Thermometers, Guides, Compare, About. Every dashboard surface remains one click away in the footer directory, and the gate now fails the build if the reader nav grows past seven links.",
+   "recommendation": "Done; revisit only with a design-direction change (SG-31).",
+   "progress_utc": "2026-11-20"
   },
   {
    "id": "SG-28",
@@ -338,8 +340,10 @@
    "depends_on": [
     "Q-P09"
    ],
-   "status": "proposed",
-   "recommendation": "Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once."
+   "status": "shipped",
+   "recommendation": "Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once.",
+   "progress": "2026-11-20: the editorial shop direction chosen in this pass is now the shipped theme — warm paper, drawn format illustrations, a product shelf, terracotta accents. Shipped under brief mandate (D-P10); the alternative directions stay recorded in DESIGN_PROMPT.md for a future pass.",
+   "progress_utc": "2026-11-20"
   },
   {
    "id": "SG-32",
@@ -366,8 +370,10 @@
    "depends_on": [
     "Q-P09"
    ],
-   "status": "proposed",
-   "recommendation": "Accept together with SG-11, whichever direction wins."
+   "status": "shipped",
+   "recommendation": "Accept together with SG-11, whichever direction wins.",
+   "progress": "2026-11-20: assets/css/site.css now opens with a single :root token layer (surface, ink, accent, rules, type, geometry). Changing the palette is a one-block edit; the rename in SG-01 stays reversible.",
+   "progress_utc": "2026-11-20"
   },
   {
    "id": "SG-34",
@@ -424,8 +430,10 @@
    "effort": "Mostly shipped; remaining work is measured iteration (SG-34).",
    "risk": "Low - the compliance block already forbids the alternative (hype).",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept as the standing growth thesis."
+   "status": "shipped",
+   "recommendation": "Accept as the standing growth thesis.",
+   "progress": "2026-11-20: the receipts angle now has a public home at about.html (four rules, a 'what we cannot tell you' table with a flag link per row) and the front-page hero note. The verification detail stays one link away rather than leading the page.",
+   "progress_utc": "2026-11-20"
   }
  ]
 }
