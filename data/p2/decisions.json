@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded. | 2026-11-20 (arena/20f83238-prod2): D-P22 (queue reviewer pass — Path A chosen) and D-P23 (promotion hold) added."
+    "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded. | 2026-11-20 (arena/20f83238-prod2): D-P22 (queue reviewer pass — Path A chosen) and D-P23 (promotion hold) added. | 2026-11-20 (arena/2adc150a-prod2): D-P24 (sale-week window) added — this row collided twice and was renumbered (draft D-P11 → D-P22 → D-P24); see the COORDINATION.md collision log."
   },
   "decisions": [
     {
@@ -330,6 +330,16 @@
       "recorded_choice": "No. SG-14 is accepted as a standing hold: no paid promotion and no newsletter until one clean attribution test exists (a tagged Special Link per product clicked and read back in the Associates tracking report — the protocol on the measurement page). The brief's evidence-first rule applies to spend even more than to copy: an unmeasured funnel cannot tell a promotion from a leak. The hold lifts on the owner's record of that one test. (Recorded by the D-P22 reviewer pass.)",
       "sources": [
         "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json"
+      ]
+    },
+    {
+      "id": "D-P24",
+      "question": "What publishes in the late-November sale window, and on what evidence?",
+      "status": "Recorded 2026-11-20 (editorial hypothesis per D-19)",
+      "recorded_choice": "Publish guide-sale-week.html (\"Four questions a sale week can't answer\") in the holiday-hosting season lane — the same ahead-of-cadence seasonal-desk precedent as the gifting guide (D-P20) and slot 1. The guide asks the four questions a discount cannot answer (format, capacity, listing-versus-discount, workflow) and is built only from the verified register: cited listing facts carry dated reads (2026-11-20 title re-check), the depth figure defers to the counter-space analysis (F-P08 keeps dimensions pending re-read), and no price, rating, deal-quality or popularity claim appears anywhere (F-02, D-19; the claims gate enforces). The cadence queue is untouched. Timing note: this guide was authored before D-P22 (Path A) landed; it is read as inside the published calendar's seasonal lane, not as new scope beyond it — if the reviewer reads Path A differently, retracting this publish is one line in tools/build.py + data/p2/calendar.json. Measured queries take over topic selection once the SG-06 gate and 14 days of data exist (SG-34).",
+      "sources": [
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/live-check-2026-11-20-722181aa.json"
       ]
     }
   ]

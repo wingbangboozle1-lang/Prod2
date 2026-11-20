@@ -3,7 +3,7 @@
   "description": "Editorial calendar: publishing cadence, seasonal desks and content clusters. Consumed by tools/build.py. The topic queue is carried from data/calendar.json (arena/cd3cddd6-prod2, 2026-11-19); slot 1 shipped early in the 2026-11-19 publication pass (guide-two-baskets-or-one.html).",
   "updated_utc": "2026-11-20",
   "evidence_rule": "No season or topic is justified by a search-volume or trend figure (D-19 / F-15). Each exists because it answers a question a buyer of the verified five products can actually ask, answerable from the verified register. Seasons follow the US calendar because the marketplace is amazon.com (settings.marketplace).",
-  "last_change": "2026-11-20 (arena/644d217b-prod2): two long-form pieces registered in the thermometer and air-fryer clusters; they carry an argument rather than a checklist and are tracked as SG-45."
+  "last_change": "2026-11-20 (arena/644d217b-prod2): two long-form pieces registered in the thermometer and air-fryer clusters; they carry an argument rather than a checklist and are tracked as SG-45. 2026-11-20 (arena/2adc150a-prod2): sale-week insert guide-sale-week.html published in the holiday-hosting season lane and added to both clusters (decision D-P24 — same ahead-of-cadence precedent as the gifting guide, D-P20); queue untouched."
  },
  "cadence": {
   "unit": "one new question-shaped guide",
@@ -19,6 +19,7 @@
    "window": "November - December (US)",
    "line": "Big meals, borrowed counter space, and a house full of people who eat in waves.",
    "guides": [
+    "guide-sale-week.html",
     "guide-holiday-hosting.html",
     "guide-basket-vs-oven.html",
     "guide-thermometer-accuracy.html",
@@ -66,6 +67,7 @@
     "guide-two-baskets-or-one.html",
     "guide-holiday-hosting.html",
     "guide-gift-guide.html",
+    "guide-sale-week.html",
     "article-air-fryer-doneness.html"
    ]
   },
@@ -79,6 +81,7 @@
     "guide-holiday-hosting.html",
     "guide-instant-vs-leave-in.html",
     "guide-gift-guide.html",
+    "guide-sale-week.html",
     "article-thermometer-placement.html"
    ]
   }

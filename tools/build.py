@@ -127,6 +127,10 @@ PAGES = [
      f"Gift guide: which of the five fits which cook? | {BRAND}",
      "Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.",
      "guides"),
+    ("guide-sale-week", "guide-sale-week.html",
+     f"Four questions a sale week can't answer | {BRAND}",
+     "Sale week makes every machine look urgent. Four questions — format, capacity, counter fit, workflow — that settle the choice from listed specs, not the countdown.",
+     "guides"),
     ("guides", "guides.html",
      f"Guides: one buyer question per page | {BRAND}",
      "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
@@ -188,7 +192,7 @@ PAGES = [
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
              "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
-             "guide-gift-guide"]
+             "guide-gift-guide", "guide-sale-week"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -264,6 +268,7 @@ GUIDE_LINKS = [
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
     ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
     ("guide-gift-guide.html", "The gift guide"),
+    ("guide-sale-week.html", "Sale week questions"),
     ("guides.html", "All guides"),
 ]
 
@@ -782,6 +787,7 @@ GUIDE_BLURBS = {
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
     "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
+    "guide-sale-week": "Four questions that outlast any discount timer: format, capacity, counter fit, workflow.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -794,6 +800,7 @@ GUIDE_TAGS = {
     "guide-holiday-hosting": "Seasonal",
     "guide-instant-vs-leave-in": "Thermometers",
     "guide-gift-guide": "Seasonal",
+    "guide-sale-week": "Seasonal",
 }
 
 
@@ -1154,6 +1161,7 @@ LAYOUT = """<!DOCTYPE html>
 <meta property="og:site_name" content="{brand} — {descriptor}">
 <meta name="twitter:card" content="summary_large_image">
 {site_verification}<link rel="alternate" type="application/rss+xml" title="{brand} feed" href="{base}/feed.xml">
+<link rel="icon" type="image/svg+xml" href="{base}/assets/img/favicon.svg">
 <link rel="preload" href="{base}/assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{base}/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{base}/assets/css/site.css">
