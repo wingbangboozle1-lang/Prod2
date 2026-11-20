@@ -26,6 +26,10 @@ Sections:
   publication  guides reach compare + buying guide + their cluster pillars (S-24);
                feed covers every guide; reader-capture gate consistent with
                settings; Search Console verification meta matches the token slot
+  exposition   the publish artifact is docs/ only; source is never servable;
+               link.amazon short links are quoted evidence, never clickable
+  measurement  the site's event list vs the endpoint's accepted names; divergence
+               is printed as a published irregularity (F-P23), not hidden
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
 """
 from __future__ import annotations
@@ -64,6 +68,11 @@ def check(name: str) -> None:
 def fail(msg: str) -> None:
     FAILURES.append(f"[{SECTION}] {msg}")
     print(f"   FAIL {msg}")
+
+
+def note(msg: str) -> None:
+    """A published irregularity, not a gate failure. Prints and continues."""
+    print(f"   NOTE  {msg}")
 
 
 def ok(msg: str) -> None:
@@ -477,6 +486,30 @@ def main() -> int:
             fail(f"{f.name}: cites a short link without rendering it as inert code")
     if not FAILURES:
         ok("artifact is docs/ only; short links are quoted, never clickable")
+
+    # -------------------------------------------------------------- measurement
+    check("measurement")
+    # The site and the only endpoint in this repo were written to different event
+    # vocabularies (F-P23). Until Q-P14 picks one, the build must at least say so
+    # out loud: if they diverge, this prints the divergence rather than failing,
+    # because the fix is a recorded decision (D-P15), not a code change.
+    server = (ROOT / "server.mjs")
+    site_js = (DOCS / "assets" / "js" / "measure.js")
+    if server.exists() and site_js.exists():
+        m = re.search(r"allowedEvents\s*=\s*new Set\(\[(.*?)\]\)", server.read_text(encoding="utf-8"), re.S)
+        server_events = set(re.findall(r"'([a-z_0-9]+)'", m.group(1))) if m else set()
+        site_events = set(re.findall(r"name:\s*'([a-z_0-9]+)'", site_js.read_text(encoding="utf-8")))
+        if not site_events:
+            site_events = set(re.findall(r"'([a-z_0-9]+)'", site_js.read_text(encoding="utf-8")))
+        events_doc = json.loads((ROOT / "data" / "p2" / "events.json").read_text(encoding="utf-8"))
+        declared = {e["name"] for e in events_doc["events"]}
+        rejected = sorted(e for e in declared if server_events and e not in server_events)
+        if rejected:
+            note(f"endpoint would reject: {', '.join(rejected)} — F-P23 / Q-P14")
+        ok(f"{len(declared)} site events; endpoint accepts {len(server_events)} names"
+           + (f"; {len(rejected)} mismatched (published, not blocking)" if rejected else ""))
+    else:
+        note("server.mjs or measure.js missing — vocabulary cross-check skipped")
 
     # -------------------------------------------------------------- freshness
     check("freshness")

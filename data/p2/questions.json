@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
   "updated_utc": "2026-11-19",
-  "last_change": "2026-11-19 integration (arena/9f84489c-prod2): publication-pass questions renumbered Q-P08 (Search Console verification, cross-ref Q-P06) / Q-P09 (design-direction pick)."
+  "last_change": "2026-11-20 (arena/86206fb3-prod2): Q-P14 added — the event vocabulary choice that F-P23 needs."
  },
  "questions": [
   {
@@ -224,6 +224,20 @@
     "SG-33 token layer"
    ],
    "flags": []
+  },
+  {
+   "id": "Q-P14",
+   "question": "Which event vocabulary should the site and the endpoint share?",
+   "known": "server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. The site emits five: page_view, outbound_click, guide_read_75, category_click, feed_click.",
+   "recommendation": "Extend server.mjs to accept the three site events and map target_host. It is additive, it touches no browser code, and it preserves the instrumentation that is already tested. Then add a gate that reads both files and fails if the lists ever diverge again.",
+   "area": "Measurement",
+   "unknown": "A decision on which side moves. Extending the server keeps the site's already-shipped instrumentation and costs twelve lines of Node; changing measure.js keeps the server untouched but means editing and re-testing the only code that touches a reader's browser.",
+   "how_to_discover": "Compare the two lists against what the owner actually wants to know at launch. If the answer is 'how many people clicked a product', the site's five already cover it and the server should be extended. If the answer is 'which guides get read', the server's article_half_read/guide_read pair is richer and measure.js should adopt it.",
+   "blocks": "F-P23; any hosted-endpoint count",
+   "flags": [
+    "F-P23"
+   ],
+   "answerable_by": "owner decision, then any session"
   }
  ]
 }

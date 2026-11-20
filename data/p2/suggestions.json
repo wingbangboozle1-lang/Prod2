@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-20 (arena/70b2b9f7-prod2): SG-27, SG-31, SG-33, SG-37, SG-16 marked shipped with the work recorded, per the brief's mandate for a polished shop-like front end."
+  "last_change": "2026-11-20 (arena/86206fb3-prod2): SG-41 added — vocabulary gate."
  },
  "suggestions": [
   {
@@ -434,6 +434,19 @@
    "recommendation": "Accept as the standing growth thesis.",
    "progress": "2026-11-20: the receipts angle now has a public home at about.html (four rules, a 'what we cannot tell you' table with a flag link per row) and the front-page hero note. The verification detail stays one link away rather than leading the page.",
    "progress_utc": "2026-11-20"
+  },
+  {
+   "id": "SG-41",
+   "title": "Gate the event vocabulary so the site and the endpoint cannot drift again",
+   "status": "proposed",
+   "evidence": "F-P23; allowedEvents in server.mjs vs the event list in data/p2/events.json",
+   "proposal": "Add a check that parses the event names out of server.mjs's allowedEvents set and out of the event list the site ships, then fails the build when they differ. Ten lines; it turns a silent under-count into a red build.",
+   "impact": "High — prevents a silent under-count once the endpoint is hosted.",
+   "effort": "Small (parse both lists in checks.py, compare, fail).",
+   "risk": "Low. Pure test code; touches no runtime path.",
+   "depends_on": "Q-P14 (the vocabulary choice)",
+   "recommendation": "Adopt as soon as Q-P14 is answered — it is the cheapest possible insurance on a measurement surface.",
+   "problem": "F-P23: three of the site's five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree."
   }
  ]
 }
