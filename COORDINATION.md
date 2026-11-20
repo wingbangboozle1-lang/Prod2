@@ -938,3 +938,14 @@ Protocol note: this session works on its single assigned branch `arena/722181aa-
 2. Pages source exposure (F-P19 / F-P20, carried): the Pages source is still `main /` (repo root). The root contains source/data files that the workflow `docs/` artifact does not, and this cannot be changed from the sandbox (403). **Owner action:** Settings → Pages → Source: GitHub Actions.
 3. Event-vocabulary mismatch (F-P23 / Q-P14, carried): three site events are rejected by `server.mjs`.
 
+### PR / merge / deploy record — arena/722181aa-prod2
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/39 |
+| Merge result | **Merged 2026-11-20 06:39:02 UTC**, merge commit `025b7b2` (`gh pr merge 39 --merge`) |
+| Checks on PR | `test` pass · `verify` pass (tools/checks.py ALL CHECKS PASSED; scripts/verify_site.py VERIFY OK) |
+| Workflows on merge commit | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Pages | `build_type: legacy`, `source: main /`, status `built` (serving the root mirror; the owner-side source change in F-P19/F-P20 is still pending) |
+| Live check | https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the "Flagged for review" page and the F-P24 entry in the built `docs/flagged.html` |
+| Status | L-01..L-03 **done**. Claim released. |
