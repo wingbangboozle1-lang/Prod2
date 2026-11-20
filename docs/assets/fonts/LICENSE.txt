@@ -1,0 +1,16 @@
+Fonts in this directory are self-hosted. No font CDN is used anywhere on this site.
+
+Fraunces — Copyright 2018 The Fraunces Project Authors
+(https://github.com/undercasetype/Fraunces). Licensed under the SIL Open Font
+License, Version 1.1 (https://scripts.sil.org/OFL). Files:
+  fraunces-var.woff2         (variable, weight axis, roman)
+  fraunces-var-italic.woff2  (variable, weight axis, italic)
+
+Inter — Copyright 2016 The Inter Project Authors
+(https://github.com/rsms/inter). Licensed under the SIL Open Font License,
+Version 1.1. Full licence text: OFL-Inter.txt in this directory. File:
+  inter-var.woff2            (variable, weight axis, roman)
+
+Both files are unmodified subsets as published by the @fontsource npm packages.
+The SIL OFL permits redistribution and web embedding provided the font is not
+sold on its own and the licence notice travels with it — both conditions hold.

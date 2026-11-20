@@ -71,7 +71,7 @@ def main() -> None:
     d.rectangle([0, 0, W, 12], fill=TERRACOTTA)
 
     # ---- brand row ----------------------------------------------------------
-    brand = "The Crisp Counter"  # working brand — D-P15 (clearance open, F-P21)
+    brand = "The Crisp Counter"  # working brand — D-P18 (clearance open, F-P21)
     d.text((MARGIN, 60), brand, font=f_brand, fill=INK)
     brand_w = d.textlength(brand, font=f_brand)
     # the wordmark's own terracotta full stop

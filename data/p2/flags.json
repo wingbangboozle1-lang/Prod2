@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 reconciliation: arena/70b2b9f7-prod2 added F-P15..F-P20 (disclosure wording, CTA mislabel, carousel figures, egress correction, archive + source exposure); arena/f55b5827-prod2 added the working-brand clearance flag, remapped F-P15 -> F-P21 to avoid the ID collision. Nothing discarded."
+  "last_change": "2026-11-20 reconciliation of three parallel passes: shop-front pass added F-P15..F-P20; event-vocabulary pass added F-P22/F-P23; anti-slop pass added the working-brand clearance flag F-P21. IDs kept disjoint; nothing discarded."
  },
  "flags": [
   {
@@ -54,10 +54,10 @@
    "id": "F-19",
    "status": "open",
    "title": "Analytics endpoint is deployable but not yet hosted",
-   "detail": "GitHub Pages is static hosting. The privacy-preserving counter (docs/assets/js/measure.js) and the self-hosted endpoint (analytics-endpoint/server.py) ship with the site, but no server is deployed and settings.analytics_endpoint is empty, so the site sends nothing anywhere. Browser-local counts are visible to each visitor only and are not shared data.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/analytics-endpoint/server.py",
-   "evidence_note": "Shipped 2026-11-19",
-   "how_to_resolve": "Host server.py somewhere owner-controlled, set settings.analytics_endpoint, rebuild (owner action; see measurement page)."
+   "detail": "GitHub Pages is static hosting. The privacy-preserving counter (docs/assets/js/measure.js) and the self-hosted endpoint (server.mjs, POST /api/events, Node 20+, no dependencies) ship with the site, but no server is deployed and settings.analytics_endpoint is empty, so the site sends nothing anywhere. Browser-local counts are visible to each visitor only and are not shared data. This flag previously cited a path, analytics-endpoint/server.py, that was never committed — corrected 2026-11-20 (F-P22).",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
+   "evidence_note": "server.mjs at the repo root; ANALYTICS-ENDPOINT.md documents it; tests/server.test.mjs covers it (npm test). Corrected 2026-11-20.",
+   "how_to_resolve": "Host server.mjs somewhere owner-controlled (behind HTTPS), set settings.analytics_endpoint, rebuild. Resolve F-P23 first: the endpoint's event vocabulary does not currently match the site's five events."
   },
   {
    "id": "F-26",
@@ -232,12 +232,12 @@
   },
   {
    "id": "F-P12",
-   "status": "open",
+   "status": "resolved",
    "title": "DESIGN_PROMPT.md cites a different register lineage than the live site",
-   "detail": "The visual brief cites D-01/D-02 (brand 'The Crisp Counter', warm-editorial adoption), D-15 (mobile-first rules), Q-05 (photography path) and Q-10 (name clearance). Those ids belong to the predecessor Countercraft/Zone4 registers: in the live registers D-01 is the tagged-Special-Links decision, the photography question is Q-P05 with decision D-22 (now carried), name clearance is Q-19, and D-02/D-15 do not exist here. The brief's brand name also differs from the shipped wordmark ('Prod2', decision D-P03). A reader who follows the brief's ids from the live decision log lands on unrelated decisions. Publication is not blocked; the brief must be reconciled before the design pass implements it.",
+   "detail": "The visual brief cites D-01/D-02 (brand 'The Crisp Counter', warm-editorial adoption), D-15 (mobile-first rules), Q-05 (photography path) and Q-10 (name clearance). Those ids belong to the predecessor Countercraft/Zone4 registers: in the live registers D-01 is the tagged-Special-Links decision, the photography question is Q-P05 with decision D-22 (now carried), name clearance is Q-19, and D-02/D-15 do not exist here. The brief's brand name also differs from the shipped wordmark ('Prod2', decision D-P03). A reader who follows the brief's ids from the live decision log lands on unrelated decisions. Publication is not blocked; the brief must be reconciled before the design pass implements it. Verified 2026-11-20: the live pages and tools/build.py both derive from data/p2/*.json and content/pages/*.html; DESIGN_PROMPT.md names the same lineage. Remaining discrepancy is prose only.",
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md",
    "evidence_note": "Line-by-line cross-reference check 2026-11-19 (session arena/1ca951c0-prod2); brief ids compared against data/p2/*.json and data/imported/zone4/",
-   "how_to_resolve": "During the queued design pass (SG-15): update the brief's cross-references and brand section to the live registers, or record which lineage it intentionally follows. Owner approves."
+   "how_to_resolve": "Resolved 2026-11-20: DESIGN_PROMPT.md synced to the shipped stack (fonts, imagery, lineage)."
   },
   {
    "id": "F-P13",
@@ -301,26 +301,44 @@
    "id": "F-P19",
    "status": "open",
    "title": "Archived builds are reachable on the live host and are only excluded by robots.txt",
-   "detail": "Pages serves the repository root, so /archive/** is publicly retrievable even though the site does not link to it. archive/ holds 54 HTML pages from five earlier generations of this project. robots.txt disallows /Prod2/archive/ and no indexed page links there, but a disallow is a crawl instruction, not an access control, and a page discovered by another route can still be returned to a reader.",
-   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/robots.txt",
-   "evidence_note": "robots.txt as generated by tools/build.py: 'Disallow: /Prod2/archive/'. Verified 2026-11-20 that all 27 live pages are the confirmed publication set and that no live page links into archive/.",
-   "how_to_resolve": "Options, in order of preference: (a) move archive/ out of the published root into a second repository or external storage, so those pages stop being servable; (b) add a noindex meta tag to every archived page and keep the robots disallow; (c) accept the current state, on the basis that nothing links there. This session did not implement (a) or (b) because the archive is other sessions' preserved work and the standing rule is that nothing is discarded.",
+   "detail": "Archived builds (archive/counter-notes-v1, archive/counter-notes-docs, archive/counter-edit-build, 121 files) are reachable on the live host and are excluded only by a robots.txt rule. Same root cause as F-P20: Pages is in legacy root mode, so every archived directory is served. robots.txt stops well-behaved crawlers and nothing else. The 2026-11-20 workflow change publishes docs/ only going forward, but the archived trees remain readable until the owner switches the Pages source.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/archive/counter-notes-v1/",
+   "evidence_note": "docs/ artifact is the only publish root (.github/workflows/pages.yml); gate section 'exposition' in tools/checks.py; Pages API showed build_type=legacy, source=main,/ on 2026-11-20.",
+   "how_to_resolve": "Owner flips Pages source to GitHub Actions (see F-P20). Archived builds can then be dropped or left in git, unserved.",
    "resolved_utc": null
   },
   {
    "id": "F-P20",
-   "status": "standing",
-   "title": "source/, data/ and content/ are servable as static files on the live host",
-   "detail": "Because Pages serves the repository root, the raw JSON registers, the page templates and the build scripts are retrievable by URL. This is not a security exposure for a static site with no secrets, but it means a reader can read the source register directly, and it gives a crawler a second copy of text that is also on an HTML page.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2",
-   "evidence_note": "The repository is public by design; no credential or personal datum is stored in data/. .gitignore covers var/, .env and node_modules.",
-   "how_to_resolve": "Inherent to legacy root serving, and resolved completely by switching Pages to Actions mode serving docs/ only (INT-07, blocked by a 403 on this token). Keep it visible rather than pretend otherwise; the data registers are already offered to reviewers on the Method page.",
+   "status": "open",
+   "title": "The whole working repository is readable on the live host (root-mode Pages)",
+   "detail": "GitHub Pages is in legacy mode with the source set to the repository ROOT: the Pages API returns build_type=legacy, source={branch: main, path: /}. Checked on 2026-11-20, https://…/Prod2/data/p2/settings.json returns the settings register as JSON to an anonymous reader. Counted at the same moment: data/ 42 files, content/ 27, tools/ 5, scripts/ 4, tests/ 1, archive/ 121 — 196 source files reachable by guessing a path. Nothing secret is in them (the tracking ID and disclosure text are published on purpose and the capture and analytics endpoints are empty), but it is not the intended surface, it exposes drafts and the archived builds, and robots.txt is a crawler convention, not access control. The token available to this session cannot change the setting: a PUT to build_type=workflow returns 403. Mitigated in-repo as far as a build can: the Pages workflow uploads the docs/ artifact only, and the new exposition gate section refuses any source directory inside docs/. If an owner ever flips the source to GitHub Actions, this whole class disappears.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json",
+   "evidence_note": "Anonymous GET of a source file on the live host, 2026-11-20; Pages API reports build_type=legacy, source=main,/; count from `python3 tools/root_mirror.py --report`.",
+   "how_to_resolve": "Owner: Settings → Pages → Source: GitHub Actions (one setting). Then confirm /data/p2/settings.json and /tools/build.py return 404 and close F-P19/F-P20.",
    "resolved_utc": null
+  },
+  {
+   "id": "F-P22",
+   "status": "resolved",
+   "title": "Seven files cited an analytics endpoint path that does not exist — resolved 2026-11-20",
+   "detail": "measurement.html, privacy.html, events.json, questions.json, settings.json, suggestions.json, ENGINE.md and EXECUTIVE_SUMMARY.md all described the endpoint as 'analytics-endpoint/server.py'. No such file has ever been committed at any point in this repository's history. The only endpoint is server.mjs at the root. Every reference was corrected on 2026-11-20, flag F-19's evidence URL was repointed, and a gate rule now fails the build if a page cites a local path that does not exist.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
+   "evidence_note": "server.mjs committed at the repo root; ANALYTICS-ENDPOINT.md documents it; npm test exercises tests/server.test.mjs",
+   "how_to_resolve": "Resolved 2026-11-20: all references name server.mjs; gate rule added to tools/checks.py."
+  },
+  {
+   "id": "F-P23",
+   "status": "open",
+   "title": "The site's five events and the endpoint's accepted vocabulary do not match",
+   "detail": "measure.js would send page_view, outbound_click, guide_read_75, category_click and feed_click. server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. Three of the five site events (guide_read_75, category_click, feed_click) would be rejected by the only endpoint in this repository. Nothing is lost today because the endpoint is not hosted and the site transmits nothing, but connecting them unchanged would silently under-count. Not corrected in this pass because choosing the vocabulary is a decision, not a typo.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
+   "evidence_note": "the allowedEvents set in server.mjs vs the event list in docs/assets/js/measure.js and data/p2/events.json",
+   "how_to_resolve": "Pick one vocabulary: extend server.mjs to accept the three site events, or change measure.js to emit the endpoint's names. Record it as a decision, then gate the two lists against each other."
   },
   {
    "id": "F-P21",
    "title": "Working brand “The Crisp Counter” adopted on the owner's directive without formal trademark clearance",
-   "detail": "The 2026-11-20 anti-slop pass replaced the repository codename 'Prod2' on reader-facing surfaces with the design brief's working brand (decision D-P10). A preliminary web search that day returned no conflicting kitchen-appliance brand in the first page of results, but no formal USPTO/state/common-law search has been run. Until clearance, the brand is provisional and one-line reversible (data/p2/settings.json).",
+   "detail": "The 2026-11-20 anti-slop pass replaced the repository codename 'Prod2' on reader-facing surfaces with the design brief's working brand (decision D-P18). A preliminary web search that day returned no conflicting kitchen-appliance brand in the first page of results, but no formal USPTO/state/common-law search has been run. Until clearance, the brand is provisional and one-line reversible (data/p2/settings.json).",
    "evidence": "https://tmsearch.uspto.gov/",
    "evidence_note": "USPTO trademark search — the formal check that would resolve this; the preliminary 2026-11-20 web-search record sits in D-P10's sources.",
    "how_to_resolve": "Run the formal clearance (Q-P10 / Q-19), then either ratify the name in the decision log or revert via settings.json and rebuild.",

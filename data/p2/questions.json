@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 reconciliation: Q-P10 remapped to decision D-P15 / flag F-P21; Q-P11 answered by the D-P11 policy read (Program Policies 2(b)) — availability snapshots are out, same as prices."
+  "last_change": "2026-11-20 reconciliation: three passes share the register. Event-vocabulary pass added Q-P14; anti-slop pass added Q-P10 (working-brand ratification, decision D-P18, flag F-P21) and Q-P11 (availability snapshots — answered no by the D-P11 policy read)."
  },
  "questions": [
   {
@@ -41,7 +41,7 @@
    "id": "Q-23",
    "area": "Measurement",
    "question": "Where can the self-hosted analytics endpoint run?",
-   "known": "analytics-endpoint/server.py is standard-library Python, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.",
+   "known": "server.mjs is dependency-free Node, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.",
    "unknown": "Which host the owner wants (any VM/container/Function that speaks HTTPS).",
    "how_to_discover": "Owner picks a host; run the server; set the endpoint in data/p2/settings.json; rebuild. See the measurement page for the event contract.",
    "answerable_by": "The owner.",
@@ -226,10 +226,24 @@
    "flags": []
   },
   {
+   "id": "Q-P14",
+   "question": "Which event vocabulary should the site and the endpoint share?",
+   "known": "server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. The site emits five: page_view, outbound_click, guide_read_75, category_click, feed_click.",
+   "recommendation": "Extend server.mjs to accept the three site events and map target_host. It is additive, it touches no browser code, and it preserves the instrumentation that is already tested. Then add a gate that reads both files and fails if the lists ever diverge again.",
+   "area": "Measurement",
+   "unknown": "A decision on which side moves. Extending the server keeps the site's already-shipped instrumentation and costs twelve lines of Node; changing measure.js keeps the server untouched but means editing and re-testing the only code that touches a reader's browser.",
+   "how_to_discover": "Compare the two lists against what the owner actually wants to know at launch. If the answer is 'how many people clicked a product', the site's five already cover it and the server should be extended. If the answer is 'which guides get read', the server's article_half_read/guide_read pair is richer and measure.js should adopt it.",
+   "blocks": "F-P23; any hosted-endpoint count",
+   "flags": [
+    "F-P23"
+   ],
+   "answerable_by": "owner decision, then any session"
+  },
+  {
    "id": "Q-P10",
    "area": "Brand",
    "question": "Does the owner ratify the working brand “The Crisp Counter”, and will a formal trade-name clearance be run?",
-   "known": "Adopted 2026-11-20 as the working wordmark on the owner's standing anti-slop directive (decision D-P15). A preliminary web search on 2026-11-20 returned no conflicting kitchen-appliance brand in the first page of results; the name comes from the adopted design brief (DESIGN_PROMPT.md).",
+   "known": "Adopted 2026-11-20 as the working wordmark on the owner's standing anti-slop directive (decision D-P18). A preliminary web search on 2026-11-20 returned no conflicting kitchen-appliance brand in the first page of results; the name comes from the adopted design brief (DESIGN_PROMPT.md).",
    "unknown": "No formal trademark search has been performed (USPTO registry, state registries, common-law use, domain availability). The owner has not individually ratified the specific name.",
    "how_to_discover": "Run the USPTO trademark search (tmsearch.uspto.gov) for 'Crisp Counter' word marks in class 7/11/35; check state registries and live web/common-law use; check domain availability (Q-P06); then record ratify-or-revert in the decision log.",
    "answerable_by": "Owner (with counsel for the formal search)",

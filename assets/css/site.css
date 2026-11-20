@@ -1,5 +1,6 @@
+<<<<<<< HEAD
 /* ----------
-   Self-hosted typefaces (D-P16, 2026-11-20): Fraunces + Inter, latin subsets,
+   Self-hosted typefaces (D-P19, 2026-11-20): Fraunces + Inter, latin subsets,
    SIL Open Font License 1.1 — license files in assets/fonts/. font-display:
    swap; no third-party font requests.
    ---------- */
@@ -44,6 +45,34 @@
   font-weight: 700;
   font-display: swap;
   src: url("../fonts/inter-latin-700-normal.woff2") format("woff2");
+=======
+/* Self-hosted type (2026-11-20). No font CDN: the privacy statement promises no
+   third-party requests, and a CDN would leak every reader's IP to one.
+   Fraunces = display, Inter = UI/body. Both SIL OFL 1.1; see assets/fonts/LICENSE.txt. */
+@font-face {
+  font-family: "Fraunces";
+  src: url("../fonts/fraunces-var.woff2") format("woff2-variations"),
+       url("../fonts/fraunces-var.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("../fonts/fraunces-var-italic.woff2") format("woff2-variations"),
+       url("../fonts/fraunces-var-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-var.woff2") format("woff2-variations"),
+       url("../fonts/inter-var.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+>>>>>>> origin/main
 }
 
 /* ==========================================================================

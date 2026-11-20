@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 reconciliation of two parallel passes: arena/70b2b9f7-prod2 recorded D-P10..D-P14 (shop design system, price-snapshot policy answer, drawn imagery, first-person disclosure, USDA temperature guidance); arena/f55b5827-prod2 recorded the anti-slop pass as D-P15..D-P17 (working brand, shipped typography + token conformance, gifting window + queue). Remapped from the collision-prone first numbering; no decision discarded."
+  "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded."
  },
  "decisions": [
   {
@@ -258,6 +258,16 @@
   },
   {
    "id": "D-P15",
+   "question": "Should this pass fix the site/endpoint event-vocabulary mismatch, or publish it?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "Publish it. F-P23 and Q-P14 record the mismatch and the recommended fix (extend server.mjs), but no event names were changed in this pass. Choosing the vocabulary changes what the site is allowed to claim about its own measurement, and that is an owner decision even though the code change is small.",
+   "rationale": "The endpoint is not hosted, so nothing is being mis-measured today. Silently aligning the lists would have made two independently-written components look like they had always agreed — and the brief asks for irregularities to be surfaced, not smoothed.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ]
+  },
+  {
+   "id": "D-P18",
    "question": "What consumer-facing brand ships on the reader-facing site while formal clearance (Q-19) is open?",
    "status": "Recorded 2026-11-20 (owner standing directive)",
    "recorded_choice": "Adopt the design brief's brand “The Crisp Counter” as the WORKING wordmark — masthead, page titles, JSON-LD, feed, OG card — replacing the repository codename 'Prod2' on reader-facing surfaces. Basis: the owner's 2026-11-20 directive that the site read as a polished branded publication rather than generated output, and the adopted warm-editorial brief which already carried this name. A preliminary name search (2026-11-20) found no conflicting kitchen-appliance brand in the first page of results; a formal trademark clearance has NOT been performed and stays open as Q-19 with flag F-P15. Reversal is one line in data/p2/settings.json plus a rebuild.",
@@ -267,7 +277,7 @@
    ]
   },
   {
-   "id": "D-P16",
+   "id": "D-P19",
    "question": "Do the design brief's typefaces ship, and by what mechanism? (implements SG-15/SG-16/SG-33)",
    "status": "Recorded 2026-11-20",
    "recorded_choice": "Ship Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) as self-hosted latin-subset woff2 files in assets/fonts/ (SIL Open Font License 1.1; license files committed beside the fonts; font-display: swap; no third-party font requests, preserving the send-nothing privacy posture). Conform the theme tokens to the brief in the same pass: card radius 8px, amber token for unverified states, 44px minimum tap targets on mobile, sticky comparison anchor bar on ≤60rem viewports, focus-visible outlines.",
@@ -280,7 +290,7 @@
    ]
   },
   {
-   "id": "D-P17",
+   "id": "D-P20",
    "question": "What publishes in the December gifting window, and on what evidence?",
    "status": "Recorded 2026-11-20 (editorial hypothesis per D-19)",
    "recorded_choice": "Open the gifting window with guide-gift-guide.html (“Gift guide: which of the five fits which cook?”) built only from the verified register's listed specs (re-read 2026-11-20), and extend the queue with four hypothesis slots (slots 6-9) tied to the calendar: party-day batch math, a 26-quart measuring walkthrough, basket materials for spring cleanup, and a thermometer-listing jargon decode. No popularity, search-volume or superiority claims anywhere — the claims gate enforces D-19. Measured queries take over selection once the SG-06 gate and 14 days of data exist (SG-34).",

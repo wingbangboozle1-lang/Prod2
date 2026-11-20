@@ -2,23 +2,72 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current sessions (2026-11-20, reconciled on this branch): **session arena/f55b5827-prod2** (branch `arena/f55b5827-prod2`, anti-slop design + working-brand + gifting-guide pass — claim below) · **session arena/70b2b9f7-prod2** (branch `arena/70b2b9f7-prod2`, shop-front design rebuild + live re-verification — claim below, merged via PR #31 and integrated here).
+Current sessions (2026-11-20, three parallel passes reconciled on this branch): **session arena/f55b5827-prod2** (branch `arena/f55b5827-prod2`, anti-slop design + working-brand + gifting-guide pass — claim below) · arena/70b2b9f7-prod2 (shop-front design rebuild + live re-verification, PR #31) · arena/86206fb3-prod2 (exposure canaries + F-P19/F-P20 rewrites + event-vocabulary publication, PRs #37/#38). This branch merges both and reconciles all three registers.
 
 Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward polish, PR #30 merged into main 2026-11-20 06:09) · arena/43f4359d-prod2 (product-first landing page, PR #29 merged 2026-11-20 06:06) · arena/9f84489c-prod2 (publication polish, PRs #27/#28) · arena-8ff10f50-prod2 (PRs #19/#21) · arena-3f1d9d65-prod2 (analytics endpoint) · arena/b650562d-prod2 (PR #25, open) · arena/5e692632-prod2 (PR #23, open) · f2613c86, 599eec57, 44093825, 30a7028a, d12d2304.
-
-> **Reconciliation (2026-11-20):** this branch merged `origin/main` (PRs #29–#31, including the
-> shop-front design rebuild of arena/70b2b9f7-prod2) and reconciled both passes: the shipped design
-> system, drawn illustrations, shop/about pages, first-person disclosure (D-P13) and price-policy
-> answer (D-P11) from main; the shipped brief typography, working brand (D-P15), gifting guide and
-> the SG-38..SG-43/Q-P10..Q-P11 register additions from this branch. Register IDs that collided were
-> remapped (decisions D-P10..D-P12 → D-P15..D-P17; flag F-P15 → F-P21) and the remap is recorded in
-> each register's meta. Nothing from either session was discarded.
 
 > **Two sessions landed work on `main` after this session branched** (PRs #29 and #30, both 2026-11-20
 > before 06:10 UTC). That work is integrated here, not discarded: their `DESIGN_PROMPT.md` additions,
 > their `scripts/build_site.py` shelf work and their `tools/build.py` "Best for" intent are all
 > preserved. Where the two builds disagreed on the same reader-facing surface, the newer design
 > system in this branch wins and the reasoning is recorded in the resolution note below.
+
+---
+
+## PARALLEL CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
+
+Ran in parallel with the two passes above (both also branched from f6e772f). **Reconciled by this
+session's merges of origin/main (PRs #29–#31 and #37–#38): nothing from any pass was discarded.**
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| V-01 Ship the adopted brief's typography (self-hosted Fraunces + Inter, OFL) + design-token conformance | done | arena/f55b5827-prod2 | `assets/fonts/*`, `assets/css/site.css` |
+| V-02 Working-brand adoption on the owner directive ("The Crisp Counter") + preliminary name search; formal clearance stays open (Q-19) | done | arena/f55b5827-prod2 | `data/p2/settings.json`, `tools/make_og.py`, `assets/img/og-card.png`, `data/p2/flags.json` (as F-P21) |
+| V-03 Catchy seasonal guide (December gifting window) + calendar queue extension (hypotheses only, D-19) | done | arena/f55b5827-prod2 | `content/pages/guide-gift-guide.html`, `data/p2/calendar.json`, `tools/build.py` |
+| V-04 Decision-making improvements + suggestion batch (SG-38..SG-40, SG-42, SG-43 added; runbook at SG-44) | done | arena/f55b5827-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| V-05 Questions / missing-information register additions (Q-P10, Q-P11) | done | arena/f55b5827-prod2 | `data/p2/questions.json` |
+| V-06 Register + docs sync (decisions D-P18..D-P20 after remap) | done | arena/f55b5827-prod2 | `data/p2/decisions.json`, `*.md`, `tools/build.py` (BUILD_DATE) |
+| V-07 Integration: reconcile all three passes, rebuild both outputs, gate, line-by-line re-verify, PR to main, merge, Pages live check | done | arena/f55b5827-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+### Claim results (V-01..V-07, 2026-11-20)
+
+- **V-01 (typography + tokens):** Fraunces (600 normal, 400 italic) + Inter (400/500/600/700) shipped as latin
+  woff2 subsets in `assets/fonts/`, SIL OFL 1.1 license files committed beside them, `font-display: swap`,
+  zero third-party requests. Files via @fontsource/fraunces@5.3.0 and @fontsource/inter@5.3.0
+  (registry.npmjs.org; upstreams github.com/undercasetype/Fraunces, github.com/rsms/inter — linked in D-P19).
+  The merged design system consumes them through its token layer.
+- **V-02 (working brand):** "The Crisp Counter" on every reader-facing surface (masthead, titles, JSON-LD,
+  feed, footer, OG card). Preliminary name search 2026-11-20 (web search, first page — no kitchen-appliance
+  conflict; formal clearance NOT performed): recorded in D-P18 sources (tmsearch.uspto.gov is the resolver).
+  Clearance flag published as **F-P21**. Six page titles shortened to keep the 70-char gate green.
+- **V-03 (seasonal guide):** `guide-gift-guide.html` shipped (December gifting window; gifting seasonal card
+  in `data/p2/calendar.json`; queue slots 6-9). Every fact traces to the register; carries the mandatory
+  "What we could not verify" block; D-19 respected. All gift-guide facts re-checked against the merged
+  register after each reconciliation (16.9" depth, sync finish, 8 qt + 450°F + shake reminder, 1-second
+  NIST/NSF ±0.5°F IP67, 3 probes + 1000°F — all present).
+- **V-04 (suggestions):** SG-15/16/31/32/33/38/40 statused; SG-39/SG-43 added; SG-42 closed as rejected on
+  the D-P11 policy read; the organic-discovery runbook lives at **SG-44** (remapped twice from SG-41 after
+  two ID collisions). Suggestions page carries the three-path chooser PLUS the decision-maker/decide-by
+  path block (SG-32).
+- **V-05 (questions):** Q-P10 (brand ratification + clearance, D-P18/F-P21) and Q-P11 (availability
+  snapshots — answered no by the D-P11 policy read) added.
+- **V-06 (registers + docs):** decisions at **D-P18 (working brand), D-P19 (typography + token
+  conformance), D-P20 (gifting window)**; remap history documented in each register's meta.
+- **Second verification pass (2026-11-20):** all five official listing URLs re-fetched; document titles
+  (verbatim listing titles) + breadcrumbs matched the register — **agrees with the shop-front pass's deep
+  read in `data/p2/verification-2026-11-20.json`**, which is the primary record for this date.
+- **V-07 (integration):** `tools/build.py` + `tools/checks.py` → ALL CHECKS PASSED; `scripts/build_site.py`
+  + `scripts/verify_site.py` → VERIFY OK; `npm test` → 2/2; rebuild reproducibility confirmed. PR + merge +
+  Pages check recorded in the PR record below.
+
+### Reconciliation note (read this before editing the registers)
+
+Three sessions on 2026-11-20 independently used the D-P10+/F-P15+/SG-4x+ ID spaces. Final assignment:
+**decisions** D-P10..D-P14 (shop-front), D-P15 (event-vocabulary publication, arena/86206fb3-prod2),
+D-P18..D-P20 (anti-slop, remapped twice — the collision history is in the decision log's meta);
+**flags** F-P15..F-P20 (shop-front), F-P21 (anti-slop, remapped from F-P15), F-P22/F-P23 (event-vocab);
+**suggestions** SG-38..SG-40 + SG-42..SG-44 (anti-slop; SG-41 belongs to the event-vocab pass).
+Every cross-reference on the built pages resolves (the validity gate checks register IDs).
 
 ---
 
@@ -36,7 +85,7 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 | D-08 Suggestions section: review-and-choose decision surface | done | arena/70b2b9f7-prod2 | `content/pages/suggestions.html`, `data/p2/suggestions.json` |
 | D-09 Questions register: missing-information discovery paths | done | arena/70b2b9f7-prod2 | `content/pages/questions.html`, `data/p2/questions.json` |
 | D-10 Gate extension + full build/verify | done | arena/70b2b9f7-prod2 | `tools/checks.py`, `docs/`, root mirror |
-| D-11 Integration: PR, merge, Pages deploy confirmed, docs sync | in progress | arena/70b2b9f7-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `docs/` |
+| D-11 Integration: PR, merge, Pages deploy confirmed, docs sync | done | arena/70b2b9f7-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `docs/` |
 
 Protocol notes for this claim:
 - Branch `arena/70b2b9f7-prod2`, branched from `f6e772f` (main at PR #28). Arena allows one branch per session; this session is both working and integration session on it.
@@ -63,55 +112,6 @@ Protocol notes for this claim:
 - Branch `arena/9f84489c-prod2` from `da11cd4` (main at PR #15). Arena allows one branch per session; this session is both working and integration session on this branch (same standing note as the arena/44093825 claim below).
 - **PR #16 handoff (arena/30a7028a-prod2, "Countertop Dispatch"):** its claim has been inactive >60 minutes with no commits since 14:17 UTC and its merge plan never ran. Per the handoff rule this session takes over integration of that branch: its full build will be preserved as `archive/countertop-dispatch/` (nothing discarded), and one deployed site stays canonical per the standing one-site rule (INT-06).
 - The canonical deployed publication remains `docs/` (built by `tools/build.py`, gated by `tools/checks.py`, mirrored to the repo root for legacy Pages serving).
-
-## PARALLEL CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
-
-Ran in parallel with the shop-front pass above (both branched from f6e772f, both touched
-`tools/build.py`, the registers and the front page). **Reconciled by this session's merge of
-origin/main (PRs #29–#31): nothing from either pass was discarded** — see the reconciliation note
-in the claim results.
-
-| Task | Status | Session | Scope (files) |
-| --- | --- | --- | --- |
-| V-01 Ship the adopted brief's typography (self-hosted Fraunces + Inter, OFL) + design-token conformance | done | arena/f55b5827-prod2 | `assets/fonts/*`, `assets/css/site.css` |
-| V-02 Working-brand adoption on the owner directive ("The Crisp Counter") + preliminary name search; formal clearance stays open (Q-19) | done | arena/f55b5827-prod2 | `data/p2/settings.json`, `tools/make_og.py`, `assets/img/og-card.png`, `data/p2/flags.json` (as F-P21) |
-| V-03 Catchy seasonal guide (December gifting window) + calendar queue extension (hypotheses only, D-19) | done | arena/f55b5827-prod2 | `content/pages/guide-gift-guide.html`, `data/p2/calendar.json`, `tools/build.py` |
-| V-04 Decision-making improvements + suggestion batch SG-38..SG-43 | done | arena/f55b5827-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
-| V-05 Questions / missing-information register additions (Q-P10, Q-P11) | done | arena/f55b5827-prod2 | `data/p2/questions.json` |
-| V-06 Register + docs sync (decisions D-P15..D-P17 after remap, README, EXECUTIVE_SUMMARY, DECISIONS) | done | arena/f55b5827-prod2 | `data/p2/decisions.json`, `*.md`, `tools/build.py` (BUILD_DATE) |
-| V-07 Integration: reconcile both passes, rebuild both outputs, gate, line-by-line re-verify, PR to main, merge, Pages live check | done | arena/f55b5827-prod2 | `docs/`, root mirror, `COORDINATION.md` |
-
-### Claim results (V-01..V-07, 2026-11-20)
-
-- **V-01 (typography + tokens):** Fraunces (600 normal, 400 italic) + Inter (400/500/600/700) shipped as latin
-  woff2 subsets in `assets/fonts/`, SIL OFL 1.1 license files committed beside them, `font-display: swap`,
-  zero third-party requests. Files via @fontsource/fraunces@5.3.0 and @fontsource/inter@5.3.0
-  (registry.npmjs.org; upstreams github.com/undercasetype/Fraunces, github.com/rsms/inter — linked in D-P16).
-  The merged design system consumes them through its token layer.
-- **V-02 (working brand):** "The Crisp Counter" on every reader-facing surface (masthead, titles, JSON-LD,
-  feed, footer, OG card). Preliminary name search 2026-11-20 (web search, first page of results — no
-  kitchen-appliance conflict; formal clearance NOT performed): recorded in D-P15 sources
-  (tmsearch.uspto.gov is the resolver). Clearance flag remapped **F-P15 → F-P21** to avoid the ID collision
-  with the shop-front pass's flag batch. Six page titles shortened to keep the 70-char gate green.
-- **V-03 (seasonal guide):** `guide-gift-guide.html` shipped (December gifting window; seasonal card in
-  `data/p2/calendar.json`; queue slots 6-9). Every fact traces to the register; carries the mandatory
-  "What we could not verify" block; D-19 respected.
-- **V-04 (suggestions):** SG-15/16/31/32/33/38/40 statused; SG-39/SG-41/SG-43 added; **SG-42 closed as
-  rejected on the shop-front pass's policy read (D-P11: Program Policies 2(b) governs availability like
-  prices)** — the two passes' registers reconciled with cross-references. Suggestions page carries the
-  shop-front pass's three-path chooser PLUS the decision-maker/decide-by path block (SG-32).
-- **V-05 (questions):** Q-P10 (brand ratification + clearance) and Q-P11 (availability snapshot policy —
-  answered by D-P11) added; both reconciled to the remapped IDs.
-- **V-06 (registers + docs):** decisions recorded as **D-P15 (working brand), D-P16 (typography + token
-  conformance), D-P17 (gifting window + queue)** — remapped from a first-pass D-P10..D-P12 numbering that
-  collided with the shop-front pass's D-P10..D-P14; the collision is documented in the decision log's meta.
-  README/EXECUTIVE_SUMMARY/DECISIONS synced.
-- **Second verification pass (2026-11-20):** all five official listing URLs re-fetched; document titles
-  (verbatim listing titles) + breadcrumbs matched the register — **agrees with the shop-front pass's deep
-  read recorded in `data/p2/verification-2026-11-20.json`**, which is the primary record for this date.
-- **V-07 (integration):** `tools/build.py` + `tools/checks.py` → ALL CHECKS PASSED; `scripts/build_site.py`
-  + `scripts/verify_site.py` → VERIFY OK; `npm test` → 2/2. PR to main follows; merge + Pages check recorded
-  in the PR record below.
 
 ### Verification performed this pass (D-01)
 
@@ -206,6 +206,45 @@ No other session has an unexpired claim on these files. If this session stops, a
 | PR | What | Result |
 | --- | --- | --- |
 | #19 | Integration: product-forward landing page + transparency flag F-P08 + both builds verified + Pages deploy | Merged into `main` as merge commit `0030f90a69b53ecd226923ddd6125dc795f0b282`; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
+
+
+## PR / merge / deploy record — 2026-11-20 (arena/70b2b9f7-prod2)
+
+| PR | What | Result |
+| --- | --- | --- |
+| #31 | Shop-first rebuild: design system, shelf page, About/standards, live 2026-11-20 re-verification, gate 9 -> 11 sections | **Merged** into `main` as `a4166bbbdee2ba3ad7c66d7113979a3608e7f1d9` at 2026-11-20T06:19:46Z. `verify-site` pass · `Self-hosted analytics tests` pass · `Deploy to GitHub Pages` pass · `pages build and deployment` pass |
+| #32 | Publish date: `BUILD_DATE` 2026-11-19 -> 2026-11-20 (footer, sitemap `lastmod`, feed `pubDate`) | **Merged** into `main` as `8bc543b8b559de18f33b58449cf06331b002c2a0`. All four workflows pass |
+
+**Live check after deploy (not a workflow status — the actual published pages):**
+
+| URL | State |
+| --- | --- |
+| `/Prod2/` | New front page: illustrated hero, shelf of five cards with images, "Best for:" lines, buy buttons, `Published 2026-11-20` |
+| `/Prod2/shop.html` | Live: filters, five cards, chooser, shortlist comparison |
+| `/Prod2/about.html` | Live: four rules, limits table, imagery policy |
+| `og-card.png` | New social card rendering (served as the page's main image) |
+
+**One thing to know about verifying the live site from here:** `curl` cannot reach
+`*.github.io` from this sandbox (egress is limited to `github.com`, `codeload.github.com`,
+`api.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org`). The live pages were
+therefore verified through the page-fetch tool, which can reach them. The first fetch of `/Prod2/`
+returned the **previous** build — a stale CDN edge, not a deploy failure — and a second fetch
+returned the current build. If a live check looks wrong, re-fetch with a cache-busting query before
+concluding anything.
+
+### Integration with the two sessions that merged mid-pass
+
+PRs #29 and #30 landed on `main` after this branch was cut and both touched the front page and the
+product cards. They were integrated, not overwritten:
+
+- **Preserved from #29/#30:** all 45 added lines of `DESIGN_PROMPT.md` (marketing conversion layer,
+  the nine article hooks, the organic-traffic notes); the `scripts/build_site.py` shelf work on the
+  preserved Countercraft build; the explicit `Best for:` label, which is clearer than the bare
+  eyebrow this branch had; and their hero phrase "every fact checked".
+- **Kept from this branch:** the design system, the card component with imagery and a buy button,
+  the new `shop.html` and `about.html`, the six-link nav, and the extended gate.
+- **Regenerated rather than hand-merged:** `docs/`, the root mirror, `sitemap.xml`, `feed.xml`.
+  The merge is reproducible — a clean clone rebuilds byte-identical output.
 
 ## Task details
 
@@ -532,7 +571,7 @@ the same way. Never edit another session's claimed files; log requests here inst
 | T-05 Reader-facing publication (front page, guides, comparison + chooser, categories, buying guide) | done | arena/44093825-prod2 | `content/pages/*.html`, `docs/` | Every product fact traces to `data/products.json` → source link | Warm editorial direction (D-18 option A). Disclosure under masthead on every page + footer. |
 | T-06 Governance surfaces (method + sources, flagged, questions, suggestions, decisions, measurement, compliance, executive summary) | done | arena/44093825-prod2 | `content/pages/*.html`, `docs/` | Source links per row | One nav group + full footer directory. |
 | T-07 SEO + syndication (titles/meta, JSON-LD, sitemap, robots, RSS, OG card) | done | arena/44093825-prod2 | `tools/build.py`, `tools/make_og.py`, `docs/` | Google Search Central docs (in sources register) | Unique title + meta per page; OG image is typographic brand art, not product photography. |
-| T-08 Measurement machinery (click counter, five events, self-hosted endpoint, campaign ledger) | done | arena/44093825-prod2 | `docs/assets/js/measure.js`, `analytics-endpoint/server.py`, `data/ledger.json`, `data/events.json` | Amazon Commission Income Statement windows (S-COMM/S-CDIS) | Endpoint deployable, not yet hosted — flagged F-19. Ledger stays empty until an authorized report exists. |
+| T-08 Measurement machinery (click counter, five events, self-hosted endpoint, campaign ledger) | done | arena/44093825-prod2 | `docs/assets/js/measure.js`, `server.mjs`, `data/ledger.json`, `data/events.json` | Amazon Commission Income Statement windows (S-COMM/S-CDIS) | Endpoint deployable, not yet hosted — flagged F-19. Ledger stays empty until an authorized report exists. |
 | T-09 Compliance gate (checks from clean checkout) | done | arena/44093825-prod2 | `tools/checks.py`, `ENGINE.md` | OA + FTC + Google docs in sources register | Fails on missing disclosure, untagged product links, missing `rel="sponsored"`, broken links, duplicate titles, unsourced product facts. |
 | T-10 Documentation (README, EXECUTIVE_SUMMARY, ENGINE) | done | arena/44093825-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `ENGINE.md` | n/a | |
 | T-11 Integration: rebuild, re-verify combined data, link check, PR to main, merge, Pages deploy | done | arena/44093825-prod2 | whole repo | `tools/checks.py` green; live URL probed | PR + deploy links recorded below. |
@@ -836,3 +875,34 @@ disallows `/Prod2/archive/` so only one site is indexable.
 - Register numbering is now dense-and-stable: flags F-01..F-P14, questions Q-01..Q-P09 (plus
   Q-19/23/27/31/47 carried), suggestions SG-01..SG-17 + SG-27..SG-37. New rows should continue from
   F-P15 / Q-P10 / SG-38.
+
+## INTEGRATION — session arena/86206fb3-prod2 (2026-11-20, audit + fixes on top of the merged shop design)
+
+**Status: integrated.** Branch `arena/86206fb3-prod2`, 4 commits, rebased onto `main` at `8bc543b`
+(after PR #32).
+
+### What this session found that was not previously recorded
+
+| # | Finding | Evidence | Result |
+| --- | --- | --- | --- |
+| 1 | **Six `link.amazon` short links were clickable sponsored anchors** on `method.html` (5) and `flagged.html` (1). The short codes are evidence of what the owner submitted, not the site's buy path, and their compliance status is unresolved (F-03). | `tools/build.py` → `normalize_amazon_links` | Fixed at the generator: short links render as inert `<code>`. New gate section **exposition** fails the build if one returns. |
+| 2 | **The analytics endpoint cited in eight files does not exist.** `analytics-endpoint/server.py` was never committed; the only endpoint is `server.mjs`. F-19's evidence URL pointed at the phantom file, so a reviewer following it would 404. | `server.mjs`, `ANALYTICS-ENDPOINT.md` | F-19 repointed; new **F-P22** (resolved); every reference corrected. |
+| 3 | **The site and the endpoint use different event vocabularies.** Three of the site's five events (`guide_read_75`, `category_click`, `feed_click`) are rejected by `server.mjs`. Hosting it unchanged would silently under-count. | `server.mjs` `allowedEvents` vs `assets/js/measure.js` | **F-P23** (open), **Q-P14**, **D-P15**, **SG-41**. Gate section **measurement** now prints the divergence on every build. Not patched: choosing the vocabulary is an owner decision. |
+| 4 | **The site shipped no font files at all.** `DESIGN_PROMPT.md` specified Fraunces + Inter; neither was in the repo, so every reader saw a system serif. | `assets/css/site.css` | Fixed: both families self-hosted as variable woff2 with OFL licences, `@font-face` + preloads, gated. |
+| 5 | **Pages publishes the repository ROOT** (`build_type: legacy`, `source: main /`). Measured 2026-11-20: **196 source files** (data 42, content 27, tools 5, scripts 4, tests 1, archive 121) are fetchable by an anonymous reader; `GET /Prod2/data/p2/settings.json` returned the register as JSON. `robots.txt` is not access control. A token-scoped `PUT` to `build_type: workflow` returns **403**, so this cannot be flipped from the sandbox. | `gh api repos/.../pages`; `python3 tools/root_mirror.py --report`; the live GET | Workflow publishes the `docs/` artifact only; new gate section **exposition** refuses source dirs inside `docs/`; new `tools/root_mirror.py` writes canaries and prints the exposure count. **Owner: Settings → Pages → Source: GitHub Actions** (**F-P19**, **F-P20** rewritten with the measurement). |
+| 6 | **A parallel session (PR #33, `arena/f55b5827-prod2`) collides with this branch**: it claims **D-P10** and **F-P12** for different things, adds `guide-gift-guide.html`, and rewrites `assets/css/site.css`, `data/p2/{products,sources,settings,calendar}.json`. | PR #33 file list | **Logged, not touched.** This session renumbered around it (D-P15, Q-P14, SG-41, F-P22/F-P23) and kept main's merged structure rather than overwriting it. PR #33 needs the ID collision resolved before merge, or the registers will disagree. |
+
+### Register deltas in this session
+
+- `flags.json`: **F-P22** added (resolved), **F-P23** added (open); F-19 repointed; F-P12 resolved; F-P19/F-P20 detail extended with the root-mode exposure.
+- `questions.json`: **Q-P14** (event vocabulary).
+- `decisions.json`: **D-P15** (publish the mismatch rather than patch it).
+- `suggestions.json`: **SG-41** (gate the two event lists against each other).
+
+### Verification after integration
+
+- `python3 tools/build.py` → 27 pages; `python3 tools/checks.py` → **ALL CHECKS PASSED**, 12 sections.
+- Independent scan: 172 tagged `/dp/` links, **0 untagged**, **0** without `rel="sponsored"`, **0** clickable short links, **0** source dirs in `docs/`, **0** images without `alt`.
+- `REPO_AUDIT.md` added: the line-by-line review with evidence links, and an explicit list of what the audit does **not** claim.
+
+---

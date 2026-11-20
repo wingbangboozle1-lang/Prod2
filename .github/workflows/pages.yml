@@ -32,7 +32,9 @@ jobs:
         run: python3 scripts/verify_site.py
       - uses: actions/configure-pages@v5
         with:
-          # INT-06: let CI flip the Pages source to Actions (workflow) mode.
+          # Publishing root is docs/ ONLY. The repository root must never be the
+          # Pages source again: serving the root would expose data/, content/,
+          # tools/ and .git-adjacent config as static files (flags F-P19/F-P20).
           enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
