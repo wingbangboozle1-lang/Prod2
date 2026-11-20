@@ -66,44 +66,54 @@
 <main id="main" class="wrap">
 <p class="eyebrow">The work behind it</p>
 <h1>Executive summary</h1>
-<p class="lede">What this project is, what is verified, what is missing, and what decisions are open — on one page. Written for a reviewer deciding what to do next.</p>
+<p class="lede">A buyer-first affiliate publication with a clear evidence trail. This summary separates what is published from what still needs first-party data or an owner-controlled account.</p>
 
-<h2>What this is</h2>
-<p>A small affiliate publication (The Crisp Counter — Kitchen notes &amp; buying guides) built around five owner-supplied Amazon products: three air fryers (dual-basket, oven-style, single-basket) and two meat thermometers (instant-read, wireless leave-in). The reader-facing site is a question-led buying guide; the machinery behind it — verification register, intent records, flags, open questions, suggestion queue, decision log, measurement plan — stays reachable from one navigation group and every footer.</p>
+<h2>What is live in the project</h2>
+<p>The Crisp Counter is a static, data-driven editorial shop covering five owner-submitted kitchen products: three air-fryer formats and two meat-thermometer workflows. Its front page leads with products and buyer questions; the source register, intent records, open questions, suggestions, decisions, compliance notes and measurement plan remain available from the “The work behind it” navigation group and footer.</p>
+<p><strong>Scope boundary:</strong> this repository does not currently run an AI agent, identify trending or high-converting products, query Amazon's private reporting, publish automatically, or optimize campaigns from conversion data. Search-volume and popularity claims are not made. The existing automation builds and validates a static publication; ideas for later research and measurement are queued on the <a href="suggestions.html">Suggestions</a> page.</p>
 
-<h2>The five products and their status</h2>
+<h2>Products and evidence</h2>
+<p>The product register records each intended ASIN separately from the observed redirect target, with source URL, read date and submitted short link retained as distinct fields. The five listing records were re-read on 2026-11-20; see the dated <a href="method.html">source register</a> and the product records in <a href="products.html">Products</a>. Listing data can change after a read, so the site does not describe these snapshots as current market availability.</p>
 <ul>
-  <li><strong>P1–P3</strong> (ASINs <code>B0CDY277D3</code>, <code>B09B7SB46R</code>, <code>B08DKYBTPH</code>) — verified from official listings since 2026-11-14, re-checked on dated passes through <strong>2026-11-19</strong>. Specification tables carried from those dated reads; titles and breadcrumbs re-read 2026-11-19.</li>
-  <li><strong>P4–P5</strong> (ASINs <code>B0DHZTCNR5</code>, <code>B0DZFD6R9Z</code>) — the brief's two additional short links, resolved and read for the first time on <strong>2026-11-19</strong>. They are meat thermometers, not air fryers; the site organizes by format accordingly (decision <a href="decisions.html#D-P01">D-P01</a>).</li>
-  <li><strong>Links:</strong> all five owner-submitted short links resolve to the ASINs above with <em>no</em> <code>tag=</code> parameter (flag <a href="flagged.html#F-03">F-03</a>). The site publishes tagged Special Links (<code>https://www.amazon.com/dp/&lt;ASIN&gt;?tag=shopnow047c-20</code>, decision <a href="decisions.html#D-01">D-01</a>) with <code>rel="sponsored"</code> and the required disclosure on every page. Whether the tracking ID is registered and whether clicks attribute is confirmable only inside Associates Central (<a href="flagged.html#F-57">F-57</a>, <a href="flagged.html#F-58">F-58</a>) — the site claims no revenue.</li>
+  <li><a href="https://www.amazon.com/dp/B0CDY277D3?tag=shopnow047c-20" rel="sponsored nofollow noopener">P1 — Chefman dual-basket air fryer · ASIN B0CDY277D3</a> (official listing source S-P1; listing read date 2026-11-20).</li>
+  <li><a href="https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20" rel="sponsored nofollow noopener">P2 — Emeril Lagasse French-door air-fryer oven · ASIN B09B7SB46R</a> (official listing source S-P2; listing read date 2026-11-20).</li>
+  <li><a href="https://www.amazon.com/dp/B08DKYBTPH?tag=shopnow047c-20" rel="sponsored nofollow noopener">P3 — Chefman single-basket air fryer · ASIN B08DKYBTPH</a> (official listing source S-P3; listing read date 2026-11-20).</li>
+  <li><a href="https://www.amazon.com/dp/B0DHZTCNR5?tag=shopnow047c-20" rel="sponsored nofollow noopener">P4 — ThermoMaven instant-read thermometer · ASIN B0DHZTCNR5</a> (official listing source S-P4; listing read date 2026-11-20).</li>
+  <li><a href="https://www.amazon.com/dp/B0DZFD6R9Z?tag=shopnow047c-20" rel="sponsored nofollow noopener">P5 — CHEF iQ Sense Gen3 wireless thermometer · ASIN B0DZFD6R9Z</a> (official listing source S-P5; listing read date 2026-11-20).</li>
+</ul>
+<p>These are affiliate links. <strong>As an Amazon Associate I earn from qualifying purchases.</strong> Tag registration, destination attribution and conversion reporting have not been verified in Associates Central; run the one-link-per-product test before scaling (<a href="flagged.html">Flagged for Review</a>, F-57/F-58). The owner-submitted short-link compliance status remains unresolved (F-03); the site renders those submitted strings as inert evidence, not as buy links.</p>
+
+<h2>What is intentionally blank or absent</h2>
+<ul>
+  <li><strong>Prices, availability, ratings and review counts:</strong> not published. The governing Program Policies source and the recorded policy decision are linked from <a href="compliance.html">Compliance</a> (S-POL, D-P11); do not backfill from memory or old snapshots.</li>
+  <li><strong>Product-level commissions, revenue and conversion forecasts:</strong> blank or absent unless obtained from authorized first-party reporting. No score or forecast is inferred.</li>
+  <li><strong>Hands-on performance claims:</strong> none. The content compares listed specifications and buyer trade-offs, not products tested by the publication.</li>
+  <li><strong>Traffic-demand claims:</strong> none. Guide titles are editorial hypotheses, not statements about search volume, trends or popularity.</li>
 </ul>
 
-<h2>What is deliberately absent</h2>
-<ul>
-  <li><strong>Prices and star ratings</strong> — withheld (<a href="flagged.html#F-02">F-02</a>): they drift faster than honest re-verification.</li>
-  <li><strong>Commission figures per product</strong> — blank (<a href="flagged.html#F-01">F-01</a>): the official rate table's category bands don't map to these ASINs; no rate is inferred.</li>
-  <li><strong>Hands-on testing</strong> — none claimed (<a href="decisions.html#D-06">D-06</a>): this is a specification publication until real usage exists (queued as <a href="suggestions.html#SG-07">SG-07</a>).</li>
-  <li><strong>Forecasts</strong> — no conversion score or revenue forecast anywhere; the campaign ledger starts empty by rule.</li>
-</ul>
+<h2>Publication and decision support</h2>
+<p>The shop includes a product shelf, category pages, a comparison, a buying guide, question-shaped articles, a seasonal editorial calendar, RSS, sitemap, authored-byline and a source/method page. The guide queue is a 14-day planning cadence, not a claim that articles will rank or attract traffic. The <a href="suggestions.html">Suggestions</a> page explains candidate paths, evidence, risk and effort; the <a href="questions.html">Open questions</a> page states missing information and how to obtain it before decisions are made.</p>
+<p>For organic discovery, the proposed sequence is: verify the Search Console property, submit the sitemap, collect query reports, then choose topics from measured queries rather than instinct (SG-44). Search Console verification and query data are not present yet (Q-P08/F-P13). The campaign ledger is deliberately empty until authorized first-party reports provide timestamp, source, channel, eligible sessions, clicks and reported orders.</p>
 
-<h2>Measurement and automation</h2>
-<p>The build is automated end to end: <code>tools/build.py</code> renders the site from the data registers; <code>tools/checks.py</code> is the publish gate (disclosure placement, sponsored-link marking, unique titles/meta, sourced facts, link integrity, markup validity and register cross-references) and runs from a clean checkout with standard-library Python. Measurement ships as machinery but not as data: the privacy-preserving click counter and the self-hosted endpoint are deployable (<a href="measurement.html">contract here</a>), and nothing is transmitted until an endpoint is configured (<a href="flagged.html#F-19">F-19</a>). The five defined ledger events and their official attribution windows are recorded on the <a href="measurement.html">measurement page</a>.</p>
+<h2>Measurement and automation status</h2>
+<p>The browser-side counter defines five events and stores locally without cookies or identifiers; it transmits nothing unless configured. A self-hosted Node endpoint exists and is tested, but is not hosted. Its event vocabulary currently does not accept three site event names; connecting the two without resolving that mismatch would lose counts (F-P23/Q-P14/SG-41). Do not treat the endpoint as live analytics.</p>
+<p>Automated gates build the pages and check disclosure placement, sponsored links, cited facts, internal links, metadata, sitemap/feed coverage, content claims and register cross-references. These checks improve publishing consistency; they do not replace Associates Central testing, legal review, Search Console verification or human editorial decisions.</p>
 
-<h2>Open decisions for the reviewer</h2>
+<h2>Important publication risk</h2>
+<p><strong>GitHub Pages is currently configured to serve the repository root</strong> (Pages API: <code>build_type=legacy</code>, source <code>main /</code>, checked 2026-11-20). That exposes repository source and archived files by URL; <code>robots.txt</code> is not access control. The workflow builds the intended <code>docs/</code> artifact, but it does not change the active Pages source setting. An attempted API update returned HTTP 403, so this session could not switch the setting. The required repository-admin action and evidence are recorded in <a href="flagged.html">Flagged for Review</a> (F-P19/F-P20). This is the highest-priority deployment risk; the intended fix is Settings → Pages → Source: GitHub Actions, followed by verifying a source path returns 404.</p>
+
+<h2>Next decisions, in order</h2>
 <ol>
-  <li><strong>Run the one-link-per-product test in Associates Central</strong> — gates attribution claims and scaling (Q-01, F-58).</li>
-  <li><strong>Host the analytics endpoint + enable Search Console</strong> — top operational priority; the Search Console checklist is ready on the <a href="measurement.html">measurement page</a> (<a href="suggestions.html#SG-06">SG-06</a>, Q-P08).</li>
-  <li><strong>Pick the design direction and the brand name together</strong> — three specified directions in <a href="suggestions.html#SG-31">SG-31</a>; brand rename after clearance (<a href="suggestions.html#SG-01">SG-01</a>, blocked on Q-19).</li>
-  <li><strong>Settle the reader-capture consent basis</strong> — the form ships dark until then (Q-47, <a href="flagged.html#F-P14">F-P14</a>).</li>
-  <li><strong>Whether to publish prices under a dated-snapshot rule</strong> — <a href="suggestions.html#SG-05">SG-05</a>, only with automation.</li>
-  <li><strong>Visual pass: implement or amend the design brief</strong> — <a href="suggestions.html#SG-15">SG-15</a> with <a href="suggestions.html#SG-16">SG-16</a>, after the brief's cross-references are reconciled (<a href="flagged.html#F-P12">F-P12</a>).</li>
+  <li>Resolve the Pages source setting and verify source files are no longer served (F-P19/F-P20).</li>
+  <li>Test one final Special Link per product in Associates Central and verify the destination and tracking report (F-57/F-58).</li>
+  <li>Resolve the site/endpoint event-name mismatch before hosting analytics (F-P23/Q-P14/SG-41); then decide and document a privacy-reviewed hosting arrangement.</li>
+  <li>Verify Search Console and submit the sitemap; only then use measured query reports to select topics (Q-P08/SG-44).</li>
+  <li>Keep the campaign ledger empty until authorized first-party reports exist; no forecasts or optimization claims before then.</li>
+  <li>Complete formal brand clearance and other open editorial/licensing questions listed on the <a href="questions.html">Questions</a> and <a href="flagged.html">Flagged for Review</a> pages.</li>
 </ol>
 
-<h2>The 2026-11-19 publication pass</h2>
-<p>The reader-facing site now leads with the products: a shop-first front page (product cards before any data), a guides hub with two content clusters and a seasonal desk, eight question-shaped guides on a 14-day cadence, cleaner navigation, RSS subscribe affordances, and a consent-gated question form that sends nothing until its privacy basis exists (<a href="decisions.html#D-P07">D-P07</a>). Nothing moved on the machinery: disclosure above the fold everywhere, tagged <code>rel="sponsored"</code> Special Links only, prices and ratings still withheld, and every published figure still carries its source and read date.</p>
-
-<h2>Where to look</h2>
-<p><a href="method.html">Method &amp; source register</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html">Open questions</a> · <a href="suggestions.html">Suggestion queue</a> · <a href="decisions.html">Decision log</a> · <a href="measurement.html">Measurement</a> · <a href="compliance.html">Compliance</a></p>
+<h2>Review links</h2>
+<p><a href="products.html">Product records</a> · <a href="method.html">Method and source register</a> · <a href="questions.html">Missing-information questions</a> · <a href="suggestions.html">Suggestions and decision paths</a> · <a href="flagged.html">Flagged for Review</a> · <a href="measurement.html">Measurement plan</a> · <a href="compliance.html">Compliance workflow</a>.</p>
 
 </main>
 
