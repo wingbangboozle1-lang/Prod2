@@ -30,14 +30,18 @@ def _asset_version() -> str:
     URL. GitHub Pages serves assets through a CDN cache, so without this a
     corrected stylesheet can sit behind a stale copy for hours — observed on
     2026-11-20, when the fixed site.css was in the repo and the CDN still served
-    the conflict-broken one. Hash of file names + mtimes + sizes: cheap, stable
-    within a build, and different whenever any asset changes."""
+    the conflict-broken one.
+
+    Hash of each file's PATH and BYTES only. It must not use mtime or inode: CI
+    rebuilds on a fresh clone and fails the job if the committed docs/ differs
+    from a fresh build (`git diff --exit-code -- docs/`), and a fresh clone never
+    has the same mtimes. Bytes-only keeps the build byte-reproducible."""
     import hashlib
     h = hashlib.sha1()
     for f in sorted(ASSETS_SRC.rglob("*")):
         if f.is_file():
-            st = f.stat()
-            h.update(f"{f.relative_to(ASSETS_SRC).as_posix()}:{st.st_size}:{int(st.st_mtime)}".encode())
+            h.update(f.relative_to(ASSETS_SRC).as_posix().encode())
+            h.update(hashlib.sha1(f.read_bytes()).digest())
     return h.hexdigest()[:10]
 
 
