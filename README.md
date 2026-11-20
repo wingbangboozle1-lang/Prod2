@@ -1,7 +1,8 @@
-# Prod2 — Countercraft
+# Prod2 — The Crisp Counter
 
 An editorial Amazon affiliate shop built from a verified product register. Tracking ID
-`shopnow047c-20`.
+`shopnow047c-20`. The reader-facing publication ships under the working brand **The Crisp Counter**
+(decision D-P10, 2026-11-20; formal name clearance open as Q-19/F-P15).
 
 The site is **data-driven**: every page is generated from the verified data in `data/*.json` by
 `scripts/build_site.py`, and `scripts/verify_site.py` is a release gate that fails the build on

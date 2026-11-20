@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Suggestion queue: choose the path before we build | Prod2</title>
+<title>Suggestion queue: choose the path before we build | The Crisp Counter</title>
 <meta name="description" content="Proposed improvements with evidence, impact, effort and risk. Nothing here is implemented until a reviewer picks a path.">
 <link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/suggestions.html">
-<meta property="og:title" content="Suggestion queue: choose the path before we build | Prod2">
+<meta property="og:title" content="Suggestion queue: choose the path before we build | The Crisp Counter">
 <meta property="og:description" content="Proposed improvements with evidence, impact, effort and risk. Nothing here is implemented until a reviewer picks a path.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/suggestions.html">
 <meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-card.png">
-<meta property="og:site_name" content="Prod2 — Kitchen notes &amp; buying guides">
+<meta property="og:site_name" content="The Crisp Counter — Kitchen notes &amp; buying guides">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="alternate" type="application/rss+xml" title="Prod2 feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="The Crisp Counter feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
 <link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css">
 <script type="application/ld+json">
 {
@@ -21,12 +21,12 @@
  "@graph": [
   {
    "@type": "WebSite",
-   "name": "Prod2 — Kitchen notes & buying guides",
+   "name": "The Crisp Counter — Kitchen notes & buying guides",
    "url": "https://wingbangboozle1-lang.github.io/Prod2/",
    "description": "What to compare before you buy",
    "publisher": {
     "@type": "Organization",
-    "name": "Prod2",
+    "name": "The Crisp Counter",
     "url": "https://wingbangboozle1-lang.github.io/Prod2/"
    }
   },
@@ -55,7 +55,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">Prod2</span>
+    <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">The Crisp Counter</span>
       <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
     <nav class="nav" aria-label="Site"><a href="compare.html">Compare</a><a href="products.html">Products</a><a href="guides.html">Guides</a><a href="buying-guide.html">Buying guide</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html" aria-current="page">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
   </div>
@@ -69,13 +69,14 @@
 <div class="callout">
   <h3>How to use this queue</h3>
   <p>Each card ends with our recommendation and the dependencies that gate it. To proceed: pick <strong>accept</strong>, <strong>amend</strong>, or <strong>reject</strong> per item (a comment in the repo's <code>COORDINATION.md</code>, or an instruction in the brief, is enough). Accepted items move to the <a href="decisions.html">decision log</a> with their date, then to the build. Items the standing brief has already mandated show <span class="status status-accepted">accepted</span> or <span class="status status-shipped">shipped</span> with a progress note instead of waiting for a second nod.</p>
-  <p><strong>The shortest credible path</strong> — the smallest sequence of owner decisions that unblocks the most work (<a href="suggestions.html#SG-32">SG-32</a> makes this standing):</p>
+  <p><strong>The shortest credible path</strong> — the smallest sequence of decisions that unblocks the most work, with the named decision-maker and a decide-by line (<a href="suggestions.html#SG-32">SG-32</a> makes this standing; updated 2026-11-20 — the visual direction is kept and the working brand shipped, so measurement now leads the path):</p>
   <ol>
-    <li><strong><a href="#SG-06">SG-06</a></strong> — host the endpoint + verify Search Console (<a href="questions.html#Q-P08">Q-P08</a>). Nothing measures until this lands, and nothing compounds without measurement.</li>
-    <li><strong><a href="#SG-31">SG-31</a></strong> + <strong><a href="#SG-01">SG-01</a></strong> — pick the visual direction and the brand name in one decision, so the visual pass happens once (<a href="questions.html#Q-P09">Q-P09</a>).</li>
-    <li><strong><a href="#SG-33">SG-33</a></strong> — the token layer, immediately after: it makes the pick reversible.</li>
-    <li><strong><a href="#SG-34">SG-34</a></strong> — switch topic selection to measured queries after 14 days of data.</li>
-    <li><strong><a href="#SG-36">SG-36</a></strong> + <strong><a href="#SG-04">SG-04</a></strong> — open the question-capture loop once the consent basis exists (<a href="questions.html#Q-47">Q-47</a>).</li>
+    <li><strong><a href="#SG-06">SG-06</a> + <a href="#SG-41">SG-41</a></strong> — verify Search Console (<a href="questions.html#Q-P08">Q-P08</a>, owner action: paste the HTML-tag token into settings and rebuild) and host the analytics endpoint (<a href="questions.html#Q-23">Q-23</a>). Decide-by: before the next cadence cycle — nothing measures or compounds until this lands.</li>
+    <li><strong><a href="#SG-38">SG-38</a> / <a href="questions.html#Q-P10">Q-P10</a></strong> — ratify the working brand and run the formal clearance search (owner, with counsel). Decide-by: before any domain purchase or social/print use of the name.</li>
+    <li><strong><a href="questions.html#Q-47">Q-47</a></strong> — settle the consent basis for reader capture (owner), which opens <a href="#SG-36">SG-36</a> + <a href="#SG-04">SG-04</a>.</li>
+    <li><strong><a href="questions.html#Q-27">Q-27</a> + <a href="questions.html#Q-P11">Q-P11</a></strong> — decide the dated-snapshot policies for prices/ratings and availability (owner). Unblocks <a href="#SG-05">SG-05</a> and <a href="#SG-42">SG-42</a>.</li>
+    <li><strong><a href="#SG-34">SG-34</a></strong> — once 14 days of measured data exist, switch topic selection to measured queries (agent, monthly review). This is the payoff step for item 1.</li>
+    <li><strong><a href="#SG-39">SG-39</a></strong> — amend the brief's imagery line and commission the drawn hero set (owner + designer) once the current pass has settled (<a href="questions.html#Q-P05">Q-P05</a>).</li>
   </ol>
 </div>
 
@@ -295,7 +296,7 @@
 </article>
 <article class="card s-card" id="SG-15">
   <header><h3><code>SG-15</code> Close the type gap between DESIGN_PROMPT.md and the shipped theme (or record a substitution)</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The adopted brief specifies Fraunces (display) and Inter (body). The shipped theme loads neither: --serif is an Iowan Old Style/Palatino/Georgia stack and --sans is system-ui. Palette tokens, fluid type and the hero match the brief, but the specified typefaces never load, so every page reads closer to a plain system page than the approved warm-editorial direction.</dd>
     <dt>Proposal</dt><dd>Either (a) self-host Fraunces + Inter (subset woff2, font-display: swap) so the brief&#x27;s voice ships with no third-party requests — preserving the site&#x27;s send-nothing privacy posture — or (b) record a decision amending the brief&#x27;s typefaces to the current stacks. Reconcile the brief&#x27;s register ids and brand section first (F-P12).</dd>
@@ -303,14 +304,14 @@
     <dt>Expected impact</dt><dd>Medium — the largest single gap between the approved brief and the shipped page; fixes all pages at once.</dd>
     <dt>Effort</dt><dd>Small (font files + @font-face) or one recorded decision.</dd>
     <dt>Risk</dt><dd>Low. Self-hosted fonts keep the no-third-party-request posture; a substitution decision keeps the brief honest.</dd>
-    <dt>Progress</dt><dd>Cross-ref: SG-31 (three fully specified directions) and SG-33 (token layer) cover the same ground from the publication pass; merge the two rows when the owner picks a direction (Q-P09).</dd>
+    <dt>Progress</dt><dd>Shipped 2026-11-20 (D-P11): Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) self-hosted as latin woff2 subsets in assets/fonts/ (SIL OFL 1.1, licenses committed beside the files), font-display: swap, no third-party requests. The brief’s stacks now actually load on every page.</dd>
     <dt>Depends on</dt><dd>F-P12</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted.</p>
 </article>
 <article class="card s-card" id="SG-16">
   <header><h3><code>SG-16</code> Design-token conformance pass against the brief&#x27;s non-negotiables</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief fixes values the shipped theme does not all meet: cards at 8px radius max (theme uses --radius: 10px), buttons with 44px minimum tap targets, sticky comparison anchors on mobile (brief section &#x27;Mobile-first rules&#x27;), and the disclosure strip&#x27;s paper-on-rule treatment. Some match, some silently differ, and nobody has audited the two against each other.</dd>
     <dt>Proposal</dt><dd>Walk DESIGN_PROMPT.md line by line against assets/css/site.css and the page templates; conform the theme where the brief is right or amend the brief where the build is better, and record the outcome as one decision. Include the mobile rules: fluid type, tap targets, sticky anchors, no horizontal scroll traps.</dd>
@@ -318,7 +319,7 @@
     <dt>Expected impact</dt><dd>Medium — consistency across pages; prevents visual drift as new pages ship.</dd>
     <dt>Effort</dt><dd>One session (audit + small CSS changes + one recorded decision).</dd>
     <dt>Risk</dt><dd>Low — visual only; disclosure and link gates are unaffected.</dd>
-    <dt>Progress</dt><dd>Cross-ref: SG-33 (token layer) is the publication-pass sibling of this conformance pass; do both in one session.</dd>
+    <dt>Progress</dt><dd>Conformed 2026-11-20: card radius 10px→8px per brief; amber token added for unverified/attention states (blank cells + status badges); 44px minimum tap targets on buttons, tiles, nav and mobile menu; sticky comparison anchor bar added to compare.html on ≤60rem viewports (masthead unsticks so the anchor bar owns the sticky slot); focus-visible outlines added. Recorded as decision D-P11.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept together with SG-15 as one visual pass: audit, conform, record, stop.</p>
@@ -333,7 +334,7 @@
     <dt>Expected impact</dt><dd>Medium organic potential in fixed windows; unmeasured until SG-06 measurement exists.</dd>
     <dt>Effort</dt><dd>One session for scaffolding; near-zero per activation.</dd>
     <dt>Risk</dt><dd>Low if copy stays calendar-based; the claims gate blocks scarcity/hype language.</dd>
-    <dt>Progress</dt><dd>Cross-ref: the seasonal scaffolding partially shipped (data/p2/calendar.json + the front-page seasonal desk, SG-35); this row covers the remaining merchandising depth.</dd>
+    <dt>Progress</dt><dd>Partial: the seasonal desk + calendar rotation shipped 2026-11-19; the gifting window was activated 2026-11-20 with guide-gift-guide.html and a December seasonal card. Remaining depth (hero-line swaps, tile copy rotation) stays queued behind measurement (SG-34).</dd>
     <dt>Depends on</dt><dd>Q-P07</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated.</p>
@@ -400,7 +401,7 @@
 </article>
 <article class="card s-card" id="SG-31">
   <header><h3><code>SG-31</code> Design feed: three fully specified directions for the next visual pass</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-accepted">accepted</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief asks for design suggestions that feed the design prompt, so a reviewer can pick the best path before anything is implemented. One direction (warm editorial) is carried and built; the alternatives have never been specified side by side.</dd>
     <dt>Proposal</dt><dd>Publish three complete directions against the same compliance block: (A) Warm editorial - kitchen magazine that shows its sources: serif display (Fraunces), paper background, terracotta accent, drawn line-art only; this build follows it (DESIGN_PROMPT.md). (B) Clean modern shop - sans display (Inter), white cards, one strong accent color, product-first grid with big tap targets, tighter type scale; the most e-commerce-native of the three. (C) Bold magazine - high-contrast black/paper, oversized display numerals for specs, full-width section bands, editorial photography if the photography decision (the photography decision D-22, open imagery question Q-P05) ever clears. Each keeps: disclosure above the fold, no prices/ratings, sponsored-only product links, drawn-not-copied imagery.</dd>
@@ -408,14 +409,14 @@
     <dt>Expected impact</dt><dd>Decides the entire reader-facing look; direction B is the most shop-like, A is the most distinctive and least template-like, C is the boldest but needs photography.</dd>
     <dt>Effort</dt><dd>The pick is one meeting; the token layer (SG-33) makes the implementation one session per direction.</dd>
     <dt>Risk</dt><dd>Low if done through the token layer; high if done as scattered one-off CSS. Direction C depends on the photography decision.</dd>
-    
+    <dt>Progress</dt><dd>Accepted 2026-11-20 on the owner’s standing directive (the site must read as a polished branded publication, not generated output): Direction A is retained and finished rather than re-picked — shipped typography, token conformance, working brand. Q-P09 remains open only for any FUTURE re-direction; it no longer blocks.</dd>
     <dt>Depends on</dt><dd>Q-P09</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once.</p>
 </article>
 <article class="card s-card" id="SG-32">
   <header><h3><code>SG-32</code> Decision-making improvements: dependency-ordered queue and the shortest credible path</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-accepted">accepted</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief asks for suggestions on how to improve decision making. Decisions currently pile up in a flat log; blockers are visible only if the reader cross-references the questions register.</dd>
     <dt>Proposal</dt><dd>Re-order the suggestion queue by dependency (what blocks what), give each open item a named decision-maker (owner / agent / data), and print a standing &#x27;shortest credible path&#x27; block at the top: the smallest sequence of owner decisions that unblocks the most work. Also add a &#x27;decide-by&#x27; date to items whose value decays (seasonal content, Search Console).</dd>
@@ -423,14 +424,14 @@
     <dt>Expected impact</dt><dd>Cuts the owner&#x27;s review time; nothing else changes reader-side.</dd>
     <dt>Effort</dt><dd>One pass over the registers; the renders already exist.</dd>
     <dt>Risk</dt><dd>None - metadata only.</dd>
-    
+    <dt>Progress</dt><dd>Implemented 2026-11-20 on the Suggestions page: dependency-ordered &quot;Shortest credible path&quot; block with named decision-maker and decide-by dates per open item.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept. Cheap, no downside, and it is exactly the review surface the brief asked for.</p>
 </article>
 <article class="card s-card" id="SG-33">
   <header><h3><code>SG-33</code> Design token layer: color, type and spacing in one switchable place</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The palette and type scale are hard-coded in assets/css/site.css. Switching a design direction (SG-31) today means editing declarations all over the sheet.</dd>
     <dt>Proposal</dt><dd>Move the eight palette tokens, the two type stacks and the spacing scale into CSS custom properties at the top of the sheet; components consume only variables. Then a direction switch is a token-block swap.</dd>
@@ -438,7 +439,7 @@
     <dt>Expected impact</dt><dd>Makes SG-31 reversible and the brand rename (SG-01) mechanical.</dd>
     <dt>Effort</dt><dd>One session; visual output must be pixel-identical after the refactor (the build gate catches content changes, not pixels, so the pass includes a manual look).</dd>
     <dt>Risk</dt><dd>Low; one-day regression window.</dd>
-    
+    <dt>Progress</dt><dd>The token layer is in place and now actually matches the brief: palette (incl. new amber), type stacks (Fraunces/Inter), spacing and radius are all CSS custom properties consumed by components; a direction swap is a token-block swap.</dd>
     <dt>Depends on</dt><dd>Q-P09</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept together with SG-11, whichever direction wins.</p>
@@ -468,7 +469,7 @@
     <dt>Expected impact</dt><dd>Keeps the front page timely without rewrite churn; supports the holiday and grilling clusters already published.</dd>
     <dt>Effort</dt><dd>Half a session to make the front page date-aware (currently the season modules are static blocks).</dd>
     <dt>Risk</dt><dd>Low.</dd>
-    
+    <dt>Progress</dt><dd>Seasonal desk + gifting window live 2026-11-20; front-page date-awareness (auto-retire on window end) remains queued before the 2026-12-31 boundary.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept before the next season boundary (2026-12-31).</p>
@@ -503,6 +504,96 @@
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the standing growth thesis.</p>
 </article>
+<article class="card s-card" id="SG-38">
+  <header><h3><code>SG-38</code> Adopt the brief&#x27;s working brand &quot;The Crisp Counter&quot; now; finish clearance in parallel</h3>
+  <span class="status status-shipped">shipped</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The wordmark &#x27;Prod2&#x27; is a repository codename. On an otherwise branded page it is the single loudest &#x27;generated project&#x27; signal, and the owner&#x27;s 2026-11-20 directive is explicit that the site must not read that way. Waiting for formal clearance left a placeholder running on every page, feed and social card.</dd>
+    <dt>Proposal</dt><dd>Adopt the design brief&#x27;s brand &#x27;The Crisp Counter&#x27; as the WORKING wordmark (masthead, titles, JSON-LD, feed, OG card), run a preliminary name search now, and keep formal clearance open as Q-19/F-P15. Reversal is one line in data/p2/settings.json + rebuild.</dd>
+    <dt>Evidence</dt><dd>Owner directive 2026-11-20 (&#x27;should not read like AI slop&#x27;); DESIGN_PROMPT.md already carries the name (D-18 lineage); preliminary web search 2026-11-20 found no kitchen-appliance brand conflict in the first page of results (recorded in D-P10 with links).</dd>
+    <dt>Expected impact</dt><dd>High — brand recall, SERP presentation, share cards; removes the largest slop signal in one pass.</dd>
+    <dt>Effort</dt><dd>Shipped in one session (settings + OG card + rebuild).</dd>
+    <dt>Risk</dt><dd>Trademark collision remains possible until formal clearance runs — mitigated by keeping Q-19/F-P15 open and the change one-line reversible.</dd>
+    <dt>Progress</dt><dd>Shipped 2026-11-20 (D-P10, flag F-P15 open). Preliminary search links in D-P10 sources.</dd>
+    <dt>Depends on</dt><dd>Q-19</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Done as a working brand (D-P10). Next: formal USPTO/state/common-law search, then either ratify or revert.</p>
+</article>
+<article class="card s-card" id="SG-39">
+  <header><h3><code>SG-39</code> Commission a drawn hero illustration set (amends the brief&#x27;s &#x27;glyphs only&#x27; imagery line)</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The brief currently restricts graphics to line-art glyphs, the OG card and a favicon — right for compliance, but it leaves the hero pure type. A warm, drawn counter-scene (air fryers + probes on a paper background, no photography) would give the front page the editorial signature the direction asks for without touching the photography question.</dd>
+    <dt>Proposal</dt><dd>Amend DESIGN_PROMPT.md&#x27;s imagery line to allow one original drawn hero scene per season (drawn by hand or vector — never photographed or stock), ship it behind the token layer, and keep the no-photo rule until Q-P05 resolves.</dd>
+    <dt>Evidence</dt><dd>DESIGN_PROMPT.md imagery block; owner directive 2026-11-20 (polished marketing look); drawn-not-photographed is already the shipped standard (tools/make_og.py note).</dd>
+    <dt>Expected impact</dt><dd>Medium — front-page memorability without compliance risk.</dd>
+    <dt>Effort</dt><dd>One illustration set per season (external asset work).</dd>
+    <dt>Risk</dt><dd>Low — original artwork only; the claims gate still blocks hype copy around it.</dd>
+    
+    <dt>Depends on</dt><dd>Q-P05</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the next visual item after the current pass settles; amend the brief first, then draw.</p>
+</article>
+<article class="card s-card" id="SG-40">
+  <header><h3><code>SG-40</code> Keep a running seasonal article calendar with catchy (but rule-compliant) working titles</h3>
+  <span class="status status-shipped">shipped</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The brief asks for catchy, timely articles. The tension: the evidence rule (D-19) bans popularity claims, and the claims gate bans hype words — so &#x27;catchy&#x27; has to come from specificity (a real minute, a real trade-off), not from superlatives.</dd>
+    <dt>Proposal</dt><dd>Extend the queue each cycle with question-shaped titles tied to the calendar (party-day batch math, a 26-quart measuring walkthrough, spring cleanup, thermometer jargon decode — shipped as slots 6-9 on 2026-11-20). Once Search Console + 14 days of events exist (SG-06/SG-34), measured queries outrank the hypotheses.</dd>
+    <dt>Evidence</dt><dd>Owner directive 2026-11-20 (catchy trendy articles, organic traffic); D-19 + the claims gate (banned words list); data/p2/calendar.json queue.</dd>
+    <dt>Expected impact</dt><dd>Medium-high organic potential in fixed seasonal windows; unmeasured until the SG-06 gate opens.</dd>
+    <dt>Effort</dt><dd>One queue review per cadence cycle; near-zero machinery.</dd>
+    <dt>Risk</dt><dd>Low — calendar framing only; the gate blocks the alternative.</dd>
+    <dt>Progress</dt><dd>Shipped 2026-11-20: 4 new slots + the gifting guide live.</dd>
+    <dt>Depends on</dt><dd>SG-34</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Continue per cycle; let measured queries take over at the first opportunity.</p>
+</article>
+<article class="card s-card" id="SG-41">
+  <header><h3><code>SG-41</code> Organic-discovery runbook: Search Console first, then measured topics</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Real organic traffic requires the search engine to see one canonical site and report queries back; neither is possible until the Search Console property is verified (Q-P08, F-P13) and the sitemap is submitted. Every topic decision before that is editorial instinct wearing a hypothesis costume (Q-P02).</dd>
+    <dt>Proposal</dt><dd>Owner/agent runbook, in order: (1) verify wingbangboozle1-lang.github.io/Prod2 via the HTML-tag token (paste into settings.json search_console.verification_token and rebuild); (2) submit sitemap.xml; (3) wait 14 days for the Queries report + endpoint events; (4) hand the top measured questions to SG-34. Document impressions/clicks in the campaign ledger only from Search Console&#x27;s own reports.</dd>
+    <dt>Evidence</dt><dd>Q-P08/F-P13 (verification owner action); settings.json search_console slot (shipped); S-GHELP/S-GSPAM guidance in the source register; SG-34&#x27;s measured-topic gate.</dd>
+    <dt>Expected impact</dt><dd>High — it is the switch that turns the whole publishing cadence from hypothesis-driven to demand-driven.</dd>
+    <dt>Effort</dt><dd>Small (verification + submission); then a monthly review cycle.</dd>
+    <dt>Risk</dt><dd>Low. No data is fabricated; the ledger stays first-party.</dd>
+    
+    <dt>Depends on</dt><dd>Q-P08, SG-34</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the standing growth runbook; it is the shortest credible path to measured organic traffic.</p>
+</article>
+<article class="card s-card" id="SG-42">
+  <header><h3><code>SG-42</code> Decide an availability-snapshot policy (publish &#x27;in stock on a dated read&#x27; or not)</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The 2026-11-20 listing re-reads observed an &#x27;In Stock&#x27; line on P4&#x27;s page. Availability is checkable on a dated read, but it is time-sensitive in a way prices are not, and no policy covers it today (Q-27 covers prices/ratings only).</dd>
+    <dt>Proposal</dt><dd>If the owner wants it: publish availability only as &#x27;observed in stock on YYYY-MM-DD&#x27; with the source link, never as a promise, refreshed on every verification pass; otherwise record the decision to omit it. Nothing ships until Q-P11 is answered.</dd>
+    <dt>Evidence</dt><dd>2026-11-20 re-reads (data/p2/verification-2026-11-20.json); Q-27&#x27;s dated-snapshot framing for prices.</dd>
+    <dt>Expected impact</dt><dd>Small — a modest convenience signal for buyers; zero if the owner declines.</dd>
+    <dt>Effort</dt><dd>Tiny (one register field + note) once decided.</dd>
+    <dt>Risk</dt><dd>Stale availability lines could mislead — mitigated by the dated-read rule or by not publishing.</dd>
+    
+    <dt>Depends on</dt><dd>Q-P11</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Decide together with Q-27 (dated-snapshot prices); if both open, omit both.</p>
+</article>
+<article class="card s-card" id="SG-43">
+  <header><h3><code>SG-43</code> Copy-catchiness pass on existing guide titles — measured, not instinctive</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The current guide titles are question-shaped and rule-compliant, but several are flat (&#x27;A no-hype checklist for air-fryer capacity&#x27;). Catchiness improvements proposed from instinct would repeat the exact pattern SG-34 exists to end.</dd>
+    <dt>Proposal</dt><dd>Hold title rewrites until the measured-query gate opens; then test the weakest-performing title first against its measured impressions, keeping the question-shaped rule and the banned-words gate. Keep the shipped blurbs (the one-line hooks under each card) — those already carry the specificity.</dd>
+    <dt>Evidence</dt><dd>SG-34&#x27;s rationale; VOICE.md rule 7 (questions are titles); the claims gate.</dd>
+    <dt>Expected impact</dt><dd>Medium on CTR once measurement exists; zero before it.</dd>
+    <dt>Effort</dt><dd>One item per cadence review.</dd>
+    <dt>Risk</dt><dd>Low — gated on data, so no churn.</dd>
+    
+    <dt>Depends on</dt><dd>SG-34, Q-P02</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the first measured-iteration item; do nothing until the gate opens.</p>
+</article>
 
 <p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>.</p>
 
@@ -511,15 +602,15 @@
 <footer class="footer">
   <div class="wrap footer-grid">
     <div>
-      <p class="footer-brand">Prod2 <span>· Kitchen notes &amp; buying guides</span></p>
+      <p class="footer-brand">The Crisp Counter <span>· Kitchen notes &amp; buying guides</span></p>
       <p class="footer-disclosure">As an Amazon Associate we earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
     </div>
-    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guides.html">All guides</a></li></ul></div>
+    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guide-gift-guide.html">The gift guide</a></li><li><a href="guides.html">All guides</a></li></ul></div>
     <div><h2>Compare &amp; shop</h2><ul><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
     <div><h2>Read &amp; follow</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="guides.html#subscribe">Follow the feed</a></li><li><a href="guides.html#ask">Ask a question</a></li><li><a href="guides.html#byline">Who writes this</a></li></ul></div>
     <div><h2>The work behind it</h2><ul><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
   </div>
-  <p class="wrap footer-legal">Published 2026-11-19. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
+  <p class="wrap footer-legal">Published 2026-11-20. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
   Product links are Amazon Associates Special Links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
 </footer>
 <script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/site.js" defer></script>

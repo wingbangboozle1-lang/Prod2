@@ -35,6 +35,16 @@ recommended path; none are decided without the information listed.
 | D-23 | Which imagery channel is permitted? | Confirmation of which imagery is allowed under the Agreement. | Stay text-led until confirmed; then use only permitted imagery. |
 | D-24 | Publishing cadence and topic order? | Measured query data (analytics + Search Console). | Weekly cadence; reorder next topics from measured queries. |
 
+## Publication pass — 2026-11-20 (arena/f55b5827-prod2)
+
+Recorded in full in `data/p2/decisions.json` (D-P10…D-P12); summary here.
+
+| ID | Decision | Rationale / missing evidence |
+| --- | --- | --- |
+| D-P10 | Working brand **The Crisp Counter** on all reader-facing surfaces | Owner's 2026-11-20 anti-slop directive; the adopted design brief carries the name. Preliminary name search clean; formal clearance open (Q-19/Q-P10, flag F-P15). |
+| D-P11 | Ship the brief's typography (self-hosted Fraunces + Inter, OFL) + token conformance | Closes SG-15/SG-16/SG-33: 8px radius, amber unverified states, 44px tap targets, sticky mobile anchors, focus-visible outlines. No third-party font requests. |
+| D-P12 | December gifting window: gift guide + 4 new hypothesis queue slots | Built from the verified register (re-read 2026-11-20). Editorial hypotheses only (D-19); measured queries take over at the SG-06 gate (SG-34). |
+
 ## Publication pass — 2026-11-19 (arena/9f84489c-prod2)
 
 Recorded in full in `data/p2/decisions.json` (D-P07…D-P09); summary here.

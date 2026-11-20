@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Decision log | Prod2</title>
+<title>Decision log | The Crisp Counter</title>
 <meta name="description" content="Every recorded decision, its question, its outcome and its sources — carried decisions keep their original dates.">
 <link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/decisions.html">
-<meta property="og:title" content="Decision log | Prod2">
+<meta property="og:title" content="Decision log | The Crisp Counter">
 <meta property="og:description" content="Every recorded decision, its question, its outcome and its sources — carried decisions keep their original dates.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/decisions.html">
 <meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-card.png">
-<meta property="og:site_name" content="Prod2 — Kitchen notes &amp; buying guides">
+<meta property="og:site_name" content="The Crisp Counter — Kitchen notes &amp; buying guides">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="alternate" type="application/rss+xml" title="Prod2 feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="The Crisp Counter feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
 <link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css">
 <script type="application/ld+json">
 {
@@ -21,12 +21,12 @@
  "@graph": [
   {
    "@type": "WebSite",
-   "name": "Prod2 — Kitchen notes & buying guides",
+   "name": "The Crisp Counter — Kitchen notes & buying guides",
    "url": "https://wingbangboozle1-lang.github.io/Prod2/",
    "description": "What to compare before you buy",
    "publisher": {
     "@type": "Organization",
-    "name": "Prod2",
+    "name": "The Crisp Counter",
     "url": "https://wingbangboozle1-lang.github.io/Prod2/"
    }
   },
@@ -55,7 +55,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">Prod2</span>
+    <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">The Crisp Counter</span>
       <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
     <nav class="nav" aria-label="Site"><a href="compare.html">Compare</a><a href="products.html">Products</a><a href="guides.html">Guides</a><a href="buying-guide.html">Buying guide</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html">Suggestions</a><a href="decisions.html" aria-current="page">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
   </div>
@@ -199,6 +199,24 @@
   <p>Not yet - verification needs the owner&#x27;s Google account (Q-P05). The readiness work ships now: sitemap, robots.txt Sitemap line, RSS feed, canonical URLs, unique titles and meta descriptions, and a verification-token slot in settings.json. Owner checklist on the measurement page (F-P06).</p>
   <p><a class="src" href="https://developers.google.com/search/docs/appearance/google-search-console" rel="noopener" target="_blank">source</a> </p>
 </article>
+<article class="card d-card" id="D-P10">
+  <h3><code>D-P10</code> What consumer-facing brand ships on the reader-facing site while formal clearance (Q-19) is open?</h3>
+  <p class="status status-recorded">Recorded 2026-11-20 (owner standing directive)</p>
+  <p>Adopt the design brief&#x27;s brand “The Crisp Counter” as the WORKING wordmark — masthead, page titles, JSON-LD, feed, OG card — replacing the repository codename &#x27;Prod2&#x27; on reader-facing surfaces. Basis: the owner&#x27;s 2026-11-20 directive that the site read as a polished branded publication rather than generated output, and the adopted warm-editorial brief which already carried this name. A preliminary name search (2026-11-20) found no conflicting kitchen-appliance brand in the first page of results; a formal trademark clearance has NOT been performed and stays open as Q-19 with flag F-P15. Reversal is one line in data/p2/settings.json plus a rebuild.</p>
+  <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md" rel="noopener" target="_blank">source</a> <a class="src" href="https://tmsearch.uspto.gov/" rel="noopener" target="_blank">source</a> </p>
+</article>
+<article class="card d-card" id="D-P11">
+  <h3><code>D-P11</code> Do the design brief&#x27;s typefaces ship, and by what mechanism? (implements SG-15/SG-16/SG-33)</h3>
+  <p class="status status-recorded">Recorded 2026-11-20</p>
+  <p>Ship Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) as self-hosted latin-subset woff2 files in assets/fonts/ (SIL Open Font License 1.1; license files committed beside the fonts; font-display: swap; no third-party font requests, preserving the send-nothing privacy posture). Conform the theme tokens to the brief in the same pass: card radius 8px, amber token for unverified states, 44px minimum tap targets on mobile, sticky comparison anchor bar on ≤60rem viewports, focus-visible outlines.</p>
+  <p><a class="src" href="https://fonts.google.com/specimen/Fraunces" rel="noopener" target="_blank">source</a> <a class="src" href="https://fonts.google.com/specimen/Inter" rel="noopener" target="_blank">source</a> <a class="src" href="https://github.com/undercasetype/Fraunces" rel="noopener" target="_blank">source</a> <a class="src" href="https://github.com/rsms/inter" rel="noopener" target="_blank">source</a> <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md" rel="noopener" target="_blank">source</a> </p>
+</article>
+<article class="card d-card" id="D-P12">
+  <h3><code>D-P12</code> What publishes in the December gifting window, and on what evidence?</h3>
+  <p class="status status-recorded">Recorded 2026-11-20 (editorial hypothesis per D-19)</p>
+  <p>Open the gifting window with guide-gift-guide.html (“Gift guide: which of the five fits which cook?”) built only from the verified register&#x27;s listed specs (re-read 2026-11-20), and extend the queue with four hypothesis slots (slots 6-9) tied to the calendar: party-day batch math, a 26-quart measuring walkthrough, basket materials for spring cleanup, and a thermometer-listing jargon decode. No popularity, search-volume or superiority claims anywhere — the claims gate enforces D-19. Measured queries take over selection once the SG-06 gate and 14 days of data exist (SG-34).</p>
+  <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json" rel="noopener" target="_blank">source</a> <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json" rel="noopener" target="_blank">source</a> </p>
+</article>
 
 <p class="small-note">Machine-readable log: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/decisions.json" rel="noopener" target="_blank">data/p2/decisions.json</a>.</p>
 
@@ -207,15 +225,15 @@
 <footer class="footer">
   <div class="wrap footer-grid">
     <div>
-      <p class="footer-brand">Prod2 <span>· Kitchen notes &amp; buying guides</span></p>
+      <p class="footer-brand">The Crisp Counter <span>· Kitchen notes &amp; buying guides</span></p>
       <p class="footer-disclosure">As an Amazon Associate we earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
     </div>
-    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guides.html">All guides</a></li></ul></div>
+    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guide-gift-guide.html">The gift guide</a></li><li><a href="guides.html">All guides</a></li></ul></div>
     <div><h2>Compare &amp; shop</h2><ul><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
     <div><h2>Read &amp; follow</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="guides.html#subscribe">Follow the feed</a></li><li><a href="guides.html#ask">Ask a question</a></li><li><a href="guides.html#byline">Who writes this</a></li></ul></div>
     <div><h2>The work behind it</h2><ul><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
   </div>
-  <p class="wrap footer-legal">Published 2026-11-19. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
+  <p class="wrap footer-legal">Published 2026-11-20. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
   Product links are Amazon Associates Special Links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
 </footer>
 <script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/site.js" defer></script>

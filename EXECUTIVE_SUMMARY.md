@@ -1,6 +1,6 @@
 # Executive summary — Prod2 affiliate publication
 
-**What this is:** a small Amazon-affiliate publication (brand: **Prod2 — Kitchen notes & buying guides**) built around five owner-supplied products, with the verification machinery kept visible and reviewable behind it.
+**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**, adopted 2026-11-20 per the owner's anti-slop directive, decision D-P10; formal clearance open as Q-19/F-P15) built around five owner-supplied products, with the verification machinery kept visible and reviewable behind it.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
 
@@ -8,11 +8,11 @@
 
 | # | Product | Format | ASIN | Submitted short link | Status |
 |---|---|---|---|---|---|
-| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 | link.amazon/B04G1MEwY | Verified since 2026-11-14; re-read 2026-11-19 |
-| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R | link.amazon/B02NbDxp3 | Verified since 2026-11-14; re-read 2026-11-19 (title drift — F-44) |
-| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH | link.amazon/B00hJ57DV | Verified since 2026-11-14; re-read 2026-11-19 |
-| P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | **First verified 2026-11-19** (resolves F-55) |
-| P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | **First verified 2026-11-19** (resolves F-55) |
+| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 | link.amazon/B04G1MEwY | Verified since 2026-11-14; re-read 2026-11-20 |
+| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R | link.amazon/B02NbDxp3 | Verified since 2026-11-14; re-read 2026-11-20 (no drift this pass; F-44 history stands) |
+| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH | link.amazon/B00hJ57DV | Verified since 2026-11-14; re-read 2026-11-20 |
+| P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | **First verified 2026-11-19** (resolves F-55); re-read 2026-11-20 |
+| P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | **First verified 2026-11-19** (resolves F-55); re-read 2026-11-20 |
 
 - All five short links resolved to the ASINs above on 2026-11-19 **with no `tag=` parameter** (F-03). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
@@ -52,6 +52,31 @@
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
 - Gate: `python3 tools/build.py && python3 tools/checks.py` — 9 sections, green on the merged build.
 
+## The publication pass (2026-11-20, arena/f55b5827-prod2)
+
+The owner's standing directive — the site must not read like generated output; it should look and
+read like a polished, branded affiliate publication with timely articles — was executed as one pass:
+
+- **Working brand adopted (D-P10):** "The Crisp Counter" replaces the repository codename on every
+  reader-facing surface (masthead, titles, JSON-LD, feed, OG card). Preliminary name search clean;
+  formal clearance stays open (Q-19, Q-P10, F-P15). One-line reversible in `data/p2/settings.json`.
+- **The design brief's typography actually ships (D-P11, closes SG-15/SG-16/SG-33):** Fraunces +
+  Inter self-hosted as latin woff2 subsets (SIL OFL 1.1, licenses committed in `assets/fonts/`),
+  no third-party font requests. Token conformance in the same pass: 8px card radius, amber token
+  for unverified states, 44px tap targets, sticky mobile anchor bar on the comparison page,
+  focus-visible outlines.
+- **December gifting window opened (D-P12):** `guide-gift-guide.html` ("Gift guide: which of the
+  five fits which cook?") built from the verified register; the seasonal desk gained a gifting
+  card; the hypothesis queue grew to 9 slots (party-day batch math, a 26-quart measuring
+  walkthrough, spring cleanup materials, thermometer-jargon decode).
+- **All five listings re-read 2026-11-20** (document titles + breadcrumbs, `verification-2026-11-20.json`):
+  no drift; register values unchanged; prices/ratings remain unpublished (F-02). An "In Stock" line
+  on P4's page raised the availability-policy question (Q-P11 / SG-42).
+- **Decision-making surfaces upgraded:** the Suggestions page's "shortest credible path" now names
+  a decision-maker and a decide-by line per step (SG-32 implemented); new suggestions SG-38…SG-43
+  (brand adoption, drawn hero art, seasonal-title calendar, the organic-discovery runbook,
+  availability policy, measured title rewrites); questions register gained Q-P10/Q-P11.
+
 ## The publication pass (2026-11-19, arena/9f84489c-prod2)
 
 The reader-facing site now reads like a shop, not an audit (decision D-P07): the front page leads
@@ -70,11 +95,11 @@ and the questions register gained a scannable status table plus Q-P05/Q-P06.
 ## Open decisions for the owner
 
 1. Run the **one-link-per-product test** in Associates Central (gates attribution claims/scaling).
-2. **Deploy the analytics endpoint + verify Search Console** (SG-06) — everything downstream depends on it; the checklist is on the measurement page.
-3. **Pick the design direction and settle the brand name together** (SG-11, SG-01; Q-P06, Q-19) — then SG-13 makes the switch mechanical.
+2. **Deploy the analytics endpoint + verify Search Console** (SG-06, runbook SG-41) — everything downstream depends on it; the checklist is on the measurement page.
+3. **Ratify the working brand and run formal clearance** (SG-38, Q-P10/Q-19) — "The Crisp Counter" ships as the working wordmark; the USPTO/state/common-law search is the missing evidence.
 4. **Settle the reader-capture consent text** (Q-47) — the form ships dark until then.
-5. Whether to adopt a dated-snapshot price policy (SG-05) — only with automation.
-6. Product photography decision (S-18/D-22): still awaiting a decision; generated/copy photography is banned, real photography is the only compliant path.
+5. Whether to adopt a dated-snapshot price policy (SG-05/Q-27) and an availability-snapshot policy (SG-42/Q-P11) — decide together.
+6. Product photography decision (S-18/D-22/Q-P05): still awaiting a decision; generated/copy photography is banned, drawn artwork (SG-39) is the interim path.
 
 
 
@@ -209,11 +234,11 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 
 | # | Product | Format | ASIN | Submitted short link | Status |
 |---|---|---|---|---|---|
-| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 | link.amazon/B04G1MEwY | Verified since 2026-11-14; re-read 2026-11-19 |
-| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R | link.amazon/B02NbDxp3 | Verified since 2026-11-14; re-read 2026-11-19 (title drift — F-44) |
-| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH | link.amazon/B00hJ57DV | Verified since 2026-11-14; re-read 2026-11-19 |
-| P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | **First verified 2026-11-19** (resolves F-55) |
-| P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | **First verified 2026-11-19** (resolves F-55) |
+| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 | link.amazon/B04G1MEwY | Verified since 2026-11-14; re-read 2026-11-20 |
+| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R | link.amazon/B02NbDxp3 | Verified since 2026-11-14; re-read 2026-11-20 (no drift this pass; F-44 history stands) |
+| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH | link.amazon/B00hJ57DV | Verified since 2026-11-14; re-read 2026-11-20 |
+| P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | **First verified 2026-11-19** (resolves F-55); re-read 2026-11-20 |
+| P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | **First verified 2026-11-19** (resolves F-55); re-read 2026-11-20 |
 
 - All five short links resolved to the ASINs above on 2026-11-19 **with no `tag=` parameter** (F-03). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).

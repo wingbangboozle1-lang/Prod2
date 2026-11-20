@@ -22,7 +22,7 @@ CONTENT = ROOT / "content"
 ASSETS_SRC = ROOT / "assets"
 DOCS = ROOT / "docs"
 
-BUILD_DATE = "2026-11-19"  # set on each publishing pass
+BUILD_DATE = "2026-11-20"  # set on each publishing pass
 
 
 def load(name: str):
@@ -67,7 +67,7 @@ PAGES = [
      "Full listed specifications with read dates and source links, plus the product-intent confirmation record for every submitted link. Blank means unverified.",
      "products"),
     ("buying-guide", "buying-guide.html",
-     f"Buying guide: choose by format, capacity and counter fit | {BRAND}",
+     f"Buying guide: format, capacity and counter fit | {BRAND}",
      "A buying guide that starts from your kitchen, not a brand: format first, then capacity, then counter depth, then cleanup — with the questions that decide each.",
      "guides"),
     ("guide-basket-vs-oven", "guide-basket-vs-oven.html",
@@ -95,7 +95,7 @@ PAGES = [
      "Quarts on a listing describe volume, not people. A serving-count sanity check built from the listed capacities of the three air fryers, each sourced.",
      "guides"),
     ("guide-two-baskets-or-one", "guide-two-baskets-or-one.html",
-     f"Two baskets or one: when do two drawers earn their space? | {BRAND}",
+     f"Two baskets or one: when two drawers earn it | {BRAND}",
      "Dual-zone or one big basket? The batch math and the listed specs that decide it: sync finish, shake reminders, and who cooks two dishes at once.",
      "guides"),
     ("guide-holiday-hosting", "guide-holiday-hosting.html",
@@ -103,19 +103,23 @@ PAGES = [
      "Big meals, borrowed counter space, eat-in waves. Which air-fryer format and which thermometer workflow fit holiday hosting, from listed specs only.",
      "guides"),
     ("guide-instant-vs-leave-in", "guide-instant-vs-leave-in.html",
-     f"Instant-read vs leave-in: which thermometer for which cook | {BRAND}",
+     f"Instant-read vs leave-in: which one fits you | {BRAND}",
      "Spot-check in a second, or watch a long cook from your phone? How an instant-read and a wireless leave-in thermometer differ by workflow, with listed specs.",
+     "guides"),
+    ("guide-gift-guide", "guide-gift-guide.html",
+     f"Gift guide: which of the five fits which cook? | {BRAND}",
+     "Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.",
      "guides"),
     ("guides", "guides.html",
      f"Guides: one buyer question per page | {BRAND}",
      "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
      "guides"),
     ("category-air-fryers", "category-air-fryers.html",
-     f"Air fryers: dual-basket, toaster-oven, single-basket | {BRAND}",
+     f"Air fryers: the three formats compared | {BRAND}",
      "Three air-fryer formats compared by the decision that matters — how they fit your counter and your cooking. Listed specs only, each with its source.",
      "categories"),
     ("category-thermometers", "category-thermometers.html",
-     f"Meat thermometers: instant-read vs wireless leave-in | {BRAND}",
+     f"Meat thermometers: instant-read vs leave-in | {BRAND}",
      "Two thermometers compared: a one-second instant-read with certified accuracy claims, and a wireless leave-in probe set. Listed specs only, sourced.",
      "categories"),
     ("executive-summary", "executive-summary.html",
@@ -143,7 +147,7 @@ PAGES = [
      "Every recorded decision, its question, its outcome and its sources — carried decisions keep their original dates.",
      "work"),
     ("measurement", "measurement.html",
-     f"Measurement: events, clicks and the campaign ledger | {BRAND}",
+     f"Measurement: events, clicks, campaign ledger | {BRAND}",
      "The privacy-preserving click counter, the five defined events with attribution windows, the analytics endpoint, and the empty campaign ledger.",
      "work"),
     ("compliance", "compliance.html",
@@ -158,7 +162,8 @@ PAGES = [
 
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
-             "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in"]
+             "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
+             "guide-gift-guide"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -225,6 +230,7 @@ GUIDE_LINKS = [
     ("guide-two-baskets-or-one.html", "Two baskets or one?"),
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
     ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
+    ("guide-gift-guide.html", "The gift guide"),
     ("guides.html", "All guides"),
 ]
 
@@ -557,12 +563,22 @@ def hook_local_events(_="") -> str:
             '<th>Fields</th></tr></thead><tbody>' + rows + '</tbody></table></div>')
 
 
+PRODUCT_MARKS = {
+    "P1": '<svg class="product-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="14" width="16" height="24" rx="3"/><rect x="26" y="14" width="16" height="24" rx="3"/><path d="M10 10h8M30 10h8"/><path d="M10 20h8M30 20h8"/></svg>',
+    "P2": '<svg class="product-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="12" width="38" height="26" rx="3"/><path d="M5 21h38"/><circle cx="12" cy="16.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="18" cy="16.5" r="1.5" fill="currentColor" stroke="none"/><path d="M12 31h24"/><path d="M20 12l4 9M28 12l4 9"/></svg>',
+    "P3": '<svg class="product-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="10" y="14" width="28" height="24" rx="4"/><path d="M16 10h16"/><path d="M10 22h28"/><path d="M18 30h12"/></svg>',
+    "P4": '<svg class="product-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 6v20"/><circle cx="22" cy="34" r="7"/><path d="M22 14h7M22 20h4"/><path d="M34 10l4-4M38 6l-2 6" stroke-linecap="round"/></svg>',
+    "P5": '<svg class="product-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 8v16"/><circle cx="14" cy="32" r="6"/><path d="M20 36c6 0 10-4 10-10V12"/><path d="M30 12h8M30 18h5"/><rect x="8" y="6" width="12" height="4" rx="1"/></svg>',
+}
+
+
 def hook_product_cards(_="") -> str:
     cards = []
     for p in PRODUCTS:
+        mark = PRODUCT_MARKS.get(p["id"], "")
         cards.append(f"""
 <article class="card product-card" id="{esc(p['id'])}">
-  <p class="eyebrow">{esc(p['format'])}</p>
+  <p class="eyebrow">{mark}{esc(p['format'])}</p>
   <h3>{esc(p['name_short'])}</h3>
   <p class="muted">{esc(p['asin'])}</p>
   <ul>
@@ -602,6 +618,7 @@ GUIDE_BLURBS = {
     "guide-two-baskets-or-one": "Batch math meets listed specs: when two drawers beat one big basket.",
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
+    "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -613,6 +630,7 @@ GUIDE_TAGS = {
     "guide-two-baskets-or-one": "Format",
     "guide-holiday-hosting": "Seasonal",
     "guide-instant-vs-leave-in": "Thermometers",
+    "guide-gift-guide": "Seasonal",
 }
 
 

@@ -1,4 +1,50 @@
-/* Prod2 — warm editorial theme (direction A: "a kitchen magazine that happens to show its sources") */
+/* The Crisp Counter — warm editorial theme (direction A: "a kitchen magazine that happens to show its sources")
+   Design brief: DESIGN_PROMPT.md. Typography shipped 2026-11-20 (SG-15/D-P11): Fraunces (display) + Inter (body),
+   self-hosted latin subsets, SIL OFL 1.1 — licenses in assets/fonts/. No third-party font requests. */
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/inter-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/inter-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/inter-latin-700-normal.woff2") format("woff2");
+}
+
 :root {
   --paper: #FBF7F1;
   --paper-deep: #F4EDE3;
@@ -9,11 +55,13 @@
   --terracotta-deep: #A64D2D;
   --sage: #6F7F63;
   --sage-deep: #55634B;
+  --amber: #B98A2F;
+  --amber-deep: #8F6C22;
   --rule: #E7DDD1;
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --shadow: 0 1px 0 rgba(36, 28, 23, .06), 0 8px 24px -16px rgba(36, 28, 23, .18);
-  --radius: 10px;
+  --radius: 8px;
   --wrap: 68rem;
 }
 
@@ -37,6 +85,8 @@ body {
 }
 .skip:focus { left: .5rem; top: .5rem; }
 
+:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 2px; border-radius: 2px; }
+
 /* ---------- masthead + disclosure ---------- */
 .masthead {
   position: sticky; top: 0; z-index: 50;
@@ -52,6 +102,7 @@ body {
   font-family: var(--serif); font-size: 1.75rem; letter-spacing: .01em;
   font-weight: 600; line-height: 1;
 }
+.wordmark-name::first-letter { color: var(--terracotta-deep); }
 .wordmark-desc { color: var(--muted); font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; }
 
 .nav { display: flex; gap: 1.15rem; align-items: center; flex-wrap: wrap; }
@@ -123,7 +174,8 @@ li { margin-bottom: .45rem; }
 .btn {
   display: inline-block; background: var(--terracotta); color: #fff; text-decoration: none;
   padding: .72rem 1.35rem; border-radius: 999px; font-weight: 600; font-size: 1rem;
-  border: 1px solid var(--terracotta); cursor: pointer;
+  border: 1px solid var(--terracotta); cursor: pointer; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center; text-align: center;
 }
 .btn:hover { background: var(--terracotta-deep); border-color: var(--terracotta-deep); color: #fff; }
 .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
@@ -176,7 +228,8 @@ table.data th {
 }
 table.data tr:last-child td { border-bottom: 0; }
 table.data td code { font-size: .85em; background: var(--paper-deep); padding: .05rem .35rem; border-radius: 4px; }
-td.unverified { color: var(--muted); font-style: italic; }
+td.unverified { color: var(--amber-deep); font-style: italic; }
+td.unverified::before { content: "▲ "; font-size: .7em; font-style: normal; color: var(--amber); vertical-align: .1em; }
 a.src { color: var(--sage-deep); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 .table-note { font-size: .88rem; color: var(--muted); max-width: 52rem; }
 .products-table td:first-child { min-width: 13rem; }
@@ -287,6 +340,33 @@ a.src { color: var(--sage-deep); font-weight: 600; text-decoration: underline; t
 .status-shipped { background: var(--sage-deep, #4d5b43); color: #fff; }
 .status-rejected { background: var(--paper-deep); color: var(--muted); text-decoration: line-through; }
 
+/* ---------- comparison anchor bar (brief: mobile-first rules, D-15) ---------- */
+.anchor-bar {
+  position: sticky; top: 0; z-index: 40; display: none;
+  gap: .4rem; padding: .55rem 1.25rem; background: var(--paper-deep);
+  border-bottom: 1px solid var(--rule); overflow-x: auto;
+}
+.anchor-bar a {
+  flex: 0 0 auto; padding: .45rem .9rem; min-height: 44px; display: inline-flex; align-items: center;
+  background: #fff; border: 1px solid var(--rule); border-radius: 999px;
+  font-size: .88rem; font-weight: 600; color: var(--ink-soft); text-decoration: none;
+}
+.anchor-bar a:hover { border-color: var(--terracotta); color: var(--terracotta-deep); }
+
+/* ---------- product-card drawn marks ---------- */
+.product-card .eyebrow { display: flex; align-items: center; gap: .5rem; }
+.product-mark { flex: 0 0 auto; width: 30px; height: 30px; color: var(--terracotta); }
+.product-card { border-top: 3px solid transparent; }
+.product-card:hover { border-top-color: var(--terracotta); }
+
+/* ---------- hero illustration strip ---------- */
+.hero-figure { margin: 0; }
+.hero-figure svg { width: 100%; height: auto; display: block; }
+.hero-note {
+  margin-top: .6rem; font-size: .85rem; color: var(--muted); font-style: italic;
+  font-family: var(--serif);
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 60rem) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -295,15 +375,26 @@ a.src { color: var(--sage-deep); font-weight: 600; text-decoration: underline; t
   .two-col { grid-template-columns: 1fr; }
   .byline-strip { flex-direction: column; align-items: flex-start; }
   .byline-meta { white-space: normal; }
+  /* sticky comparison anchors: brief 'Mobile-first rules' (D-15) — mobile/tablet only.
+     The tall masthead unsticks so the anchor bar can own the sticky slot while
+     the long comparison table scrolls. */
+  .masthead { position: static; }
+  .anchor-bar { display: flex; position: sticky; top: 0; z-index: 50; }
+  .nav a, .nav-work summary { padding: .6rem 0; }
 }
 @media (max-width: 40rem) {
   body { font-size: 16px; }
   .masthead-row { gap: .75rem; }
   .nav { gap: .9rem; }
   .nav a, .nav-work summary { font-size: .9rem; }
+  .nav-work-menu a { min-height: 44px; display: flex; align-items: center; }
   .format-tiles { grid-template-columns: 1fr; }
+  .tile { min-height: 44px; }
   .footer-grid { grid-template-columns: 1fr; }
   .toc ul { columns: 1; }
   main { padding-top: 1.5rem; }
   .disclosure-more { display: block; }
+}
+@media (min-width: 60.01rem) {
+  .anchor-bar { display: none !important; }
 }

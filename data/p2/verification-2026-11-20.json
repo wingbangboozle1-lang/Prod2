@@ -1,0 +1,80 @@
+{
+ "_meta": {
+  "description": "Verification session record for 2026-11-20 (arena/f55b5827-prod2). Method: each of the five official listing URLs (https://www.amazon.com/dp/{ASIN}) fetched directly; the returned page's document <title> (which carries the verbatim listing title) and its category breadcrumb were read and compared against the register. The fetch landed on Amazon's product-summary fallback view, so spec-table fields were not re-captured this pass — the 2026-11-14/16/17/19 reads remain the basis for those. No register value changed as a result of this pass.",
+  "session": "arena/f55b5827-prod2",
+  "date_utc": "2026-11-20"
+ },
+ "listing_observations": [
+  {
+   "product_id": "P1",
+   "asin": "B0CDY277D3",
+   "url_read": "https://www.amazon.com/dp/B0CDY277D3",
+   "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+   "page_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+   "title_matches_register": true,
+   "breadcrumb": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
+   "breadcrumb_matches_register": true,
+   "prices_visible_on_page": true,
+   "published_on_site": false,
+   "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+  },
+  {
+   "product_id": "P2",
+   "asin": "B09B7SB46R",
+   "url_read": "https://www.amazon.com/dp/B09B7SB46R",
+   "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+   "page_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+   "title_matches_register": true,
+   "breadcrumb": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
+   "breadcrumb_matches_register": true,
+   "prices_visible_on_page": true,
+   "published_on_site": false,
+   "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+  },
+  {
+   "product_id": "P3",
+   "asin": "B08DKYBTPH",
+   "url_read": "https://www.amazon.com/dp/B08DKYBTPH",
+   "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+   "page_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+   "title_matches_register": true,
+   "breadcrumb": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
+   "breadcrumb_matches_register": true,
+   "prices_visible_on_page": true,
+   "published_on_site": false,
+   "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+  },
+  {
+   "product_id": "P4",
+   "asin": "B0DHZTCNR5",
+   "url_read": "https://www.amazon.com/dp/B0DHZTCNR5",
+   "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+   "page_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+   "title_matches_register": true,
+   "breadcrumb": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+   "breadcrumb_matches_register": true,
+   "prices_visible_on_page": true,
+   "published_on_site": false,
+   "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+  },
+  {
+   "product_id": "P5",
+   "asin": "B0DZFD6R9Z",
+   "url_read": "https://www.amazon.com/dp/B0DZFD6R9Z",
+   "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+   "page_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
+   "title_matches_register": true,
+   "breadcrumb": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+   "breadcrumb_matches_register": true,
+   "prices_visible_on_page": true,
+   "published_on_site": false,
+   "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+  }
+ ],
+ "findings": [
+  "All five document titles match the register's name_listing values verbatim — no title drift observed on this pass.",
+  "Both category breadcrumbs confirmed: Air Fryers (P1-P3) and Thermometers & Timers › Meat (P4-P5).",
+  "Prices and ratings were visible on the listing pages and are withheld from publication (F-02). An 'In Stock' line was observed on P4 — availability policy now tracked as Q-P11 / SG-42.",
+  "The short links (S-L1..S-L5) were not re-resolved this pass; their last dated redirect observation is 2026-11-19 (F-P07 covers the two-links-per-pass pattern)."
+ ]
+}

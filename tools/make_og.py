@@ -36,41 +36,52 @@ def main() -> None:
     img = Image.new("RGB", (W, H), PAPER)
     d = ImageDraw.Draw(img)
 
-    f_brand = ImageFont.truetype(SERIF, 64)
-    f_desc = ImageFont.truetype(SANS_B, 26)
-    f_head = ImageFont.truetype(SERIF, 88)
+    f_brand = ImageFont.truetype(SERIF, 58)
+    f_desc = ImageFont.truetype(SANS_B, 24)
+    f_head = ImageFont.truetype(SERIF, 78)
     f_sub = ImageFont.truetype(SANS, 34)
     f_foot = ImageFont.truetype(SANS_B, 26)
 
-    # top rule + brand row
+    # top rule + brand row (working brand — D-P10; see DESIGN_PROMPT.md)
+    brand = "The Crisp Counter"
     d.rectangle([0, 0, W, 14], fill=TERRACOTTA)
-    d.text((72, 64), "Prod2", font=f_brand, fill=INK)
-    d.text((72 + d.textlength("Prod2", font=f_brand) + 22, 84),
+    d.text((72, 56), brand, font=f_brand, fill=INK)
+    d.text((72 + d.textlength(brand, font=f_brand) + 22, 76),
            "KITCHEN NOTES & BUYING GUIDES", font=f_desc, fill=MUTED)
 
-    # headline
-    d.text((72, 210), "Find the format", font=f_head, fill=INK)
-    d.text((72, 310), "that fits your kitchen.", font=f_head, fill=INK)
+    # headline (auto-fit to the column left of the chips)
+    head_lines = ["Find the format", "that fits your kitchen."]
+    size = 84
+    max_w = 660  # headline column: x 72..732, chips start at 810
+    while size > 40:
+        f_try = ImageFont.truetype(SERIF, size)
+        if max(d.textlength(t, font=f_try) for t in head_lines) <= max_w:
+            break
+        size -= 2
+    f_head = ImageFont.truetype(SERIF, size)
+    y = 190
+    for t in head_lines:
+        d.text((72, y), t, font=f_head, fill=INK)
+        y += size + 18
 
     # method line
-    d.line([72, 450, 420, 450], fill=TERRACOTTA, width=5)
-    d.text((72, 478), "Every figure read from its official listing.", font=f_sub, fill=SAGE)
+    d.line([72, y + 28, 420, y + 28], fill=TERRACOTTA, width=5)
+    d.text((72, y + 56), "Every figure read from its official listing.", font=f_sub, fill=SAGE)
 
-    # right-side format chips
-    x = 760
+    # right-side format chips (short strings, clear of the headline block)
+    x = 810
     chips = ["DUAL-BASKET", "OVEN-STYLE", "SINGLE-BASKET", "THERMOMETERS"]
-    y = 200
+    y = 180
     for c in chips:
-        w = d.textlength(c, font=f_desc) + 56
-        d.rounded_rectangle([x, y, x + w, y + 58], radius=29, outline=INK, width=3, fill=PAPER_DEEP)
-        d.text((x + 28, y + 15), c, font=f_desc, fill=INK)
-        y += 82
+        w = d.textlength(c, font=f_desc) + 44
+        d.rounded_rectangle([x, y, x + w, y + 54], radius=27, outline=INK, width=3, fill=PAPER_DEEP)
+        d.text((x + 22, y + 14), c, font=f_desc, fill=INK)
+        y += 76
 
-    # footer strip
-    d.rectangle([0, H - 88, W, H], fill=INK)
-    d.text((72, H - 60), "As an Amazon Associate we earn from qualifying purchases.",
+    # footer strip (disclosure only — it is the line that must always be legible)
+    d.rectangle([0, H - 72, W, H], fill=INK)
+    d.text((72, H - 50), "As an Amazon Associate we earn from qualifying purchases.",
            font=f_foot, fill=PAPER)
-    d.text((W - 320, H - 60), "compare · guides · sources", font=f_foot, fill=(183, 169, 150))
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     img.save(OUT, "PNG", optimize=True)

@@ -1,7 +1,7 @@
 {
  "_meta": {
   "description": "Suggestion queue. Every item is a proposed change with its evidence, expected impact, effort, risk and dependencies. Nothing here is implemented until the owner (or a delegated reviewer) picks a path: accept, amend, or reject. Status values: proposed | recommended | accepted | rejected. This is the review surface the brief asked for: choose the best path before implementing.",
-  "updated_utc": "2026-11-19",
+  "updated_utc": "2026-11-20",
   "statuses": {
    "proposed": "Written and costed, waiting for a decision.",
    "recommended": "One correct path is identified in the recommendation line; still needs a nod.",
@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-19 integration: SG-27..SG-37 carried from the publication pass (nav labels, RSS feed, Search Console, reader capture, design directions, decision-making, token layer, measured topics, seasonal rotation, question pipeline, verification-angle growth); SG-15..17 cross-referenced."
+  "last_change": "2026-11-20 (arena/f55b5827-prod2): owner anti-slop directive executed — SG-15/SG-16/SG-33 shipped (self-hosted Fraunces+Inter, token conformance), SG-31 accepted in favor of finishing Direction A, SG-32 implemented on the page (shortest credible path + decision-maker/decide-by columns), new batch SG-38..SG-43 written; SG-38 shipped as working brand (D-P10) with formal clearance still open."
  },
  "suggestions": [
   {
@@ -231,9 +231,9 @@
    "depends_on": [
     "F-P12"
    ],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted.",
-   "progress": "Cross-ref: SG-31 (three fully specified directions) and SG-33 (token layer) cover the same ground from the publication pass; merge the two rows when the owner picks a direction (Q-P09)."
+   "progress": "Shipped 2026-11-20 (D-P11): Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) self-hosted as latin woff2 subsets in assets/fonts/ (SIL OFL 1.1, licenses committed beside the files), font-display: swap, no third-party requests. The brief’s stacks now actually load on every page."
   },
   {
    "id": "SG-16",
@@ -245,9 +245,9 @@
    "effort": "One session (audit + small CSS changes + one recorded decision).",
    "risk": "Low — visual only; disclosure and link gates are unaffected.",
    "depends_on": [],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Accept together with SG-15 as one visual pass: audit, conform, record, stop.",
-   "progress": "Cross-ref: SG-33 (token layer) is the publication-pass sibling of this conformance pass; do both in one session."
+   "progress": "Conformed 2026-11-20: card radius 10px→8px per brief; amber token added for unverified/attention states (blank cells + status badges); 44px minimum tap targets on buttons, tiles, nav and mobile menu; sticky comparison anchor bar added to compare.html on ≤60rem viewports (masthead unsticks so the anchor bar owns the sticky slot); focus-visible outlines added. Recorded as decision D-P11."
   },
   {
    "id": "SG-17",
@@ -263,7 +263,7 @@
    ],
    "status": "proposed",
    "recommendation": "Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated.",
-   "progress": "Cross-ref: the seasonal scaffolding partially shipped (data/p2/calendar.json + the front-page seasonal desk, SG-35); this row covers the remaining merchandising depth."
+   "progress": "Partial: the seasonal desk + calendar rotation shipped 2026-11-19; the gifting window was activated 2026-11-20 with guide-gift-guide.html and a December seasonal card. Remaining depth (hero-line swaps, tile copy rotation) stays queued behind measurement (SG-34)."
   },
   {
    "id": "SG-27",
@@ -338,8 +338,9 @@
    "depends_on": [
     "Q-P09"
    ],
-   "status": "proposed",
-   "recommendation": "Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once."
+   "status": "accepted",
+   "recommendation": "Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once.",
+   "progress": "Accepted 2026-11-20 on the owner’s standing directive (the site must read as a polished branded publication, not generated output): Direction A is retained and finished rather than re-picked — shipped typography, token conformance, working brand. Q-P09 remains open only for any FUTURE re-direction; it no longer blocks."
   },
   {
    "id": "SG-32",
@@ -351,8 +352,9 @@
    "effort": "One pass over the registers; the renders already exist.",
    "risk": "None - metadata only.",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept. Cheap, no downside, and it is exactly the review surface the brief asked for."
+   "status": "accepted",
+   "recommendation": "Accept. Cheap, no downside, and it is exactly the review surface the brief asked for.",
+   "progress": "Implemented 2026-11-20 on the Suggestions page: dependency-ordered \"Shortest credible path\" block with named decision-maker and decide-by dates per open item."
   },
   {
    "id": "SG-33",
@@ -366,8 +368,9 @@
    "depends_on": [
     "Q-P09"
    ],
-   "status": "proposed",
-   "recommendation": "Accept together with SG-11, whichever direction wins."
+   "status": "shipped",
+   "recommendation": "Accept together with SG-11, whichever direction wins.",
+   "progress": "The token layer is in place and now actually matches the brief: palette (incl. new amber), type stacks (Fraunces/Inter), spacing and radius are all CSS custom properties consumed by components; a direction swap is a token-block swap."
   },
   {
    "id": "SG-34",
@@ -396,7 +399,8 @@
    "risk": "Low.",
    "depends_on": [],
    "status": "proposed",
-   "recommendation": "Accept before the next season boundary (2026-12-31)."
+   "recommendation": "Accept before the next season boundary (2026-12-31).",
+   "progress": "Seasonal desk + gifting window live 2026-11-20; front-page date-awareness (auto-retire on window end) remains queued before the 2026-12-31 boundary."
   },
   {
    "id": "SG-36",
@@ -426,6 +430,100 @@
    "depends_on": [],
    "status": "proposed",
    "recommendation": "Accept as the standing growth thesis."
+  },
+  {
+   "id": "SG-38",
+   "title": "Adopt the brief's working brand \"The Crisp Counter\" now; finish clearance in parallel",
+   "problem": "The wordmark 'Prod2' is a repository codename. On an otherwise branded page it is the single loudest 'generated project' signal, and the owner's 2026-11-20 directive is explicit that the site must not read that way. Waiting for formal clearance left a placeholder running on every page, feed and social card.",
+   "proposal": "Adopt the design brief's brand 'The Crisp Counter' as the WORKING wordmark (masthead, titles, JSON-LD, feed, OG card), run a preliminary name search now, and keep formal clearance open as Q-19/F-P15. Reversal is one line in data/p2/settings.json + rebuild.",
+   "evidence": "Owner directive 2026-11-20 ('should not read like AI slop'); DESIGN_PROMPT.md already carries the name (D-18 lineage); preliminary web search 2026-11-20 found no kitchen-appliance brand conflict in the first page of results (recorded in D-P10 with links).",
+   "impact": "High — brand recall, SERP presentation, share cards; removes the largest slop signal in one pass.",
+   "effort": "Shipped in one session (settings + OG card + rebuild).",
+   "risk": "Trademark collision remains possible until formal clearance runs — mitigated by keeping Q-19/F-P15 open and the change one-line reversible.",
+   "depends_on": [
+    "Q-19"
+   ],
+   "status": "shipped",
+   "recommendation": "Done as a working brand (D-P10). Next: formal USPTO/state/common-law search, then either ratify or revert.",
+   "progress": "Shipped 2026-11-20 (D-P10, flag F-P15 open). Preliminary search links in D-P10 sources."
+  },
+  {
+   "id": "SG-39",
+   "title": "Commission a drawn hero illustration set (amends the brief's 'glyphs only' imagery line)",
+   "problem": "The brief currently restricts graphics to line-art glyphs, the OG card and a favicon — right for compliance, but it leaves the hero pure type. A warm, drawn counter-scene (air fryers + probes on a paper background, no photography) would give the front page the editorial signature the direction asks for without touching the photography question.",
+   "proposal": "Amend DESIGN_PROMPT.md's imagery line to allow one original drawn hero scene per season (drawn by hand or vector — never photographed or stock), ship it behind the token layer, and keep the no-photo rule until Q-P05 resolves.",
+   "evidence": "DESIGN_PROMPT.md imagery block; owner directive 2026-11-20 (polished marketing look); drawn-not-photographed is already the shipped standard (tools/make_og.py note).",
+   "impact": "Medium — front-page memorability without compliance risk.",
+   "effort": "One illustration set per season (external asset work).",
+   "risk": "Low — original artwork only; the claims gate still blocks hype copy around it.",
+   "depends_on": [
+    "Q-P05"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept as the next visual item after the current pass settles; amend the brief first, then draw."
+  },
+  {
+   "id": "SG-40",
+   "title": "Keep a running seasonal article calendar with catchy (but rule-compliant) working titles",
+   "problem": "The brief asks for catchy, timely articles. The tension: the evidence rule (D-19) bans popularity claims, and the claims gate bans hype words — so 'catchy' has to come from specificity (a real minute, a real trade-off), not from superlatives.",
+   "proposal": "Extend the queue each cycle with question-shaped titles tied to the calendar (party-day batch math, a 26-quart measuring walkthrough, spring cleanup, thermometer jargon decode — shipped as slots 6-9 on 2026-11-20). Once Search Console + 14 days of events exist (SG-06/SG-34), measured queries outrank the hypotheses.",
+   "evidence": "Owner directive 2026-11-20 (catchy trendy articles, organic traffic); D-19 + the claims gate (banned words list); data/p2/calendar.json queue.",
+   "impact": "Medium-high organic potential in fixed seasonal windows; unmeasured until the SG-06 gate opens.",
+   "effort": "One queue review per cadence cycle; near-zero machinery.",
+   "risk": "Low — calendar framing only; the gate blocks the alternative.",
+   "depends_on": [
+    "SG-34"
+   ],
+   "status": "shipped",
+   "recommendation": "Continue per cycle; let measured queries take over at the first opportunity.",
+   "progress": "Shipped 2026-11-20: 4 new slots + the gifting guide live."
+  },
+  {
+   "id": "SG-41",
+   "title": "Organic-discovery runbook: Search Console first, then measured topics",
+   "problem": "Real organic traffic requires the search engine to see one canonical site and report queries back; neither is possible until the Search Console property is verified (Q-P08, F-P13) and the sitemap is submitted. Every topic decision before that is editorial instinct wearing a hypothesis costume (Q-P02).",
+   "proposal": "Owner/agent runbook, in order: (1) verify wingbangboozle1-lang.github.io/Prod2 via the HTML-tag token (paste into settings.json search_console.verification_token and rebuild); (2) submit sitemap.xml; (3) wait 14 days for the Queries report + endpoint events; (4) hand the top measured questions to SG-34. Document impressions/clicks in the campaign ledger only from Search Console's own reports.",
+   "evidence": "Q-P08/F-P13 (verification owner action); settings.json search_console slot (shipped); S-GHELP/S-GSPAM guidance in the source register; SG-34's measured-topic gate.",
+   "impact": "High — it is the switch that turns the whole publishing cadence from hypothesis-driven to demand-driven.",
+   "effort": "Small (verification + submission); then a monthly review cycle.",
+   "risk": "Low. No data is fabricated; the ledger stays first-party.",
+   "depends_on": [
+    "Q-P08",
+    "SG-34"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept as the standing growth runbook; it is the shortest credible path to measured organic traffic."
+  },
+  {
+   "id": "SG-42",
+   "title": "Decide an availability-snapshot policy (publish 'in stock on a dated read' or not)",
+   "problem": "The 2026-11-20 listing re-reads observed an 'In Stock' line on P4's page. Availability is checkable on a dated read, but it is time-sensitive in a way prices are not, and no policy covers it today (Q-27 covers prices/ratings only).",
+   "proposal": "If the owner wants it: publish availability only as 'observed in stock on YYYY-MM-DD' with the source link, never as a promise, refreshed on every verification pass; otherwise record the decision to omit it. Nothing ships until Q-P11 is answered.",
+   "evidence": "2026-11-20 re-reads (data/p2/verification-2026-11-20.json); Q-27's dated-snapshot framing for prices.",
+   "impact": "Small — a modest convenience signal for buyers; zero if the owner declines.",
+   "effort": "Tiny (one register field + note) once decided.",
+   "risk": "Stale availability lines could mislead — mitigated by the dated-read rule or by not publishing.",
+   "depends_on": [
+    "Q-P11"
+   ],
+   "status": "proposed",
+   "recommendation": "Decide together with Q-27 (dated-snapshot prices); if both open, omit both."
+  },
+  {
+   "id": "SG-43",
+   "title": "Copy-catchiness pass on existing guide titles — measured, not instinctive",
+   "problem": "The current guide titles are question-shaped and rule-compliant, but several are flat ('A no-hype checklist for air-fryer capacity'). Catchiness improvements proposed from instinct would repeat the exact pattern SG-34 exists to end.",
+   "proposal": "Hold title rewrites until the measured-query gate opens; then test the weakest-performing title first against its measured impressions, keeping the question-shaped rule and the banned-words gate. Keep the shipped blurbs (the one-line hooks under each card) — those already carry the specificity.",
+   "evidence": "SG-34's rationale; VOICE.md rule 7 (questions are titles); the claims gate.",
+   "impact": "Medium on CTR once measurement exists; zero before it.",
+   "effort": "One item per cadence review.",
+   "risk": "Low — gated on data, so no churn.",
+   "depends_on": [
+    "SG-34",
+    "Q-P02"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept as the first measured-iteration item; do nothing until the gate opens."
   }
  ]
 }

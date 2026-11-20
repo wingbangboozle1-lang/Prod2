@@ -1,8 +1,8 @@
 {
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
-  "updated_utc": "2026-11-19",
-  "last_change": "2026-11-19 integration: publication-pass gates renumbered F-P13 (Search Console verification) / F-P14 (reader-capture gate) after PR #24 took F-P09..F-P12."
+  "updated_utc": "2026-11-20",
+  "last_change": "2026-11-20 (arena/f55b5827-prod2): F-P15 added (working brand adopted on owner directive; formal clearance open)."
  },
  "flags": [
   {
@@ -256,6 +256,15 @@
    "evidence": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
    "evidence_note": "FTC guidance cited for the disclosure/consent standard that the capture consent text must meet (S07).",
    "how_to_resolve": "Owner settles the consent text and the privacy-page wording (Q-47), then sets the capture endpoint URL in settings.json and rebuilds; the form activates with the consent checkbox required. Related: SG-30, SG-04."
+  },
+  {
+   "id": "F-P15",
+   "title": "Working brand “The Crisp Counter” adopted on the owner's directive without formal trademark clearance",
+   "detail": "The 2026-11-20 anti-slop pass replaced the repository codename 'Prod2' on reader-facing surfaces with the design brief's working brand (decision D-P10). A preliminary web search that day returned no conflicting kitchen-appliance brand in the first page of results, but no formal USPTO/state/common-law search has been run. Until clearance, the brand is provisional and one-line reversible (data/p2/settings.json).",
+   "evidence": "https://tmsearch.uspto.gov/",
+   "evidence_note": "USPTO trademark search — the formal check that would resolve this; the preliminary 2026-11-20 web-search record sits in D-P10's sources.",
+   "how_to_resolve": "Run the formal clearance (Q-P10 / Q-19), then either ratify the name in the decision log or revert via settings.json and rebuild.",
+   "status": "open"
   }
  ]
 }
