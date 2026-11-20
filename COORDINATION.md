@@ -14,6 +14,38 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/644d217b-prod2 (2026-11-20, reader-first publication pass + integration)
+
+Branched from `4398598` (main after PR #33). This session is both the working session and the
+final integration session on this branch, per the standing one-branch-per-session rule.
+
+**Scope (this session only).** No other claim is live: PR #35 (`arena/dd4bae8a-prod2`) is the one
+open PR and it is **not touched** (its scope overlaps everything below; it must be rebased or closed
+by its own session — logged, not edited). PRs #29–#34, #36–#38 are merged.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| W-01 Measurement: fix the event-vocabulary split so the shipped counter and the shipped collector agree (closes F-P23 / Q-P14 / SG-41) | in progress | arena/644d217b-prod2 | `assets/js/measure.js`, `server.mjs`, `data/p2/events.json`, `tests/server.test.mjs` |
+| W-02 Reader-facing depth: expand the short guides into real publication articles (new long-form pieces, one per buying decision) | in progress | arena/644d217b-prod2 | `content/pages/guide-*.html`, `content/pages/article-*.html`, `tools/build.py` |
+| W-03 Landing/authored voice: masthead + a real "start here" path, without adding dashboard clutter to the front page | in progress | arena/644d217b-prod2 | `content/pages/index.html`, `assets/css/site.css` |
+| W-04 Suggestions: a reviewable decision queue (ranked, with cost/reversibility/owner action) so the owner picks a path before changes land | in progress | arena/644d217b-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| W-05 Open questions: the missing-information register, extended with discovery paths | in progress | arena/644d217b-prod2 | `data/p2/questions.json`, `content/pages/questions.html` |
+| W-06 Line-by-line verification of every published product value against the live official listing (2026-11-20 read) | in progress | arena/644d217b-prod2 | `data/p2/verification-2026-11-20.json`, `data/p2/products.json` (read-only unless a value is wrong) |
+| W-07 Gate: new checks that would have caught the defects found this pass | in progress | arena/644d217b-prod2 | `tools/checks.py` |
+| W-08 Integration: rebuild, re-verify, PR to main, merge, Pages live check, record here | pending | arena/644d217b-prod2 | `docs/`, root mirror, `COORDINATION.md`, `EXECUTIVE_SUMMARY.md` |
+
+Claim protocol notes:
+- **Verification boundary, recorded honestly:** this sandbox has outbound HTTP to
+  `github.com`/`api.github.com`/`registry.npmjs.org`/`pypi.org`/`files.pythonhosted.org` and to the
+  fetch tool's allowlist. `curl` to `www.amazon.com` and to the live Pages host fails (`http 000`),
+  so the **fetch tool** is used for both, and every value is recorded with the tool that read it.
+  Amazon listing pages return a "product summary" variant to the fetch tool; the listing **title**,
+  **ASIN** and **breadcrumb** are available, prices/ratings render as `$`-strings inside
+  recommendation widgets and are **not** attributable to the product page, so they stay unpublished.
+- Flagged irregularities do not block the merge; they go to the Flagged for Review page.
+
+---
+
 ## PARALLEL CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
 
 Ran in parallel with the two passes above (both also branched from f6e772f). **Reconciled by this
