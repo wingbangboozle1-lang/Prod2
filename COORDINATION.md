@@ -1159,3 +1159,69 @@ the listing **title** and **breadcrumb** are readable and are the values the reg
 Prices and ratings on these fetches appear inside "customers also viewed" carousels and
 protection-plan blocks, which belong to **other ASINs** — except where the target product's own
 price is rendered in the buy box, which is recorded but still not published (F-02, D-P10).
+
+## X-01–X-06 final integration record — arena/7cec0d73-prod2 (2026-11-20)
+
+All six claimed tasks are done in this session's commits; the PR to `main` and the
+Pages check follow this record (the PR link is appended below once created).
+
+### Sources and verification performed
+
+| Read | Tool | Result | Recorded in |
+| --- | --- | --- | --- |
+| Five `/dp/` listings, 2026-11-20 | fetch tool (curl is blocked from this sandbox) | all five titles + breadcrumbs match `data/p2/products.json` exactly | `data/p2/verification-2026-11-20.json`, commit history |
+| Five `link.amazon` short links, 2026-11-20 | fetch tool | P1 and P5 reached their intended listings; P2 and P3 resolved to the Amazon homepage; P4 returned HTTP 500 twice | `data/p2/intent-links.json` observed history (dated, per link), F-P24/F-P27/F-P28 |
+| Associates Program Policies | fetch tool | qualifying-purchase attribution starts with a Special Link click; policies updated 2026-04-14 | D-P11, compliance page |
+| GitHub API: PR #16 state | `gh pr view` | CLOSED, not merged | Q-P30 answered in the register |
+| PR branches #41/#43/#47 | `git fetch` + content diffs | register rows ported by content with renumbering; no products.json change in any of them | X-04 below |
+
+### X-04 — register reconciliation (content-keyed, not id-keyed)
+
+`tools/reconcile_registers.py` (kept in the repo, one-shot, refuses to write on
+unmapped collisions) carried the open branches' rows onto main:
+
+- flags: +F-P25…F-P28 (PR #43), +F-P29 (PR #47's F-P25, renumbered — main's
+  F-P25 was a different row). F-P19/F-P20 detail extended from PR #43. F-P23's
+  older "open" state from PR #47 skipped: main resolved it (collector fix, PR #44).
+- questions: +Q-P18 (PR #43), +Q-P12, Q-P13 and Q-P30…Q-P39 (PR #41, renumbered —
+  main had used those ids for different rows).
+- suggestions: +SG-18…SG-26 (PR #41), +SG-48 (PR #47's SG-45, renumbered — main's
+  SG-45 is a different row). PR #47's reviewer status pass applied to the 18
+  matching rows, with one refused regression: SG-41 stays `shipped` (main's gate
+  exists; PR #47's base predates it).
+- decisions: +D-P22, D-P23 (PR #47, renumbered), +D-P24 (PR #41's handoff record).
+- Cross-references inside every carried row and in PR #41's data files were
+  rewritten to the new ids; each renumbered row records its former id in its own
+  renumber note (the gate treats those provenance notes as history, not citations).
+
+### X-01/X-02/X-05 — stylesheet repair, new gate, reader-facing port
+
+- `assets/css/site.css`: conflict markers removed; the variable-font `@font-face`
+  resolution chosen (weights 550/650/750/800 require it); braces balance 272/272.
+- `tools/checks.py` now fails on any merge marker in a published artifact and on
+  unbalanced CSS braces (both paths injection-tested). The gate also grew PR #41's
+  editorial voice lint and read-date checks during the port.
+- PR #41's reader-facing additions are live: two question-shaped guides
+  (`guide-dual-vs-single`, `guide-probe-in-air-fryer`), the plain-language
+  `analysis` page and the `design-prompt` page, with their data files
+  (`design-prompts.json`, `decision-priority.json`, `verification-log.json`).
+  PR #41's stale claim that all five short links resolve was rewritten to the
+  dated, disagreement-aware finding the register actually records.
+- PR #43's executive-summary correction is carried: all five displayed prices
+  become `withheld (F-02)`; the "all five links resolved" claim becomes the dated
+  wording; register counts updated to the post-reconciliation state.
+- The intent record now carries the 2026-11-20 reads per link (dated history,
+  latest-observation field updated, intent fields untouched). P4 has no recorded
+  target — HTTP 500 twice — and the build renders that as "no target observed"
+  instead of inferring one.
+
+### Build state at this record
+
+34 pages built; all 14 release checks pass (validity, facts, claims, chrome, seo,
+publication, longreads, shop, conflicts, exposition, measurement, freshness,
+editorial, plus the endpoint test suite: 3/3). The sitemap and feed include the
+new pages. `git pull --rebase` run before every push; no conflicts encountered.
+
+### PR and deployment result
+
+(appended after the pull request is created and merged)
