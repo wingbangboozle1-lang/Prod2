@@ -116,41 +116,80 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
-## ACTIVE CLAIM — session arena/b3089214-prod2 (2026-11-20, publication-surface lockdown + claim-level re-verification + decision queue)
+## CLAIM — session arena/b3089214-prod2 (2026-11-20, published-surface lockdown + claim-level evidence audit + decision queue) — **complete, PR #71 merged**
 
 Protocol note: this session works only on its assigned branch `arena/b3089214-prod2` (the platform fixes
-one branch per session), so the `session-<id>/<task>` branch naming in the brief is not used; this claim
-block is the record, and it is committed and pushed before any content work starts. Board edits elsewhere
-are by other sessions and are unioned, never overwritten.
+one branch per session), so the `session-<id>/<task>` naming in the brief is not used; this block is the
+record. Board edits elsewhere are unioned, never overwritten.
 
-**Baseline this session measured, on the live host (not from the API):** the fetch tool read
+**Baseline measured on the live host, not from the API:** the fetch tool read
 `https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json` at 06:53 UTC and received the
-**settings register as JSON**, `tracking_id` included. `GET /Prod2/tools/index.html` and
-`/Prod2/data/index.html` return 404 (no directory listing), so direct file paths are the exposure path.
-`PUT /repos/…/pages {build_type: workflow}` returns **403 "Resource not accessible by integration"**, so
-the Pages *source setting* still cannot be flipped from this sandbox — that is why Y-0{i} removes the
-exposure from the repository side instead of waiting on an owner click.
+**settings register as JSON**, `tracking_id` included; `/Prod2/docs/robots.txt` served a **second copy of
+the whole publication**. `GET /Prod2/tools/index.html` and `/Prod2/data/index.html` 404 (no directory
+listing), so direct file paths were the exposure route. `PUT /repos/…/pages {build_type: workflow}`
+returns **403 "Resource not accessible by integration"** (re-confirmed this pass), so the Pages *source
+setting* cannot be flipped from a sandbox — which is why Y-01 removes the exposure from the repository
+side instead of waiting on an owner click.
 
-| Task | Status | Session | Scope (files) |
+### Results (Y-01…Y-08, 2026-11-20)
+
+| # | Task | Status | What landed |
 | --- | --- | --- | --- |
-| Y-0{i} Lock down the published surface repo-side: Jekyll `exclude` at the root so the legacy root build serves only the publication; repoint the register path that is currently used as a reader-facing evidence link; gate the exclusion list against the actual repo tree | in progress | arena/b3089214-prod2 | `.nojekyll` (root), `_config.yml` (new), `tools/root_mirror.py`, `tools/checks.py` (exposition), `data/p2/flags.json` (F-P19/F-P20 wording), `docs/`, root mirror |
-| Y-0{i} Claim-level re-verification: every reader-facing product claim (card highlights, compare rows) re-read against the live listing text for P1–P5, published as a dated claim→evidence register; unsupported values blanked, not reworded | in progress | arena/b3089214-prod2 | `data/p2/verification-2026-11-20-b3089214.json` (new), `data/p2/products.json` (only if a value is wrong), `data/p2/sources.json` (read dates) |
-| Y-0{i} Governing-source liveness audit: the policy pages the site cites for its compliance statements re-read, each claim checked against the page, corrections logged | in progress | arena/b3089214-prod2 | `data/p2/sources.json`, `data/p2/flags.json`, `content/pages/compliance.html` (only if a statement is wrong) |
-| Y-0{i} Decision-support polish: cliché/AI-slop copy pass measured against the voice register, the front-page "three questions" path made functional, reader trust blocks (quick answer, FAQ) added without inventing facts | in progress | arena/b3089214-prod2 | `content/pages/index.html`, `content/pages/guides.html`, `assets/js/site.js`, `assets/css/site.css`, `tools/build.py` |
-| Y-0{i} Two new question-shaped long reads from official guidance sources (each with the mandatory "what we could not verify" block), registered in sitemap + feed + clusters | in progress | arena/b3089214-prod2 | `content/pages/article-*.html` (new), `data/p2/calendar.json`, `tools/build.py`, `data/p2/sources.json` |
-| Y-0{i} Suggestion + question registers: new rows with cost/reversibility/owner-action and discovery paths, so the reviewer can choose a path before anything lands | in progress | arena/b3089214-prod2 | `data/p2/suggestions.json` (SG-48+), `data/p2/questions.json` (Q-P18+), `data/p2/decisions.json` (D-P24+), `content/pages/suggestions.html`, `content/pages/questions.html` |
-| Y-0{i} Document drift check: README/ENGINE/DECISIONS/EXECUTIVE_SUMMARY counts re-read against the rendered build | in progress | arena/b3089214-prod2 | `README.md`, `ENGINE.md`, `DECISIONS.md`, `EXECUTIVE_SUMMARY.md`, `content/pages/executive-summary.html` |
-| Y-0{i} Integration: rebuild, both gates, `npm test`, PR to main, merge, live before/after probes on the exposed paths, record here | in progress | arena/b3089214-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+| Y-01 | Lock down the published surface repo-side | **done** | Root `.nojekyll` deleted; new `tools/publish_surface.py` generates the root `_config.yml` (exclusions derived from `docs/` + the tree, 41 publication paths served); `tools/build.py` writes it on every mirror; `tools/root_mirror.py --report` prints the split. `exposition` gate now fails on a root `.nojekyll`, a stale/missing config, or any page link into an excluded path |
+| Y-02 | Claim-level evidence audit | **done** | `tools/claims_audit.py` + `data/p2/claim-audit-2026-11-20.json`: 15 published card bullets audited word-by-word against recorded verbatim evidence — 11 title-verbatim, 4 dated-read, **0 unsupported**. Six unevidenced phrases retired and denied by name in the gate. Card footnotes now state per-kind read dates |
+| Y-03 | Governing-source liveness audit | **partially done, machinery complete** | `tools/source_liveness.py` + `data/p2/source-liveness-2026-11-20.json`; new `liveness` gate section (fails on a cited source recorded dead/moved, or a register read older than 45 days). 10 of 35 sources have a dated live read (5 product listings from the verification pass + 5 read this pass); **25 still pending** — recorded as F-P32 with the command that lists them. Real find: **S-FSIS-THERMO had moved** (`/kitchen-thermometers` → `/food-thermometers`); register URL corrected |
+| Y-04 | Voice + decision-surface polish | **done** | New `voice` gate section (filler blacklist, ≤4 em-dashes per paragraph, ledes must open on the reader not on the verification process), negative-tested by injecting slop into a guide. Three typed queue counts replaced with the generated `hook_queue_stats`. Ranked short list re-merged with the decided state (below) |
+| Y-05 | Long read from official guidance | **done (one, not two)** | `article-leftovers-reheat.html` (1,333 words) from the FSIS *Leftovers and Food Safety* factsheet read the same day; new source `S-FSIS-LEFTOVERS`; registered in clusters, sitemap and feed. A second new piece was **not** written rather than pad the board — the December queue slots in `calendar.json` are the place for it |
+| Y-06 | Registers | **done** | Flags **F-P30** (claim audit + retired phrases), **F-P31** (surface depends on a generated config until the source setting flips), **F-P32** (liveness coverage + the egress limit); question **Q-P21** (how to confirm a feature-bullet detail); suggestions **SG-52/SG-53/SG-54**; decisions **D-P25/D-P26**. F-P19/F-P20 carry the before/after measurements and the dated cache correction |
+| Y-07 | Document drift | **done** | README/ENGINE gate section count synced to 24; EXECUTIVE_SUMMARY.md + `executive-summary.html` carry the new section and the corrected counts; a stale `Q-P15` cross-reference in the reader-facing summary now points at **Q-P18** |
+| Y-08 | Integration | **done** | Merged `origin/main` (`20e2cb2`, PRs #54/#62/#63/#64/#66/#69/#70), rebuilt (41 pages), all four gates green, PR #71, merge, live probes below |
 
-Collision avoidance (re-read after merging `arena/37b265a4-prod2`'s block): task IDs are **Y-01..Y-08**
-because `X-01..X-03` belong to arena/e292fb4d-prod2 and `R-01..R-03` to arena/37b265a4-prod2. Register
-slots taken by those passes — flags F-P25..F-P28, question Q-P18, decision D-P21 — are **not** reused:
-this session registers decisions from **D-P24**, flags from **F-P29**, questions from **Q-P19**,
-suggestions from **SG-48**. Open PRs #35/#41/#43/#45/#47/#49 are **not touched** by this session. Where
-this pass changes a surface another pass also changes (`tools/checks.py`, `data/p2/*`, the reader
-registers), the resolution notes in this block are the record to merge against.
+### Notes for other sessions (merge collisions this pass resolved — read before editing these files)
+
+* **Register ids shifted, on purpose.** `F-P29` (mine in an earlier draft) → **F-P31**, because main took
+  F-P29 for the CSS conflict-marker defect. `Q-P19` → **Q-P21**, `SG-48/49/50` → **SG-52/53/54**,
+  `D-P24` → **D-P25** (main's D-P24 = the product pages). Next free: **F-P33**, **Q-P22**, **SG-55**,
+  **D-P27**. A double-renumbering slip briefly put both new decisions on `D-P26`; the
+  cross-reference validator caught it — if your text cites `D-P25` for the surface decision, it is right.
+* **This merge kept main's `-X theirs` resolution and then re-applied the deltas by hand** — union by id,
+  never overwrite. Three register files (`suggestions.json`, `calendar.json`, `sources.json`) came out of
+  the ort merge as **invalid JSON** (each had been rewritten on both sides); they were rebuilt from main's
+  version plus this session's rows. If you see a JSON parse error in a build right after a merge, rebuild
+  the register from `git show origin/main:data/p2/<file>` rather than hand-patching.
+* **The `retired` gate touched other sessions' pages, and their copy was corrected rather than exempted.**
+  `product-thermomaven-instant-read.html` attributed a "rinse-clean body" and "a magnetic back /
+  motion-activated wake/sleep" to the listing, `product-chefiq-sense-wireless.html` to a "listed Smart
+  Hub", `product-emeril-french-door.html` asserted "rack cooking", `category-thermometers.html` repeated
+  the magnet and Smart Hub. No recorded verbatim string for those ASINs carries any of it, so the
+  sentences were rewritten to what the listing does state, with a pointer to F-P30; nothing else on those
+  pages changed. If you have an evidence string for any of it, paste it into `data/p2/products.json` and
+  re-run `python3 tools/claims_audit.py` — the deny-list lifts per phrase as soon as evidence exists.
+* **`D-P22` (queue decided, Path A) stands.** This session's new `SG-53` (Creators/PA-API) argues it is a
+  better *first* hour than the analytics setup, but it is presented as item 6 "added after D-P22", not as a
+  re-ranking of another session's decision. Owner can flip it with one line in the decision log.
+* **Root `.nojekyll` must not come back.** `tools/build.py` now *deletes* it on every mirror; any pass that
+  re-adds it (or re-adds `plugins:`/`markdown:` keys to `_config.yml`, which would override Pages' forced
+  defaults) fails `checks.py` on purpose.
+* `verify_site.py` still reports **18 pages** — it is the legacy `scripts/` checker from the Countercraft
+  era and does not know about the newer pages; `tools/checks.py` (24 sections) is the release gate.
+
+### Honest limits of this pass
+
+* No Jekyll is installed in the sandbox, so the Pages build of a legacy `main /` source with this
+  `_config.yml` was **not executed locally**. The copy-verbatim expectation rests on documented behaviour
+  (generated pages carry no front matter → Jekyll treats them as static files) plus the post-deploy probes
+  below. If `index.html` ever 404s, the revert is `git revert` of the surface commit — a broken site
+  outranks the exposure fix.
+* Y-03 is deliberately incomplete: this sandbox has **no general HTTPS egress** (a direct request to
+  amazon.com, fsis.usda.gov and the Pages host all fail at the TLS handshake, measured 2026-11-20), so
+  the remaining 25 reads need the fetch tool, one call each. That is why the gate records coverage
+  instead of failing on it, and why F-P32 says who can close it.
+* Four card bullets still rest on a dated read (2026-11-14/19) of listing sections this environment cannot
+  re-retrieve. They are published, labelled as dated reads, and Q-P21 is the five-minute path to confirming
+  or retiring them.
 
 ---
+
 ## ACTIVE CLAIM — session arena/37b265a4-prod2 (2026-11-20, same-day link + listing re-verification and integration)
 
 Branch `arena/37b265a4-prod2`, branched from `main` at `4398598` (PR #33 merge). No other claim is live: every earlier claim in this file is done or merged.

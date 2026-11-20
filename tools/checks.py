@@ -772,6 +772,36 @@ def main() -> int:
         ok(f"first-view imagery within the {BUDGET_FIRST_VIEW_KB} KB budget; every <picture> "
            f"has an existing WebP source and PNG fallback")
 
+    # --------------------------------------------------------- source liveness
+    check("liveness")
+    # The reachability state of every cited source (tools/source_liveness.py). Two
+    # rules, both mechanical: a source recorded as moved or dead may not still be linked
+    # from a reader-facing page, and a citation older than the freshness window fails,
+    # so a register that quietly stops being re-read cannot pass. Coverage is printed
+    # every build. A low coverage number is not a failure: this sandbox has no general
+    # HTTPS egress (measured 2026-11-20), so reads are recorded by whoever can make
+    # them — see F-P32 for the constraint and the command that lists the gap.
+    import source_liveness  # noqa: PLC0415
+
+    manifest = source_liveness.build_manifest(source_liveness.today())
+    if not manifest:
+        fail("source_liveness found no register rows — the audit cannot report coverage")
+    cited_dead = [r for r in manifest if r["liveness"] in ("dead", "moved") and r["url"]]
+    for r in cited_dead:
+        for f in html_files:
+            if f.name in GOVERNANCE:
+                continue
+            if r["url"] in f.read_text(encoding="utf-8"):
+                fail(f"{f.name}: links a source recorded as {r['liveness']} — {r['id']} "
+                     f"{r['url']} ({r['note'][:80]})")
+    live = sum(1 for r in manifest if r["liveness"] == "live")
+    never = sum(1 for r in manifest if r["liveness"] == "never-checked")
+    stale = [r for r in manifest if (r["register_read_age_days"] or 0) > source_liveness.WINDOW_DAYS]
+    for r in stale:
+        fail(f"data/p2/sources.json: {r['id']} was last read {r['register_last_read']} "
+             f"({r['register_read_age_days']}d ago), past the {source_liveness.WINDOW_DAYS}-day window")
+    ok(f"{len(manifest)} cited sources: {live} with a dated live read, {never} awaiting one, "
+       f"{len(cited_dead)} moved/dead; `python3 tools/source_liveness.py --pending` lists them")
     # -------------------------------------------------------------- long reads
     check("longreads")
     # Rules for long-form pieces (added 2026-11-20). A long read is an argument,

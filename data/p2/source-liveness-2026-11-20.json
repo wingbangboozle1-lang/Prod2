@@ -1,0 +1,99 @@
+{
+  "_meta": {
+    "date_utc": "2026-11-20",
+    "window_days": 45,
+    "description": "Reachability state for every URL the source register cites."
+  },
+  "checks": [
+    {
+      "id": "S-P1",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "host": "www.amazon.com",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "data/p2/verification-2026-11-20.json",
+      "note": "title fetched and compared verbatim against the register in the 2026-11-20 pass — a live read of this URL, not an assumption"
+    },
+    {
+      "id": "S-P2",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "host": "www.amazon.com",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "data/p2/verification-2026-11-20.json",
+      "note": "title fetched and compared verbatim against the register in the 2026-11-20 pass — a live read of this URL, not an assumption"
+    },
+    {
+      "id": "S-P3",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "host": "www.amazon.com",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "data/p2/verification-2026-11-20.json",
+      "note": "title fetched and compared verbatim against the register in the 2026-11-20 pass — a live read of this URL, not an assumption"
+    },
+    {
+      "id": "S-P4",
+      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "host": "www.amazon.com",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "data/p2/verification-2026-11-20.json",
+      "note": "title fetched and compared verbatim against the register in the 2026-11-20 pass — a live read of this URL, not an assumption"
+    },
+    {
+      "id": "S-P5",
+      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "host": "www.amazon.com",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "data/p2/verification-2026-11-20.json",
+      "note": "title fetched and compared verbatim against the register in the 2026-11-20 pass — a live read of this URL, not an assumption"
+    },
+    {
+      "id": "S-OA",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "host": "affiliate-program.amazon.com",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "live fetch this pass",
+      "note": "page renders the agreement with 'Updated: October 15, 2025' — the date the register cites"
+    },
+    {
+      "id": "S-FTC1",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "host": "www.ftc.gov",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "live fetch this pass",
+      "note": "page dated November 2019 as the register states"
+    },
+    {
+      "id": "S-USDA-COLD",
+      "url": "https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts",
+      "host": "www.foodsafety.gov",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "live fetch this pass",
+      "note": "Date Last Reviewed September 19, 2023 — matches the register's claim"
+    },
+    {
+      "id": "S-GOUT",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "host": "developers.google.com",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "live fetch this pass",
+      "note": "page says Last updated 2025-12-10 UTC; sponsored/ugc/nofollow table intact"
+    },
+    {
+      "id": "S-FSIS-THERMO",
+      "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers",
+      "host": "www.fsis.usda.gov",
+      "status": "live",
+      "checked_utc": "2026-11-20",
+      "evidence": "live fetch this pass",
+      "note": "reached by redirect from the register's old /kitchen-thermometers path; register URL corrected"
+    }
+  ]
+}

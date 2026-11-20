@@ -2,8 +2,8 @@
   "_meta": {
     "description": "Product register. Every published value carries the source id and the date it was read. Values that could not be confirmed from an official listing are null and carry a flag. Prices and star ratings are intentionally absent (F-02: withheld — volatile values, no dated-snapshot rule adopted). Commission fields are null because no official source maps these ASINs to a commission category (F-01).",
     "carried_from": "Prior dated verification sessions (2026-11-14 … 2026-11-17, records in kanlerxz87-cyber/Zone4 data/) re-checked or re-read on 2026-11-19 by arena/44093825-prod2. Full session record: data/p2/verification-2026-11-19.json.",
-    "updated_utc": "2026-11-19",
-    "last_change": "2026-11-20 (arena/70b2b9f7-prod2): last_live_read added to every product after the live re-read. Field-level read dates (name_listing_read, dimensions_read, …) are unchanged and still describe the pass each individual value came from."
+    "updated_utc": "2026-11-20",
+    "last_change": "2026-11-20 (arena/70b2b9f7-prod2): last_live_read added to every product after the live re-read. Field-level read dates (name_listing_read, dimensions_read, …) are unchanged and still describe the pass each individual value came from. 2026-11-20 (arena/b3089214-prod2): card bullets re-cut to words recorded verbatim in the listing evidence; highlights_read / highlights_basis say which pass each kind of value came from (F-P30)."
   },
   "products": [
     {

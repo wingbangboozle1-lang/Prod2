@@ -833,6 +833,22 @@ def hook_briefs_summary(_="") -> str:
             'cheapest test that would close it.</p>')
 
 
+def hook_queue_stats(_="") -> str:
+    """Counts of the suggestion register, computed at build time.
+
+    This line used to be typed into the page by hand, and every pass that added rows
+    left it lying by one or two. A generated number cannot go stale.
+    """
+    counts: dict[str, int] = {}
+    for s in SUGGESTIONS:
+        counts[s["status"]] = counts.get(s["status"], 0) + 1
+    order = ["proposed", "recommended", "accepted", "shipped", "deferred", "rejected"]
+    bits = ", ".join(f"{counts[k]} {k}" for k in order if counts.get(k))
+    return (f'<p class="table-note">{len(SUGGESTIONS)} items in the queue — {bits}. '
+            'Rows are the register; the short list above is the reviewer\u2019s order, '
+            'recorded in the decision log.</p>')
+
+
 def hook_suggestions(_="") -> str:
     out = []
     for s in SUGGESTIONS:

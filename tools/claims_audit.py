@@ -278,8 +278,11 @@ RETIRED_PHRASES = [
      "why": "the listing evidence names French doors, presets and accessories, not racks"},
     {"phrase": "in the basket lids", "product": "P1", "instead": "Easy-view windows, dual-zone features, and a mute",
      "why": "the title says 'Easy View Windows'; where the window sits is not recorded"},
-    {"phrase": "leave-in wireless probes", "product": "P5", "instead": "3 ultra-thin wireless probes, WiFi unlimited range",
-     "why": "'leave-in' is category vocabulary, not a string on P4/P5's evidence record"},
+    # "leave-in" is this site's own format label for P5 (products.json `format`), so the
+    # words alone are not a claim about the listing; what was unevidenced is the
+    # monitor-from-anywhere promise, so that is the string denied by name.
+    {"phrase": "monitor away from the heat", "product": "P5", "instead": "3 ultra-thin wireless probes, WiFi unlimited range",
+     "why": "the card paired our format word with a monitoring promise no recorded string carries"},
 ]
 
 

@@ -1,358 +1,376 @@
 {
- "_meta": {
-  "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
-  "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 reconciliation: three passes share the register. Event-vocabulary pass added Q-P14; anti-slop pass added Q-P10 (working-brand ratification, decision D-P18, flag F-P21) and Q-P11 (availability snapshots — answered no by the D-P11 policy read). 2026-11-20 (arena/44af3083-prod2): Q-P15/Q-P16/Q-P17 of this pass merged around the parallel rows of the same ids — the short-link browser-check question folded into Q-P18 (its content kept), the guide-demand question published as Q-P19, the CI-re-verification question as Q-P20."
- },
- "questions": [
-  {
-   "id": "Q-01",
-   "area": "Money",
-   "question": "Is the Associates account enrolled under tracking ID shopnow047c-20, and has each published link been validated in that account?",
-   "known": "The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). On 2026-11-19 all five supplied short links were recorded as resolving without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central. 2026-11-20 re-read: only one of five owner short links reached its intended ASIN in the fetch-tool read (F-P24, Q-P15).",
-   "unknown": "Account enrollment status; Partner Tag registration; whether test clicks report.",
-   "how_to_discover": "Owner logs into Associates Central: confirm the Partner Tag, generate or validate one Special Link per product, run a test click and read it in the report (protocol on the measurement page).",
-   "answerable_by": "The account holder.",
-   "blocks": [
-    "Any earnings claim",
-    "Scaling the link set",
-    "S-08"
-   ],
-   "flags": [
-    "F-57",
-    "F-58"
-   ]
+  "_meta": {
+    "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
+    "updated_utc": "2026-11-20",
+    "last_change": "2026-11-20 reconciliation: three passes share the register. Event-vocabulary pass added Q-P14; anti-slop pass added Q-P10 (working-brand ratification, decision D-P18, flag F-P21) and Q-P11 (availability snapshots — answered no by the D-P11 policy read). 2026-11-20 (arena/44af3083-prod2): Q-P15/Q-P16/Q-P17 of this pass merged around the parallel rows of the same ids — the short-link browser-check question folded into Q-P18 (its content kept), the guide-demand question published as Q-P19, the CI-re-verification question as Q-P20. 2026-11-20 (arena/b3089214-prod2): Q-P21 added — how to confirm a detail that only appears in a listing's feature bullets (browser paste or Creators/PA-API). Numbered Q-P21 because main took Q-P19/Q-P20 while this was in review."
   },
-  {
-   "id": "Q-19",
-   "area": "Legal",
-   "question": "Is the site's own trade name cleared, and does it contain an Amazon Mark?",
-   "known": "No Amazon Mark appears in any page title, meta description or target keyword (tools/checks.py fails the build if one does). The current wordmark is the project's established name 'Prod2' (D-P03), served under a github.io subpath — the site has no domain of its own yet.",
-   "unknown": "Whether a consumer-facing name (candidates in SG-01) collides with an existing trademark.",
-   "how_to_discover": "Re-read the Trademark Guidelines (S-POL) for domain and site names; run any candidate name through a trademark search before registering a domain.",
-   "answerable_by": "The owner, with a trademark search.",
-   "blocks": [
-    "SG-01 (rename)",
-    "Domain purchase"
-   ],
-   "flags": []
-  },
-  {
-   "id": "Q-23",
-   "area": "Measurement",
-   "question": "Where can the self-hosted analytics endpoint run?",
-   "known": "server.mjs is dependency-free Node, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.",
-   "unknown": "Which host the owner wants (any VM/container/Function that speaks HTTPS).",
-   "how_to_discover": "Owner picks a host; run the server; set the endpoint in data/p2/settings.json; rebuild. See the measurement page for the event contract.",
-   "answerable_by": "The owner.",
-   "blocks": [
-    "Shared click/conversion data",
-    "SG-06"
-   ],
-   "flags": [
-    "F-19"
-   ]
-  },
-  {
-   "id": "Q-27",
-   "area": "Content",
-   "question": "May the site publish prices and ratings under a dated-snapshot rule?",
-   "known": "Prices/ratings are currently withheld (F-02). D-19 already allows popularity claims as dated snapshots of official pages; extending that discipline to prices is an owner decision because it adds a re-verification obligation to every published page.",
-   "unknown": "Whether the owner wants the upkeep.",
-   "how_to_discover": "Decide SG-05; if yes, the checks must enforce 'price + read date' pairing.",
-   "answerable_by": "The owner.",
-   "blocks": [
-    "SG-05"
-   ],
-   "flags": [
-    "F-02"
-   ]
-  },
-  {
-   "id": "Q-31",
-   "area": "Product identity",
-   "question": "What is P2's exact preset/function count (24 or 25)?",
-   "known": "The title read 2026-11-19 says '24 One-Touch Preset Options'. Prior reads saw '24 cooking functions' and one section counting 25.",
-   "unknown": "The count as the manufacturer defines it.",
-   "how_to_discover": "Dated re-read of the listing's full spec/overview sections, or the manufacturer's product page.",
-   "answerable_by": "Any verification session.",
-   "blocks": [],
-   "flags": [
-    "F-26"
-   ]
-  },
-  {
-   "id": "Q-47",
-   "area": "Content",
-   "question": "May the site ask readers for an email address, and what consent text would that need?",
-   "known": "The RSS feed captures readers without collecting personal data. Participation Requirement 6(g) bars rewarding clicks, so any list must stay clear of the affiliate links.",
-   "unknown": "Whether a list is wanted at all, and what the consent/privacy text should say.",
-   "how_to_discover": "Owner decision (SG-04); if yes, get the consent and privacy text reviewed before the first form ships.",
-   "answerable_by": "The owner, with a privacy reviewer.",
-   "blocks": [
-    "SG-04"
-   ],
-   "flags": []
-  },
-  {
-   "id": "Q-P01",
-   "area": "Measurement",
-   "question": "Which five events should the campaign ledger track?",
-   "known": "Resolved by adoption: the ledger's five defined events are impression, click, session, order, refund, each with the official attribution window from the Commission Income Statement (see measurement page). The site-side endpoint records five separate local events (page_view, outbound_click, guide_read_75, category_click, feed_click).",
-   "unknown": "Nothing — recorded so the definition is checkable (D-P05).",
-   "how_to_discover": "n/a",
-   "answerable_by": "n/a",
-   "blocks": [],
-   "flags": []
-  },
-  {
-   "id": "Q-P02",
-   "area": "Editorial",
-   "question": "Which question-shaped guide should be published next, and on what evidence of demand?",
-   "known": "The four brief-mandated guides plus two thermometer guides ship now (the accuracy guide and an instant-read vs leave-in workflow guide). Editorial hypotheses are working titles, not claims about search volume (D-19).",
-   "unknown": "Real query demand. No Search Console or analytics data exists yet (F-19).",
-   "how_to_discover": "After measurement is live: read first-party queries (Search Console + endpoint counts) for 4-6 weeks, then choose topics from measured queries (publishing cadence on the measurement page).",
-   "answerable_by": "Data, once collected.",
-   "blocks": [
-    "S-25 (organic growth plan)"
-   ],
-   "flags": [
-    "F-19"
-   ]
-  },
-  {
-   "id": "Q-P03",
-   "area": "Product identity",
-   "question": "Do the five submitted links continue to point at the same five products over time?",
-   "known": "On 2026-11-19 all five resolved to the recorded ASINs. Listings drift (titles change, variants swap, default offers change — F-44, F-49, F-29). 2026-11-20 re-read: one of five short links reached its intended ASIN; the four others did not (F-P24, Q-P15). The /dp/ listings themselves still matched their titles.",
-   "unknown": "Future drift.",
-   "how_to_discover": "Re-run the verification pass each season or before any campaign push; record dated observations in the register.",
-   "answerable_by": "Any verification session.",
-   "blocks": [],
-   "flags": [
-    "F-44",
-    "F-49"
-   ]
-  },
-  {
-   "id": "Q-P04",
-   "area": "Editorial",
-   "question": "Should the two thermometer products get their own buying guide cluster (seasonal grilling / holiday gift angle)?",
-   "known": "Thermometers are half the catalog; two thermometer guides now ship (accuracy, and an instant-read vs leave-in workflow guide). A full seasonal cluster is still an editorial and SEO investment, not a data problem.",
-   "unknown": "Owner appetite for the extra content.",
-   "how_to_discover": "Review SG-03 alongside measured queries (Q-P02).",
-   "answerable_by": "The owner.",
-   "blocks": [
-    "SG-03"
-   ],
-   "flags": []
-  },
-  {
-   "id": "Q-P05",
-   "area": "Imagery",
-   "question": "Is any product imagery usable on the site, and through which official channel?",
-   "known": "The Operating Agreement Section 1 treats images as Program Content. Generated or copied photography is not an option under this project's rules (S-18, D-22).",
-   "unknown": "Which Amazon-served or brand-supplied images the Associates terms allow for this use, and whether the owner has a licence path.",
-   "how_to_discover": "Read the imagery clauses of the Operating Agreement and Program Policies with the owner's Associates contact, or ask Associates support in writing. Until then the site stays text-led.",
-   "answerable_by": "The account holder, with Associates support.",
-   "blocks": [
-    "S-18 (product photography)"
-   ],
-   "flags": [
-    "F-15"
-   ]
-  },
-  {
-   "id": "Q-P06",
-   "area": "Findability",
-   "question": "Does the owner control a domain for Search Console and the analytics endpoint?",
-   "known": "The site is served from the GitHub Pages address wingbangboozle1-lang.github.io/Prod2. Search Console verification and a hosted endpoint both need an owner-controlled HTTPS address (SG-06).",
-   "unknown": "Whether a custom domain exists or is wanted, and who holds Search Console access.",
-   "how_to_discover": "The owner checks the domain registrar and the Search Console account. If none exists, the Pages address can be verified as a URL-prefix property.",
-   "answerable_by": "The owner.",
-   "blocks": [
-    "SG-06",
-    "SG-11"
-   ],
-   "flags": [
-    "F-19"
-   ]
-  },
-  {
-   "id": "Q-P07",
-   "area": "Editorial",
-   "question": "Which seasonal window should the first thermometer cluster target?",
-   "known": "The two thermometer listings describe grill and BBQ use and gift angles in their titles. No dated search or sales data exists in this project, and none is claimed.",
-   "unknown": "Whether any seasonal demand is real for these products, and the timing of the next season.",
-   "how_to_discover": "Read Search Console queries for thermometer terms after SG-06. Do not use listing titles as evidence of demand.",
-   "answerable_by": "The owner, from Search Console data.",
-   "blocks": [
-    "SG-03",
-    "SG-13"
-   ],
-   "flags": [
-    "F-15"
-   ]
-  },
-  {
-   "id": "Q-P08",
-   "area": "Findability",
-   "question": "Who verifies the site in Google Search Console, and when?",
-   "known": "The site ships with everything Search Console needs to index it well: one canonical URL per page, unique titles and meta descriptions, sitemap.xml, robots.txt with the Sitemap line, and an RSS feed. The build is ready for the verification token (settings.json -> search_console.verification_token).",
-   "unknown": "Which verification method the owner prefers (HTML tag, HTML file, or DNS), and when the property will be claimed.",
-   "how_to_discover": "Owner opens Search Console, adds the property https://wingbangboozle1-lang.github.io/Prod2/, chooses the HTML-tag method, pastes the token into settings.json and rebuilds (or uploads the HTML file). Then submits sitemap.xml and feed.xml. Step list is on the measurement page.",
-   "answerable_by": "The account holder (needs the owner's Google account).",
-   "blocks": [
-    "Measured topic selection (SG-06, Q-P02)",
-    "Any search-performance claim",
-    "SG-29 verification step"
-   ],
-   "flags": [
-    "F-P13"
-   ]
-  },
-  {
-   "id": "Q-P09",
-   "area": "Design",
-   "question": "Which of the three specified design directions should the next visual pass implement?",
-   "known": "The carried brief (DESIGN_PROMPT.md) specifies Direction A, warm editorial, and this build follows it. Two alternative directions are fully specified in the suggestion queue (SG-31): a clean modern shop and a bold magazine layout, each with the same compliance block. No reader data exists to choose between them (Q-P05 open).",
-   "unknown": "The owner's preference, and whether any brand-name change (Q-19, SG-01) should ship in the same pass.",
-   "how_to_discover": "Review SG-31 side by side on the suggestions page and record the pick in the decision log; the token layer (SG-33) then makes the switch mechanical.",
-   "answerable_by": "The site owner (taste call); Search Console data can inform it later.",
-   "blocks": [
-    "A full visual overhaul",
-    "SG-33 token layer"
-   ],
-   "flags": []
-  },
-  {
-   "id": "Q-P14",
-   "question": "Which event vocabulary should the site and the endpoint share?",
-   "known": "server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. The site emits five: page_view, outbound_click, guide_read_75, category_click, feed_click. Answered 2026-11-20 (arena/644d217b-prod2): the site's five documented events are the contract; the collector was extended to accept and correctly aggregate all five, and the gate now fails the build on any divergence. No event was invented or renamed to fit the collector.",
-   "recommendation": "Extend server.mjs to accept the three site events and map target_host. It is additive, it touches no browser code, and it preserves the instrumentation that is already tested. Then add a gate that reads both files and fails if the lists ever diverge again.",
-   "area": "Measurement",
-   "unknown": "A decision on which side moves. Extending the server keeps the site's already-shipped instrumentation and costs twelve lines of Node; changing measure.js keeps the server untouched but means editing and re-testing the only code that touches a reader's browser.",
-   "how_to_discover": "Compare the two lists against what the owner actually wants to know at launch. If the answer is 'how many people clicked a product', the site's five already cover it and the server should be extended. If the answer is 'which guides get read', the server's article_half_read/guide_read pair is richer and measure.js should adopt it.",
-   "blocks": "F-P23; any hosted-endpoint count",
-   "flags": [
-    "F-P23"
-   ],
-   "answerable_by": "owner decision, then any session",
-   "answer": "Published vocabulary = the five in data/p2/events.json. Collector updated to match, gate enforces the match, regression test pins it. See D-P21.",
-   "status": "answered"
-  },
-  {
-   "id": "Q-P10",
-   "area": "Brand",
-   "question": "Does the owner ratify the working brand “The Crisp Counter”, and will a formal trade-name clearance be run?",
-   "known": "Adopted 2026-11-20 as the working wordmark on the owner's standing anti-slop directive (decision D-P18). A preliminary web search on 2026-11-20 returned no conflicting kitchen-appliance brand in the first page of results; the name comes from the adopted design brief (DESIGN_PROMPT.md).",
-   "unknown": "No formal trademark search has been performed (USPTO registry, state registries, common-law use, domain availability). The owner has not individually ratified the specific name.",
-   "how_to_discover": "Run the USPTO trademark search (tmsearch.uspto.gov) for 'Crisp Counter' word marks in class 7/11/35; check state registries and live web/common-law use; check domain availability (Q-P06); then record ratify-or-revert in the decision log.",
-   "answerable_by": "Owner (with counsel for the formal search)",
-   "blocks": [
-    "SG-38",
-    "future domain purchase",
-    "social/OG branding"
-   ],
-   "flags": [
-    "F-P21"
-   ]
-  },
-  {
-   "id": "Q-P11",
-   "area": "Content policy",
-   "question": "May the site publish availability snapshots (“observed in stock on YYYY-MM-DD”) alongside its dated listing reads?",
-   "known": "Answered 2026-11-20 by the policy read recorded in decision D-P11: Program Policies 2(b) (updated 2026-04-14, read 2026-11-20) permits prices and availability only when Amazon serves the link or the data comes via the Creators/PA API — a dated snapshot is neither. The site therefore publishes neither prices nor availability; both stay blank with a link to the live listing (F-02 posture).",
-   "unknown": "Nothing remains for this session to discover; the policy question is recorded. Revisit only if Amazon grants Creators/PA API access (then D-21 applies).",
-   "how_to_discover": "If PA API access is granted later, pull availability (and prices/ratings) through the API per the Operating Agreement; otherwise no discovery path exists inside policy.",
-   "answerable_by": "Owner",
-   "blocks": [],
-   "flags": []
-  },
-  {
-   "id": "Q-P15",
-   "area": "Content depth",
-   "question": "How long should a piece be before it is published, and how is that enforced?",
-   "known": "The ten original guides run 436-814 words. The two long reads added 2026-11-20 run 1,212-1,295 words. There is no stated minimum in any register, and the gate does not measure length, so 'thin' is currently a judgement call rather than a check.",
-   "unknown": "Whether a length floor is the right control at all; word count is a weak proxy for usefulness and a strong invitation to pad.",
-   "how_to_discover": "Owner picks one of: (a) no floor, judged per piece; (b) a floor of ~600 words for a guide and ~1,000 for a long read, gated; (c) a sourced-claims-per-100-words floor, which measures substance rather than length. Option (c) is the only one that cannot be satisfied by filler.",
-   "answerable_by": "Owner (editorial standard).",
-   "blocks": [
-    "SG-45 cadence",
-    "Any scaling of the content set"
-   ],
-   "flags": []
-  },
-  {
-   "id": "Q-P16",
-   "area": "Imagery",
-   "question": "Can this project show the real product photo at all, and through which channel?",
-   "known": "Every card carries a generated illustration with the line 'Illustration, not the product photo'. The Operating Agreement and IP License restrict use of Program Content including images, and this project has no Creators/PA API access.",
-   "unknown": "Whether Associates enrollees can obtain product images through the Associates Central link builder without API approval; whether an approved application would be granted for a site this size. Not verifiable from outside the account.",
-   "how_to_discover": "Owner checks Associates Central for the SiteStripe image/link tool on one enrolled product and reports whether an image can be obtained with a compliant attribution. That single test settles it.",
-   "answerable_by": "The account holder.",
-   "blocks": [
-    "SG-47",
-    "The shelf looking like a real shop"
-   ],
-   "flags": []
-  },
-  {
-   "id": "Q-P17",
-   "area": "Measurement",
-   "question": "Where will the analytics endpoint actually run, and who pays for it?",
-   "known": "server.mjs is written, tested (3/3) and now accepts every event the site sends. settings.analytics_endpoint is empty, so the site transmits nothing and counts only in each visitor's own browser.",
-   "unknown": "Host choice, cost, and whether the owner wants to run a Node service at all. Also unknown: retention period and who reads the aggregate.",
-   "how_to_discover": "Owner names a host, or decides the browser-local counter is enough for now. If the latter, the measurement page must say so plainly rather than implying traffic data exists.",
-   "answerable_by": "Owner.",
-   "blocks": [
-    "SG-06",
-    "SG-34",
-    "Every claim that the site is measured"
-   ],
-   "flags": [
-    "F-19"
-   ]
-  },
-  {
-   "id": "Q-P18",
-   "area": "Outbound links",
-   "question": "Does each of the owner-supplied short links reach its intended ASIN for a logged-out buyer, and for an Associates-enrolled session?",
-   "known": "On 2026-11-20 the R-01 read found one of five short links (B02NbDxp3) at its intended ASIN. short link B04G1MEwY and short link B0c8moW59 reached the Amazon homepage on both attempts. short link B00hJ57DV and short link B0f3GKalj each reached the Amazon homepage on one read. A second same-day read by another session disagrees on B02NbDxp3 and B0f3GKalj (F-P24; F-P27). The published site does not use the short links for outbound clicks. An independent two-sample reproduction (arena/44af3083-prod2, same day, third fetch environment) resolved short links B04G1MEwY and B0c8moW59 to the storefront instead of their listings (record: data/p2/verification-2026-11-20.json, third_pass_arena_44af3083), consistent with the same-day disagreement recorded in F-P27.",
-   "unknown": "Whether the failures are specific to the fetch tool or also happen in a browser. Whether the links carry the owner’s tag in an enrolled session. Whether the links are compliant under Program Policies §6(w) (FLG-003).",
-   "how_to_discover": "Owner opens each link in a logged-out private window and in the Associates-enrolled browser. Records the final URL and ASIN and compares them with data/p2/intent-links.json. Then decides under F-03 and F-58 whether the links stay in use at all. Record every browser observation as a dated redirect entry in data/p2/intent-links.json — kept separate from intended_asin, never merged.",
-   "answerable_by": "Owner",
-   "blocks": [],
-   "flags": [
-    "F-P24",
-    "F-P27",
-    "F-P28",
-    "F-03"
-   ]
-  },
-  {
-   "id": "Q-P19",
-   "area": "Editorial",
-   "question": "Do the two Thanksgiving-window guides (guide-preheat-shake, guide-turkey-done) answer questions real buyers ask?",
-   "known": "Nothing about demand. Both are editorial hypotheses (D-19): each answers a question that is answerable from the verified register only, and both shipped into the seasonal window (data/p2/calendar.json).",
-   "unknown": "Any evidence of search demand or reader interest. It cannot be known until the SG-06 gate (Search Console + hosted analytics endpoint + 14 days of events) opens.",
-   "how_to_discover": "After Q-P08 / SG-06: read the Search Console queries landing on the two pages and the guide_read_75 events; feed the measured result back into the queue order per SG-34. Do not infer demand from instinct (D-19).",
-   "answerable_by": "Measurement",
-   "blocks": [],
-   "flags": []
-  },
-  {
-   "id": "Q-P20",
-   "area": "Machinery",
-   "question": "Can a periodic listing re-verification (fetch, diff, flag) run automatically, or must it stay a session step?",
-   "known": "This session re-verified all five listings live on 2026-11-20 through the page-fetch tool. GitHub-hosted CI runners have no such tool, and the sandbox egress allowlist does not cover amazon.com for plain HTTP clients (recorded in earlier session notes).",
-   "unknown": "Whether a scheduled GitHub Actions job can perform the fetch-and-compare step at all. If not, the re-verification cadence stays manual and the proposed SLA (SG-46) is a process, not a pipeline.",
-   "how_to_discover": "Prototype a workflow that fetches the five /dp/ URLs from a GitHub-hosted runner and diffs the document titles against data/p2/products.json. Record whether runner egress allows it; if blocked, record the limit and keep the manual cadence.",
-   "answerable_by": "Owner",
-   "blocks": [
-    "SG-50"
-   ],
-   "flags": []
-  }
- ]
+  "questions": [
+    {
+      "id": "Q-01",
+      "area": "Money",
+      "question": "Is the Associates account enrolled under tracking ID shopnow047c-20, and has each published link been validated in that account?",
+      "known": "The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). On 2026-11-19 all five supplied short links were recorded as resolving without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central. 2026-11-20 re-read: only one of five owner short links reached its intended ASIN in the fetch-tool read (F-P24, Q-P15).",
+      "unknown": "Account enrollment status; Partner Tag registration; whether test clicks report.",
+      "how_to_discover": "Owner logs into Associates Central: confirm the Partner Tag, generate or validate one Special Link per product, run a test click and read it in the report (protocol on the measurement page).",
+      "answerable_by": "The account holder.",
+      "blocks": [
+        "Any earnings claim",
+        "Scaling the link set",
+        "S-08"
+      ],
+      "flags": [
+        "F-57",
+        "F-58"
+      ]
+    },
+    {
+      "id": "Q-19",
+      "area": "Legal",
+      "question": "Is the site's own trade name cleared, and does it contain an Amazon Mark?",
+      "known": "No Amazon Mark appears in any page title, meta description or target keyword (tools/checks.py fails the build if one does). The current wordmark is the project's established name 'Prod2' (D-P03), served under a github.io subpath — the site has no domain of its own yet.",
+      "unknown": "Whether a consumer-facing name (candidates in SG-01) collides with an existing trademark.",
+      "how_to_discover": "Re-read the Trademark Guidelines (S-POL) for domain and site names; run any candidate name through a trademark search before registering a domain.",
+      "answerable_by": "The owner, with a trademark search.",
+      "blocks": [
+        "SG-01 (rename)",
+        "Domain purchase"
+      ],
+      "flags": []
+    },
+    {
+      "id": "Q-23",
+      "area": "Measurement",
+      "question": "Where can the self-hosted analytics endpoint run?",
+      "known": "server.mjs is dependency-free Node, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.",
+      "unknown": "Which host the owner wants (any VM/container/Function that speaks HTTPS).",
+      "how_to_discover": "Owner picks a host; run the server; set the endpoint in data/p2/settings.json; rebuild. See the measurement page for the event contract.",
+      "answerable_by": "The owner.",
+      "blocks": [
+        "Shared click/conversion data",
+        "SG-06"
+      ],
+      "flags": [
+        "F-19"
+      ]
+    },
+    {
+      "id": "Q-27",
+      "area": "Content",
+      "question": "May the site publish prices and ratings under a dated-snapshot rule?",
+      "known": "Prices/ratings are currently withheld (F-02). D-19 already allows popularity claims as dated snapshots of official pages; extending that discipline to prices is an owner decision because it adds a re-verification obligation to every published page.",
+      "unknown": "Whether the owner wants the upkeep.",
+      "how_to_discover": "Decide SG-05; if yes, the checks must enforce 'price + read date' pairing.",
+      "answerable_by": "The owner.",
+      "blocks": [
+        "SG-05"
+      ],
+      "flags": [
+        "F-02"
+      ]
+    },
+    {
+      "id": "Q-31",
+      "area": "Product identity",
+      "question": "What is P2's exact preset/function count (24 or 25)?",
+      "known": "The title read 2026-11-19 says '24 One-Touch Preset Options'. Prior reads saw '24 cooking functions' and one section counting 25.",
+      "unknown": "The count as the manufacturer defines it.",
+      "how_to_discover": "Dated re-read of the listing's full spec/overview sections, or the manufacturer's product page.",
+      "answerable_by": "Any verification session.",
+      "blocks": [],
+      "flags": [
+        "F-26"
+      ]
+    },
+    {
+      "id": "Q-47",
+      "area": "Content",
+      "question": "May the site ask readers for an email address, and what consent text would that need?",
+      "known": "The RSS feed captures readers without collecting personal data. Participation Requirement 6(g) bars rewarding clicks, so any list must stay clear of the affiliate links.",
+      "unknown": "Whether a list is wanted at all, and what the consent/privacy text should say.",
+      "how_to_discover": "Owner decision (SG-04); if yes, get the consent and privacy text reviewed before the first form ships.",
+      "answerable_by": "The owner, with a privacy reviewer.",
+      "blocks": [
+        "SG-04"
+      ],
+      "flags": []
+    },
+    {
+      "id": "Q-P01",
+      "area": "Measurement",
+      "question": "Which five events should the campaign ledger track?",
+      "known": "Resolved by adoption: the ledger's five defined events are impression, click, session, order, refund, each with the official attribution window from the Commission Income Statement (see measurement page). The site-side endpoint records five separate local events (page_view, outbound_click, guide_read_75, category_click, feed_click).",
+      "unknown": "Nothing — recorded so the definition is checkable (D-P05).",
+      "how_to_discover": "n/a",
+      "answerable_by": "n/a",
+      "blocks": [],
+      "flags": []
+    },
+    {
+      "id": "Q-P02",
+      "area": "Editorial",
+      "question": "Which question-shaped guide should be published next, and on what evidence of demand?",
+      "known": "The four brief-mandated guides plus two thermometer guides ship now (the accuracy guide and an instant-read vs leave-in workflow guide). Editorial hypotheses are working titles, not claims about search volume (D-19).",
+      "unknown": "Real query demand. No Search Console or analytics data exists yet (F-19).",
+      "how_to_discover": "After measurement is live: read first-party queries (Search Console + endpoint counts) for 4-6 weeks, then choose topics from measured queries (publishing cadence on the measurement page).",
+      "answerable_by": "Data, once collected.",
+      "blocks": [
+        "S-25 (organic growth plan)"
+      ],
+      "flags": [
+        "F-19"
+      ]
+    },
+    {
+      "id": "Q-P03",
+      "area": "Product identity",
+      "question": "Do the five submitted links continue to point at the same five products over time?",
+      "known": "On 2026-11-19 all five resolved to the recorded ASINs. Listings drift (titles change, variants swap, default offers change — F-44, F-49, F-29). 2026-11-20 re-read: one of five short links reached its intended ASIN; the four others did not (F-P24, Q-P15). The /dp/ listings themselves still matched their titles.",
+      "unknown": "Future drift.",
+      "how_to_discover": "Re-run the verification pass each season or before any campaign push; record dated observations in the register.",
+      "answerable_by": "Any verification session.",
+      "blocks": [],
+      "flags": [
+        "F-44",
+        "F-49"
+      ]
+    },
+    {
+      "id": "Q-P04",
+      "area": "Editorial",
+      "question": "Should the two thermometer products get their own buying guide cluster (seasonal grilling / holiday gift angle)?",
+      "known": "Thermometers are half the catalog; two thermometer guides now ship (accuracy, and an instant-read vs leave-in workflow guide). A full seasonal cluster is still an editorial and SEO investment, not a data problem.",
+      "unknown": "Owner appetite for the extra content.",
+      "how_to_discover": "Review SG-03 alongside measured queries (Q-P02).",
+      "answerable_by": "The owner.",
+      "blocks": [
+        "SG-03"
+      ],
+      "flags": []
+    },
+    {
+      "id": "Q-P05",
+      "area": "Imagery",
+      "question": "Is any product imagery usable on the site, and through which official channel?",
+      "known": "The Operating Agreement Section 1 treats images as Program Content. Generated or copied photography is not an option under this project's rules (S-18, D-22).",
+      "unknown": "Which Amazon-served or brand-supplied images the Associates terms allow for this use, and whether the owner has a licence path.",
+      "how_to_discover": "Read the imagery clauses of the Operating Agreement and Program Policies with the owner's Associates contact, or ask Associates support in writing. Until then the site stays text-led.",
+      "answerable_by": "The account holder, with Associates support.",
+      "blocks": [
+        "S-18 (product photography)"
+      ],
+      "flags": [
+        "F-15"
+      ]
+    },
+    {
+      "id": "Q-P06",
+      "area": "Findability",
+      "question": "Does the owner control a domain for Search Console and the analytics endpoint?",
+      "known": "The site is served from the GitHub Pages address wingbangboozle1-lang.github.io/Prod2. Search Console verification and a hosted endpoint both need an owner-controlled HTTPS address (SG-06).",
+      "unknown": "Whether a custom domain exists or is wanted, and who holds Search Console access.",
+      "how_to_discover": "The owner checks the domain registrar and the Search Console account. If none exists, the Pages address can be verified as a URL-prefix property.",
+      "answerable_by": "The owner.",
+      "blocks": [
+        "SG-06",
+        "SG-11"
+      ],
+      "flags": [
+        "F-19"
+      ]
+    },
+    {
+      "id": "Q-P07",
+      "area": "Editorial",
+      "question": "Which seasonal window should the first thermometer cluster target?",
+      "known": "The two thermometer listings describe grill and BBQ use and gift angles in their titles. No dated search or sales data exists in this project, and none is claimed.",
+      "unknown": "Whether any seasonal demand is real for these products, and the timing of the next season.",
+      "how_to_discover": "Read Search Console queries for thermometer terms after SG-06. Do not use listing titles as evidence of demand.",
+      "answerable_by": "The owner, from Search Console data.",
+      "blocks": [
+        "SG-03",
+        "SG-13"
+      ],
+      "flags": [
+        "F-15"
+      ]
+    },
+    {
+      "id": "Q-P08",
+      "area": "Findability",
+      "question": "Who verifies the site in Google Search Console, and when?",
+      "known": "The site ships with everything Search Console needs to index it well: one canonical URL per page, unique titles and meta descriptions, sitemap.xml, robots.txt with the Sitemap line, and an RSS feed. The build is ready for the verification token (settings.json -> search_console.verification_token).",
+      "unknown": "Which verification method the owner prefers (HTML tag, HTML file, or DNS), and when the property will be claimed.",
+      "how_to_discover": "Owner opens Search Console, adds the property https://wingbangboozle1-lang.github.io/Prod2/, chooses the HTML-tag method, pastes the token into settings.json and rebuilds (or uploads the HTML file). Then submits sitemap.xml and feed.xml. Step list is on the measurement page.",
+      "answerable_by": "The account holder (needs the owner's Google account).",
+      "blocks": [
+        "Measured topic selection (SG-06, Q-P02)",
+        "Any search-performance claim",
+        "SG-29 verification step"
+      ],
+      "flags": [
+        "F-P13"
+      ]
+    },
+    {
+      "id": "Q-P09",
+      "area": "Design",
+      "question": "Which of the three specified design directions should the next visual pass implement?",
+      "known": "The carried brief (DESIGN_PROMPT.md) specifies Direction A, warm editorial, and this build follows it. Two alternative directions are fully specified in the suggestion queue (SG-31): a clean modern shop and a bold magazine layout, each with the same compliance block. No reader data exists to choose between them (Q-P05 open).",
+      "unknown": "The owner's preference, and whether any brand-name change (Q-19, SG-01) should ship in the same pass.",
+      "how_to_discover": "Review SG-31 side by side on the suggestions page and record the pick in the decision log; the token layer (SG-33) then makes the switch mechanical.",
+      "answerable_by": "The site owner (taste call); Search Console data can inform it later.",
+      "blocks": [
+        "A full visual overhaul",
+        "SG-33 token layer"
+      ],
+      "flags": []
+    },
+    {
+      "id": "Q-P14",
+      "question": "Which event vocabulary should the site and the endpoint share?",
+      "known": "server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. The site emits five: page_view, outbound_click, guide_read_75, category_click, feed_click. Answered 2026-11-20 (arena/644d217b-prod2): the site's five documented events are the contract; the collector was extended to accept and correctly aggregate all five, and the gate now fails the build on any divergence. No event was invented or renamed to fit the collector.",
+      "recommendation": "Extend server.mjs to accept the three site events and map target_host. It is additive, it touches no browser code, and it preserves the instrumentation that is already tested. Then add a gate that reads both files and fails if the lists ever diverge again.",
+      "area": "Measurement",
+      "unknown": "A decision on which side moves. Extending the server keeps the site's already-shipped instrumentation and costs twelve lines of Node; changing measure.js keeps the server untouched but means editing and re-testing the only code that touches a reader's browser.",
+      "how_to_discover": "Compare the two lists against what the owner actually wants to know at launch. If the answer is 'how many people clicked a product', the site's five already cover it and the server should be extended. If the answer is 'which guides get read', the server's article_half_read/guide_read pair is richer and measure.js should adopt it.",
+      "blocks": "F-P23; any hosted-endpoint count",
+      "flags": [
+        "F-P23"
+      ],
+      "answerable_by": "owner decision, then any session",
+      "answer": "Published vocabulary = the five in data/p2/events.json. Collector updated to match, gate enforces the match, regression test pins it. See D-P21.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-P10",
+      "area": "Brand",
+      "question": "Does the owner ratify the working brand “The Crisp Counter”, and will a formal trade-name clearance be run?",
+      "known": "Adopted 2026-11-20 as the working wordmark on the owner's standing anti-slop directive (decision D-P18). A preliminary web search on 2026-11-20 returned no conflicting kitchen-appliance brand in the first page of results; the name comes from the adopted design brief (DESIGN_PROMPT.md).",
+      "unknown": "No formal trademark search has been performed (USPTO registry, state registries, common-law use, domain availability). The owner has not individually ratified the specific name.",
+      "how_to_discover": "Run the USPTO trademark search (tmsearch.uspto.gov) for 'Crisp Counter' word marks in class 7/11/35; check state registries and live web/common-law use; check domain availability (Q-P06); then record ratify-or-revert in the decision log.",
+      "answerable_by": "Owner (with counsel for the formal search)",
+      "blocks": [
+        "SG-38",
+        "future domain purchase",
+        "social/OG branding"
+      ],
+      "flags": [
+        "F-P21"
+      ]
+    },
+    {
+      "id": "Q-P11",
+      "area": "Content policy",
+      "question": "May the site publish availability snapshots (“observed in stock on YYYY-MM-DD”) alongside its dated listing reads?",
+      "known": "Answered 2026-11-20 by the policy read recorded in decision D-P11: Program Policies 2(b) (updated 2026-04-14, read 2026-11-20) permits prices and availability only when Amazon serves the link or the data comes via the Creators/PA API — a dated snapshot is neither. The site therefore publishes neither prices nor availability; both stay blank with a link to the live listing (F-02 posture).",
+      "unknown": "Nothing remains for this session to discover; the policy question is recorded. Revisit only if Amazon grants Creators/PA API access (then D-21 applies).",
+      "how_to_discover": "If PA API access is granted later, pull availability (and prices/ratings) through the API per the Operating Agreement; otherwise no discovery path exists inside policy.",
+      "answerable_by": "Owner",
+      "blocks": [],
+      "flags": []
+    },
+    {
+      "id": "Q-P15",
+      "area": "Content depth",
+      "question": "How long should a piece be before it is published, and how is that enforced?",
+      "known": "The ten original guides run 436-814 words. The two long reads added 2026-11-20 run 1,212-1,295 words. There is no stated minimum in any register, and the gate does not measure length, so 'thin' is currently a judgement call rather than a check.",
+      "unknown": "Whether a length floor is the right control at all; word count is a weak proxy for usefulness and a strong invitation to pad.",
+      "how_to_discover": "Owner picks one of: (a) no floor, judged per piece; (b) a floor of ~600 words for a guide and ~1,000 for a long read, gated; (c) a sourced-claims-per-100-words floor, which measures substance rather than length. Option (c) is the only one that cannot be satisfied by filler.",
+      "answerable_by": "Owner (editorial standard).",
+      "blocks": [
+        "SG-45 cadence",
+        "Any scaling of the content set"
+      ],
+      "flags": []
+    },
+    {
+      "id": "Q-P16",
+      "area": "Imagery",
+      "question": "Can this project show the real product photo at all, and through which channel?",
+      "known": "Every card carries a generated illustration with the line 'Illustration, not the product photo'. The Operating Agreement and IP License restrict use of Program Content including images, and this project has no Creators/PA API access.",
+      "unknown": "Whether Associates enrollees can obtain product images through the Associates Central link builder without API approval; whether an approved application would be granted for a site this size. Not verifiable from outside the account.",
+      "how_to_discover": "Owner checks Associates Central for the SiteStripe image/link tool on one enrolled product and reports whether an image can be obtained with a compliant attribution. That single test settles it.",
+      "answerable_by": "The account holder.",
+      "blocks": [
+        "SG-47",
+        "The shelf looking like a real shop"
+      ],
+      "flags": []
+    },
+    {
+      "id": "Q-P17",
+      "area": "Measurement",
+      "question": "Where will the analytics endpoint actually run, and who pays for it?",
+      "known": "server.mjs is written, tested (3/3) and now accepts every event the site sends. settings.analytics_endpoint is empty, so the site transmits nothing and counts only in each visitor's own browser.",
+      "unknown": "Host choice, cost, and whether the owner wants to run a Node service at all. Also unknown: retention period and who reads the aggregate.",
+      "how_to_discover": "Owner names a host, or decides the browser-local counter is enough for now. If the latter, the measurement page must say so plainly rather than implying traffic data exists.",
+      "answerable_by": "Owner.",
+      "blocks": [
+        "SG-06",
+        "SG-34",
+        "Every claim that the site is measured"
+      ],
+      "flags": [
+        "F-19"
+      ]
+    },
+    {
+      "id": "Q-P18",
+      "area": "Outbound links",
+      "question": "Does each of the owner-supplied short links reach its intended ASIN for a logged-out buyer, and for an Associates-enrolled session?",
+      "known": "On 2026-11-20 the R-01 read found one of five short links (B02NbDxp3) at its intended ASIN. short link B04G1MEwY and short link B0c8moW59 reached the Amazon homepage on both attempts. short link B00hJ57DV and short link B0f3GKalj each reached the Amazon homepage on one read. A second same-day read by another session disagrees on B02NbDxp3 and B0f3GKalj (F-P24; F-P27). The published site does not use the short links for outbound clicks. An independent two-sample reproduction (arena/44af3083-prod2, same day, third fetch environment) resolved short links B04G1MEwY and B0c8moW59 to the storefront instead of their listings (record: data/p2/verification-2026-11-20.json, third_pass_arena_44af3083), consistent with the same-day disagreement recorded in F-P27.",
+      "unknown": "Whether the failures are specific to the fetch tool or also happen in a browser. Whether the links carry the owner’s tag in an enrolled session. Whether the links are compliant under Program Policies §6(w) (FLG-003).",
+      "how_to_discover": "Owner opens each link in a logged-out private window and in the Associates-enrolled browser. Records the final URL and ASIN and compares them with data/p2/intent-links.json. Then decides under F-03 and F-58 whether the links stay in use at all. Record every browser observation as a dated redirect entry in data/p2/intent-links.json — kept separate from intended_asin, never merged.",
+      "answerable_by": "Owner",
+      "blocks": [],
+      "flags": [
+        "F-P24",
+        "F-P27",
+        "F-P28",
+        "F-03"
+      ]
+    },
+    {
+      "id": "Q-P19",
+      "area": "Editorial",
+      "question": "Do the two Thanksgiving-window guides (guide-preheat-shake, guide-turkey-done) answer questions real buyers ask?",
+      "known": "Nothing about demand. Both are editorial hypotheses (D-19): each answers a question that is answerable from the verified register only, and both shipped into the seasonal window (data/p2/calendar.json).",
+      "unknown": "Any evidence of search demand or reader interest. It cannot be known until the SG-06 gate (Search Console + hosted analytics endpoint + 14 days of events) opens.",
+      "how_to_discover": "After Q-P08 / SG-06: read the Search Console queries landing on the two pages and the guide_read_75 events; feed the measured result back into the queue order per SG-34. Do not infer demand from instinct (D-19).",
+      "answerable_by": "Measurement",
+      "blocks": [],
+      "flags": []
+    },
+    {
+      "id": "Q-P20",
+      "area": "Machinery",
+      "question": "Can a periodic listing re-verification (fetch, diff, flag) run automatically, or must it stay a session step?",
+      "known": "This session re-verified all five listings live on 2026-11-20 through the page-fetch tool. GitHub-hosted CI runners have no such tool, and the sandbox egress allowlist does not cover amazon.com for plain HTTP clients (recorded in earlier session notes).",
+      "unknown": "Whether a scheduled GitHub Actions job can perform the fetch-and-compare step at all. If not, the re-verification cadence stays manual and the proposed SLA (SG-46) is a process, not a pipeline.",
+      "how_to_discover": "Prototype a workflow that fetches the five /dp/ URLs from a GitHub-hosted runner and diffs the document titles against data/p2/products.json. Record whether runner egress allows it; if blocked, record the limit and keep the manual cadence.",
+      "answerable_by": "Owner",
+      "blocks": [
+        "SG-50"
+      ],
+      "flags": []
+    },
+    {
+      "id": "Q-P21",
+      "area": "Verification",
+      "question": "How do we confirm a product detail that only appears in the listing's feature bullets?",
+      "known": "11 of the 15 published card bullets are verbatim in a listing title that every dated pass re-reads, and 4 more trace to a dated read of the spec table. F-P30's six retired phrases trace to nothing on record. The fetch path this project uses returns the title, the breadcrumb and recommendation carousels; the 'About this item' block is not reliably retrievable from it, so a bullet cannot be re-confirmed on demand from here.",
+      "unknown": "Whether the retired details (magnetic back, rinse-safe body, Smart Hub audio alerts, rack cooking, windows in the lids, leave-in wording) are actually on the live listings, and whether the four dated-read bullets still match after any seller edit since 2026-11-14/19.",
+      "how_to_discover": "Two ways, both cheap. (1) Browser check by the owner or any reviewer: open each listing, copy the 'About this item' lines verbatim into data/p2/products.json with the date, re-run `python3 tools/claims_audit.py` — a phrase moves from retired to published as soon as a recorded string carries it. (2) Register for Associates Creators/PA-API access (the same account step that closes Q-01): a PA-API response gives ItemHighlights as data, which is quotable under the Program Policies and turns the audit from manual to automatic.",
+      "answerable_by": "Owner (browser paste, minutes) or an Associates account holder (PA-API).",
+      "blocks": [
+        "Restoring any retired product detail on the cards",
+        "Closing F-P30",
+        "Any claim that the site verifies bullet-level listing text automatically"
+      ],
+      "flags": [
+        "F-P30",
+        "F-P17"
+      ]
+    }
+  ]
 }

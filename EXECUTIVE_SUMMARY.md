@@ -72,7 +72,7 @@ Two defects this session found were not cosmetic: the live host was serving the 
 registers, and ten of the fifteen product bullets on the shelf rested on text the site could not
 re-produce from its evidence.
 
-- **The published surface is now controlled in the repository (D-P24).** Pages publishes this repo's
+- **The published surface is now controlled in the repository (D-P25).** Pages publishes this repo's
   root in legacy mode, the source setting is not changeable with the token available (`PUT
   build_type=workflow` → 403, re-confirmed), and a cache-busted read of
   `/Prod2/data/p2/settings.json` returned the live register. Root `.nojekyll` is deleted and
@@ -82,9 +82,9 @@ re-produce from its evidence.
   verbatim rather than re-processed). The duplicate copy of the whole site under `/docs/` goes away
   with it. The exposition gate refuses a root `.nojekyll`, refuses a config that misses any top-level
   path, and refuses a page link into an excluded path — which caught three governance evidence links
-  that pointed at served register copies. **F-P19/F-P20 closed from this side; F-P29 stays open**
+  that pointed at served register copies. **F-P19/F-P20 closed from this side; F-P31 stays open**
   because the control now depends on a generated file, and F-P30 documents the rest.
-- **Every published product bullet is audited against its evidence (F-P30, SG-48).**
+- **Every published product bullet is audited against its evidence (F-P30, SG-52).**
   `python3 tools/claims_audit.py` matches each card bullet word by word against the verbatim strings
   recorded for that ASIN, writes `data/p2/claim-audit-2026-11-20.json`, and the gate fails the build on
   any unsupported row. Result: 11 of 15 bullets are verbatim in the listing title (re-read on every
@@ -99,12 +99,12 @@ re-produce from its evidence.
   reheat number — read live 2026-11-20 (new source `S-FSIS-LEFTOVERS`). It states explicitly that the
   guidance names a saucepan, a microwave and an oven and **does not** name an air fryer, instead of
   quietly stretching a federal sentence to fit the category.
-- **The voice rules are gated, not asked for (SG-50).** New `voice` section: a short filler blacklist on
+- **The voice rules are gated, not asked for (SG-54).** New `voice` section: a short filler blacklist on
   reader-facing pages, a ≤4 em-dashes-per-paragraph budget, and a rule that a lede opens on the
   reader's problem rather than on the verification process. Negative-tested by injecting slop into a
   guide (three failures, then clean).
 - **The suggestion queue is ranked by what it unblocks, and the counts can no longer drift.**
-  `SG-49` (Creators/PA-API access) now leads: it is the single account step that unlocks prices,
+  `SG-53` (Creators/PA-API access) now leads: it is the single account step that unlocks prices,
   ratings, licensed imagery, bullet-level re-verification and commission categories, and it is the same
   workflow that settles the short-link question. `SG-46` (the Pages dropdown) was re-ranked below it —
   it is tidiness now, not exposure. The queue line on `suggestions.html` is generated from the register
@@ -161,7 +161,7 @@ whether it worked.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **15 sections** (pages, disclosure, links, validity, facts, claims, voice, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. `facts` now also runs the claim audit (every card bullet against its evidence); `voice` fails the build on filler phrases and process-led ledes; `exposition` enforces the generated root `_config.yml`. The `shop` section fails if the shelf loses a card, it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **15 sections** (pages, disclosure, links, validity, facts, claims, voice, chrome, seo, publication, longreads, shop, exposition, measurement, freshness, derived, a11y, structured, assets, briefs, one-site, integrity, productpages), green on this build. `facts` now also runs the claim audit (every card bullet against its evidence); `voice` fails the build on filler phrases and process-led ledes; `exposition` enforces the generated root `_config.yml`. The `shop` section fails if the shelf loses a card, it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## The publication passes (2026-11-20 — three sessions, reconciled)
 
@@ -421,7 +421,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **23 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## Open decisions for the owner
 

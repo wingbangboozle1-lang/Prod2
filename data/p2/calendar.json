@@ -1,31 +1,9 @@
 {
- "_meta": {
-  "description": "Editorial calendar: publishing cadence, seasonal desks and content clusters. Consumed by tools/build.py. The topic queue is carried from data/calendar.json (arena/cd3cddd6-prod2, 2026-11-19); slot 1 shipped early in the 2026-11-19 publication pass (guide-two-baskets-or-one.html).",
-  "updated_utc": "2026-11-20",
-  "evidence_rule": "No season or topic is justified by a search-volume or trend figure (D-19 / F-15). Each exists because it answers a question a buyer of the verified five products can actually ask, answerable from the verified register. Seasons follow the US calendar because the marketplace is amazon.com (settings.marketplace).",
-  "last_change": "2026-11-20 (arena/644d217b-prod2): two long-form pieces registered in the thermometer and air-fryer clusters; they carry an argument rather than a checklist and are tracked as SG-45. 2026-11-20 (arena/44af3083-prod2): queue slot 1 shipped early as guide-preheat-shake.html (moved to `shipped`); guide-turkey-done.html added to the holiday-hosting desk and the thermometers cluster for the 2026-11-26 US Thanksgiving window (seasonal framing only, D-19)."
- },
- "cadence": {
-  "unit": "one new question-shaped guide",
-  "interval_days": 14,
-  "first_publish_utc": "2026-11-19",
-  "next_due_utc": "2026-12-03",
-  "rule": "Each new guide is added to data registers, to the sitemap and to the RSS feed by the same build. A guide publishes only with its sourced facts and its 'what we could not verify' block. The next topic is chosen from measured queries only after the SG-06 gate (Search Console + hosted endpoint + 14 days of events); until then the queue order is editorial."
- },
- "seasons": [
-  {
-   "id": "holiday-hosting",
-   "name": "Holiday hosting",
-   "window": "November - December (US)",
-   "line": "Big meals, borrowed counter space, and a house full of people who eat in waves.",
-   "guides": [
-    "guide-holiday-hosting.html",
-    "guide-basket-vs-oven.html",
-    "guide-thermometer-accuracy.html",
-    "guide-how-many-quarts.html",
-    "guide-turkey-done.html"
-   ],
-   "status": "live 2026-11-19 · turkey-window guide added 2026-11-20"
+  "_meta": {
+    "description": "Editorial calendar: publishing cadence, seasonal desks and content clusters. Consumed by tools/build.py. The topic queue is carried from data/calendar.json (arena/cd3cddd6-prod2, 2026-11-19); slot 1 shipped early in the 2026-11-19 publication pass (guide-two-baskets-or-one.html).",
+    "updated_utc": "2026-11-20",
+    "evidence_rule": "No season or topic is justified by a search-volume or trend figure (D-19 / F-15). Each exists because it answers a question a buyer of the verified five products can actually ask, answerable from the verified register. Seasons follow the US calendar because the marketplace is amazon.com (settings.marketplace).",
+    "last_change": "2026-11-20 (arena/644d217b-prod2): two long-form pieces registered in the thermometer and air-fryer clusters; they carry an argument rather than a checklist and are tracked as SG-45. 2026-11-20 (arena/44af3083-prod2): queue slot 1 shipped early as guide-preheat-shake.html (moved to `shipped`); guide-turkey-done.html added to the holiday-hosting desk and the thermometers cluster for the 2026-11-26 US Thanksgiving window (seasonal framing only, D-19). 2026-11-20 (arena/b3089214-prod2): third long read registered (article-leftovers-reheat.html) from the FSIS leftovers factsheet read the same day."
   },
   "cadence": {
     "unit": "one new question-shaped guide",
@@ -44,9 +22,10 @@
         "guide-holiday-hosting.html",
         "guide-basket-vs-oven.html",
         "guide-thermometer-accuracy.html",
-        "guide-how-many-quarts.html"
+        "guide-how-many-quarts.html",
+        "guide-turkey-done.html"
       ],
-      "status": "live 2026-11-19"
+      "status": "live 2026-11-19 · turkey-window guide added 2026-11-20"
     },
     {
       "id": "holiday-gifting",
@@ -89,6 +68,7 @@
         "guide-holiday-hosting.html",
         "guide-gift-guide.html",
         "article-air-fryer-doneness.html",
+        "guide-preheat-shake.html",
         "article-leftovers-reheat.html"
       ]
     },
@@ -102,17 +82,12 @@
         "guide-holiday-hosting.html",
         "guide-instant-vs-leave-in.html",
         "guide-gift-guide.html",
-        "article-thermometer-placement.html"
+        "article-thermometer-placement.html",
+        "guide-turkey-done.html"
       ]
     }
   ],
   "queue": [
-    {
-      "slot": 1,
-      "due_utc": "2026-12-03",
-      "title": "Preheat, shake, or don't: which air fryer rituals change your food?",
-      "answers_with": "Manual-ritual features verified on the three listings (shake reminder on P3, sync finish on P1)"
-    },
     {
       "slot": 2,
       "due_utc": "2026-12-17",
@@ -206,133 +181,16 @@
         "published_utc": "2026-11-20"
       }
     ]
-  }
- ],
- "clusters": [
-  {
-   "id": "air-fryers",
-   "name": "Air fryers",
-   "pillar": "category-air-fryers.html",
-   "line": "Three formats, one decision at a time.",
-   "guides": [
-    "guide-basket-vs-oven.html",
-    "guide-capacity.html",
-    "guide-cleanup-counter-space.html",
-    "guide-multifunction.html",
-    "guide-how-many-quarts.html",
-    "guide-two-baskets-or-one.html",
-    "guide-holiday-hosting.html",
-    "guide-gift-guide.html",
-    "article-air-fryer-doneness.html",
-    "guide-preheat-shake.html"
-   ]
   },
-  {
-   "id": "thermometers",
-   "name": "Meat thermometers",
-   "pillar": "category-thermometers.html",
-   "line": "Check it, or watch it.",
-   "guides": [
-    "guide-thermometer-accuracy.html",
-    "guide-holiday-hosting.html",
-    "guide-instant-vs-leave-in.html",
-    "guide-gift-guide.html",
-    "article-thermometer-placement.html",
-    "guide-turkey-done.html"
-   ]
-  }
- ],
- "queue": [
-  {
-   "slot": 2,
-   "due_utc": "2026-12-17",
-   "title": "Air fryer vs your oven: when does the countertop box win the weeknight?",
-   "answers_with": "Wattage/footprint framing from the counter-space analysis; no performance claims"
-  },
-  {
-   "slot": 3,
-   "due_utc": "2026-12-31",
-   "title": "Dehydrate, rotisserie, rotisserie-adjacent: which second functions earn their buttons?",
-   "answers_with": "Function-count facts from P2 including the 24-vs-25 discrepancy (F-26)"
-  },
-  {
-   "slot": 4,
-   "due_utc": "2027-01-14",
-   "title": "The two-batch weeknight: a realistic air fryer meal plan for a family of four",
-   "answers_with": "Batch math from the capacity guide applied to a week; no recipes invented"
-  },
-  {
-   "slot": 5,
-   "due_utc": "2027-01-28",
-   "title": "Nonstick, ceramic, stainless: what the basket coating means for cleanup",
-   "answers_with": "Materials fields verified for P1-P3"
-  },
-  {
-   "slot": 6,
-   "due_utc": "2027-02-11",
-   "title": "Party-day batch math: how a dual-basket air fryer handles appetizer waves",
-   "answers_with": "Batch math from the capacity guide applied to P1's two 3 qt zones; no recipes invented"
-  },
-  {
-   "slot": 7,
-   "due_utc": "2027-02-25",
-   "title": "Will a 26-quart air fryer oven fit your counter? A measuring walkthrough",
-   "answers_with": "P2's listed dimensions plus the counter-space analysis formula; clearance framing from listed values only"
-  },
-  {
-   "slot": 8,
-   "due_utc": "2027-03-11",
-   "title": "Dishwasher-safe, nonstick, or stainless: what the basket material means for spring cleanup",
-   "answers_with": "Material and dishwasher-safe fields verified on P1-P3 listings"
-  },
-  {
-   "slot": 9,
-   "due_utc": "2027-03-25",
-   "title": "Reading a thermometer listing: probe length, temperature range, and response time without the jargon",
-   "answers_with": "Listed specs on P4/P5 (accuracy claims, waterproofing, probe range) with the F-26-style discrepancy check"
-  }
- ],
- "queue_note": "Slot 1 of the original queue ('Dual-basket vs single-basket: when are two drawers actually better than one?') shipped 2026-11-19 as guide-two-baskets-or-one.html, ahead of its 2026-12-03 date. The December gifting slot shipped 2026-11-20 as guide-gift-guide.html under the seasonal-desk activation, with the same rule: sourced facts + 'what we could not verify' block required before publish. Slots 6-9 are hypotheses awaiting either their due date or measured-query demand (SG-34).",
- "longreads": {
-  "description": "Long-form pieces: one buying decision argued from an official guidance source the listings do not carry. Same rules apply: every figure sourced, mandatory 'what we could not verify' block.",
-  "items": [
-   {
-    "path": "article-thermometer-placement.html",
-    "cluster": "thermometers",
-    "words_checked": 1295,
-    "sources": [
-     "S-FSIS-THERMO",
-     "S-FSIS-CHART",
-     "S-P4",
-     "S-P5"
-    ],
-    "published_utc": "2026-11-20"
-   },
-   {
-    "path": "article-air-fryer-doneness.html",
-    "cluster": "air-fryers",
-    "words_checked": 1212,
-    "sources": [
-     "S-UNL-AIRFRYER",
-     "S-FSIS-CHART",
-     "S-FSIS-THERMO",
-     "S-P1",
-     "S-P2",
-     "S-P3"
-    ],
-    "published_utc": "2026-11-20"
-   }
+  "shipped": [
+    {
+      "slot": 1,
+      "title": "Preheat, shake, or don't: which air fryer rituals change your food?",
+      "answers_with": "Manual-ritual features verified on the three listings (shake reminder on P3, sync finish on P1)",
+      "due_utc": "2026-12-03",
+      "shipped_utc": "2026-11-20",
+      "page": "guide-preheat-shake.html",
+      "note": "Shipped ahead of its 2026-12-03 date (early-publish precedent). Remaining slot numbers preserved."
+    }
   ]
- },
- "shipped": [
-  {
-   "slot": 1,
-   "title": "Preheat, shake, or don't: which air fryer rituals change your food?",
-   "answers_with": "Manual-ritual features verified on the three listings (shake reminder on P3, sync finish on P1)",
-   "due_utc": "2026-12-03",
-   "shipped_utc": "2026-11-20",
-   "page": "guide-preheat-shake.html",
-   "note": "Shipped ahead of its 2026-12-03 date (early-publish precedent). Remaining slot numbers preserved."
-  }
- ]
 }
