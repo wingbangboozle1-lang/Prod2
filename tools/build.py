@@ -495,11 +495,17 @@ def hook_sources_table(_="") -> str:
 
 
 def _flag_row(f: dict) -> str:
+    # A resolved flag must SHOW its resolution on the page, not only in the JSON.
+    # Fixed 2026-11-20: F-P23 read as open on the Flagged page while the register
+    # said resolved, because only the how_to_resolve cell was rendered.
+    resolution = f.get("resolution")
+    tail = (f'<strong>Resolved {esc(f.get("resolved_utc", ""))}.</strong> {esc(resolution)}'
+            if resolution else esc(f["how_to_resolve"]))
     return (f'<tr id="{esc(f["id"])}"><td><code>{esc(f["id"])}</code></td><td>{esc(f["title"])}</td>'
             f'<td>{esc(f["detail"])}</td>'
             f'<td><a class="src" href="{esc(f["evidence"])}" rel="noopener" target="_blank">evidence</a><br>'
             f'<span class="muted">{esc(f["evidence_note"])}</span></td>'
-            f'<td>{esc(f["how_to_resolve"])}</td></tr>')
+            f'<td>{tail}</td></tr>')
 
 
 def hook_flags(status: str) -> str:

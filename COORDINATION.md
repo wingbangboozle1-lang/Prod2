@@ -323,6 +323,7 @@ No other session has an unexpired claim on these files. If this session stops, a
 
 | PR | What | Result |
 | --- | --- | --- |
+| #33 | Anti-slop design pass: working brand The Crisp Counter (D-P18), shipped Fraunces+Inter typography (D-P19), December gift guide + queue (D-P20), SG-38..SG-40/SG-42..SG-44, Q-P10/Q-P11, F-P21; reconciled with PRs #29-#31 and #37-#38 (three parallel 2026-11-20 passes) | **Merged into `main` as merge commit `4398598`** (2026-11-20T06:36:42Z). `Deploy to GitHub Pages` success (run 44689028467); `pages build and deployment` success (run 44689027619); `verify-site` success; `test` (analytics endpoint) success. **Live check passed:** https://wingbangboozle1-lang.github.io/Prod2/ serves the merged publication — title "Air fryers and thermometers by format | The Crisp Counter", 10 buyer guides, gift guide live at /guide-gift-guide.html, tagged (paid link) buttons, fonts self-hosted. |
 | #19 | Integration: product-forward landing page + transparency flag F-P08 + both builds verified + Pages deploy | Merged into `main` as merge commit `0030f90a69b53ecd226923ddd6125dc795f0b282`; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
 
 
@@ -1024,3 +1025,45 @@ disallows `/Prod2/archive/` so only one site is indexable.
 - `REPO_AUDIT.md` added: the line-by-line review with evidence links, and an explicit list of what the audit does **not** claim.
 
 ---
+
+---
+
+## ACTIVE CLAIM — session arena/722181aa-prod2 (2026-11-20, live re-verification of the five listings + flagged short links)
+
+Protocol note: this session works on its single assigned branch `arena/722181aa-prod2` (the session's branch is fixed by the platform). The `session-<id>/<task>` naming in the brief is therefore not used; the claim is recorded here instead, and no other branch is created, switched to, or pushed.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| L-01 Live re-check of the five `/dp/` listings and the five submitted short links (2026-11-20) | done | arena/722181aa-prod2 | `data/p2/live-check-2026-11-20-722181aa.json` (new) |
+| L-02 Flag the short-link discrepancy (F-P24) and publish it on the Flagged page | done | arena/722181aa-prod2 | `data/p2/flags.json`, `docs/`, root mirror |
+| L-03 Rebuild, gate, PR to main, merge, Pages check; record here | done | arena/722181aa-prod2 | `COORDINATION.md`, `docs/`, root mirror |
+
+### Results (2026-11-20)
+
+- **L-01 Direct listings — all five live; titles match the register character-for-character:** `https://www.amazon.com/dp/B0CDY277D3` (P1), `…/dp/B09B7SB46R` (P2), `…/dp/B08DKYBTPH` (P3), `…/dp/B0DHZTCNR5` (P4), `…/dp/B0DZFD6R9Z` (P5). Observed values are stored verbatim in `data/p2/live-check-2026-11-20-722181aa.json`. No price, rating, or commission value was written to the site (F-02 unchanged).
+- **L-01 Short links — NOT confirmed today:** `https://link.amazon/B04G1MEwY`, `…/B02NbDxp3`, `…/B00hJ57DV`, `…/B0c8moW59` each resolved to `https://www.amazon.com/` (the homepage); `…/B0f3GKalj` returned HTTP 500. The register's earlier redirect history (2026-11-14 to 11-19) recorded the same ASINs. The cause (fetch-tool artifact vs. a change in the short-link service) is unknown; this is **not** resolved here.
+- **L-02:** **F-P24** added (open): short-link resolution discrepancy; owner/browser check required. Intended-ASIN fields were not changed. The site never publishes the short links as buy paths (they render as quoted text under F-03), so no reader-facing link is affected.
+- **Build/gate:** `python3 tools/build.py` → 28 pages; `python3 tools/checks.py` → ALL CHECKS PASSED; `python3 scripts/verify_site.py` → VERIFY OK.
+
+### Sources (official)
+
+- Amazon listings (read 2026-11-20): the five `https://www.amazon.com/dp/{ASIN}` URLs above.
+- Amazon's ASIN definition and tag format: already recorded in `data/p2/sources.json` (S-ASIN, S-TAG); not re-read this session.
+
+### Irregularities for manual review (not blocking)
+
+1. F-P24 — short links did not resolve to listings today (above).
+2. Pages source exposure (F-P19 / F-P20, carried): the Pages source is still `main /` (repo root). The root contains source/data files that the workflow `docs/` artifact does not, and this cannot be changed from the sandbox (403). **Owner action:** Settings → Pages → Source: GitHub Actions.
+3. Event-vocabulary mismatch (F-P23 / Q-P14, carried): three site events are rejected by `server.mjs`.
+
+### PR / merge / deploy record — arena/722181aa-prod2
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/39 |
+| Merge result | **Merged 2026-11-20 06:39:02 UTC**, merge commit `025b7b2` (`gh pr merge 39 --merge`) |
+| Checks on PR | `test` pass · `verify` pass (tools/checks.py ALL CHECKS PASSED; scripts/verify_site.py VERIFY OK) |
+| Workflows on merge commit | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Pages | `build_type: legacy`, `source: main /`, status `built` (serving the root mirror; the owner-side source change in F-P19/F-P20 is still pending) |
+| Live check | https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the "Flagged for review" page and the F-P24 entry in the built `docs/flagged.html` |
+| Status | L-01..L-03 **done**. Claim released. |
