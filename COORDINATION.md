@@ -14,6 +14,200 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/37b265a4-prod2 (2026-11-20, same-day link + listing re-verification and integration)
+
+Branch `arena/37b265a4-prod2`, branched from `main` at `4398598` (PR #33 merge). No other claim is live: every earlier claim in this file is done or merged.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| R-01 Independent re-read of the five owner short links and the five `/dp/` listings on 2026-11-20; record observations as dated history, never overwrite prior records | done | arena/37b265a4-prod2 | `data/p2/intent-links.json` (history entries only), `data/p2/verification-2026-11-20.json` (new key `r01_reread_2026_11_20`), `data/p2/sources.json` (read dates only) |
+| R-02 Publish any contradiction found by R-01 as a new open flag on the Flagged for Review page; correct the reader-facing and repository statements it contradicts; no status of any existing value is changed without a source read | done | arena/37b265a4-prod2 | `data/p2/flags.json` (F-P25..F-P27 added; F-P20 detail extended; F-P24 is arena/722181aa-prod2's entry and is not edited), `data/p2/questions.json` (Q-P15 added; dated notes on Q-01, Q-P03), `EXECUTIVE_SUMMARY.md`, `README.md`, `content/pages/executive-summary.html` (statements and the public price column only) |
+| R-03 Rebuild, run the release gate, merge, confirm the Pages build, record the PR and merge result | in progress (PR open, merge next) | arena/37b265a4-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+
+### Results (R-01..R-03, 2026-11-20, arena/37b265a4-prod2)
+
+**Sources read this pass (fetch tool, 2026-11-20 UTC):**
+- Listings: https://www.amazon.com/dp/B0CDY277D3 · https://www.amazon.com/dp/B09B7SB46R · https://www.amazon.com/dp/B08DKYBTPH · https://www.amazon.com/dp/B0DHZTCNR5 · https://www.amazon.com/dp/B0DZFD6R9Z
+- Owner short links: https://link.amazon/B04G1MEwY · https://link.amazon/B02NbDxp3 · https://link.amazon/B00hJ57DV · https://link.amazon/B0c8moW59 · https://link.amazon/B0f3GKalj
+- Associates Program Policies (page "Updated: April 14, 2026"; §2(b), §6(t), §6(w) read): https://affiliate-program.amazon.com/help/operating/policies
+- Operating Agreement (page "Updated: October 15, 2025"; chunk 0 read): https://affiliate-program.amazon.com/help/operating/agreement
+- Live host: https://wingbangboozle1-lang.github.io/Prod2/ and https://wingbangboozle1-lang.github.io/Prod2/EXECUTIVE_SUMMARY.md
+
+**Verification performed:**
+- Five listing titles compared by exact string equality with `data/p2/products.json` `name_listing` after removing the tool's "Amazon.com: " prefix and ": Home & Kitchen" suffix: **5/5 match**. ASINs matched the register.
+- Short links, R-01 read: **1 of 5 reached its intended ASIN** (B02NbDxp3 → B09B7SB46R). B04G1MEwY and B0c8moW59 reached `https://www.amazon.com/` on both attempts. B00hJ57DV and B0f3GKalj each reached the homepage on one read. An earlier same-day note of HTTP 500 for two links was not reproduced and is not relied on. Recorded as dated history in `intent-links.json`; no `intended_asin` or `official_listing_url` changed.
+- Same-day disagreement with F-P24 (arena/722181aa-prod2): the two reads differ on **two** links, B02NbDxp3 and B0f3GKalj (F-P27). The other three read the same way.
+- Policy text read in the page returned: §2(b) prices and availability shown only if Amazon serves the link or data come via Creators/PA API (matches D-P11); §6(t) reviews and star ratings only via Creators/PA API; §6(w) link-shortening clause quoted in F-P24/F-P27.
+- Live host: title matches `docs/index.html`. `data/p2/settings.json` and `EXECUTIVE_SUMMARY.md` are publicly served (exposure in F-P19/F-P20). The served settings.json brand text differs from the repository copy (F-P20 detail).
+- Gate: `python3 tools/build.py` → 28 pages; `python3 tools/checks.py` → ALL CHECKS PASSED; `npm test` → 2/2.
+
+**Flags added or changed here (none blocking):**
+- **F-P24** (open; published first by arena/722181aa-prod2 in PR #39/#42): not edited by this session.
+- **F-P25** (open, low): "Check price on Amazon" button label needs an owner copy decision (§2(b)).
+- **F-P26** (open): the public `EXECUTIVE_SUMMARY.md` carried a five-row price column that the register withholds. Neighbouring-price mechanism softened to "not verified here" (F-P17 is the only record of it).
+- **F-P27** (open): the two same-day reads disagree on B02NbDxp3 and B0f3GKalj. Decided only by the browser check in Q-P18.
+- **F-P28** (open): products.json short_link fields and the intent record still describe the links as resolving; the 2026-11-20 reads do not confirm that. Intent and observed fields are not merged.
+- **F-P19** extended: pages.yml docs-only versus the legacy-root Pages source (same mismatch as F-P20; extended, not duplicated).
+- **F-P20** detail extended: served versus local `settings.json`.
+
+**Statements corrected:** `content/pages/executive-summary.html`, `EXECUTIVE_SUMMARY.md`, `README.md`, `DECISIONS.md` D-01, `data/suggestions.json` (what_we_know), `data/p2/questions.json` (Q-01, Q-P03, Q-P18), `data/p2/verification-2026-11-20.json` (r01 record; "not re-resolved" sentence now carries a dated correction).
+
+**Not done (owner or later pass):**
+- No logged-in Associates Central check (Q-01, F-57, F-58). No logged-out browser test of the short links (Q-P18).
+- Pages source is still legacy `main /` (Pages API read 2026-11-20). Changing it needs repository admin (F-P19/F-P20).
+- Operating Agreement §5 and the FTC pages (S-FTC1/S-FTC2) were not re-read in this pass.
+
+## CLAIM — session arena/d5157db6-prod2 (2026-11-20, re-verification + drift fixes + integration)
+
+Protocol note: this session works only on its assigned branch `arena/d5157db6-prod2`. The `session-<id>/<task>` branch naming in the brief is not used; this claim is recorded here instead.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| R-01 Live re-check of the five `/dp/` listings (P1 re-read) and the five submitted short links | done | arena/d5157db6-prod2 | `data/p2/live-check-2026-11-20-d5157db6.json` (new) |
+| R-02 Record the second same-day short-link observation on F-P24 (the HTTP 500 link now resolves to the homepage) | done | arena/d5157db6-prod2 | `data/p2/flags.json` (F-P24 evidence note only; status stays open) |
+| R-03 Correct stale counts: gate sections (11/13/9 → 14), guide pages (9/eight → 10), built pages (24 → 30) | done | arena/d5157db6-prod2 | `README.md`, `ENGINE.md`, `EXECUTIVE_SUMMARY.md`, `content/pages/executive-summary.html`, `docs/`, root mirror |
+| R-04 Rebuild, gate, CI-equivalent checks, PR to main, merge, Pages check; record here | done (see record below) | arena/d5157db6-prod2 | `COORDINATION.md`, `docs/`, root mirror |
+
+### Results (2026-11-20)
+
+- **R-01 Listings.** `https://www.amazon.com/dp/B0CDY277D3` (P1) live; title matches `data/p2/products.json` (`name_listing`). P2–P5 were not re-read in this pass; they were read earlier today under 722181aa and are unchanged.
+- **R-01 Short links.** All five `https://link.amazon/{token}` URLs were read through the fetch tool. Four resolved to `https://www.amazon.com/`. The fifth (`B0f3GKalj`, P5) returned HTTP 500 in the earlier read today and resolved to the homepage in this read. None resolved to a product listing in this pass. Intended ASINs were not changed.
+- **R-02 Flag.** F-P24 is still **open**. Its evidence note now carries the second observation. No reader-facing link is affected: the site never publishes a short link as a buy path.
+- **R-03 Counts.** The gate runs 14 sections (`pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness`). The build produces 30 pages, 10 `guide-*` pages and 2 `article-*` long reads. Corrected in README, ENGINE.md, EXECUTIVE_SUMMARY.md and the reader page `executive-summary.html`.
+- **R-04 Checks.** `python3 tools/build.py` → 30 pages; `python3 tools/checks.py` → ALL CHECKS PASSED; `python3 scripts/build_site.py` + `python3 scripts/verify_site.py` → VERIFY OK; `node --test tests/server.test.mjs` → 3/3 pass.
+
+### Sources (official and fetched this session)
+
+- Amazon listing: https://www.amazon.com/dp/B0CDY277D3
+- Submitted short links (fetch tool, 2026-11-20): https://link.amazon/B04G1MEwY · https://link.amazon/B02NbDxp3 · https://link.amazon/B00hJ57DV · https://link.amazon/B0c8moW59 · https://link.amazon/B0f3GKalj
+- Amazon's ASIN definition and tag format: already recorded in `data/p2/sources.json` (S-ASIN, S-TAG); not re-read.
+
+### Irregularities for manual review (not blocking)
+
+1. F-P24 — short links still resolve to the Amazon homepage (2 reads today). Owner needs a normal browser check; see the flag's `how_to_resolve`.
+2. Associates Special Links: the Associates-workflow test of one link per product (confirming destination and tracking report) requires a logged-in Associates account. This sandbox has no such access, so it is **not done** and is an owner action (Q-01 / F-03).
+3. Pages source is still `main /` (F-P19 / F-P20). Owner action: Settings → Pages → Source: GitHub Actions.
+4. Analytics endpoint is deployable but not hosted (F-19 / Q-23). Search Console is not verified (Q-P08).
+
+## ACTIVE CLAIM — session arena/644d217b-prod2 (2026-11-20, reader-first publication pass + integration)
+
+Branched from `4398598` (main after PR #33). This session is both the working session and the
+final integration session on this branch, per the standing one-branch-per-session rule.
+
+**Scope (this session only).** No other claim is live: PR #35 (`arena/dd4bae8a-prod2`) is the one
+open PR and it is **not touched** (its scope overlaps everything below; it must be rebased or closed
+by its own session — logged, not edited). PRs #29–#34, #36–#38 are merged.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| W-01 Measurement: fix the event-vocabulary split so the shipped counter and the shipped collector agree (closes F-P23 / Q-P14 / SG-41) | done | arena/644d217b-prod2 | `assets/js/measure.js`, `server.mjs`, `data/p2/events.json`, `tests/server.test.mjs` |
+| W-02 Reader-facing depth: expand the short guides into real publication articles (new long-form pieces, one per buying decision) | done | arena/644d217b-prod2 | `content/pages/guide-*.html`, `content/pages/article-*.html`, `tools/build.py` |
+| W-03 Landing/authored voice: masthead + a real "start here" path, without adding dashboard clutter to the front page | done | arena/644d217b-prod2 | `content/pages/index.html`, `assets/css/site.css` |
+| W-04 Suggestions: a reviewable decision queue (ranked, with cost/reversibility/owner action) so the owner picks a path before changes land | done | arena/644d217b-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| W-05 Open questions: the missing-information register, extended with discovery paths | done | arena/644d217b-prod2 | `data/p2/questions.json`, `content/pages/questions.html` |
+| W-06 Line-by-line verification of every published product value against the live official listing (2026-11-20 read) | done | arena/644d217b-prod2 | `data/p2/verification-2026-11-20.json`, `data/p2/products.json` (read-only unless a value is wrong) |
+| W-07 Gate: new checks that would have caught the defects found this pass | done | arena/644d217b-prod2 | `tools/checks.py` |
+| W-08 Integration: rebuild, re-verify, PR to main, merge, Pages live check, record here | done | arena/644d217b-prod2 | `docs/`, root mirror, `COORDINATION.md`, `EXECUTIVE_SUMMARY.md` |
+
+Claim protocol notes:
+- **Verification boundary, recorded honestly:** this sandbox has outbound HTTP to
+  `github.com`/`api.github.com`/`registry.npmjs.org`/`pypi.org`/`files.pythonhosted.org` and to the
+  fetch tool's allowlist. `curl` to `www.amazon.com` and to the live Pages host fails (`http 000`),
+  so the **fetch tool** is used for both, and every value is recorded with the tool that read it.
+  Amazon listing pages return a "product summary" variant to the fetch tool; the listing **title**,
+  **ASIN** and **breadcrumb** are available, prices/ratings render as `$`-strings inside
+  recommendation widgets and are **not** attributable to the product page, so they stay unpublished.
+- Flagged irregularities do not block the merge; they go to the Flagged for Review page.
+
+
+### Claim results (W-01..W-08, 2026-11-20)
+
+- **W-01 · measurement (done).** The published contract named five events; the only collector in the
+  repo answered **400** to three of them (`guide_read_75`, `category_click`, `feed_click`) and collapsed
+  every page view into `page_view|/unknown`. Hosting it unchanged would have silently dropped two thirds
+  of the site's measurement. Fixed at the collector, not by renaming the site's events: `server.mjs` now
+  accepts and correctly keys all five, keeps the older Countercraft names so no existing client breaks,
+  and bounds every value it stores (a 10-character ASIN pattern, a category slug, a cleaned path).
+  Three things now stop a regression: a test that reads the five names out of `assets/js/measure.js`,
+  a hard gate failure in `tools/checks.py` (was a printed note), and `D-P21` recording which list wins.
+  `F-P23` resolved, `Q-P14` answered, `SG-41` shipped.
+- **W-02 · reader-facing depth (done).** Two long-form pieces, each arguing one buying decision from an
+  official guidance source the listings do not carry:
+  - `article-thermometer-placement.html`, 1,295 words — USDA FSIS *Food Thermometers* factsheet (the
+    2–4 °F typical instrument range, the "reading will only be correct if placed properly" rule, the
+    per-food placement table, the thin-food sensing-area rule, the "at least 1 inch" wireless figure,
+    care and ice-water calibration) plus the FSIS *Safe Minimum Internal Temperature Chart*.
+  - `article-air-fryer-doneness.html`, 1,212 words — Nebraska Extension's peer-reviewed *Food Safety
+    Tips for Air Fryers* (overfilling prevents even cooking; a thermometer is the only way to be sure;
+    clean the basket after every use) plus the same FSIS chart.
+  Both carry the mandatory "what we could not verify" block, are in the sitemap, feed and JSON-LD, and
+  are linked from both category pillars and three guides. New source ids `S-FSIS-CHART`,
+  `S-FSIS-THERMO`, `S-UNL-AIRFRYER`, each read **live on 2026-11-20**.
+- **W-03 · landing and authored voice (done).** A "Read this before you buy either" block now sits
+  directly under the shelf; the guides hub leads with the long reads; the front-page trust row no longer
+  claims ten guides when the build renders twelve pieces. No dashboard clutter was added to the front
+  page — the governance surfaces stay in the footer, per D-06.
+- **W-04 · suggestions (done).** `SG-45` (long-form argument pieces, shipped), `SG-46` (move Pages to
+  the Actions artifact and delete the root mirror — ranked first on the board because it is one
+  dropdown, closes F-P19/F-P20 and removes the double-commit this repo pays on every pass), `SG-47`
+  (real product photography via the licensed channel, or a commissioned drawing set). The page now
+  opens with a **ranked five-row short list** (cost to you, reversibility, exact owner action) instead
+  of asking a reviewer to read 38 proposals in registry order.
+- **W-05 · open questions (done).** `Q-P15` (is there a length standard, and is length even the right
+  control — offers a sourced-claims-per-100-words floor as the only option filler cannot satisfy),
+  `Q-P16` (can this project show a real product photo at all, and the single test that settles it:
+  open a SiteStripe link on one enrolled product), `Q-P17` (where the endpoint runs and who pays).
+- **W-06 · line-by-line verification (done).** All five listings re-fetched on 2026-11-20 and the
+  register compared field by field. **Titles agree verbatim with the register** for P1–P5, including the
+  ThermoMaven title, which had been recorded with a second-segment discrepancy in `F-P01` and now reads
+  as the register has it. **Breadcrumbs agree** for P1, P3, P4 and P5 (P2's breadcrumb did not appear in
+  the fetched variant this pass and stays null — not inferred). Every published dimension string in
+  `docs/` was cross-checked against the register programmatically: `13.38 / 11.81 / 10.63` (P1),
+  `16.9 / 15.8 / 14.8` (P2), `12.75 / 13.5 / 10` (P3) all match, and no unexplained inch value appears
+  on any page. **No published value changed.** Prices and ratings stay unpublished: on these fetches the
+  `$` figures appear inside "customers also viewed" carousels and protection-plan blocks, which are
+  other ASINs' prices — a live example of exactly the attribution trap `F-P17` records, and the reason
+  the site keeps both blank (`F-02`, `D-P10`).
+- **W-07 · gate (done).** New `longreads` section (page exists, ≥3 inline source markers, unverified
+  block present, only allow-listed official hosts cited, present in sitemap and feed) and two
+  measurement assertions (the endpoint must accept every name the client can send; the depth event must
+  cover `article-*` as well as `guide-*`). `tools/checks.py` header updated to match: 13 sections.
+- **W-08 · integration (this record).** `tools/build.py` + `tools/checks.py` → **ALL CHECKS PASSED**
+  (30 pages, 13 sections); `scripts/build_site.py` + `scripts/verify_site.py` → **VERIFY OK, 18 pages**;
+  `npm test` → **3/3**. Root mirror byte-identical to `docs/` (30/30 HTML files, same hashes).
+
+### Files this pass touched
+
+`assets/js/measure.js` · `server.mjs` · `tests/server.test.mjs` · `tools/build.py` · `tools/checks.py` ·
+`content/pages/{index,guides,suggestions,buying-guide,category-air-fryers,category-thermometers,guide-capacity,guide-thermometer-accuracy}.html` ·
+`content/pages/article-{thermometer-placement,air-fryer-doneness}.html` (new) ·
+`data/p2/{sources,flags,questions,decisions,suggestions,calendar}.json` · `docs/` + root mirror ·
+`EXECUTIVE_SUMMARY.md` · `COORDINATION.md`.
+
+### Irregularities found this pass (all published, none blocking)
+
+| # | Finding | Where it is published |
+| --- | --- | --- |
+| 1 | The collector rejected three of the five events the site publishes, and keyed every page view as `/unknown`. Fixed this pass; recorded in full because it is the clearest example of a gate that was printing a warning while the defect shipped. | Flagged `F-P23` (resolved), decision `D-P21` |
+| 2 | The depth event did not cover `article-*` pages, so both new long reads would have been unmeasured. Fixed; now asserted in the gate. | `tools/checks.py` measurement section |
+| 3 | The executive summary carried counts from two passes ago (28/15/32/27/9) and still named the project by its codename. Corrected to the rendered values. | `EXECUTIVE_SUMMARY.md` |
+| 4 | Amazon listing fetches return a variant in which prices and star ratings belong to *other* ASINs in carousels. Any future pass that copies a `$` string from a fetched listing will misattribute it. | `F-P17`, `F-02`, and the W-06 note above |
+
+### Open PR handled by logging, not editing
+
+**PR #35** (`arena/dd4bae8a-prod2`, "Publication pass: shop-first redesign…", 100 files) is still
+`CONFLICTING` against `main` as of 2026-11-20 06:45 UTC. Its last commit is 06:27 UTC, so it is inside
+its own claim window and **has not been touched** — no file it owns was edited and no branch of its was
+touched. Its scope overlaps every reader-facing surface in this pass; if its author returns, it must be
+rebased on this merge and its content reconciled by hand, because this branch has changed
+`tools/build.py`, `assets/js/measure.js`, `server.mjs`, the guide registry and the suggestions/questions
+registers underneath it. If it is still stale and conflicting **60 minutes after its last commit**
+(07:27 UTC), any session may take it over under the handoff rule and should treat this record as the
+current state of `main`.
+
+---
+
 ## PARALLEL CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
 
 Ran in parallel with the two passes above (both also branched from f6e772f). **Reconciled by this
@@ -402,6 +596,17 @@ recoverable from git reflog; its unique content is preserved in `archive/counter
 | sess-prod2-a1 | `arena/9386098f-prod2` | 2026-11-19 12:40 | active — final integration |
 
 ## Conflict log
+
+- 2026-11-20 (arena/44af3083-prod2, second union): the integration merge of `origin/main` (PRs #43–#53,
+  sessions arena/37b265a4 / 644d217b / 3936beb1 / d5157db6 / e292fb4d) conflicted in 19 files.
+  Resolved as unions, nothing discarded: the four register files merged **by row id** (this pass's
+  Q-P15 browser-check folded into the parallel pass's Q-P18 with its evidence kept; this pass's
+  Q-P16/Q-P17 published as Q-P19/Q-P20; SG-45..SG-47 renumbered SG-48..SG-50; the parallel pass's
+  F-P24 third-read note kept verbatim and this pass's fourth-read note appended), `calendar.json`
+  gained both passes' cluster/season wiring, `content/pages/index.html` kept both the long-read
+  module and the turkey card, and every generated artifact was regenerated from the merged sources
+  rather than hand-merged. Cross-references renumbered in EXECUTIVE_SUMMARY.md, DESIGN_PROMPT.md,
+  REPO_AUDIT.md and this board.
 
 - 2026-11-20 (arena/44af3083-prod2): the claim commit hit a rebase conflict in `COORDINATION.md`
   against arena/722181aa-prod2's appended L-01..L-03 record (PRs #39–#42 landed after this
@@ -956,6 +1161,150 @@ Protocol note: this session works on its single assigned branch `arena/722181aa-
 | Live check | https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the "Flagged for review" page and the F-P24 entry in the built `docs/flagged.html` |
 | Status | L-01..L-03 **done**. Claim released. |
 
+---
+
+## PR / MERGE / DEPLOY RECORD — session arena/644d217b-prod2 (2026-11-20)
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/44 |
+| Base / head | `main` ← `arena/644d217b-prod2` |
+| Merge result | **Merged 2026-11-20 06:47:59 UTC**, merge commit `d7f58d16db80b826fec91a99a3e94348ce0b8636` (merge commit, not squash — every W-0x commit is preserved) |
+| Merge conflict | `origin/main` had advanced 7 commits (#39–#42, session arena/722181aa-prod2) after this branch started. Merged, not rebased. Conflict in `data/p2/flags.json` / `flagged.html` resolved as a **union**: their register formatting and their new **F-P24** (the five `link.amazon` short links resolved to the Amazon homepage in *their* fetch) are kept verbatim, and this session's F-P23 resolution is re-applied on top. 38 flags before, 38 after — nothing dropped. Their `data/p2/live-check-2026-11-20-722181aa.json` is untouched. |
+| Workflows on the merge commit `d7f58d1` | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Checks at merge | `tools/checks.py` **ALL CHECKS PASSED** (30 pages, 13 sections) · `scripts/verify_site.py` **VERIFY OK** (18 pages) · `npm test` **3/3** · root mirror byte-identical to `docs/` (30/30 files) |
+| Pages | Deployed from the merge commit; `GET /Prod2/article-thermometer-placement.html` returns the page with its full text, correct title and correct links |
+| Live site | https://wingbangboozle1-lang.github.io/Prod2/ |
+
+### What the merge itself exposed (fixed in `e624b6a`)
+
+The Flagged page rendered only each flag's `how_to_resolve` cell, so **F-P23 still read as an open
+problem on the page a reviewer actually reads** while its JSON said resolved. Resolved flags now render
+their resolution and date. This is the same defect class as F-P23: the machine knew and the reader
+could not see it. Worth knowing for the next pass — a register that is correct in JSON is not a
+register that is correct on the page.
+
+### PR #35 status at handoff
+
+`arena/dd4bae8a-prod2` (PR #35) was still **CONFLICTING** at 06:47 UTC with its last commit at 06:27 UTC.
+Not touched. It is now also **superseded** on every surface it touched: this merge changed
+`tools/build.py`, `assets/js/measure.js`, `server.mjs`, the guide registry, the suggestions and
+questions registers, and added two pages. Per the handoff rule it became takeover-eligible at
+**07:27 UTC**; whoever takes it should treat `main` at `d7f58d1` as the current state and re-derive
+rather than rebase.
+
+### Known non-blocking state on `main`
+
+- `arena/37b265a4-prod2` (a parallel session, pushed 06:48 UTC) has a failing `verify-site` job, failing
+  at the **"Build is reproducible (committed site/ and root mirror match the build)"** step — the same
+  class of drift `main` had before this pass. It does not affect `main` or the deploy; its own session
+  owns the fix.
+
+## ACTIVE CLAIM — session arena/3936beb1-prod2 (2026-11-20, status re-verification + coordination record)
+
+Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Single-branch rule followed; no other branch was created, switched to or pushed.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Re-run the release gates on the branch (`tools/build.py`, `tools/checks.py`, `scripts/verify_site.py`, `node --test tests/server.test.mjs`) | done | arena/3936beb1-prod2 | none (read-only) |
+| X-02 Independent spot check of the live site and of one Amazon listing (P4, `B0DHZTCNR5`) | done | arena/3936beb1-prod2 | none (read-only) |
+| X-03 Record open-PR state and owner-side blockers here | done | arena/3936beb1-prod2 | `COORDINATION.md` |
+
+### Results (2026-11-20)
+
+- **X-01 gates:** `tools/build.py` → 30 pages; `tools/checks.py` → ALL CHECKS PASSED (13 sections, 5 declared site events, freshness match); `scripts/verify_site.py` → VERIFY OK (18 pages); `node --test tests/server.test.mjs` → 3/3 pass. Every outbound product `href` in `docs/` carries `tag=shopnow047c-20` and every outbound product link carries `rel="sponsored nofollow noopener"` (25 on `shop.html`).
+- **X-02 live site:** `https://wingbangboozle1-lang.github.io/Prod2/` served by the fetch tool (title "Air fryers and thermometers by format | The Crisp Counter"). Pages API: `build_type: legacy`, `source: main /`, status `built`. The sandbox `curl` to the Pages host fails (`http 000`), so the fetch tool is the only live read.
+- **X-02 listing:** `https://www.amazon.com/dp/B0DHZTCNR5` (P4) read through the fetch tool. Listing title matches `data/p2/products.json` P4 `name_listing`. The page also shows prices and ratings for other ASINs in the "Customers who viewed" carousel (the F-P17 attribution trap). Those values stay unpublished (F-02). The product's own price was **not** taken from this read.
+- **X-03 open PRs (not touched by this session):** #35 (`arena/dd4bae8a-prod2`), #41 (`arena/e0d92902-prod2`), #43 (`arena/37b265a4-prod2`), #45 (`arena/19fb7064-prod2`), #46 (`arena/644d217b-prod2`). All five are OPEN and overlap the same reader-facing files (`tools/build.py`, `docs/`, `COORDINATION.md`, `data/p2/*`). Merging any of them is an integration decision for the owner, and each must be rebased on the merged state first. This session did not merge them.
+
+### Owner-side blockers (cannot be done from the sandbox)
+
+1. **Pages source** (F-P19 / F-P20): still `main /`. Owner action: Settings → Pages → Source → GitHub Actions. The repo root therefore still exposes `data/`, `content/`, `tools/`.
+2. **One-link-per-product Associates Central test** (F-57 / F-58): tracking ID registration, activity and the attribution of each tagged Special Link can only be confirmed inside Associates Central. No value was inferred.
+3. **Short-link resolution** (F-P24): the five `link.amazon` short links did not resolve to their listings on 2026-11-20 (see L-01 above). Their compliance status stays unresolved (FLG-003). They are not claimed valid or invalid.
+
+### Irregularities for manual review (non-blocking, already on the Flagged page)
+
+- F-P19 / F-P20: Pages source exposes non-publication files (see blocker 1).
+- F-P23 / Q-P14: event-vocabulary contract (resolved in code by the W-01 pass; the gate asserts the five names; whether a collector is deployed for live traffic was not checked this session).
+- F-P24: short-link discrepancy (blocker 3).
+- F-P17 / F-02: carousel prices and ratings belong to other ASINs; the site withholds prices and ratings.
+
+### Post-merge follow-up from this session (2026-11-20, after PR #44/#46)
+
+Two merges downstream of this session's work (#43 and #50) have landed on `main` and rebuilt `docs/`.
+Checked from the current `main`, not assumed:
+
+- `tools/checks.py` → **ALL CHECKS PASSED** on `b8d5816`, including the `freshness` section, so the
+  published artifact still matches a fresh render. The two long reads are present, and every gate this
+  session added (`longreads`, the measurement assertions) is still live and green.
+- The two long reads are still on the live host: `/Prod2/article-thermometer-placement.html` and
+  `/Prod2/article-air-fryer-doneness.html` both return their full text with correct titles.
+- `SG-46` / `SG-47` still render on the suggestions page. `index.html` and `guides.html` still link both
+  articles; both are still in `sitemap.xml` and `feed.xml`.
+- The `flagged.html` page now renders resolved items with their resolution text (the defect found in this
+  session's own merge), so `F-P23` reads as resolved instead of as an open problem.
+
+**One item for a later session:** `verify.yml` build-checks the Python sources (`build`, `verify`) and
+the Node endpoint (the `test` workflow runs `npm test`), but no workflow runs `node --check server.mjs`
+before the tests. This session validated `server.mjs` by hand, twice, after editing it. If a syntax
+error ever slipped in, the failure would surface in the analytics job rather than at build time; that
+is adequate but late. Adding one `node --check server.mjs` step to `.github/workflows/verify.yml` would
+make it immediate. Logged, not implemented, because this session no longer holds a claim on that file.
+
+---
+
+---
+
+## ACTIVE CLAIM — session arena/e292fb4d-prod2 (2026-11-20, Pages exposure + short-link re-read + integration)
+
+Branched from `main` at `0a4b573` (PR #46 merged; fast-forwarded, no local commits existed). Other open PRs
+(#35, #41, #43, #45, #47) are **not touched**; their scopes overlap `docs/` and this board and are logged here only.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Stop serving the whole repository from the live host: switch the Pages source from `main /` (root mode, F-P19/F-P20) to the GitHub Actions artifact built from `docs/`, then prove the live host no longer serves `data/`, `tools/`, `archive/` | blocked — owner action (403 on Pages write) | arena/e292fb4d-prod2 | repository Pages setting (API), `COORDINATION.md`, `data/p2/flags.json` (resolution only if proven) |
+| X-02 Re-read the five `link.amazon` short links and the five `/dp/` listings (2026-11-20) to re-test F-P24 | done | arena/e292fb4d-prod2 | `data/p2/live-check-2026-11-20-e292fb4d.json` (new), `COORDINATION.md` |
+| X-03 Rebuild, gate, PR to main, merge, Pages live check; record here | done (PR #51, `ad81b87`) | arena/e292fb4d-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+### Results — arena/e292fb4d-prod2 (2026-11-20), part 1 (X-02)
+
+- **X-02 · short-link re-read (done, F-P24 still open).** All five `link.amazon` URLs were fetched with the fetch
+  tool on 2026-11-20. **All five resolved to `https://www.amazon.com/` (homepage, title "Amazon.com. Spend less.
+  Smile more.")**, none to a product page. This differs from the 06:5x read by `arena/722181aa-prod2` (four homepage,
+  one HTTP 500) only in the fifth link. The cause is still unknown and is **not** concluded here (not claimed invalid).
+  Record: `data/p2/live-check-2026-11-20-e292fb4d.json`; F-P24 detail carries this third observation. Intended-ASIN
+  fields unchanged. The five `/dp/` listings were **not** re-read in this pass (read twice today by other sessions).
+- **Pages build observation.** The legacy Pages build for `40673a3` (PR #48, COORDINATION-only change) reported
+  `errored` ("Page build failed."); the next build for `51a02ac` reported `built`. Single failed build, now superseded;
+  recorded here, not treated as a site defect.
+- **Pages settings (X-01).** Source is still `legacy`, `main /` (root mirror). Repository admin rights are present
+  (`permissions.admin = true`). Change scheduled after this PR merges, so the deploy artifact is from final `main`.
+
+### Results — arena/e292fb4d-prod2 (2026-11-20), part 2 (X-01 blocked · X-03 done)
+
+- **X-01 · Pages source (BLOCKED — owner action).** `PUT /repos/{owner}/{repo}/pages` with `build_type=workflow`
+  (documented values `legacy` | `workflow`: https://docs.github.com/en/rest/pages/pages) returned **HTTP 403
+  "Resource not accessible by integration"**. The sandbox token can read Pages settings (`status: built`,
+  `source: main /`) but cannot change them. Not worked around (for example by editing Jekyll settings to hide files),
+  because that would change the live site in a way this pass could not verify. **Owner step:** repository
+  Settings → Pages → Build and deployment → Source: **GitHub Actions**. Then run the existing *Deploy to GitHub Pages*
+  workflow on `main`. **Baseline confirmed today:** the live host serves `data/p2/flags.json` and `COORDINATION.md`
+  as static files (fetch tool, 2026-11-20), so F-P19/F-P20 exposure is real until the source changes.
+- **X-03 · integration (done).** PR **#51** (`arena/e292fb4d-prod2` → `main`) merged with a merge commit at
+  **2026-11-20 06:54:51 UTC** → `ad81b87`. Main had moved twice during the PR (PRs #43, #50), so the branch was
+  merged with `origin/main` (not rebased, no history rewritten after the claim); conflicts were in the generated
+  `docs/flagged.html` / `flagged.html` (regenerated from the register) and in the F-P24 detail (kept, one sentence added).
+  Checks on PR #51: `test` ✓ · `verify` ✓. Workflows on `ad81b87`: verify-site ✓ · Self-hosted analytics tests ✓ ·
+  Deploy to GitHub Pages ✓ · pages build and deployment ✓ (Pages build `built`, commit `ad81b87`).
+  Live check: https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the Flagged page.
+- **Correction to Part 1 above.** Part 1 said the only difference from `722181aa` was the fifth link. That
+  was incomplete: `37b265a4` (R-01, same day) recorded B02NbDxp3 reaching its ASIN. The disagreement is F-P27 and is
+  now stated in `data/p2/live-check-2026-11-20-e292fb4d.json`. No intended-ASIN field changed.
+- **Claim status:** X-02 done · X-03 done · X-01 **blocked on owner action (403)**; stays open with the steps above.
+- **ID note.** Task IDs `X-01..X-03` were also used by the merged session `arena/3936beb1-prod2` (lines above). The
+  three rows in this section are this session's X-01..X-03; no earlier row was edited to fit.
+
 # Session arena/44af3083-prod2 — claim (2026-11-20)
 
 Branch `arena/44af3083-prod2`, base `4398598` (`main`, merge of PR #33); rebased onto `main`
@@ -972,7 +1321,7 @@ continue from whatever `data/p2/*.json` shows free at write time — recorded in
 | R-01 Live re-verification pass (2026-11-20, independent second read): all five listings + Operating Agreement + Program Policies + USDA/FoodSafety charts; observed strings recorded with read timestamps; short-link resolution observed again (F-P24) | done | arena/44af3083-prod2 | `data/p2/verification-2026-11-20.json` (addendum section only) | Cross-checked against BOTH prior 2026-11-20 reads (arena/70b2b9f7's `verification-2026-11-20.json` and arena/722181aa's `live-check-2026-11-20-722181aa.json`); agreement or disagreement stated explicitly. No register value changes unless a listing read changes it. |
 | R-02 Publish calendar queue slot 1 early ("Preheat, shake, or don't") — question-shaped, listing-facts-only, sourced; auto-flows to sitemap + feed | done | arena/44af3083-prod2 | `content/pages/guide-preheat-shake.html` (new), `tools/build.py` (PAGES/GUIDE_IDS/GUIDE_LINKS/hooks), `data/p2/calendar.json` (slot 1 marked shipped) | Same early-publish precedent as slots 1/3 of the previous queue. Honors D-19 (no popularity claims) and F-02 (no prices/ratings). |
 | R-03 Timely Thanksgiving-week thermometer guide ("How do you know the turkey is done?") — USDA cook-temps sourced, thermometer workflow framing from P4/P5 listings | done | arena/44af3083-prod2 | `content/pages/guide-turkey-done.html` (new), `tools/build.py`, `data/p2/calendar.json` (holiday-hosting season wiring) | Seasonal desk item for the 2026-11-26 US Thanksgiving window; hypothesis only (D-19). |
-| R-04 Decision-support additions: suggestions SG-45.. (design/marketing inputs feeding DESIGN_PROMPT.md + next-pass chooser paths) + questions Q-P15.. (missing-information discovery) | done | arena/44af3083-prod2 | `data/p2/suggestions.json`, `data/p2/questions.json`, `DESIGN_PROMPT.md` (append-only) | Proposals only; nothing implemented without a reviewer choice. |
+| R-04 Decision-support additions: suggestions SG-48..SG-50 (design/marketing inputs feeding DESIGN_PROMPT.md + next-pass chooser paths) + questions Q-P19/Q-P20 (missing-information discovery) | done | arena/44af3083-prod2 | `data/p2/suggestions.json`, `data/p2/questions.json`, `DESIGN_PROMPT.md` (append-only) | Proposals only; nothing implemented without a reviewer choice. |
 | R-05 Front-page shop polish + executive summary refresh | done | arena/44af3083-prod2 | `content/pages/index.html` (copy only), `EXECUTIVE_SUMMARY.md` | Copy-level; no register/price/rating changes. |
 | R-06 Rebuild + gates (`tools/build.py` + `tools/checks.py`, `scripts/verify_site.py`, `npm test`), PR to `main`, merge, Pages live check, record here | in progress | arena/44af3083-prod2 | `docs/`, root mirror, `COORDINATION.md` | Runs last. PR + merge without waiting for approval per the brief; deploy must be green before the record is written. |
 
@@ -987,12 +1336,12 @@ merge; they publish on the Flagged for Review page.
 | R-01 Third live verification pass | done | `https://www.amazon.com/dp/{B0CDY277D3,B09B7SB46R,B08DKYBTPH,B0DHZTCNR5,B0DZFD6R9Z}` (read 2026-11-20) · `https://affiliate-program.amazon.com/help/operating/agreement` (Updated: October 15, 2025) · `https://affiliate-program.amazon.com/help/operating/policies` (Updated: April 14, 2026) · `https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures` (last reviewed November 21, 2024) · `…/cold-food-storage-charts` (September 19, 2023) · `…/food-safety-during-power-outage` (August 8, 2024) | 5/5 listing document titles match the register character-for-character (wrapper stripped); breadcrumbs match; policy + chart dates match. Recorded verbatim in `data/p2/verification-2026-11-20.json` → `third_pass_arena_44af3083` (V3-01..V3-04). Zero register drift. | F-P24 reproduced independently: `https://link.amazon/B04G1MEwY` and `https://link.amazon/B0c8moW59` both resolved to `https://www.amazon.com/` instead of their listings. Evidence appended to F-P24; intended-ASIN fields untouched. |
 | R-02 guide-preheat-shake.html | done | P1/P2/P3 listing facts (S-P1..S-P3, read 2026-11-19; feature tables 2026-11-14) | Every fact traced to the register; "What we could not verify" block included; S-24 pillar links present; flows to sitemap + feed by build. | none |
 | R-03 guide-turkey-done.html | done | S-USDA-COOK (165°F (74°C) poultry row, read 2026-11-20) + P4/P5 listing facts (S-P4/S-P5) | USDA figure quoted with its last-reviewed date; P4/P5 workflows from listing facts only; no hands-on claims (D-06). | none |
-| R-04 Registers + design inputs | done | Program Policies 2(b) (S-POL) · VOICE.md · D-19 | SG-45..SG-47 (proposals only) and Q-P15..Q-P17 recorded; F-P24 detail extended; `DESIGN_PROMPT.md` marketing-inputs section appended. Gate re-run after each register change. | Gate caught a `link.amazon` string on questions.html without inert-code rendering — fixed at the register (Q-P15 wording), gate left strict. |
+| R-04 Registers + design inputs | done | Program Policies 2(b) (S-POL) · VOICE.md · D-19 | SG-48..SG-50 (proposals only) and Q-P19/Q-P20 recorded; this pass's Q-P15 browser-check row merged into the parallel pass's **Q-P18** (content kept, nothing discarded); F-P24 detail extended; `DESIGN_PROMPT.md` marketing-inputs section appended. Gate re-run after each register change. | Gate caught a `link.amazon` string on questions.html without inert-code rendering — fixed at the register (wording), gate left strict. Register ids collided with the parallel long-read pass (it took Q-P15..Q-P17, SG-45..SG-47, F-P25..F-P28, D-P21 on main); this pass renumbered around it and updated every cross-reference. |
 | R-05 Front page + exec summary | done | built pages | Trust-row guide count corrected 10 → 12; timely turkey question card; exec summary second-wave section; counts re-counted from the registers. | Front-page trust row had gone stale (10 vs 12 guides) — corrected. |
 
 **Builds at the end of the pass:** `python3 tools/build.py` → 30 pages → `python3 tools/checks.py` → **ALL CHECKS PASSED** (12 sections) · `python3 scripts/verify_site.py` → **VERIFY OK** (18 pages) · `npm test` → **2/2 pass**.
 
-**Register id usage this pass (post-rebase reality):** flags — none new (F-P24 extended in place); questions — **Q-P15, Q-P16, Q-P17**; suggestions — **SG-45, SG-46, SG-47**; decisions — none new. Next free ids: F-P25, Q-P18, SG-48, D-P21.
+**Register id usage this pass (final, after the parallel-pass collision):** flags — none new (F-P24 extended in place with the fourth-read note); questions — **Q-P19, Q-P20** (+ content merged into Q-P18); suggestions — **SG-48, SG-49, SG-50**; decisions — none new. Next free ids: F-P29, Q-P21, SG-51, D-P22.
 
 ## PR / merge / deploy record — arena/44af3083-prod2
 

@@ -94,6 +94,14 @@ PAGES = [
      f"Questions to ask before buying multi-function gear | {BRAND}",
      "Air fry, bake, dehydrate, rotisserie: which functions will you actually use? The questions that separate a worktop workhorse from a cupboard-filler.",
      "guides"),
+    ("article-air-fryer-doneness", "article-air-fryer-doneness.html",
+     f"Did the air fryer work? One number decides | {BRAND}",
+     "Capacity, drawers and wattage do not tell you whether dinner is safe. USDA and extension guidance on the one number that does, applied to the three air fryers we track.",
+     "guides"),
+    ("article-thermometer-placement", "article-thermometer-placement.html",
+     f"Where to put the probe: placement beats precision | {BRAND}",
+     "USDA guidance on where a thermometer probe actually belongs, set against the two thermometers we follow. What the official pages say, and what they do not.",
+     "guides"),
     ("guide-thermometer-accuracy", "guide-thermometer-accuracy.html",
      f"How accurate does a meat thermometer need to be? | {BRAND}",
      "±0.5°F vs ±1°F, instant-read vs leave-in wireless: what accuracy claims on the listing mean and which thermometer fits which cook.",
@@ -497,11 +505,17 @@ def hook_sources_table(_="") -> str:
 
 
 def _flag_row(f: dict) -> str:
+    # A resolved flag must SHOW its resolution on the page, not only in the JSON.
+    # Fixed 2026-11-20: F-P23 read as open on the Flagged page while the register
+    # said resolved, because only the how_to_resolve cell was rendered.
+    resolution = f.get("resolution")
+    tail = (f'<strong>Resolved {esc(f.get("resolved_utc", ""))}.</strong> {esc(resolution)}'
+            if resolution else esc(f["how_to_resolve"]))
     return (f'<tr id="{esc(f["id"])}"><td><code>{esc(f["id"])}</code></td><td>{esc(f["title"])}</td>'
             f'<td>{esc(f["detail"])}</td>'
             f'<td><a class="src" href="{esc(f["evidence"])}" rel="noopener" target="_blank">evidence</a><br>'
             f'<span class="muted">{esc(f["evidence_note"])}</span></td>'
-            f'<td>{esc(f["how_to_resolve"])}</td></tr>')
+            f'<td>{tail}</td></tr>')
 
 
 def hook_flags(status: str) -> str:
@@ -1004,7 +1018,7 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
             })
         graph.append({"@type": "ItemList", "name": "Products compared on " + BRAND,
                       "itemListElement": items})
-    if (page_id.startswith("guide") and page_id != "guides") or page_id == "buying-guide":
+    if (page_id.startswith(("guide", "article")) and page_id != "guides") or page_id == "buying-guide":
         graph.append({
             "@type": "Article", "headline": title.split(" | ")[0],
             "description": description, "url": BASE + "/" + path,
@@ -1085,7 +1099,7 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
 
 def build_feed() -> None:
     items = []
-    for gid in GUIDE_IDS + ["buying-guide"]:
+    for gid in GUIDE_IDS + ["buying-guide", "article-thermometer-placement", "article-air-fryer-doneness"]:
         p = next(x for x in PAGES if x[0] == gid)
         items.append(f"""    <item>
       <title>{esc(p[2].split(' | ')[0])}</title>

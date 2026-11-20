@@ -68,6 +68,55 @@
 <h1>Pick a path before we build it.</h1>
 <p class="lede">Everything proposed for this site lands here first, with its evidence, its cost and what it blocks. Nothing below is implemented until a path is chosen — so this page is a review surface, not a changelog.</p>
 
+<h2 id="ranked">Do these five things, in this order</h2>
+<p>Thirty-eight items propose work. Only a handful of them change what happens next, and most cost you minutes rather than days. This is the short list, ranked by how much it unblocks per hour of your time. Everything below it is optional.</p>
+<table class="data">
+  <thead><tr><th>#</th><th>Item</th><th>What it changes</th><th>Cost to you</th><th>Reversible?</th><th>Your action</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href="#SG-46">SG-46</a></td>
+      <td>Publishes only the built site and stops serving <code>data/</code>, <code>content/</code> and <code>tools/</code> at public URLs. Also removes the second copy of every page in the repo.</td>
+      <td>~2 minutes</td>
+      <td>Yes — same dropdown</td>
+      <td>Settings → Pages → Source: <strong>GitHub Actions</strong>. Say so and the mirror files get deleted here.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href="#SG-06">SG-06</a> + <a href="#SG-29">SG-29</a></td>
+      <td>Turns on real analytics: a hosted endpoint plus Search Console. Until both exist, every topic choice on this site is a guess (<a href="questions.html#Q-P08">Q-P08</a>).</td>
+      <td>One hosting decision + one verification token</td>
+      <td>Yes</td>
+      <td>Paste the Search Console token into settings, and name a host for the endpoint in this repo.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href="#SG-38">SG-38</a></td>
+      <td>Formal clearance for the name "The Crisp Counter". It ships today on a preliminary search only (<a href="flagged.html#F-P21">F-P21</a>); the risk grows with traffic, not with time.</td>
+      <td>Counsel or a trademark search</td>
+      <td>Cheap now, expensive later</td>
+      <td>Approve a search, or name a replacement and the rename is one setting.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href="questions.html#Q-47">Q-47</a></td>
+      <td>Settles whether the "ask a question" form may store an email. It is deliberately disconnected until then.</td>
+      <td>A privacy decision</td>
+      <td>Yes</td>
+      <td>Choose: email collection with a stated basis, or questions only. Second option ships immediately.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href="#SG-34">SG-34</a></td>
+      <td>Switches topic selection from editorial instinct to measured queries — but only once item 2 has 14 days of data.</td>
+      <td>None; it is the payoff step</td>
+      <td>Yes</td>
+      <td>Nothing yet. It unblocks itself.</td>
+    </tr>
+  </tbody>
+</table>
+<p class="small-note">Ranking rationale: items 1–2 are the only ones that make anything <em>measurable</em>; item 3 is the only one whose cost rises over time; item 4 unblocks a feature that is already built and tested. Items 5 and everything below wait on those. Nothing on this page has been implemented except where a row is marked <span class="status status-shipped">shipped</span>.</p>
+
 <h2 id="paths">Three paths, one choice</h2>
 <p>The thirty-four items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
 
@@ -555,7 +604,7 @@
 </article>
 <article class="card s-card" id="SG-41">
   <header><h3><code>SG-41</code> Gate the event vocabulary so the site and the endpoint cannot drift again</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>F-P23: three of the site&#x27;s five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree.</dd>
     <dt>Proposal</dt><dd>Add a check that parses the event names out of server.mjs&#x27;s allowedEvents set and out of the event list the site ships, then fails the build when they differ. Ten lines; it turns a silent under-count into a red build.</dd>
@@ -563,7 +612,7 @@
     <dt>Expected impact</dt><dd>High — prevents a silent under-count once the endpoint is hosted.</dd>
     <dt>Effort</dt><dd>Small (parse both lists in checks.py, compare, fail).</dd>
     <dt>Risk</dt><dd>Low. Pure test code; touches no runtime path.</dd>
-    
+    <dt>Progress</dt><dd>Shipped 2026-11-20 (arena/644d217b-prod2): tools/checks.py section &#x27;measurement&#x27; now fails the build when the shipped client can send an event the collector rejects, and tests/server.test.mjs reads the five names out of assets/js/measure.js so the two files cannot drift. See D-P21 / F-P23.</dd>
     <dt>Depends on</dt><dd>Q, -, P, 1, 4,  , (, t, h, e,  , v, o, c, a, b, u, l, a, r, y,  , c, h, o, i, c, e, )</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Adopt as soon as Q-P14 is answered — it is the cheapest possible insurance on a measurement surface.</p>
@@ -659,7 +708,52 @@
   <p class="reco"><strong>Our recommendation:</strong> Accept as the first measured-iteration item; do nothing until the gate opens.</p>
 </article>
 <article class="card s-card" id="SG-45">
-  <header><h3><code>SG-45</code> Front-page &#x27;the newest question&#x27; slot above the shelf</h3>
+  <header><h3><code>SG-45</code> Publish long-form argument pieces, not only checklists</h3>
+  <span class="status status-shipped">shipped</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The ten guides are 430-800 words and each one ends by restating the same method rule. A reader who wants to know what actually decides a purchase has nowhere to read an argument, and a search engine has ten thin pages competing with each other on near-identical framing.</dd>
+    <dt>Proposal</dt><dd>Ship one long read (1,200-1,400 words) per buying decision, built on an official guidance source the listings do not carry — USDA FSIS placement and temperature guidance, land-grant extension food-safety guidance. Each long read states a position, cites every figure, and carries the site&#x27;s standing &#x27;what we could not verify&#x27; block.</dd>
+    <dt>Evidence</dt><dd>Two shipped 2026-11-20: article-thermometer-placement.html (1,295 words) and article-air-fryer-doneness.html (1,212 words), both sourced to pages read that day (S-FSIS-THERMO, S-FSIS-CHART, S-UNL-AIRFRYER).</dd>
+    <dt>Expected impact</dt><dd>High — depth is the only durable difference between this site and an affiliate listing scrape; it also gives guides something to link to instead of to each other.</dd>
+    <dt>Effort</dt><dd>One long read per cadence cycle (currently 14 days).</dd>
+    <dt>Risk</dt><dd>Slower cadence than short guides; mitigated by keeping one short guide per cycle alive.</dd>
+    <dt>Progress</dt><dd>Shipped 2026-11-20 (arena/644d217b-prod2): two long reads live and wired into the sitemap, feed, JSON-LD and both category pillars.</dd>
+    <dt>Depends on</dt><dd>SG-34</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Keep doing it. Next candidates, in order: counter depth vs door swing (needs a tape-measure verification by the owner), then a gift piece rewritten for January returns season.</p>
+</article>
+<article class="card s-card" id="SG-46">
+  <header><h3><code>SG-46</code> Move to one deployable artifact and retire the repo-root mirror</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>GitHub Pages serves this repository&#x27;s ROOT in legacy mode, so every reader-facing page is committed twice (docs/ and the root mirror) and 196 source files sit at fetchable paths. The mitigation in place (canaries, a mirror script, an exposition gate, flags F-P19/F-P20) makes the exposure visible; it does not remove it.</dd>
+    <dt>Proposal</dt><dd>Owner flips Settings -&gt; Pages -&gt; Source to GitHub Actions. That is one dropdown. ./github/workflows/pages.yml already builds docs/ and uploads it as an artifact, so the workflow needs no change; the root mirror and both canary files can then be deleted.</dd>
+    <dt>Evidence</dt><dd>Measured 2026-11-20: Pages API returns build_type &#x27;legacy&#x27;, source main /; a token-scoped PUT to build_type=workflow returned 403. The workflow that would publish docs/ only already exists and is green.</dd>
+    <dt>Expected impact</dt><dd>High — halves the file count in the repo, removes the double-commit in every pass, and closes the largest open compliance item.</dd>
+    <dt>Effort</dt><dd>About two minutes of owner time; one follow-up commit here to delete the mirror.</dd>
+    <dt>Risk</dt><dd>A brief window where the site serves the workflow artifact instead of the root. Revert is the same dropdown.</dd>
+    
+    <dt>Depends on</dt><dd>F-P19, F-P20</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Do this first. It is the cheapest item on the board with the largest structural payoff, and unlike every other item it needs no editorial judgement.</p>
+</article>
+<article class="card s-card" id="SG-47">
+  <header><h3><code>SG-47</code> Get one authoritative gallery image per product through the official channel, or keep drawings</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Every product card carries an illustration rather than a photo, because copying a listing image is restricted by Amazon&#x27;s IP License. Illustrations are honest but they are also the single biggest reason the shelf does not look like a shop.</dd>
+    <dt>Proposal</dt><dd>Either (a) enrol in the Amazon Associates product-advertising/PA-API route and pull the official image with the licensed link, which is the only compliant way to show real photography, or (b) commission a consistent illustration set so at least the drawings look deliberate rather than placeholder.</dd>
+    <dt>Evidence</dt><dd>Operating Agreement Section 1 / IP License and Usage Requirements, read 2026-11-20; the site&#x27;s own note under every card reads &#x27;Illustration, not the product photo&#x27;.</dd>
+    <dt>Expected impact</dt><dd>High for click-through; zero for compliance.</dd>
+    <dt>Effort</dt><dd>(a) needs API access; (b) is a design pass.</dd>
+    <dt>Risk</dt><dd>(a) is blocked on API approval, which is outside this project&#x27;s control. (b) is safe and reversible.</dd>
+    
+    <dt>Depends on</dt><dd>Q-P05</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Run (b) now; switch to (a) only if API access is granted.</p>
+</article>
+<article class="card s-card" id="SG-48">
+  <header><h3><code>SG-48</code> Front-page &#x27;the newest question&#x27; slot above the shelf</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
     <dt>Problem</dt><dd>The front page&#x27;s guide grid is complete but static: a returning reader cannot see what changed since the last visit, and the page can read as a fixed catalogue rather than a publication with a cadence.</dd>
@@ -673,23 +767,23 @@
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept for the next design pass; specify in DESIGN_PROMPT.md before building.</p>
 </article>
-<article class="card s-card" id="SG-46">
-  <header><h3><code>SG-46</code> Quarterly listing re-verification SLA: fetch, diff, flag</h3>
+<article class="card s-card" id="SG-49">
+  <header><h3><code>SG-49</code> Quarterly listing re-verification SLA: fetch, diff, flag</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
     <dt>Problem</dt><dd>The register&#x27;s value is its dated reads, but nothing forces a re-read on a schedule. The 2026-11-20 passes found a real discrepancy (F-P24) precisely because someone re-fetched the sources.</dd>
-    <dt>Proposal</dt><dd>Adopt a 90-day re-read SLA for the five listing pages and the two Associates policy pages: fetch each, diff the document title and the &#x27;Updated&#x27; line against the register, write a dated verification record, and open a flag on any mismatch. Automate the diff if CI egress allows (Q-P17); otherwise run the SLA as a session step at each cadence review.</dd>
+    <dt>Proposal</dt><dd>Adopt a 90-day re-read SLA for the five listing pages and the two Associates policy pages: fetch each, diff the document title and the &#x27;Updated&#x27; line against the register, write a dated verification record, and open a flag on any mismatch. Automate the diff if CI egress allows (Q-P20); otherwise run the SLA as a session step at each cadence review.</dd>
     <dt>Evidence</dt><dd>This session&#x27;s third pass reproduced F-P24 and confirmed 5/5 title matches at zero register drift (data/p2/verification-2026-11-20.json, third_pass_arena_44af3083). The mechanism works and costs minutes.</dd>
     <dt>Expected impact</dt><dd>High on trust — the site&#x27;s stated differentiator (SG-37) — and it is the discovery path for Q-P03 and Q-P15.</dd>
     <dt>Effort</dt><dd>Small if manual; medium if automated (depends on Q-P17).</dd>
     <dt>Risk</dt><dd>Low: failures surface as flags, which are non-blocking by policy.</dd>
     
-    <dt>Depends on</dt><dd>Q-P17, SG-37</dd>
+    <dt>Depends on</dt><dd>Q-P20, SG-37</dd>
   </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Accept. Start the manual cadence now; automate when Q-P17 answers.</p>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. Start the manual cadence now; automate when Q-P20 answers.</p>
 </article>
-<article class="card s-card" id="SG-47">
-  <header><h3><code>SG-47</code> Standing CTA language for the no-price world</h3>
+<article class="card s-card" id="SG-50">
+  <header><h3><code>SG-50</code> Standing CTA language for the no-price world</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
     <dt>Problem</dt><dd>The site cannot publish prices (F-02), so every conversion moment ends at a generic &#x27;See it on Amazon&#x27; button. The CTA copy is the only conversion lever left and it is currently uniform and untested.</dd>

@@ -6,7 +6,7 @@
     {
       "id": "Q1",
       "question": "Do we keep the submitted link.amazon short links, or replace them with tagged Special Links generated in the Associates console?",
-      "what_we_know": "All five submitted links resolve to real Amazon listings. Each submitted token is a 9-character short-link token, not a 10-character ASIN. Program Policies 6(w) prohibits using link shortening in a way that makes the Amazon destination unclear. The exact compliance status of the supplied short links is unresolved.",
+      "what_we_know": "On 2026-11-19 all five submitted links were recorded as resolving to Amazon listings. On 2026-11-20 one of five was confirmed at its intended ASIN in the R-01 read (F-P24, F-P27). Each submitted token is a 9-character short-link token, not a 10-character ASIN. Program Policies 6(w) prohibits using link shortening in a way that makes the Amazon destination unclear. The exact compliance status of the supplied short links is unresolved.",
       "what_we_do_not_know": "Whether the enrolled Associates account exists and can generate tagged Special Links for these five ASINs; Amazon's specific determination of these short links.",
       "options": [
         { "label": "Replace with tagged Special Links", "tradeoff": "Most compliant and trackable; requires an enrolled Associates account and a one-link-per-product test in the enrolled workflow." },
