@@ -272,14 +272,15 @@ def picture(src: str, alt: str, *, cls: str = "", loading: str = "lazy",
     """
     b = base if base is not None else BASE
     webp = src[:-4] + ".webp" if src.endswith(".png") else None
+    ver = f"?v={ASSET_V}"
     alt_attr = f'alt="{esc(alt)}"' if alt else 'alt=""'
     cls_attr = f' class="{esc(cls)}"' if cls else ""
-    img = (f'<img src="{esc(b)}/{esc(src)}" {alt_attr}{cls_attr} loading="{loading}" '
+    img = (f'<img src="{esc(b)}/{esc(src)}{ver}" {alt_attr}{cls_attr} loading="{loading}" '
            f'width="{width}" height="{height}" decoding="async">')
     if not webp:
         return img
     return (f'<picture>'
-            f'<source type="image/webp" srcset="{esc(b)}/{esc(webp)}">'
+            f'<source type="image/webp" srcset="{esc(b)}/{esc(webp)}{ver}">'
             f'{img}'
             f'</picture>')
 
@@ -1243,6 +1244,8 @@ def render_fragment(text: str) -> str:
             return esc(PAID_LABEL)
         if key == "base_url":
             return esc(BASE)
+        if key == "asset_v":
+            return esc(ASSET_V)
         raise KeyError(key)
     return normalize_amazon_links(re.sub(r"\{\{([a-zA-Z0-9_:]+)\}\}", repl, text))
 
@@ -1407,7 +1410,7 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
         # the hero is the largest contentful paint on the landing page: tell the
         # browser about it in the head instead of waiting for the <img> to be parsed
         out = out.replace('</head>', f'<link rel="preload" as="image" type="image/webp" '
-                                     f'href="{BASE}/assets/img/hero-kitchen.webp" fetchpriority="high">\n</head>', 1)
+                                     f'href="{BASE}/assets/img/hero-kitchen.webp?v={ASSET_V}" fetchpriority="high">\n</head>', 1)
     extra = ""
     if page_id in PAGE_SCRIPTS:
         extra = "".join(f'<script src="{BASE}/assets/js/{src}?v={ASSET_V}" defer></script>\n'

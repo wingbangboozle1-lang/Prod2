@@ -1761,6 +1761,61 @@ changes, with no manual input from the owner. This session filled that slot:
 | Merge result | (recorded after merge) |
 | Pages | (recorded after deploy verification) |
 
+---
+
+## PR / MERGE / DEPLOY RECORD — session arena/15730819-prod2 (2026-11-20)
+
+| PR | Title | Result |
+| --- | --- | --- |
+| [#57](https://github.com/wingbangboozle1-lang/Prod2/pull/57) | Verified decision layer + repair of the live stylesheet and indexable archive | **Merged** 2026-11-20 07:00:32 UTC, merge commit `756f102`. Checks: verify ✓, test ✓ |
+| [#59](https://github.com/wingbangboozle1-lang/Prod2/pull/59) | Post-deploy fix: the fixed stylesheet never reached readers (CDN) + de-duplicated brief links | **Merged**, merge commit `f44117e`. First CI run failed on my own `_asset_version()` hashing mtimes (broke byte-reproducibility); fixed to hash bytes only, then green |
+| [#63](https://github.com/wingbangboozle1-lang/Prod2/pull/63) | Unbreak main: fix the two gates PR #58/#60 turned red, at their source | **Merged**, merge commit `bf657ae`. Checks: verify ✓, test ✓ |
+
+### Final state of `main` — verified live, not assumed
+
+All four workflows **success** on `bf657ae`: `verify-site`, `Self-hosted analytics tests`,
+`Deploy to GitHub Pages`, `pages build and deployment`.
+
+**The post-deploy read that this session exists to insist on:**
+
+| What was read live | Result |
+| --- | --- |
+| `https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css` | **Line 1 is now a CSS comment**, not `<<<<<<< HEAD`. Both font stacks present (six static latin subsets + three variable faces), nine `@font-face`, `:root` with all 32 tokens. The stylesheet readers get is valid. |
+| `https://wingbangboozle1-lang.github.io/Prod2/` | Shelf of five first, all five `?tag=shopnow047c-20` paid links, `(paid link)` labels, disclosure strip, one trust line, the four-question matcher, the five-row glance table, then the long reads. |
+| `.../Prod2/briefs.html` | Six briefs render; the duplicated `F-P24`/`Q-01`/`F-02` links are gone. |
+| `main` @ `bf657ae` | clean clone → `tools/build.py` → `tools/checks.py` **ALL CHECKS PASSED**, `tools/design_qa.py` **PASSED**, `npm test` **10/10**, `git diff --exit-code -- docs/` clean. |
+
+### What this session changed, in one place
+
+1. **A broken stylesheet was live and is now correct.** Conflict markers at lines 1/48/75 of
+   `assets/css/site.css`, copied into `docs/assets/css/` by the build. Fixed twice — once by this
+   session (#57), once better by a parallel session (#60, which kept both font stacks). Both repairs
+   reconciled in #59/#63; `integrity` and `design_qa.py` now gate it.
+2. **The fix then did not reach readers**, because Pages serves assets through a CDN and no page
+   versioned its asset URLs. Every css/js URL now carries `?v=<content hash>`. This is the single most
+   useful finding of the session: a green deploy is not the same as a correct site.
+3. **82 archived files stopped being indexable.** Four previous builds were fetchable at the live host
+   with only a robots.txt line guarding them. The build now writes `noindex` into every archived
+   `.html`/`.xml` on each pass, and robots.txt is scoped away from source directories.
+4. **A decision layer was published** (`briefs.html`, six briefs) because the brief asked for the
+   questions that must be answered before a decision, and neither the flags register nor the
+   suggestions queue answered "what do I decide first, and what is the cheapest way to find out".
+5. **The landing page stopped repeating itself**: 24 cards → 12, four above-fold trust blocks → one,
+   the long reads moved directly under the shelf.
+6. **The official commission table was read for the first time** in this project (S-COMM, Table 1).
+   Recorded as a category-level fact with its citation. **No per-product rate is asserted**, because
+   no official source maps these ASINs to a programme category — F-01 stays open.
+7. **Three gates a parallel session added were repaired at source** when they went red on `main`
+   (#63): a heading skip on `suggestions.html`, an unversioned `PAGE_SCRIPTS` tag, and two checks that
+   compared versioned URLs against bare filenames.
+
+### Open items this session did NOT resolve (owner actions, all published)
+
+The six briefs on `briefs.html` are the list. The two that block everything else: **B-01** (one tagged
+click read in Associates Central) and **B-04** (an endpoint for the counter). Nothing in this session
+claims the account is enrolled, that any click is attributed, or that the site has measured traffic.
+It has not.
+
 # Session arena/44af3083-prod2 — claim (2026-11-20)
 
 Branch `arena/44af3083-prod2`, base `4398598` (`main`, merge of PR #33); rebased onto `main`

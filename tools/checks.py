@@ -612,9 +612,12 @@ def main() -> int:
     linked = set()
     for page in html_files:
         text = page.read_text(encoding="utf-8")
-        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+        # Strip any ?v= cache-buster: the artifact on disk is site.css, the page
+        # requests site.css?v=<hash>. Comparing the raw string against the file
+        # list would fail for every page once assets are versioned.
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             linked.add(rel)
-        for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+        for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             linked.add(rel)
     # A ?v= cache-buster (required by the one-site gate) is a query parameter,
     # not part of the filename: resolve the path without it.
@@ -663,7 +666,7 @@ def main() -> int:
                          ("decide.html", BUDGET_FIRST_VIEW_KB)):
         text = (DOCS / name).read_text(encoding="utf-8")
         total = 0
-        for rel in re.findall(r'<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"\s]+)"', text):
+        for rel in re.findall(r'<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"?\s]+)', text):
             # a <picture> source is what a modern browser actually downloads
             pth = DOCS / rel
             if pth.exists():
@@ -673,7 +676,7 @@ def main() -> int:
     # every <picture> must have a WebP source and a PNG fallback, and both exist
     for f in html_files:
         text = f.read_text(encoding="utf-8")
-        for m in re.finditer(r'<picture>\s*<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"[^>]*>\s*<img[^>]+src="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"', text):
+        for m in re.finditer(r'<picture>\s*<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"?]+)[^"]*"[^>]*>\s*<img[^>]+src="(?:https://[^"]*?/Prod2/)?(assets/[^"?]+)', text):
             webp, png = m.group(1), m.group(2)
             if not webp.endswith(".webp"):
                 fail(f"{f.name}: <picture> source is not WebP ({webp})")
@@ -742,7 +745,7 @@ def main() -> int:
     # every referenced local image must exist in the build
     for f in html_files:
         text = f.read_text(encoding="utf-8")
-        for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"]+)"', text):
+        for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"?]+)', text):
             if not (DOCS / rel).exists():
                 fail(f"{f.name}: image {rel} missing from docs/")
         for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
