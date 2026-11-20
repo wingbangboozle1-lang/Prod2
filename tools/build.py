@@ -610,7 +610,7 @@ def hook_product_cards(_="") -> str:
     <span class="rank">{esc(p['format'])}</span>
   </a>
   <div class="body">
-    <p class="eyebrow">{esc(PRODUCT_BEST_FOR[p['id']])}</p>
+    <p class="eyebrow">Best for: {esc(PRODUCT_BEST_FOR[p['id']])}</p>
     <h3><a href="products.html#{esc(p['id'])}" style="color:inherit;text-decoration:none">{esc(p['name_short'])}</a></h3>
     <p class="muted asin">{esc(p['asin'])}</p>
     <ul>
@@ -619,7 +619,7 @@ def hook_product_cards(_="") -> str:
       <li>{esc(p.get('highlight_3') or '')}</li>
     </ul>
     <p class="buy-row">{buy_link(p, PRODUCT_BUY_LABEL[p['id']])}</p>
-    <p class="source-line">Facts read from {listing_link(p, 'the official listing')}; listing re-checked {esc(p.get('last_live_read') or p.get('name_listing_read') or '')}. Illustration, not the product photo.</p>
+    <p class="source-line">Listed facts sourced to {listing_link(p, 'the official listing')}; listing re-checked {esc(p.get('last_live_read') or p.get('name_listing_read') or '')}. Illustration, not the product photo.</p>
   </div>
 </article>""")
     return '<div class="shelf">' + "".join(cards) + '</div>'

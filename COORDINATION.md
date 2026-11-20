@@ -3,7 +3,14 @@
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
 Current session: **session arena/70b2b9f7-prod2** (branch `arena/70b2b9f7-prod2`, 2026-11-20 — design/shop rebuild + live re-verification; claim below).
-Previous sessions: arena/9f84489c-prod2 (publication polish, PRs #27/#28 merged) · arena-8ff10f50-prod2 (PRs #19/#21 merged) · arena-3f1d9d65-prod2 (analytics endpoint) · f2613c86, 599eec57, 44093825, 30a7028a, d12d2304.
+
+Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward polish, PR #30 merged into main 2026-11-20 06:09) · arena/43f4359d-prod2 (product-first landing page, PR #29 merged 2026-11-20 06:06) · arena/9f84489c-prod2 (publication polish, PRs #27/#28) · arena-8ff10f50-prod2 (PRs #19/#21) · arena-3f1d9d65-prod2 (analytics endpoint) · arena/b650562d-prod2 (PR #25, open) · arena/5e692632-prod2 (PR #23, open) · f2613c86, 599eec57, 44093825, 30a7028a, d12d2304.
+
+> **Two sessions landed work on `main` after this session branched** (PRs #29 and #30, both 2026-11-20
+> before 06:10 UTC). That work is integrated here, not discarded: their `DESIGN_PROMPT.md` additions,
+> their `scripts/build_site.py` shelf work and their `tools/build.py` "Best for" intent are all
+> preserved. Where the two builds disagreed on the same reader-facing surface, the newer design
+> system in this branch wins and the reasoning is recorded in the resolution note below.
 
 ---
 
@@ -113,6 +120,22 @@ session once all other tasks are done.
 - **T11 (integration, PR, merge, Pages deploy):** claim the full scope. Re-verify both builds line by line, make the landing page product-forward (lead with products), confirm `pages.yml` deploys a working artifact, commit, push, open a PR from `arena/8ff10f50-prod2` to `main`, merge it, and confirm GitHub Pages deploys. Record the PR link and merge result below.
 - **T12 (shop-like landing page):** reorder the front page so products lead (featured products + buy buttons above the register), keep guides + category tiles, and keep the disclosure strip above the fold.
 - **T13 (decision-input questions):** the open-questions register and the suggestions/decision portal already exist; verified present and linked from the nav/footer.
+
+## Claims this turn (session-arena-1f4017b9-prod2 — shop-forward polish + integration)
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| S-01 Shop-forward landing page rewrite (products above register, buy buttons prominent, publication feel) | done | session-arena-1f4017b9-prod2 | `content/pages/index.html`, `tools/build.py` |
+| S-02 Design prompt additions (polished marketing affiliate design, catchy articles, organic traffic hooks) | done | session-arena-1f4017b9-prod2 | `DESIGN_PROMPT.md` |
+| S-03 Q&A register clarity + missing-info discovery list | done | session-arena-1f4017b9-prod2 | `docs/questions.html`, `data/p2/questions.json` (verified present) |
+| S-04 Executive summary refresh | done | session-arena-1f4017b9-prod2 | `EXECUTIVE_SUMMARY.md` (verified present) |
+| S-05 Build + verify both outputs + GitHub Pages deploy | done | session-arena-1f4017b9-prod2 | `tools/build.py`, `tools/checks.py`, `.github/workflows/pages.yml`, `docs/`, root mirror |
+| S-06 PR to main + merge + confirm Pages live | done | session-arena-1f4017b9-prod2 | `main`, `.github/workflows/` |
+
+## Claims this session (session-arena-43f4359d-prod2, branch `arena/43f4359d-prod2`)
+
+- **T11-integrate:** re-verify both builds (`scripts/build_site.py` + `tools/build.py`), `scripts/verify_site.py` + `tools/checks.py`, landing page product-first, commit, push, open PR from `arena/43f4359d-prod2` to `main`, merge, confirm Pages deploys; record PR link + merge result below.
+- **T12-shop-landing:** reorder `site/index.html` so product cards + buy buttons lead before guides/categories/register; disclosure stays above fold; `rel="sponsored"` on every outbound product link.
 
 No other session has an unexpired claim on these files. If this session stops, any other session may take over an `in progress` task older than 60 minutes with no commits and must note the handoff here.
 
