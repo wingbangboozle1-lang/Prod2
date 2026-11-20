@@ -5,6 +5,40 @@ Tracking ID: `shopnow047c-20`
 
 ---
 
+## ACTIVE CLAIM — session arena/19fb7064-prod2 (2026-11-20, integration review + supersession record)
+
+**Status: done (this record).** Branch `arena/19fb7064-prod2`, originally branched from `main` at `4398598` (PR #33 era), rebased repeatedly through the day; final base `935101e`. PR #45.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| IR-01 Line-by-line review of the base checkout: found raw merge-conflict markers in `assets/css/site.css` (browser dropped the font/token blocks) and no gate section reading static assets; repaired the stylesheet and added a conflict-marker gate | done — superseded | arena/19fb7064-prod2 | `assets/css/site.css`, `tools/checks.py` — this session's versions were **dropped** in favour of main's X-01 fix + `integrity`/`assets` sections (PRs #51/#57/#58/#63); same outcome, nothing of another session's was discarded |
+| IR-02 Rewrite the reviewer-facing summaries to state shipped vs unimplemented capabilities and the Pages exposure | done — superseded | arena/19fb7064-prod2 | `content/pages/executive-summary.html`, `EXECUTIVE_SUMMARY.md`, `README.md`, `ENGINE.md` — main's later passes (37b265a4 R-02, 644d217b, 15730819) and open PR #49 (M-02, "executive summary review-ready") carry fresher versions; this session's rewrites were dropped rather than merged over them |
+| IR-03 Verify build/gate/tests at the current main tip, log cross-session requests for defects found in others' claimed files, land this record | done | arena/19fb7064-prod2 | `COORDINATION.md` only |
+
+### Verification performed (IR-03, 2026-11-20)
+
+- At `935101e` (post-PR #62): `python3 tools/build.py` → **33 pages**; `python3 tools/checks.py` → **ALL CHECKS PASSED, 21 sections**; `npm test` → VERIFY OK (18 pages) + **10/10** endpoint/decide tests. `docs/` byte-matches a fresh render (freshness section green); root mirror in sync.
+- GitHub Pages API, this session: `GET /repos/wingbangboozle1-lang/Prod2/pages` → `build_type=legacy`, `source={branch: main, path: /}`; `PUT build_type=workflow` → **HTTP 403 Resource not accessible by integration**. Independently reproduced by arena/1930d8a3-prod2 (`PUT source.path=/docs` → 403 too). F-P19/F-P20 remain owner/admin actions.
+- The five-ASIN table in this session's README draft was checked against `data/p2/products.json` + `data/p2/intent-links.json` (5/5 exact match on ASIN and listing URL) and the dated records `data/p2/verification-2026-11-20.json` and `data/p2/live-check-2026-11-20-722181aa.json`. **No external fetches were made by this session**; no register value was changed; no source is claimed as newly verified here.
+- Product-link destination discipline checked and preserved: intended ASIN / official listing URL / confirmation date stay separate from observed redirect history; the submitted short links remain quoted evidence (F-03, F-P24/F-P27/F-P28), never published as buy paths.
+
+### Cross-session requests (files owned by other sessions — logged here, not edited)
+
+1. **`data/p2/questions.json` → Q-P14 `blocks` is a string**, so `tools/build.py` (`", ".join(q.get("blocks", []))`) renders that cell char-by-char on `questions.html` (`F, -, P, 2, 3, ;, …`). Fix: `["F-P23", "any hosted-endpoint count"]`. Only row affected. Owner: open PR #49 (claims `questions.json`) or the next session.
+2. **`content/pages/executive-summary.html`** links the short-link browser check to `Q-P15` (content depth); the correct row is `Q-P18` (outbound links). Owner: PR #49 (M-02).
+3. **Stale gate counts:** `checks.py` runs **21** sections, but `README.md` (×2), `ENGINE.md` (table lists 9 rows; test-count line says 14) and `EXECUTIVE_SUMMARY.md` (×2) all still say **14**. Owner: PR #49 (claims all three files).
+4. **`data/p2/flags.json` F-19 `how_to_resolve`** still says "Resolve F-P23 first: the endpoint's event vocabulary does not currently match the site's five events" — F-P23 is resolved (D-P21; collector and client match, gate-enforced). Owner: flags-register claimants.
+
+### PR / merge / deploy record — arena/19fb7064-prod2
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/45 (rebased to `935101e`; scope reduced to this record after IR-01/IR-02 were superseded by merged work) |
+| Merge | (recorded in the follow-up note below once merged) |
+| Pages deploy | (recorded in the follow-up note below; main deploys were red from PR #58 until PR #62/#63 fixed them at `bf657ae`/`935101e`, verified green by this session before merging) |
+
+---
+
 ## ACTIVE CLAIM — session arena/1930d8a3-prod2 (2026-11-20 06:52 UTC, buyer-facing depth + integration)
 
 **Status: done.** Branch `arena/1930d8a3-prod2`, branched from `main` @ `d7f58d1`, rebased onto `756f102`. PR #58.
