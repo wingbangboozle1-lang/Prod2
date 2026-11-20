@@ -85,9 +85,9 @@ body {
 .wordmark { text-decoration: none; color: var(--ink); display: flex; align-items: baseline; gap: .6rem; }
 .wordmark-name {
   font-family: var(--serif); font-size: 1.7rem; font-weight: 600;
-  letter-spacing: -.015em; line-height: 1;
+  letter-spacing: -.015em; line-height: 1; white-space: nowrap;
 }
-.wordmark-name::after { content: "."; color: var(--terracotta); }
+.wordmark-dot { color: var(--terracotta); }
 .wordmark-desc {
   color: var(--muted); font-size: .72rem; letter-spacing: .14em;
   text-transform: uppercase; font-weight: 600;

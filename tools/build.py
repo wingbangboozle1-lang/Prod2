@@ -619,8 +619,7 @@ def hook_product_cards(_="") -> str:
       <li>{esc(p.get('highlight_3') or '')}</li>
     </ul>
     <p class="buy-row">{buy_link(p, PRODUCT_BUY_LABEL[p['id']])}</p>
-    <p class="source-line">Listed facts read from {listing_link(p, 'the official listing')}
-      on {esc(p.get('name_listing_read') or '')}. Illustration, not the product photo.</p>
+    <p class="source-line">Facts read from {listing_link(p, 'the official listing')}; listing re-checked {esc(p.get('last_live_read') or p.get('name_listing_read') or '')}. Illustration, not the product photo.</p>
   </div>
 </article>""")
     return '<div class="shelf">' + "".join(cards) + '</div>'
@@ -1012,7 +1011,7 @@ LAYOUT = """<!DOCTYPE html>
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <a class="wordmark" href="{base}/index.html"><span class="wordmark-name">{brand}</span>
+    <a class="wordmark" href="{base}/index.html"><span class="wordmark-name">{brand}<span class="wordmark-dot">.</span></span>
       <span class="wordmark-desc">{descriptor}</span></a>
     {nav}
   </div>
