@@ -25,6 +25,25 @@ DOCS = ROOT / "docs"
 BUILD_DATE = "2026-11-20"  # set on each publishing pass
 
 
+def _asset_version() -> str:
+    """A short content hash of the shipped assets, appended as ?v= to every asset
+    URL. GitHub Pages serves assets through a CDN cache, so without this a
+    corrected stylesheet can sit behind a stale copy for hours — observed on
+    2026-11-20, when the fixed site.css was in the repo and the CDN still served
+    the conflict-broken one. Hash of file names + mtimes + sizes: cheap, stable
+    within a build, and different whenever any asset changes."""
+    import hashlib
+    h = hashlib.sha1()
+    for f in sorted(ASSETS_SRC.rglob("*")):
+        if f.is_file():
+            st = f.stat()
+            h.update(f"{f.relative_to(ASSETS_SRC).as_posix()}:{st.st_size}:{int(st.st_mtime)}".encode())
+    return h.hexdigest()[:10]
+
+
+ASSET_V = _asset_version()
+
+
 def load(name: str):
     return json.loads((DATA / name).read_text(encoding="utf-8"))
 
@@ -568,8 +587,17 @@ def hook_briefs(_="") -> str:
         blocks = "".join(f"<li>{esc(x)}</li>" for x in b["what_it_blocks"])
         links = " · ".join(f'<a class="src" href="{esc(l["url"])}" rel="noopener" target="_blank">'
                            f'{esc(l["label"])}</a>' for l in b["evidence_links"])
-        flags = " ".join(f'<a href="flagged.html#{esc(f)}">{esc(f)}</a>' for f in b.get("flags", []))
-        qs = " ".join(f'<a href="questions.html#{esc(q)}">{esc(q)}</a>' for q in b.get("questions", []))
+        # de-duplicate while keeping first-seen order: merging two register passes
+        # left B-01 listing F-P24 three times and B-03 listing F-02 twice.
+        def uniq(seq):
+            seen, out = set(), []
+            for x in seq:
+                if x not in seen:
+                    seen.add(x)
+                    out.append(x)
+            return out
+        flags = " ".join(f'<a href="flagged.html#{esc(f)}">{esc(f)}</a>' for f in uniq(b.get("flags", [])))
+        qs = " ".join(f'<a href="questions.html#{esc(q)}">{esc(q)}</a>' for q in uniq(b.get("questions", [])))
         out.append(f"""
 <article class="card brief-card" id="{esc(b['id'])}">
   <header class="brief-head">
@@ -1151,7 +1179,7 @@ LAYOUT = """<!DOCTYPE html>
 {site_verification}<link rel="alternate" type="application/rss+xml" title="{brand} feed" href="{base}/feed.xml">
 <link rel="preload" href="{base}/assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{base}/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{base}/assets/css/site.css">
+<link rel="stylesheet" href="{base}/assets/css/site.css?v={asset_v}">
 <script type="application/ld+json">
 {jsonld}
 </script>
@@ -1170,8 +1198,8 @@ LAYOUT = """<!DOCTYPE html>
 {content}
 </main>
 {footer}
-<script src="{base}/assets/js/site.js" defer></script>
-<script src="{base}/assets/js/measure.js" defer></script>
+<script src="{base}/assets/js/site.js?v={asset_v}" defer></script>
+<script src="{base}/assets/js/measure.js?v={asset_v}" defer></script>
 </body>
 </html>
 """
@@ -1192,6 +1220,7 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
         content=content, footer=build_footer(),
         endpoint=esc(SETTINGS.get("analytics_endpoint", "") or ""),
         site_verification=site_verification,
+        asset_v=ASSET_V,
     )
     (DOCS / path).write_text(out, encoding="utf-8")
 

@@ -1385,3 +1385,24 @@ verification records.
 guard, robots, front guides) · `tools/checks.py` (`briefs`, `one-site`, `integrity` sections) ·
 `data/p2/{briefs.json (new), sources.json, verification-2026-11-20.json}` · `content/pages/{index,briefs}.html` ·
 `archive/**` (noindex written in place) · `docs/` + root mirror · `EXECUTIVE_SUMMARY.md` · `COORDINATION.md`.
+
+---
+
+## POST-MERGE DEFECTS — session arena/15730819-prod2 (2026-11-20, second pass)
+
+Both found by reading the **live** site with the fetch tool after PR #57 merged. Neither was visible
+in the repository, in either gate, or in the green CI run. That is the finding.
+
+| # | Finding | Evidence | Fix |
+| --- | --- | --- | --- |
+| 1 | **The fixed stylesheet did not reach readers.** `assets/css/site.css` in the repo and in `docs/` has no conflict markers (verified: `grep -c '<<<<<<<'` → 0 in both), but the URL `https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css` still served the **conflict-marked file** after the deploy succeeded. Cause: GitHub Pages serves assets through a CDN cache and the pages referenced the stylesheet with no version, so readers kept getting the pre-fix copy. | Live fetch of the stylesheet URL, 2026-11-20 07:05 UTC, after workflows `verify-site`, `test`, `Deploy to GitHub Pages` and `pages build and deployment` all reported success on merge commit `756f102`. | `tools/build.py` appends `?v=<content hash of assets/>` to `site.css`, `site.js` and `measure.js` on every page. `one-site` gate section fails the build if any css/js URL lacks a version. |
+| 2 | **Duplicate register links on the briefs page.** B-01 rendered `F-P24` three times and `Q-01` twice; B-03 rendered `F-02` twice. Cause: `flags`/`questions` arrays were merged from two passes without de-duplication. | Live fetch of `briefs.html`, 2026-11-20 07:04 UTC. | `hook_briefs()` de-duplicates preserving first-seen order. |
+
+Also corrected in the same pass: the briefs heading levels. A brief's question now has a proper `<h2>`
+per brief (confirmed in the built file's heading list) so the page's outline matches the six-brief
+structure the summary table promises.
+
+**The lesson recorded for future sessions:** the release gate checks the artifact, and CI checks the
+artifact, but neither checks **what the host actually serves**. A post-deploy read of at least
+`index.html` and the stylesheet URL is a required step, and it is now written into this file rather
+than assumed.
