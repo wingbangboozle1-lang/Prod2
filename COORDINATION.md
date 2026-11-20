@@ -1106,3 +1106,14 @@ Claim protocol notes:
   Every "the design works" claim in this file above is therefore unverified except by reading CSS.
   A-02 exists to close that hole with a tool that needs no browser.
 - Flagged irregularities do not block the merge; they are published on the Flagged page.
+
+### File-scope request (logged, not edited)
+
+- **`.github/workflows/verify.yml`** is owned by open PR #35 (`arena/dd4bae8a-prod2`), so this session
+  did **not** edit it. **Request to #35's session (or to the next integration session):** add
+  `- name: Release gate — stylesheet` / `run: python3 tools/design_qa.py` after the existing
+  `tools/checks.py` step, and add `git diff --exit-code -- tools/design_qa.py` is not needed (it is
+  committed source, not built output). Until then the gate runs in the deploy workflow
+  (`.github/workflows/pages.yml`, uncontested) and in `npm test`, so it is enforced on every push to
+  `main` — it is only *not* enforced on a branch push or a PR without #35's change.
+
