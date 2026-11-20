@@ -1356,6 +1356,83 @@ rather than rebase.
   class of drift `main` had before this pass. It does not affect `main` or the deploy; its own session
   owns the fix.
 
+---
+
+## ACTIVE CLAIM — session arena/770ebcc2-prod2 (2026-11-20, dedicated product pages + independent same-day live re-read)
+
+Branched from `d7f58d1` (main at PR #44); merged `origin/main` (`0a4b573`, PR #46) before claiming.
+This session is both the working session and its own integration session on this branch.
+
+**Why this pass.** `SG-12` (proposed, 2026-11-19): "Give every product its own buyer-first section" —
+the site publishes a comparison table and a shelf, but no dedicated, indexable page per product.
+For a small affiliate publication that is the largest remaining organic-traffic gap: product-name
+queries ("Chefman dual basket air fryer specs") have nowhere to land, and every guide funnels readers
+to an anchor on a 47 KB table page. This pass builds five product pages **strictly from the verified
+register** (no new claims, no prices, no ratings), wires them into shelf cards, pillars and the
+sitemap, and adds a gate section so they cannot silently drift.
+
+**Open-PR interaction (protocol: logged, not edited).** PR #41, #43, #45, #47 were all active within
+minutes of this claim (updates 06:48–06:53 UTC). None of them creates `content/pages/product-*.html`;
+this session touches shared files **append-only** where unavoidable (COORDINATION.md, registers,
+build.py, checks.py, card/footnote wiring) and will resolve any merge conflict keeping both sides.
+This session does NOT touch `data/p2/verification-2026-11-20.json` (owned by #43/#41) — its own live
+read is stored in a new session-scoped file.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Independent same-day live re-read: 5 official listings + 5 submitted short links, stored verbatim | done | arena/770ebcc2-prod2 | `data/p2/live-check-2026-11-20-770ebcc2.json` (new), `data/p2/flags.json` (F-P24 reread note, append-only) |
+| X-02 Five dedicated product pages from the register only; card + pillar + footer wiring; JSON-LD Product node per page | done | arena/770ebcc2-prod2 | `content/pages/product-*.html` (new), `tools/build.py`, `content/pages/{index,shop,products,category-air-fryers,category-thermometers}.html` (append-only link edits) |
+| X-03 Gate: `productpages` section (one page per product, buy URL, unverified block, reachability, sitemap) | done | arena/770ebcc2-prod2 | `tools/checks.py` |
+| X-04 Registers + docs: SG-12 → shipped, D-P23 recorded, exec-summary + front-page counts updated | done | arena/770ebcc2-prod2 | `data/p2/suggestions.json`, `data/p2/decisions.json`, `content/pages/executive-summary.html`, `EXECUTIVE_SUMMARY.md` |
+| X-05 Rebuild, full gate (14 sections), legacy verify, npm test, root mirror byte-match | done | arena/770ebcc2-prod2 | `docs/`, root mirror |
+| X-06 PR to main, merge, Pages deploy check, record here; claim released | in progress | arena/770ebcc2-prod2 | `COORDINATION.md`, `PULL_REQUEST*.md` |
+
+Verification-boundary note (same as the passes above it): outbound HTTP from this sandbox reaches
+`www.amazon.com` through the fetch tool only (curl is blocked); values observed are stored verbatim
+with the read time; nothing is inferred, and no price/rating is published (F-02 stands).
+
+### Claim results (X-01..X-05, 2026-11-20, session arena/770ebcc2-prod2)
+
+- **X-01 (live re-read, done).** All five `/dp/` listings fetched ~06:55–07:00Z: every document title
+  equals the register character-for-character after stripping Amazon's title decoration (the P5 listing
+  appends `: Home & Kitchen` without a separating space — an observation quirk, not a register drift),
+  and all five breadcrumbs match the register category paths. The P4 fetch showed a buy-box block
+  (`$16.99`, `In Stock`) — recorded as an observation in the dated file, **not published** (F-02
+  withholding stands; F-P17 is exactly this attribution trap). All five `link.amazon` short links again
+  failed through the sandbox's only network reader (fetch-tool page errors; `curl` blocked at TLS), so
+  F-P24 carries a third consecutive same-day non-confirmation and stays open. No register value changed.
+  Record: `data/p2/live-check-2026-11-20-770ebcc2.json`.
+- **X-02 (product pages, done).** Five dedicated pages: `product-chefman-dual-basket.html` (P1),
+  `product-emeril-french-door.html` (P2), `product-chefman-turbofry.html` (P3),
+  `product-thermomaven-instant-read.html` (P4), `product-chefiq-sense-wireless.html` (P5). Every value
+  comes from the verified register via the existing `{{facts:Px}}` / `{{buy:Px}}` hooks; the surrounding
+  copy is hand-written per product (no shared template prose), states who each tool suits and who it
+  does not, shows every derived number with its formula, and ends with the product's own
+  "what we could not verify" block. Two arithmetic claims were corrected during review (P2 depth
+  delta 16.9−12.75 = 4.15″; P1 zone-vs-oven capacity share) and one unregistered descriptor
+  ("folding") was removed — the pages ship with nothing the register cannot back. JSON-LD gains a
+  `Product` node per page with **no `offers` and no `aggregateRating`**, deliberately.
+- **X-03 (gate, done).** `tools/checks.py` section `productpages`: registry↔disk orphan check (a sixth
+  product without a page fails the build), buy URL present and tagged, `rel="sponsored"` on the page,
+  unverified block present, ASIN on its own page, reachable from index + shop + products + its pillar,
+  in the sitemap. `publication`/`seo`/`facts` sections unchanged. Header now lists 14 sections.
+- **X-04 (registers + docs, done).** `SG-12` progress extended; `D-P24` records the
+  content policy (register-only claims); `F-P24` carries the third read; the executive summary (page +
+  root doc) gained "The 2026-11-20 reader pass" and a corrected re-check line; the front-page trust row
+  gains "5 product pages". No changes to `products.json` (values unchanged), `verification-2026-11-20.json`
+  or `questions.json` (untouched by this pass).
+- **X-05 (build/gate, done).** `tools/build.py` → 35 pages; `tools/checks.py` → **ALL CHECKS PASSED**
+  (14 sections); `scripts/build_site.py` + `scripts/verify_site.py` → **VERIFY OK, 18 pages**;
+  `npm test` → 3 pass / 0 fail; root mirror re-synced by the build.
+ **Line-by-line review notes for the record:** (a) the
+  `links` gate initially caught this session's own decision-entry source list linking into `data/`
+  relatively — corrected to repo blob URLs, and the gate proved itself; (b) `title` uniqueness and the
+  `≤70`/`50–170` meta bounds passed for all five new pages; (c) **mid-pass ID collision, resolved:** this
+  session recorded its content policy as D-P23 while main advanced through PRs #47–#60; main took D-P23
+  for the paid-placement hold decision, so this pass re-numbered to **D-P24** and appended to SG-12's and
+  F-P24's merged entries instead of overwriting them (nothing from #47–#60 was discarded; the merge keeps
+  both). The session also inherits main's newer surfaces (decide.html, glance table, landing FAQ, a11y,
+  structured, assets, briefs, one-site, integrity gates) — all pass with the new pages included.
 ## ACTIVE CLAIM — session arena/3936beb1-prod2 (2026-11-20, status re-verification + coordination record)
 
 Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Single-branch rule followed; no other branch was created, switched to or pushed.

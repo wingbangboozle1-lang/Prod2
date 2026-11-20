@@ -77,6 +77,19 @@ PROD_BY_ID = {p["id"]: p for p in PRODUCTS}
 # ---------------------------------------------------------------------------
 # Page registry: id -> (path, title, description, jsonld kind, nav section)
 # ---------------------------------------------------------------------------
+# One dedicated, indexable page per product (SG-12, shipped 2026-11-20 by
+# arena/770ebcc2-prod2; content policy D-P23). Every published value on those
+# pages is read from the verified register — no prices, no ratings, no
+# performance claims — and each page carries its own "what we could not verify"
+# block. The 'productpages' gate section keeps the map and the pages in lockstep.
+PRODUCT_PAGE_PATHS = {
+    "P1": "product-chefman-dual-basket",
+    "P2": "product-emeril-french-door",
+    "P3": "product-chefman-turbofry",
+    "P4": "product-thermomaven-instant-read",
+    "P5": "product-chefiq-sense-wireless",
+}
+
 PAGES = [
     ("index", "index.html",
      f"Air fryers and thermometers by format | {BRAND}",
@@ -101,6 +114,26 @@ PAGES = [
     ("products", "products.html",
      f"The five products, spec by spec | {BRAND}",
      "Full listed specifications with read dates and source links, plus the product-intent confirmation record for every submitted link. Blank means unverified.",
+     "products"),
+    ("product-chefman-dual-basket", "product-chefman-dual-basket.html",
+     f"Chefman 6 qt dual basket: specs, fit, who it suits | {BRAND}",
+     "The dual-basket Chefman, spec by spec: two independent 3 qt baskets, Sync Finish, easy-view windows, Hi-Fry. Listed values with read dates, and what stays blank.",
+     "products"),
+    ("product-emeril-french-door", "product-emeril-french-door.html",
+     f"Emeril 26 qt French door: specs, fit, footprint | {BRAND}",
+     "The Emeril French-door oven: 26 qt listed interior, 24 one-touch presets, six accessories, and the 16.9-inch depth that decides your counter. Sourced, dated.",
+     "products"),
+    ("product-chefman-turbofry", "product-chefman-turbofry.html",
+     f"Chefman 8 qt TurboFry: the shallow-counter basket | {BRAND}",
+     "The single-basket Chefman TurboFry: 8 qt, the shallowest listed depth of our three fryers, 450°F Hi-Fry, dishwasher-safe XL basket. Listed specs, dated reads.",
+     "products"),
+    ("product-thermomaven-instant-read", "product-thermomaven-instant-read.html",
+     f"ThermoMaven 1-sec read: accuracy claim, placement | {BRAND}",
+     "The ThermoMaven instant-read: 1-second thermocouple, ±0.5℉ accuracy as listed, IP67 body. What the listing states, when it was read, and what it does not say.",
+     "products"),
+    ("product-chefiq-sense-wireless", "product-chefiq-sense-wireless.html",
+     f"CHEF iQ Sense Gen3: leave-in probes, variant check | {BRAND}",
+     "The CHEF iQ Sense Gen3 leave-in set: three ultra-thin probes, WiFi range, 1000°F heat-safe as listed. Dated specs and the probe-count variant warning.",
      "products"),
     ("buying-guide", "buying-guide.html",
      f"Buying guide: format, capacity and counter fit | {BRAND}",
@@ -364,6 +397,11 @@ def build_footer() -> str:
     shop = lis([("shop.html", "Shop the shelf"), ("decide.html", "Find my match"), ("compare.html", "Compare the five"),
                 ("products.html", "Products &amp; specs"), ("category-air-fryers.html", "Air fryers"),
                 ("category-thermometers.html", "Thermometers"), ("buying-guide.html", "Buying guide")])
+    product_pages = "".join(
+        f'<li><a href="{PRODUCT_PAGE_PATHS[p["id"]]}.html">{esc(p["name_short"])}</a></li>'
+        for p in PRODUCTS if p["id"] in PRODUCT_PAGE_PATHS)
+    if product_pages:
+        shop += f'<li class="footer-sublist"><ul>{product_pages}</ul></li>' 
     read = lis([("guides.html", "All guides"), ("buying-guide.html", "Buying guide"),
                 ("guides.html#subscribe", "Follow the feed"), ("guides.html#ask", "Ask a question"),
                 ("about.html", "Who writes this")])
@@ -444,7 +482,7 @@ def hook_products_table(_="") -> str:
                "P3": "Big single basket, small footprint", "P4": "Fast doneness checks",
                "P5": "Cook away from the heat"}[p["id"]]
         rows.append(
-            f'<tr id="row-{p["id"]}"><td><strong>{esc(p["name_short"])}</strong><br>'
+            f'<tr id="row-{p["id"]}"><td><strong><a href="{(PRODUCT_PAGE_PATHS[p["id"]] + ".html") if p["id"] in PRODUCT_PAGE_PATHS else "products.html#" + p["id"]}" style="color:inherit">{esc(p["name_short"])}</a></strong><br>'
             f'<span class="muted">{esc(p["asin"])}</span></td>'
             f'<td>{esc(p["format"])}</td><td>{esc(p["capacity"] or "—")}</td>'
             f'<td>{esc(p["dimensions"] or "—")}</td><td>{esc(str(depth) + chr(34) if depth else "—")}</td>'
@@ -891,7 +929,7 @@ def hook_product_cards(_="") -> str:
   </a>
   <div class="body">
     <p class="eyebrow">Best for: {esc(PRODUCT_BEST_FOR[p['id']])}</p>
-    <h3 class="card-title"><a href="products.html#{esc(p['id'])}" style="color:inherit;text-decoration:none">{esc(p['name_short'])}</a></h3>
+    <h3 class="card-title"><a href="{(PRODUCT_PAGE_PATHS[p['id']] + '.html') if p['id'] in PRODUCT_PAGE_PATHS else 'products.html#' + p['id']}" style="color:inherit;text-decoration:none">{esc(p['name_short'])}</a></h3>
     <p class="muted asin">{esc(p['asin'])}</p>
     <ul>
       <li>{esc(p.get('highlight_1') or '')}</li>
@@ -900,6 +938,7 @@ def hook_product_cards(_="") -> str:
     </ul>
     <p class="buy-row">{buy_link(p, PRODUCT_BUY_LABEL[p['id']])}</p>
     <p class="source-line">Listed facts sourced to {listing_link(p, 'the official listing')}; listing re-checked {esc(p.get('last_live_read') or p.get('name_listing_read') or '')}. Illustration, not the product photo.</p>
+    {(f'<p class="cta-row"><a class="btn btn-sm btn-ghost" href="{PRODUCT_PAGE_PATHS[p["id"]]}.html">Full product page</a></p>') if p['id'] in PRODUCT_PAGE_PATHS else ''}
   </div>
 </article>""")
     return '<div class="shelf">' + "".join(cards) + '</div>'
@@ -1264,6 +1303,18 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
         crumbs.append({"@type": "ListItem", "position": 2, "name": title.split(" | ")[0],
                        "item": BASE + "/" + path})
         graph.append({"@type": "BreadcrumbList", "itemListElement": crumbs})
+    if page_id in PRODUCT_PAGE_PATHS.values():
+        p = next(x for x in PRODUCTS if PRODUCT_PAGE_PATHS.get(x["id"]) == page_id)
+        graph.append({
+            "@type": "Product",
+            "name": p["name_listing"],
+            "sku": p["asin"],
+            "brand": {"@type": "Brand", "name": p.get("brand") or "unknown"},
+            "category": p.get("category_path"),
+            "description": ("Listed specifications as read from the official Amazon listing, with read dates; "
+                            "this page publishes no price, rating or performance claims."),
+            "url": "https://www.amazon.com/dp/" + p["asin"],
+        })
     if page_id in ("index", "compare", "products"):
         items = []
         for i, p in enumerate(PRODUCTS, 1):

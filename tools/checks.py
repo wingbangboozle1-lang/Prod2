@@ -43,6 +43,9 @@ Sections:
                duplicates; every archived build carries noindex; robots.txt scoped
                away from source and archive; every css/js URL carries a content
                version so a corrected asset cannot sit behind a stale CDN copy
+  productpages one dedicated page per product (SG-12): exists, cites the buy URL,
+               carries the unverified block, linked from index, shop, products and
+               its pillar, present in the sitemap; no orphan product pages
   briefs       the decision layer: every declared brief rendered, every cited
                register id resolves, no brief with an empty "not known" list, and
                the page is in the sitemap and the footer directory (X-04)
@@ -1018,6 +1021,46 @@ def main() -> int:
             fail(f"data/p2/{p.name}: verification record filename carries no date")
     if not FAILURES:
         ok("no conflict markers shipped; stylesheet tokens intact; register ids resolve")
+
+    # ------------------------------------------------------------ product pages
+    check("productpages")
+    # SG-12 (shipped 2026-11-20): every product in the register has its own
+    # reader page. The gate keeps the promise: no product without a page, no
+    # page without its buy link, its citations and its unverified block.
+    paths = build.PRODUCT_PAGE_PATHS
+    product_files = sorted(f.name for f in DOCS.glob("product-*.html"))
+    expect_files = sorted(v + ".html" for v in paths.values())
+    if product_files != expect_files:
+        fail(f"product pages on disk != registry: {product_files} vs {expect_files}")
+    for p in products:
+        slug = paths.get(p["id"])
+        if not slug:
+            fail(f"{p['id']}: no product page registered in build.PRODUCT_PAGE_PATHS")
+            continue
+        f = DOCS / (slug + ".html")
+        if not f.exists():
+            fail(f"{p['id']}: product page {slug}.html not built")
+            continue
+        text = f.read_text(encoding="utf-8")
+        if p["buy_url"] not in text:
+            fail(f"{slug}.html: does not carry the tagged buy URL")
+        if 'rel="sponsored' not in text:
+            fail(f"{slug}.html: buy link not marked sponsored")
+        if "What we could not verify" not in text:
+            fail(f"{slug}.html: no 'what we could not verify' block")
+        if p["asin"] not in text:
+            fail(f"{slug}.html: ASIN not published on its own page")
+        for host_page in ("index.html", "shop.html", "products.html"):
+            if f'href="{slug}.html"' not in (DOCS / host_page).read_text(encoding="utf-8"):
+                fail(f"{host_page}: does not link the {p['id']} product page")
+        pillar = "category-air-fryers.html" if "thermometer" not in p["format"].lower() \
+            else "category-thermometers.html"
+        if f'href="{slug}.html"' not in (DOCS / pillar).read_text(encoding="utf-8"):
+            fail(f"{pillar}: does not link the {p['id']} product page")
+        if f"/{slug}.html</loc>" not in (DOCS / "sitemap.xml").read_text(encoding="utf-8"):
+            fail(f"{slug}.html: missing from sitemap.xml")
+    if not FAILURES:
+        ok(f"{len(products)} product pages: cited, sponsored, unverified-block present, linked, in sitemap")
 
     # -------------------------------------------------------------- freshness
     check("freshness")
