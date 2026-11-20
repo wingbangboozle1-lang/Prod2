@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "test": "python3 scripts/verify_site.py && node --test tests/server.test.mjs",
+    "test": "python3 tools/build.py && python3 tools/checks.py && python3 scripts/verify_site.py && node --test tests/server.test.mjs",
     "reset-events": "rm -f var/events-aggregate.json"
   }
 }

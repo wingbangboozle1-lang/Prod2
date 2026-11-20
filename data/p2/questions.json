@@ -1,8 +1,8 @@
 {
  "_meta": {
   "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
-  "updated_utc": "2026-11-19",
-  "last_change": "2026-11-20 (arena/86206fb3-prod2): Q-P14 added — the event vocabulary choice that F-P23 needs."
+  "updated_utc": "2026-11-20",
+  "last_change": "2026-11-20 (arena/82d0f434-prod2): Q-P15 (Search Console generative-AI inclusion; AI visibility reads only inside the 'Web' search type) and Q-P16 (non-Google AI crawlers and the Program Content licence) added for the evidence-gated AI roadmap (D-P16, SG-42); Q-P14 annotated with its resolution (F-P23 resolved by the M-01 endpoint rewrite)."
  },
  "questions": [
   {
@@ -41,7 +41,7 @@
    "id": "Q-23",
    "area": "Measurement",
    "question": "Where can the self-hosted analytics endpoint run?",
-   "known": "server.mjs is dependency-free Node, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.",
+   "known": "server.mjs is a dependency-free Node server that counts events only (no IPs, no cookies, no referrers, no request log) and is ready to deploy on any host that runs Node and terminates HTTPS. GitHub Pages cannot host it, because Pages serves static files only. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.",
    "unknown": "Which host the owner wants (any VM/container/Function that speaks HTTPS).",
    "how_to_discover": "Owner picks a host; run the server; set the endpoint in data/p2/settings.json; rebuild. See the measurement page for the event contract.",
    "answerable_by": "The owner.",
@@ -228,7 +228,7 @@
   {
    "id": "Q-P14",
    "question": "Which event vocabulary should the site and the endpoint share?",
-   "known": "server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. The site emits five: page_view, outbound_click, guide_read_75, category_click, feed_click.",
+   "known": "server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. The site emits five: page_view, outbound_click, guide_read_75, category_click, feed_click. Resolution: the 2026-11-20 endpoint pass (arena/82d0f434-prod2) rewrote server.mjs to accept exactly the five site events, so the mismatch described here no longer exists (F-P23 resolved); the recommendation below is implemented.",
    "recommendation": "Extend server.mjs to accept the three site events and map target_host. It is additive, it touches no browser code, and it preserves the instrumentation that is already tested. Then add a gate that reads both files and fails if the lists ever diverge again.",
    "area": "Measurement",
    "unknown": "A decision on which side moves. Extending the server keeps the site's already-shipped instrumentation and costs twelve lines of Node; changing measure.js keeps the server untouched but means editing and re-testing the only code that touches a reader's browser.",
@@ -238,6 +238,38 @@
     "F-P23"
    ],
    "answerable_by": "owner decision, then any session"
+  },
+  {
+   "id": "Q-P15",
+   "area": "Search and AI visibility",
+   "question": "Is this property verified in Search Console, included in its generative AI features, and appearing in AI Overviews or AI Mode?",
+   "known": "The publication ships everything a property needs to be claimed: unique titles and meta descriptions, canonical URLs, JSON-LD that matches the visible text, internal links, sitemap.xml, robots.txt with the Sitemap line and an RSS feed. Google states there are no additional technical requirements for AI Overviews or AI Mode beyond being indexed and eligible for a snippet, that the generative AI features retrieve from the Search index with query fan-out, that AI-feature traffic is reported only inside the 'Web' search type of the Search Console Performance report, and that a site must be included in Search generative AI features in Search Console to be eligible for display. None of that can be checked without the owner's account (F-P13, Q-P08).",
+   "unknown": "Whether the property is verified, whether it is included in Search generative AI features, which pages are indexed and eligible for a snippet, and whether any AI-feature traffic exists at all.",
+   "how_to_discover": "Owner verifies the property (the HTML-tag token slot is in data/p2/settings.json -> search_console.verification_token), checks the generative AI features item in Search Console, reads the Performance report under the 'Web' search type, and uses the URL Inspection tool on the pages that matter. Record the date of the read.",
+   "answerable_by": "The owner (account access).",
+   "blocks": [
+    "Any measurement of AI-feature visibility",
+    "SG-42"
+   ],
+   "flags": [
+    "F-P13"
+   ]
+  },
+  {
+   "id": "Q-P16",
+   "area": "Search and AI visibility",
+   "question": "Which non-Google AI crawlers should this site allow, and what does the Associates Program permit in return?",
+   "known": "robots.txt currently allows crawling for everything except the archive path. Google's own AI features are controlled through Googlebot directives and the nosnippet, data-nosnippet, max-snippet and noindex controls, and Google-Extended is a separate control for Google's other AI systems; other platforms' crawlers are governed separately through robots.txt. The Associates Program Policies govern what may be published and how links may behave, and Amazon listing photography is Program Content whose licence has not been reviewed (D-12, D-22, Q-P05).",
+   "unknown": "The owner's decision on which crawlers to allow, and the outcome of the Program Content licence review.",
+   "how_to_discover": "Read the IP Licence (Q-P05), then decide; a robots.txt change is a build change and goes through the same release gate. Do not republish product photography into any AI surface before the licence is read.",
+   "answerable_by": "The owner, with legal review where appropriate.",
+   "blocks": [
+    "Any AI-distribution decision",
+    "SG-42"
+   ],
+   "flags": [
+    "F-P20"
+   ]
   }
  ]
 }

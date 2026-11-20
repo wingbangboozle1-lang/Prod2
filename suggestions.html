@@ -69,7 +69,7 @@
 <p class="lede">Everything proposed for this site lands here first, with its evidence, its cost and what it blocks. Nothing below is implemented until a path is chosen — so this page is a review surface, not a changelog.</p>
 
 <h2 id="paths">Three paths, one choice</h2>
-<p>The twenty-eight items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
+<p>The thirty items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
 
 <div class="path-grid">
   <article class="path-card recommended">
@@ -80,6 +80,7 @@
       <li><a href="#SG-06">SG-06</a> — deploy the analytics endpoint</li>
       <li><a href="#SG-29">SG-29</a> — verify Search Console, submit the sitemap</li>
       <li><a href="#SG-34">SG-34</a> — choose topics from measured queries</li>
+    <li><a href="#SG-42">SG-42</a> — treat AI answer platforms as a measurement question, not an optimisation target</li>
       <li><a href="#SG-14">SG-14</a> — hold all paid promotion until one clean attribution test exists</li>
     </ul>
     <p class="meta"><b>Cost:</b> one owner action (Search Console) plus endpoint hosting. <b>Unlocks:</b> every later decision becomes measurable. <b>Blocks on:</b> <a href="questions.html#Q-01">Q-01</a>, <a href="questions.html#Q-23">Q-23</a>, <a href="questions.html#Q-P08">Q-P08</a>.</p>
@@ -333,7 +334,7 @@
 </article>
 <article class="card s-card" id="SG-15">
   <header><h3><code>SG-15</code> Close the type gap between DESIGN_PROMPT.md and the shipped theme (or record a substitution)</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The adopted brief specifies Fraunces (display) and Inter (body). The shipped theme loads neither: --serif is an Iowan Old Style/Palatino/Georgia stack and --sans is system-ui. Palette tokens, fluid type and the hero match the brief, but the specified typefaces never load, so every page reads closer to a plain system page than the approved warm-editorial direction.</dd>
     <dt>Proposal</dt><dd>Either (a) self-host Fraunces + Inter (subset woff2, font-display: swap) so the brief&#x27;s voice ships with no third-party requests — preserving the site&#x27;s send-nothing privacy posture — or (b) record a decision amending the brief&#x27;s typefaces to the current stacks. Reconcile the brief&#x27;s register ids and brand section first (F-P12).</dd>
@@ -341,7 +342,7 @@
     <dt>Expected impact</dt><dd>Medium — the largest single gap between the approved brief and the shipped page; fixes all pages at once.</dd>
     <dt>Effort</dt><dd>Small (font files + @font-face) or one recorded decision.</dd>
     <dt>Risk</dt><dd>Low. Self-hosted fonts keep the no-third-party-request posture; a substitution decision keeps the brief honest.</dd>
-    <dt>Progress</dt><dd>Cross-ref: SG-31 (three fully specified directions) and SG-33 (token layer) cover the same ground from the publication pass; merge the two rows when the owner picks a direction (Q-P09).</dd>
+    <dt>Progress</dt><dd>2026-11-20: two halves, two sessions. Fonts self-hosted (Fraunces + Inter variable woff2, OFL, preloads, no-CDN gate) by arena/86206fb3-prod2; DESIGN_PROMPT.md reconciled against the live registers (F-P12) by arena/82d0f434-prod2. The brief&#x27;s queued-inputs section now records the shipped state.</dd>
     <dt>Depends on</dt><dd>F-P12</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted.</p>
@@ -555,6 +556,21 @@
     <dt>Depends on</dt><dd>Q, -, P, 1, 4,  , (, t, h, e,  , v, o, c, a, b, u, l, a, r, y,  , c, h, o, i, c, e, )</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Adopt as soon as Q-P14 is answered — it is the cheapest possible insurance on a measurement surface.</p>
+</article>
+<article class="card s-card" id="SG-42">
+  <header><h3><code>SG-42</code> Treat AI answer platforms as a measurement question, not an optimisation target</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>AI Overviews and AI Mode answer a growing share of informational kitchen questions, and nothing here says whether this site appears in them. There is no measured read, because there is no verified Search Console property. Without evidence, &#x27;AI optimisation&#x27; drifts into exactly the scaled-content behaviour Google&#x27;s spam policy forbids, and into republishing listing content the Program Content licence has not cleared.</dd>
+    <dt>Proposal</dt><dd>A five-step roadmap in which every step is gated on evidence, published rather than implemented: 1) measurement first — verify the property and read the &#x27;Web&#x27; search type, because Google reports AI-feature traffic only inside that aggregate, so no separate AI number exists (Q-P15); 2) eligibility — confirm indexing and snippet eligibility, the only technical requirement Google states, and keep robots.txt, internal links, structured data and page experience conformant; 3) non-commodity — keep publishing the dated, sourced register and its explicit limits instead of restating listings, keep the fourteen-day editorial cadence, and write no fan-out-query pages; 4) controls — decide robots.txt and snippet policy for non-Google crawlers only after the Program Content licence review closes, and republish no listing photography in the meantime (Q-P16); 5) revisit — re-read Google&#x27;s AI guidance on every verification pass and record the date, because the guidance is versioned and has already changed in 2025 and 2026.</dd>
+    <dt>Evidence</dt><dd>Google Search Central&#x27;s AI features page (last updated 2025-12-10) and its generative AI optimization guide, both read 2026-11-20 (S-GAIF, S-GAIG); the people-first content guidance (S-GHELP) and the spam policies (S-GSPAM). Decision D-P16 records the stance.</dd>
+    <dt>Expected impact</dt><dd>Medium and mostly protective — it guards the site&#x27;s people-first standing and its Program Content compliance rather than adding traffic now.</dd>
+    <dt>Effort</dt><dd>Low for steps 1 to 3 (owner-side verification and a dated re-read), medium for step 4.</dd>
+    <dt>Risk</dt><dd>Low. Doing nothing unauthorised is the safe default; the risk of the opposite is a scaled-content spam-policy violation or unlicensed republication.</dd>
+    
+    <dt>Depends on</dt><dd>Q-P15, Q-P16, F-P13, F-P20</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as a standing constraint rather than a project. Keep the roadmap on this page, re-read the guidance on each verification pass, and change nothing about the site&#x27;s structure until a measured read exists (D-P16).</p>
 </article>
 
 <div class="callout callout-sage">

@@ -2,7 +2,7 @@ name: Self-hosted analytics tests
 
 on:
   push:
-    branches: [main, arena/3f1d9d65-prod2]
+    branches: [main, 'arena/**']
   pull_request:
   workflow_dispatch:
 

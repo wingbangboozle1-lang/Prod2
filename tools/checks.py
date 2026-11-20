@@ -18,6 +18,9 @@ Sections:
                are published blank + marked unverified, never filled in
   claims       banned popularity words on reader-facing pages; no published
                prices or star ratings anywhere
+  copy         no unsupported serving counts, footprint claims, speed
+               generalizations or cleaning/cabinet conclusions; the
+               dishwasher-safe claims name both baskets that carry one
   chrome       one nav group ("The work behind it") + footer directory present
   seo          canonical/og:image/JSON-LD parse; sitemap covers every page;
                robots.txt points at the sitemap; feed items resolve
@@ -26,10 +29,18 @@ Sections:
   publication  guides reach compare + buying guide + their cluster pillars (S-24);
                feed covers every guide; reader-capture gate consistent with
                settings; Search Console verification meta matches the token slot
+  endpoint     the five-event contract agrees across events.json, measure.js and
+               server.mjs; no superseded or campaign-ledger event is accepted;
+               no reference to a file that does not exist
+  summary      the executive summary is generated from data/p2/executive-summary.md
+               and the repository's own summary carries the same official sources
+  mirror       the repository root mirrors docs/ byte for byte (Pages serves the
+               root in legacy "main /" mode)
   exposition   the publish artifact is docs/ only; source is never servable;
                link.amazon short links are quoted evidence, never clickable
-  measurement  the site's event list vs the endpoint's accepted names; divergence
-               is printed as a published irregularity (F-P23), not hidden
+  measurement  the site's event list vs the endpoint's accepted names; a
+               divergence fails the build (the vocabulary was reconciled in
+               M-01; F-P23)
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
 """
 from __future__ import annotations
@@ -54,6 +65,50 @@ BANNED_CLAIM_WORDS = ["trending", "best-selling", "best selling", "hottest", "vi
                       "everyone is buying", "must-have", "amazon's choice"]
 PRICE_RE = re.compile(r"\$\s?\d")
 RATING_RE = re.compile(r"out of 5 stars")
+
+# Copy the publication must not make. Each pattern is a claim a listing cannot
+# support: no source states a serving count, a heat-up time, a required cabinet
+# clearance or a cleaning method for parts a listing does not name.
+BANNED_COPY = [
+    ("serving count",
+     re.compile(r"\b\d\s*[-–]\s*\d+\s+people\b"
+                r"|\b(one|two|three|four|five|six|1|2|3|4|5|6)\s*(?:[-–]\s*(?:or|to)\s*"
+                r"|\s+(?:or|to)\s+)(two|three|four|five|six|\d)[\s-]*(person|people)\b"
+                r"|\b(for|serves?|feeds?|cooks? for)\s+(?:a\s+)?(one|two|three|four|five|six|\d+)"
+                r"\s+(?:person|people|servings?)\b", re.I)),
+    ("serving count",
+     re.compile(r"\bfor\s+(?:a\s+)?(?:one|two|three|four|five|six|\d+)"
+                r"(?:\s+(?:or|to)\s+(?:one|two|three|four|five|six|\d+))?"
+                r"\s*(?:,|\.|;|<|\s+(?:people|persons?|servings?|crowd)\b)", re.I)),
+    ("serving count", re.compile(r"\bfamily of (?:four|4)\b", re.I)),
+    ("footprint claim",
+     re.compile(r"\b(?:smallest|shallowest|least)\s+footprint\b", re.I)),
+    ("generalization about other machines or kitchens",
+     re.compile(r"\bmost (?:machines|air fryers|kitchens|models)\b", re.I)),
+    ("speed claim",
+     re.compile(r"\b(?:heats? up faster|heat faster|preheat(?:s)? faster|cooks? faster"
+                r"|runs? hot and fast|warms? up faster)\b", re.I)),
+    ("cabinet-clearance conclusion",
+     re.compile(r"\b(?:fits under (?:standard )?(?:upper )?cabinets|wants a clear wall"
+                r"|will fit in your cabinet|standard upper cabinets)\b", re.I)),
+    ("unstated cleaning method",
+     re.compile(r"\bhand[- ]wash(?:es|ing)?\s+(?:six|its|the|their)\b", re.I)),
+    ("part that no listing names",
+     re.compile(r"\bcrisper tray in most\b", re.I)),
+]
+QUOTED_RE = re.compile(r'"[^"]*"')
+
+# The superseded twelve-event family and the report-only campaign-ledger
+# events must never be accepted by the local endpoint.
+SUPERSEDED_EVENTS = ["guide_open", "category_open", "rss_feed_click", "chooser_completed",
+                     "article_half_read", "disclosure_viewed", "cta_click", "product_click",
+                     "filter_apply", "guide_read"]
+LEDGER_EVENTS = ["impression", "click", "session", "order", "refund"]
+
+# Directories that hold preserved earlier generations. They are not the active
+# publication, so the active-tree scans below skip them.
+HISTORICAL_DIRS = {"archive", "site", ".git", ".arena-import", "node_modules", "var",
+                   "__pycache__", "docs"}
 
 FAILURES: list[str] = []
 SECTION = ""
@@ -303,6 +358,30 @@ def main() -> int:
     if not FAILURES:
         ok("no prices, ratings or banned popularity claims")
 
+    # -------------------------------------------------------------------- copy
+    check("copy")
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        # A quoted string may name a phrase the site refuses to publish
+        # ("never estimated for a family of four"), so scan around them.
+        scannable = QUOTED_RE.sub('""', text)
+        for label, pattern in BANNED_COPY:
+            m = pattern.search(scannable)
+            if m:
+                fail(f"{f.name}: unsupported {label} — {m.group(0)!r}")
+    # P1's and P3's baskets are both listed dishwasher-safe; the register and
+    # the format page must keep saying so.
+    products_data = json.loads((DATA / "products.json").read_text(encoding="utf-8"))["products"]
+    for pid in ("P1", "P3"):
+        record = next(p for p in products_data if p["id"] == pid)
+        if "dishwasher" not in (record.get("name_listing") or "").lower():
+            fail(f"{pid}: register no longer lists a dishwasher-safe basket")
+    categories = (DOCS / "category-air-fryers.html").read_text(encoding="utf-8").lower()
+    if categories.count("dishwasher-safe") < 2:
+        fail("category-air-fryers.html: the dishwasher-safe claim must name both P1 and P3")
+    if not FAILURES:
+        ok("no unsupported serving, footprint, speed or cleaning claims")
+
     # ------------------------------------------------------------------ chrome
     check("chrome")
     for f in html_files:
@@ -425,6 +504,191 @@ def main() -> int:
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
 
+    # ---------------------------------------------------------------- endpoint
+    check("endpoint")
+    events_doc = json.loads((DATA / "events.json").read_text(encoding="utf-8"))
+    declared = [event["name"] for event in events_doc["events"]]
+    contract = events_doc["endpoint_contract"]
+    if len(declared) != 5:
+        fail(f"events.json declares {len(declared)} local events (the contract is exactly five)")
+    if sorted(contract["accepted_events"]) != sorted(declared):
+        fail("events.json endpoint_contract.accepted_events does not match the declared events")
+    if contract.get("method") != "POST":
+        fail(f"endpoint contract method is {contract.get('method')!r} (expected POST)")
+    if "/api/events" not in str(contract.get("url", "")):
+        fail(f"endpoint contract url is {contract.get('url')!r} (expected the /api/events path)")
+    # The browser client emits exactly the declared events.
+    measure_path = ROOT / "assets" / "js" / "measure.js"
+    if not measure_path.exists():
+        fail("assets/js/measure.js missing: the five-event client must ship with the site")
+    else:
+        measure = measure_path.read_text(encoding="utf-8")
+        block = measure.split("var EVENTS = [", 1)[-1].split("]", 1)[0]
+        client_events = set(re.findall(r'"([a-z_0-9]+)"', block))
+        if client_events != set(declared):
+            fail(f"measure.js emits {sorted(client_events)}; the contract declares {sorted(declared)}")
+    # The endpoint accepts exactly the declared events and nothing else.
+    server_path = ROOT / "server.mjs"
+    if not server_path.exists():
+        fail("server.mjs missing: the optional self-hosted endpoint must ship with the site")
+    else:
+        server = server_path.read_text(encoding="utf-8")
+        for name in declared:
+            if name not in server:
+                fail(f"server.mjs never names the declared event {name}")
+        for name in SUPERSEDED_EVENTS + LEDGER_EVENTS:
+            if re.search(rf"""["']{re.escape(name)}["']""", server):
+                fail(f"server.mjs accepts the superseded or report-only event {name!r}")
+        if "'docs'" not in server and '"docs"' not in server:
+            fail("server.mjs does not serve the generated publication in docs/")
+        for probe in ("user-agent", "x-forwarded-for", "remoteaddress"):
+            if probe in server.lower():
+                fail(f"server.mjs reads request metadata ({probe}); it must store counts only")
+    # The operator contract names the five events and the endpoint path.
+    doc_path = ROOT / "ANALYTICS-ENDPOINT.md"
+    if not doc_path.exists():
+        fail("ANALYTICS-ENDPOINT.md missing: the endpoint has no operator contract")
+    else:
+        doc = doc_path.read_text(encoding="utf-8")
+        for name in declared:
+            if f"`{name}`" not in doc:
+                fail(f"ANALYTICS-ENDPOINT.md does not document the event {name}")
+        if "/api/events" not in doc:
+            fail("ANALYTICS-ENDPOINT.md does not document the POST /api/events path")
+    # No active file may point at a repository path that does not exist.
+    blob_re = re.compile(r"https://github\.com/wingbangboozle1-lang/Prod2/blob/[^/]+/([^)\s\"'#]+)")
+    for path in sorted(ROOT.rglob("*")):
+        if not path.is_file():
+            continue
+        rel = path.relative_to(ROOT)
+        if rel.parts[0] in HISTORICAL_DIRS or rel.parts[0] == "data" and rel.parts[1:2] == ("imported",):
+            continue
+        if path.suffix not in (".md", ".json", ".html", ".py", ".mjs", ".js", ".yml"):
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        for m in blob_re.finditer(text):
+            if not (ROOT / m.group(1)).exists():
+                fail(f"{rel.as_posix()}: links to {m.group(1)}, which is not in this repository")
+    # The endpoint path that never existed must not be named as a file to run.
+    # COORDINATION.md and EXECUTIVE_SUMMARY.md are records and name it on purpose.
+    for path in sorted(ROOT.rglob("*")):
+        if not path.is_file():
+            continue
+        rel = path.relative_to(ROOT)
+        if rel.parts[0] in HISTORICAL_DIRS or rel.as_posix() in (
+                "COORDINATION.md", "EXECUTIVE_SUMMARY.md", "tools/checks.py"):
+            continue
+        if rel.parts[0] == "data" and rel.parts[1:2] == ("imported",):
+            continue
+        if path.suffix not in (".md", ".json", ".html", ".py", ".mjs", ".js", ".yml"):
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        if "analytics-endpoint/server.py" in text:
+            # A resolved flag may quote the phantom path as evidence of the
+            # defect it records (F-P22). Only a live presentation of the path —
+            # one that does not also record that the file never existed — fails.
+            historical = ("never committed", "has never existed", "not in this repository",
+                          "F-P22")
+            if not any(h in text for h in historical):
+                fail(f"{rel.as_posix()}: names analytics-endpoint/server.py, "
+                     "which is not in this repository")
+    if not FAILURES:
+        ok("the five-event contract agrees across events.json, measure.js, server.mjs and the docs")
+
+    # ----------------------------------------------------------------- summary
+    check("summary")
+    summary_source = DATA / "executive-summary.md"
+    if not summary_source.exists():
+        fail("data/p2/executive-summary.md missing: the executive summary needs a source")
+        summary_markdown = ""
+    else:
+        summary_markdown = summary_source.read_text(encoding="utf-8")
+        if "## Official sources for reviewer use" not in summary_markdown:
+            fail("executive-summary.md has no official-source section")
+        if "## Known omissions" not in summary_markdown:
+            fail("executive-summary.md has no known-omissions section")
+    summary_page = DOCS / "executive-summary.html"
+    if summary_page.exists():
+        page = summary_page.read_text(encoding="utf-8")
+        for url in re.findall(r"https?://[^\s\"')]+", summary_markdown):
+            if url not in page:
+                fail(f"executive-summary.html: official source {url} is missing from the page")
+    # The repository's own summary must carry the same official sources.
+    root_summary = ROOT / "EXECUTIVE_SUMMARY.md"
+    if not root_summary.exists():
+        fail("EXECUTIVE_SUMMARY.md missing at the repository root")
+    else:
+        root_text = root_summary.read_text(encoding="utf-8")
+        for url in re.findall(r"https?://[^\s\"')|]+", summary_markdown):
+            if url not in root_text:
+                fail(f"EXECUTIVE_SUMMARY.md: official source {url} is not carried over")
+        # The stated gate size must match the gate this file implements.
+        stated = re.search(r"\*\*(\d+) sections\*\*", root_text)
+        actual = len(re.findall(r'^\s{4}check\("', (ROOT / "tools" / "checks.py").read_text(
+            encoding="utf-8"), re.M))
+        if stated and int(stated.group(1)) != actual:
+            fail(f"EXECUTIVE_SUMMARY.md states {stated.group(1)} gate sections; checks.py has {actual}")
+        # The register sizes the summary quotes must match the registers.
+        register_sizes = [
+            (r"\*\*Flagged for review\*\* \(`flagged\.html`\): (\d+) items",
+             len(json.loads((DATA / "flags.json").read_text(encoding="utf-8"))["flags"]), "flags"),
+            (r"\*\*Open questions\*\* \(`questions\.html`\): (\d+) items",
+             len(json.loads((DATA / "questions.json").read_text(encoding="utf-8"))["questions"]),
+             "questions"),
+            (r"\*\*Suggestion queue\*\* \(`suggestions\.html`\): (\d+) proposals",
+             len(json.loads((DATA / "suggestions.json").read_text(encoding="utf-8"))["suggestions"]),
+             "suggestions"),
+            (r"\*\*Decision log\*\* \(`decisions\.html`\): (\d+) recorded decisions",
+             len(json.loads((DATA / "decisions.json").read_text(encoding="utf-8"))["decisions"]),
+             "decisions"),
+        ]
+        for pattern, expected, label in register_sizes:
+            found = re.findall(pattern, root_text)
+            if not found:
+                fail(f"EXECUTIVE_SUMMARY.md does not state the {label} register size")
+            for value in found:
+                if int(value) != expected:
+                    fail(f"EXECUTIVE_SUMMARY.md states {value} {label}; the register holds {expected}")
+    # DECISIONS.md must mirror the decision register exactly, both ways.
+    decisions_path = ROOT / "DECISIONS.md"
+    if not decisions_path.exists():
+        fail("DECISIONS.md missing at the repository root")
+    else:
+        decisions_text = decisions_path.read_text(encoding="utf-8")
+        register = {d["id"] for d in json.loads(
+            (DATA / "decisions.json").read_text(encoding="utf-8"))["decisions"]}
+        cited = set(re.findall(r"\bD-(?:P)?\d+\b", decisions_text))
+        for stale in sorted(cited - register):
+            fail(f"DECISIONS.md cites {stale}, which is not in the decision register")
+        for missing in sorted(register - cited):
+            fail(f"DECISIONS.md does not record {missing} from the decision register")
+    if not FAILURES:
+        ok("the executive summary is generated from its source and reconciled with the root record")
+
+    # ------------------------------------------------------------------ mirror
+    check("mirror")
+    for path in sorted(DOCS.rglob("*")):
+        if not path.is_file():
+            continue
+        rel = path.relative_to(DOCS)
+        twin = ROOT / rel
+        if not twin.is_file():
+            fail(f"root mirror missing {rel.as_posix()} (legacy Pages serves the repository root)")
+        elif twin.read_bytes() != path.read_bytes():
+            fail(f"root mirror differs from docs/ for {rel.as_posix()} (rebuild and mirror)")
+    root_pages = {p.name for p in ROOT.glob("*.html")}
+    docs_pages = {p.name for p in DOCS.glob("*.html")}
+    for stale in sorted(root_pages - docs_pages):
+        fail(f"root carries {stale}, which is not part of the generated publication")
+    if not FAILURES:
+        ok(f"the repository root mirrors docs/ ({len(list(DOCS.rglob('*')))} entries)")
+
     # ------------------------------------------------------------ shop surface
     check("shop")
     if not (DOCS / "shop.html").exists():
@@ -458,7 +722,7 @@ def main() -> int:
     if not FAILURES:
         ok("one shelf, full cards, real imagery, no hands-on claim")
 
-    # ------------------------------------------------------------ exposition
+    # ----------------------------------------------------------- exposition
     check("exposition")
     # The deploy artifact is docs/ alone. Nothing a reader can fetch may expose
     # the registers, the page sources or the generator (flags F-P19/F-P20).
@@ -490,27 +754,33 @@ def main() -> int:
     if not FAILURES:
         ok("artifact is docs/ only; short links are quoted, never clickable")
 
-    # -------------------------------------------------------------- measurement
+    # ---------------------------------------------------------- measurement
     check("measurement")
-    # The site and the only endpoint in this repo were written to different event
-    # vocabularies (F-P23). Until Q-P14 picks one, the build must at least say so
-    # out loud: if they diverge, this prints the divergence rather than failing,
-    # because the fix is a recorded decision (D-P15), not a code change.
+    # The site's five events and the endpoint's accepted names must be the same
+    # list. They were not (F-P23, published by D-P15 rather than patched); the
+    # M-01 rewrite of server.mjs reconciled them, so a divergence now fails the
+    # build instead of printing a note.
     server = (ROOT / "server.mjs")
     site_js = (DOCS / "assets" / "js" / "measure.js")
     if server.exists() and site_js.exists():
-        m = re.search(r"allowedEvents\s*=\s*new Set\(\[(.*?)\]\)", server.read_text(encoding="utf-8"), re.S)
+        m = re.search(r"ACCEPTED_EVENTS\s*=\s*new Set\(\[(.*?)\]\)",
+                      server.read_text(encoding="utf-8"), re.S)
         server_events = set(re.findall(r"'([a-z_0-9]+)'", m.group(1))) if m else set()
-        site_events = set(re.findall(r"name:\s*'([a-z_0-9]+)'", site_js.read_text(encoding="utf-8")))
+        js_text = site_js.read_text(encoding="utf-8")
+        site_events = set(re.findall(r"name:\s*'([a-z_0-9]+)'", js_text))
         if not site_events:
-            site_events = set(re.findall(r"'([a-z_0-9]+)'", site_js.read_text(encoding="utf-8")))
+            m2 = re.search(r'EVENTS\s*=\s*\[(.*?)\]', js_text, re.S)
+            site_events = set(re.findall(r'"([a-z_0-9]+)"', m2.group(1))) if m2 else set()
         events_doc = json.loads((ROOT / "data" / "p2" / "events.json").read_text(encoding="utf-8"))
         declared = {e["name"] for e in events_doc["events"]}
-        rejected = sorted(e for e in declared if server_events and e not in server_events)
+        if not server_events:
+            fail("server.mjs does not declare an ACCEPTED_EVENTS set the gate can read")
+        if site_events != declared:
+            fail(f"measure.js events {sorted(site_events)} != events.json {sorted(declared)}")
+        rejected = sorted(e for e in declared if e not in server_events)
         if rejected:
-            note(f"endpoint would reject: {', '.join(rejected)} — F-P23 / Q-P14")
-        ok(f"{len(declared)} site events; endpoint accepts {len(server_events)} names"
-           + (f"; {len(rejected)} mismatched (published, not blocking)" if rejected else ""))
+            fail(f"endpoint would reject: {', '.join(rejected)} — F-P23")
+        ok(f"{len(declared)} site events; endpoint accepts exactly the same {len(server_events)}")
     else:
         note("server.mjs or measure.js missing — vocabulary cross-check skipped")
 

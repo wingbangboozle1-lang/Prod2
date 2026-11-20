@@ -30,3 +30,5 @@ jobs:
         run: python3 tools/checks.py
       - name: Publication build is reproducible (committed docs/ matches the build)
         run: git diff --exit-code -- docs/
+      - name: Root mirror is reproducible (legacy Pages serves the repository root)
+        run: git diff --exit-code -- '*.html' '*.xml' '*.txt' '.nojekyll' 'assets'

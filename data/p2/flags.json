@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/86206fb3-prod2): F-P22 resolved; F-P23 opened; F-P19/F-P20 rewritten with the measured root-mode exposure (196 source files, live anonymous GET verified); F-P12 resolved."
+  "last_change": "2026-11-20 (arena/82d0f434-prod2): F-P23 resolved — the M-01 rewrite of server.mjs accepts exactly the five site events, closing the vocabulary mismatch D-P15 had published; F-P12's resolution text records the completed brief reconciliation; the gate now fails on vocabulary divergence."
  },
  "flags": [
   {
@@ -57,7 +57,7 @@
    "detail": "GitHub Pages is static hosting. The privacy-preserving counter (docs/assets/js/measure.js) and the self-hosted endpoint (server.mjs, POST /api/events, Node 20+, no dependencies) ship with the site, but no server is deployed and settings.analytics_endpoint is empty, so the site sends nothing anywhere. Browser-local counts are visible to each visitor only and are not shared data. This flag previously cited a path, analytics-endpoint/server.py, that was never committed — corrected 2026-11-20 (F-P22).",
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
    "evidence_note": "server.mjs at the repo root; ANALYTICS-ENDPOINT.md documents it; tests/server.test.mjs covers it (npm test). Corrected 2026-11-20.",
-   "how_to_resolve": "Host server.mjs somewhere owner-controlled (behind HTTPS), set settings.analytics_endpoint, rebuild. Resolve F-P23 first: the endpoint's event vocabulary does not currently match the site's five events."
+   "how_to_resolve": "Host server.mjs somewhere owner-controlled (behind HTTPS), set settings.analytics_endpoint, rebuild. The event vocabulary is reconciled (F-P23 resolved 2026-11-20); run the node --test suite after deploying."
   },
   {
    "id": "F-26",
@@ -234,10 +234,11 @@
    "id": "F-P12",
    "status": "resolved",
    "title": "DESIGN_PROMPT.md cites a different register lineage than the live site",
-   "detail": "The visual brief cites D-01/D-02 (brand 'The Crisp Counter', warm-editorial adoption), D-15 (mobile-first rules), Q-05 (photography path) and Q-10 (name clearance). Those ids belong to the predecessor Countercraft/Zone4 registers: in the live registers D-01 is the tagged-Special-Links decision, the photography question is Q-P05 with decision D-22 (now carried), name clearance is Q-19, and D-02/D-15 do not exist here. The brief's brand name also differs from the shipped wordmark ('Prod2', decision D-P03). A reader who follows the brief's ids from the live decision log lands on unrelated decisions. Publication is not blocked; the brief must be reconciled before the design pass implements it. Verified 2026-11-20: the live pages and tools/build.py both derive from data/p2/*.json and content/pages/*.html; DESIGN_PROMPT.md names the same lineage. Remaining discrepancy is prose only.",
+   "detail": "The visual brief cited D-01/D-02 (brand 'The Crisp Counter', warm-editorial adoption), D-15 (mobile-first rules), Q-05 (photography path) and Q-10 (name clearance). Those ids belong to the predecessor Countercraft/Zone4 registers: in the live registers D-01 is the tagged-Special-Links decision, the photography question is Q-P05 with decision D-22 (now carried), name clearance is Q-19, and D-02/D-15 do not exist here. The brief's brand name also differed from the shipped wordmark ('Prod2', decision D-P03). A reader who followed the brief's ids from the live decision log landed on unrelated decisions.",
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md",
-   "evidence_note": "Line-by-line cross-reference check 2026-11-19 (session arena/1ca951c0-prod2); brief ids compared against data/p2/*.json and data/imported/zone4/",
-   "how_to_resolve": "Resolved 2026-11-20: DESIGN_PROMPT.md synced to the shipped stack (fonts, imagery, lineage)."
+   "evidence_note": "Line-by-line cross-reference check 2026-11-19 (session arena/1ca951c0-prod2); brief ids compared against data/p2/*.json and data/imported/zone4/. Reconciled 2026-11-20 (session arena/82d0f434-prod2).",
+   "how_to_resolve": "Resolved 2026-11-20: the brief was rewritten against the live registers. It now cites D-P03 (wordmark), D-18 (visual direction), D-19 (evidence rule), D-10 (the shop-first rebuild), D-13 (disclosure wording), Q-19 (name clearance), Q-P05 and D-22 (photography), Q-P07 (seasonal window) and SG-15/SG-16/SG-17/SG-31, records the shipped token layer from assets/css/site.css instead of the superseded palette, and drops the obsolete rule that the thermometers never render as links. The reconciliation note at the top of the file records what the earlier version said.",
+   "resolved_utc": "2026-11-20"
   },
   {
    "id": "F-P13",
@@ -328,11 +329,11 @@
   },
   {
    "id": "F-P23",
-   "status": "open",
-   "title": "The site's five events and the endpoint's accepted vocabulary do not match",
-   "detail": "measure.js would send page_view, outbound_click, guide_read_75, category_click and feed_click. server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. Three of the five site events (guide_read_75, category_click, feed_click) would be rejected by the only endpoint in this repository. Nothing is lost today because the endpoint is not hosted and the site transmits nothing, but connecting them unchanged would silently under-count. Not corrected in this pass because choosing the vocabulary is a decision, not a typo.",
+   "status": "resolved",
+   "title": "The site's five events and the endpoint's accepted vocabulary did not match — resolved 2026-11-20",
+   "detail": "measure.js sends page_view, outbound_click, guide_read_75, category_click and feed_click. The server.mjs of the 2026-11-19 build accepted a different, twelve-event list, so three of the five site events would have been rejected and hosting it unchanged would have silently under-counted. D-P15 published the mismatch rather than patching it; the arena/82d0f434-prod2 endpoint pass then rewrote server.mjs to accept exactly the five site events, validating event names against data/p2/events.json, page paths against the built publication, ASINs against data/p2/products.json and categories against the published category set. A gate (measurement) now fails the build if the two lists ever diverge again, and server.mjs cross-checks a literal ACCEPTED_EVENTS set against the declared contract at startup.",
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
-   "evidence_note": "the allowedEvents set in server.mjs vs the event list in docs/assets/js/measure.js and data/p2/events.json",
+   "evidence_note": "server.mjs ACCEPTED_EVENTS == data/p2/events.json accepted_events == measure.js EVENTS; tests/server.test.mjs exercises all five and rejects the legacy twelve",
    "how_to_resolve": "Pick one vocabulary: extend server.mjs to accept the three site events, or change measure.js to emit the endpoint's names. Record it as a decision, then gate the two lists against each other."
   }
  ]

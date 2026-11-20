@@ -1,50 +1,81 @@
 # Optional self-hosted event endpoint
 
-The public GitHub Pages site remains static. It cannot run this API. This opt-in Node server is a separate, same-origin mode that serves the existing generated `docs/` site and the event endpoint together; use it only on an API-capable host/reverse proxy. It is not connected to Amazon conversion/order reporting.
+The GitHub Pages publication at `docs/` is static. It does **not** expose an analytics API, and
+the deployed `data-endpoint` is intentionally empty. The five-event measurement contract is
+documented in `data/p2/events.json`; the static site must not imply that events are being
+received merely because its client can emit them.
 
-## Run and test
+For an operator who separately chooses to run the opt-in Node endpoint, `server.mjs` serves the
+generated `docs/` publication and enables the same-origin `POST /api/events` endpoint. It accepts
+exactly the following five local, aggregate events:
 
-Requires Node.js 20+ and Python 3 for the existing site verification gate. There are no npm runtime dependencies.
+- `page_view`: `path`
+- `outbound_click`: `path`, allow-listed product `asin`
+- `guide_read_75`: `path`
+- `category_click`: `path`, allow-listed category `target`
+- `feed_click`: `path`
 
-```sh
-npm test
-npm start
-# open http://localhost:4173
+Anything else is rejected with `400`: a sixth event name, a superseded event from the earlier
+twelve-event family (`guide_open`, `category_open`, `rss_feed_click`, `chooser_completed`,
+`article_half_read`, `disclosure_viewed`, `cta_click`, `product_click`, `filter_apply`,
+`guide_read`), and the separate report-only campaign-ledger events (`impression`, `click`,
+`session`, `order`, `refund`). A request whose page path is not a built publication page is
+counted under `/unknown`; an outbound click whose ASIN is not in `data/p2/products.json` and a
+category click whose target is not a published category are refused outright.
+
+## What is stored
+
+The endpoint stores aggregate counts only. The store is a single JSON file:
+
+```json
+{
+  "page_view": {
+    "2026-11-20": {"/index.html": 3}
+  },
+  "outbound_click": {
+    "2026-11-20": {"B0CDY277D3": 1}
+  }
+}
 ```
 
-The self-host server serves the checked-in `docs/` tree, opts in the existing `data-analytics-endpoint` click tracker, and injects a small first-party client for the other event types. The GitHub Pages build does not run this server or injected client, so the published Pages site has no app-level event collection unless the owner chooses and deploys an API-capable same-origin host.
+That is daily counts per event and path, exactly as `data/p2/events.json` declares. It holds no
+visitor identifier, no IP address, no user agent, no referrer, no cookie, no query string and no
+per-event timestamp — the day bucket is a UTC date, not a moment. The server writes no request
+log and deliberately logs no request metadata. Counts are not Amazon-reported sales or
+attribution and cannot be used to claim orders, commissions, conversion or revenue.
 
-## Event dictionary
+The default local store is `var/events-aggregate.json` (the directory is git-ignored). Set
+`EVENT_STORE` to choose another location and `PORT` to choose the listening port. The store
+grows one bucket per day; archive or delete it under an explicitly reviewed retention policy, and
+`npm run reset-events` clears the local one. Keep the store out of the public static site.
 
-| Event | Collected detail | What it does not mean |
-|---|---|---|
-| `page_view` | Path only; no query string or fragment | Not a unique visitor or eligible affiliate session |
-| `outbound_click` | Product register ID only | Not an Amazon-attributed click or order |
-| `guide_open` | One of the four published guide slugs | Not a search impression or ranking signal |
-| `category_open` | `air-fryers` or `meat-thermometers` | Not purchase intent or product preference by a known person |
-| `rss_feed_click` | Feed link click | Not a completed RSS subscription |
+## Request handling
 
-The service validates event names and dimensions, then keeps counts only. It does not persist raw events, timestamps, query terms, email addresses, cookie IDs, referrers, user agents, or IP addresses. Product clicks are not conversions. Conversion/order data remains an empty campaign ledger until the authorized Associates report is supplied and reconciled separately.
+The endpoint accepts same-origin requests only when an `Origin` header is present, caps request
+bodies at 2 KB, requires a JSON or plain-text content type, and serves only files inside the
+generated `docs/` tree — the preserved legacy `site/` tree is not served.
 
-## Storage and privacy boundary
+## Running it
 
-By default, aggregate counts are stored in ignored `var/events-aggregate.json`. The file has no per-event timestamp or identifier. Counts accumulate until the operator deletes the file; choose and document a retention/reset schedule before production deployment. Restrict filesystem access and secure the host, HTTPS, reverse proxy, and backups. The application does not log request metadata. However, hosting/network providers may process connection metadata. GitHub specifically documents that GitHub Pages logs visitor IP addresses for security; this remains true for the static Pages host, independently of this endpoint’s event store: [GitHub Pages data collection](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
+```sh
+python3 tools/build.py   # generate docs/ first
+npm start                # node server.mjs
+```
 
-The endpoint intentionally does not accept conversions, revenue, email signup, free-form search text, or arbitrary dimensions. Do not add those without an authorized data source, privacy/retention review, and explicit consent design where required.
+The server binds to `0.0.0.0` on the chosen port. This repository's GitHub Pages workflow deploys
+only static files and does not run this process, and Pages cannot host it. A separate durable,
+secure host and any applicable privacy or legal review are required before collecting public
+traffic. Never deploy this development endpoint as an implied replacement for Amazon's authorized
+reports.
 
-## Deployment limits
+## Test
 
-- This server must be hosted on Node or another API-capable same-origin runtime. A static GitHub Pages deployment cannot execute it.
-- No hosting account, API-capable provider, Search Console property, or Amazon Associates account was available/verified in this task, so public production collection is not enabled.
-- Do not infer affiliate attribution from the event counts. Use only authorized Amazon first-party reports for eligible sessions, clicks, orders, and commissions.
+```sh
+npm test   # builds docs/, runs the release gate and the legacy verifier, then the endpoint test
+node --test tests/server.test.mjs   # the endpoint contract on its own
+```
 
-
-## Consolidation update (INT-06, 2026-11-19)
-
-The canonical published site is now `site/` (Countercraft). `server.mjs` serves `site/` and accepts
-all event families in aggregate-only form: the tracker events (`page_view`, `outbound_click`,
-`chooser_completed`, `article_half_read`, `disclosure_viewed`), the self-host client events
-(`guide_open`, `category_open`, `rss_feed_click`), and the Countercraft analytics events
-(`cta_click`, `product_click`, `filter_apply`, `guide_read`). The page tracker
-(`site/assets/analytics.js`) now transmits nothing unless an endpoint is explicitly configured
-(`window.COUNTERCRAFT_ENDPOINT`) — on GitHub Pages events stay in the page only.
+The endpoint test asserts that all five events are accepted and aggregated, that a superseded or
+ledger event is refused, that an unknown ASIN is refused, that a cross-origin request is refused,
+that the store carries only dated counts, and that the server serves `docs/` and nothing outside
+it.

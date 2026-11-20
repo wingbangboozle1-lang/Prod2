@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/86206fb3-prod2): D-P15 recorded — vocabulary mismatch published, not patched."
+  "last_change": "2026-11-20 (arena/82d0f434-prod2): D-P16 recorded — AI answer platforms are a measurement question, not an optimisation target; the evidence-gated roadmap is published as SG-42."
  },
  "decisions": [
   {
@@ -264,6 +264,18 @@
    "rationale": "The endpoint is not hosted, so nothing is being mis-measured today. Silently aligning the lists would have made two independently-written components look like they had always agreed — and the brief asks for irregularities to be surfaced, not smoothed.",
    "sources": [
     "https://affiliate-program.amazon.com/help/operating/policies"
+   ]
+  },
+  {
+   "id": "D-P16",
+   "question": "Should the site optimise for AI answer platforms such as AI Overviews and AI Mode?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "No separate AI optimisation. Every step on the AI path is gated on evidence that does not exist yet, and the evidence-gated roadmap is published as SG-42 rather than implemented. What the official guidance supports, read 2026-11-20: (1) there are no additional technical requirements to appear as a supporting link in AI Overviews or AI Mode — a page must be indexed and eligible for a snippet, the same requirement as ordinary Search; (2) the generative AI features use retrieval-augmented generation over the Search index with query fan-out, so eligibility follows ordinary indexing rather than a separate application; (3) a site must be included in Search generative AI features in Search Console to be eligible for display, and AI-feature traffic is reported only inside the 'Web' search type of the Performance report, so AI visibility cannot be separated out at all until the property is verified (Q-P15); (4) producing content for every query variation, including fan-out queries, violates the scaled content abuse spam policy, so the fourteen-day editorial cadence stands and no query-farmed pages are written; (5) non-commodity content is the documented lever, and this site's version of that is the dated verification register and its published limits — not first-hand reviews, which nobody here can honestly write (D-06); (6) no llms.txt, no AI-only structured data and no machine-generated summaries of listings are added, because the guidance documents no such requirement and the site's own evidence base is a human dated read of official listings; (7) other platforms are outside Google's scope: their crawlers are controlled separately through robots.txt, and Amazon listing photography stays unpublished until the Program Content licence review closes (D-12, D-22, Q-P05, Q-P16). The standing rule is that this roadmap is re-read on every verification pass, because the guidance itself is versioned and has already changed in 2025 and 2026.",
+   "sources": [
+    "https://developers.google.com/search/docs/appearance/ai-features",
+    "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+    "https://developers.google.com/search/docs/essentials/spam-policies"
    ]
   }
  ]

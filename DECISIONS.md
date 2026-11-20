@@ -34,6 +34,12 @@ This file mirrors `data/p2/decisions.json`, which is what the site renders on th
 
 | ID | Date | Decision |
 | --- | --- | --- |
+| D-P01 | 2026-11-19 | The two thermometer products join the catalogue; the site organises by format (air fryers, thermometers) under one kitchen theme rather than treating the thermometers as a separate site |
+| D-P02 | 2026-11-19 | The 2026-11-19 verification resolves F-55 for the two unverified candidate links — "resolved" means destination-verified and listing-read, not tag-attributed, and it does not judge the supplied short links |
+| D-P03 | 2026-11-19 | The shipped wordmark is **Prod2** — Kitchen notes & buying guides; a consumer-facing rename stays queued as SG-01 until Q-19 clears |
+| D-P04 | 2026-11-19 | The site is a static build under `docs/` rendered by `tools/build.py`, gated by `tools/checks.py`; standard library only, no dependencies |
+| D-P05 | 2026-11-19 | Two event sets, never mixed: the campaign ledger's five report-only events, and the site's five local events |
+| D-P06 | 2026-11-19 | The two newly verified products use the same outbound link form as P1–P3: a tagged Special Link with `rel="sponsored"` and the paid-link label |
 | D-P07 | 2026-11-19 | Publication pass: shop-first front page, guides hub, eight-topic calendar, seasonal desks, clusters, RSS, Search Console readiness, consent-gated capture form |
 | D-P08 | 2026-11-19 | Reader-capture form ships disconnected: nothing is transmitted until a consent basis exists |
 | D-P09 | 2026-11-19 | Root mirror retained because Pages serves the repository root in legacy mode |
@@ -42,7 +48,8 @@ This file mirrors `data/p2/decisions.json`, which is what the site renders on th
 | D-P12 | 2026-11-20 | No Amazon listing photography. Illustrations are drawn for the site, generic to the product format, and captioned as such |
 | D-P13 | 2026-11-20 | Disclosure adopts the prescribed first-person sentence from Operating Agreement §5 |
 | D-P14 | 2026-11-20 | The thermometer guide publishes USDA/FoodSafety.gov safe-temperature, storage and power-outage data, quoted with last-reviewed dates |
-| D-P15 | 2026-11-20 | This file rebuilt from the register after drifting from the shipped site (see the note above) |
+| D-P15 | 2026-11-20 | **The site/endpoint event-vocabulary mismatch was published, then resolved.** The 86206fb3 audit recorded the mismatch (site events vs `server.mjs`) and chose to publish it rather than patch silently (Q-P14, SG-41). The endpoint pass that followed (82d0f434) then rewrote `server.mjs` to accept exactly the five site events — F-P23 is resolved and the gate now fails on divergence |
+| D-P16 | 2026-11-20 | **AI answer platforms are a measurement question, not an optimisation target.** Google states there are no additional technical requirements for AI Overviews or AI Mode beyond being indexed and snippet-eligible, that AI-feature traffic is reported only inside the "Web" search type, and that a site must be included in Search generative AI features in Search Console to be eligible for display. Every AI step is therefore gated on a verified property that does not exist yet; the evidence-gated roadmap is published as SG-38 and the missing inputs are Q-P10 and Q-P11 |
 
 ## Open — a choice is waiting
 
@@ -59,6 +66,9 @@ This file mirrors `data/p2/decisions.json`, which is what the site renders on th
 | Q-P06 | Does the owner control a domain? | Owner answer | Needed for Search Console and the endpoint |
 | Q-P08 | Who verifies the site in Search Console, and when? | Owner action | Owner adds the token to `settings.json`; the build emits the meta tag |
 | Q-P09 | Which design direction ships? | — | **Answered: the editorial shop direction.** See D-P10 |
+| Q-P14 | Which event vocabulary should the site and the endpoint share? | — | **Answered: the five site events.** `server.mjs` accepts exactly them; F-P23 resolved |
+| Q-P15 | Is the property verified in Search Console, included in its generative AI features, and appearing in AI Overviews or AI Mode? | Owner account access | Verify the property, check the generative-AI item, then read the "Web" search type (D-P15) |
+| Q-P16 | Which non-Google AI crawlers should the site allow, and what does the Associates Program permit? | The IP Licence read, plus an owner decision | Read the licence first (Q-P05); do not republish listing photography in the meantime |
 
 ## Standing rules (not up for a vote)
 
@@ -73,4 +83,5 @@ This file mirrors `data/p2/decisions.json`, which is what the site renders on th
 - `data/p2/decisions.json` — the register the site renders.
 - `data/p2/flags.json` — every irregularity, with an evidence link.
 - `data/p2/verification-2026-11-20.json` — the live re-verification records.
+- `data/p2/sources.json` — the source register (S-GAIF and S-GAIG carry the AI guidance read on 2026-11-20).
 - The **Flagged for review**, **Open questions** and **Suggestions** pages on the site.

@@ -19,7 +19,7 @@
 <p>Status: machinery shipped, endpoint not yet hosted (<a href="flagged.html#F-19">F-19</a>). While <code>data/p2/settings.json → analytics_endpoint</code> is empty, the site sends nothing anywhere.</p>
 
 <h2>The self-hosted analytics endpoint</h2>
-<p><code>server.mjs</code> (Node 20+, no dependencies) accepts exactly the five local events, validates the body (event name, site path, ASIN format), and stores daily counts per event and path. It never reads or stores the client address, user agent, referrer or cookies, and it writes no request log. Deploy it on any owner-controlled HTTPS host, set the endpoint URL in <code>data/p2/settings.json</code>, rebuild — done.</p>
+<p><code>server.mjs</code> (Node, no dependencies) accepts exactly the five local events, validates the body (event name against the published contract, page path against the built publication, ASIN against the product register, category against the published category set), and stores daily counts per event and path in one JSON file. It never reads or stores the client address, user agent, referrer or cookies, and it writes no request log. GitHub Pages is static hosting and cannot run it, so it is deployed separately: put it on any owner-controlled HTTPS host, set the endpoint URL in <code>data/p2/settings.json</code>, rebuild — done. The full operator contract is in <code>ANALYTICS-ENDPOINT.md</code>.</p>
 
 <h2>The campaign ledger</h2>
 {{ledger_table}}

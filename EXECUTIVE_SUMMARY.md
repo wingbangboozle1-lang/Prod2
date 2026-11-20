@@ -3,6 +3,7 @@
 **What this is:** a small Amazon-affiliate publication (brand: **Prod2 — Kitchen notes & buying guides**) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
+**Canonical review summary:** `data/p2/executive-summary.md`, rendered into `docs/executive-summary.html` at build time by `tools/make_executive_summary.py`. This file is the repository's own record of the same work; the release gate fails if the two drift apart on their official sources or on the size of the gate.
 
 ## The five products (tracking ID `shopnow047c-20`)
 
@@ -40,15 +41,15 @@
 
 ## Decision-support system (review surfaces)
 
-- **Suggestion queue** (`suggestions.html`): 28 proposals, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
-- **Open questions** (`questions.html`): 15 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
-- **Flagged for review** (`flagged.html`): 32 items, open/resolved/standing, each with an evidence link. Four added 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
-- **Decision log** (`decisions.html`): 27 recorded decisions including D-P10…D-P15 from the 2026-11-20 pass.
+- **Suggestion queue** (`suggestions.html`): 30 proposals, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
+- **Open questions** (`questions.html`): 18 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
+- **Flagged for review** (`flagged.html`): 36 items, open/resolved/standing, each with an evidence link. Added 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary), F-P19 (archived builds reachable on the live host), F-P20 (servable source files), F-P22 (phantom endpoint path — resolved, merged 86206fb3 work) and F-P23 (site/endpoint event vocabulary — resolved by the M-01 rewrite, this pass).
+- **Decision log** (`decisions.html`): 29 recorded decisions including D-P10…D-P16 from the 2026-11-20 pass.
 
 ## Measurement (machinery shipped, not yet on)
 
 - Privacy-preserving outbound-click counter (`assets/js/measure.js`): five local events, no cookies/identifiers, ASIN + host only; **transmits nothing until an endpoint is configured**.
-- Self-hosted endpoint (`server.mjs`): counts only, no IP/UA/referrer/logs. Deployable — not hosted (F-19).
+- Self-hosted endpoint (`server.mjs`, dependency-free Node): accepts the same five events over `POST /api/events` and stores daily counts per event and path in one JSON file — counts only, no IP/UA/referrer/cookie/timestamp, no request log. Deployable — not hosted (F-19). GitHub Pages is static hosting and cannot run it; the operator contract is `ANALYTICS-ENDPOINT.md`.
 - Campaign ledger (`data/p2/ledger.json`): the five defined events (impression, click, session, order, refund) with the official attribution windows; empty until an authorized report exists.
 
 ## Verification & governance trail
@@ -57,7 +58,7 @@
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **11 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, shop, publication, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **17 sections** (pages, disclosure, links, validity, facts, claims, copy, chrome, seo, publication, endpoint, summary, mirror, shop, exposition, measurement, freshness), green on this build. Six of them are new in this pass: `copy` fails on an unsupported serving count, footprint claim, speed generalization or cleaning/cabinet conclusion; `endpoint` fails when the five-event contract disagrees across `events.json`, `measure.js` and `server.mjs`, when a superseded or report-only event is accepted, or when a file links to a repository path that does not exist; `summary` fails when the executive summary is not generated from its source or when this file stops carrying its official sources; `mirror` fails when the repository root and `docs/` disagree, which is the tree GitHub Pages serves in legacy "main /" mode; `exposition` (merged 86206fb3 work) refuses source directories and clickable short links in the published artifact; `measurement` (merged 86206fb3 work, hardened) fails when the site's event list and the endpoint's accepted list diverge.
 
 ## The publication pass (2026-11-19, arena/9f84489c-prod2)
 
@@ -73,6 +74,47 @@ until its privacy basis exists (F-P07 / Q-47). Three new guides (how many quarts
 one; holiday hosting) complete the eight-topic calendar on a 14-day cadence. The suggestion queue
 grew SG-11…SG-17 — including three fully specified design directions that feed DESIGN_PROMPT.md —
 and the questions register gained a scannable status table plus Q-P05/Q-P06.
+
+## Search and AI visibility (evidence-gated, not optimised)
+
+Google's guidance, read 2026-11-20, sets the boundary for AI answer platforms. There are **no
+additional technical requirements** for AI Overviews or AI Mode: a page must be indexed and
+eligible for a snippet, the same requirement as ordinary Search. The generative AI features
+retrieve from the Search index with query fan-out, so eligibility follows ordinary indexing. A site
+must be **included in Search generative AI features in Search Console** to be eligible for
+display, and AI-feature traffic is reported **only inside the "Web" search type** of the
+Performance report — so AI visibility cannot be separated out at all until the property is
+verified, which it is not (F-P13, Q-P08, Q-P15).
+
+Two constraints shape the roadmap: producing content for every query variation violates Google's
+scaled content abuse spam policy, so the fourteen-day editorial cadence stands and no query-farmed
+pages are written; and the documented lever is non-commodity content, which for this site means the
+dated verification register and its published limits — not first-hand reviews, which nobody here
+can honestly write (D-06).
+
+The roadmap is published as a standing constraint rather than implemented: **SG-42** in the
+suggestion queue, with the two missing inputs as **Q-P15** and **Q-P16** and the stance recorded as
+**D-P16**. No `llms.txt`, no AI-only structured data and no machine-generated summaries of listings
+are added, and Amazon listing photography stays unpublished until the Program Content licence
+review closes (Q-P05).
+
+## Official sources for reviewer use
+
+The same list appears in the canonical review summary, `data/p2/executive-summary.md`, which is
+rendered into `docs/executive-summary.html` at build time. The two are kept in step by the
+release gate.
+
+| Topic | Official reference | Review note |
+|---|---|---|
+| Amazon Associates operating requirements, disclosures, links, product-content licence and current policies | [Associates Program Policies](https://affiliate-program.amazon.com/help/operating/policies) | Amazon states that policy versions may change; recheck before launch and whenever the program changes. The page showed an update date of April 14, 2026 when it was read on November 20, 2026. |
+| Amazon Associates linking tools and product-link creation | [Associates Central linking tools](https://affiliate-program.amazon.com/welcome/topic/tools) | Generate and validate product links through the authorized account; confirm real link tags and destinations there. |
+| Amazon product-data access options | [Creators API information](https://affiliate-program.amazon.com/creatorsapi) | The public page redirected to sign-in during this review, so eligibility, credentials, current terms and approval remain account-dependent and are not asserted here. |
+| FTC endorsement and affiliate disclosure guidance | [FTC: Disclosures 101 for Social Media Influencers](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) | Plain, clear disclosure is useful guidance; obtain legal review where appropriate. |
+| Google Search people-first content guidance | [Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) | Focus on useful original content and transparent authorship and process; no ranking guarantee. |
+| Google Search Essentials and spam policies | [Search Essentials](https://developers.google.com/search/docs/essentials) · [Spam policies](https://developers.google.com/search/docs/essentials/spam-policies) | Avoid thin affiliate pages, scaled low-value content and unsupported search-manipulation tactics. |
+| Google Search Console setup and monitoring | [Get started with Search Console](https://developers.google.com/search/docs/monitor-debug/search-console-start) | Ownership verification and authorized account access are required for site-specific indexing and performance data. |
+| GitHub Pages publishing source | [Creating a GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) · [Configuring a publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source) | Confirm the repository's Pages settings and the latest successful deployment; a workflow file alone does not prove the live source. |
+| Google guidance on AI answer platforms | [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features) · [Optimizing for generative AI features](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) | Both read 2026-11-20. The guidance is versioned and has changed in 2025 and 2026; re-read it on every verification pass before acting on it. |
 
 ## Open decisions for the owner
 
@@ -93,6 +135,10 @@ and the questions register gained a scannable status table plus Q-P05/Q-P06.
 > for the owner's review: this appendix lists prices "as listed"; the deployed Prod2 site
 > withholds prices and star ratings entirely (flag F-02 / suggestion SG-05 / question Q-27).
 > The prices below were captured by that session and are not re-verified here.
+> Second divergence: that session's text names `analytics-endpoint/server.py` as the endpoint
+> path. No such file exists in this repository, and none ever did; the shipped optional endpoint
+> is `server.mjs`. The path is corrected in place below so no reader is sent to a file that is
+> not there.
 
 # Executive Summary — Countercraft (Amazon Affiliate Platform)
 
@@ -211,6 +257,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 **What this is:** a small Amazon-affiliate publication (brand: **Prod2 — Kitchen notes & buying guides**) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
+**Canonical review summary:** `data/p2/executive-summary.md`, rendered into `docs/executive-summary.html` at build time by `tools/make_executive_summary.py`. This file is the repository's own record of the same work; the release gate fails if the two drift apart on their official sources or on the size of the gate.
 
 ## The five products (tracking ID `shopnow047c-20`)
 
@@ -248,15 +295,15 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 
 ## Decision-support system (review surfaces)
 
-- **Suggestion queue** (`suggestions.html`): 28 proposals, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
-- **Open questions** (`questions.html`): 15 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
-- **Flagged for review** (`flagged.html`): 32 items, open/resolved/standing, each with an evidence link. Four added 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
-- **Decision log** (`decisions.html`): 27 recorded decisions including D-P10…D-P15 from the 2026-11-20 pass.
+- **Suggestion queue** (`suggestions.html`): 30 proposals, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
+- **Open questions** (`questions.html`): 18 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
+- **Flagged for review** (`flagged.html`): 36 items, open/resolved/standing, each with an evidence link. Added 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary), F-P19 (archived builds reachable on the live host), F-P20 (servable source files), F-P22 (phantom endpoint path — resolved, merged 86206fb3 work) and F-P23 (site/endpoint event vocabulary — resolved by the M-01 rewrite, this pass).
+- **Decision log** (`decisions.html`): 29 recorded decisions including D-P10…D-P16 from the 2026-11-20 pass.
 
 ## Measurement (machinery shipped, not yet on)
 
 - Privacy-preserving outbound-click counter (`assets/js/measure.js`): five local events, no cookies/identifiers, ASIN + host only; **transmits nothing until an endpoint is configured**.
-- Self-hosted endpoint (`server.mjs`): counts only, no IP/UA/referrer/logs. Deployable — not hosted (F-19).
+- Self-hosted endpoint (`server.mjs`, dependency-free Node): accepts the same five events over `POST /api/events` and stores daily counts per event and path in one JSON file — counts only, no IP/UA/referrer/cookie/timestamp, no request log. Deployable — not hosted (F-19). GitHub Pages is static hosting and cannot run it; the operator contract is `ANALYTICS-ENDPOINT.md`.
 - Campaign ledger (`data/p2/ledger.json`): the five defined events (impression, click, session, order, refund) with the official attribution windows; empty until an authorized report exists.
 
 ## Verification & governance trail
@@ -265,7 +312,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **11 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, shop, publication, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **17 sections** (pages, disclosure, links, validity, facts, claims, copy, chrome, seo, publication, endpoint, summary, mirror, shop, exposition, measurement, freshness), green on this build. Six of them are new in this pass: `copy` fails on an unsupported serving count, footprint claim, speed generalization or cleaning/cabinet conclusion; `endpoint` fails when the five-event contract disagrees across `events.json`, `measure.js` and `server.mjs`, when a superseded or report-only event is accepted, or when a file links to a repository path that does not exist; `summary` fails when the executive summary is not generated from its source or when this file stops carrying its official sources; `mirror` fails when the repository root and `docs/` disagree, which is the tree GitHub Pages serves in legacy "main /" mode; `exposition` (merged 86206fb3 work) refuses source directories and clickable short links in the published artifact; `measurement` (merged 86206fb3 work, hardened) fails when the site's event list and the endpoint's accepted list diverge.
 
 ## Open decisions for the owner
 

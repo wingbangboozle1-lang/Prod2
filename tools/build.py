@@ -15,6 +15,10 @@ import json
 import pathlib
 import re
 import shutil
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import make_executive_summary  # noqa: E402  (sibling module, standard library only)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "p2"
@@ -855,6 +859,7 @@ HOOKS = {
     "chooser": hook_chooser,
     "intent_table": hook_intent_table,
     "sources_table": hook_sources_table,
+    "executive_summary": lambda _: make_executive_summary.render_source(),
     "flags_open": lambda _: hook_flags("open"),
     "flags_resolved": lambda _: hook_flags("resolved"),
     "flags_standing": lambda _: hook_flags("standing"),

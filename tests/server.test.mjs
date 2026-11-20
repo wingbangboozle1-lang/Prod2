@@ -1,74 +1,159 @@
-import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
-import {once} from 'node:events';
-import {createServer} from 'node:net';
-import {readFile, rm} from 'node:fs/promises';
+import {mkdtemp, readFile, rm} from 'node:fs/promises';
+import http from 'node:http';
+import {tmpdir} from 'node:os';
 import path from 'node:path';
-import {fileURLToPath} from 'node:url';
+import test from 'node:test';
 
-const ROOT=path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-async function freePort(){const server=createServer();server.listen(0,'127.0.0.1');await once(server,'listening');const port=server.address().port;await new Promise(resolve=>server.close(resolve));return port;}
+const repo = path.resolve(new URL('..', import.meta.url).pathname);
+const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-test('self-host mode injects the endpoint config and first-party client, and aggregates the allow-listed event types',async(t)=>{
-  const port=await freePort();
-  const store=path.join(ROOT,'var','test-events.json');
-  await rm(store,{force:true});
-  const child=spawn(process.execPath,['server.mjs'],{cwd:ROOT,env:{...process.env,PORT:String(port),EVENT_STORE:store},stdio:['ignore','pipe','pipe']});
-  let logs='';child.stdout.on('data',x=>logs+=x.toString());child.stderr.on('data',x=>logs+=x.toString());
-  t.after(async()=>{child.kill('SIGTERM');await new Promise(resolve=>child.once('exit',resolve));await rm(store,{force:true});});
-  let ready=false;
-  for(let n=0;n<60;n++){try{const r=await fetch(`http://127.0.0.1:${port}/`);if(r.ok){ready=true;break;}}catch{}await new Promise(resolve=>setTimeout(resolve,50));}
-  assert.ok(ready,`server did not start: ${logs}`);
-  const page=await fetch(`http://127.0.0.1:${port}/`);assert.equal(page.status,200);
-  const html=await page.text();assert.match(html,/Countercraft/);assert.match(html,/COUNTERCRAFT_ENDPOINT="\/api\/events"/);assert.match(html,/api\/client\.js/);
-  const client=await fetch(`http://127.0.0.1:${port}/api/client.js`);assert.equal(client.status,200);assert.match(await client.text(),/rss_feed_click/);
-  const fixtures=[
-    {event:'page_view',page:'/products.html'},
-    {event:'outbound_click',product:'P01',page:'/products.html',ts:'2026-11-19T00:00:00Z'},
-    {event:'guide_open',guide:'basket-or-oven'},
-    {event:'category_open',category:'air-fryers'},
-    {event:'rss_feed_click'}
-  ];
-  for(const event of fixtures){const r=await fetch(`http://127.0.0.1:${port}/api/events`,{method:'POST',headers:{'content-type':'text/plain','user-agent':'test-agent'},body:JSON.stringify({...event,query:'must not be retained',email:'not-an-email@example.test',ip:'192.0.2.4'})});assert.equal(r.status,204);}
-  const invalid=await fetch(`http://127.0.0.1:${port}/api/events`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({event:'conversion',order:'x'})});assert.equal(invalid.status,400);
-  const crossSite=await fetch(`http://127.0.0.1:${port}/api/events`,{method:'POST',headers:{'content-type':'application/json','origin':'https://untrusted.example'},body:JSON.stringify({event:'page_view',page:'/'})});assert.equal(crossSite.status,403);
-  const stored=await readFile(store,'utf8');
-  for(const secret of ['test-agent','192.0.2.4','must not be retained','not-an-email','2026-11-19T00:00:00Z','email','query','ip']) assert.equal(stored.includes(secret),false,`aggregate must omit ${secret}`);
-  const counts=JSON.parse(stored);assert.equal(Object.keys(counts).length,5);assert.equal(counts['page_view|/products.html'],1);assert.equal(counts['outbound_click|P01'],1);assert.equal(counts['guide_open|basket-or-oven'],1);assert.equal(counts['category_open|air-fryers'],1);assert.equal(counts['rss_feed_click|feed'],1);
-  const traversal=await fetch(`http://127.0.0.1:${port}/%2e%2e/server.mjs`);assert.notEqual(traversal.status,200);
-});
+// Send a request path verbatim, without the normalisation fetch() applies.
+function rawStatus(port, method, rawPath) {
+  return new Promise((resolve, reject) => {
+    const request = http.request({host: '127.0.0.1', port, method, path: rawPath},
+      (response) => {
+        response.resume();
+        response.on('end', () => resolve(response.statusCode));
+      });
+    request.on('error', reject);
+    request.end();
+  });
+}
 
-test('endpoint aggregates the Countercraft event family safely',async(t)=>{
-  const port=await freePort();
-  const store=path.join(ROOT,'var','test-events-cc.json');
-  await rm(store,{force:true});
-  const child=spawn(process.execPath,['server.mjs'],{cwd:ROOT,env:{...process.env,PORT:String(port),EVENT_STORE:store},stdio:['ignore','pipe','pipe']});
-  let logs='';child.stdout.on('data',x=>logs+=x.toString());child.stderr.on('data',x=>logs+=x.toString());
-  t.after(async()=>{child.kill('SIGTERM');await new Promise(resolve=>child.once('exit',resolve));await rm(store,{force:true});});
-  let ready=false;
-  for(let n=0;n<60;n++){try{const r=await fetch(`http://127.0.0.1:${port}/`);if(r.ok){ready=true;break;}}catch{}await new Promise(resolve=>setTimeout(resolve,50));}
-  assert.ok(ready,`server did not start: ${logs}`);
-  const fixtures=[
-    {event:'product_click',asin:'B0CDY277D3',path:'/comparison.html'},
-    {event:'product_click',asin:'NOT-AN-ASIN',path:'/comparison.html'},
-    {event:'cta_click',label:'Air fryers'},
-    {event:'filter_apply'},
-    {event:'guide_read'},
-    {event:'not_in_the_list',email:'nope@example.test'}
-  ];
-  let invalid;
-  for(const event of fixtures){
-    const r=await fetch(`http://127.0.0.1:${port}/api/events`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(event)});
-    if(event.event==='not_in_the_list') invalid=r; else assert.equal(r.status,204);
+async function waitUntilReady(url, process) {
+  const deadline = Date.now() + 5000;
+  while (Date.now() < deadline) {
+    if (process.exitCode !== null) throw new Error(`server exited with ${process.exitCode}`);
+    try {
+      const response = await fetch(url);
+      if (response.ok) return response;
+    } catch {}
+    await pause(50);
   }
-  assert.equal(invalid.status,400);
-  const stored=await readFile(store,'utf8');
-  for(const secret of ['email','nope@example.test','NOT-AN-ASIN','label','Air fryers']) assert.equal(stored.includes(secret),false,`aggregate must omit ${secret}`);
-  const counts=JSON.parse(stored);
-  assert.equal(counts['product_click|B0CDY277D3'],1);
-  assert.equal(counts['product_click|unknown'],1);
-  assert.equal(counts['cta_click|cta'],1);
-  assert.equal(counts['filter_apply|filter'],1);
-  assert.equal(counts['guide_read|guide'],1);
+  throw new Error(`server did not listen at ${url}`);
+}
+
+test('local event endpoint serves docs and aggregates the five privacy-preserving publication events', async (t) => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'prod2-events-'));
+  const port = 23000 + Math.floor(Math.random() * 20000);
+  const base = `http://127.0.0.1:${port}`;
+  const child = spawn(process.execPath, ['server.mjs'], {
+    cwd: repo,
+    env: {...process.env, PORT: String(port), EVENT_STORE: path.join(dir, 'events.json')},
+    stdio: 'ignore',
+  });
+  t.after(async () => {
+    child.kill('SIGTERM');
+    await new Promise((resolve) => child.once('exit', resolve));
+    await rm(dir, {recursive: true, force: true});
+  });
+
+  const page = await waitUntilReady(`${base}/`, child);
+  assert.match(await page.text(), /data-endpoint="\/api\/events"/);
+
+  const source = await readFile(path.join(repo, 'data/p2/events.json'), 'utf8');
+  const contract = JSON.parse(source);
+  const samples = {
+    page_view: {event: 'page_view', path: '/index.html'},
+    outbound_click: {event: 'outbound_click', path: '/index.html', asin: 'B0CDY277D3'},
+    guide_read_75: {event: 'guide_read_75', path: '/guide-capacity.html'},
+    category_click: {event: 'category_click', path: '/index.html', target: 'dual-basket'},
+    feed_click: {event: 'feed_click', path: '/index.html'},
+  };
+  assert.deepEqual(new Set(Object.keys(samples)), new Set(contract.endpoint_contract.accepted_events));
+
+  for (const [name, body] of Object.entries(samples)) {
+    const response = await fetch(`${base}/api/events`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body),
+    });
+    assert.equal(response.status, 204, `${name} accepted`);
+  }
+  const repeated = await fetch(`${base}/api/events`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(samples.page_view),
+  });
+  assert.equal(repeated.status, 204);
+
+  const store = JSON.parse(await readFile(path.join(dir, 'events.json'), 'utf8'));
+
+  // The store is {event: {YYYY-MM-DD: {dimension: count}}} — daily counts per
+  // event and path, exactly as data/p2/events.json declares.
+  const total = (event, dimension) => Object.values(store[event] || {}).reduce(
+    (sum, day) => sum + (Number(day[dimension]) || 0), 0);
+  assert.equal(total('page_view', '/index.html'), 2);
+  assert.equal(total('outbound_click', 'B0CDY277D3'), 1);
+  assert.equal(total('guide_read_75', '/guide-capacity.html'), 1);
+  assert.equal(total('category_click', '/index.html|dual-basket'), 1);
+  assert.equal(total('feed_click', '/index.html'), 1);
+  for (const event of Object.keys(store)) {
+    assert.ok(contract.endpoint_contract.accepted_events.includes(event),
+      `${event} is a declared event`);
+    for (const day of Object.keys(store[event])) {
+      assert.match(day, /^\d{4}-\d{2}-\d{2}$/, `${event} bucket is a dated day`);
+    }
+  }
+
+  // No visitor record of any kind may reach the store.
+  const keys = [];
+  (function collect(node) {
+    for (const [key, value] of Object.entries(node)) {
+      keys.push(key);
+      if (value && typeof value === 'object') collect(value);
+    }
+  })(store);
+  for (const key of keys) {
+    assert.doesNotMatch(key, /user|ip|agent|referer|referrer|cookie|session|ident|token/i,
+      `store key ${key} carries no visitor field`);
+  }
+
+  const badEvent = await fetch(`${base}/api/events`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({event: 'session', path: '/index.html'}),
+  });
+  assert.equal(badEvent.status, 400);
+
+  // The superseded twelve-event family must never be accepted by the endpoint.
+  const legacyEvents = ['guide_open', 'category_open', 'rss_feed_click', 'chooser_completed',
+    'article_half_read', 'disclosure_viewed', 'cta_click', 'product_click', 'filter_apply',
+    'guide_read'];
+  for (const event of legacyEvents) {
+    const response = await fetch(`${base}/api/events`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({event, path: '/index.html'}),
+    });
+    assert.equal(response.status, 400, `${event} rejected`);
+  }
+
+  const badAsin = await fetch(`${base}/api/events`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({event: 'outbound_click', path: '/', asin: 'P01'}),
+  });
+  assert.equal(badAsin.status, 400);
+  const crossOrigin = await fetch(`${base}/api/events`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', Origin: 'https://elsewhere.example'},
+    body: JSON.stringify(samples.page_view),
+  });
+  assert.equal(crossOrigin.status, 403);
+  assert.equal(await (await fetch(`${base}/api/events`, {method: 'GET'})).status, 405);
+
+  // The endpoint serves the generated publication in docs/, never the preserved
+  // legacy tree in site/ and never a path outside the served root.
+  assert.equal((await fetch(`${base}/shop.html`)).status, 200);
+  assert.equal((await fetch(`${base}/research-desk.html`)).status, 404);
+  // fetch() normalises ".." away before it reaches the server, so probe the
+  // traversal guard with a raw request that keeps the path intact.
+  // "/../server.mjs" is collapsed to "/server.mjs" by URL parsing and is not in
+  // docs/; the percent-encoded form survives that step and must hit the guard.
+  assert.equal(await rawStatus(port, 'GET', '/../server.mjs'), 404);
+  assert.equal(await rawStatus(port, 'GET', '/..%2fserver.mjs'), 403);
+  assert.equal(await rawStatus(port, 'GET', '/..%2f..%2fserver.mjs'), 403);
 });

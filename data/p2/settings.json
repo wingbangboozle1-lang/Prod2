@@ -19,7 +19,7 @@
  "disclosure_detail": "Product links on this site are paid links (Amazon Associates Special Links). If you buy through them, the site may earn a commission at no extra cost to you. Wording follows the Associates Program Operating Agreement §5 (S-OA), read 2026-11-20.",
  "paid_link_label": "(paid link)",
  "analytics_endpoint": "",
- "analytics_endpoint_note": "Empty by default: the site sends nothing to any server until a self-hosted endpoint URL is set here and the site is rebuilt. Deployment of server.mjs is tracked as flag F-19.",
+ "analytics_endpoint_note": "Empty by default: the site sends nothing to any server until a self-hosted endpoint URL is set here and the site is rebuilt. Deployment of the optional Node endpoint (server.mjs) is tracked as flag F-19; see ANALYTICS-ENDPOINT.md.",
  "editorial": {
   "voice": "Warm, direct, practical. Take a position inside verified facts; address the reader; never describe the checking process as the story (D-12).",
   "evidence_rule": "Every published figure resolves to a dated read of an official listing or an official policy page. Prices and star ratings are not published (F-02). Popularity claims only as dated snapshots of an official page (D-19)."

@@ -815,11 +815,12 @@ disallows `/Prod2/archive/` so only one site is indexable.
 - **PR #25 (arena/b650562d)** — "Decision-support portal v2, nine-guide shop front" overlaps SG-32
   (decision queue) and the guides hub; rebase onto `acd5aea` and cross-reference SG-32/SG-31 in its
   rows rather than duplicating them.
-- Register numbering is now dense-and-stable: flags F-01..F-P14, questions Q-01..Q-P09 (plus
-  Q-19/23/27/31/47 carried), suggestions SG-01..SG-17 + SG-27..SG-37. New rows should continue from
-  F-P15 / Q-P10 / SG-38.
+- Register numbering (updated 2026-11-20, 82d0f434): flags F-01..F-P20 + F-P22/F-P23, questions
+  Q-01..Q-P09 + Q-P14/Q-P15/Q-P16 (plus Q-19/23/27/31/47 carried), suggestions SG-01..SG-17 +
+  SG-27..SG-37 + SG-41/SG-42, decisions D-01..D-27 + D-P01..D-P16. **Reserved for PR #33
+  (arena/f55b5827), do not reuse:** F-P21, Q-P10..Q-P13, SG-38..SG-40, and the D-P10/F-P12 ids it
+  claims for different things. New rows continue from F-P24 / Q-P17 / SG-43 / D-P17.
 
-<<<<<<< HEAD
 ## INTEGRATION — session arena/86206fb3-prod2 (2026-11-20, audit + fixes on top of the merged shop design)
 
 **Status: integrated.** Branch `arena/86206fb3-prod2`, 4 commits, rebased onto `main` at `8bc543b`
@@ -857,8 +858,111 @@ This is the current Arena branch and final integration pass for the current requ
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
-| M-01 — Align the optional analytics endpoint with the deployed `docs/` publication; accept exactly the five documented local events; test privacy, routing and aggregation | in progress | arena/82d0f434-prod2 | `server.mjs`, `tests/server.test.mjs`, `assets/js/measure.js`, `data/p2/events.json`, `data/p2/flags.json` (F-19), `data/p2/questions.json` (Q-23), `data/p2/suggestions.json` (SG-06), `content/pages/measurement.html`, `content/pages/privacy.html`, `tools/checks.py`, `ANALYTICS-ENDPOINT.md`, `ENGINE.md`, `README.md`, generated `docs/` + root mirror |
-| M-02 — Reconcile the visual brief and decision register; review buyer-facing copy for unsupported footprint, batch-size and performance claims; add an evidence-gated AI-platform roadmap and missing-input questions | in progress | arena/82d0f434-prod2 | `DESIGN_PROMPT.md`, `DECISIONS.md`, `EXECUTIVE_SUMMARY.md`, `content/pages/{index,category-air-fryers,buying-guide,guide-basket-vs-oven,guide-capacity,guide-cleanup-counter-space,guide-multifunction,guide-thermometer-accuracy,guide-two-baskets-or-one,guide-holiday-hosting,guide-instant-vs-leave-in,executive-summary,questions,suggestions}.html`, `data/p2/{flags,questions,suggestions}.json`, `tools/build.py`, `tools/checks.py`, generated `docs/` + root mirror |
+| M-01 — Align the optional analytics endpoint with the deployed `docs/` publication; accept exactly the five documented local events; test privacy, routing and aggregation | done | arena/82d0f434-prod2 | `server.mjs`, `tests/server.test.mjs`, `assets/js/measure.js`, `data/p2/events.json`, `data/p2/flags.json` (F-19), `data/p2/questions.json` (Q-23), `data/p2/suggestions.json` (SG-06), `content/pages/measurement.html`, `content/pages/privacy.html`, `tools/checks.py`, `ANALYTICS-ENDPOINT.md`, `ENGINE.md`, `README.md`, `package.json`, generated `docs/` + root mirror |
+| M-02 — Reconcile the visual brief and decision register; review buyer-facing copy for unsupported footprint, batch-size and performance claims; add an evidence-gated AI-platform roadmap and missing-input questions | done | arena/82d0f434-prod2 | `DESIGN_PROMPT.md`, `DECISIONS.md`, `EXECUTIVE_SUMMARY.md`, `data/p2/executive-summary.md`, `tools/make_executive_summary.py`, `content/pages/{index,category-air-fryers,buying-guide,guide-basket-vs-oven,guide-capacity,guide-cleanup-counter-space,guide-multifunction,guide-thermometer-accuracy,guide-two-baskets-or-one,guide-holiday-hosting,guide-instant-vs-leave-in,executive-summary,questions,suggestions,measurement,privacy,products}.html`, `data/p2/{flags,questions,suggestions,decisions,sources,calendar,events,settings}.json`, `tools/build.py`, `tools/checks.py`, generated `docs/` + root mirror |
+
+---
+
+# Session record — arena/82d0f434-prod2 (2026-11-20, endpoint contract + review-ready summary)
+
+Branch `arena/82d0f434-prod2`, rebased onto `origin/main` — first at `8bc543b` (PR #32), then,
+after PRs #34/#36/#37/#38 landed mid-flight, again at `3538417` — before publication. Both M-01
+and M-02 are complete; the gates below are green on the committed tree.
+
+### Integration with the 86206fb3 session (which merged while this branch worked)
+
+The two branches independently fixed the same two defects; the union is consistent:
+
+- **Phantom endpoint path.** Both sessions corrected `analytics-endpoint/server.py` → `server.mjs`.
+  Their F-P22 (resolved) is the record; this branch's endpoint gate (nonexistent-path check)
+  enforces it mechanically.
+- **Event vocabulary (F-P23).** They measured the mismatch and recorded D-P15: publish it, don't
+  patch it. This branch's M-01 had already rewritten `server.mjs` to accept exactly the five site
+  events, so the merged tree **resolves** F-P23 instead of publishing it; D-P15/Q-P14/SG-41 remain
+  as the record of why it had been published, and the new measurement gate fails the build on any
+  future divergence (stronger than the note they shipped).
+- **ID collisions.** This branch's rows were renumbered around PR #33's reserved ranges and the
+  86206fb3 ids: Q-P10→**Q-P15**, Q-P11→**Q-P16**, SG-38→**SG-42**, D-P15(AI)→**D-P16**. Upstream's
+  D-P15 (vocabulary) and SG-41 stand untouched.
+- **Fonts.** They self-hosted Fraunces + Inter (SG-15's font half). This branch's brief
+  reconciliation (F-P12) absorbed the shipped-fonts facts; SG-15 is marked shipped with both
+  halves recorded.
+
+## M-01 — the endpoint contract, made real
+
+- **`server.mjs` now serves the generated `docs/` publication**, not the preserved legacy `site/`
+  tree. It accepts exactly the five local events from `data/p2/events.json` and nothing else: the
+  superseded twelve-event family (`guide_open`, `category_open`, `rss_feed_click`,
+  `chooser_completed`, `article_half_read`, `disclosure_viewed`, `cta_click`, `product_click`,
+  `filter_apply`, `guide_read`) and the report-only campaign-ledger events are all refused.
+- **The store shape matches the published contract.** `data/p2/events.json` always said "daily
+  counts per event and path"; the implementation now does exactly that —
+  `{event: {YYYY-MM-DD: {dimension: count}}}` — instead of a flat cumulative key. No IP, user
+  agent, referrer, cookie, visitor identifier or per-event timestamp is stored, and no request
+  log is written.
+- **The path that never existed is gone.** The whole repository pointed at
+  `analytics-endpoint/server.py`, a file that has never existed here. That path is corrected
+  everywhere it appeared as a runnable file, the flag F-19 evidence link now resolves to
+  `server.mjs`, and a new gate section fails the build if any active file names a repository path
+  that is not in the repository.
+- **The endpoint test is real now.** `tests/server.test.mjs` accepts and aggregates all five
+  events, refuses the legacy and ledger events, refuses an unknown ASIN, refuses a cross-origin
+  request, refuses anything but `POST`, stores only dated counts, and proves the server serves
+  `docs/` and refuses a traversal attempt outside it.
+- **The operator contract is rewritten** in `ANALYTICS-ENDPOINT.md`, and the measurement and
+  privacy pages, `ENGINE.md` and `README.md` describe the same endpoint.
+- `npm test` now runs the *active* gate (`tools/build.py && tools/checks.py`) plus the legacy
+  verifier and the endpoint test — which is what the README already claimed.
+
+## M-02 — the review-ready summary, the brief, the copy, the AI roadmap
+
+- **The executive summary has one source.** `data/p2/executive-summary.md` is the canonical
+  review document; `tools/make_executive_summary.py` renders it and `tools/build.py` calls it, so
+  `docs/executive-summary.html` cannot drift from its source. `content/pages/executive-summary.html`
+  is now a thin fragment with the page chrome and a `{{executive_summary}}` placeholder.
+- **The root `EXECUTIVE_SUMMARY.md` is reconciled** with that source: the same official-source
+  list, the same register sizes, the same gate size. A gate section fails the build if any of
+  those three drift.
+- **The visual brief is reconciled** (F-P12 closed). `DESIGN_PROMPT.md` cited the predecessor
+  register's ids (D-01/D-02 as brand decisions, D-15, Q-05, Q-10) and still carried the obsolete
+  rule that the thermometers never render as links. It now cites the live register, records the
+  shipped token layer from `assets/css/site.css` instead of a superseded palette, and the F-P12
+  flag is marked resolved with the resolution written down.
+- **`DECISIONS.md` now mirrors the register exactly.** It cited an AI `D-P15` that was not in the
+  register (that row is now **D-P16**) and was missing `D-P01`–`D-P06`; both directions are now
+  enforced by a gate section, and upstream's D-P15 (vocabulary) is recorded too.
+- **Buyer copy: 19 corrections across 8 pages.** Removed unsupported serving counts
+  ("1–2 people", "2–4 people", "one or two people", "a batch for four", "for a crowd"), the
+  "smallest footprint" framing (P3 is the shallowest by *depth*, and has the largest plan-view
+  area of the three), the "most kitchens" generalization, the heat-up and speed claim, the
+  cabinet-clearance conclusion, the "crisper tray in most machines of this type" claim, and the
+  implied hand-washing of six accessories. One dishwasher-safe claim was factually wrong — it
+  said only P3's basket is listed dishwasher-safe when P1's title lists two 3 qt dishwasher-safe
+  baskets — and is corrected. A new `copy` gate section fails the build if any of these come back.
+- **The AI-platform roadmap is published as a constraint, not implemented.** Google's AI-features
+  page and its generative-AI guide were read live on 2026-11-20 and added to the source register
+  as S-GAIF and S-GAIG. `D-P16` records the stance (no separate AI optimisation: no additional
+  technical requirements beyond indexing and snippet eligibility, AI traffic reported only inside
+  the "Web" search type, no query-farmed content, non-commodity content as the lever), `SG-42`
+  carries the five-step evidence-gated roadmap, and `Q-P15`/`Q-P16` carry the missing inputs.
+
+## Gates on the committed tree
+
+| Gate | Result |
+|---|---|
+| `python3 tools/build.py` | 27 pages built into `docs/`, mirrored to the repository root |
+| `python3 tools/checks.py` | **ALL CHECKS PASSED** — 17 sections (pages, disclosure, links, validity, facts, claims, copy, chrome, seo, publication, endpoint, summary, mirror, shop, exposition, measurement, freshness) |
+| `python3 scripts/build_site.py && python3 scripts/verify_site.py` | VERIFY OK — 18 legacy pages checked; `site/` unchanged |
+| `npm test` | build + active gate + legacy verifier + endpoint test — 1/1 passing |
+| Independent scan | 172 Amazon `/dp/` links in `docs/`, 0 policy violations; no stale endpoint path in the active tree; root mirrors `docs/` byte for byte; `docs/` reproducible across two builds |
+
+## Boundary (unchanged)
+
+Public collection, Search Console verification, Associates Central link testing, price/rating/API
+access and AI-platform visibility remain off until the required owner-controlled access or data
+exists. The publication claims none of them. The live deployment, affiliate-account state and
+search performance are not asserted by this record beyond what the Pages API and the published
+files show.
 
 ## Work boundary
 
@@ -866,4 +970,3 @@ This is the current Arena branch and final integration pass for the current requ
 - The live Pages publication is generated by `tools/build.py` into `docs/` and mirrored to the root; `site/` is a preserved, separately checked legacy build. Keep that distinction explicit.
 - Public collection, Search Console verification, Associates Central link testing, price/rating/API access and AI ranking remain off until the required owner-controlled access/data is available. The suggestions and questions pages will show the discovery path rather than imply these capabilities are live.
 - Final integration gates: `python3 tools/build.py`, `python3 tools/checks.py`, `python3 scripts/build_site.py`, `python3 scripts/verify_site.py`, `npm test`, plus an independent generated-page/link/source scan. Push only this current branch; no branch switching.
->>>>>>> f2e25f9 (Claim publication integrity and analytics pass)

@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-20 (arena/86206fb3-prod2): SG-41 added — vocabulary gate."
+  "last_change": "2026-11-20 (arena/82d0f434-prod2): SG-42 added (evidence-gated AI roadmap, D-P16); SG-15 marked shipped — fonts self-hosted 86206fb3, brief reconciled 82d0f434."
  },
  "suggestions": [
   {
@@ -231,9 +231,9 @@
    "depends_on": [
     "F-P12"
    ],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted.",
-   "progress": "Cross-ref: SG-31 (three fully specified directions) and SG-33 (token layer) cover the same ground from the publication pass; merge the two rows when the owner picks a direction (Q-P09)."
+   "progress": "2026-11-20: two halves, two sessions. Fonts self-hosted (Fraunces + Inter variable woff2, OFL, preloads, no-CDN gate) by arena/86206fb3-prod2; DESIGN_PROMPT.md reconciled against the live registers (F-P12) by arena/82d0f434-prod2. The brief's queued-inputs section now records the shipped state."
   },
   {
    "id": "SG-16",
@@ -447,6 +447,24 @@
    "depends_on": "Q-P14 (the vocabulary choice)",
    "recommendation": "Adopt as soon as Q-P14 is answered — it is the cheapest possible insurance on a measurement surface.",
    "problem": "F-P23: three of the site's five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree."
+  },
+  {
+   "id": "SG-42",
+   "title": "Treat AI answer platforms as a measurement question, not an optimisation target",
+   "problem": "AI Overviews and AI Mode answer a growing share of informational kitchen questions, and nothing here says whether this site appears in them. There is no measured read, because there is no verified Search Console property. Without evidence, 'AI optimisation' drifts into exactly the scaled-content behaviour Google's spam policy forbids, and into republishing listing content the Program Content licence has not cleared.",
+   "proposal": "A five-step roadmap in which every step is gated on evidence, published rather than implemented: 1) measurement first — verify the property and read the 'Web' search type, because Google reports AI-feature traffic only inside that aggregate, so no separate AI number exists (Q-P15); 2) eligibility — confirm indexing and snippet eligibility, the only technical requirement Google states, and keep robots.txt, internal links, structured data and page experience conformant; 3) non-commodity — keep publishing the dated, sourced register and its explicit limits instead of restating listings, keep the fourteen-day editorial cadence, and write no fan-out-query pages; 4) controls — decide robots.txt and snippet policy for non-Google crawlers only after the Program Content licence review closes, and republish no listing photography in the meantime (Q-P16); 5) revisit — re-read Google's AI guidance on every verification pass and record the date, because the guidance is versioned and has already changed in 2025 and 2026.",
+   "evidence": "Google Search Central's AI features page (last updated 2025-12-10) and its generative AI optimization guide, both read 2026-11-20 (S-GAIF, S-GAIG); the people-first content guidance (S-GHELP) and the spam policies (S-GSPAM). Decision D-P16 records the stance.",
+   "impact": "Medium and mostly protective — it guards the site's people-first standing and its Program Content compliance rather than adding traffic now.",
+   "effort": "Low for steps 1 to 3 (owner-side verification and a dated re-read), medium for step 4.",
+   "risk": "Low. Doing nothing unauthorised is the safe default; the risk of the opposite is a scaled-content spam-policy violation or unlicensed republication.",
+   "depends_on": [
+    "Q-P15",
+    "Q-P16",
+    "F-P13",
+    "F-P20"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept as a standing constraint rather than a project. Keep the roadmap on this page, re-read the guidance on each verification pass, and change nothing about the site's structure until a measured read exists (D-P16)."
   }
  ]
 }
