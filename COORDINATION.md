@@ -205,6 +205,7 @@ No other session has an unexpired claim on these files. If this session stops, a
 
 | PR | What | Result |
 | --- | --- | --- |
+| #33 | Anti-slop design pass: working brand The Crisp Counter (D-P18), shipped Fraunces+Inter typography (D-P19), December gift guide + queue (D-P20), SG-38..SG-40/SG-42..SG-44, Q-P10/Q-P11, F-P21; reconciled with PRs #29-#31 and #37-#38 (three parallel 2026-11-20 passes) | **Merged into `main` as merge commit `4398598`** (2026-11-20T06:36:42Z). `Deploy to GitHub Pages` success (run 44689028467); `pages build and deployment` success (run 44689027619); `verify-site` success; `test` (analytics endpoint) success. **Live check passed:** https://wingbangboozle1-lang.github.io/Prod2/ serves the merged publication — title "Air fryers and thermometers by format | The Crisp Counter", 10 buyer guides, gift guide live at /guide-gift-guide.html, tagged (paid link) buttons, fonts self-hosted. |
 | #19 | Integration: product-forward landing page + transparency flag F-P08 + both builds verified + Pages deploy | Merged into `main` as merge commit `0030f90a69b53ecd226923ddd6125dc795f0b282`; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
 
 
