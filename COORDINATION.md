@@ -89,6 +89,8 @@ No other session has an unexpired claim on these files. If this session stops, a
 | PR | What | Result |
 | --- | --- | --- |
 | #19 | Integration: product-forward landing page + transparency flag F-P08 + both builds verified + Pages deploy | Merged into `main` as merge commit `0030f90a69b53ecd226923ddd6125dc795f0b282`; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
+| #29 | Integration from arena/43f4359d-prod2 | Merged into `main`; `Deploy to GitHub Pages` success; `verify-site` success |
+| #30 | Shop-forward landing page polish + design prompt additions (session-arena-1f4017b9-prod2) | Merged into `main` as merge commit; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
 
 ## Task details
 
