@@ -938,24 +938,31 @@ Protocol note: this session works on its single assigned branch `arena/722181aa-
 2. Pages source exposure (F-P19 / F-P20, carried): the Pages source is still `main /` (repo root). The root contains source/data files that the workflow `docs/` artifact does not, and this cannot be changed from the sandbox (403). **Owner action:** Settings → Pages → Source: GitHub Actions.
 3. Event-vocabulary mismatch (F-P23 / Q-P14, carried): three site events are rejected by `server.mjs`.
 
----
+### PR / merge / deploy record — arena/722181aa-prod2
 
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/39 |
+| Merge result | **Merged 2026-11-20 06:39:02 UTC**, merge commit `025b7b2` (`gh pr merge 39 --merge`) |
+| Checks on PR | `test` pass · `verify` pass (tools/checks.py ALL CHECKS PASSED; scripts/verify_site.py VERIFY OK) |
+| Workflows on merge commit | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Pages | `build_type: legacy`, `source: main /`, status `built` (serving the root mirror; the owner-side source change in F-P19/F-P20 is still pending) |
+| Live check | https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the "Flagged for review" page and the F-P24 entry in the built `docs/flagged.html` |
+| Status | L-01..L-03 **done**. Claim released. |
 # Session record — arena/e0d92902-prod2 (2026-11-20 handoff takeover + redirect/compliance re-verification)
 
 | Item | Value |
 | --- | --- |
-| Branch | `arena/e0d92902-prod2`; initial commits from `f6e772f`, then reset onto `1e1e77e` (PRs #29–#36) with deltas re-applied as new commits (INT-06 precedent, nothing discarded; pre-reset state on the remote + reflog), then merged `025b7b2` (PRs #39/#40) during this merge |
-| Takeover | PR #23 (arena/5e692632-prod2, last commit 2026-11-19 21:51 UTC) and PR #25 (arena/b650562d-prod2, last commit 2026-11-19 22:11 UTC) — both stale >8 h; integrated under the >60-minute handoff rule; both branches preserved on the remote |
-| First-of-project event | Same-day live fetch of amazon.com / affiliate-program.amazon.com / sell.amazon.com / ftc.gov (prior sessions' sandboxes could not reach these; F-P18 records the listing-content side of the same resolution) |
-| Verification evidence | `data/p2/verification-2026-11-20.json` → `sessions.e0d92902`: all five short links fetched ~06:10–06:15 UTC resolving 5/5 to the register ASINs (titles verbatim; no `tag=` on any resolved URL — F-03 stands), plus quoted re-reads of the Program Policies ("Updated: April 14, 2026"), Operating Agreement ("Updated: October 15, 2025"), ASIN definition ("unique 10-character alphanumeric code"), disclosure help topic, FTC hub. Dated rows in `data/p2/intent-links.json`; S-ASIN/S-HELP/S-FTC2 read dates in `data/p2/sources.json` |
-| F-P07 | **resolved** — its condition (2-of-5 partial re-read) no longer holds after the 5/5 re-read |
-| F-P24 | **stays open, updated with contradicting evidence** — the 722181aa re-check observed homepage redirects/HTTP 500 minutes after this session's 5/5 successful resolutions; pattern fits an intermittent fetch artifact rather than a service change, but only a manual browser check settles it (owner action) |
-| Adopted from PR #25 | Three guides → two shipped (guide-dual-vs-single, guide-probe-in-air-fryer — clustered, sitemap, feed) + analysis.html + design-prompt.html surfaces + registers decision-priority/design-prompts/verification-log + question rows (Q-P12..13, Q-P15..21, Q-P22, Q-P23, Q-P24) + suggestion rows SG-18..SG-26 + the editorial voice-lint gate + settings-derived disclosure in checks.py + read-date chips + "See it on Amazon" wording + guide read-time stats + extended hook_questions fields |
-| Superseded, recorded | PR #25's guide-air-fryer-gift → main's guide-gift-guide (same reader intent, D-P20 December gifting window); PR #23's "Start here" path → main's "Start with the question you have" (PRs #29/#34); not adopted (queued): PR #25's mobile compare bar (SG-23 proposed) and portal-v2 board hooks |
-| Renumbering (collision discipline) | PR #25's Q-P14 → Q-P22 (PR #36's Q-P14), Q-P10 → Q-P23 and Q-P11 → Q-P24 (PRs #39/#40), integration decision D-P10 → D-P16 → D-P21 (main consumed D-P10..D-P20) — renumber notes carried in the register rows |
-| Conflicts resolved at source | analysis.html "no popularity badges" rewording (banned-claim quote); Q-P20 default reworded (shop gate, D-06); verification-2026-11-20.json unioned with both sessions' sections; COORDINATION/DECISIONS unioned |
-| Gates at record time | `tools/build.py` 32 pages · `tools/checks.py` ALL CHECKS PASSED (14 sections incl. `editorial`) · `scripts/verify_site.py` VERIFY OK · `npm test` 2/2 |
-| Docs synced | README.md, ENGINE.md (14-section table completed), DECISIONS.md (D-P21), EXECUTIVE_SUMMARY.md |
-| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/41 |
+| Branch | `arena/e0d92902-prod2`, initially from `f6e772f`, re-based (reset + re-apply) onto consolidated `1e1e77e` (PRs #29–#36) |
+| Takeover | PR #23 (arena/5e692632-prod2, last commit 2026-11-19 21:51 UTC) and PR #25 (arena/b650562d-prod2, last commit 2026-11-19 22:11 UTC) — both stale >8 h; per the >60-minute handoff rule this session integrated them |
+| First-of-project event | Same-day live fetch of amazon.com / affiliate-program.amazon.com / sell.amazon.com / ftc.gov (prior sessions' sandboxes could not reach these; F-P18 recorded the same resolution from the listing-content side) |
+| Verification evidence | `data/p2/verification-2026-11-20.json` → `sessions.e0d92902` (redirect observations for all five links: resolved ASINs, page titles verbatim, no `tag=` on any resolved URL — F-03 stands; compliance re-reads with quoted strings); dated 2026-11-20 rows in `data/p2/intent-links.json` observed_redirect_history; S-ASIN/S-HELP/S-FTC2 read dates in `data/p2/sources.json` |
+| Adopted from PR #23 | The Start-here path concept — **superseded, not applied**: main's newer index already ships "Start with the question you have" (PR #29/#34), the same idea in a newer implementation. The `.start-here`/`.steps` css from #23 is therefore not carried; nothing else in #23 was unique (its SG-27..30 rows landed via PR #27; its suggestions were fully subsumed) |
+| Adopted from PR #25 | Three guides (guide-dual-vs-single, guide-probe-in-air-fryer, guide-air-fryer-gift — clustered in calendar.json, sitemap + feed), analysis.html + design-prompt.html decision surfaces, registers decision-priority/design-prompts/verification-log, Q-P10..Q-P13 + Q-P15..Q-P21 + Q-P22 (renumbered) and SG-18..SG-26 rows, the editorial voice-lint gate, settings-derived disclosure in checks.py, read-date chips + "See it on Amazon" wording in the products table, guide read-time stats, extended hook_questions fields |
+| Not adopted (queued, review-gated) | PR #25's mobile compare bar (SG-23 stays proposed; powering site.js delta stays on its branch), its portal-v2 board hooks for questions/suggestions, its replacement titles for guide-how-many-quarts / guide-two-baskets-or-one (main keeps both; dual-vs-single is differentiated by its capacity-math angle) |
+| Conflicts resolved at source | analysis.html "no popularity badges" rewording (banned-claim quote, main's stricter claims gate); Q-P20 default reworded to satisfy the shop gate's no-hands-on-claim rule (D-06); Q-P14→Q-P22, D-P10→D-P16 renumbering; verification-2026-11-20.json unioned (session sections, original content unchanged); F-P07 resolved with the redirect evidence |
+| Gates at record time | `tools/build.py` 32 pages · `tools/checks.py` ALL CHECKS PASSED (14 sections incl. new `editorial`) · `scripts/verify_site.py` VERIFY OK · `npm test` 2/2 |
+| Docs synced | README.md, ENGINE.md, DECISIONS.md, EXECUTIVE_SUMMARY.md, `data/p2/decisions.json` (D-P16) |
+| PR | (recorded after opening) |
 | Merge result | (recorded after merge) |
 | Pages deploy | (recorded after deploy check) |
