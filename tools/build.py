@@ -459,12 +459,21 @@ def hook_intent_table(_="") -> str:
             'Full dated redirect history: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/intent-links.json">data/intent-links.json</a>.</p>')
 
 
+def _source_url_cell(url: str) -> str:
+    """Render a source URL. A link.amazon short link is owner-supplied evidence,
+    never a clickable destination (F-03/FLG-003, unresolved): show it as inert code."""
+    if url.startswith("https://link.amazon"):
+        return f'<code>{esc(url)}</code>'
+    return (f'<a class="src" href="{esc(url)}" rel="noopener" target="_blank">'
+            f'{esc(url)[:64]}</a>')
+
+
 def hook_sources_table(_="") -> str:
     rows = []
     for s in SOURCES:
         reads = ", ".join(s.get("read", []))
         rows.append(f'<tr id="{esc(s["id"])}"><td><code>{esc(s["id"])}</code></td><td>{esc(s["title"])}</td>'
-                    f'<td><a class="src" href="{esc(s["url"])}" rel="noopener" target="_blank">{esc(s["url"])[:64]}</a></td>'
+                    f'<td>{_source_url_cell(s["url"])}</td>'
                     f'<td>{esc(s["kind"])}</td><td>{esc(reads)}</td></tr>')
     return ('<div class="table-scroll"><table class="data"><thead><tr><th>ID</th><th>Source</th>'
             '<th>Official URL</th><th>Kind</th><th>Read (UTC)</th></tr></thead><tbody>'
