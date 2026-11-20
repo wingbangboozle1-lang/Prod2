@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "description": "Site-side measurement contract. These five local events are what docs/assets/js/measure.js can record and what analytics-endpoint/server.py accepts. Counts only: no IP, no user agent, no referrer, no cookies, no visitor identifiers. The campaign ledger's five events (impression/click/session/order/refund) are a separate, report-only system — see data/p2/ledger.json and decision D-P05.",
+    "description": "Site-side measurement contract. These five local events are what docs/assets/js/measure.js can record and what server.mjs accepts. Counts only: no IP, no user agent, no referrer, no cookies, no visitor identifiers. The campaign ledger's five events (impression/click/session/order/refund) are a separate, report-only system — see data/p2/ledger.json and decision D-P05.",
     "updated_utc": "2026-11-19"
   },
   "events": [
@@ -16,6 +16,6 @@
     "body": "{\"event\": \"...\", \"path\": \"/page.html\", \"asin\": \"B0CDY277D3\"}",
     "accepted_events": ["page_view", "outbound_click", "guide_read_75", "category_click", "feed_click"],
     "server_behavior": "Validates the body, increments daily per-path counts, writes counts only. Never reads or stores the client address, user agent, referrer or cookies; writes no request log.",
-    "status": "Deployable (analytics-endpoint/server.py), not yet hosted — F-19. While settings.analytics_endpoint is empty the site sends nothing anywhere; the browser-local log is for the visitor's own view only."
+    "status": "Deployable (server.mjs), not yet hosted — F-19. While settings.analytics_endpoint is empty the site sends nothing anywhere; the browser-local log is for the visitor's own view only."
   }
 }

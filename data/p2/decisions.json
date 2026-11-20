@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/70b2b9f7-prod2): D-P10..D-P14 recorded (shop-first rebuild, price policy answered by 2(b), imagery, disclosure wording, USDA temperature data)."
+  "last_change": "2026-11-20 (arena/86206fb3-prod2): D-P15 recorded — vocabulary mismatch published, not patched."
  },
  "decisions": [
   {
@@ -254,6 +254,16 @@
     "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
     "https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts",
     "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage"
+   ]
+  },
+  {
+   "id": "D-P15",
+   "question": "Should this pass fix the site/endpoint event-vocabulary mismatch, or publish it?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "Publish it. F-P23 and Q-P14 record the mismatch and the recommended fix (extend server.mjs), but no event names were changed in this pass. Choosing the vocabulary changes what the site is allowed to claim about its own measurement, and that is an owner decision even though the code change is small.",
+   "rationale": "The endpoint is not hosted, so nothing is being mis-measured today. Silently aligning the lists would have made two independently-written components look like they had always agreed — and the brief asks for irregularities to be surfaced, not smoothed.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
    ]
   }
  ]

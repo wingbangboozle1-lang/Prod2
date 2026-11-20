@@ -14,6 +14,8 @@
 <meta property="og:site_name" content="Prod2 — Kitchen notes &amp; buying guides">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="Prod2 feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
+<link rel="preload" href="https://wingbangboozle1-lang.github.io/Prod2/assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://wingbangboozle1-lang.github.io/Prod2/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css">
 <script type="application/ld+json">
 {
@@ -83,7 +85,7 @@
 <p>Status: machinery shipped, endpoint not yet hosted (<a href="flagged.html#F-19">F-19</a>). While <code>data/p2/settings.json → analytics_endpoint</code> is empty, the site sends nothing anywhere.</p>
 
 <h2>The self-hosted analytics endpoint</h2>
-<p><code>analytics-endpoint/server.py</code> (standard-library Python) accepts exactly the five local events, validates the body (event name, site path, ASIN format), and stores daily counts per event and path. It never reads or stores the client address, user agent, referrer or cookies, and it writes no request log. Deploy it on any owner-controlled HTTPS host, set the endpoint URL in <code>data/p2/settings.json</code>, rebuild — done.</p>
+<p><code>server.mjs</code> (Node 20+, no dependencies) accepts exactly the five local events, validates the body (event name, site path, ASIN format), and stores daily counts per event and path. It never reads or stores the client address, user agent, referrer or cookies, and it writes no request log. Deploy it on any owner-controlled HTTPS host, set the endpoint URL in <code>data/p2/settings.json</code>, rebuild — done.</p>
 
 <h2>The campaign ledger</h2>
 <div class="table-scroll"><table class="data"><thead><tr><th>timestamp_utc</th><th>source</th><th>channel</th><th>eligible_sessions</th><th>clicks</th><th>reported_orders</th><th>report_reference</th><th>obtained_by</th></tr></thead><tbody></tbody></table></div><p class="table-note"><strong>Empty. No authorized report has been imported.</strong> A row is added only from an authorized first-party report (for example an Associates Central export). No row is estimated, and the site's own click counter is never a reported order.</p>
@@ -108,7 +110,7 @@
 <h2>What the owner needs to do to turn this on</h2>
 <ol>
   <li>Confirm tracking ID <code>shopnow047c-20</code> in Associates Central; run the one-link-per-product test (protocol: generate/validate one Special Link per product, confirm destination, confirm a test click in reporting) — <a href="flagged.html#F-58">F-58</a>.</li>
-  <li>Host <code>analytics-endpoint/server.py</code>; set the endpoint; rebuild — <a href="suggestions.html#SG-06">SG-06</a>.</li>
+  <li>Host <code>server.mjs</code>; set the endpoint; rebuild — <a href="suggestions.html#SG-06">SG-06</a>.</li>
   <li>Verify in Search Console per the checklist above; submit <code>sitemap.xml</code> and the feed.</li>
   <li>Export the first authorized report into the ledger (timestamp, source, channel, eligible sessions, clicks, reported orders, report reference, obtained by).</li>
 </ol>

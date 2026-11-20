@@ -29,7 +29,7 @@ python3 tools/make_og.py   # re-render assets/img/og-card.png (typographic brand
 Self-hosted analytics endpoint (deployable, not yet hosted — flag F-19):
 
 ```bash
-python3 analytics-endpoint/server.py --port 8787
+python3 server.mjs --port 8787
 # then set analytics_endpoint in data/p2/settings.json and rebuild
 ```
 

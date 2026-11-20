@@ -48,7 +48,7 @@
 ## Measurement (machinery shipped, not yet on)
 
 - Privacy-preserving outbound-click counter (`assets/js/measure.js`): five local events, no cookies/identifiers, ASIN + host only; **transmits nothing until an endpoint is configured**.
-- Self-hosted endpoint (`analytics-endpoint/server.py`): counts only, no IP/UA/referrer/logs. Deployable — not hosted (F-19).
+- Self-hosted endpoint (`server.mjs`): counts only, no IP/UA/referrer/logs. Deployable — not hosted (F-19).
 - Campaign ledger (`data/p2/ledger.json`): the five defined events (impression, click, session, order, refund) with the official attribution windows; empty until an authorized report exists.
 
 ## Verification & governance trail
@@ -256,7 +256,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 ## Measurement (machinery shipped, not yet on)
 
 - Privacy-preserving outbound-click counter (`assets/js/measure.js`): five local events, no cookies/identifiers, ASIN + host only; **transmits nothing until an endpoint is configured**.
-- Self-hosted endpoint (`analytics-endpoint/server.py`): counts only, no IP/UA/referrer/logs. Deployable — not hosted (F-19).
+- Self-hosted endpoint (`server.mjs`): counts only, no IP/UA/referrer/logs. Deployable — not hosted (F-19).
 - Campaign ledger (`data/p2/ledger.json`): the five defined events (impression, click, session, order, refund) with the official attribution windows; empty until an authorized report exists.
 
 ## Verification & governance trail

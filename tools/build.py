@@ -872,17 +872,18 @@ HOOKS = {
 }
 
 
-AMAZON_HREF = re.compile(r'href="(https://(?:www\.amazon\.com|link\.amazon)[^"]*)"')
+AMAZON_HREF = re.compile(r'href="(https://www\.amazon\.com[^"]*)"')
 ANCHOR_TAG = re.compile(r"<a\b[^>]*>")
 
 
 def normalize_amazon_links(fragment: str) -> str:
     """Rewrite outbound Amazon anchors by policy (see compliance page):
-    - /dp/ product links and link.amazon short product links -> rel="sponsored
-      nofollow noopener"; /dp/ links also carry tag=shopnow047c-20.
-    - link.amazon short links are never given a query string (their status is
-      F-03 / FLG-003 unresolved).
+    - /dp/ product links -> rel="sponsored nofollow noopener", tag=shopnow047c-20.
     - other Amazon links (help pages, browse nodes) -> rel="nofollow noopener".
+    - link.amazon short links are NEVER a clickable destination. They are quoted
+      evidence of what the owner submitted, their status is unresolved (F-03 /
+      FLG-003), and the site's own outbound product hrefs are the tagged /dp/
+      URLs. Any remaining short-link anchor is rendered as inert text.
     """
 
     def fix_anchor(m: "re.Match[str]") -> str:
@@ -891,10 +892,12 @@ def normalize_amazon_links(fragment: str) -> str:
         if not hm:
             return tag
         url = hm.group(1)
-        if not (url.startswith("https://www.amazon.com") or url.startswith("https://link.amazon")):
+        if url.startswith("https://link.amazon"):
+            return f'<code>{url}</code>'
+        if not url.startswith("https://www.amazon.com"):
             return tag
-        is_product = "/dp/" in url or url.startswith("https://link.amazon")
-        if "/dp/" in url and "tag=" not in url:
+        is_product = "/dp/" in url
+        if is_product and "tag=" not in url:
             sep = "&" if "?" in url else "?"
             url = url + sep + "tag=shopnow047c-20"
         tag = tag[:hm.start(1)] + url + tag[hm.end(1):]
@@ -1002,6 +1005,8 @@ LAYOUT = """<!DOCTYPE html>
 <meta property="og:site_name" content="{brand} — {descriptor}">
 <meta name="twitter:card" content="summary_large_image">
 {site_verification}<link rel="alternate" type="application/rss+xml" title="{brand} feed" href="{base}/feed.xml">
+<link rel="preload" href="{base}/assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{base}/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{base}/assets/css/site.css">
 <script type="application/ld+json">
 {jsonld}

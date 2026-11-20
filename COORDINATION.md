@@ -514,7 +514,7 @@ the same way. Never edit another session's claimed files; log requests here inst
 | T-05 Reader-facing publication (front page, guides, comparison + chooser, categories, buying guide) | done | arena/44093825-prod2 | `content/pages/*.html`, `docs/` | Every product fact traces to `data/products.json` → source link | Warm editorial direction (D-18 option A). Disclosure under masthead on every page + footer. |
 | T-06 Governance surfaces (method + sources, flagged, questions, suggestions, decisions, measurement, compliance, executive summary) | done | arena/44093825-prod2 | `content/pages/*.html`, `docs/` | Source links per row | One nav group + full footer directory. |
 | T-07 SEO + syndication (titles/meta, JSON-LD, sitemap, robots, RSS, OG card) | done | arena/44093825-prod2 | `tools/build.py`, `tools/make_og.py`, `docs/` | Google Search Central docs (in sources register) | Unique title + meta per page; OG image is typographic brand art, not product photography. |
-| T-08 Measurement machinery (click counter, five events, self-hosted endpoint, campaign ledger) | done | arena/44093825-prod2 | `docs/assets/js/measure.js`, `analytics-endpoint/server.py`, `data/ledger.json`, `data/events.json` | Amazon Commission Income Statement windows (S-COMM/S-CDIS) | Endpoint deployable, not yet hosted — flagged F-19. Ledger stays empty until an authorized report exists. |
+| T-08 Measurement machinery (click counter, five events, self-hosted endpoint, campaign ledger) | done | arena/44093825-prod2 | `docs/assets/js/measure.js`, `server.mjs`, `data/ledger.json`, `data/events.json` | Amazon Commission Income Statement windows (S-COMM/S-CDIS) | Endpoint deployable, not yet hosted — flagged F-19. Ledger stays empty until an authorized report exists. |
 | T-09 Compliance gate (checks from clean checkout) | done | arena/44093825-prod2 | `tools/checks.py`, `ENGINE.md` | OA + FTC + Google docs in sources register | Fails on missing disclosure, untagged product links, missing `rel="sponsored"`, broken links, duplicate titles, unsourced product facts. |
 | T-10 Documentation (README, EXECUTIVE_SUMMARY, ENGINE) | done | arena/44093825-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `ENGINE.md` | n/a | |
 | T-11 Integration: rebuild, re-verify combined data, link check, PR to main, merge, Pages deploy | done | arena/44093825-prod2 | whole repo | `tools/checks.py` green; live URL probed | PR + deploy links recorded below. |
@@ -818,3 +818,34 @@ disallows `/Prod2/archive/` so only one site is indexable.
 - Register numbering is now dense-and-stable: flags F-01..F-P14, questions Q-01..Q-P09 (plus
   Q-19/23/27/31/47 carried), suggestions SG-01..SG-17 + SG-27..SG-37. New rows should continue from
   F-P15 / Q-P10 / SG-38.
+
+## INTEGRATION — session arena/86206fb3-prod2 (2026-11-20, audit + fixes on top of the merged shop design)
+
+**Status: integrated.** Branch `arena/86206fb3-prod2`, 4 commits, rebased onto `main` at `8bc543b`
+(after PR #32).
+
+### What this session found that was not previously recorded
+
+| # | Finding | Evidence | Result |
+| --- | --- | --- | --- |
+| 1 | **Six `link.amazon` short links were clickable sponsored anchors** on `method.html` (5) and `flagged.html` (1). The short codes are evidence of what the owner submitted, not the site's buy path, and their compliance status is unresolved (F-03). | `tools/build.py` → `normalize_amazon_links` | Fixed at the generator: short links render as inert `<code>`. New gate section **exposition** fails the build if one returns. |
+| 2 | **The analytics endpoint cited in eight files does not exist.** `analytics-endpoint/server.py` was never committed; the only endpoint is `server.mjs`. F-19's evidence URL pointed at the phantom file, so a reviewer following it would 404. | `server.mjs`, `ANALYTICS-ENDPOINT.md` | F-19 repointed; new **F-P22** (resolved); every reference corrected. |
+| 3 | **The site and the endpoint use different event vocabularies.** Three of the site's five events (`guide_read_75`, `category_click`, `feed_click`) are rejected by `server.mjs`. Hosting it unchanged would silently under-count. | `server.mjs` `allowedEvents` vs `assets/js/measure.js` | **F-P23** (open), **Q-P14**, **D-P15**, **SG-41**. Gate section **measurement** now prints the divergence on every build. Not patched: choosing the vocabulary is an owner decision. |
+| 4 | **The site shipped no font files at all.** `DESIGN_PROMPT.md` specified Fraunces + Inter; neither was in the repo, so every reader saw a system serif. | `assets/css/site.css` | Fixed: both families self-hosted as variable woff2 with OFL licences, `@font-face` + preloads, gated. |
+| 5 | **Pages publishes the repository ROOT** (`build_type: legacy`, `source: main /`), so `data/`, `content/`, `tools/` and every archived build are publicly readable. The PDF-level `robots.txt` exclusion is not a security boundary. | `gh api repos/.../pages` | Workflow now publishes the `docs/` artifact only; new gate section **exposition** refuses any source dir inside `docs/`. Flipping the repo setting is an owner action (**F-P19**, **F-P20** updated). |
+| 6 | **A parallel session (PR #33, `arena/f55b5827-prod2`) collides with this branch**: it claims **D-P10** and **F-P12** for different things, adds `guide-gift-guide.html`, and rewrites `assets/css/site.css`, `data/p2/{products,sources,settings,calendar}.json`. | PR #33 file list | **Logged, not touched.** This session renumbered around it (D-P15, Q-P14, SG-41, F-P22/F-P23) and kept main's merged structure rather than overwriting it. PR #33 needs the ID collision resolved before merge, or the registers will disagree. |
+
+### Register deltas in this session
+
+- `flags.json`: **F-P22** added (resolved), **F-P23** added (open); F-19 repointed; F-P12 resolved; F-P19/F-P20 detail extended with the root-mode exposure.
+- `questions.json`: **Q-P14** (event vocabulary).
+- `decisions.json`: **D-P15** (publish the mismatch rather than patch it).
+- `suggestions.json`: **SG-41** (gate the two event lists against each other).
+
+### Verification after integration
+
+- `python3 tools/build.py` → 27 pages; `python3 tools/checks.py` → **ALL CHECKS PASSED**, 12 sections.
+- Independent scan: 172 tagged `/dp/` links, **0 untagged**, **0** without `rel="sponsored"`, **0** clickable short links, **0** source dirs in `docs/`, **0** images without `alt`.
+- `REPO_AUDIT.md` added: the line-by-line review with evidence links, and an explicit list of what the audit does **not** claim.
+
+---

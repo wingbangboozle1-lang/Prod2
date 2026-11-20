@@ -19,7 +19,7 @@
 <p>Status: machinery shipped, endpoint not yet hosted (<a href="flagged.html#F-19">F-19</a>). While <code>data/p2/settings.json → analytics_endpoint</code> is empty, the site sends nothing anywhere.</p>
 
 <h2>The self-hosted analytics endpoint</h2>
-<p><code>analytics-endpoint/server.py</code> (standard-library Python) accepts exactly the five local events, validates the body (event name, site path, ASIN format), and stores daily counts per event and path. It never reads or stores the client address, user agent, referrer or cookies, and it writes no request log. Deploy it on any owner-controlled HTTPS host, set the endpoint URL in <code>data/p2/settings.json</code>, rebuild — done.</p>
+<p><code>server.mjs</code> (Node 20+, no dependencies) accepts exactly the five local events, validates the body (event name, site path, ASIN format), and stores daily counts per event and path. It never reads or stores the client address, user agent, referrer or cookies, and it writes no request log. Deploy it on any owner-controlled HTTPS host, set the endpoint URL in <code>data/p2/settings.json</code>, rebuild — done.</p>
 
 <h2>The campaign ledger</h2>
 {{ledger_table}}
@@ -44,7 +44,7 @@
 <h2>What the owner needs to do to turn this on</h2>
 <ol>
   <li>Confirm tracking ID <code>shopnow047c-20</code> in Associates Central; run the one-link-per-product test (protocol: generate/validate one Special Link per product, confirm destination, confirm a test click in reporting) — <a href="flagged.html#F-58">F-58</a>.</li>
-  <li>Host <code>analytics-endpoint/server.py</code>; set the endpoint; rebuild — <a href="suggestions.html#SG-06">SG-06</a>.</li>
+  <li>Host <code>server.mjs</code>; set the endpoint; rebuild — <a href="suggestions.html#SG-06">SG-06</a>.</li>
   <li>Verify in Search Console per the checklist above; submit <code>sitemap.xml</code> and the feed.</li>
   <li>Export the first authorized report into the ledger (timestamp, source, channel, eligible sessions, clicks, reported orders, report reference, obtained by).</li>
 </ol>

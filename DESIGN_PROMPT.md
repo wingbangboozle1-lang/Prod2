@@ -15,9 +15,13 @@ constraints are non-negotiable and listed at the end.
 
 ## Direction: warm editorial (kitchen magazine that shows its sources)
 
-- Display type: **Fraunces** (optical size 96, soft), fallback Georgia,
-  'Iowan Old Style', 'Palatino Linotype', serif
-- Body type: **Inter** 17px / 1.65, fallback system-ui, sans-serif
+- Display type: **Fraunces** — SHIPPED 2026-11-20, self-hosted variable woff2
+  (`assets/fonts/fraunces-var.woff2`, SIL OFL 1.1, preloaded). Fallback chain:
+  'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif.
+- Body type: **Inter** 17px / 1.65 — SHIPPED as a self-hosted variable woff2
+  (`assets/fonts/inter-var.woff2`). Fallback: system-ui, -apple-system, sans-serif.
+- **No font CDN.** A CDN request would contradict the site's own privacy statement; the
+  gate now fails on any third-party host in a built page.
 - Palette tokens:
   - ink `#241C17` (text)
   - paper `#FBF7F1` (page background)
@@ -30,7 +34,7 @@ constraints are non-negotiable and listed at the end.
 - Headings: serif, tight leading, generous top space. Body: sans, 17–18px.
 - Hero: paper background, no photography tint, promise + method line + two
   side-by-side calls to action ("Compare the three", "Read the guides").
-- Cards: white surface, 1px rule border, 8px radius max (editorial, not SaaS).
+- Cards: white surface, 1px rule border, restrained radius (editorial, not SaaS).
 - Tables: rule-separated rows, tabular numerals, sticky header on mobile.
 - Disclosure strip: paper-on-rule strip directly under the masthead on every
   page, 15px, ink on paper; repeats in the footer. Never inside a link list.
@@ -38,7 +42,8 @@ constraints are non-negotiable and listed at the end.
   minimum tap target on mobile.
 - Status badges: sage "verified", amber "unverified/held", muted outline
   "carried".
-- Imagery: **drawn, not photographed** until the photography decision (Q-05).
+- Imagery: **illustration and drawn glyphs, never manufacturer photography** (standing rule
+  F-P17/F-P18 lineage; decision pending Q-P05).
   Line-art air-fryer glyphs, the og-image card, and the favicon are the only
   graphics.
 
