@@ -345,7 +345,7 @@
     "url": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/products.json",
     "look_for": "The *_read fields: count how many distinct dates appear, which is the current de facto cadence."
    },
-   "renumber_note": "Renumbered Q-P11 -> Q-P36 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P11 for a different question (PRs #39/#40). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P24 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P24 for different rows."
+   "renumber_note": "Renumbered Q-P11 -> Q-P36 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P11 for a different question (PRs #39/#40). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P24 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "Q-P37",
@@ -363,7 +363,7 @@
     "url": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/flags.json",
     "look_for": "F-P06's detail field, which quotes both files."
    },
-   "renumber_note": "Renumbered Q-P15 -> Q-P37 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P15 for a different question (PR #44). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P26 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P26 for different rows."
+   "renumber_note": "Renumbered Q-P15 -> Q-P37 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P15 for a different question (PR #44). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P26 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "Q-P30",
@@ -382,7 +382,7 @@
     "look_for": "The Files changed tab, compared with tools/build.py's mirror_to_root() on main."
    },
    "progress_note": "2026-11-20 (arena/e0d92902-prod2): verified via the GitHub API that PR #16 was closed unmerged on 2026-11-19 (recorded in COORDINATION.md PR #16 handoff). The decision this question asked for already happened; row kept verbatim, answer attached here.",
-   "renumber_note": "Renumbered from Q-P18 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P18 for different rows."
+   "renumber_note": "Renumbered from Q-P18 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "Q-P31",
@@ -400,7 +400,7 @@
     "url": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE",
     "look_for": "The exact required statement and the clear/conspicuous standard, and FTC's endorsement guidance for who must disclose."
    },
-   "renumber_note": "Renumbered from Q-P19 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P19 for different rows."
+   "renumber_note": "Renumbered from Q-P19 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "Q-P35",
@@ -418,7 +418,7 @@
     "url": "https://affiliate-program.amazon.com/help/operating/policies",
     "look_for": "Any clause on disparagement or comparison of other sellers; and the site's own rule that it does not editorialise about products it has not verified."
    },
-   "renumber_note": "Renumbered Q-P10 -> Q-P35 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P10 for a different question (PRs #39/#40). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P23 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P23 for different rows."
+   "renumber_note": "Renumbered Q-P10 -> Q-P35 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P10 for a different question (PRs #39/#40). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P23 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "Q-P38",
@@ -436,7 +436,7 @@
     "url": "https://affiliate-program.amazon.com/help/operating/policies",
     "look_for": "The clause on cookies, pixels and how you track visitors to your Site, plus the privacy-policy requirement for a participating site."
    },
-   "renumber_note": "Renumbered Q-P16 -> Q-P38 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P16 for a different question (PR #44). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P27 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P27 for different rows."
+   "renumber_note": "Renumbered Q-P16 -> Q-P38 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P16 for a different question (PR #44). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P27 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "Q-P32",
@@ -454,7 +454,7 @@
     "url": "https://developers.google.com/search/docs/essentials/spam-policies",
     "look_for": "The guidance that thin affiliate sites lack original content - hands-on testing is the standard way to stop being one."
    },
-   "renumber_note": "Renumbered from Q-P20 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P20 for different rows."
+   "renumber_note": "Renumbered from Q-P20 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "Q-P12",
@@ -506,7 +506,7 @@
     "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
     "look_for": "The introduction page: what the API returns, who may call it, and what must be displayed alongside it."
    },
-   "renumber_note": "Renumbered from Q-P21 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P21 for different rows."
+   "renumber_note": "Renumbered from Q-P21 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "Q-P39",
@@ -524,7 +524,7 @@
     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
     "look_for": "The commission table is per-marketplace; a second marketplace means a second table and a second agreement reading."
    },
-   "renumber_note": "Renumbered Q-P17 -> Q-P39 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P17 for a different question (PR #44). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P28 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P28 for different rows."
+   "renumber_note": "Renumbered Q-P17 -> Q-P39 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P17 for a different question (PR #44). Row content unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P28 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "Q-P34",
@@ -542,7 +542,7 @@
     "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
     "look_for": "The submission surface that exists today (sitemap via Pages path), which is the only honest starting metric before queries exist."
    },
-   "renumber_note": "Renumbered Q-P14 -> Q-P34 at the 2026-11-20 integration (arena/e0d92902-prod2): main already carried a different Q-P14 (event-vocabulary question, PR #36). Row content is unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P22 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used Q-P22 for different rows."
+   "renumber_note": "Renumbered Q-P14 -> Q-P34 at the 2026-11-20 integration (arena/e0d92902-prod2): main already carried a different Q-P14 (event-vocabulary question, PR #36). Row content is unchanged from the arena/b650562d-prod2 register. Renumbered from Q-P22 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   }
  ]
 }

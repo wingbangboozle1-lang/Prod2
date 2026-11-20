@@ -406,7 +406,7 @@
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json",
    "evidence_note": "Found 2026-11-20 by the arena/20f83238-prod2 reviewer pass while deciding every open queue item; fixed in the same pass.",
    "how_to_resolve": "Resolved 2026-11-20: SG-05 now carries the decision reference and a rejected status; the standing no-price rule (F-02) is unchanged.",
-   "renumber_note": "Renumbered from F-P25 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used F-P25 for different rows."
+   "renumber_note": "Renumbered from F-P25 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   }
  ]
 }

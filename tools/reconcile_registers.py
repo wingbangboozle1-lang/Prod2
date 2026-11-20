@@ -213,7 +213,7 @@ def merge(kind: str, main_rows: list[dict], sources: list[tuple[str, str]],
             if src_id != new_id:
                 note = (f"Renumbered from {src_id} during the 2026-11-20 integration "
                         f"(session arena/7cec0d73-prod2): the source branch and main had "
-                        f"both used {src_id} for different rows.")
+                        f"both used this id for different rows.")
                 prev = new.get("renumber_note")
                 new["renumber_note"] = (prev + " " + note) if prev else note
             out.append(new)

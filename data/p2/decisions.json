@@ -322,7 +322,7 @@
    "sources": [
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json"
    ],
-   "renumber_note": "Renumbered from D-P21 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used D-P21 for different rows."
+   "renumber_note": "Renumbered from D-P21 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "D-P23",
@@ -332,7 +332,7 @@
    "sources": [
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json"
    ],
-   "renumber_note": "Renumbered from D-P22 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used D-P22 for different rows."
+   "renumber_note": "Renumbered from D-P22 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   },
   {
    "id": "D-P24",
@@ -344,7 +344,7 @@
     "https://github.com/wingbangboozle1-lang/Prod2/pull/25",
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json"
    ],
-   "renumber_note": "Renumbered through the 2026-11-20 merge race: D-P10 -> D-P16 ->  -> D-P24 (main consumed each ID in PRs #29-#44). Content unchanged. Renumbered from D-P22 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used D-P22 for different rows."
+   "renumber_note": "Renumbered through the 2026-11-20 merge race: D-P10 -> D-P16 ->  -> D-P24 (main consumed each ID in PRs #29-#44). Content unchanged. Renumbered from D-P22 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
   }
  ]
 }

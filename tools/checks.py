@@ -247,11 +247,18 @@ def main() -> int:
         "D": {x["id"] for x in json.loads((DATA / "decisions.json").read_text(encoding="utf-8"))["decisions"]},
     }
     ref_re = re.compile(r"\b(F|Q|SG|D)-(?:P)?\d+\b")
+    # "Renumbered from X during the 2026-11-20 integration" is provenance text,
+    # not a live citation: the id it names is the row's FORMER id, kept visible
+    # so a reviewer can follow the trail. Strip those sentences before scanning,
+    # exactly as the fragment/anchor pass above treats nothing it finds inside
+    # <code> history notes.
+    provenance_re = re.compile(r"[Rr]enumbered from (?:F|Q|SG|D)-(?:P)?\d+[^.<]{0,80}")
     for f in html_files:
         if f.name == "flagged.html":
             continue  # may name out-of-register ids when that is the irregularity
         text = f.read_text(encoding="utf-8")
-        for m in ref_re.finditer(text):
+        scan = provenance_re.sub("", text)
+        for m in ref_re.finditer(scan):
             rid = m.group(0)
             if rid not in registers[m.group(1)]:
                 fail(f"{f.name}: cites {rid} which is not in the register")
