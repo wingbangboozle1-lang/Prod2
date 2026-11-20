@@ -241,7 +241,8 @@
    "All five document titles match the register's name_listing values verbatim — no title drift observed on this pass.",
    "Both category breadcrumbs confirmed: Air Fryers (P1-P3) and Thermometers & Timers › Meat (P4-P5).",
    "Prices and ratings were visible on the listing pages and are withheld from publication (F-02). An 'In Stock' line was observed on P4 — availability policy now tracked as Q-P11 / SG-42.",
-   "The short links (S-L1..S-L5) were not re-resolved this pass; their last dated redirect observation is 2026-11-19 (F-P07 covers the two-links-per-pass pattern)."
+   "The short links (S-L1..S-L5) were not re-resolved this pass; their last dated redirect observation is 2026-11-19 (F-P07 covers the two-links-per-pass pattern).",
+   "Correction, 2026-11-20 (arena/37b265a4-prod2, R-01): the short-link sentence above is superseded. The short links were read again on this date; see r01_reread_2026_11_20 in this file."
   ]
  },
  "r01_reread_2026_11_20": {
@@ -249,7 +250,8 @@
    "session": "arena/37b265a4-prod2",
    "task": "R-01 (COORDINATION.md): same-day independent re-read of the five short links, the five /dp/ listings, the Associates policy pages and the live host.",
    "method": "fetch_page tool, 2026-11-20 UTC. The fetch tool is not a logged-in browser and does not attest to what a buyer sees. Titles are compared after removing the \"Amazon.com: \" prefix and \" : Home & Kitchen\" suffix that the tool adds; the comparison is exact string equality against data/p2/products.json name_listing.",
-   "scope_note": "Adds dated observations only. No existing intended_asin, official_listing_url, price or rating field was changed."
+   "scope_note": "Adds dated observations only. No existing intended_asin, official_listing_url, price or rating field was changed.",
+   "correction_2026_11_20": "Attempt records for B00hJ57DV and B0f3GKalj corrected to one read each (homepage). A first draft recorded HTTP 500 for these links; that was wrong for the R-01 read and has been removed."
   },
   "listings": [
    {
@@ -331,15 +333,12 @@
     "read_utc": "2026-11-20",
     "attempts": [
      {
-      "attempt": "attempt 1",
-      "observed": "HTTP 500 (fetch tool error)"
-     },
-     {
-      "attempt": "attempt 2",
-      "observed": "HTTP 500 (fetch tool error)"
+      "attempt": "single read (R-01 pass)",
+      "observed": "final URL https://www.amazon.com/ (Amazon homepage; no /dp/ path)"
      }
     ],
-    "resolved_to_intended_asin": false
+    "resolved_to_intended_asin": false,
+    "unreproduced_earlier_note": "An earlier same-day note of HTTP 500 for this link was not reproduced in the R-01 read and is not relied on."
    },
    {
     "id": "P4",
@@ -365,18 +364,15 @@
     "read_utc": "2026-11-20",
     "attempts": [
      {
-      "attempt": "attempt 1",
-      "observed": "HTTP 500 (fetch tool error)"
-     },
-     {
-      "attempt": "attempt 2",
+      "attempt": "single read (R-01 pass)",
       "observed": "final URL https://www.amazon.com/ (Amazon homepage; no /dp/ path)"
      }
     ],
-    "resolved_to_intended_asin": false
+    "resolved_to_intended_asin": false,
+    "unreproduced_earlier_note": "An earlier same-day note of HTTP 500 for this link was not reproduced in the R-01 read and is not relied on."
    }
   ],
-  "short_link_summary": "Only link.amazon/B02NbDxp3 reached its intended ASIN in this read. Two links (B04G1MEwY, B0c8moW59) reached the Amazon homepage on both attempts; B00hJ57DV returned HTTP 500 on both attempts; B0f3GKalj returned HTTP 500 once and the homepage once. This contradicts the earlier statement that all five tokens resolve to their listings. Cause not established (F-P24, Q-P15).",
+  "short_link_summary": "Only link.amazon/B02NbDxp3 reached its intended ASIN in this read. link.amazon/B04G1MEwY and link.amazon/B0c8moW59 reached the Amazon homepage on both attempts. link.amazon/B00hJ57DV and link.amazon/B0f3GKalj each reached the Amazon homepage on one read. An earlier same-day note of HTTP 500 for two of these links was not reproduced and is not relied on. Another session read the same URLs the same day and reports different results for B02NbDxp3 and B0f3GKalj (F-P24, F-P27). This contradicts the earlier statement that all five tokens resolve to their listings. Cause not established (F-P24, F-P27, F-P28, Q-P15).",
   "policy_reads": [
    {
     "source": "S-POL",

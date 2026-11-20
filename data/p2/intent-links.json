@@ -149,16 +149,8 @@
         },
         {
           "date_utc": "2026-11-20",
-          "final_url_without_query": null,
-          "status": "HTTP 500",
-          "note": "R-01 re-read: fetch tool returned HTTP 500; fetch tool, attempt 1. No redirect target observed; see F-P24.",
-          "record": "data/p2/verification-2026-11-20.json#r01_reread_2026_11_20"
-        },
-        {
-          "date_utc": "2026-11-20",
-          "final_url_without_query": null,
-          "status": "HTTP 500",
-          "note": "R-01 re-read: fetch tool returned HTTP 500; fetch tool, attempt 2. No redirect target observed; see F-P24.",
+          "final_url_without_query": "https://www.amazon.com/",
+          "note": "R-01 re-read (single read): landed on the Amazon homepage, not the listing. Does not match intended ASIN; see F-P24, F-P27. An earlier same-day note of HTTP 500 for this link was not reproduced in the R-01 read and is not relied on.",
           "record": "data/p2/verification-2026-11-20.json#r01_reread_2026_11_20"
         }
       ]
@@ -229,15 +221,8 @@
         },
         {
           "date_utc": "2026-11-20",
-          "final_url_without_query": null,
-          "status": "HTTP 500",
-          "note": "R-01 re-read: fetch tool returned HTTP 500; fetch tool, attempt 1. No redirect target observed; see F-P24.",
-          "record": "data/p2/verification-2026-11-20.json#r01_reread_2026_11_20"
-        },
-        {
-          "date_utc": "2026-11-20",
           "final_url_without_query": "https://www.amazon.com/",
-          "note": "R-01 re-read: landed on the Amazon homepage, not the listing; fetch tool, attempt 2. Does not match intended ASIN; see F-P24.",
+          "note": "R-01 re-read (single read): landed on the Amazon homepage, not the listing. Does not match intended ASIN; see F-P24, F-P27. An earlier same-day note of HTTP 500 for this link was not reproduced in the R-01 read and is not relied on.",
           "record": "data/p2/verification-2026-11-20.json#r01_reread_2026_11_20"
         }
       ]

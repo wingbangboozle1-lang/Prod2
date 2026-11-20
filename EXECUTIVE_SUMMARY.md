@@ -14,7 +14,7 @@
 | P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | Live re-read 2026-11-20 (title, ±0.5℉/NIST, IP67 matched) |
 | P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | Live re-read 2026-11-20 (title, 3 probes, 1000°F matched) |
 
-- On 2026-11-19 all five short links resolved to the ASINs above, with no `tag=` parameter (F-03). A 2026-11-20 re-read reached the intended ASIN for one of five; the other four reached the Amazon homepage or returned errors in that read (F-P24). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
+- On 2026-11-19 all five short links resolved to the ASINs above, with no `tag=` parameter (F-03). On 2026-11-20 a same-day re-read confirmed one of five, and a second same-day read disagrees on two links, so the outcome is undecided until a browser check (F-P24, F-P27, F-P28). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
 - **Every listing was re-fetched live on 2026-11-20** and each observed string is recorded in `data/p2/verification-2026-11-20.json`. Prior records stated this environment could not reach Amazon; that was wrong (F-P18).
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
 - **No revenue is claimed.** Tag registration and click attribution are confirmable only inside Associates Central (F-57, F-58) — the one-link-per-product test is the owner's next step.
@@ -42,7 +42,7 @@
 
 - **Suggestion queue** (`suggestions.html`): 28 proposals, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
 - **Open questions** (`questions.html`): 15 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
-- **Flagged for review** (`flagged.html`): 40 items (26 open, 10 resolved, 4 standing), each with an evidence link. Three added 2026-11-20 by the R-01 re-read: F-P24 (short links did not all reach their listing), F-P25 (price-label copy), F-P26 (price column in the public summary). Earlier additions 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
+- **Flagged for review** (`flagged.html`): 42 items (28 open, 10 resolved, 4 standing), each with an evidence link. Added 2026-11-20: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24, first published by arena/722181aa-prod2) and F-P28 (products.json and the intent record versus the 2026-11-20 reads). Earlier additions 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
 - **Decision log** (`decisions.html`): 27 recorded decisions including D-P10…D-P15 from the 2026-11-20 pass.
 
 ## Measurement (machinery shipped, not yet on)
@@ -146,7 +146,7 @@ checks the output before anything is published.
 
 **Key finding:** every submitted link carries a **9-character short-link token**, not a
 10-character ASIN (Amazon defines an ASIN as 10 characters). On 2026-11-19 the tokens resolved to real
-10-character ASINs and listings. A 2026-11-20 re-read reached the intended listing for one of five (F-P24). Intent and observation are kept in **separate fields** and
+10-character ASINs and listings. On 2026-11-20 a same-day re-read confirmed one of five, and a second same-day read disagrees on two links (F-P24, F-P27, F-P28). Intent and observation are kept in **separate fields** and
 never merged (see the product-intent confirmation record on the Research Desk).
 
 ## Verified from official sources
@@ -247,7 +247,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 | P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | Live re-read 2026-11-20 (title, ±0.5℉/NIST, IP67 matched) |
 | P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | Live re-read 2026-11-20 (title, 3 probes, 1000°F matched) |
 
-- On 2026-11-19 all five short links resolved to the ASINs above, with no `tag=` parameter (F-03). A 2026-11-20 re-read reached the intended ASIN for one of five; the other four reached the Amazon homepage or returned errors in that read (F-P24). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
+- On 2026-11-19 all five short links resolved to the ASINs above, with no `tag=` parameter (F-03). On 2026-11-20 a same-day re-read confirmed one of five, and a second same-day read disagrees on two links, so the outcome is undecided until a browser check (F-P24, F-P27, F-P28). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
 - **Every listing was re-fetched live on 2026-11-20** and each observed string is recorded in `data/p2/verification-2026-11-20.json`. Prior records stated this environment could not reach Amazon; that was wrong (F-P18).
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
 - **No revenue is claimed.** Tag registration and click attribution are confirmable only inside Associates Central (F-57, F-58) — the one-link-per-product test is the owner's next step.
@@ -275,7 +275,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 
 - **Suggestion queue** (`suggestions.html`): 28 proposals, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
 - **Open questions** (`questions.html`): 15 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
-- **Flagged for review** (`flagged.html`): 40 items (26 open, 10 resolved, 4 standing), each with an evidence link. Three added 2026-11-20 by the R-01 re-read: F-P24 (short links did not all reach their listing), F-P25 (price-label copy), F-P26 (price column in the public summary). Earlier additions 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
+- **Flagged for review** (`flagged.html`): 42 items (28 open, 10 resolved, 4 standing), each with an evidence link. Added 2026-11-20: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24, first published by arena/722181aa-prod2) and F-P28 (products.json and the intent record versus the 2026-11-20 reads). Earlier additions 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
 - **Decision log** (`decisions.html`): 27 recorded decisions including D-P10…D-P15 from the 2026-11-20 pass.
 
 ## Measurement (machinery shipped, not yet on)

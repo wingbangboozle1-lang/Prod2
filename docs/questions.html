@@ -142,7 +142,7 @@
 <article class="card q-card" id="Q-01">
   <h3><code>Q-01</code> Is the Associates account enrolled under tracking ID shopnow047c-20, and has each published link been validated in that account?</h3>
   <dl>
-    <dt>What we know</dt><dd>The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). All five supplied short links resolved without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central. 2026-11-20 re-read: only one of five owner short links reached its intended ASIN in the fetch-tool read (F-P24, Q-P15).</dd>
+    <dt>What we know</dt><dd>The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). On 2026-11-19 all five supplied short links were recorded as resolving without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central. 2026-11-20 re-read: only one of five owner short links reached its intended ASIN in the fetch-tool read (F-P24, Q-P15).</dd>
     <dt>What is missing</dt><dd>Account enrollment status; Partner Tag registration; whether test clicks report.</dd>
     <dt>How to discover it</dt><dd>Owner logs into Associates Central: confirm the Partner Tag, generate or validate one Special Link per product, run a test click and read it in the report (protocol on the measurement page).</dd>
     <dt>Answerable by</dt><dd>The account holder.</dd>
@@ -340,12 +340,12 @@
 <article class="card q-card" id="Q-P15">
   <h3><code>Q-P15</code> Does each of the owner-supplied short links reach its intended ASIN for a logged-out buyer, and for an Associates-enrolled session?</h3>
   <dl>
-    <dt>What we know</dt><dd>On 2026-11-20 one of five short links (B02NbDxp3) reached its intended ASIN in the fetch-tool read. Two (B04G1MEwY, B0c8moW59) reached the Amazon homepage on both attempts. B00hJ57DV returned HTTP 500 on both attempts. B0f3GKalj returned HTTP 500 once and the homepage once (F-P24). The published site does not use the short links for outbound clicks.</dd>
+    <dt>What we know</dt><dd>On 2026-11-20 the R-01 read found one of five short links (B02NbDxp3) at its intended ASIN. short link B04G1MEwY and short link B0c8moW59 reached the Amazon homepage on both attempts. short link B00hJ57DV and short link B0f3GKalj each reached the Amazon homepage on one read. A second same-day read by another session disagrees on B02NbDxp3 and B0f3GKalj (F-P24; F-P27). The published site does not use the short links for outbound clicks.</dd>
     <dt>What is missing</dt><dd>Whether the failures are specific to the fetch tool or also happen in a browser. Whether the links carry the owner’s tag in an enrolled session. Whether the links are compliant under Program Policies §6(w) (FLG-003).</dd>
     <dt>How to discover it</dt><dd>Owner opens each link in a logged-out private window and in the Associates-enrolled browser. Records the final URL and ASIN and compares them with data/p2/intent-links.json. Then decides under F-03 and F-58 whether the links stay in use at all.</dd>
     <dt>Answerable by</dt><dd>Owner</dd>
     <dt>Blocks</dt><dd>—</dd>
-    <dt>Flags</dt><dd><a href="flagged.html#F-P24">F-P24</a></dd>
+    <dt>Flags</dt><dd><a href="flagged.html#F-P24">F-P24</a> <a href="flagged.html#F-P27">F-P27</a> <a href="flagged.html#F-P28">F-P28</a></dd>
   </dl>
 </article>
 
