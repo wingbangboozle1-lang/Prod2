@@ -243,5 +243,167 @@
    "Prices and ratings were visible on the listing pages and are withheld from publication (F-02). An 'In Stock' line was observed on P4 — availability policy now tracked as Q-P11 / SG-42.",
    "The short links (S-L1..S-L5) were not re-resolved this pass; their last dated redirect observation is 2026-11-19 (F-P07 covers the two-links-per-pass pattern)."
   ]
+ },
+ "third_pass_arena_44af3083": {
+  "_meta": {
+   "session": "arena/44af3083-prod2",
+   "date_utc": "2026-11-20",
+   "method": "Independent third read on the same date. Each official URL was fetched with the page-fetch tool and the returned document title / breadcrumb / update line was compared against the register. Cross-checked against the primary pass (arena/70b2b9f7-prod2) and the second title/breadcrumb pass (arena/f55b5827-prod2) in this file, and against data/p2/live-check-2026-11-20-722181aa.json.",
+   "tool_note": "The fetch tool renders amazon.com pages as a text extraction (product-summary variant). Title strings come from the page's document title, which is the listing title with the 'Amazon.com: ' / node suffixes stripped in comparison."
+  },
+  "listings": [
+   {
+    "id": "P1",
+    "asin": "B0CDY277D3",
+    "url": "https://www.amazon.com/dp/B0CDY277D3",
+    "read_utc": "2026-11-20",
+    "session": "arena/44af3083-prod2",
+    "title_observed_verbatim": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+    "title_core_compared": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+    "title_match_register_name_listing": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+    "breadcrumb_match_register_category": true
+   },
+   {
+    "id": "P2",
+    "asin": "B09B7SB46R",
+    "url": "https://www.amazon.com/dp/B09B7SB46R",
+    "read_utc": "2026-11-20",
+    "session": "arena/44af3083-prod2",
+    "title_observed_verbatim": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+    "title_core_compared": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+    "title_match_register_name_listing": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+    "breadcrumb_match_register_category": true
+   },
+   {
+    "id": "P3",
+    "asin": "B08DKYBTPH",
+    "url": "https://www.amazon.com/dp/B08DKYBTPH",
+    "read_utc": "2026-11-20",
+    "session": "arena/44af3083-prod2",
+    "title_observed_verbatim": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+    "title_core_compared": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+    "title_match_register_name_listing": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+    "breadcrumb_match_register_category": true
+   },
+   {
+    "id": "P4",
+    "asin": "B0DHZTCNR5",
+    "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+    "read_utc": "2026-11-20",
+    "session": "arena/44af3083-prod2",
+    "title_observed_verbatim": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+    "title_core_compared": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
+    "title_match_register_name_listing": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+    "breadcrumb_match_register_category": true
+   },
+   {
+    "id": "P5",
+    "asin": "B0DZFD6R9Z",
+    "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+    "read_utc": "2026-11-20",
+    "session": "arena/44af3083-prod2",
+    "title_observed_verbatim": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
+    "title_core_compared": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+    "title_match_register_name_listing": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+    "breadcrumb_match_register_category": true
+   }
+  ],
+  "policies_and_charts": [
+   {
+    "id": "S-OA",
+    "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+    "read_utc": "2026-11-20",
+    "updated_verbatim": "October 15, 2025",
+    "match_register": true
+   },
+   {
+    "id": "S-POL",
+    "url": "https://affiliate-program.amazon.com/help/operating/policies",
+    "read_utc": "2026-11-20",
+    "updated_verbatim": "April 14, 2026",
+    "match_register": true
+   },
+   {
+    "id": "S-USDA-COOK",
+    "url": "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+    "read_utc": "2026-11-20",
+    "date_last_reviewed_verbatim": "November 21, 2024",
+    "key_row_verbatim": "Chicken, turkey, and other poultry ... 165°F (74°C)",
+    "match_register": true
+   },
+   {
+    "id": "S-USDA-COLD",
+    "url": "https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts",
+    "read_utc": "2026-11-20",
+    "date_last_reviewed_verbatim": "September 19, 2023",
+    "match_register": true
+   },
+   {
+    "id": "S-USDA-OUTAGE",
+    "url": "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage",
+    "read_utc": "2026-11-20",
+    "date_last_reviewed_verbatim": "August 8, 2024",
+    "match_register": true
+   }
+  ],
+  "short_links_this_pass": [
+   {
+    "submitted": "https://link.amazon/B04G1MEwY",
+    "read_utc": "2026-11-20",
+    "final_url_observed": "https://www.amazon.com/",
+    "resolved_to_listing": false
+   },
+   {
+    "submitted": "https://link.amazon/B0c8moW59",
+    "read_utc": "2026-11-20",
+    "final_url_observed": "https://www.amazon.com/",
+    "resolved_to_listing": false
+   },
+   {
+    "submitted": "https://link.amazon/B02NbDxp3",
+    "read_utc": "not re-fetched this pass",
+    "final_url_observed": null,
+    "resolved_to_listing": null
+   },
+   {
+    "submitted": "https://link.amazon/B00hJ57DV",
+    "read_utc": "not re-fetched this pass",
+    "final_url_observed": null,
+    "resolved_to_listing": null
+   },
+   {
+    "submitted": "https://link.amazon/B0f3GKalj",
+    "read_utc": "not re-fetched this pass",
+    "final_url_observed": null,
+    "resolved_to_listing": null
+   }
+  ],
+  "findings": [
+   {
+    "id": "V3-01",
+    "finding": "All five listing document titles match the register's name_listing strings exactly (after stripping the Amazon.com/node wrapper); breadcrumbs match the register category paths. Agrees with both earlier 2026-11-20 passes.",
+    "verdict": "confirmed"
+   },
+   {
+    "id": "V3-02",
+    "finding": "Operating Agreement (Updated: October 15, 2025), Program Policies (Updated: April 14, 2026) and the three FoodSafety.gov charts (Last reviewed 2024-11-21 / 2023-09-19 / 2024-08-08) match the dates recorded in the register.",
+    "verdict": "confirmed"
+   },
+   {
+    "id": "V3-03",
+    "finding": "The short-link discrepancy (F-P24) reproduced in this independent pass: both sampled short links (B04G1MEwY, B0c8moW59) resolved to https://www.amazon.com/ (the storefront) instead of their listings. Corroborates arena/722181aa-prod2's live-check. Cause still unknown (fetch-tool artifact vs. service change); the register's earlier dated redirect history (2026-11-14..19) is unchanged. F-P24 stays open; owner/browser check required.",
+    "verdict": "irregularity-reproduced"
+   },
+   {
+    "id": "V3-04",
+    "finding": "No register value changed as a result of this pass; no price, rating or commission value was written to the site (F-02 unchanged).",
+    "verdict": "no-change"
+   }
+  ]
  }
 }
