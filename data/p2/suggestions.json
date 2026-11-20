@@ -581,18 +581,19 @@
   },
   {
    "id": "SG-47",
-   "title": "Get one authoritative gallery image per product through the official channel, or keep drawings",
-   "problem": "Every product card carries an illustration rather than a photo, because copying a listing image is restricted by Amazon's IP License. Illustrations are honest but they are also the single biggest reason the shelf does not look like a shop.",
-   "proposal": "Either (a) enrol in the Amazon Associates product-advertising/PA-API route and pull the official image with the licensed link, which is the only compliant way to show real photography, or (b) commission a consistent illustration set so at least the drawings look deliberate rather than placeholder.",
-   "evidence": "Operating Agreement Section 1 / IP License and Usage Requirements, read 2026-11-20; the site's own note under every card reads 'Illustration, not the product photo'.",
-   "impact": "High for click-through; zero for compliance.",
-   "effort": "(a) needs API access; (b) is a design pass.",
-   "risk": "(a) is blocked on API approval, which is outside this project's control. (b) is safe and reversible.",
+   "title": "Standing CTA language for the no-price world",
+   "problem": "The site cannot publish prices (F-02), so every conversion moment ends at a generic 'See it on Amazon' button. The CTA copy is the only conversion lever left and it is currently uniform and untested.",
+   "proposal": "Define three rule-compliant CTA label variants for the buy buttons (for example 'See today's price on Amazon', 'Check the listing', 'See the format on Amazon'), keep the paid-link label attached to each, and rotate them behind the measurement gate — the outbound_click event is already instrumented (data/p2/events.json). Nothing ships until the SG-06 gate opens; the variant list is specified in DESIGN_PROMPT.md now.",
+   "evidence": "Program Policies 2(b) (updated 2026-04-14, S-POL) requires prices to be shown by Amazon, not by us — which makes 'see today's price' a truthful, compliant promise. The outbound_click event is the measuring stick.",
+   "impact": "Medium on click-through once measurement exists; zero before it.",
+   "effort": "Small: label variants in settings plus one rotation rule in the build.",
+   "risk": "Low — provided no label implies a price, rating or availability the site cannot see (claims gate).",
    "depends_on": [
-    "Q-P05"
+    "SG-06",
+    "SG-43"
    ],
    "status": "proposed",
-   "recommendation": "Run (b) now; switch to (a) only if API access is granted."
+   "recommendation": "Accept as a specified input to the next design pass; implement only after SG-06."
   }
  ]
 }

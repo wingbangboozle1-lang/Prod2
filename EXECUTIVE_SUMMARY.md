@@ -16,6 +16,11 @@
 
 - On 2026-11-19 all five short links resolved to the ASINs above **with no `tag=` parameter** (F-03). On 2026-11-20 a same-day re-read confirmed one of five at its intended ASIN, and a second same-day read disagrees on two links (F-P24, F-P27, F-P28; Q-P18). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
 - **Every listing was re-fetched live on 2026-11-20** and each observed string is recorded in `data/p2/verification-2026-11-20.json`. Prior records stated this environment could not reach Amazon; that was wrong (F-P18).
+
+---
+
+- All five short links resolved to the ASINs above **with no `tag=` parameter** (F-03). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
+- **Every listing was re-fetched live on 2026-11-20 by three independent passes** (arena/70b2b9f7-prod2, arena/f55b5827-prod2, arena/44af3083-prod2) plus a fourth live check of the short links (arena/722181aa-prod2). All observed strings are recorded in `data/p2/verification-2026-11-20.json` (primary + second + third pass sections) and `data/p2/live-check-2026-11-20-722181aa.json`. Prior records stated this environment could not reach Amazon; that was wrong (F-P18).
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
 - **No revenue is claimed.** Tag registration and click attribution are confirmable only inside Associates Central (F-57, F-58) — the one-link-per-product test is the owner's next step.
 
@@ -34,6 +39,10 @@
 - **Navigation cut from eleven links to six** (Shop · Air fryers · Thermometers · Guides · Compare · About). All dashboard surfaces remain in the footer directory, and the gate now fails if the reader nav exceeds seven links.
 - **Imagery**: six illustrations drawn for the site, generic to the format, captioned "illustration, not the product photo" (D-P12). No Amazon photography is copied.
 - Ten question-shaped guides on a fortnightly cadence, plus two long reads (see below), a buying guide, two category pages, and a sourced comparison table with the three-question chooser (D-23) and the counter-space analysis (D-26).
+
+---
+
+- Twelve question-shaped guides on a fortnightly cadence — two of them shipped into the US Thanksgiving window on 2026-11-20 (`guide-preheat-shake.html`, `guide-turkey-done.html`) — plus a buying guide, two category pages, and a sourced comparison table with the three-question chooser (D-23) and the counter-space analysis (D-26).
 - The thermometer guide now leads with the **official USDA safe-minimum temperatures** and the cold-storage and power-outage limits, quoted with their last-reviewed dates (D-P14). This gives a reader an independent reason to care about accuracy instead of restating a marketing claim.
 - Disclosure strip under the masthead on **every** page + footer repeat; every product link marked sponsored.
 - Unique titles/meta, JSON-LD, sitemap.xml, robots.txt, RSS feed, typographic OG card (no product photography — S-18/D-22 still needs a decision).
@@ -79,6 +88,13 @@ whether it worked.
 - **Flagged for review** (`flagged.html`): 38 items, open/resolved/standing, each with an evidence link. Four added 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
 - **Decision log** (`decisions.html`): 32 recorded decisions, including D-P21 (which event vocabulary is authoritative) from the latest pass.
 
+---
+
+- **Suggestion queue** (`suggestions.html`): 38 proposals, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
+- **Open questions** (`questions.html`): 21 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
+- **Flagged for review** (`flagged.html`): 38 items, open/resolved/standing, each with an evidence link. Four added 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
+- **Decision log** (`decisions.html`): 31 recorded decisions including D-P10…D-P15 from the 2026-11-20 pass.
+
 ## Measurement (machinery shipped, not yet on)
 
 - Privacy-preserving outbound-click counter (`assets/js/measure.js`): five local events, no cookies/identifiers, ASIN + host only; **transmits nothing until an endpoint is configured**.
@@ -87,7 +103,7 @@ whether it worked.
 
 ## Verification & governance trail
 
-- 2026-11-20 session record: `data/p2/verification-2026-11-20.json` — every observed string, every non-observation, and five findings (V-01…V-05).
+- 2026-11-20 session records: `data/p2/verification-2026-11-20.json` — every observed string, every non-observation, five findings (V-01…V-05), a second title/breadcrumb pass, and the third independent pass (arena/44af3083-prod2, V3-01…V3-04: 5/5 titles match, policy/chart dates confirmed, F-P24 reproduced, zero register drift); plus `data/p2/live-check-2026-11-20-722181aa.json` (short-link discrepancy, F-P24).
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
@@ -157,6 +173,32 @@ branded publication with timely articles, not generated output — and this merg
 - **Register ID collisions were remapped and documented**: the anti-slop pass's rows now live at
   D-P18…D-P20 (twice remapped; see the decision log meta) and its runbook suggestion at SG-44;
   nothing from any session was discarded.
+
+## The second wave (2026-11-20, arena/44af3083-prod2)
+
+The owner's standing directive again: read like a shop, publish timely buyer questions, verify
+everything from official sources, and put every judgement in front of a reviewer before it ships.
+
+- **Third independent verification pass on the same date:** all five listing document titles match
+  the register character-for-character (V3-01); the Operating Agreement (Updated: October 15, 2025),
+  the Program Policies (Updated: April 14, 2026) and the three FoodSafety.gov charts (last reviewed
+  2024-11-21 / 2023-09-19 / 2024-08-08) match the registered dates (V3-02). Zero register drift.
+- **F-P24 reproduced by an independent pass:** two sampled submitted short links again resolved to
+  the Amazon storefront instead of their listings (V3-03). Evidence appended to F-P24; the
+  browser-check question is now Q-P15. Intended-ASIN fields untouched.
+- **Two timely, question-shaped guides published** for the US Thanksgiving window (2026-11-26):
+  `guide-preheat-shake.html` ("Preheat, shake, or don't" — calendar queue slot 1, pulled forward)
+  and `guide-turkey-done.html` ("How do you know the turkey is done?" — USDA 165°F guidance plus the
+  instant-read vs leave-in trade-off). Both auto-flowed into the sitemap and RSS feed; the calendar
+  clusters and the holiday desk were wired in the same build.
+- **Decision-support additions, proposals only:** SG-45 (front-page "newest question" slot),
+  SG-46 (90-day listing re-verification SLA), SG-47 (CTA language for the no-price world);
+  Q-P15 (short-link browser check), Q-P16 (demand evidence for the new guides), Q-P17 (can the
+  re-verification run in CI). `DESIGN_PROMPT.md` gained a marketing-inputs section feeding the
+  next visual pass.
+- **Gate:** `tools/checks.py` ALL CHECKS PASSED at 30 pages; `scripts/verify_site.py` VERIFY OK;
+  `npm test` 2/2. One gate catch during the pass (a short-link string on questions.html) was fixed
+  at the register, not silenced in the gate.
 
 ## The publication pass (2026-11-19, arena/9f84489c-prod2)
 

@@ -743,19 +743,19 @@
   <p class="reco"><strong>Our recommendation:</strong> Do this first. It is the cheapest item on the board with the largest structural payoff, and unlike every other item it needs no editorial judgement.</p>
 </article>
 <article class="card s-card" id="SG-47">
-  <header><h3><code>SG-47</code> Get one authoritative gallery image per product through the official channel, or keep drawings</h3>
+  <header><h3><code>SG-47</code> Standing CTA language for the no-price world</h3>
   <span class="status status-proposed">proposed</span></header>
   <dl>
-    <dt>Problem</dt><dd>Every product card carries an illustration rather than a photo, because copying a listing image is restricted by Amazon&#x27;s IP License. Illustrations are honest but they are also the single biggest reason the shelf does not look like a shop.</dd>
-    <dt>Proposal</dt><dd>Either (a) enrol in the Amazon Associates product-advertising/PA-API route and pull the official image with the licensed link, which is the only compliant way to show real photography, or (b) commission a consistent illustration set so at least the drawings look deliberate rather than placeholder.</dd>
-    <dt>Evidence</dt><dd>Operating Agreement Section 1 / IP License and Usage Requirements, read 2026-11-20; the site&#x27;s own note under every card reads &#x27;Illustration, not the product photo&#x27;.</dd>
-    <dt>Expected impact</dt><dd>High for click-through; zero for compliance.</dd>
-    <dt>Effort</dt><dd>(a) needs API access; (b) is a design pass.</dd>
-    <dt>Risk</dt><dd>(a) is blocked on API approval, which is outside this project&#x27;s control. (b) is safe and reversible.</dd>
+    <dt>Problem</dt><dd>The site cannot publish prices (F-02), so every conversion moment ends at a generic &#x27;See it on Amazon&#x27; button. The CTA copy is the only conversion lever left and it is currently uniform and untested.</dd>
+    <dt>Proposal</dt><dd>Define three rule-compliant CTA label variants for the buy buttons (for example &#x27;See today&#x27;s price on Amazon&#x27;, &#x27;Check the listing&#x27;, &#x27;See the format on Amazon&#x27;), keep the paid-link label attached to each, and rotate them behind the measurement gate — the outbound_click event is already instrumented (data/p2/events.json). Nothing ships until the SG-06 gate opens; the variant list is specified in DESIGN_PROMPT.md now.</dd>
+    <dt>Evidence</dt><dd>Program Policies 2(b) (updated 2026-04-14, S-POL) requires prices to be shown by Amazon, not by us — which makes &#x27;see today&#x27;s price&#x27; a truthful, compliant promise. The outbound_click event is the measuring stick.</dd>
+    <dt>Expected impact</dt><dd>Medium on click-through once measurement exists; zero before it.</dd>
+    <dt>Effort</dt><dd>Small: label variants in settings plus one rotation rule in the build.</dd>
+    <dt>Risk</dt><dd>Low — provided no label implies a price, rating or availability the site cannot see (claims gate).</dd>
     
-    <dt>Depends on</dt><dd>Q-P05</dd>
+    <dt>Depends on</dt><dd>SG-06, SG-43</dd>
   </dl>
-  <p class="reco"><strong>Our recommendation:</strong> Run (b) now; switch to (a) only if API access is granted.</p>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as a specified input to the next design pass; implement only after SG-06.</p>
 </article>
 
 <div class="callout callout-sage">
@@ -774,7 +774,7 @@
       <p class="footer-brand">The Crisp Counter <span>· Kitchen notes &amp; buying guides</span></p>
       <p class="footer-disclosure">As an Amazon Associate I earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
     </div>
-    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guide-gift-guide.html">The gift guide</a></li><li><a href="guides.html">All guides</a></li></ul></div>
+    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guide-gift-guide.html">The gift guide</a></li><li><a href="guide-preheat-shake.html">Preheat, shake, or don't?</a></li><li><a href="guide-turkey-done.html">Is the turkey done?</a></li><li><a href="guides.html">All guides</a></li></ul></div>
     <div><h2>Compare &amp; shop</h2><ul><li><a href="shop.html">Shop the shelf</a></li><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
     <div><h2>Read &amp; follow</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="guides.html#subscribe">Follow the feed</a></li><li><a href="guides.html#ask">Ask a question</a></li><li><a href="about.html">Who writes this</a></li></ul></div>
     <div><h2>The work behind it</h2><ul><li><a href="before-you-decide.html">Before you decide</a></li><li><a href="about.html">About &amp; standards</a></li><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>

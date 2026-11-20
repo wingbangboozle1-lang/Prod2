@@ -22,9 +22,10 @@
     "guide-holiday-hosting.html",
     "guide-basket-vs-oven.html",
     "guide-thermometer-accuracy.html",
-    "guide-how-many-quarts.html"
+    "guide-how-many-quarts.html",
+    "guide-turkey-done.html"
    ],
-   "status": "live 2026-11-19"
+   "status": "live 2026-11-19 · turkey-window guide added 2026-11-20"
   },
   {
    "id": "holiday-gifting",
@@ -80,7 +81,8 @@
     "guide-holiday-hosting.html",
     "guide-instant-vs-leave-in.html",
     "guide-gift-guide.html",
-    "article-thermometer-placement.html"
+    "article-thermometer-placement.html",
+    "guide-turkey-done.html"
    ]
   }
  ],

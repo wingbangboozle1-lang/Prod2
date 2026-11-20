@@ -84,3 +84,23 @@ npm test                   # endpoint tests
 - It does not claim prices or ratings. They are deliberately unpublished (**F-02**).
 - It does not claim the imagery is the product. It is illustration (**F-17** lineage).
 - It does not claim the short links are invalid. Their compliance status is unresolved (**F-03**).
+
+## 7. Addendum — 2026-11-20, session arena/44af3083-prod2
+
+Line-by-line review continued in this session with a third independent live verification pass and
+a reader-content pass. Findings (all published, none blocking):
+
+| Finding | Evidence | Result |
+| --- | --- | --- |
+| All five listing document titles match the register character-for-character; breadcrumbs match the registered category paths | `data/p2/verification-2026-11-20.json` → `third_pass_arena_44af3083` (5 listings, read 2026-11-20) | Confirmed (V3-01); agrees with the two earlier 2026-11-20 passes |
+| Operating Agreement (Updated: October 15, 2025), Program Policies (Updated: April 14, 2026), three FoodSafety.gov charts (2024-11-21 / 2023-09-19 / 2024-08-08) match the registered dates | same file, `policies_and_charts` | Confirmed (V3-02) |
+| The F-P24 short-link discrepancy reproduced in an independent environment: 2 of 2 sampled short links resolved to the Amazon storefront, not their listings | same file, `short_links_this_pass` | F-P24 evidence extended; browser-check question added as Q-P15 (V3-03) |
+| The claims gate caught a short-link string introduced on questions.html without an inert-code rendering | `tools/checks.py` exposition section | Fixed at the register (wording), gate left strict |
+| The front page's trust row claimed 10 buyer guides after the calendar had grown | `content/pages/index.html` | Corrected to 12 with the two new guides |
+
+Published this pass: `guide-preheat-shake.html`, `guide-turkey-done.html` (Thanksgiving window,
+USDA-sourced), register rows Q-P15..Q-P17 and SG-45..SG-47 (proposals only), and a marketing-inputs
+section in `DESIGN_PROMPT.md`. Gate: `tools/checks.py` ALL CHECKS PASSED (30 pages, 12 sections);
+`scripts/verify_site.py` VERIFY OK; `npm test` 2/2.
+
+The audit still does not claim anything listed in section 6.

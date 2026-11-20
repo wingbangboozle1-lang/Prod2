@@ -131,6 +131,10 @@ PAGES = [
      f"Preheat, shake, or don’t: which rituals matter | {BRAND}",
      "Which air-fryer steps are worth learning, from the listings we track and extension guidance: preheat, the mid-cook shake, the no-overfill rule, the probe.",
      "guides"),
+    ("guide-turkey-done", "guide-turkey-done.html",
+     f"How do you know the turkey is done? | {BRAND}",
+     "USDA says poultry is done at 165°F (74°C). How a one-second instant-read and a wireless leave-in probe each answer the question on the big day, from listed specs.",
+     "guides"),
     ("guides", "guides.html",
      f"Guides: one buyer question per page | {BRAND}",
      "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
@@ -188,7 +192,7 @@ PAGES = [
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
              "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
-             "guide-gift-guide", "guide-preheat-shake"]
+             "guide-gift-guide", "guide-preheat-shake", "guide-turkey-done"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -263,6 +267,8 @@ GUIDE_LINKS = [
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
     ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
     ("guide-gift-guide.html", "The gift guide"),
+    ("guide-preheat-shake.html", "Preheat, shake, or don't?"),
+    ("guide-turkey-done.html", "Is the turkey done?"),
     ("guides.html", "All guides"),
 ]
 
@@ -762,6 +768,7 @@ GUIDE_BLURBS = {
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
     "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
     "guide-preheat-shake": "Which air-fryer steps are worth learning, and which the machine does for you.",
+    "guide-turkey-done": "165°F is the USDA answer; the question is how you will check it on the day.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -775,6 +782,7 @@ GUIDE_TAGS = {
     "guide-instant-vs-leave-in": "Thermometers",
     "guide-gift-guide": "Seasonal",
     "guide-preheat-shake": "Using it",
+    "guide-turkey-done": "Seasonal",
 }
 
 
