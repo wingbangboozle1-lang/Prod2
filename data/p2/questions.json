@@ -9,7 +9,7 @@
    "id": "Q-01",
    "area": "Money",
    "question": "Is the Associates account enrolled under tracking ID shopnow047c-20, and has each published link been validated in that account?",
-   "known": "The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). All five supplied short links resolved without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central.",
+   "known": "The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). On 2026-11-19 all five supplied short links were recorded as resolving without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central. 2026-11-20 re-read: only one of five owner short links reached its intended ASIN in the fetch-tool read (F-P24, Q-P15).",
    "unknown": "Account enrollment status; Partner Tag registration; whether test clicks report.",
    "how_to_discover": "Owner logs into Associates Central: confirm the Partner Tag, generate or validate one Special Link per product, run a test click and read it in the report (protocol on the measurement page).",
    "answerable_by": "The account holder.",
@@ -124,7 +124,7 @@
    "id": "Q-P03",
    "area": "Product identity",
    "question": "Do the five submitted links continue to point at the same five products over time?",
-   "known": "On 2026-11-19 all five resolved to the recorded ASINs. Listings drift (titles change, variants swap, default offers change — F-44, F-49, F-29).",
+   "known": "On 2026-11-19 all five resolved to the recorded ASINs. Listings drift (titles change, variants swap, default offers change — F-44, F-49, F-29). 2026-11-20 re-read: one of five short links reached its intended ASIN; the four others did not (F-P24, Q-P15). The /dp/ listings themselves still matched their titles.",
    "unknown": "Future drift.",
    "how_to_discover": "Re-run the verification pass each season or before any campaign push; record dated observations in the register.",
    "answerable_by": "Any verification session.",
@@ -312,6 +312,21 @@
    ],
    "flags": [
     "F-19"
+   ]
+  },
+  {
+   "id": "Q-P18",
+   "area": "Outbound links",
+   "question": "Does each of the owner-supplied short links reach its intended ASIN for a logged-out buyer, and for an Associates-enrolled session?",
+   "known": "On 2026-11-20 the R-01 read found one of five short links (B02NbDxp3) at its intended ASIN. short link B04G1MEwY and short link B0c8moW59 reached the Amazon homepage on both attempts. short link B00hJ57DV and short link B0f3GKalj each reached the Amazon homepage on one read. A second same-day read by another session disagrees on B02NbDxp3 and B0f3GKalj (F-P24; F-P27). The published site does not use the short links for outbound clicks.",
+   "unknown": "Whether the failures are specific to the fetch tool or also happen in a browser. Whether the links carry the owner’s tag in an enrolled session. Whether the links are compliant under Program Policies §6(w) (FLG-003).",
+   "how_to_discover": "Owner opens each link in a logged-out private window and in the Associates-enrolled browser. Records the final URL and ASIN and compares them with data/p2/intent-links.json. Then decides under F-03 and F-58 whether the links stay in use at all.",
+   "answerable_by": "Owner",
+   "blocks": [],
+   "flags": [
+    "F-P24",
+    "F-P27",
+    "F-P28"
    ]
   }
  ]
