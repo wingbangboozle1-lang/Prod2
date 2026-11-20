@@ -73,7 +73,7 @@
 
 <h2>The five products and their status</h2>
 <ul>
-  <li><strong>P1–P3</strong> (ASINs <code>B0CDY277D3</code>, <code>B09B7SB46R</code>, <code>B08DKYBTPH</code>) — verified from official listings since 2026-11-14, re-checked on dated passes through <strong>2026-11-19</strong>. Specification tables carried from those dated reads; titles and breadcrumbs re-read 2026-11-19.</li>
+  <li><strong>P1–P3</strong> (ASINs <code>B0CDY277D3</code>, <code>B09B7SB46R</code>, <code>B08DKYBTPH</code>) — verified from official listings since 2026-11-14, re-checked on dated passes through <strong>2026-11-20</strong>. Specification tables carried from those dated reads; titles and breadcrumbs were re-read three times on 2026-11-20 (records: verification-2026-11-20.json, live-check-2026-11-20-722181aa.json, live-check-2026-11-20-770ebcc2.json) — all three reads match the register verbatim.</li>
   <li><strong>P4–P5</strong> (ASINs <code>B0DHZTCNR5</code>, <code>B0DZFD6R9Z</code>) — the brief's two additional short links, resolved and read for the first time on <strong>2026-11-19</strong>. They are meat thermometers, not air fryers; the site organizes by format accordingly (decision <a href="decisions.html#D-P01">D-P01</a>).</li>
   <li><strong>Links:</strong> all five owner-submitted short links resolve to the ASINs above with <em>no</em> <code>tag=</code> parameter (flag <a href="flagged.html#F-03">F-03</a>). The site publishes tagged Special Links (<code>https://www.amazon.com/dp/&lt;ASIN&gt;?tag=shopnow047c-20</code>, decision <a href="decisions.html#D-01">D-01</a>) with <code>rel="sponsored"</code> and the required disclosure on every page. Whether the tracking ID is registered and whether clicks attribute is confirmable only inside Associates Central (<a href="flagged.html#F-57">F-57</a>, <a href="flagged.html#F-58">F-58</a>) — the site claims no revenue.</li>
 </ul>
@@ -102,6 +102,21 @@
 <h2>The 2026-11-19 publication pass</h2>
 <p>The reader-facing site now leads with the products: a shop-first front page (product cards before any data), a guides hub with two content clusters and a seasonal desk, eight question-shaped guides on a 14-day cadence, cleaner navigation, RSS subscribe affordances, and a consent-gated question form that sends nothing until its privacy basis exists (<a href="decisions.html#D-P07">D-P07</a>). Nothing moved on the machinery: disclosure above the fold everywhere, tagged <code>rel="sponsored"</code> Special Links only, prices and ratings still withheld, and every published figure still carries its source and read date.</p>
 
+
+<h2>The 2026-11-20 reader pass (this one)</h2>
+<p>Three changes, all inside the same discipline. (1) <strong>Every product now has its own page</strong> —
+listed-spec table with read dates, who it suits and who it does not, the counter or claim math, and its own
+"what we could not verify" block (SG-12 shipped; content policy recorded as D-P23: register values only,
+no offers, no ratings, no performance language). The shelf cards, both category pillars, the comparison table
+and the footer all route into them, and the new <code>productpages</code> gate section keeps one page per product
+in lockstep. (2) <strong>Third same-day live re-read</strong>: all five <code>/dp/</code> titles and breadcrumbs match
+the register character-for-character; all five owner-submitted short links again failed to resolve through the
+sandbox's only reader, so F-P24 stays open and the buy path stays the tagged <code>/dp/</code> URLs. (3) The
+measurement contract, the ranked decision board and the two long reads from earlier passes are unchanged.</p>
+<p><strong>Still owner-only:</strong> Settings → Pages → Source: GitHub Actions (F-P19/F-P20), the one-link
+Associates Central test (F-58, and it is also the single check that settles whether a real product photo can be
+shown — Q-P16/SG-47), hosting the endpoint (F-19), and Search Console (F-P13, SG-44).</p>
+
 <h2>Where to look</h2>
 <p><a href="method.html">Method &amp; source register</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html">Open questions</a> · <a href="suggestions.html">Suggestion queue</a> · <a href="decisions.html">Decision log</a> · <a href="measurement.html">Measurement</a> · <a href="compliance.html">Compliance</a></p>
 
@@ -114,7 +129,7 @@
       <p class="footer-disclosure">As an Amazon Associate I earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
     </div>
     <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guide-gift-guide.html">The gift guide</a></li><li><a href="guides.html">All guides</a></li></ul></div>
-    <div><h2>Compare &amp; shop</h2><ul><li><a href="shop.html">Shop the shelf</a></li><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
+    <div><h2>Compare &amp; shop</h2><ul><li><a href="shop.html">Shop the shelf</a></li><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li><li class="footer-sublist"><ul><li><a href="product-chefman-dual-basket.html">Chefman 6 qt dual basket air fryer oven</a></li><li><a href="product-emeril-french-door.html">Emeril Lagasse 26 qt French door air fryer toaster oven</a></li><li><a href="product-chefman-turbofry.html">Chefman 8 qt TurboFry air fryer</a></li><li><a href="product-thermomaven-instant-read.html">ThermoMaven 1-second digital meat thermometer</a></li><li><a href="product-chefiq-sense-wireless.html">CHEF iQ Sense Gen3 wireless meat thermometer</a></li></ul></li></ul></div>
     <div><h2>Read &amp; follow</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="guides.html#subscribe">Follow the feed</a></li><li><a href="guides.html#ask">Ask a question</a></li><li><a href="about.html">Who writes this</a></li></ul></div>
     <div><h2>The work behind it</h2><ul><li><a href="about.html">About &amp; standards</a></li><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
   </div>

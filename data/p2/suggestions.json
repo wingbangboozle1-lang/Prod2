@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-20 (arena/644d217b-prod2): SG-45..SG-47 added — long-form argument pieces (shipped), the one-dropdown Pages fix ranked first by payoff, and the imagery question split into a safe path and a licensed path."
+  "last_change": "2026-11-20 (arena/770ebcc2-prod2): SG-12 shipped — five dedicated product pages, gated."
  },
  "suggestions": [
   {
@@ -184,8 +184,9 @@
    "effort": "Small (copy in content/pages + one check that each block has both lines).",
    "risk": "Low. Must not claim testing that did not happen (D-06).",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept. It improves the shop feel without adding claims."
+   "status": "shipped",
+   "recommendation": "Accept. It improves the shop feel without adding claims.",
+   "progress": "2026-11-20 (arena/770ebcc2-prod2): five dedicated pages shipped at /product-{chefman-dual-basket,emeril-french-door,chefman-turbofry,thermomaven-instant-read,chefiq-sense-wireless}.html. Each page: listed-spec table with read dates and source links, 'who it suits / who it doesn't suit' derived only from listed features, the counter or claim math, links into the cluster, and its own 'what we could not verify' block. Wired from shelf cards (index+shop), both pillars, products.html, the comparison table and the footer; a Product JSON-LD node names listing/sku/brand/category with no offers or ratings. Enforced by the new 'productpages' gate section. Decision recorded as D-P23."
   },
   {
    "id": "SG-13",

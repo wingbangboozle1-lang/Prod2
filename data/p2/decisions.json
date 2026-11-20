@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded."
+  "last_change": "2026-11-20 (arena/770ebcc2-prod2): D-P23 added — dedicated product pages, register-only content."
  },
  "decisions": [
   {
@@ -312,6 +312,18 @@
     "F-P23",
     "Q-P14",
     "SG-41"
+   ]
+  },
+  {
+   "id": "D-P23",
+   "question": "Do products get dedicated pages, and what may those pages claim?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "Yes to pages, strict no to new claims. Each of the five products gets one reader-facing page (SG-12). Content policy: the page may restate values already in the verified register (products.json) with their read dates and source links, derive arithmetic from listed numbers with the formula shown, and link the cluster — nothing else. No prices, no ratings (F-02), no availability (D-P11), no performance or hands-on language (D-06), no popularity words (D-19). Every page ends with its own 'what we could not verify' block. The listing URL is quoted verbatim. JSON-LD carries a Product node (name/sku/brand/category) with deliberately NO offers and NO aggregateRating, because publishing those is exactly what the flag policy withholds. The 'productpages' gate section enforces one page per product, the buy URL, the sponsored marking, the unverified block, reachability from shelf/index/pillars/products and sitemap presence.",
+   "rationale": "Amazon's ASIN definition (S-ASIN) makes the listing page the checkable source for every published value; a dedicated page that cites the register lets a reader verify each row against that listing. Dedicated pages are also the standard landing surface for product-name organic queries, which today have no page to land on — this is the site's largest remaining findability gap.",
+   "sources": [
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/products.json",
+    "https://www.amazon.com/dp/B0CDY277D3",
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/live-check-2026-11-20-770ebcc2.json"
    ]
   }
  ]

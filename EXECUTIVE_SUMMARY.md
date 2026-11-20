@@ -356,3 +356,30 @@ so nothing is known about whether clicks track. Search Console is unverified (Q-
 selection has no data behind it. The analytics endpoint has no host (Q-23), so the five event
 counters stay in the reader's browser. All three are owner actions, listed on the **Open questions**
 page with the discovery route for each.
+
+
+---
+
+## 2026-11-20 reader pass (session arena/770ebcc2-prod2) — product pages + third same-day re-read
+
+- **Dedicated product pages shipped (SG-12, policy D-P23).** Five new reader pages
+  (`product-chefman-dual-basket.html`, `product-emeril-french-door.html`, `product-chefman-turbofry.html`,
+  `product-thermomaven-instant-read.html`, `product-chefiq-sense-wireless.html`). Each: the full listed-spec
+  table with per-value read dates and source links, "who it suits / who it doesn't suit" derived only from
+  listed features, the counter/claim math shown as formulas, cluster links, and its own "what we could not
+  verify" block. JSON-LD carries a Product node (name/sku/brand/category) — no `offers`, no `aggregateRating`,
+  because F-02 withholds exactly those values. Reachable from the shelf cards (index + shop), both category
+  pillars, the comparison table, `products.html` and the footer of every page; all five in `sitemap.xml`;
+  not in the RSS feed (the feed carries guides, by rule).
+- **Gate extended:** `tools/checks.py` section `productpages` — one page per product (orphan-checked), buy URL
+  tagged and present, `rel="sponsored"` on the page, unverified block present, reachable from index/shop/
+  products/pillar, sitemap present. 35 pages built; **ALL CHECKS PASSED (14 sections)**.
+- **Third same-day live re-read (independent record):** `data/p2/live-check-2026-11-20-770ebcc2.json`.
+  All five official `/dp/` listings fetched ~06:55–07:00Z; **every title matches the register verbatim and every
+  breadcrumb matches the category path**. No register value changed. The P4 fetch additionally showed a
+  buy-box `$16.99`/`In Stock` block — recorded as observed, **not published** (F-02 stands; F-P17 shows
+  why fetched prices are treated as attribution-ambiguous). All five `link.amazon` short links again failed
+  through the fetch tool (page errors; curl is blocked at TLS by the egress allowlist) — F-P24 updated with
+  this read, still open, browser-side check by the owner remains the resolving path (Q-P16/SG-44).
+- **No unverified value was filled in anywhere; nothing inferred.**
+

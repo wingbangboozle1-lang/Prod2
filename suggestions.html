@@ -349,7 +349,7 @@
 </article>
 <article class="card s-card" id="SG-12">
   <header><h3><code>SG-12</code> Give every product its own buyer-first section: who it suits, what it does not do, what the listing says</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>Product sections are spec tables. A shopper deciding between two machines needs a plain answer for each product first.</dd>
     <dt>Proposal</dt><dd>On each product block, lead with a &#x27;Who it suits&#x27; line and a &#x27;Where it falls short&#x27; line, both drawn only from listed facts (for example, &#x27;Suits two dishes at the same temperature; the baskets are 3 qt each&#x27;). The sponsored link and paid-link label stay directly under that text.</dd>
@@ -357,7 +357,7 @@
     <dt>Expected impact</dt><dd>Medium; likely the highest conversion-relevant change that needs no new data.</dd>
     <dt>Effort</dt><dd>Small (copy in content/pages + one check that each block has both lines).</dd>
     <dt>Risk</dt><dd>Low. Must not claim testing that did not happen (D-06).</dd>
-    
+    <dt>Progress</dt><dd>2026-11-20 (arena/770ebcc2-prod2): five dedicated pages shipped at /product-{chefman-dual-basket,emeril-french-door,chefman-turbofry,thermomaven-instant-read,chefiq-sense-wireless}.html. Each page: listed-spec table with read dates and source links, &#x27;who it suits / who it doesn&#x27;t suit&#x27; derived only from listed features, the counter or claim math, links into the cluster, and its own &#x27;what we could not verify&#x27; block. Wired from shelf cards (index+shop), both pillars, products.html, the comparison table and the footer; a Product JSON-LD node names listing/sku/brand/category with no offers or ratings. Enforced by the new &#x27;productpages&#x27; gate section. Decision recorded as D-P23.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept. It improves the shop feel without adding claims.</p>
@@ -770,7 +770,7 @@
       <p class="footer-disclosure">As an Amazon Associate I earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
     </div>
     <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guide-gift-guide.html">The gift guide</a></li><li><a href="guides.html">All guides</a></li></ul></div>
-    <div><h2>Compare &amp; shop</h2><ul><li><a href="shop.html">Shop the shelf</a></li><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
+    <div><h2>Compare &amp; shop</h2><ul><li><a href="shop.html">Shop the shelf</a></li><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li><li class="footer-sublist"><ul><li><a href="product-chefman-dual-basket.html">Chefman 6 qt dual basket air fryer oven</a></li><li><a href="product-emeril-french-door.html">Emeril Lagasse 26 qt French door air fryer toaster oven</a></li><li><a href="product-chefman-turbofry.html">Chefman 8 qt TurboFry air fryer</a></li><li><a href="product-thermomaven-instant-read.html">ThermoMaven 1-second digital meat thermometer</a></li><li><a href="product-chefiq-sense-wireless.html">CHEF iQ Sense Gen3 wireless meat thermometer</a></li></ul></li></ul></div>
     <div><h2>Read &amp; follow</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="guides.html#subscribe">Follow the feed</a></li><li><a href="guides.html#ask">Ask a question</a></li><li><a href="about.html">Who writes this</a></li></ul></div>
     <div><h2>The work behind it</h2><ul><li><a href="about.html">About &amp; standards</a></li><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
   </div>
