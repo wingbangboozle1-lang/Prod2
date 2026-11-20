@@ -19,6 +19,10 @@ Sections:
   claims       banned popularity words on reader-facing pages; no published
                prices or star ratings anywhere
   chrome       one nav group ("The work behind it") + footer directory present
+  fonts        favicon linked and present; every font/icon reference resolves; @font-face
+               blocks carry font-display; shipped fonts carry their license files
+  calendar     clusters/seasons/queue agree with the built page register (every
+               guide has a pillar; no calendar entry names a page that does not exist)
   seo          canonical/og:image/JSON-LD parse; sitemap covers every page;
                robots.txt points at the sitemap; feed items resolve
   shop         one shelf page with all five cards, buy buttons, imagery that
@@ -411,6 +415,80 @@ def main() -> int:
             fail(f"{f.name}: no wordmark home link")
     if not FAILURES:
         ok("nav group + footer directory on every page; reader nav within budget")
+
+    # ------------------------------------------------------------------ fonts
+    check("fonts")
+    # Font + favicon plumbing (added 2026-11-20, arena/2adc150a-prod2): the
+    # static-asset references a page cannot render correctly without — favicon,
+    # @font-face sources and their licenses. (The stylesheet-structure checks
+    # live in the later "assets" section.)
+    base = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))["base_url"].rstrip("/")
+
+    def resolve_asset(ref: str, from_dir: pathlib.Path) -> pathlib.Path | None:
+        ref = ref.split("?", 1)[0].split("#", 1)[0]
+        if ref.startswith(base + "/"):
+            return DOCS / ref[len(base) + 1:]
+        if ref.startswith(("http://", "https://", "mailto:", "data:", "#")):
+            return None
+        return from_dir / ref
+
+    font_refs: set[str] = set()
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for tag in re.findall(r"<(?:script|link|img)\b[^>]*>", text):
+            m = re.search(r'\b(?:src|href)="([^"]+)"', tag)
+            if not m:
+                continue
+            ref = m.group(1)
+            target = resolve_asset(ref, DOCS)
+            if target is not None and not target.exists():
+                fail(f"{f.name}: broken asset reference -> {ref}")
+        if 'rel="icon"' not in text:
+            fail(f"{f.name}: no favicon link")
+    for css in sorted((DOCS / "assets").rglob("*.css")):
+        text = css.read_text(encoding="utf-8")
+        for block in re.findall(r"@font-face\s*{([^}]*)}", text):
+            if "font-display" not in block:
+                fail(f"{css.relative_to(DOCS)}: @font-face without font-display")
+        for ref in re.findall(r"url\(\s*[\"']?([^\"')]+)[\"']?\s*\)", text):
+            target = resolve_asset(ref, css.parent)
+            if target is not None and not target.exists():
+                fail(f"{css.relative_to(DOCS)}: broken url() -> {ref}")
+            if ref.endswith((".woff2", ".woff", ".ttf", ".otf")):
+                font_refs.add(ref)
+    if font_refs:
+        fdir = DOCS / "assets" / "fonts"
+        if not (fdir.is_dir() and any(fdir.glob("LICENSE*"))):
+            fail("shipped fonts have no LICENSE* file in docs/assets/fonts/")
+    if not FAILURES:
+        ok(f"{len(font_refs)} font reference(s) + icon/asset refs resolve; favicon + font licenses present")
+
+    # --------------------------------------------------------------- calendar
+    check("calendar")
+    cal = json.loads((DATA / "calendar.json").read_text(encoding="utf-8"))
+    guide_ids = set(build.GUIDE_IDS)
+    known_pages = {p[0] for p in build.PAGES}
+
+    def gstem(g: str) -> str:
+        return g[:-5] if g.endswith(".html") else g
+
+    clustered: set[str] = set()
+    for cl in cal["clusters"]:
+        for g in cl["guides"]:
+            if gstem(g) not in known_pages:
+                fail(f"cluster '{cl['id']}' names a page that does not exist: {g}")
+            clustered.add(gstem(g))
+    for missing in sorted(guide_ids - clustered):
+        fail(f"guide {missing} has no cluster (every guide needs a pillar)")
+    for season in cal["seasons"]:
+        for g in season["guides"]:
+            if gstem(g) not in known_pages:
+                fail(f"season '{season['id']}' names a page that does not exist: {g}")
+    for q in cal["queue"]:
+        if not q.get("due_utc") or not q.get("title"):
+            fail(f"queue slot {q.get('slot')} is missing due_utc or title")
+    if not FAILURES:
+        ok("clusters/seasons/queue agree with the built guide register")
 
     # -------------------------------------------------------------------- seo
     check("seo")
