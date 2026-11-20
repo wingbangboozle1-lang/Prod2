@@ -1106,3 +1106,38 @@ rather than rebase.
   at the **"Build is reproducible (committed site/ and root mirror match the build)"** step — the same
   class of drift `main` had before this pass. It does not affect `main` or the deploy; its own session
   owns the fix.
+
+---
+
+## ACTIVE CLAIM — session arena/770ebcc2-prod2 (2026-11-20, dedicated product pages + third same-day live re-read)
+
+Branched from `d7f58d1` (main at PR #44); merged `origin/main` (`0a4b573`, PR #46) before claiming.
+This session is both the working session and its own integration session on this branch.
+
+**Why this pass.** `SG-12` (proposed, 2026-11-19): "Give every product its own buyer-first section" —
+the site publishes a comparison table and a shelf, but no dedicated, indexable page per product.
+For a small affiliate publication that is the largest remaining organic-traffic gap: product-name
+queries ("Chefman dual basket air fryer specs") have nowhere to land, and every guide funnels readers
+to an anchor on a 47 KB table page. This pass builds five product pages **strictly from the verified
+register** (no new claims, no prices, no ratings), wires them into shelf cards, pillars and the
+sitemap, and adds a gate section so they cannot silently drift.
+
+**Open-PR interaction (protocol: logged, not edited).** PR #41, #43, #45, #47 were all active within
+minutes of this claim (updates 06:48–06:53 UTC). None of them creates `content/pages/product-*.html`;
+this session touches shared files **append-only** where unavoidable (COORDINATION.md, registers,
+build.py, checks.py, card/footnote wiring) and will resolve any merge conflict keeping both sides.
+This session does NOT touch `data/p2/verification-2026-11-20.json` (owned by #43/#41) — its own live
+read is stored in a new session-scoped file.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Third same-day live re-read: 5 official listings + 5 submitted short links, stored verbatim | in progress | arena/770ebcc2-prod2 | `data/p2/live-check-2026-11-20-770ebcc2.json` (new), `data/p2/flags.json` (F-P24 reread note, append-only) |
+| X-02 Five dedicated product pages from the register only; card + pillar + footer wiring; JSON-LD Product node per page | in progress | arena/770ebcc2-prod2 | `content/pages/product-*.html` (new), `tools/build.py`, `content/pages/{index,shop,products,category-air-fryers,category-thermometers}.html` (append-only link edits) |
+| X-03 Gate: `productpages` section (one page per product, buy URL, unverified block, reachability, sitemap) | in progress | arena/770ebcc2-prod2 | `tools/checks.py` |
+| X-04 Registers + docs: SG-12 → shipped, D-P23 recorded, exec-summary + front-page counts updated | in progress | arena/770ebcc2-prod2 | `data/p2/suggestions.json`, `data/p2/decisions.json`, `content/pages/executive-summary.html`, `EXECUTIVE_SUMMARY.md` |
+| X-05 Rebuild, full gate (14 sections), legacy verify, npm test, root mirror byte-match | pending | arena/770ebcc2-prod2 | `docs/`, root mirror |
+| X-06 PR to main, merge, Pages deploy check, record here; claim released | pending | arena/770ebcc2-prod2 | `COORDINATION.md`, `PULL_REQUEST*.md` |
+
+Verification-boundary note (same as the passes above it): outbound HTTP from this sandbox reaches
+`www.amazon.com` through the fetch tool only (curl is blocked); values observed are stored verbatim
+with the read time; nothing is inferred, and no price/rating is published (F-02 stands).
