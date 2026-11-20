@@ -528,6 +528,9 @@ def main() -> int:
             break
         if "link.amazon" in text and "<code>https://link.amazon" not in text:
             fail(f"{f.name}: cites a short link without rendering it as inert code")
+        # a doubled string means a renderer emitted the URL twice (label + href)
+        for dup in re.findall(r'https://link\.amazon/[A-Za-z0-9]{2,}(https://link\.amazon/)', text):
+            fail(f"{f.name}: short-link URL rendered twice in one cell")
     if not FAILURES:
         ok("artifact is docs/ only; short links are quoted, never clickable")
 

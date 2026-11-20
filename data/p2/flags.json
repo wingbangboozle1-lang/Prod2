@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): F-P07 resolved — full five-link redirect re-read."
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): F-P07 resolved (full redirect re-read); F-P24 updated with the contradicting same-day evidence (flag stays open for the owner)."
   },
   "flags": [
     {
@@ -193,7 +193,7 @@
       "evidence": "https://link.amazon/B02NbDxp3",
       "evidence_note": "Submitted link for P2; the three unrefreshed short links are listed in data/p2/intent-links.json.",
       "how_to_resolve": "Re-read all five short links in the next publishing pass. Not automated yet; a check that fails on a redirect change would close this gap.",
-      "resolution_note": "2026-11-20 (arena/e0d92902-prod2): all five submitted short links re-fetched live in one pass; each resolved to its register ASIN (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z), no tag= on any resolved URL. Evidence: redirect_observations in data/p2/verification-2026-11-20.json (e0d92902 section) and the dated rows in data/p2/intent-links.json observed_redirect_history."
+      "resolution_note": "2026-11-20 (arena/e0d92902-prod2): all five submitted short links re-fetched live in one pass; each resolved to its register ASIN (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z), no tag= on any resolved URL. Evidence: sessions.e0d92902.redirect_observations in data/p2/verification-2026-11-20.json and dated rows in data/p2/intent-links.json."
     },
     {
       "id": "F-P08",
@@ -302,20 +302,20 @@
       "id": "F-P19",
       "status": "open",
       "title": "Archived builds are reachable on the live host and are only excluded by robots.txt",
-      "detail": "Pages serves the repository root, so /archive/** is publicly retrievable even though the site does not link to it. archive/ holds 54 HTML pages from five earlier generations of this project. robots.txt disallows /Prod2/archive/ and no indexed page links there, but a disallow is a crawl instruction, not an access control, and a page discovered by another route can still be returned to a reader. Resolved in substance 2026-11-20: GitHub Pages was in legacy mode publishing the repository ROOT, so data/, content/, tools/, scripts/ and every archived build were served to anyone who typed the path. The workflow now publishes the docs/ artifact only and tools/checks.py fails the build if a source directory or file appears inside docs/. Retiring root-mode serving is a one-time repository setting (Settings → Pages → Source: GitHub Actions); the workflow flips it on the next successful deploy.",
-      "evidence": "https://wingbangboozle1-lang.github.io/Prod2/robots.txt",
+      "detail": "Archived builds (archive/counter-notes-v1, archive/counter-notes-docs, archive/counter-edit-build, 121 files) are reachable on the live host and are excluded only by a robots.txt rule. Same root cause as F-P20: Pages is in legacy root mode, so every archived directory is served. robots.txt stops well-behaved crawlers and nothing else. The 2026-11-20 workflow change publishes docs/ only going forward, but the archived trees remain readable until the owner switches the Pages source.",
+      "evidence": "https://wingbangboozle1-lang.github.io/Prod2/archive/counter-notes-v1/",
       "evidence_note": "docs/ artifact is the only publish root (.github/workflows/pages.yml); gate section 'exposition' in tools/checks.py; Pages API showed build_type=legacy, source=main,/ on 2026-11-20.",
-      "how_to_resolve": "Merge and let the next Pages workflow run: actions/configure-pages flips the source to GitHub Actions. Then confirm an archived path returns 404 on the live host and close this flag.",
+      "how_to_resolve": "Owner flips Pages source to GitHub Actions (see F-P20). Archived builds can then be dropped or left in git, unserved.",
       "resolved_utc": null
     },
     {
       "id": "F-P20",
-      "status": "standing",
-      "title": "source/, data/ and content/ are servable as static files on the live host",
-      "detail": "Because Pages serves the repository root, the raw JSON registers, the page templates and the build scripts are retrievable by URL. This is not a security exposure for a static site with no secrets, but it means a reader can read the source register directly, and it gives a crawler a second copy of text that is also on an HTML page. Same root cause as F-P19. Mitigated 2026-11-20 in the build: the publish artifact is docs/ only and a new gate section refuses any source directory, manifest or endpoint file inside it.",
-      "evidence": "https://github.com/wingbangboozle1-lang/Prod2",
-      "evidence_note": "tools/checks.py section 'exposition'; .github/workflows/pages.yml publishes ./docs",
-      "how_to_resolve": "Inherent to legacy root serving, and resolved completely by switching Pages to Actions mode serving docs/ only (INT-07, blocked by a 403 on this token). Keep it visible rather than pretend otherwise; the data registers are already offered to reviewers on the Method page.",
+      "status": "open",
+      "title": "The whole working repository is readable on the live host (root-mode Pages)",
+      "detail": "GitHub Pages is in legacy mode with the source set to the repository ROOT: the Pages API returns build_type=legacy, source={branch: main, path: /}. Checked on 2026-11-20, https://…/Prod2/data/p2/settings.json returns the settings register as JSON to an anonymous reader. Counted at the same moment: data/ 42 files, content/ 27, tools/ 5, scripts/ 4, tests/ 1, archive/ 121 — 196 source files reachable by guessing a path. Nothing secret is in them (the tracking ID and disclosure text are published on purpose and the capture and analytics endpoints are empty), but it is not the intended surface, it exposes drafts and the archived builds, and robots.txt is a crawler convention, not access control. The token available to this session cannot change the setting: a PUT to build_type=workflow returns 403. Mitigated in-repo as far as a build can: the Pages workflow uploads the docs/ artifact only, and the new exposition gate section refuses any source directory inside docs/. If an owner ever flips the source to GitHub Actions, this whole class disappears.",
+      "evidence": "https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json",
+      "evidence_note": "Anonymous GET of a source file on the live host, 2026-11-20; Pages API reports build_type=legacy, source=main,/; count from `python3 tools/root_mirror.py --report`.",
+      "how_to_resolve": "Owner: Settings → Pages → Source: GitHub Actions (one setting). Then confirm /data/p2/settings.json and /tools/build.py return 404 and close F-P19/F-P20.",
       "resolved_utc": null
     },
     {
@@ -335,6 +335,25 @@
       "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
       "evidence_note": "the allowedEvents set in server.mjs vs the event list in docs/assets/js/measure.js and data/p2/events.json",
       "how_to_resolve": "Pick one vocabulary: extend server.mjs to accept the three site events, or change measure.js to emit the endpoint's names. Record it as a decision, then gate the two lists against each other."
+    },
+    {
+      "id": "F-P21",
+      "title": "Working brand “The Crisp Counter” adopted on the owner's directive without formal trademark clearance",
+      "detail": "The 2026-11-20 anti-slop pass replaced the repository codename 'Prod2' on reader-facing surfaces with the design brief's working brand (decision D-P18). A preliminary web search that day returned no conflicting kitchen-appliance brand in the first page of results, but no formal USPTO/state/common-law search has been run. Until clearance, the brand is provisional and one-line reversible (data/p2/settings.json).",
+      "evidence": "https://tmsearch.uspto.gov/",
+      "evidence_note": "USPTO trademark search — the formal check that would resolve this; the preliminary 2026-11-20 web-search record sits in D-P10's sources.",
+      "how_to_resolve": "Run the formal clearance (Q-P10 / Q-19), then either ratify the name in the decision log or revert via settings.json and rebuild.",
+      "status": "open"
+    },
+    {
+      "id": "F-P24",
+      "title": "Submitted link.amazon short links did not resolve to product listings in the 2026-11-20 live re-check",
+      "detail": "On 2026-11-20 the five submitted link.amazon URLs were fetched with redirects followed. Four resolved to the Amazon homepage (https://www.amazon.com/) and one returned HTTP 500. The five ASIN listing pages (https://www.amazon.com/dp/{ASIN}) were all live and their titles match data/p2/products.json exactly. The register's earlier redirect history (2026-11-14, 16, 17, 19) recorded these short links resolving to the same ASINs. The site does not publish the short links as buy paths (they render as quoted text under F-03), so no reader-facing link is broken by this. The difference is not explained: it may be a fetch-tool artifact or a change in the short-link service. Intended-ASIN fields were NOT changed. Full record: data/p2/live-check-2026-11-20-722181aa.json. See contradicting_evidence: an earlier same-day pass observed 5/5 successful resolutions.",
+      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+      "evidence_note": "Live /dp/ listing for P1 (title matches register). Short-link observations and the four other ASIN pages are in data/p2/live-check-2026-11-20-722181aa.json.",
+      "how_to_resolve": "Owner (or any reviewer with a normal browser) opens each of the five link.amazon URLs and records the final URL and ASIN in a dated redirect observation in data/p2/intent-links.json. If the short links no longer resolve to the registered ASINs, the intended_asin values stay as the /dp/ pages show and the mismatch is escalated under F-03 / F-57.",
+      "status": "open",
+      "contradicting_evidence": "2026-11-20 ~06:10-06:15 UTC (arena/e0d92902-prod2, minutes before the 722181aa re-check): the same five fetches resolved 5/5 to the register ASINs (page titles recorded verbatim in data/p2/verification-2026-11-20.json, sessions.e0d92902.redirect_observations). Three independent sessions (2026-11-14..19 records, this 2026-11-20 pass) observed successful resolutions; the 722181aa pass observed homepage redirects/HTTP 500 minutes later. The pattern fits an intermittent fetch artifact (bot-detection or rate-limiting serving the homepage) rather than a service change, but only a manual browser check settles it — the flag stays open for the owner."
     }
   ]
 }

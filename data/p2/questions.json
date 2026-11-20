@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): Q-P10..Q-P13, Q-P15..Q-P21 appended verbatim from the arena/b650562d-prod2 register (stale PR #25 handoff); its Q-P14 renumbered Q-P22 (collision with the PR #36 Q-P14); progress note on Q-P18. Existing rows untouched. Q-P14 (b650562d) renumbered to Q-P22 (collision with the PR #36 Q-P14). Q-P20 default reworded to satisfy the shop gate (no hands-on-testing phrasing)."
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): Q-P12..Q-P13, Q-P15..Q-P21 appended verbatim from the arena/b650562d-prod2 register (stale PR #25 handoff); its Q-P10/Q-P11 renumbered Q-P23/Q-P24 and Q-P14 renumbered Q-P22 (ID collisions). Progress note on Q-P18 (PR #16 verified closed); Q-P20 default reworded for the no-hands-on-claim rule."
   },
   "questions": [
     {
@@ -240,7 +240,35 @@
       "answerable_by": "owner decision, then any session"
     },
     {
+      "id": "Q-P10",
+      "area": "Brand",
+      "question": "Does the owner ratify the working brand “The Crisp Counter”, and will a formal trade-name clearance be run?",
+      "known": "Adopted 2026-11-20 as the working wordmark on the owner's standing anti-slop directive (decision D-P18). A preliminary web search on 2026-11-20 returned no conflicting kitchen-appliance brand in the first page of results; the name comes from the adopted design brief (DESIGN_PROMPT.md).",
+      "unknown": "No formal trademark search has been performed (USPTO registry, state registries, common-law use, domain availability). The owner has not individually ratified the specific name.",
+      "how_to_discover": "Run the USPTO trademark search (tmsearch.uspto.gov) for 'Crisp Counter' word marks in class 7/11/35; check state registries and live web/common-law use; check domain availability (Q-P06); then record ratify-or-revert in the decision log.",
+      "answerable_by": "Owner (with counsel for the formal search)",
+      "blocks": [
+        "SG-38",
+        "future domain purchase",
+        "social/OG branding"
+      ],
+      "flags": [
+        "F-P21"
+      ]
+    },
+    {
       "id": "Q-P11",
+      "area": "Content policy",
+      "question": "May the site publish availability snapshots (“observed in stock on YYYY-MM-DD”) alongside its dated listing reads?",
+      "known": "Answered 2026-11-20 by the policy read recorded in decision D-P11: Program Policies 2(b) (updated 2026-04-14, read 2026-11-20) permits prices and availability only when Amazon serves the link or the data comes via the Creators/PA API — a dated snapshot is neither. The site therefore publishes neither prices nor availability; both stay blank with a link to the live listing (F-02 posture).",
+      "unknown": "Nothing remains for this session to discover; the policy question is recorded. Revisit only if Amazon grants Creators/PA API access (then D-21 applies).",
+      "how_to_discover": "If PA API access is granted later, pull availability (and prices/ratings) through the API per the Operating Agreement; otherwise no discovery path exists inside policy.",
+      "answerable_by": "Owner",
+      "blocks": [],
+      "flags": []
+    },
+    {
+      "id": "Q-P24",
       "area": "Data",
       "blocking": true,
       "rank": 2,
@@ -254,7 +282,8 @@
       "check": {
         "url": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/products.json",
         "look_for": "The *_read fields: count how many distinct dates appear, which is the current de facto cadence."
-      }
+      },
+      "renumber_note": "Renumbered Q-P11 -> Q-P24 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P11 for a different question (PRs #39/#40). Row content unchanged from the arena/b650562d-prod2 register."
     },
     {
       "id": "Q-P15",
@@ -309,7 +338,7 @@
       }
     },
     {
-      "id": "Q-P10",
+      "id": "Q-P23",
       "area": "Brand",
       "blocking": false,
       "rank": 9,
@@ -323,7 +352,8 @@
       "check": {
         "url": "https://affiliate-program.amazon.com/help/operating/policies",
         "look_for": "Any clause on disparagement or comparison of other sellers; and the site's own rule that it does not editorialise about products it has not verified."
-      }
+      },
+      "renumber_note": "Renumbered Q-P10 -> Q-P23 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P10 for a different question (PRs #39/#40). Row content unchanged from the arena/b650562d-prod2 register."
     },
     {
       "id": "Q-P16",

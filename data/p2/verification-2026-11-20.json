@@ -1,11 +1,11 @@
 {
   "_meta": {
-    "description": "Live re-verification pass, 2026-11-20, session arena/70b2b9f7-prod2. Every entry records the exact string observed on the official page, the page it was read from, and the date. Values that were not observed in the retrieved page text are recorded as null and are NOT inferred. Prices observed here are recorded for the register only and are deliberately NOT published on the site (F-02 / S-POL 2(b)). Extended 2026-11-20 (arena/e0d92902-prod2): session-scoped sections added under \"sessions\"; the original arena/70b2b9f7-prod2 content is unchanged above.",
+    "description": "Live re-verification pass, 2026-11-20, session arena/70b2b9f7-prod2. Every entry records the exact string observed on the official page, the page it was read from, and the date. Values that were not observed in the retrieved page text are recorded as null and are NOT inferred. Prices observed here are recorded for the register only and are deliberately NOT published on the site (F-02 / S-POL 2(b)).",
     "method": "Each official URL was fetched on 2026-11-20 UTC and the returned page text was read. Only strings that appear verbatim in that text are recorded. 'observed_in_chunk' records which slice of the fetched page the string came from so a reviewer can re-read the same page.",
     "prior_pass": "data/p2/verification-2026-11-19.json",
     "egress_note": "Prior sessions recorded that this environment could not reach amazon.com. That boundary is corrected here: on 2026-11-20 the listings and the official policy pages were retrieved successfully and read directly.",
+    "note": " A second independent title/breadcrumb pass (arena/f55b5827-prod2) is recorded below and agrees.",
     "sessions": [
-      "arena/70b2b9f7-prod2 (listing content)",
       "arena/e0d92902-prod2 (redirects + compliance pages)"
     ]
   },
@@ -166,11 +166,93 @@
       "verdict": "corrected"
     }
   ],
+  "second_pass_title_breadcrumb_check": {
+    "_meta": {
+      "session": "arena/f55b5827-prod2",
+      "date_utc": "2026-11-20",
+      "method": "Independent second pass the same day: each official listing URL fetched directly; the returned document <title> (verbatim listing title) and category breadcrumb compared against the register. Run AFTER the primary pass above, as a cross-check of its title_match results."
+    },
+    "result": "All five document titles and both breadcrumbs matched the register — agrees with the primary pass's title_match=true results.",
+    "listing_observations": [
+      {
+        "product_id": "P1",
+        "asin": "B0CDY277D3",
+        "url_read": "https://www.amazon.com/dp/B0CDY277D3",
+        "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+        "page_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+        "title_matches_register": true,
+        "breadcrumb": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
+        "breadcrumb_matches_register": true,
+        "prices_visible_on_page": true,
+        "published_on_site": false,
+        "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+      },
+      {
+        "product_id": "P2",
+        "asin": "B09B7SB46R",
+        "url_read": "https://www.amazon.com/dp/B09B7SB46R",
+        "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+        "page_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+        "title_matches_register": true,
+        "breadcrumb": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
+        "breadcrumb_matches_register": true,
+        "prices_visible_on_page": true,
+        "published_on_site": false,
+        "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+      },
+      {
+        "product_id": "P3",
+        "asin": "B08DKYBTPH",
+        "url_read": "https://www.amazon.com/dp/B08DKYBTPH",
+        "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+        "page_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+        "title_matches_register": true,
+        "breadcrumb": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
+        "breadcrumb_matches_register": true,
+        "prices_visible_on_page": true,
+        "published_on_site": false,
+        "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+      },
+      {
+        "product_id": "P4",
+        "asin": "B0DHZTCNR5",
+        "url_read": "https://www.amazon.com/dp/B0DHZTCNR5",
+        "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+        "page_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+        "title_matches_register": true,
+        "breadcrumb": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+        "breadcrumb_matches_register": true,
+        "prices_visible_on_page": true,
+        "published_on_site": false,
+        "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+      },
+      {
+        "product_id": "P5",
+        "asin": "B0DZFD6R9Z",
+        "url_read": "https://www.amazon.com/dp/B0DZFD6R9Z",
+        "page_variant": "product-summary fallback (lv=shuf) — document title + breadcrumb + summary modules captured; full listing body not rendered in this fetch mode",
+        "page_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
+        "title_matches_register": true,
+        "breadcrumb": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+        "breadcrumb_matches_register": true,
+        "prices_visible_on_page": true,
+        "published_on_site": false,
+        "publication_note": "Prices and ratings observed on the listing are withheld from publication (F-02 standing)."
+      }
+    ],
+    "findings": [
+      "All five document titles match the register's name_listing values verbatim — no title drift observed on this pass.",
+      "Both category breadcrumbs confirmed: Air Fryers (P1-P3) and Thermometers & Timers › Meat (P4-P5).",
+      "Prices and ratings were visible on the listing pages and are withheld from publication (F-02). An 'In Stock' line was observed on P4 — availability policy now tracked as Q-P11 / SG-42.",
+      "The short links (S-L1..S-L5) were not re-resolved this pass; their last dated redirect observation is 2026-11-19 (F-P07 covers the two-links-per-pass pattern)."
+    ]
+  },
   "sessions": {
     "e0d92902": {
       "session": "arena/e0d92902-prod2",
       "date_utc": "2026-11-20",
-      "scope": "Redirect-level verification of the five submitted short links (resolutions, resolved URLs, page titles, tag= presence) plus same-day re-reads of the compliance pages; complementary to the listing-content verification above.",
+      "time_note": "Fetched ~06:10-06:15 UTC, minutes before the arena/722181aa-prod2 re-check (live-check-2026-11-20-722181aa.json) which observed homepage redirects for the same URLs — see flag F-P24 (contradicting_evidence).",
+      "scope": "Redirect-level verification of the five submitted short links plus same-day re-reads of the compliance pages; complementary to the listing-content verification above and to the 722181aa re-check.",
       "redirect_observations": [
         {
           "submitted_url": "https://link.amazon/B04G1MEwY",

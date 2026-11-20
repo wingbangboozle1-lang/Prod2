@@ -1,14 +1,14 @@
 {
  "_meta": {
   "description": "Site-wide settings consumed by tools/build.py. Tracking ID supplied by the owner in the brief (2026-11-19): shopnow047c-20.",
-  "updated_utc": "2026-11-19",
-  "last_change": "2026-11-20 (arena/70b2b9f7-prod2): disclosure sentence aligned to Operating Agreement §5 first-person wording (read 2026-11-20); brand mission added for the shop-front pass."
+  "updated_utc": "2026-11-20",
+  "last_change": "2026-11-20 (three-pass reconciliation): working consumer brand adopted per the owner's anti-slop directive (D-P18, remapped twice from the collision-prone D-P10 slot); first-person disclosure sentence and brand mission kept from the shop-front pass (OA §5, read 2026-11-20). Formal trade-name clearance remains open (Q-19, flag F-P21)."
  },
  "brand": {
-  "name": "Prod2",
+  "name": "The Crisp Counter",
   "descriptor": "Kitchen notes & buying guides",
   "tagline": "What to compare before you buy",
-  "name_basis": "Decision D-P03: keep the project's established name (Prod2) as the wordmark, per the carried D-18 rationale — no new trade name is introduced while name clearance (Q-19) is open. A consumer-facing rename is queued as suggestion SG-01.",
+  "name_basis": "Working brand adopted 2026-11-20 (decision D-P18) on the owner's standing directive that the site read as a polished, branded publication rather than a project codename; the name comes from the adopted design brief (DESIGN_PROMPT.md, warm-editorial direction). This supersedes D-P03's keep-'Prod2' stance for reader-facing surfaces; both sessions' rationale is preserved in the decision log. A preliminary name search on 2026-11-20 found no conflicting kitchen-appliance brand in the first page of results; a formal trademark clearance has NOT been performed and remains open as Q-19 with flag F-P21. Reversal is one line here + rebuild.",
   "mission": "Three air fryers and two thermometers, chosen and explained by how you actually cook. Every figure is read from the official listing and dated; nothing is invented."
  },
  "tracking_id": "shopnow047c-20",
@@ -32,7 +32,7 @@
  "reader_capture": {
   "endpoint": "",
   "status": "shipped disabled - F-P14 / Q-47",
-  "consent_checkbox_text": "I'm asking Prod2 to answer this question on the site. If I left an email, use it only to tell me when the answer publishes. No lists, no sharing, no marketing.",
+  "consent_checkbox_text": "I'm asking The Crisp Counter to answer this question on the site. If I left an email, use it only to tell me when the answer publishes. No lists, no sharing, no marketing.",
   "note": "The 'What should we answer next?' form posts to this URL only when it is set (any HTTPS endpoint accepting {\"question\": \"...\", \"email\": \"...\"}). While empty, a visitor's typed question stays in their own browser and nothing is transmitted. Before connecting it, settle the consent basis (Q-47) and update privacy.html."
  }
 }

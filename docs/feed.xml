@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Prod2 — Kitchen notes &amp; buying guides</title>
+    <title>The Crisp Counter — Kitchen notes &amp; buying guides</title>
     <link>https://wingbangboozle1-lang.github.io/Prod2/</link>
     <description>What to compare before you buy. Question-shaped kitchen buying guides with every figure sourced.</description>
     <language>en-us</language>
@@ -49,7 +49,7 @@
       <pubDate>2026-11-20T09:00:00Z</pubDate>
     </item>
     <item>
-      <title>Two baskets or one: when do two drawers earn their space?</title>
+      <title>Two baskets or one: when two drawers earn it</title>
       <link>https://wingbangboozle1-lang.github.io/Prod2/guide-two-baskets-or-one.html</link>
       <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/guide-two-baskets-or-one.html</guid>
       <description>Dual-zone or one big basket? The batch math and the listed specs that decide it: sync finish, shake reminders, and who cooks two dishes at once.</description>
@@ -63,10 +63,17 @@
       <pubDate>2026-11-20T09:00:00Z</pubDate>
     </item>
     <item>
-      <title>Instant-read vs leave-in: which thermometer for which cook</title>
+      <title>Instant-read vs leave-in: which one fits you</title>
       <link>https://wingbangboozle1-lang.github.io/Prod2/guide-instant-vs-leave-in.html</link>
       <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/guide-instant-vs-leave-in.html</guid>
       <description>Spot-check in a second, or watch a long cook from your phone? How an instant-read and a wireless leave-in thermometer differ by workflow, with listed specs.</description>
+      <pubDate>2026-11-20T09:00:00Z</pubDate>
+    </item>
+    <item>
+      <title>Gift guide: which of the five fits which cook?</title>
+      <link>https://wingbangboozle1-lang.github.io/Prod2/guide-gift-guide.html</link>
+      <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/guide-gift-guide.html</guid>
+      <description>Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.</description>
       <pubDate>2026-11-20T09:00:00Z</pubDate>
     </item>
     <item>
@@ -84,14 +91,7 @@
       <pubDate>2026-11-20T09:00:00Z</pubDate>
     </item>
     <item>
-      <title>Air fryer as a gift: the four checks that matter</title>
-      <link>https://wingbangboozle1-lang.github.io/Prod2/guide-air-fryer-gift.html</link>
-      <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/guide-air-fryer-gift.html</guid>
-      <description>Gifting an air fryer or a thermometer? Four checks before you wrap: footprint, what is in the box, what they must already own, and which variant actually ships.</description>
-      <pubDate>2026-11-20T09:00:00Z</pubDate>
-    </item>
-    <item>
-      <title>Buying guide: choose by format, capacity and counter fit</title>
+      <title>Buying guide: format, capacity and counter fit</title>
       <link>https://wingbangboozle1-lang.github.io/Prod2/buying-guide.html</link>
       <guid isPermaLink="true">https://wingbangboozle1-lang.github.io/Prod2/buying-guide.html</guid>
       <description>A buying guide that starts from your kitchen, not a brand: format first, then capacity, then counter depth, then cleanup — with the questions that decide each.</description>

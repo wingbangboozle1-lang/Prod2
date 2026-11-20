@@ -1,4 +1,4 @@
-# Executive summary — Prod2 affiliate publication
+# Executive summary — The Crisp Counter (Prod2 affiliate publication)
 
 **What this is:** a small Amazon-affiliate publication (brand: **Prod2 — Kitchen notes & buying guides**) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
@@ -59,6 +59,30 @@
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
 - Gate: `python3 tools/build.py && python3 tools/checks.py` — **11 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, shop, publication, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
+## The publication passes (2026-11-20 — three sessions, reconciled)
+
+Three parallel sessions executed the owner's standing directive — the site must read as a polished,
+branded publication with timely articles, not generated output — and this merge reconciles all three:
+
+- **Shop-front design rebuild** (arena/70b2b9f7-prod2, D-P10…D-P14): shipped design system (drawn
+  format illustrations, product shelf, `shop.html`, `about.html`, reader nav cut to six links), all
+  five listings re-read live with verbatim records, disclosure corrected to the Operating Agreement
+  §5 first-person sentence (D-P13), dated-snapshot price policy refused on the Program Policies
+  §2(b) read (D-P11, closes Q-27), drawn-only imagery (D-P12), USDA/FoodSafety.gov temperature
+  guidance in the thermometer guide (D-P14).
+- **Anti-slop brand + typography + seasonal pass** (arena/f55b5827-prod2, D-P18…D-P20): the working
+  brand **"The Crisp Counter"** on every reader-facing surface (preliminary name search clean;
+  formal clearance open as Q-19/Q-P10, flag F-P21), the design brief's Fraunces + Inter shipped
+  self-hosted (SIL OFL 1.1, no third-party font requests) with mobile token conformance (44px tap
+  targets, sticky comparison anchors, amber unverified states), and the December gifting window
+  opened with `guide-gift-guide.html` plus four new hypothesis queue slots.
+- **Event-vocabulary pass** (arena/86206fb3-prod2, D-P15, F-P22/F-P23, Q-P14, SG-41): measured the
+  root-mode Pages exposure, rewrote F-P19/F-P20 with evidence, added root-mirror canaries, and
+  published (rather than silently fixed) the site/endpoint event-vocabulary mismatch.
+- **Register ID collisions were remapped and documented**: the anti-slop pass's rows now live at
+  D-P18…D-P20 (twice remapped; see the decision log meta) and its runbook suggestion at SG-44;
+  nothing from any session was discarded.
+
 ## The publication pass (2026-11-19, arena/9f84489c-prod2)
 
 The reader-facing site now reads like a shop, not an audit (decision D-P07): the front page leads
@@ -77,11 +101,12 @@ and the questions register gained a scannable status table plus Q-P05/Q-P06.
 ## Open decisions for the owner
 
 1. Run the **one-link-per-product test** in Associates Central (gates attribution claims/scaling).
-2. **Deploy the analytics endpoint + verify Search Console** (SG-06) — everything downstream depends on it; the checklist is on the measurement page.
-3. **Pick the design direction and settle the brand name together** (SG-11, SG-01; Q-P06, Q-19) — then SG-13 makes the switch mechanical.
+2. **Deploy the analytics endpoint + verify Search Console** (SG-06, runbook SG-44) — everything downstream depends on it; the checklist is on the measurement page.
+3. **Ratify the working brand and run formal clearance** (SG-38, Q-P10/Q-19) — "The Crisp Counter" ships as the working wordmark; the USPTO/state/common-law search is the missing evidence.
 4. **Settle the reader-capture consent text** (Q-47) — the form ships dark until then.
-5. Whether to adopt a dated-snapshot price policy (SG-05) — only with automation.
-6. Product photography decision (S-18/D-22): still awaiting a decision; generated/copy photography is banned, real photography is the only compliant path.
+5. Price-policy and availability-policy questions are answered for now (D-P11: both out, per Program Policies §2(b)) — revisit only if Creators/PA API access arrives (D-21).
+6. Settle the event-vocabulary fix (SG-41/F-P23/Q-P14) — an owner decision recorded as open in D-P15.
+7. Product photography decision (S-18/D-22/Q-P05): still awaiting the IP-licence read; drawn illustrations are the shipped interim (D-P12), with seasonal hero-art extension queued (SG-39).
 
 
 

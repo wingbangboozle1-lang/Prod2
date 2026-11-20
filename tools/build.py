@@ -81,7 +81,7 @@ PROD_BY_ID = {p["id"]: p for p in PRODUCTS}
 # ---------------------------------------------------------------------------
 PAGES = [
     ("index", "index.html",
-     f"Air fryers and meat thermometers, chosen by format | {BRAND}",
+     f"Air fryers and thermometers by format | {BRAND}",
      "Three air fryers in three formats and two meat thermometers, compared by capacity, counter fit and cleanup. Every figure cites the official listing it came from.",
      "home"),
     ("shop", "shop.html",
@@ -89,7 +89,7 @@ PAGES = [
      "One shelf: three air fryer formats and two thermometer workflows, filtered by what you cook and how much counter you can spare. Paid links, marked.",
      "shop"),
     ("about", "about.html",
-     f"About {BRAND}: who writes this and how we check | {BRAND}",
+     f"About this site: who writes it, how we check | {BRAND}",
      "Who edits this site, the four rules every page follows, how figures are read and dated, and exactly what we cannot tell you yet.",
      "about"),
     ("compare", "compare.html",
@@ -101,7 +101,7 @@ PAGES = [
      "Full listed specifications with read dates and source links, plus the product-intent confirmation record for every submitted link. Blank means unverified.",
      "products"),
     ("buying-guide", "buying-guide.html",
-     f"Buying guide: choose by format, capacity and counter fit | {BRAND}",
+     f"Buying guide: format, capacity and counter fit | {BRAND}",
      "A buying guide that starts from your kitchen, not a brand: format first, then capacity, then counter depth, then cleanup — with the questions that decide each.",
      "guides"),
     ("guide-basket-vs-oven", "guide-basket-vs-oven.html",
@@ -129,7 +129,7 @@ PAGES = [
      "Quarts on a listing describe volume, not people. A serving-count sanity check built from the listed capacities of the three air fryers, each sourced.",
      "guides"),
     ("guide-two-baskets-or-one", "guide-two-baskets-or-one.html",
-     f"Two baskets or one: when do two drawers earn their space? | {BRAND}",
+     f"Two baskets or one: when two drawers earn it | {BRAND}",
      "Dual-zone or one big basket? The batch math and the listed specs that decide it: sync finish, shake reminders, and who cooks two dishes at once.",
      "guides"),
     ("guide-holiday-hosting", "guide-holiday-hosting.html",
@@ -144,24 +144,27 @@ PAGES = [
      f"Can you leave a meat thermometer in an air fryer? | {BRAND}",
      "Probe heat ratings, basket depth and what leave-in monitoring means in a small cavity — read from the two listings and the air fryers here, with the gaps left blank.",
      "guides"),
-    ("guide-air-fryer-gift", "guide-air-fryer-gift.html",
-     f"Air fryer as a gift: the four checks that matter | {BRAND}",
-     "Gifting an air fryer or a thermometer? Four checks before you wrap: footprint, what is in the box, what they must already own, and which variant actually ships.",
-     "guides"),
+    # ("guide-air-fryer-gift", ...) superseded by guide-gift-guide (D-P20) at the 2026-11-20
+    # handoff integration — same reader intent, main's gift guide already registered. The
+    # PR #25 page stays preserved on branch arena/b650562d-prod2 (recorded in COORDINATION.md).
     ("guide-instant-vs-leave-in", "guide-instant-vs-leave-in.html",
-     f"Instant-read vs leave-in: which thermometer for which cook | {BRAND}",
+     f"Instant-read vs leave-in: which one fits you | {BRAND}",
      "Spot-check in a second, or watch a long cook from your phone? How an instant-read and a wireless leave-in thermometer differ by workflow, with listed specs.",
+     "guides"),
+    ("guide-gift-guide", "guide-gift-guide.html",
+     f"Gift guide: which of the five fits which cook? | {BRAND}",
+     "Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.",
      "guides"),
     ("guides", "guides.html",
      f"Guides: one buyer question per page | {BRAND}",
      "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
      "guides"),
     ("category-air-fryers", "category-air-fryers.html",
-     f"Air fryers: dual-basket, toaster-oven, single-basket | {BRAND}",
+     f"Air fryers: the three formats compared | {BRAND}",
      "Three air-fryer formats compared by the decision that matters — how they fit your counter and your cooking. Listed specs only, each with its source.",
      "categories"),
     ("category-thermometers", "category-thermometers.html",
-     f"Meat thermometers: instant-read vs wireless leave-in | {BRAND}",
+     f"Meat thermometers: instant-read vs leave-in | {BRAND}",
      "Two thermometers compared: a one-second instant-read with certified accuracy claims, and a wireless leave-in probe set. Listed specs only, sourced.",
      "categories"),
     ("executive-summary", "executive-summary.html",
@@ -189,7 +192,7 @@ PAGES = [
      "Every recorded decision, its question, its outcome and its sources — carried decisions keep their original dates.",
      "work"),
     ("measurement", "measurement.html",
-     f"Measurement: events, clicks and the campaign ledger | {BRAND}",
+     f"Measurement: events, clicks, campaign ledger | {BRAND}",
      "The privacy-preserving click counter, the five defined events with attribution windows, the analytics endpoint, and the empty campaign ledger.",
      "work"),
     ("compliance", "compliance.html",
@@ -212,7 +215,8 @@ PAGES = [
 
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
-             "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in", "guide-dual-vs-single", "guide-probe-in-air-fryer", "guide-air-fryer-gift"]
+             "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
+             "guide-gift-guide", "guide-dual-vs-single", "guide-probe-in-air-fryer"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -287,9 +291,9 @@ GUIDE_LINKS = [
     ("guide-two-baskets-or-one.html", "Two baskets or one?"),
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
     ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
+    ("guide-gift-guide.html", "The gift guide"),
     ("guide-dual-vs-single.html", "Dual basket or one big basket?"),
     ("guide-probe-in-air-fryer.html", "A leave-in probe in an air fryer?"),
-    ("guide-air-fryer-gift.html", "Air fryer as a gift: four checks"),
     ("guides.html", "All guides"),
 ]
 
@@ -522,12 +526,21 @@ def hook_intent_table(_="") -> str:
             'Full dated redirect history: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/intent-links.json">data/intent-links.json</a>.</p>')
 
 
+def _source_url_cell(url: str) -> str:
+    """Render a source URL. A link.amazon short link is owner-supplied evidence,
+    never a clickable destination (F-03/FLG-003, unresolved): show it as inert code."""
+    if url.startswith("https://link.amazon"):
+        return f'<code>{esc(url)}</code>'
+    return (f'<a class="src" href="{esc(url)}" rel="noopener" target="_blank">'
+            f'{esc(url)[:64]}</a>')
+
+
 def hook_sources_table(_="") -> str:
     rows = []
     for s in SOURCES:
         reads = ", ".join(s.get("read", []))
         rows.append(f'<tr id="{esc(s["id"])}"><td><code>{esc(s["id"])}</code></td><td>{esc(s["title"])}</td>'
-                    f'<td><a class="src" href="{esc(s["url"])}" rel="noopener" target="_blank">{esc(s["url"])[:64]}</a></td>'
+                    f'<td>{_source_url_cell(s["url"])}</td>'
                     f'<td>{esc(s["kind"])}</td><td>{esc(reads)}</td></tr>')
     return ('<div class="table-scroll"><table class="data"><thead><tr><th>ID</th><th>Source</th>'
             '<th>Official URL</th><th>Kind</th><th>Read (UTC)</th></tr></thead><tbody>'
@@ -726,9 +739,9 @@ GUIDE_BLURBS = {
     "guide-two-baskets-or-one": "Batch math meets listed specs: when two drawers beat one big basket.",
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
+    "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
     "guide-dual-vs-single": "Two 3 qt baskets or one 8 qt basket? The capacity math, done once, from the listings.",
     "guide-probe-in-air-fryer": "Leaving a probe in a 400°F cavity: what the listings say about heat ratings and depth.",
-    "guide-air-fryer-gift": "Four checks before you wrap one: footprint, box contents, what they already own.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -740,9 +753,9 @@ GUIDE_TAGS = {
     "guide-two-baskets-or-one": "Format",
     "guide-holiday-hosting": "Seasonal",
     "guide-instant-vs-leave-in": "Thermometers",
+    "guide-gift-guide": "Seasonal",
     "guide-dual-vs-single": "Capacity",
     "guide-probe-in-air-fryer": "Thermometers",
-    "guide-air-fryer-gift": "Seasonal",
 }
 
 

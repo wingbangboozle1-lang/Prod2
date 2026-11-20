@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "description": "Live re-check of the five owner-submitted Amazon links and their official /dp/ listings, performed 2026-11-20 by arena/722181aa-prod2 with the fetch tool. Values are recorded as observed. Nothing here overwrites data/p2/products.json or data/p2/intent-links.json; a discrepancy is logged as a flag instead.",
+    "date_utc": "2026-11-20",
+    "session": "arena/722181aa-prod2",
+    "tracking_id": "shopnow047c-20",
+    "method": "fetch_page on each submitted link.amazon URL (redirects followed by the tool), then fetch_page on https://www.amazon.com/dp/{ASIN} for the ASIN in the register. Page title compared character-for-character with products.json name_listing (after stripping the 'Amazon.com: ' prefix and the ' : Home & Kitchen' suffix)."
+  },
+  "short_links": [
+    {"product_id": "P1", "submitted_url": "https://link.amazon/B04G1MEwY", "register_asin": "B0CDY277D3", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "result": "resolved to the Amazon homepage, not the product listing"},
+    {"product_id": "P2", "submitted_url": "https://link.amazon/B02NbDxp3", "register_asin": "B09B7SB46R", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "result": "resolved to the Amazon homepage, not the product listing"},
+    {"product_id": "P3", "submitted_url": "https://link.amazon/B00hJ57DV", "register_asin": "B08DKYBTPH", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "result": "resolved to the Amazon homepage, not the product listing"},
+    {"product_id": "P4", "submitted_url": "https://link.amazon/B0c8moW59", "register_asin": "B0DHZTCNR5", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "result": "resolved to the Amazon homepage, not the product listing"},
+    {"product_id": "P5", "submitted_url": "https://link.amazon/B0f3GKalj", "register_asin": "B0DZFD6R9Z", "observed_final_url": null, "observed_title": null, "result": "HTTP 500 from the fetch tool; no destination observed"}
+  ],
+  "direct_asin_pages": [
+    {"product_id": "P1", "asin": "B0CDY277D3", "page_title_observed": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen", "title_matches_register": true, "source_url": "https://www.amazon.com/dp/B0CDY277D3"},
+    {"product_id": "P2", "asin": "B09B7SB46R", "page_title_observed": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen", "title_matches_register": true, "source_url": "https://www.amazon.com/dp/B09B7SB46R"},
+    {"product_id": "P3", "asin": "B08DKYBTPH", "page_title_observed": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen", "title_matches_register": true, "source_url": "https://www.amazon.com/dp/B08DKYBTPH"},
+    {"product_id": "P4", "asin": "B0DHZTCNR5", "page_title_observed": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen", "title_matches_register": true, "source_url": "https://www.amazon.com/dp/B0DHZTCNR5"},
+    {"product_id": "P5", "asin": "B0DZFD6R9Z", "page_title_observed": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen", "title_matches_register": true, "source_url": "https://www.amazon.com/dp/B0DZFD6R9Z"}
+  ],
+  "conclusion": "All five ASIN listing pages are live today and their titles match the register. The five submitted short links did NOT resolve to those listings in this fetch (four to the Amazon homepage, one HTTP 500). The earlier register entries (2026-11-14..19) recorded short-link redirects to the same ASINs. This session cannot tell whether the difference is a fetch-tool artifact or a change in the short-link service; a manual browser check is required (flag F-P24)."
+}
