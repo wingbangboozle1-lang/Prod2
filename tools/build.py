@@ -581,23 +581,38 @@ def hook_local_events(_="") -> str:
             '<th>Fields</th></tr></thead><tbody>' + rows + '</tbody></table></div>')
 
 
+# Where each product card's "full specs" link lands.
+PRODUCT_LANDING = {
+    "P1": "category-air-fryers.html#dual",
+    "P2": "category-air-fryers.html#oven",
+    "P3": "category-air-fryers.html#single",
+    "P4": "category-thermometers.html#instant",
+    "P5": "category-thermometers.html#wireless",
+}
+
+
 def hook_product_cards(_="") -> str:
     cards = []
     for p in PRODUCTS:
+        landing = PRODUCT_LANDING.get(p["id"], "products.html")
         cards.append(f"""
 <article class="card product-card" id="{esc(p['id'])}">
-  <p class="eyebrow">{esc(p['format'])}</p>
-  <h3>{esc(p['name_short'])}</h3>
-  <p class="muted">{esc(p['asin'])}</p>
+  <p class="card-kicker">{esc(p['format'])}</p>
+  <h3><a href="{esc(landing)}">{esc(p['name_short'])}</a></h3>
+  <span class="asin">ASIN {esc(p['asin'])}</span>
   <ul>
     <li>{esc(p.get('highlight_1') or '')}</li>
     <li>{esc(p.get('highlight_2') or '')}</li>
     <li>{esc(p.get('highlight_3') or '')}</li>
   </ul>
-  <p>{buy_link(p)}</p>
-  <p class="muted">Listed facts sourced to {listing_link(p, 'the official listing')} (read {esc(p.get('name_listing_read') or '')}).</p>
+  <div class="card-foot">
+    {buy_link(p)}
+    <p class="card-src">Facts from {listing_link(p, 'the official listing')} \
+      &middot; read {esc(p.get('name_listing_read') or '')} \
+      &middot; <a href="products.html#{esc(p['id'])}">full specs</a></p>
+  </div>
 </article>""")
-    return '<div class="card-grid">' + "".join(cards) + '</div>'
+    return '<div class="shelf">' + "".join(cards) + "</div>"
 
 
 # label, product key, and the dated-read field that backs that key.
