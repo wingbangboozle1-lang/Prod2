@@ -14,6 +14,50 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/37b265a4-prod2 (2026-11-20, same-day link + listing re-verification and integration)
+
+Branch `arena/37b265a4-prod2`, branched from `main` at `4398598` (PR #33 merge). No other claim is live: every earlier claim in this file is done or merged.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| R-01 Independent re-read of the five owner short links and the five `/dp/` listings on 2026-11-20; record observations as dated history, never overwrite prior records | done | arena/37b265a4-prod2 | `data/p2/intent-links.json` (history entries only), `data/p2/verification-2026-11-20.json` (new key `r01_reread_2026_11_20`), `data/p2/sources.json` (read dates only) |
+| R-02 Publish any contradiction found by R-01 as a new open flag on the Flagged for Review page; correct the reader-facing and repository statements it contradicts; no status of any existing value is changed without a source read | done | arena/37b265a4-prod2 | `data/p2/flags.json` (F-P25..F-P27 added; F-P20 detail extended; F-P24 is arena/722181aa-prod2's entry and is not edited), `data/p2/questions.json` (Q-P15 added; dated notes on Q-01, Q-P03), `EXECUTIVE_SUMMARY.md`, `README.md`, `content/pages/executive-summary.html` (statements and the public price column only) |
+| R-03 Rebuild, run the release gate, merge, confirm the Pages build, record the PR and merge result | in progress (PR open, merge next) | arena/37b265a4-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+
+### Results (R-01..R-03, 2026-11-20, arena/37b265a4-prod2)
+
+**Sources read this pass (fetch tool, 2026-11-20 UTC):**
+- Listings: https://www.amazon.com/dp/B0CDY277D3 · https://www.amazon.com/dp/B09B7SB46R · https://www.amazon.com/dp/B08DKYBTPH · https://www.amazon.com/dp/B0DHZTCNR5 · https://www.amazon.com/dp/B0DZFD6R9Z
+- Owner short links: https://link.amazon/B04G1MEwY · https://link.amazon/B02NbDxp3 · https://link.amazon/B00hJ57DV · https://link.amazon/B0c8moW59 · https://link.amazon/B0f3GKalj
+- Associates Program Policies (page "Updated: April 14, 2026"; §2(b), §6(t), §6(w) read): https://affiliate-program.amazon.com/help/operating/policies
+- Operating Agreement (page "Updated: October 15, 2025"; chunk 0 read): https://affiliate-program.amazon.com/help/operating/agreement
+- Live host: https://wingbangboozle1-lang.github.io/Prod2/ and https://wingbangboozle1-lang.github.io/Prod2/EXECUTIVE_SUMMARY.md
+
+**Verification performed:**
+- Five listing titles compared by exact string equality with `data/p2/products.json` `name_listing` after removing the tool's "Amazon.com: " prefix and ": Home & Kitchen" suffix: **5/5 match**. ASINs matched the register.
+- Short links, R-01 read: **1 of 5 reached its intended ASIN** (B02NbDxp3 → B09B7SB46R). B04G1MEwY and B0c8moW59 reached `https://www.amazon.com/` on both attempts. B00hJ57DV and B0f3GKalj each reached the homepage on one read. An earlier same-day note of HTTP 500 for two links was not reproduced and is not relied on. Recorded as dated history in `intent-links.json`; no `intended_asin` or `official_listing_url` changed.
+- Same-day disagreement with F-P24 (arena/722181aa-prod2): the two reads differ on **two** links, B02NbDxp3 and B0f3GKalj (F-P27). The other three read the same way.
+- Policy text read in the page returned: §2(b) prices and availability shown only if Amazon serves the link or data come via Creators/PA API (matches D-P11); §6(t) reviews and star ratings only via Creators/PA API; §6(w) link-shortening clause quoted in F-P24/F-P27.
+- Live host: title matches `docs/index.html`. `data/p2/settings.json` and `EXECUTIVE_SUMMARY.md` are publicly served (exposure in F-P19/F-P20). The served settings.json brand text differs from the repository copy (F-P20 detail).
+- Gate: `python3 tools/build.py` → 28 pages; `python3 tools/checks.py` → ALL CHECKS PASSED; `npm test` → 2/2.
+
+**Flags added or changed here (none blocking):**
+- **F-P24** (open; published first by arena/722181aa-prod2 in PR #39/#42): not edited by this session.
+- **F-P25** (open, low): "Check price on Amazon" button label needs an owner copy decision (§2(b)).
+- **F-P26** (open): the public `EXECUTIVE_SUMMARY.md` carried a five-row price column that the register withholds. Neighbouring-price mechanism softened to "not verified here" (F-P17 is the only record of it).
+- **F-P27** (open): the two same-day reads disagree on B02NbDxp3 and B0f3GKalj. Decided only by the browser check in Q-P18.
+- **F-P28** (open): products.json short_link fields and the intent record still describe the links as resolving; the 2026-11-20 reads do not confirm that. Intent and observed fields are not merged.
+- **F-P19** extended: pages.yml docs-only versus the legacy-root Pages source (same mismatch as F-P20; extended, not duplicated).
+- **F-P20** detail extended: served versus local `settings.json`.
+
+**Statements corrected:** `content/pages/executive-summary.html`, `EXECUTIVE_SUMMARY.md`, `README.md`, `DECISIONS.md` D-01, `data/suggestions.json` (what_we_know), `data/p2/questions.json` (Q-01, Q-P03, Q-P18), `data/p2/verification-2026-11-20.json` (r01 record; "not re-resolved" sentence now carries a dated correction).
+
+**Not done (owner or later pass):**
+- No logged-in Associates Central check (Q-01, F-57, F-58). No logged-out browser test of the short links (Q-P18).
+- Pages source is still legacy `main /` (Pages API read 2026-11-20). Changing it needs repository admin (F-P19/F-P20).
+- Operating Agreement §5 and the FTC pages (S-FTC1/S-FTC2) were not re-read in this pass.
+
 ## CLAIM — session arena/d5157db6-prod2 (2026-11-20, re-verification + drift fixes + integration)
 
 Protocol note: this session works only on its assigned branch `arena/d5157db6-prod2`. The `session-<id>/<task>` branch naming in the brief is not used; this claim is recorded here instead.
