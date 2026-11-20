@@ -14,6 +14,18 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/37b265a4-prod2 (2026-11-20, same-day link + listing re-verification and integration)
+
+Branch `arena/37b265a4-prod2`, branched from `main` at `4398598` (PR #33 merge). No other claim is live: every earlier claim in this file is done or merged.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| R-01 Independent re-read of the five owner short links and the five `/dp/` listings on 2026-11-20; record observations as dated history, never overwrite prior records | in progress | arena/37b265a4-prod2 | `data/p2/intent-links.json` (history entries only), `data/p2/verification-2026-11-20.json`, `data/p2/sources.json` (read dates only) |
+| R-02 Publish any contradiction found by R-01 as a new open flag on the Flagged for Review page; no status of any existing value is changed without a source read | in progress | arena/37b265a4-prod2 | `data/p2/flags.json` (new IDs only), `data/p2/questions.json` (new IDs only) |
+| R-03 Rebuild, run the release gate, merge, confirm the Pages build, record the PR and merge result | pending | arena/37b265a4-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+---
+
 ## PARALLEL CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
 
 Ran in parallel with the two passes above (both also branched from f6e772f). **Reconciled by this
