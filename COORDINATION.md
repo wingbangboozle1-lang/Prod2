@@ -1168,3 +1168,36 @@ Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Sing
 - F-P23 / Q-P14: event-vocabulary contract (resolved in code by the W-01 pass; the gate asserts the five names; whether a collector is deployed for live traffic was not checked this session).
 - F-P24: short-link discrepancy (blocker 3).
 - F-P17 / F-02: carousel prices and ratings belong to other ASINs; the site withholds prices and ratings.
+
+---
+
+## ACTIVE CLAIM — session arena/e1dbef32-prod2 (2026-11-20, organic-traffic editorial + structured-data + decision-readiness pass)
+
+Branched from `51a02ac` (main after PRs #46/#48/#50). Single-branch rule followed: all work lands on
+`arena/e1dbef32-prod2`; no other branch is created, switched to or pushed.
+
+**Non-overlap check against the seven open PRs (read from `gh pr view --json files` at 06:55 UTC).**
+#35 owns the image set + `assets/style.css`; #41 owns `analysis.html`, `design-prompt.html`,
+`data/p2/design-prompts.json`, `decision-priority.json` and its own two guides; #43/#45 own the
+reviewer-summary rewrites and `assets/css/site.css`; #47 owns the path decision rows and
+`data/p2/suggestions.json` *edits*; #49 owns the endpoint contract and the executive-summary rewrite.
+This session therefore touches **only** new page files, the page/JSON-LD generator, the calendar
+queue, and **append-only** register rows, and deliberately does not rewrite any page another PR edits.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| E-01 Organic-traffic editorial: two new question-shaped guides + one new long read, each built from an official food-safety source read today (not from the listings) | in progress | arena/e1dbef32-prod2 | `content/pages/guide-*.html` (new files only), `content/pages/article-*.html` (new file only), `tools/build.py` (PAGES + GUIDE_IDS + clusters), `data/p2/calendar.json` (queue → published) |
+| E-02 Structured data: emit FAQPage JSON-LD for pages that carry a FAQ block, so the published brief and the shipped markup agree (the brief promised FAQPage, the generator only emitted Article) | in progress | arena/e1dbef32-prod2 | `tools/build.py`, `tools/checks.py` (seo section), `DESIGN_PROMPT.md` (sync line) |
+| E-03 Decision-support: a decision-readiness table on the suggestions page that names, for each path, the questions that must be answered first, derived mechanically from the registers (no invented dependencies) | in progress | arena/e1dbef32-prod2 | `content/pages/suggestions.html` (one hook line), `tools/build.py` (new hook), `data/p2/suggestions.json` (append SG-48…), `data/p2/questions.json` (append Q-P18…) |
+| E-04 Machinery: a cadence check in the gate so an editorial promise cannot silently rot (queued item past due, or published guide missing from sitemap/feed) | in progress | arena/e1dbef32-prod2 | `tools/checks.py`, `data/p2/calendar.json` |
+| E-05 Verification: line-by-line re-read of the official sources the NEW content depends on, plus a policy-source pass (Associates OA §5, Program Policies, Google, FTC); every quoted string recorded with its read date; anything not confirmable stays out | in progress | arena/e1dbef32-prod2 | `data/p2/verification-2026-11-20-e1dbef32.json` (new), `data/p2/sources.json` (append), `REPO_AUDIT.md` (dated addendum) |
+| E-06 Integration: rebuild, gates, PR to main, merge, Pages live check, record here + docs sync | pending | arena/e1dbef32-prod2 | `docs/`, root mirror, `ENGINE.md`, `README.md`, `EXECUTIVE_SUMMARY.md`, `COORDINATION.md` |
+
+**ID allocation for this session (so the final integration does not have to guess):** flags
+**F-P25…F-P27**, questions **Q-P18…Q-P20**, suggestions **SG-48…SG-52**, decisions **D-P23…D-P25**.
+Note for integration: open PR #47 reuses **D-P21** (already "which event vocabulary is authoritative"
+on main) and **D-P22**; those rows must be remapped by that PR's own session before merge, per the
+collision-remap precedent recorded above.
+
+**Register edits are append-only.** This session adds rows at the end of each `data/p2/*.json` array
+and changes no existing row, so a `union` merge with #41/#43/#47/#49 cannot silently drop anyone's data.
