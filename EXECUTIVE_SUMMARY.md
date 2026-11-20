@@ -19,7 +19,7 @@ The source register records intended ASIN, official listing URL, confirmation da
 | ThermoMaven instant-read thermometer (P4) | B0DHZTCNR5 | [S-P4 — Amazon listing](https://www.amazon.com/dp/B0DHZTCNR5) | 2026-11-20 |
 | CHEF iQ Sense Gen3 wireless thermometer (P5) | B0DZFD6R9Z | [S-P5 — Amazon listing](https://www.amazon.com/dp/B0DZFD6R9Z) | 2026-11-20 |
 
-The public product pages show the recorded features and their source links. Values that were not confirmed remain blank and flagged. The supplied `link.amazon` URLs are preserved as owner-submitted evidence, not called invalid; their compliance status remains unresolved (F-03).
+The public product pages show the recorded features and their source links. Values that were not confirmed remain blank and flagged. The supplied `link.amazon` URLs are preserved as owner-submitted evidence, not called invalid; their compliance status remains unresolved (F-03). A 2026-11-20 live re-check observed them resolving to the Amazon homepage or an error instead of the listings (F-P24) — cause unexplained, not treated as proof the links are invalid.
 
 ## Trust and compliance posture
 

@@ -13,7 +13,7 @@ The current repository is **not** an AI-powered product-discovery or conversion-
 
 ## Five recorded product listings
 
-Each product's intended ASIN and official listing URL are stored separately from the submitted short link and observed redirect record. Listing records were re-read on 2026-11-20 (record: `data/p2/verification-2026-11-20.json`); these are dated observations, not guarantees that a listing has not changed.
+Each product's intended ASIN and official listing URL are stored separately from the submitted short link and observed redirect record. Listing records were re-read on 2026-11-20 (records: `data/p2/verification-2026-11-20.json` and `data/p2/live-check-2026-11-20-722181aa.json` — all five `/dp/` listing titles matched the register); these are dated observations, not guarantees that a listing has not changed.
 
 | ID | Product format | ASIN | Official listing source |
 |---|---|---|---|
@@ -23,7 +23,7 @@ Each product's intended ASIN and official listing URL are stored separately from
 | P4 | ThermoMaven instant-read thermometer | B0DHZTCNR5 | [Amazon listing](https://www.amazon.com/dp/B0DHZTCNR5) · S-P4 |
 | P5 | CHEF iQ Sense Gen3 wireless thermometer | B0DZFD6R9Z | [Amazon listing](https://www.amazon.com/dp/B0DZFD6R9Z) · S-P5 |
 
-Unconfirmed values remain blank and are flagged. The owner-supplied `link.amazon` short-link compliance status remains unresolved (F-03); this project does not call those links invalid.
+Unconfirmed values remain blank and are flagged. The owner-supplied `link.amazon` short-link compliance status remains unresolved (F-03); this project does not call those links invalid. A live re-check on 2026-11-20 observed those short links resolving to the Amazon homepage or an error rather than to the listings (F-P24); the cause is unexplained, so published buy paths use the site's own tagged `/dp/` Special Links.
 
 ## Build and verification
 
