@@ -2,7 +2,7 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current sessions: **session-arena-9f84489c** (branch `arena/9f84489c-prod2`, publication polish pass — claim below) · session-arena-8ff10f50-prod2 (branch `arena/8ff10f50-prod2`, PRs #19/#21 merged)
+Current sessions: **session-arena-9f84489c** (branch `arena/9f84489c-prod2`, publication polish pass — claim below) · session-arena-8ff10f50-prod2 (branch `arena/8ff10f50-prod2`, PRs #19/#21 merged) · session-arena-1f4017b9-prod2 (branch `arena/1f4017b9-prod2`, shop-forward polish + integration)
 
 ---
 
@@ -60,6 +60,17 @@ session once all other tasks are done.
 - **T11 (integration, PR, merge, Pages deploy):** claim the full scope. Re-verify both builds line by line, make the landing page product-forward (lead with products), confirm `pages.yml` deploys a working artifact, commit, push, open a PR from `arena/8ff10f50-prod2` to `main`, merge it, and confirm GitHub Pages deploys. Record the PR link and merge result below.
 - **T12 (shop-like landing page):** reorder the front page so products lead (featured products + buy buttons above the register), keep guides + category tiles, and keep the disclosure strip above the fold.
 - **T13 (decision-input questions):** the open-questions register and the suggestions/decision portal already exist; verified present and linked from the nav/footer.
+
+## Claims this turn (session-arena-1f4017b9-prod2 — shop-forward polish + integration)
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| S-01 Shop-forward landing page rewrite (products above register, buy buttons prominent, publication feel) | done | session-arena-1f4017b9-prod2 | `content/pages/index.html`, `tools/build.py` |
+| S-02 Design prompt additions (polished marketing affiliate design, catchy articles, organic traffic hooks) | done | session-arena-1f4017b9-prod2 | `DESIGN_PROMPT.md` |
+| S-03 Q&A register clarity + missing-info discovery list | done | session-arena-1f4017b9-prod2 | `docs/questions.html`, `data/p2/questions.json` (verified present) |
+| S-04 Executive summary refresh | done | session-arena-1f4017b9-prod2 | `EXECUTIVE_SUMMARY.md` (verified present) |
+| S-05 Build + verify both outputs + GitHub Pages deploy | in progress | session-arena-1f4017b9-prod2 | `tools/build.py`, `tools/checks.py`, `.github/workflows/pages.yml`, `docs/`, root mirror |
+| S-06 PR to main + merge + confirm Pages live | unclaimed | session-arena-1f4017b9-prod2 | `main`, `.github/workflows/` |
 
 No other session has an unexpired claim on these files. If this session stops, any other session may take over an `in progress` task older than 60 minutes with no commits and must note the handoff here.
 

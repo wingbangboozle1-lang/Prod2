@@ -558,6 +558,13 @@ def hook_local_events(_="") -> str:
 
 
 def hook_product_cards(_="") -> str:
+    BEST_FOR = {
+        "P1": "Two dishes at once, finished together",
+        "P2": "Sheet-pan meals, rack cooking, French doors",
+        "P3": "One big basket, smallest footprint",
+        "P4": "Fast doneness checks, ±0.5°F as listed",
+        "P5": "Monitor away from the heat, wireless",
+    }
     cards = []
     for p in PRODUCTS:
         cards.append(f"""
@@ -571,7 +578,7 @@ def hook_product_cards(_="") -> str:
     <li>{esc(p.get('highlight_3') or '')}</li>
   </ul>
   <p>{buy_link(p)}</p>
-  <p class="muted">Listed facts sourced to {listing_link(p, 'the official listing')} (read {esc(p.get('name_listing_read') or '')}).</p>
+  <p class="muted"><strong>Best for:</strong> {BEST_FOR.get(p['id'], '')}. Listed facts sourced to {listing_link(p, 'the official listing')} (read {esc(p.get('name_listing_read') or '')}).</p>
 </article>""")
     return '<div class="card-grid">' + "".join(cards) + '</div>'
 
