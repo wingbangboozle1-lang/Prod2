@@ -7,7 +7,11 @@ const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const SITE = path.join(ROOT, 'site'); // INT-06: canonical site is site/ (Countercraft); docs/ archived
 const STORE = path.resolve(process.env.EVENT_STORE || path.join(ROOT, 'var', 'events-aggregate.json'));
 const PORT = Number(process.env.PORT || 4173);
-const allowedEvents = new Set(['page_view', 'outbound_click', 'guide_open', 'category_open', 'rss_feed_click', 'chooser_completed', 'article_half_read', 'disclosure_viewed', 'cta_click', 'product_click', 'filter_apply', 'guide_read']);
+// The site's own five events (data/p2/events.json) come first: they are what
+// docs/assets/js/measure.js can actually emit, and they must never be dropped.
+// The remaining names are accepted for the sibling build's tracker so one
+// endpoint can serve both without losing either.
+const allowedEvents = new Set(['page_view', 'outbound_click', 'guide_read_75', 'category_click', 'feed_click', 'guide_open', 'category_open', 'rss_feed_click', 'chooser_completed', 'article_half_read', 'disclosure_viewed', 'cta_click', 'product_click', 'filter_apply', 'guide_read']);
 const products = new Set(['P01', 'P02', 'P03', 'P04', 'P05']);
 const guides = new Set(['basket-or-oven', 'capacity-checklist', 'cleanup-and-space', 'questions-before-buying']);
 const categories = new Set(['air-fryers', 'meat-thermometers']);
@@ -19,15 +23,35 @@ let writeQueue = Promise.resolve();
 function cleanPage(value) {
   return typeof value === 'string' && /^\/[a-zA-Z0-9/_\-.]*$/.test(value) && !value.includes('..') ? value.slice(0, 160) : '/unknown';
 }
+function cleanTarget(value) {
+  // Same conservative charset, and a single optional #fragment so a category tile
+  // click keeps the section it pointed at (category-air-fryers.html#dual). No
+  // query strings: they can carry identifiers and are never stored.
+  return typeof value === 'string' && /^\/?[a-zA-Z0-9/_\-.]+(#[a-zA-Z0-9_\-]+)?$/.test(value) && !value.includes('..')
+    ? value.slice(0, 160) : '/unknown';
+}
 function keyFor(body) {
   // The existing static click tracker names the event in `event`; this endpoint
   // also accepts `type` for simple self-hosted probes. Timestamps and extra keys
   // are deliberately ignored and never written to disk.
   const event = body?.type || body?.event;
+  // measure.js (the shipped publication tracker) names the page `path`; the
+  // sibling tracker names it `page`. Accept either so counts never collapse
+  // into an 'unknown' bucket.
+  if (body && typeof body === 'object' && body.page === undefined && body.path !== undefined) {
+    body = {...body, page: body.path};
+  }
   if (!allowedEvents.has(event)) return null;
   if (event === 'page_view') return `${event}|${cleanPage(body.page)}`;
-  if (event === 'outbound_click') return `${event}|${products.has(body.product) ? body.product : 'unknown'}`;
+  if (event === 'outbound_click') {
+    // measure.js sends {asin, target}; the sibling tracker sends {product}.
+    const ident = body.product || body.asin || body.target;
+    return `${event}|${typeof ident === 'string' && /^[A-Za-z0-9_-]{1,20}$/.test(ident) ? ident : 'unknown'}`;
+  }
   if (event === 'guide_open') return `${event}|${guides.has(body.guide) ? body.guide : 'unknown'}`;
+  if (event === 'guide_read_75') return `${event}|${cleanPage(body.path)}`;
+  if (event === 'feed_click') return `${event}|${cleanPage(body.path)}`;
+  if (event === 'category_click') return `${event}|${cleanTarget(body.target) !== '/unknown' ? cleanTarget(body.target) : cleanPage(body.path)}`;
   if (event === 'category_open') return `${event}|${categories.has(body.category) ? body.category : 'unknown'}`;
   if (event === 'chooser_completed') return `${event}|${products.has(body.recommendation) ? body.recommendation : 'unknown'}`;
   if (event === 'article_half_read') return `${event}|${body.depth === 100 ? 100 : 50}`;
