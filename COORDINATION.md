@@ -28,6 +28,26 @@ Protocol notes for this claim:
 
 ---
 
+## ACTIVE CLAIM — session arena/3e45659b-prod2 (2026-11-20, reader-experience + decision-surface pass)
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| R-01 Shop-first visual rebuild (CSS system, hero shelf, product cards, "fit / think-twice" verdicts) | in progress | arena/3e45659b-prod2 | `assets/css/site.css`, `content/pages/index.html`, `content/pages/products.html`, `content/pages/compare.html`, `content/pages/guides.html`, `content/pages/category-*.html`, `content/pages/buying-guide.html` |
+| R-02 Audit-voice purge on reader pages (register IDs off reader pages, plain buyer language) | in progress | arena/3e45659b-prod2 | `content/pages/index.html`, `content/pages/compare.html`, `content/pages/products.html`, `content/pages/category-*.html`, `content/pages/buying-guide.html`, `content/pages/guides.html` |
+| R-03 Navigation: one nav group, guides + buying guide collapsed, dashboards footer-only | in progress | arena/3e45659b-prod2 | `tools/build.py` |
+| R-04 New guide: USDA temperatures (seasonal, Thanksgiving window) + sitemap/feed/cadence | in progress | arena/3e45659b-prod2 | `content/pages/guide-thanksgiving-temperatures.html`, `data/p2/calendar.json`, `tools/build.py` |
+| R-05 Build page: what is automated, what is gated, how products are chosen | in progress | arena/3e45659b-prod2 | `content/pages/built.html`, `tools/build.py` |
+| R-06 Decision surface: ranked decision paths + new suggestions/questions + dated listing-watch probe | in progress | arena/3e45659b-prod2 | `data/p2/suggestions.json`, `data/p2/questions.json`, `data/p2/flags.json`, `content/pages/suggestions.html`, `content/pages/measurement.html` |
+| R-07 Re-verification 2026-11-20 (policies, ASIN definition, FTC, Google, USDA, listings P1/P2) | in progress | arena/3e45659b-prod2 | `data/p2/sources.json`, `data/p2/verification-2026-11-20.json` |
+| R-08 Gate extension + docs sync + integration, PR, merge, Pages check | in progress | arena/3e45659b-prod2 | `tools/checks.py`, `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `ENGINE.md`, `docs/`, root mirror |
+
+Protocol notes for this claim:
+- Branch: Arena pins one branch per session (`arena/3e45659b-prod2`, branched from `f6e772f`/main at PR #28). The standing Arena rule ("never switch or create branches") overrides the `session-<id>/<task>` naming convention used by earlier sessions; the branch name is fixed and not renamed. Scope is still non-overlapping: no other session has an unexpired claim on these files (last claim P-01…P-10 is `done`, merged as PR #27/#28).
+- Verification boundary this pass: **direct** reads on 2026-11-20 from the official pages (Amazon Associates Operating Agreement, Program Policies incl. 2(b)/6(a)(c)(d)(g)(t)(v)(w), sell.amazon.com ASIN definition, FTC Disclosures 101, Google Search Central outbound-link qualification, USDA FSIS Safe Minimum Internal Temperature Chart, and the P1/P2 Amazon listings). Product facts for P3–P5 are **not** re-fetched this pass; they keep their dated 2026-11-19 records and are marked as carried. Nothing is inferred.
+
+
+---
+
 This is the shared task board. Each task has: a status (`unclaimed`, `in progress`,
 `done`, `needs review`), an owning session, and the files it touches. Shared outputs
 (the site's table data, index and navigation) are changed only by the final integration
