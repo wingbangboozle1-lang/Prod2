@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (merged integration, session arena/644d217b-prod2): main's live short-link re-check (F-P24, data/p2/live-check-2026-11-20-722181aa.json) and formatting are kept as merged; F-P23 resolved by this session's collector fix (D-P21); no flag from either side was dropped."
+  "last_change": "2026-11-20 (arena/0a9f19fe-prod2): F-P25 added and marked resolved - the conflict-marker stylesheet defect, its root cause and the new stylesheet gate."
  },
  "flags": [
   {
@@ -354,6 +354,15 @@
    "evidence_note": "Live /dp/ listing for P1 (title matches register). Short-link observations and the four other ASIN pages are in data/p2/live-check-2026-11-20-722181aa.json.",
    "how_to_resolve": "Owner (or any reviewer with a normal browser) opens each of the five link.amazon URLs and records the final URL and ASIN in a dated redirect observation in data/p2/intent-links.json. If the short links no longer resolve to the registered ASINs, the intended_asin values stay as the /dp/ pages show and the mismatch is escalated under F-03 / F-57.",
    "status": "open"
+  },
+  {
+   "id": "F-P25",
+   "title": "All 30 published pages shipped a stylesheet containing git conflict markers (fixed and gated in this pass)",
+   "detail": "On 2026-11-20 the file every page loads, assets/css/site.css, began with '<<<<<<< HEAD', '=======' and '>>>>>>> origin/main' at lines 1, 48 and 75. Both sides of that merge also lost a closing brace, so two @font-face blocks ran together and the HEAD block was missing its terminator. Every workflow was green, tools/checks.py reported ALL CHECKS PASSED, and the site deployed in that state. Root cause of the miss: no check in this repository read the stylesheet, and no session in this repository has ever rendered a page - measured this pass, the Python and Node browser toolkits install but the Chrome-for-Testing binary and the Debian font packages do not download. A strict CSS parser discards an unclosed block, so the tail of the design system was at risk of silently not applying. Verified after repair: tinycss2 parses 245 top-level rules with 0 errors in both assets/ and docs/, braces balance 278/278, and the final @media print rule is fully consumed. Both complete font stacks were kept rather than choosing between them, because each is a valid fallback for the other. The condition that caused the miss is now gated by tools/design_qa.py, which fails the build on markers, on an unclosed block, on a dangling var() token, on a missing or invalid font file, and on unreadable body colour.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css",
+   "evidence_note": "The live stylesheet served to readers. The defect is visible in the git history of the merge that introduced it; the repaired file and the gate are in this repository (tools/design_qa.py).",
+   "how_to_resolve": "No owner action required: repaired and gated in this pass. For review, open the live stylesheet and confirm line 1 is a comment rather than a conflict marker, then run 'python3 tools/design_qa.py' anywhere in the repo to reproduce the gate.",
+   "status": "resolved"
   }
  ]
 }

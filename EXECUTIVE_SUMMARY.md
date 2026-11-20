@@ -71,7 +71,7 @@ whether it worked.
 
 - **Suggestion queue** (`suggestions.html`): 38 proposals, opened by a ranked five-row short list of the only items that change what happens next, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
 - **Open questions** (`questions.html`): 21 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
-- **Flagged for review** (`flagged.html`): 37 items, open/resolved/standing, each with an evidence link. Four added 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
+- **Flagged for review** (`flagged.html`): 38 items, open/resolved/standing, each with an evidence link. Four added 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
 - **Decision log** (`decisions.html`): 32 recorded decisions, including D-P21 (which event vocabulary is authoritative) from the latest pass.
 
 ## Measurement (machinery shipped, not yet on)
@@ -86,7 +86,44 @@ whether it worked.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **13 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+
+## The defect this pass found, and the gate that now prevents it (2026-11-20, session arena/0a9f19fe-prod2)
+
+**All 30 published pages were loading a stylesheet whose first 76 lines were raw git conflict
+markers.** `assets/css/site.css` opened with `<<<<<<< HEAD`, `=======` and `>>>>>>> origin/main`,
+and both branches' `@font-face` blocks had lost a closing brace in the merge. Every workflow was
+green, `tools/checks.py` passed, and the site shipped that way. Nothing in this repository could see
+it, because nothing in this repository can open a browser: measured this pass, the Python and Node
+browser toolkits install, but the Chrome-for-Testing binary and the Debian font packages do not
+download. Every earlier "the design works" statement in this project was an inference from reading
+CSS, not an observation of a rendered page.
+
+- **Fixed:** the markers are gone, both complete font stacks are kept (six static latin subsets plus
+  three variable faces — each is a valid fallback for the other), and the file parses to 245
+  top-level rules with zero errors at both ends of the build.
+- **Gated:** `tools/design_qa.py`, a nine-section stylesheet auditor that needs no browser. It fails
+  the build on conflict markers in any shipped asset, on an unclosed block, on a `@font-face` whose
+  file is missing or is not a real WOFF2, on a unitless length a browser would silently drop, on a
+  dangling `var()` token, on a page whose body paints no background or text colour, and on any token
+  pair below WCAG AA. It was tested against the real defect, against a silent missing brace, and
+  against an undefined token: it fails all three and passes the repaired tree.
+- **Preview:** the built site is served from this session at a sandbox preview URL so the pages can be
+  looked at rather than inferred. No screenshot is claimed as evidence.
+
+## What this pass added for the reader
+
+- **`shop.html` answers the buying question.** A five-row "which one should you actually buy" verdict
+  by job, a "why the other one loses" table that states each trade-off in both directions, the USDA
+  placement rule that outranks product choice, and an explicit list of what the recommendation cannot
+  tell you (today's price, noise, feel, used-item risk, and that there is no overall winner).
+- **`before-you-decide.html` is new.** Eleven decisions waiting on facts only the owner can obtain:
+  what is known, what is missing, how it gets discovered, what changes when it lands. Four are ranked
+  as the only ones worth doing first, with reasons. It states in the negative that it publishes no
+  revenue estimate and ranks nothing by earnings.
+- Both are in the sitemap with unique titles, descriptions and JSON-LD; the new page sits first in the
+  footer directory and is cross-linked from the suggestion board.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, **derived**, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. `derived` is new this pass: it recomputes every published footprint and capacity density from the register, fails on any mismatch, and refuses a named "smallest footprint" winner it cannot attribute.
+- Stylesheet gate: `python3 tools/design_qa.py` — **9 sections** (markers, parse, fonts, units, tokens, cascade, coverage, contrast), green, wired into `npm test` and into the deploy workflow. It exists because of the defect recorded below.
 
 ## The publication passes (2026-11-20 — three sessions, reconciled)
 
@@ -134,7 +171,7 @@ and the questions register gained a scannable status table plus Q-P05/Q-P06.
 3. **Ratify the working brand and run formal clearance** (SG-38, Q-P10/Q-19) — "The Crisp Counter" ships as the working wordmark; the USPTO/state/common-law search is the missing evidence.
 4. **Settle the reader-capture consent text** (Q-47) — the form ships dark until then.
 5. Price-policy and availability-policy questions are answered for now (D-P11: both out, per Program Policies §2(b)) — revisit only if Creators/PA API access arrives (D-21).
-6. Settle the event-vocabulary fix (SG-41/F-P23/Q-P14) — an owner decision recorded as open in D-P15.
+6. ~~Settle the event-vocabulary fix (SG-41/F-P23/Q-P14)~~ — **resolved** in PR #44 (D-P21): the collector accepts all five published events and the gate now fails on any divergence.
 7. Product photography decision (S-18/D-22/Q-P05): still awaiting the IP-licence read; drawn illustrations are the shipped interim (D-P12), with seasonal hero-art extension queued (SG-39).
 
 
