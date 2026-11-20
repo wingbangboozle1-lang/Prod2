@@ -1,0 +1,316 @@
+{
+ "_meta": {
+  "description": "Session arena/85ef21d8-prod2 audit, 2026-11-20: (1) all 34 data/p2/sources.json URLs fetched live and their load-bearing claims checked against what the site publishes; (2) every published file on the live Pages host checked against the gated docs/ build; (3) the two S-PRIOR provenance repositories confirmed to exist. Read tool: the fetch tool (sandbox curl has no egress to the live host), plus git ls-remote for the GitHub repos. Nothing was inferred: where a check could not be completed it is recorded as partial.",
+  "session": "arena/85ef21d8-prod2",
+  "branch": "arena/85ef21d8-prod2",
+  "date_utc": "2026-11-20",
+  "live_host": "https://wingbangboozle1-lang.github.io/Prod2/"
+ },
+ "section1_sources": {
+  "summary": "34/34 sources in data/p2/sources.json addressed on 2026-11-20. 33 fetched live; 2 of those are GitHub repos also confirmed via git ls-remote. All official-host classifications confirmed (amazon.com, affiliate-program.amazon.com, sell.amazon.com, ftc.gov, developers.google.com, foodsafety.gov, fsis.usda.gov, food.unl.edu; github.com rows are the project's own prior-register provenance, correctly labelled as such in the register).",
+  "rows": [
+   {
+    "id": "S-P1",
+    "url": "https://www.amazon.com/dp/B0CDY277D3",
+    "status": "live",
+    "title_match": "verbatim match with data/p2/products.json P1 name_listing",
+    "breadcrumb": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers (matches register)",
+    "notes": "Fetched variant is the 'product summary' form. Carousel prices/ratings visible belong to OTHER ASINs (e.g. $74.99/4.4★ is B0B7C327LK) — the F-P17 trap again; none published."
+   },
+   {
+    "id": "S-P2",
+    "url": "https://www.amazon.com/dp/B09B7SB46R",
+    "status": "live",
+    "title_match": "verbatim match (26QT French Door, 24 One-Touch Preset Options, Six Cooking Accessories)",
+    "breadcrumb": "Air Fryers node (matches)",
+    "notes": "Carousel prices belong to other ASINs ($229.99 is B0BZ52FLKC 25QT dual-zone)."
+   },
+   {
+    "id": "S-P3",
+    "url": "https://www.amazon.com/dp/B08DKYBTPH",
+    "status": "live",
+    "title_match": "verbatim match (TurboFry 4-in-1, 450°F Hi-Fry, XL Nonstick Dishwasher-Safe Basket)",
+    "breadcrumb": "Air Fryers node (matches)",
+    "notes": "Carousel prices belong to other ASINs."
+   },
+   {
+    "id": "S-P4",
+    "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+    "status": "live",
+    "title_match": "verbatim match (±0.5℉ | NIST&NSF Certified ... IP67 Waterproof ... Black)",
+    "breadcrumb": "Kitchen Utensils & Gadgets > Thermometers & Timers > Meat (matches)",
+    "notes": "This variant shows a price figure ($16.99) near the buy-box region. Not published on the site regardless of attribution: Program Policies 2(b) permits prices only via Amazon-served links or Creators/PA API (verified verbatim today, S-POL)."
+   },
+   {
+    "id": "S-P5",
+    "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+    "status": "live",
+    "title_match": "verbatim match (3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | Gen3)",
+    "breadcrumb": "Thermometers & Timers > Meat (matches)",
+    "notes": "Carousel prices belong to other ASINs."
+   },
+   {
+    "id": "S-L1",
+    "url": "https://link.amazon/B04G1MEwY",
+    "status": "resolved",
+    "observed_final": "https://www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-7b9ca6ffb4badae2&channelId=704&plpRedirect=mhFallback",
+    "intended_asin": "B0CDY277D3",
+    "match": "YES — landed on the intended listing",
+    "tag_parameter": "ABSENT (srctok- source token present, tag= not)",
+    "notes": "Fourth same-day observation of the five short links (after 722181aa, d5157db6, e292fb4d). When this fetch-variant resolves, it lands on the correct intended ASIN — consistent with the register's intended-ASIN mapping; no conclusion drawn about Associates compliance (FLG-003 unresolved; F-P24 owner browser check stands)."
+   },
+   {
+    "id": "S-L2",
+    "url": "https://link.amazon/B02NbDxp3",
+    "status": "resolved",
+    "observed_final": "https://www.amazon.com/dp/B09B7SB46R?...&btn_ref=srctok-7cc16fb81caa8472&channelId=704&plpRedirect=mhFallback",
+    "intended_asin": "B09B7SB46R",
+    "match": "YES",
+    "tag_parameter": "ABSENT"
+   },
+   {
+    "id": "S-L3",
+    "url": "https://link.amazon/B00hJ57DV",
+    "status": "resolved",
+    "observed_final": "https://www.amazon.com/ (homepage, title 'Amazon.com. Spend less. Smile more.')",
+    "intended_asin": "B08DKYBTPH",
+    "match": "NOT OBSERVED THIS PASS",
+    "tag_parameter": "n/a",
+    "notes": "Homepage landing matches the earlier same-day reads by 722181aa and e292fb4d; treated as fetch-variant nondeterminism, not a link change. Intended-ASIN fields unchanged."
+   },
+   {
+    "id": "S-L4",
+    "url": "https://link.amazon/B0c8moW59",
+    "status": "resolved",
+    "observed_final": "https://www.amazon.com/ (homepage)",
+    "intended_asin": "B0DHZTCNR5",
+    "match": "NOT OBSERVED THIS PASS",
+    "tag_parameter": "n/a"
+   },
+   {
+    "id": "S-L5",
+    "url": "https://link.amazon/B0f3GKalj",
+    "status": "resolved",
+    "observed_final": "https://www.amazon.com/dp/B0DZFD6R9Z?...&btn_ref=srctok-537c2279882271ac&channelId=500&plpRedirect=mhFallback&th=1",
+    "intended_asin": "B0DZFD6R9Z",
+    "match": "YES",
+    "tag_parameter": "ABSENT",
+    "notes": "Earlier same-day read (722181aa) saw HTTP 500 for this link and e292fb4d saw homepage; this read resolved to the intended listing — the variance itself is recorded as the finding."
+   },
+   {
+    "id": "S-CAT",
+    "url": "https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011",
+    "status": "live",
+    "title": "Amazon.com : Air Fryers",
+    "claim_check": "'1-16 of over 1,000 results' browse node page as used for the breadcrumb/D-19 dated-snapshot context"
+   },
+   {
+    "id": "S-ASIN",
+    "url": "https://sell.amazon.com/blog/what-is-an-asin",
+    "status": "live",
+    "title": "Understanding ASIN numbers... - Sell on Amazon",
+    "claim_check": "ASIN = unique 10-character alphanumeric identifier, typically 'B0…' — verified verbatim; supports the register's position that the 9-character short-link tokens are not ASINs (F-67)"
+   },
+   {
+    "id": "S-OA",
+    "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+    "status": "live",
+    "updated": "October 15, 2025 (matches register title)",
+    "claim_check": "Section 5 'Identifying Yourself as an Associate' fetched today: the required sentence 'As an Amazon Associate I earn from qualifying purchases.' verified VERBATIM — the exact sentence the site's disclosure strip carries on every page"
+   },
+   {
+    "id": "S-POL",
+    "url": "https://affiliate-program.amazon.com/help/operating/policies",
+    "status": "live",
+    "updated": "April 14, 2026",
+    "claim_check": "Participation Requirements 2(b) fetched today: 'your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API' — VERBATIM, the rule behind F-02/D-P11. Also 2(b): 'you must include your Associates ID or \"tag\" ... as a parameter in the URL of each link you place on your Site' — the rule the site's tagged Special Links follow."
+   },
+   {
+    "id": "S-COMM",
+    "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+    "status": "partially re-verified",
+    "notes": "The Commission Income Statement text (Sessions, 89-day cart window, 180-day ship/pay condition) was re-read today inside the S-POL document (its sections 1-3). The Appendix Table 1 rate schedule (Kitchen 4.50% / Home 3.00%) was NOT re-located in the chunks fetched this pass; the values rest on the prior dated reads (2026-11-14, 2026-11-17). Site impact: none — the site publishes no commission rate (F-01 keeps product-level rates blank)."
+   },
+   {
+    "id": "S-HELP",
+    "url": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE",
+    "status": "live",
+    "claim_check": "'the Operating Agreement requires that the following statement clearly and conspicuously appears on your Site: \"As an Amazon Associate I earn from qualifying purchases.\"' — VERBATIM; also names '(paid link)' as a compliant clear disclosure, which is exactly the label the site uses"
+   },
+   {
+    "id": "S-TAG",
+    "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011",
+    "status": "live",
+    "title": "Amazon.com: : All Departments (Influencer Program help hub)",
+    "claim_check": "'Your US Store ID will end in -20 (Ex: amazon-20).' — VERBATIM on this page; the register's attribution ('Store IDs end in -20') is accurate; note the page is the Influencer Program help hub that carries the rule"
+   },
+   {
+    "id": "S-FTC1",
+    "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+    "status": "live",
+    "title": "Disclosures 101 for Social Media Influencers | Federal Trade Commission",
+    "claim_check": "material-connection disclosure duty + 'hard to miss' placement — verified"
+   },
+   {
+    "id": "S-FTC2",
+    "url": "https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews",
+    "status": "live",
+    "title": "Endorsements, Influencers, and Reviews | Federal Trade Commission",
+    "claim_check": "topic hub incl. Endorsement Guides (2023 revision) — verified"
+   },
+   {
+    "id": "S-GHELP",
+    "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+    "status": "live",
+    "claim_check": "people-first content, self-assessment questions, E-E-A-T — verified"
+   },
+   {
+    "id": "S-GSNIP",
+    "url": "https://developers.google.com/search/docs/appearance/snippet",
+    "status": "live",
+    "claim_check": "'Create unique descriptions for each page on your site' — verified; the gate's unique-title/meta rule aligns"
+   },
+   {
+    "id": "S-GOUT",
+    "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+    "status": "live",
+    "last_updated_on_page": "2025-12-10 UTC",
+    "claim_check": "rel=\"sponsored\" = 'Mark links that are advertisements or paid placements' — VERBATIM; the basis for the site's rel=\"sponsored nofollow noopener\""
+   },
+   {
+    "id": "S-GSPAM",
+    "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+    "status": "live",
+    "claim_check": "'Thin affiliation' is a listed spam policy — verified; cited by compliance.html"
+   },
+   {
+    "id": "S-GPEXP",
+    "url": "https://developers.google.com/search/docs/appearance/page-experience",
+    "status": "live",
+    "claim_check": "page experience self-assessment list — verified"
+   },
+   {
+    "id": "S-GAI",
+    "url": "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content",
+    "status": "live",
+    "claim_check": "'Rewarding high-quality content, however it is produced' — verified"
+   },
+   {
+    "id": "S-COU",
+    "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=508088",
+    "status": "live",
+    "title": "Conditions of Use - Amazon Customer Service",
+    "page_last_updated": "August 14, 2026",
+    "claim_check": "LICENSE AND ACCESS: license does not include 'any collection and use of any product listings, descriptions, or prices' and bars 'data mining, robots, or similar data gathering and extraction tools' — VERBATIM; the register row says 'last updated August 14, 2026', which the live page states exactly"
+   },
+   {
+    "id": "S-USDA-COOK",
+    "url": "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+    "status": "live",
+    "date_last_reviewed_on_page": "November 21, 2024",
+    "claim_check": "Table verified: 145°F/3-min rest (beef/bison/veal/goat/lamb, pork), 160°F ground, 165°F poultry, egg dishes 160°F, fish 145°F 'or until flesh separates easily', leftovers 165°F — matches guide-thermometer-accuracy.html exactly, including the stated 'page last reviewed 2024-11-21'"
+   },
+   {
+    "id": "S-USDA-COLD",
+    "url": "https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts",
+    "status": "live",
+    "date_last_reviewed_on_page": "September 19, 2023",
+    "claim_check": "'Refrigerator [40°F (4°C) or below]' / 'Freezer [0°F (-18°C) or below]' — matches the site's 40°F/0°F figures and the stated 2023-09-19 review date"
+   },
+   {
+    "id": "S-USDA-OUTAGE",
+    "url": "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage",
+    "status": "live",
+    "date_last_reviewed_on_page": "August 8, 2024",
+    "claim_check": "'your refrigerator will keep food safe for up to 4 hours during a power outage... Discard refrigerated perishable food... after 4 hours without power' — VERBATIM; matches the site's 'about four hours' and 2024-08-08 review date"
+   },
+   {
+    "id": "S-FSIS-CHART",
+    "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart",
+    "status": "live",
+    "page_last_updated": "Apr 14, 2025",
+    "claim_check": "All six rows of article-air-fryer-doneness.html / article-thermometer-placement.html match the live table (145°F/3 min; 160°F ground; 165°F all poultry; 145°F fish & shellfish; 160°F eggs; 165°F leftovers and casseroles); the site's stated 'last updated 2025-04-14' matches the page"
+   },
+   {
+    "id": "S-FSIS-THERMO",
+    "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/kitchen-thermometers",
+    "status": "live",
+    "canonical_note": "This URL resolves to the canonical .../food-thermometers factsheet (content identical); the register URL still works",
+    "claim_check": "Every quoted figure verified verbatim on the live page: 'Most food thermometers will give an accurate reading within 2 to 4 degrees F... However, the reading will only be correct if the thermometer is placed in the proper location of the food.'; thin-food side insertion 'so the entire sensing area (usually 2-3 inches for an \"instant-read\" food thermometer) reaches the center'; whole poultry 'three places: the innermost part of the thigh, the innermost part of the wing and the thickest part of the breast'; 'check the temperature in several places'; Wireless/Smart Thermometers 'At least 1 inch deep in the thickest part of the food'; care 'Most thermometers should not be immersed... Wash carefully by hand'; ice-water calibration 'stem a minimum of 2 inches... Wait a minimum of 30 seconds... should read 32 degrees F'"
+   },
+   {
+    "id": "S-UNL-AIRFRYER",
+    "url": "https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/",
+    "status": "live",
+    "page_note": "'peer-reviewed. It was updated in 2025.' on page — matches the site's description",
+    "claim_check": "All three quoted sentences VERBATIM: overfilling ('Caution should be used to not overfill the basket or tray as foods will not cook evenly or reach the proper temperature. Overfilling the air fryer will interfere with the browning process.'); thermometer-only safety ('Using a food thermometer is the only way to ensure safety of meat, poultry, and egg products when air frying. Place the food thermometer in the thickest part of the food, making sure not to touch bone, fat, or gristle.'); cleanup ('It is important to properly clean your air fryer basket/tray after each use.'); convection mechanism description also matches"
+   },
+   {
+    "id": "S-PRIOR4",
+    "url": "https://github.com/kanlerxz87-cyber/Zone4",
+    "status": "exists",
+    "method": "git ls-remote — HEAD resolves to e1e0d0ef1074cac698dc524566553c8b21dd6781; branch list shows the project's own arena/* session branches (e.g. refs/heads/arena/00ba40db-zone4)",
+    "notes": "Consistent with the register's description: this project's own prior register/verification history"
+   },
+   {
+    "id": "S-PRIOR3",
+    "url": "https://github.com/kanlerxz87-cyber/Zone3",
+    "status": "exists",
+    "method": "git ls-remote — HEAD resolves to 2ebb5a9c0d83b1717b34f8e6859c9baa32d7503d",
+    "notes": "Prior flagged-item register (FLG-003 unresolved), as described"
+   }
+  ]
+ },
+ "section2_live_deploy": {
+  "summary": "All 33 published files (30 HTML pages + sitemap.xml + feed.xml + robots.txt) fetched from the live Pages host on 2026-11-20 and checked against the gated docs/ build. 30/30 HTML pages returned success with a <title> EXACTLY matching the local build's <title>. sitemap.xml lists all 30 pages; feed.xml carries the 14 content items; robots.txt carries the Sitemap line and the /Prod2/archive/ disallow.",
+  "method": "fetch tool per URL (sandbox curl has no egress to github.io). Title comparison against docs/ built locally and gate-verified reproducible. The disclosure strip is enforced per page by tools/checks.py on the build (and the gate proves docs/ == root mirror == committed root, which legacy Pages serves); the fetch tool's markdown conversion omits role=note chrome, so live disclosure presence is established by build byte-identity + per-page title match rather than by markdown text.",
+  "pages_checked": 30,
+  "titles_matched": 30,
+  "non_html": [
+   "sitemap.xml — 30 URLs, all listed",
+   "feed.xml — channel 'The Crisp Counter — Kitchen notes & buying guides', 14 items",
+   "robots.txt — 'Allow: /' + 'Disallow: /Prod2/archive/' + 'Sitemap: .../sitemap.xml'"
+  ],
+  "link_integrity_on_build": {
+   "tagged_dp_links": 182,
+   "untagged_dp_links": 0,
+   "rel_sponsored": 188,
+   "official_source_links": 91,
+   "amazon_policy_links": 6,
+   "disclosure_occurrences": 64,
+   "pages_with_any_defect": 0
+  }
+ },
+ "section3_prior_repos": {
+  "Zone4": "exists (HEAD e1e0d0ef)",
+  "Zone3": "exists (HEAD 2ebb5a9c)",
+  "conclusion": "S-PRIOR3/S-PRIOR4 provenance citations resolve to real repositories"
+ },
+ "section4_findings": [
+  {
+   "n": 1,
+   "finding": "Short links (F-P24) — fourth same-day observation with a NEW pattern: this pass L1 resolved to B0CDY277D3, L2 to B09B7SB46R, L5 to B0DZFD6R9Z (each the intended ASIN, each carrying srctok- tokens, none carrying tag=), while L3/L4 landed on the homepage and 722181aa's earlier read saw HTTP 500 on L5. When they resolve, they land correctly.",
+   "disposition": "Recorded verbatim here and in COORDINATION.md. flags.json is owned by open PRs #43/#47, so the row is NOT edited by this session — the owning/final session is asked to fold this fourth observation into F-P24's evidence. No validity conclusion is drawn; owner browser check in Associates Central remains the resolution path (F-57/F-58)."
+  },
+  {
+   "n": 2,
+   "finding": "S-COMM's Appendix Table 1 rate schedule was not re-located in this pass's fetched chunks; the Kitchen 4.50% / Home 3.00% values rest on prior dated reads (2026-11-14/17).",
+   "disposition": "Non-blocking: the site publishes no commission rate (F-01 blank by rule). Recorded as partial in section1."
+  },
+  {
+   "n": 3,
+   "finding": "S-FSIS-THERMO's register URL (kitchen-thermometers) resolves to the canonical food-thermometers slug; content identical.",
+   "disposition": "Non-blocking; noted so a future register cleanup may canonicalize the URL."
+  },
+  {
+   "n": 4,
+   "finding": "Pages is still in legacy root-serving mode at audit time (F-P19/F-P20); session e292fb4d has claimed the source flip (X-01). Until it lands, non-publication data files are fetchable at public URLs.",
+   "disposition": "Carried; owner/session action logged, not duplicated here."
+  },
+  {
+   "n": 5,
+   "finding": "P4's fetched variant showed a buy-box price figure ($16.99) near 'In Stock'.",
+   "disposition": "Not published and will not be: Program Policies 2(b) (verified verbatim today) permits prices only when Amazon serves the link or via Creators/PA API. Observation recorded verbatim only."
+  }
+ ]
+}

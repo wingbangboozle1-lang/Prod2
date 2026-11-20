@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "Second union with origin/main (2026-11-20): decision id sets identical on both sides; main's rows kept."
+  "last_change": "Third union with origin/main (2026-11-20): main's rows kept incl. its new D-P25; PR #41's rows carried from arena/7cec0d73-prod2 where still absent."
  },
  "decisions": [
   {
@@ -342,6 +342,16 @@
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/products.json",
     "https://www.amazon.com/dp/B0CDY277D3",
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/live-check-2026-11-20-770ebcc2.json"
+   ]
+  },
+  {
+   "id": "D-P25",
+   "question": "What publishes in the late-November sale window, and on what evidence?",
+   "status": "Recorded 2026-11-20 (editorial hypothesis per D-19)",
+   "recorded_choice": "Publish guide-sale-week.html (\"Four questions a sale week can't answer\") in the holiday-hosting season lane — the same ahead-of-cadence seasonal-desk precedent as the gifting guide (D-P20) and slot 1. The guide asks the four questions a discount cannot answer (format, capacity, listing-versus-discount, workflow) and is built only from the verified register: cited listing facts carry dated reads (2026-11-20 title re-check), the depth figure defers to the counter-space analysis (F-P08 keeps dimensions pending re-read), and no price, rating, deal-quality or popularity claim appears anywhere (F-02, D-19; the claims gate enforces). The cadence queue is untouched. Timing note: this guide was authored before D-P22 (Path A) landed; it is read as inside the published calendar's seasonal lane, not as new scope beyond it — if the reviewer reads Path A differently, retracting this publish is one line in tools/build.py + data/p2/calendar.json. Measured queries take over topic selection once the SG-06 gate and 14 days of data exist (SG-34). (Recorded by arena/2adc150a-prod2; id renumbered three times to avoid collisions — see COORDINATION.md.)",
+   "sources": [
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/live-check-2026-11-20-722181aa.json"
    ]
   }
  ]
