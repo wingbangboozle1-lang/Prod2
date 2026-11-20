@@ -1485,6 +1485,39 @@ Claim protocol notes:
 - **No CSS redesign.** Three live PRs own `assets/css/site.css`; this session repaired the file
   mechanically and left the design system untouched.
 
+### Rebase reconciliation against main (PRs #52, #55, #57 landed while this session ran)
+
+`main` moved three times under this branch. Rebased at 07:0x UTC onto `756f102` (PR #57). Nothing
+from either side was discarded. **What changed in the reconciliation, recorded because two of these
+are ID and scope collisions that a later session must not re-litigate:**
+
+1. **`F-P25` collided.** Main's briefs pass had already taken `F-P25` for the "Check price on Amazon"
+   copy label. This pass's stylesheet defect was re-issued as **`F-P29`** (status `resolved`) rather
+   than overwriting main's row. Only one `F-P25` exists; there are no duplicate flag ids (checked
+   programmatically, 43 flags).
+2. **`briefs.html` overlaps `before-you-decide.html`.** Both landed the same day and both help the owner
+   decide. **Neither was deleted**: `briefs.html` is the six decisions that one five-minute browser
+   test settles; `before-you-decide.html` is the eleven calls including the five with no quick test.
+   The two pages now cross-link each other and each says plainly what the other adds. If a later pass
+   wants one page, that is an editorial decision to record — not something to delete quietly.
+3. **`assets/css/site.css` had already been repaired on main** (PR #55) with the same three-variable-face
+   fix. This branch's repair is a superset (nine `@font-face` blocks: six static latin subsets plus
+   three variable faces) and won the `docs/`/`assets/` conflict. Verified after rebase: 308/308 braces,
+   0 markers, 9 faces, both copies identical.
+4. **The overlap with PR #45** (`arena/19fb7064-prod2`, still open) is unaffected by the rebase: its
+   CSS fix is equivalent, its `exposition` marker check is compatible, and this branch's gate is the
+   broader one. Take both; the CSS file here is a superset.
+5. **The new gate caught a real defect in main's merged CSS** during the rebase: `.brief-unknown`
+   references `var(--clay-wash, #fbeee4)`. Because a **fallback is present**, the declaration paints
+   correctly, so this was a **false positive in my own gate, not a bug in main**. The gate was
+   corrected to separate "no definition and no fallback" (a failure) from "undefined but always used
+   with a literal fallback" (a note), re-tested against both, and now passes. Recorded because the
+   first version would have blocked a legitimate merge.
+
+**Post-rebase verification (all green, tree clean after rebuild):** `tools/build.py` 32 pages ·
+`tools/checks.py` ALL CHECKS PASSED · `tools/design_qa.py` DESIGN QA PASSED · `scripts/verify_site.py`
+VERIFY OK 18 pages · `npm test` 3/3 · `git status --porcelain` empty.
+
 ### File-scope request (logged, not edited)
 
 - **`.github/workflows/verify.yml`** is owned by open PR #35 (`arena/dd4bae8a-prod2`), so this session
