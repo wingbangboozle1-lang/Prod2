@@ -14,6 +14,38 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/3e4c3d2a-prod2 (2026-11-20, commission-potential analysis + cadence slot 1 + integration)
+
+Branched from `d7f58d1` (main after PR #44). This session is both the working session and the final
+integration session on this branch, per the standing one-branch-per-session rule.
+
+**Scope (this session only).** Six PRs are open from live parallel sessions and are **not edited**:
+#35 (`arena/dd4bae8a-prod2`), #41 (`arena/e0d92902-prod2`), #43 (`arena/37b265a4-prod2`),
+#45 (`arena/19fb7064-prod2`), #46 (`arena/644d217b-prod2`), #47 (`arena/20f83238-prod2`). Their claims
+are live and their branches are minutes old, so this session does not touch their files while they run.
+Shared surfaces (`assets/css/site.css`, `data/p2/{flags,questions,suggestions,decisions}.json`,
+`content/pages/{suggestions,executive-summary}.html`) are changed **only** by this session's integration
+step, after those sessions land or are taken over — that step is logged below as X-06.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Line-by-line live re-read of all five listings (title, breadcrumb, department, price-block attribution) and the five owner short links, dated and reproducible | in progress | arena/3e4c3d2a-prod2 | `data/p2/live-check-2026-11-20-3e4c3d2a.json` (new) |
+| X-02 Commission potential: map each ASIN to the official Standard Commission Income Statement rate table and publish a sourced rate column (closes the "no official source maps these ASINs" premise in F-01) | in progress | arena/3e4c3d2a-prod2 | `data/p2/commission.json` (new), `content/pages/products.html` |
+| X-03 Publish cadence slot 1 as a real reader-facing guide | pending | arena/3e4c3d2a-prod2 | `content/pages/guide-preheat-shake.html` (new), `tools/build.py` (PAGES registry only), `data/p2/calendar.json` |
+| X-04 Source register: record the 2026-11-20 read of the Operating Agreement, Program Policies and Standard Commission Income Statement | pending | arena/3e4c3d2a-prod2 | `data/p2/sources.json` |
+| X-05 Gate: fail the build if a published product has no commission mapping, or if a rate is published without its official row | pending | arena/3e4c3d2a-prod2 | `tools/checks.py` |
+| X-06 Integration: triage the six open PRs, merge what is sound, rebuild, re-verify line by line, PR to main, merge, Pages live check | pending | arena/3e4c3d2a-prod2 | `docs/`, root mirror, `COORDINATION.md`, `EXECUTIVE_SUMMARY.md` |
+
+Claim protocol notes:
+- **Verification boundary:** this sandbox's `curl` egress cannot reach `www.amazon.com` or the live
+  Pages host (`http 000`), but the **fetch tool** can. Every value read this session records the URL it
+  came from and the date it was read, and says which tool read it.
+- Nothing in X-01..X-05 publishes a price, a rating or a review count (F-02). The commission rate is
+  the **published Standard rate for the product's Amazon category**, read from the official Commission
+  Income Statement — not this account's negotiated rate and not a revenue forecast.
+
+---
+
 ## ACTIVE CLAIM — session arena/644d217b-prod2 (2026-11-20, reader-first publication pass + integration)
 
 Branched from `4398598` (main after PR #33). This session is both the working session and the
