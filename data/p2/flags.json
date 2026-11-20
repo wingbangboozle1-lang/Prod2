@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/86206fb3-prod2): F-P22 (dangling endpoint path) resolved; F-P23 (event vocabulary mismatch) opened; F-P19/F-P20 updated with the root-mode Pages exposure and its mitigation; F-P12 resolved."
+  "last_change": "2026-11-20 (arena/86206fb3-prod2): F-P22 resolved; F-P23 opened; F-P19/F-P20 rewritten with the measured root-mode exposure (196 source files, live anonymous GET verified); F-P12 resolved."
  },
  "flags": [
   {
@@ -301,20 +301,20 @@
    "id": "F-P19",
    "status": "open",
    "title": "Archived builds are reachable on the live host and are only excluded by robots.txt",
-   "detail": "Pages serves the repository root, so /archive/** is publicly retrievable even though the site does not link to it. archive/ holds 54 HTML pages from five earlier generations of this project. robots.txt disallows /Prod2/archive/ and no indexed page links there, but a disallow is a crawl instruction, not an access control, and a page discovered by another route can still be returned to a reader. Resolved in substance 2026-11-20: GitHub Pages was in legacy mode publishing the repository ROOT, so data/, content/, tools/, scripts/ and every archived build were served to anyone who typed the path. The workflow now publishes the docs/ artifact only and tools/checks.py fails the build if a source directory or file appears inside docs/. Retiring root-mode serving is a one-time repository setting (Settings → Pages → Source: GitHub Actions); the workflow flips it on the next successful deploy.",
-   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/robots.txt",
+   "detail": "Archived builds (archive/counter-notes-v1, archive/counter-notes-docs, archive/counter-edit-build, 121 files) are reachable on the live host and are excluded only by a robots.txt rule. Same root cause as F-P20: Pages is in legacy root mode, so every archived directory is served. robots.txt stops well-behaved crawlers and nothing else. The 2026-11-20 workflow change publishes docs/ only going forward, but the archived trees remain readable until the owner switches the Pages source.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/archive/counter-notes-v1/",
    "evidence_note": "docs/ artifact is the only publish root (.github/workflows/pages.yml); gate section 'exposition' in tools/checks.py; Pages API showed build_type=legacy, source=main,/ on 2026-11-20.",
-   "how_to_resolve": "Merge and let the next Pages workflow run: actions/configure-pages flips the source to GitHub Actions. Then confirm an archived path returns 404 on the live host and close this flag.",
+   "how_to_resolve": "Owner flips Pages source to GitHub Actions (see F-P20). Archived builds can then be dropped or left in git, unserved.",
    "resolved_utc": null
   },
   {
    "id": "F-P20",
-   "status": "standing",
-   "title": "source/, data/ and content/ are servable as static files on the live host",
-   "detail": "Because Pages serves the repository root, the raw JSON registers, the page templates and the build scripts are retrievable by URL. This is not a security exposure for a static site with no secrets, but it means a reader can read the source register directly, and it gives a crawler a second copy of text that is also on an HTML page. Same root cause as F-P19. Mitigated 2026-11-20 in the build: the publish artifact is docs/ only and a new gate section refuses any source directory, manifest or endpoint file inside it.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2",
-   "evidence_note": "tools/checks.py section 'exposition'; .github/workflows/pages.yml publishes ./docs",
-   "how_to_resolve": "Inherent to legacy root serving, and resolved completely by switching Pages to Actions mode serving docs/ only (INT-07, blocked by a 403 on this token). Keep it visible rather than pretend otherwise; the data registers are already offered to reviewers on the Method page.",
+   "status": "open",
+   "title": "The whole working repository is readable on the live host (root-mode Pages)",
+   "detail": "GitHub Pages is in legacy mode with the source set to the repository ROOT: the Pages API returns build_type=legacy, source={branch: main, path: /}. Checked on 2026-11-20, https://…/Prod2/data/p2/settings.json returns the settings register as JSON to an anonymous reader. Counted at the same moment: data/ 42 files, content/ 27, tools/ 5, scripts/ 4, tests/ 1, archive/ 121 — 196 source files reachable by guessing a path. Nothing secret is in them (the tracking ID and disclosure text are published on purpose and the capture and analytics endpoints are empty), but it is not the intended surface, it exposes drafts and the archived builds, and robots.txt is a crawler convention, not access control. The token available to this session cannot change the setting: a PUT to build_type=workflow returns 403. Mitigated in-repo as far as a build can: the Pages workflow uploads the docs/ artifact only, and the new exposition gate section refuses any source directory inside docs/. If an owner ever flips the source to GitHub Actions, this whole class disappears.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json",
+   "evidence_note": "Anonymous GET of a source file on the live host, 2026-11-20; Pages API reports build_type=legacy, source=main,/; count from `python3 tools/root_mirror.py --report`.",
+   "how_to_resolve": "Owner: Settings → Pages → Source: GitHub Actions (one setting). Then confirm /data/p2/settings.json and /tools/build.py return 404 and close F-P19/F-P20.",
    "resolved_utc": null
   },
   {
