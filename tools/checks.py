@@ -316,6 +316,44 @@ def main() -> int:
     if not FAILURES:
         ok("no prices, ratings or banned popularity claims")
 
+    # ------------------------------------------------------- derived numbers
+    # 2026-11-20: this session published "the smallest footprint" about the 8 qt
+    # basket. The register says the DUAL basket is smallest (158 in2 vs 172).
+    # Every derived figure on a page must equal the register's arithmetic, so a
+    # wrong comparison fails the build instead of shipping.
+    check("derived")
+    import json as _json
+    _prods = {x["id"]: x for x in _json.loads((DATA / "products.json").read_text(encoding="utf-8"))["products"]}
+    _dims, _cap = {}, {"P1": 6.0, "P2": 26.0, "P3": 8.0}
+    for _pid, _p in _prods.items():
+        if _p.get("dimensions") and _p.get("capacity") and _pid in _cap:
+            _d = float(re.match(r'([\d.]+)"D', _p["dimensions"]).group(1))
+            _w = float(re.search(r'x ([\d.]+)"W', _p["dimensions"]).group(1))
+            _dims[_pid] = (_d, _w, _d * _w, _cap[_pid] / (_d * _w))
+    if len(_dims) >= 3:
+        _smallest = min(_dims, key=lambda k: _dims[k][2])
+        _densest = max(_dims, key=lambda k: _dims[k][3])
+        _shop = (DOCS / "shop.html").read_text(encoding="utf-8")
+        _m = re.search(r"footprint of the three \(([\d.]+)&nbsp;in&sup2;? against ([\d.]+) and ([\d.]+)\)", _shop)
+        if _m:
+            _quoted = sorted(float(x) for x in _m.groups())
+            _actual = sorted(round(v[2], 1) for v in _dims.values())
+            if [round(q) for q in _quoted] != [round(a) for a in _actual]:
+                fail(f"shop.html: quoted footprints {_quoted} != register footprints {_actual}")
+            _named = re.search(r"(?:the|The) ([A-Za-z0-9 ]+?) (?:has|have) the smallest listed footprint", _shop)
+            if _named:
+                fail("shop.html: names a 'smallest footprint' winner in prose — the gate cannot "
+                     "verify a product name here; state the numbers and let the reader compare")
+        # published per-in2 figures on the comparison page must match to 3dp
+        _cmp = (DOCS / "compare.html").read_text(encoding="utf-8")
+        for _pid, (_d, _w, _fp, _den) in _dims.items():
+            _expect = f"{_den:.3f}"
+            if _expect not in _cmp:
+                fail(f"compare.html: capacity-per-in2 for {_pid} should be {_expect}; not found")
+    if not FAILURES:
+        ok(f"published footprints and capacity densities match the register arithmetic "
+           f"({len(_dims)} products; smallest {_smallest}, densest {_densest})")
+
     # ------------------------------------------------------------------ chrome
     check("chrome")
     for f in html_files:
