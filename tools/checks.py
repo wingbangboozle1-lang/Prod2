@@ -612,10 +612,13 @@ def main() -> int:
     linked = set()
     for page in html_files:
         text = page.read_text(encoding="utf-8")
+        # Strip a ?v=<hash> cache-buster before resolving: the file on disk has no
+        # query string, so a versioned URL must still resolve to a real asset or
+        # this check silently passes/fails on the wrong thing (2026-11-20).
         for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
-            linked.add(rel)
+            linked.add(rel.split("?")[0].split("#")[0])
         for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
-            linked.add(rel)
+            linked.add(rel.split("?")[0].split("#")[0])
     css_files = sorted(DOCS / rel for rel in linked if rel.endswith((".css", ".js")) and (DOCS / rel).exists())
     if not css_files:
         fail("no stylesheet or script linked by a built page exists in docs/ — nothing styles the site")

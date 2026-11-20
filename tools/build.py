@@ -1396,7 +1396,10 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
                                      f'href="{BASE}/assets/img/hero-kitchen.webp" fetchpriority="high">\n</head>', 1)
     extra = ""
     if page_id in PAGE_SCRIPTS:
-        extra = "".join(f'<script src="{BASE}/assets/js/{src}" defer></script>\n'
+        # ?v={asset_v} matters here: this branch of the renderer used to emit a
+        # bare URL, so a fix to decide.js could sit behind a stale CDN copy while
+        # every other asset was busted. The gate caught it on 2026-11-20.
+        extra = "".join(f'<script src="{BASE}/assets/js/{src}?v={ASSET_V}" defer></script>\n'
                         for src in PAGE_SCRIPTS[page_id])
         out = out.replace("</body>", extra + "</body>")
     (DOCS / path).write_text(out, encoding="utf-8")
