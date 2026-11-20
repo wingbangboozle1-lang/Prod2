@@ -40,6 +40,7 @@ DECISIONS = load("decisions.json")["decisions"]
 LEDGER = load("ledger.json")
 EVENTS = load("events.json")
 CALENDAR = load("calendar.json")
+BRIEFS = load("briefs.json")["briefs"]
 
 BRAND = SETTINGS["brand"]["name"]
 DESCRIPTOR = SETTINGS["brand"]["descriptor"]
@@ -154,6 +155,10 @@ PAGES = [
      f"Open questions and missing information | {BRAND}",
      "What we know, what we don't, and how to find out — the register that must be answered before certain decisions can be made.",
      "work"),
+    ("briefs", "briefs.html",
+     f"Six decisions, what is known and what is missing | {BRAND}",
+     "Six decisions in the order they should be made: what is already verified, what is still missing, the exact question, who can answer it, and the cheapest test.",
+     "work"),
     ("suggestions", "suggestions.html",
      f"Suggestion queue: choose the path before we build | {BRAND}",
      "Proposed improvements with evidence, impact, effort and risk. Nothing here is implemented until a reviewer picks a path.",
@@ -236,6 +241,7 @@ NAV_WORK = [
     ("method.html", "Method &amp; sources"),
     ("flagged.html", "Flagged for review"),
     ("questions.html", "Open questions"),
+    ("briefs.html", "Decision briefs"),
     ("suggestions.html", "Suggestions"),
     ("decisions.html", "Decisions"),
     ("measurement.html", "Measurement"),
@@ -535,6 +541,92 @@ def hook_questions(_="") -> str:
     return "".join(out)
 
 
+def _ref(text: str) -> str:
+    """Link every register id that appears in a brief field to its own row.
+
+    A brief must never assert a fact without letting the reader jump to the row
+    that proves it, so ids are linked mechanically rather than by hand. Ranges
+    such as "D-P10..D-P17" name an ID space and are left as text.
+    """
+    out = esc(text)
+    for rid in sorted(set(re.findall(r"\b(F-P?\d{1,3}|Q-P?\d{1,3}|SG-\d{1,3}|D-P?\d{1,3})\b", text)),
+                      key=len, reverse=True):
+        page = {"F": "flagged.html", "Q": "questions.html",
+                "SG": "suggestions.html", "D": "decisions.html"}[rid.split("-")[0]]
+        out = out.replace(f'<code>{esc(rid)}</code>' if False else esc(rid),
+                          f'<a href="{page}#{esc(rid)}"><code>{esc(rid)}</code></a>', 1)
+    return out
+
+
+def hook_briefs(_="") -> str:
+    out = []
+    for b in BRIEFS:
+        known = "".join(
+            f'<li>{esc(k["fact"])} <span class="brief-cite">{_ref(k["cited_by"])}</span></li>'
+            for k in b["known"])
+        unknown = "".join(f"<li>{esc(u)}</li>" for u in b["not_known"])
+        blocks = "".join(f"<li>{esc(x)}</li>" for x in b["what_it_blocks"])
+        links = " · ".join(f'<a class="src" href="{esc(l["url"])}" rel="noopener" target="_blank">'
+                           f'{esc(l["label"])}</a>' for l in b["evidence_links"])
+        flags = " ".join(f'<a href="flagged.html#{esc(f)}">{esc(f)}</a>' for f in b.get("flags", []))
+        qs = " ".join(f'<a href="questions.html#{esc(q)}">{esc(q)}</a>' for q in b.get("questions", []))
+        out.append(f"""
+<article class="card brief-card" id="{esc(b['id'])}">
+  <header class="brief-head">
+    <p class="eyebrow">Brief {esc(str(b['order']))} · {esc(b['id'])}</p>
+    <h2>{esc(b['question'])}</h2>
+    <p class="lede">{esc(b['yields'])}</p>
+  </header>
+  <div class="brief-two">
+    <div class="brief-col brief-known">
+      <h3>What is known — with the row that proves it</h3>
+      <ul>{known}</ul>
+    </div>
+    <div class="brief-col brief-unknown">
+      <h3>What is not known</h3>
+      <ul>{unknown}</ul>
+    </div>
+  </div>
+  <div class="brief-test">
+    <h3>The cheapest way to find out</h3>
+    <p>{_ref(b['cheapest_first_test'])}</p>
+    <p class="brief-who"><strong>Who can answer it:</strong> {esc(b['who_can_answer'])}</p>
+  </div>
+  <div class="brief-two">
+    <div class="brief-col">
+      <h3>Deciding this unlocks</h3>
+      <ul>{blocks}</ul>
+    </div>
+    <div class="brief-col">
+      <h3>It does not block</h3>
+      <p>{esc(b['what_it_does_not_block'])}</p>
+    </div>
+  </div>
+  <p class="brief-refs"><strong>Rows behind this brief:</strong> {flags or '—'}
+     &nbsp;·&nbsp; <strong>Questions:</strong> {qs or '—'}</p>
+  <p class="brief-links"><strong>Read it yourself:</strong> {links}</p>
+</article>""")
+    return "".join(out)
+
+
+def hook_briefs_summary(_="") -> str:
+    rows = []
+    for b in BRIEFS:
+        rows.append(
+            f'<tr><td>{esc(str(b["order"]))}</td>'
+            f'<td><a href="#{esc(b["id"])}"><code>{esc(b["id"])}</code></a></td>'
+            f'<td>{esc(b["question"])}</td>'
+            f'<td>{esc(b["who_can_answer"])}</td>'
+            f'<td>{len(b["not_known"])} open</td></tr>')
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>#</th><th>Brief</th>'
+            '<th>The decision</th><th>Answered by</th><th>Missing information</th>'
+            '</tr></thead><tbody>' + "".join(rows) + "</tbody></table></div>"
+            '<p class="table-note">Ordered by irreversibility, not by impact: the briefs that cost an '
+            'account or a rename come before the ones that cost a commit. Each brief below lists what is '
+            'already verified, with the register row that proves it, then what is still missing and the '
+            'cheapest test that would close it.</p>')
+
+
 def hook_suggestions(_="") -> str:
     out = []
     for s in SUGGESTIONS:
@@ -711,6 +803,24 @@ def _guide_card(gid: str) -> str:
   </article>"""
 
 
+# The front page used to print all ten guide cards, then a cluster block that
+# printed the same ten again, plus a four-card "start with the question" block:
+# 24 cards of the same material before a reader reached the end. The shelf and
+# the front-page guides hub are where completeness belongs (D-06's rule that a
+# reader surface leads with the products). Here, five cards — the ones that
+# match the questions a first-time buyer actually arrives with.
+FRONT_GUIDES = ["guide-basket-vs-oven", "guide-how-many-quarts",
+                "guide-cleanup-counter-space", "guide-instant-vs-leave-in",
+                "guide-multifunction"]
+
+
+def hook_front_guides(_="") -> str:
+    return ('<div class="card-grid">'
+            + "".join(_guide_card(g) for g in FRONT_GUIDES)
+            + '</div><p class="cta-row"><a class="btn btn-ghost" href="guides.html">'
+              'All twelve guides &amp; long reads &rarr;</a></p>')
+
+
 def hook_guide_cards(_="") -> str:
     return '<div class="card-grid">' + "".join(_guide_card(g) for g in GUIDE_IDS) + "</div>"
 
@@ -881,6 +991,8 @@ HOOKS = {
     "flags_resolved": lambda _: hook_flags("resolved"),
     "flags_standing": lambda _: hook_flags("standing"),
     "questions": hook_questions,
+    "briefs": hook_briefs,
+    "briefs_summary": hook_briefs_summary,
     "suggestions": hook_suggestions,
     "decisions": hook_decisions,
     "ledger_events": hook_ledger_events,
@@ -890,6 +1002,7 @@ HOOKS = {
     "guide_links": hook_guide_links,
     "comparison_cta": hook_comparison_cta,
     "guide_cards": hook_guide_cards,
+    "front_guides": hook_front_guides,
     "subscribe": hook_subscribe,
     "reader_capture": hook_reader_capture,
     "byline": hook_byline,
@@ -1120,9 +1233,58 @@ def build_sitemap() -> None:
 
 
 def build_robots() -> None:
+    # One site to index. Everything under archive/ is a previous build of this
+    # same project; leaving it crawlable splits link equity between a live page
+    # and three dead copies of it. The robots file asks; guard_archive() enforces
+    # with a per-file noindex, because robots.txt alone cannot stop indexing of a
+    # page that is already linked.
     (DOCS / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\nDisallow: /Prod2/archive/\n\n"
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /Prod2/archive/\n"
+        "Disallow: /Prod2/data/\n"
+        "Disallow: /Prod2/tools/\n"
+        "Disallow: /Prod2/content/\n"
+        "Disallow: /Prod2/scripts/\n"
+        "Disallow: /Prod2/tests/\n\n"
         f"Sitemap: {BASE}/sitemap.xml\n", encoding="utf-8")
+
+
+NOINDEX = '<meta name="robots" content="noindex, nofollow">'
+NOINDEX_XML = '<!-- robots: noindex, nofollow — archived build, not a publication -->'
+
+
+def guard_archive() -> int:
+    """Mark every archived HTML/XML file non-indexable.
+
+    GitHub Pages serves this repository in legacy "main /" mode, so every .html
+    committed under archive/ is fetchable at the live host and competes with the
+    canonical site in search results. robots.txt is a request, not an access
+    control, so each archived document also gets a noindex directive written in
+    place on every build. Returns how many files were tagged.
+    """
+    tagged = 0
+    arch = ROOT / "archive"
+    if not arch.is_dir():
+        return 0
+    for f in arch.rglob("*"):
+        if not f.is_file() or f.suffix not in (".html", ".xml"):
+            continue
+        text = f.read_text(encoding="utf-8", errors="replace")
+        marker = NOINDEX if f.suffix == ".html" else NOINDEX_XML
+        if "noindex" in text:
+            continue
+        if f.suffix == ".html":
+            head = re.search(r"<head[^>]*>", text, re.I)
+            if head:
+                text = text[:head.end()] + "\n" + marker + text[head.end():]
+            else:  # a fragment with no <head>: prepend a bare directive
+                text = marker + "\n" + text
+        else:
+            text = marker + "\n" + text
+        f.write_text(text, encoding="utf-8")
+        tagged += 1
+    return tagged
 
 
 def main() -> None:
@@ -1140,7 +1302,10 @@ def main() -> None:
     build_sitemap()
     build_robots()
     (DOCS / ".nojekyll").write_text("")
+    archived = guard_archive()
     print(f"built {len(PAGES)} pages -> {DOCS}")
+    if archived:
+        print(f"tagged {archived} archived files noindex (they are served at the root)")
 
 
 def mirror_to_root():

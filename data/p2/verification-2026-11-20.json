@@ -406,5 +406,156 @@
    "No browser-based short-link test; the fetch tool result is not evidence of what a buyer sees (Q-P18).",
    "Section 2(b)-(c) and Section 6 were read only in the pages returned; Amazon Conditions of Use and the FTC pages were not re-read in this pass."
   ]
+ },
+ "third_pass_2026_11_20_arena_15730819": {
+  "_meta": {
+   "session": "arena/15730819-prod2",
+   "date_utc": "2026-11-20",
+   "read_window_utc": "2026-11-20T06:50Z to 07:05Z",
+   "tool": "fetch tool (outbound HTTP from the sandbox to amazon.com and affiliate-program.amazon.com is blocked; curl returns 000, so the fetch tool is the reader and is named here because it also rewrites the HTML to markdown, which matters for what can be quoted verbatim)",
+   "method": "Six URLs fetched directly in this session: the five /dp/ listings and the five link.amazon short links (the short-link fetches and their outcome are recorded in short_link_reread below). For each listing the returned document <title> and the breadcrumb list were read. Nothing that did not appear in the returned text is recorded.",
+   "independent_of": "The two earlier 2026-11-20 passes (arena/70b2b9f7-prod2 and arena/f55b5827-prod2). This pass was run without reading their per-field results first, then compared."
+  },
+  "titles": [
+   {
+    "id": "P1",
+    "asin": "B0CDY277D3",
+    "document_title_observed": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+    "register_title_matches": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+    "breadcrumb_matches_register": true
+   },
+   {
+    "id": "P2",
+    "asin": "B09B7SB46R",
+    "document_title_observed": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+    "register_title_matches": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+    "breadcrumb_matches_register": true,
+    "note": "P2's breadcrumb rendered this pass, so the null recorded in the earlier 2026-11-20 pass is superseded by an observation, not by an inference."
+   },
+   {
+    "id": "P3",
+    "asin": "B08DKYBTPH",
+    "document_title_observed": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+    "register_title_matches": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+    "breadcrumb_matches_register": true
+   },
+   {
+    "id": "P4",
+    "asin": "B0DHZTCNR5",
+    "document_title_observed": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+    "register_title_matches": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+    "breadcrumb_matches_register": true
+   },
+   {
+    "id": "P5",
+    "asin": "B0DZFD6R9Z",
+    "document_title_observed": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
+    "register_title_matches": true,
+    "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+    "breadcrumb_matches_register": true
+   }
+  ],
+  "short_link_reread": {
+   "_meta": "Second independent same-day read of the five owner-submitted short links. Recorded as a NEW dated observation. It overwrites nothing: data/p2/intent-links.json keeps its 2026-11-19 history and its intended_asin fields are untouched (the brief forbids merging intended and observed).",
+   "observed": [
+    {
+     "product_id": "P1",
+     "submitted_url": "https://link.amazon/B04G1MEwY",
+     "final_url": "https://www.amazon.com/",
+     "page_title": "Amazon.com. Spend less. Smile more.",
+     "resolved_to_product_listing": false
+    },
+    {
+     "product_id": "P2",
+     "submitted_url": "https://link.amazon/B02NbDxp3",
+     "final_url": "https://www.amazon.com/",
+     "page_title": "Amazon.com. Spend less. Smile more.",
+     "resolved_to_product_listing": false
+    },
+    {
+     "product_id": "P3",
+     "submitted_url": "https://link.amazon/B00hJ57DV",
+     "final_url": "https://www.amazon.com/",
+     "page_title": "Amazon.com. Spend less. Smile more.",
+     "resolved_to_product_listing": false
+    },
+    {
+     "product_id": "P4",
+     "submitted_url": "https://link.amazon/B0c8moW59",
+     "final_url": "https://www.amazon.com/",
+     "page_title": "Amazon.com. Spend less. Smile more.",
+     "resolved_to_product_listing": false
+    },
+    {
+     "product_id": "P5",
+     "submitted_url": "https://link.amazon/B0f3GKalj",
+     "final_url": "https://www.amazon.com/",
+     "page_title": "Amazon.com. Spend less. Smile more.",
+     "resolved_to_product_listing": false
+    }
+   ],
+   "outcome": "0 of 5 resolved to a product listing in this session's read. This is the THIRD same-day read and it agrees with F-P24's read but not with the R-01 read (F-P27), which reached B09B7SB46R from B02NbDxp3. The earlier record of one HTTP 500 (B0f3GKalj) is not reproduced here: all five returned the homepage with a 200. Cause remains undetermined (short-link service vs fetch-tool behaviour). Not resolved by this session, and no intent field was changed."
+  },
+  "pricing": {
+   "_meta": "What the five listings showed about price, and why none of it is published.",
+   "observed_strings": [
+    {
+     "id": "P1",
+     "verbatim": "$74.99",
+     "context": "inside the 'Customers who viewed this item also viewed' carousel card for B0B7C327LK",
+     "attributable_to_target_asin": false
+    },
+    {
+     "id": "P2",
+     "verbatim": "$229.99 / $199.95 / $179.99",
+     "context": "carousel cards for B0BZ52FLKC, B0FM5KF34G, B0F92GL7JH",
+     "attributable_to_target_asin": false
+    },
+    {
+     "id": "P3",
+     "verbatim": "$59.99 / $76.46 / $89.98",
+     "context": "carousel cards for B0CNY1YVDD, B09MR7QWKZ, B0C33CHG99",
+     "attributable_to_target_asin": false
+    },
+    {
+     "id": "P4",
+     "verbatim": "$16.99",
+     "context": "tied to the page's own buy area in the returned text, but the same string also labels two carousel cards (B0GL7Z4KP4, B0DHZTCNR5 variant); AMBIGUOUS, therefore not recorded as P4's price",
+     "attributable_to_target_asin": false
+    },
+    {
+     "id": "P5",
+     "verbatim": "$139.99 / $79.99 / $169.99",
+     "context": "carousel cards for B0FXBQ3KX1, B0D1TMFTPN, B0H2JP9YDM",
+     "attributable_to_target_asin": false
+    }
+   ],
+   "verdict": "This pass reproduces F-P17 in full: every clear price string on these pages belongs to a neighbouring ASIN. Nothing is published, and P4's ambiguous figure is recorded as ambiguous rather than resolved in the product's favour."
+  },
+  "rate_layer_read_2026_11_20": {
+   "_meta": "First read of the official commission statement in this project. Recorded because the site has carried 'commission potential: unverified' (F-01) with no citation for the rates themselves.",
+   "source_id": "S-COMM",
+   "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+   "page_title_observed": "Associates Program Standard Commission Income Statement",
+   "table_1_verbatim_rows": [
+    {
+     "categories": "Physical Books, Kitchen, Automotive",
+     "rate": "4.50%"
+    },
+    {
+     "categories": "Toys, Furniture, Home, Home Improvement, Lawn & Garden, Pets Products, Headphones, Beauty, Musical Instruments, Business & Industrial Supplies, Outdoors, Tools, Sports, Baby Products, Amazon Coins",
+     "rate": "3.00%"
+    },
+    {
+     "categories": "All Other Categories",
+     "rate": "4.00%"
+    }
+   ],
+   "what_this_does_NOT_establish": "This statement maps CATEGORIES to rates. It says nothing about which category a specific ASIN is in, and this project has no source that maps B0CDY277D3 etc. to a commission category. Observed listing breadcrumbs place the three air fryers under 'Home & Kitchen'; the statement's category names are programme categories, not browse nodes, and the project has NO official source equating the two. Therefore no per-product rate is asserted, and F-01 stays open. The rate is published only as a category-level fact with its source."
+  }
  }
 }

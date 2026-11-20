@@ -1287,3 +1287,101 @@ Branched from `main` at `0a4b573` (PR #46 merged; fast-forwarded, no local commi
 - **Claim status:** X-02 done · X-03 done · X-01 **blocked on owner action (403)**; stays open with the steps above.
 - **ID note.** Task IDs `X-01..X-03` were also used by the merged session `arena/3936beb1-prod2` (lines above). The
   three rows in this section are this session's X-01..X-03; no earlier row was edited to fit.
+
+---
+
+## ACTIVE CLAIM — session arena/15730819-prod2 (2026-11-20, verified decision layer + shipped-defect repair)
+
+Branched from `d7f58d1` (main after PR #44, 2026-11-20 06:46 UTC). This session is both the working
+session **and** the final integration session on this one branch, per the standing one-branch rule.
+
+**Claim filed 2026-11-20 06:52 UTC.** No other session claim is live on this branch. Three open PRs
+exist with no commit inside their 60-minute window on first inspection (#45 06:48, #43 06:50, #41
+06:50 — all three re-committed after this claim was drafted and are therefore **still inside their
+own claims**). They are **not touched** here; their scopes are logged at the end of this section.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 **Shipped-defect repair:** `assets/css/site.css` was committed with raw merge-conflict markers (`<<<<<<< HEAD` … `>>>>>>> origin/main`) at lines 1/48/75, and `tools/build.py` copies it verbatim into `docs/assets/css/`, so **the published stylesheet is broken for every reader right now**. Resolve to the variable-font side the build preloads; add a gate check so a marker can never ship again. | in progress | arena/15730819-prod2 | `assets/css/site.css`, `tools/checks.py` |
+| X-02 **Verified rate layer:** five ASINs today, added to the product register after a live read of Amazon's official standard commission table (S-COMM, Table 1): Physical Books/Kitchen/Automotive **4.50%**; Toys/Furniture/Home…**3.00%**; All Other **4.00%**. No per-ASIN category, so no per-product rate is asserted. | planned | arena/15730819-prod2 | `data/p2/products.json`, `data/p2/sources.json` |
+| X-03 **Short-link re-read (2026-11-20, this session):** all five `link.amazon` URLs fetched again. Result recorded as dated history; intended-ASIN fields untouched (F-P24/F-P27/F-P28 respected, not overwritten). | planned | arena/15730819-prod2 | `data/p2/verification-2026-11-20.json`, `data/p2/flags.json` |
+| X-04 **Missing-information register, decision-shaped:** a new "decision briefs" surface — for each of the six decisions the owner actually faces, what is known (with a link), what is *not* known, the exact question, who can answer it, and what it blocks. Extends Q-register rather than replacing it. | planned | arena/15730819-prod2 | `data/p2/briefs.json`, `content/pages/briefs.html`, `tools/build.py` |
+| X-05 **Data-integrity gate:** every products.json value must carry a `_source`/`_read` sibling or be null; every published figure must appear in a dated verification record; register cross-references (F-/Q-/SG-/D-) must resolve. | planned | arena/15730819-prod2 | `tools/checks.py` |
+| X-06 **Site rebuild + live verification:** rebuild, gate, PR, merge, confirm Pages deploy, record here. | planned | arena/15730819-prod2 | `docs/`, root mirror, `COORDINATION.md`, `EXECUTIVE_SUMMARY.md` |
+
+**Not touched by this claim (logged, not edited):** PR #45 (`arena/19fb7064-prod2`, CSS conflict
+residue + summaries — **superseded in part by X-01**, which fixes the same defect at source and adds a
+gate; its author should drop the CSS hunk on rebase), PR #43 (`arena/37b265a4-prod2`, short-link
+re-read; its F-P27/F-P28 findings are the reason X-03 records rather than overwrites), PR #41
+(`arena/e0d92902-prod2`, union integration — overlapping but not consumed, because consuming it would
+put two reg-built `docs/` trees into one commit without a line-by-line reconciliation this session
+cannot complete from another branch's data).
+
+**Verification boundary (unchanged, re-tested 2026-11-20 06:50 UTC):** `curl` to any host except the
+system allowlist fails; Amazon listings, the Associates policy pages and the commission statement are
+read with the **fetch tool**, and each is stamped with the date and the tool in the register. Pages
+cannot be switched to Actions mode from here (`PUT /pages` → **403**), so the root mirror is still the
+served artifact and F-P19/F-P20 stay open.
+
+---
+
+## CLAIM RESULT — session arena/15730819-prod2 (2026-11-20)
+
+Claim filed 06:52 UTC, released at the merge recorded below. **Nothing from a parallel session was
+discarded.** Two sessions landed on `main` while this one worked (PR #52 via `arena/644d217b-prod2`,
+PR #53 via `arena/e292fb4d-prod2`) and both are merged here with a record below.
+
+| Task | Status | Result |
+| --- | --- | --- |
+| X-01 Shipped CSS defect | **done** | 49 lines of merge-conflict residue removed from `assets/css/site.css`; kept the variable-font side the build preloads; dropped the older static-weight `@font-face` block. `integrity` gate section added (markers, braces, tokens, font-faces, register ids). |
+| X-02 Verified rate layer | **done** | S-COMM re-read 2026-11-20. Table 1 rows recorded verbatim (Physical Books/Kitchen/Automotive **4.50%**, Home/furniture **3.00%**, All Other **4.00%**). **No per-product rate asserted** — the statement maps categories, not ASINs, and no official source in this project equates a browse node with a programme category. F-01 stays open. |
+| X-03 Short-link re-read | **done** | Third same-day read: **0 of 5** `link.amazon` URLs reached a product listing; all five returned the Amazon homepage (the earlier HTTP 500 for `B0f3GKalj` did not reproduce). Recorded as new dated history; `intent-links.json` and every `intended_asin` untouched. F-P24/F-P27/F-P28 respected. |
+| X-04 Decision layer | **done** | `data/p2/briefs.json` + `content/pages/briefs.html`: six briefs, ordered by irreversibility. `briefs` gate section added. |
+| X-05 Integrity/findability gate | **done** | `integrity` + `one-site` + `briefs` sections. Archive-wide `noindex` written by the build (82 files); robots.txt scoped away from `archive/`, `data/`, `tools/`, `content/`, `scripts/`, `tests/`; one canonical base asserted across 31 pages. |
+| X-06 Landing restructure | **done** | Front page: 24 cards → 12, 1,927 → 1,594 words, four above-fold trust blocks → one trust line, long reads moved directly under the shelf, cluster block moved off the front page (the guides hub still owns it and the gate still requires every guide to reach its pillar). |
+| X-07 Integration | **done** | Merge of `origin/main` (PRs #52/#53) with generated files re-rendered rather than hand-resolved; coordination claim re-appended after the merge. Both gates green, `npm test` 3/3. |
+
+### Verified live this session (fetch tool; `curl` to these hosts is blocked, 000)
+
+**Listings — all five, 2026-11-20, every document title matches the register verbatim:**
+
+| # | ASIN | URL read | Breadcrumb this pass |
+| --- | --- | --- | --- |
+| P1 | B0CDY277D3 | https://www.amazon.com/dp/B0CDY277D3 | Home & Kitchen > … > Air Fryers |
+| P2 | B09B7SB46R | https://www.amazon.com/dp/B09B7SB46R | Home & Kitchen > … > Air Fryers (rendered this pass; the earlier null is superseded) |
+| P3 | B08DKYBTPH | https://www.amazon.com/dp/B08DKYBTPH | Home & Kitchen > … > Air Fryers |
+| P4 | B0DHZTCNR5 | https://www.amazon.com/dp/B0DHZTCNR5 | Home & Kitchen > … > Meat |
+| P5 | B0DZFD6R9Z | https://www.amazon.com/dp/B0DZFD6R9Z | Home & Kitchen > … > Meat |
+
+**Policies and official pages read:**
+
+- Associates Program Standard Commission Income Statement — https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ (Table 1, 2026-11-20)
+- Associates Program Policies, updated **April 14, 2026** — https://affiliate-program.amazon.com/help/operating/policies (§2(b) prices/availability; §2(b) Special Links must carry the tag; trademark clause on domains and tags)
+- Associates Program Operating Agreement — https://affiliate-program.amazon.com/help/operating/agreement (§5 disclosure sentence; §2(b)/Participation Requirements on Special Links; §4 no traffic or income representation)
+
+### Irregularities found this session (all published, none blocking)
+
+| # | Finding | Where it is published |
+| --- | --- | --- |
+| 1 | **Raw merge-conflict markers shipped in the live stylesheet.** `assets/css/site.css` lines 1/48/75 carried `<<<<<<< HEAD` … `>>>>>>> origin/main`, copied verbatim into `docs/assets/css/`. The site has been serving invalid CSS. No gate section read static assets, so it shipped green. | Fixed; `integrity` section; this file |
+| 2 | **82 archived files were indexable at the live host.** 74 HTML pages (plus XML) from four previous builds return 200 and were excluded only by a robots.txt line. They compete with the canonical pages in search. | Fixed build-side with per-file `noindex`; the real fix is an owner Pages-mode change still recorded as F-P19/F-P20 |
+| 3 | **Three same-day reads of the owner short links now disagree with each other.** This pass: 0/5 reach a listing. The R-01 read (merged as F-P27): 1/5. Neither is treated as the answer. | F-P24, F-P27, F-P28, Q-P18 (rows written by other sessions); this pass adds a dated third read |
+| 4 | **A price string for P4 appeared in the page's own buy area but is also the label on two carousel cards.** Recorded as ambiguous rather than resolved in the product's favour. | `verification-2026-11-20.json` → `third_pass_2026_11_20_arena_15730819.pricing` |
+| 5 | **A brief cannot cite a row that only exists on an unmerged branch.** Writing X-04 surfaced this: three flags and one question cited in the first draft were on PR #43's branch, not on the published site. | Fixed after the #43 merge; recorded in `briefs.json` `_meta.cross_branch_note` |
+| 6 | **PR #45 duplicates X-01.** It carries the same CSS conflict fix. Its author should drop that hunk on rebase; this branch fixed it at source and added the gate. | This file |
+
+### Sources used (all official; full register in `data/p2/sources.json`)
+
+Amazon Associates Operating Agreement · Associates Program Policies · Standard Commission Income
+Statement · the five `amazon.com/dp/` listings · the five owner-supplied `link.amazon` short links
+(recorded as evidence, never published as buy paths) · USDA FSIS and FoodSafety.gov guidance and
+Nebraska Extension (carried, re-cited by the long reads) · Google Search Central (link qualification,
+snippets) · FTC endorsement guides. Every read is dated in `data/p2/sources.json` and in the dated
+verification records.
+
+### Files this pass touched
+
+`assets/css/site.css` (conflict fix + brief + chooser styles) · `tools/build.py` (briefs hooks, archive
+guard, robots, front guides) · `tools/checks.py` (`briefs`, `one-site`, `integrity` sections) ·
+`data/p2/{briefs.json (new), sources.json, verification-2026-11-20.json}` · `content/pages/{index,briefs}.html` ·
+`archive/**` (noindex written in place) · `docs/` + root mirror · `EXECUTIVE_SUMMARY.md` · `COORDINATION.md`.
