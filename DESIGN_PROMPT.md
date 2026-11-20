@@ -138,3 +138,29 @@ is built):
 - **SG-17** — seasonal front-page merchandising scaffolding (grilling,
   gifting), gated on the seasonal-window question Q-P07; calendar-based
   framing only, per the evidence rule D-19.
+
+## Marketing inputs — session arena/44af3083-prod2 (2026-11-20)
+
+Proposals only. Each is queued on the Suggestions page (SG-45, SG-46, SG-47); pick a path
+there before anything in this section is built.
+
+1. **"The newest question" slot (SG-45).** One module above the shelf on the front page:
+   the latest published guide's question headline, its one-sentence answer, one link.
+   Rotates from the build's guide order — no new data, no publish-time editorial work. It
+   gives the front page the pulse of a publication with a cadence instead of a fixed catalogue.
+2. **CTA language for the no-price world (SG-47).** With prices and ratings withheld (F-02),
+   the buy button copy is the entire conversion layer. Specify three compliant label variants
+   ("See today's price on Amazon" is truthful under Program Policies 2(b) — Amazon shows the
+   price), keep the paid-link label attached, and rotate behind the outbound_click event once
+   the measurement gate (SG-06) opens. No variant may imply a price, rating or availability
+   the site cannot see.
+3. **Re-verification as a trust signal (SG-46).** The dated-read discipline is the site's
+   stated differentiator (SG-37). The design should surface it: a "last checked" date on
+   product cards is already rendered (`last_live_read`) — keep it prominent in any card
+   redesign, and give the verification record a visible home on the Method page.
+
+Article-template shape to preserve in any redesign (two guides shipped this session proved
+it repeatable at cadence): question as the title, the answer in the first screen, listed
+facts each carrying its source and read date, a "What we could not verify" callout, a
+one-sentence-answer callout, and a short "Keep reading" list that reaches the comparison,
+the buying guide and the cluster pillar.

@@ -266,6 +266,46 @@
    "answerable_by": "Owner",
    "blocks": [],
    "flags": []
+  },
+  {
+   "id": "Q-P15",
+   "area": "Link integrity",
+   "question": "When the five submitted Amazon short-link URLs are opened in a normal browser, do they still resolve to the registered ASIN listings?",
+   "known": "Two independent fetch-tool passes on 2026-11-20 (arena/722181aa-prod2: four resolved to the Amazon storefront, one returned HTTP 500; arena/44af3083-prod2: two sampled, both resolved to the storefront) did NOT see listing redirects. The same short links resolved to the registered ASINs in the dated redirect history of 2026-11-14 to 2026-11-19 (data/p2/intent-links.json; the verbatim short-link URLs are quoted on the Method page). The five /dp/ listing pages themselves are live and their titles match the register (three passes, 2026-11-20).",
+   "unknown": "Whether a normal browser sees the same storefront redirects or the fetch environment is the artifact. Until that is known, no claim is made about the short links' validity (F-03 / FLG-003 posture stands).",
+   "how_to_discover": "Owner opens each of the five URLs in a standard browser and records the final URL and ASIN as a dated redirect observation in data/p2/intent-links.json — kept separate from intended_asin, never merged.",
+   "answerable_by": "Owner",
+   "blocks": [
+    "F-P24"
+   ],
+   "flags": [
+    "F-P24",
+    "F-03"
+   ]
+  },
+  {
+   "id": "Q-P16",
+   "area": "Editorial",
+   "question": "Do the two Thanksgiving-window guides (guide-preheat-shake, guide-turkey-done) answer questions real buyers ask?",
+   "known": "Nothing about demand. Both are editorial hypotheses (D-19): each answers a question that is answerable from the verified register only, and both shipped into the seasonal window (data/p2/calendar.json).",
+   "unknown": "Any evidence of search demand or reader interest. It cannot be known until the SG-06 gate (Search Console + hosted analytics endpoint + 14 days of events) opens.",
+   "how_to_discover": "After Q-P08 / SG-06: read the Search Console queries landing on the two pages and the guide_read_75 events; feed the measured result back into the queue order per SG-34. Do not infer demand from instinct (D-19).",
+   "answerable_by": "Measurement",
+   "blocks": [],
+   "flags": []
+  },
+  {
+   "id": "Q-P17",
+   "area": "Machinery",
+   "question": "Can a periodic listing re-verification (fetch, diff, flag) run automatically, or must it stay a session step?",
+   "known": "This session re-verified all five listings live on 2026-11-20 through the page-fetch tool. GitHub-hosted CI runners have no such tool, and the sandbox egress allowlist does not cover amazon.com for plain HTTP clients (recorded in earlier session notes).",
+   "unknown": "Whether a scheduled GitHub Actions job can perform the fetch-and-compare step at all. If not, the re-verification cadence stays manual and the proposed SLA (SG-46) is a process, not a pipeline.",
+   "how_to_discover": "Prototype a workflow that fetches the five /dp/ URLs from a GitHub-hosted runner and diffs the document titles against data/p2/products.json. Record whether runner egress allows it; if blocked, record the limit and keep the manual cadence.",
+   "answerable_by": "Owner",
+   "blocks": [
+    "SG-46"
+   ],
+   "flags": []
   }
  ]
 }
