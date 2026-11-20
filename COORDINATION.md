@@ -20,9 +20,39 @@ Branch `arena/37b265a4-prod2`, branched from `main` at `4398598` (PR #33 merge).
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
-| R-01 Independent re-read of the five owner short links and the five `/dp/` listings on 2026-11-20; record observations as dated history, never overwrite prior records | in progress | arena/37b265a4-prod2 | `data/p2/intent-links.json` (history entries only), `data/p2/verification-2026-11-20.json`, `data/p2/sources.json` (read dates only) |
-| R-02 Publish any contradiction found by R-01 as a new open flag on the Flagged for Review page; no status of any existing value is changed without a source read | in progress | arena/37b265a4-prod2 | `data/p2/flags.json` (new IDs only), `data/p2/questions.json` (new IDs only) |
-| R-03 Rebuild, run the release gate, merge, confirm the Pages build, record the PR and merge result | pending | arena/37b265a4-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+| R-01 Independent re-read of the five owner short links and the five `/dp/` listings on 2026-11-20; record observations as dated history, never overwrite prior records | done | arena/37b265a4-prod2 | `data/p2/intent-links.json` (history entries only), `data/p2/verification-2026-11-20.json` (new key `r01_reread_2026_11_20`), `data/p2/sources.json` (read dates only) |
+| R-02 Publish any contradiction found by R-01 as a new open flag on the Flagged for Review page; correct the reader-facing and repository statements it contradicts; no status of any existing value is changed without a source read | done | arena/37b265a4-prod2 | `data/p2/flags.json` (F-P24..F-P26 added; F-P20 detail extended), `data/p2/questions.json` (Q-P15 added; dated notes on Q-01, Q-P03), `EXECUTIVE_SUMMARY.md`, `README.md`, `content/pages/executive-summary.html` (statements and the public price column only) |
+| R-03 Rebuild, run the release gate, merge, confirm the Pages build, record the PR and merge result | in progress (PR open, merge next) | arena/37b265a4-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+
+### Results (R-01..R-03, 2026-11-20, arena/37b265a4-prod2)
+
+**Sources read this pass (fetch tool, 2026-11-20 UTC):**
+- Listings: https://www.amazon.com/dp/B0CDY277D3 · https://www.amazon.com/dp/B09B7SB46R · https://www.amazon.com/dp/B08DKYBTPH · https://www.amazon.com/dp/B0DHZTCNR5 · https://www.amazon.com/dp/B0DZFD6R9Z
+- Owner short links: https://link.amazon/B04G1MEwY · https://link.amazon/B02NbDxp3 · https://link.amazon/B00hJ57DV · https://link.amazon/B0c8moW59 · https://link.amazon/B0f3GKalj
+- Associates Program Policies (page "Updated: April 14, 2026"; §2(b), §6(t), §6(w) read): https://affiliate-program.amazon.com/help/operating/policies
+- Operating Agreement (page "Updated: October 15, 2025"): https://affiliate-program.amazon.com/help/operating/agreement
+- Live host: https://wingbangboozle1-lang.github.io/Prod2/ and https://wingbangboozle1-lang.github.io/Prod2/EXECUTIVE_SUMMARY.md
+
+**Verification performed:**
+- Five listing titles compared by exact string equality with `data/p2/products.json` `name_listing` after removing the tool's "Amazon.com: " prefix and ": Home & Kitchen" suffix: **5/5 match**. ASINs matched the register.
+- Short links: **1 of 5 reached its intended ASIN** (B02NbDxp3 → B09B7SB46R). B04G1MEwY and B0c8moW59 reached `https://www.amazon.com/` on both attempts. B00hJ57DV returned HTTP 500 on both attempts. B0f3GKalj returned HTTP 500, then the homepage. Recorded as dated history in `intent-links.json`; no `intended_asin` or `official_listing_url` changed.
+- Policy text read in the page returned: §2(b) prices and availability shown only if Amazon serves the link or data come via Creators/PA API (matches D-P11); §6(t) reviews and star ratings only via Creators/PA API; §6(w) link-shortening clause quoted in F-P24.
+- Live host: title matches `docs/index.html`; `data/p2/settings.json` and `EXECUTIVE_SUMMARY.md` are publicly served (exposure already in F-P19/F-P20).
+- Gate: `python3 tools/build.py` → 28 pages; `python3 tools/checks.py` → ALL CHECKS PASSED; `npm test` → 2/2.
+
+**Irregularities (all on the Flagged for Review page, none blocking):**
+- **F-P24** (open): four of five owner short links did not reach their intended listing in the re-read; the register's "all five resolve" statement is contradicted. Cause unknown. Compliance under §6(w) unresolved (FLG-003). Q-P15 added.
+- **F-P25** (open, low): "Check price on Amazon" button label on product cards needs an owner copy decision under §2(b).
+- **F-P26** (open): `EXECUTIVE_SUMMARY.md` (publicly served) carried a five-row "Price (as listed)" column that the register withholds; several of those figures appear on the listings as neighbouring products' prices (F-P17 mechanism). The column is now "withheld".
+- **F-P20** (detail extended): the served copy of `data/p2/settings.json` shows an older brand text than the repository and the live index. Cause not established.
+
+**Statements corrected (reader-facing and repository):** `content/pages/executive-summary.html`, `EXECUTIVE_SUMMARY.md` (two bullets, one table, one key-finding paragraph, flag count), `README.md` (short-link paragraph, open-flags row), `data/p2/questions.json` (Q-01, Q-P03 dated notes).
+
+**Not done (owner or later pass):**
+- No logged-in Associates Central check (Q-01, F-57, F-58). No browser test of the short links (Q-P15).
+- Pages source is still legacy `main /` (API read again this pass: `build_type` legacy). Changing it needs repository admin (F-P19/F-P20).
+- Operating Agreement §5 and the FTC pages (S-FTC1/S-FTC2) were not re-read in this pass.
 
 ---
 

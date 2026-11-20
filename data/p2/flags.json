@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 reconciliation of three parallel passes: shop-front pass added F-P15..F-P20; event-vocabulary pass added F-P22/F-P23; anti-slop pass added the working-brand clearance flag F-P21. IDs kept disjoint; nothing discarded."
+  "last_change": "2026-11-20 reconciliation of three parallel passes: shop-front pass added F-P15..F-P20; event-vocabulary pass added F-P22/F-P23; anti-slop pass added the working-brand clearance flag F-P21. IDs kept disjoint; nothing discarded. 2026-11-20 (arena/37b265a4-prod2, R-01/R-02): F-P24 (short links did not all reach their listing in the re-read) and F-P25 (price-label copy review) added; F-P20 detail extended with the served-copy observation. No existing status changed. 2026-11-20 (arena/37b265a4-prod2, R-02): F-P26 added (price column in the public EXECUTIVE_SUMMARY.md withheld pending owner decision)."
  },
  "flags": [
   {
@@ -311,7 +311,7 @@
    "id": "F-P20",
    "status": "open",
    "title": "The whole working repository is readable on the live host (root-mode Pages)",
-   "detail": "GitHub Pages is in legacy mode with the source set to the repository ROOT: the Pages API returns build_type=legacy, source={branch: main, path: /}. Checked on 2026-11-20, https://…/Prod2/data/p2/settings.json returns the settings register as JSON to an anonymous reader. Counted at the same moment: data/ 42 files, content/ 27, tools/ 5, scripts/ 4, tests/ 1, archive/ 121 — 196 source files reachable by guessing a path. Nothing secret is in them (the tracking ID and disclosure text are published on purpose and the capture and analytics endpoints are empty), but it is not the intended surface, it exposes drafts and the archived builds, and robots.txt is a crawler convention, not access control. The token available to this session cannot change the setting: a PUT to build_type=workflow returns 403. Mitigated in-repo as far as a build can: the Pages workflow uploads the docs/ artifact only, and the new exposition gate section refuses any source directory inside docs/. If an owner ever flips the source to GitHub Actions, this whole class disappears.",
+   "detail": "GitHub Pages is in legacy mode with the source set to the repository ROOT: the Pages API returns build_type=legacy, source={branch: main, path: /}. Checked on 2026-11-20, https://…/Prod2/data/p2/settings.json returns the settings register as JSON to an anonymous reader. Counted at the same moment: data/ 42 files, content/ 27, tools/ 5, scripts/ 4, tests/ 1, archive/ 121 — 196 source files reachable by guessing a path. Nothing secret is in them (the tracking ID and disclosure text are published on purpose and the capture and analytics endpoints are empty), but it is not the intended surface, it exposes drafts and the archived builds, and robots.txt is a crawler convention, not access control. The token available to this session cannot change the setting: a PUT to build_type=workflow returns 403. Mitigated in-repo as far as a build can: the Pages workflow uploads the docs/ artifact only, and the new exposition gate section refuses any source directory inside docs/. If an owner ever flips the source to GitHub Actions, this whole class disappears. 2026-11-20 R-01 addition: the public copy of data/p2/settings.json on the live host (fetched through the fetch tool) shows brand.name “Prod2” and an earlier last_change, while the repository copy and the live index title show “The Crisp Counter”. The cause is not established (possibly a fetch-tool cache or a stale copy). Recorded here, not treated as conclusive.",
    "evidence": "https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json",
    "evidence_note": "Anonymous GET of a source file on the live host, 2026-11-20; Pages API reports build_type=legacy, source=main,/; count from `python3 tools/root_mirror.py --report`.",
    "how_to_resolve": "Owner: Settings → Pages → Source: GitHub Actions (one setting). Then confirm /data/p2/settings.json and /tools/build.py return 404 and close F-P19/F-P20.",
@@ -342,6 +342,33 @@
    "evidence": "https://tmsearch.uspto.gov/",
    "evidence_note": "USPTO trademark search — the formal check that would resolve this; the preliminary 2026-11-20 web-search record sits in D-P10's sources.",
    "how_to_resolve": "Run the formal clearance (Q-P10 / Q-19), then either ratify the name in the decision log or revert via settings.json and rebuild.",
+   "status": "open"
+  },
+  {
+   "id": "F-P24",
+   "title": "Four of five owner-supplied short links did not reach their intended listing in the 2026-11-20 re-read",
+   "detail": "On 2026-11-20 each owner-supplied link.amazon short link was fetched with redirects followed, with a second attempt where the first failed or landed on the homepage. Only link.amazon/B02NbDxp3 reached its intended ASIN (B09B7SB46R). link.amazon/B04G1MEwY (P1) and link.amazon/B0c8moW59 (P4) reached the Amazon homepage (www.amazon.com/) on both attempts. link.amazon/B00hJ57DV (P3) returned HTTP 500 on both attempts. link.amazon/B0f3GKalj (P5) returned HTTP 500 once and the homepage once. The register and the README had stated that all five tokens resolve to their listings (2026-11-19 reads). Today’s reads contradict that for four of the five. The cause is not established: the fetch tool is not a logged-in browser, and Amazon may treat it differently from a buyer. No reader-facing link is affected: the site publishes tagged /dp/ Special Links built from the ASINs, and the short links are never clickable (gate section exposition). Program Policies §6(w) (read 2026-11-20) bars link shortening “in a manner that makes it unclear that you are linking to an Amazon Site”. Whether these owner-supplied links are compliant stays unresolved under FLG-003 and is not decided here.",
+   "evidence": "https://link.amazon/B04G1MEwY",
+   "evidence_note": "R-01 observations: data/p2/verification-2026-11-20.json (r01_reread_2026_11_20, short_links). Redirect history: data/p2/intent-links.json. Policy text: S-POL §6(w), read 2026-11-20 (https://affiliate-program.amazon.com/help/operating/policies).",
+   "how_to_resolve": "Owner opens each of the five short links in a logged-out private window and again in the Associates-enrolled browser, records the final URL and ASIN, and answers Q-P15. Whatever the result, the register keeps today’s observation as dated history. The owner decides whether the short links stay in use under F-03 and F-58. The site keeps publishing only the tagged /dp/ Special Links.",
+   "status": "open"
+  },
+  {
+   "id": "F-P25",
+   "title": "“Check price on Amazon” button label on product cards needs a copy decision",
+   "detail": "Each product card on the shop front and shop page ends in a button labelled “Check price on Amazon”. No price is published on the site (F-02; decision D-P11). The label shows no price, so no violation is claimed. It is flagged for review because Program Policies §2(b) (read 2026-11-20) restricts what a site may show about prices, and the owner should confirm that a call to action that refers to price is acceptable. Alternative wording, such as “View on Amazon”, is a copy decision for the owner and is not made here.",
+   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
+   "evidence_note": "S-POL §2(b), read 2026-11-20 (policy page chunk 3). The button text is generated in tools/build.py.",
+   "how_to_resolve": "Owner chooses the button wording. A change is a one-line edit in tools/build.py followed by a rebuild and the release gate. Nothing changes until the owner decides.",
+   "status": "open"
+  },
+  {
+   "id": "F-P26",
+   "title": "The repository executive summary published a listed-price column, which the site withholds",
+   "detail": "EXECUTIVE_SUMMARY.md (served publicly at the live host because Pages is in legacy root mode) carried a “Price (as listed)” column with five dollar figures from the 2026-11-19 pass. The register withholds prices (F-02; D-P11; Program Policies §2(b), read 2026-11-20). The R-01 re-read also found that several of those figures appear on the listings as neighbouring products’ prices in the “customers also viewed” carousels (the same mechanism as F-P17), so they could be attributed to the wrong product. The column has been replaced with “withheld”. No figure was corrected, because no price is published.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/EXECUTIVE_SUMMARY.md",
+   "evidence_note": "Live file as served 2026-11-20 (fetch tool). Neighbouring-price mechanism: F-P17; carousel observations in data/p2/verification-2026-11-19.json and data/p2/verification-2026-11-20.json. Policy: S-POL §2(b), read 2026-11-20.",
+   "how_to_resolve": "Owner decides whether any price policy changes (suggestion SG-05 covers a dated-snapshot option). Until then the column stays withheld. Owner also decides whether the root-mode exposure of EXECUTIVE_SUMMARY.md and other repository files is fixed (F-P19, F-P20).",
    "status": "open"
   }
  ]
