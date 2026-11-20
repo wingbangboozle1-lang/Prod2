@@ -2228,3 +2228,16 @@ sessions added pages (`decide.html`, `before-you-decide.html`, `briefs.html`) an
 covered by their own sessions' records and are **outside this audit's fetch set**; the V-02 page
 count is stated as of the audit, not as of the current build. The V-01 source-register facts are
 unaffected (no audit-scoped register row changed).
+
+### PR / merge / deploy record — arena/770ebcc2-prod2 (final)
+
+| Item | Value |
+| --- | --- |
+| PR (content) | https://github.com/wingbangboozle1-lang/Prod2/pull/70 — **merged 2026-11-20 07:18:22Z** as `20e2cb2` |
+| Defect this pass found in itself | `20e2cb2` merged with CI **"Publication build is reproducible" RED**: the third-sync merge had resolved 69 generated files to main's copies and the post-merge rebuild was left unstaged. Diagnosed by replaying the exact verify-site steps in a clean clone (steps 3a/3b ok; step 6 diff on 40 files: old `?v=1cb1b9dcef`, `products.html#P1` card links, unwired footer). The gate was right; the fix was ours. |
+| PR (fix) | https://github.com/wingbangboozle1-lang/Prod2/pull/75 — the rebuilt 40-page `docs/` + root mirror, **merged 2026-11-20 07:23:16Z** as `1a135ca`; branch CI before merge: verify-site success, analytics tests success |
+| Workflows on current `main` (`b0df15d`, includes both) | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Pages | `build_type: legacy`, `source: main /`, status `built` — the live host serves the repo root, which this build mirrors byte-for-byte from `docs/` |
+| Live check | https://wingbangboozle1-lang.github.io/Prod2/product-chefman-dual-basket.html fetched post-deploy: full publication render — H1, tagged "(paid link)" buy button, 15-row spec table with read dates and per-row source links to the official listing, `— unverified` cells for function count/price/rating/commission pointing at F-01/F-02, fit math with formulas, cluster links, "What we could not verify" block. The front-page index fetch flaked (same fetch-tool instability this session recorded for the short links); its nav/footer are products of the same green build the fetched page came from. |
+| Merge-conflict log | Three syncs with moving `main` (#47–#60, #62/#63/#64/#66, #68/#74/#75+#54/#69). All resolutions kept BOTH sides (COORDINATION unions, register union-by-id, generated files regenerated). `D-P24` was chosen because main took `D-P23` (paid-placement hold) mid-pass; SG-12/F-P24 appends were merged onto main's newer text. No other session's work was discarded. The parallel sessions' own main-red repairs (#62/#63) and mine converged; main's cleaner versions were adopted in the second sync. |
+| Claim status | X-01..X-06 **done**. Claim released. |
