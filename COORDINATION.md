@@ -57,9 +57,9 @@ session once all other tasks are done.
 
 ## Claims this turn (session-arena-8ff10f50-prod2)
 
-- **T11 (integration, PR, merge, Pages deploy):** claim the full scope. Re-verify both builds line by line, make the landing page product-forward (lead with products), confirm `pages.yml` deploys a working artifact, commit, push, open a PR from `arena/8ff10f50-prod2` to `main`, merge it, and confirm GitHub Pages deploys. Record the PR link and merge result below.
-- **T12 (shop-like landing page):** reorder the front page so products lead (featured products + buy buttons above the register), keep guides + category tiles, and keep the disclosure strip above the fold.
-- **T13 (decision-input questions):** the open-questions register and the suggestions/decision portal already exist; verified present and linked from the nav/footer.
+- **T11 (integration, PR, merge, Pages deploy):** done — merged via PR #29 (commit `55a1e723ccfec347a78585cf07e604d3b2774a7d`); GitHub Pages built successfully at https://wingbangboozle1-lang.github.io/Prod2/
+- **T12 (shop-like landing page):** done — `site/index.html` reordered so product cards with sponsored buy buttons lead before guides/categories/register; disclosure stays above the fold; verified by `scripts/verify_site.py` (VERIFY OK, 18 pages)
+- **T13 (decision-input questions):** done — open-questions register and suggestions/decision portal exist; linked from nav/footer.
 
 ## Claims this session (session-arena-43f4359d-prod2, branch `arena/43f4359d-prod2`)
 
@@ -78,6 +78,7 @@ No other session has an unexpired claim on these files. If this session stops, a
 | PR | What | Result |
 | --- | --- | --- |
 | #19 | Integration: product-forward landing page + transparency flag F-P08 + both builds verified + Pages deploy | Merged into `main` as merge commit `0030f90a69b53ecd226923ddd6125dc795f0b282`; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
+| #29 | T11+T12: Product-first landing page, verify both builds, integrate to main | Merged into `main` as merge commit `55a1e723ccfec347a78585cf07e604d3b2774a7d`; `scripts/verify_site.py` VERIFY OK (18 pages); `tools/checks.py` ALL CHECKS PASSED; GitHub Pages built successfully; live at https://wingbangboozle1-lang.github.io/Prod2/ |
 
 ## Task details
 
@@ -232,6 +233,7 @@ recoverable from git reflog; its unique content is preserved in `archive/counter
 | Session | Branch | Started (UTC) | Status |
 |---|---|---|---|
 | sess-prod2-a1 | `arena/9386098f-prod2` | 2026-11-19 12:40 | active — final integration |
+| session-arena-43f4359d-prod2 | `arena/43f4359d-prod2` | 2026-11-20 | active — T11+T12 complete, PR #29 merged, Pages live |
 
 ## Conflict log
 
