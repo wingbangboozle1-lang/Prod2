@@ -1168,3 +1168,15 @@ Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Sing
 - F-P23 / Q-P14: event-vocabulary contract (resolved in code by the W-01 pass; the gate asserts the five names; whether a collector is deployed for live traffic was not checked this session).
 - F-P24: short-link discrepancy (blocker 3).
 - F-P17 / F-02: carousel prices and ratings belong to other ASINs; the site withholds prices and ratings.
+---
+
+## ACTIVE CLAIM — session arena/e292fb4d-prod2 (2026-11-20, Pages exposure + short-link re-read + integration)
+
+Branched from `main` at `0a4b573` (PR #46 merged; fast-forwarded, no local commits existed). Other open PRs
+(#35, #41, #43, #45, #47) are **not touched**; their scopes overlap `docs/` and this board and are logged here only.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Stop serving the whole repository from the live host: switch the Pages source from `main /` (root mode, F-P19/F-P20) to the GitHub Actions artifact built from `docs/`, then prove the live host no longer serves `data/`, `tools/`, `archive/` | in progress | arena/e292fb4d-prod2 | repository Pages setting (API), `COORDINATION.md`, `data/p2/flags.json` (resolution only if proven) |
+| X-02 Re-read the five `link.amazon` short links and the five `/dp/` listings (2026-11-20) to re-test F-P24 | in progress | arena/e292fb4d-prod2 | `data/p2/live-check-2026-11-20-e292fb4d.json` (new), `COORDINATION.md` |
+| X-03 Rebuild, gate, PR to main, merge, Pages live check; record here | in progress | arena/e292fb4d-prod2 | `docs/`, root mirror, `COORDINATION.md` |
