@@ -23,6 +23,12 @@ Sections:
                robots.txt points at the sitemap; feed items resolve
   shop         one shelf page with all five cards, buy buttons, imagery that
                exists, an About page, and no hands-on-testing claim
+  a11y         one h1 per page, no heading-level skips, headings opened and closed at
+               the same level, alt text on images, every radio inside a label
+  structured   FAQPage markup matches visible page copy; the landing glance table
+               covers all five tools with a source and a sponsored link per row
+  assets       the shipped stylesheet is parseable: no unresolved merge-conflict
+               markers, design tokens defined, every class a page uses exists
   longreads    every long read registered in the calendar exists, shows inline
                sources, carries its "what we could not verify" block, cites only
                allow-listed official hosts, and is in the sitemap and the feed
@@ -33,6 +39,17 @@ Sections:
                link.amazon short links are quoted evidence, never clickable
   measurement  the site's event list vs the endpoint's accepted names; any
                divergence FAILS the build (F-P23 fixed 2026-11-20, D-P21)
+  one-site     one canonical base across every page; sitemap complete and free of
+               duplicates; every archived build carries noindex; robots.txt scoped
+               away from source and archive; every css/js URL carries a content
+               version so a corrected asset cannot sit behind a stale CDN copy
+  briefs       the decision layer: every declared brief rendered, every cited
+               register id resolves, no brief with an empty "not known" list, and
+               the page is in the sitemap and the footer directory (X-04)
+  integrity    no raw merge-conflict marker in any shipped file (a marker shipped
+               in assets/css/site.css on 2026-11-20 and broke the live stylesheet);
+               the stylesheet still defines its tokens and font-faces; register
+               ids cited from a register exist somewhere (X-01/X-05, 2026-11-20)
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
 """
 from __future__ import annotations
@@ -312,6 +329,60 @@ def main() -> int:
                     fail(f"{f.name}: banned popularity claim word '{w}' (D-19)")
     if not FAILURES:
         ok("no prices, ratings or banned popularity claims")
+    # A page body that opens with "---" / "Key: value" / "---" is frontmatter the
+    # renderer does not understand: it ships as visible text. This happened on
+    # 2026-11-20 (before-you-decide.html) and was caught only by reading the live
+    # page, which no check does. Catch it in source instead.
+    for src in sorted((ROOT / "content" / "pages").glob("*.html")):
+        head = src.read_text(encoding="utf-8").lstrip()[:200]
+        if head.startswith("---") and re.search(r"^---\s*$", head.split("\n", 1)[1] if "\n" in head else "", re.M):
+            fail(f"content/pages/{src.name}: opens with a frontmatter block the renderer emits verbatim")
+        if re.match(r"^\s*---\s*\n[A-Za-z][\w ]*:", head):
+            fail(f"content/pages/{src.name}: looks like unstripped frontmatter — it will render as text")
+    # and the built page must not contain a bare delimiter row either
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        if re.search(r'>\s*---\s*<', text) or re.search(r'<p>\s*---\s*</p>', text):
+            fail(f"{f.name}: rendered a bare '---' delimiter as visible content")
+
+
+    # ------------------------------------------------------- derived numbers
+    # 2026-11-20: this session published "the smallest footprint" about the 8 qt
+    # basket. The register says the DUAL basket is smallest (158 in2 vs 172).
+    # Every derived figure on a page must equal the register's arithmetic, so a
+    # wrong comparison fails the build instead of shipping.
+    check("derived")
+    import json as _json
+    _prods = {x["id"]: x for x in _json.loads((DATA / "products.json").read_text(encoding="utf-8"))["products"]}
+    _dims, _cap = {}, {"P1": 6.0, "P2": 26.0, "P3": 8.0}
+    for _pid, _p in _prods.items():
+        if _p.get("dimensions") and _p.get("capacity") and _pid in _cap:
+            _d = float(re.match(r'([\d.]+)"D', _p["dimensions"]).group(1))
+            _w = float(re.search(r'x ([\d.]+)"W', _p["dimensions"]).group(1))
+            _dims[_pid] = (_d, _w, _d * _w, _cap[_pid] / (_d * _w))
+    if len(_dims) >= 3:
+        _smallest = min(_dims, key=lambda k: _dims[k][2])
+        _densest = max(_dims, key=lambda k: _dims[k][3])
+        _shop = (DOCS / "shop.html").read_text(encoding="utf-8")
+        _m = re.search(r"footprint of the three \(([\d.]+)&nbsp;in&sup2;? against ([\d.]+) and ([\d.]+)\)", _shop)
+        if _m:
+            _quoted = sorted(float(x) for x in _m.groups())
+            _actual = sorted(round(v[2], 1) for v in _dims.values())
+            if [round(q) for q in _quoted] != [round(a) for a in _actual]:
+                fail(f"shop.html: quoted footprints {_quoted} != register footprints {_actual}")
+            _named = re.search(r"(?:the|The) ([A-Za-z0-9 ]+?) (?:has|have) the smallest listed footprint", _shop)
+            if _named:
+                fail("shop.html: names a 'smallest footprint' winner in prose — the gate cannot "
+                     "verify a product name here; state the numbers and let the reader compare")
+        # published per-in2 figures on the comparison page must match to 3dp
+        _cmp = (DOCS / "compare.html").read_text(encoding="utf-8")
+        for _pid, (_d, _w, _fp, _den) in _dims.items():
+            _expect = f"{_den:.3f}"
+            if _expect not in _cmp:
+                fail(f"compare.html: capacity-per-in2 for {_pid} should be {_expect}; not found")
+    if not FAILURES:
+        ok(f"published footprints and capacity densities match the register arithmetic "
+           f"({len(_dims)} products; smallest {_smallest}, densest {_densest})")
 
     # ------------------------------------------------------------------ chrome
     check("chrome")
@@ -435,6 +506,189 @@ def main() -> int:
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
 
+    # ------------------------------------------------------------- accessibility
+    check("a11y")
+    # Added 2026-11-20. Nine pages jumped h1 -> h3 (a screen reader announces a
+    # section that was never opened) and one page closed an <h2> with </h3>.
+    # Neither is visually obvious, and neither would ever have been caught by a
+    # reader — which is exactly why it needs a gate rather than a habit.
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        opens = [(int(m.group(1)), m.start()) for m in re.finditer(r"<h([1-6])[^>]*>", text)]
+        closes = [(int(m.group(1)), m.start()) for m in re.finditer(r"</h([1-6])>", text)]
+        if len(opens) != len(closes):
+            fail(f"{f.name}: {len(opens)} headings opened, {len(closes)} closed")
+        for (o, opos), (c, cpos) in zip(opens, closes):
+            if o != c:
+                line = text[:opos].count("\n") + 1
+                fail(f"{f.name}: heading opened as h{o} and closed as h{c} (line {line})")
+        if opens and opens[0][0] != 1:
+            fail(f"{f.name}: first heading is h{opens[0][0]}, not h1")
+        if sum(1 for n, _ in opens if n == 1) != 1:
+            fail(f"{f.name}: {sum(1 for n, _ in opens if n == 1)} h1 elements (want exactly 1)")
+        for (a, _), (b, _) in zip(opens, opens[1:]):
+            if b - a > 1:
+                fail(f"{f.name}: heading level skips from h{a} to h{b}")
+                break
+        # images carry alt text or are explicitly decorative
+        for m in re.finditer(r"<img\b[^>]*>", text):
+            if not re.search(r"\balt=", m.group(0)):
+                fail(f"{f.name}: <img> without an alt attribute")
+                break
+        # a form control needs a label or an aria-label
+        for m in re.finditer(r"<input\b[^>]*>", text):
+            tag = m.group(0)
+            if 'type="hidden"' in tag or 'type="radio"' in tag or 'type="checkbox"' in tag:
+                continue  # radios are wrapped in <label> on this site; checked below
+            if "aria-label" not in tag and "id=" in tag:
+                ident = re.search(r'id="([^"]+)"', tag).group(1)
+                if f'for="{ident}"' not in text:
+                    fail(f"{f.name}: input #{ident} has no <label for=...>")
+    # radio groups: every radio must sit inside a <label>
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for m in re.finditer(r"<input\b[^>]*type=\"radio\"[^>]*>", text):
+            before = text[max(0, m.start() - 200):m.start()]
+            if "<label" not in before.split("<label")[-1] if "<label" in before else True:
+                pass  # handled by the structural check below
+        radio_count = text.count('type="radio"')
+        label_count = text.count("<label")
+        if radio_count and label_count < radio_count:
+            fail(f"{f.name}: {radio_count} radios but only {label_count} labels")
+    if not FAILURES:
+        ok("one h1 per page, no heading-level skips, every heading closed as opened, "
+           "images have alt, radios are labelled")
+
+    # --------------------------------------------------------------- structured
+    check("structured")
+    # Added 2026-11-20. FAQPage markup that does not match the visible copy is a
+    # search-engine violation (Google's structured-data policy requires the
+    # marked-up content to be visible on the page), so the two are asserted to
+    # agree rather than trusted to be written in step. Only the questions are
+    # compared verbatim; answers are compared by a shared keyword set, because
+    # the JSON-LD is plain text and the page copy carries links.
+    for name, must_have in (("index.html", 4), ("decide.html", 4)):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        m = re.search(r'<script type="application/ld\+json">(.*?)</script>', text, re.S)
+        graph = json.loads(m.group(1))["@graph"] if m else []
+        faq = next((g for g in graph if g.get("@type") == "FAQPage"), None)
+        if faq is None:
+            fail(f"{name}: no FAQPage structured data")
+            continue
+        entries = faq.get("mainEntity", [])
+        if len(entries) < must_have:
+            fail(f"{name}: FAQPage has {len(entries)} questions (want at least {must_have})")
+        for e in entries:
+            q = e["name"]
+            # the visible page must contain the same question as a <summary>
+            if q not in text:
+                fail(f"{name}: FAQPage question not visible on the page: {q!r}")
+            if not e.get("acceptedAnswer", {}).get("text"):
+                fail(f"{name}: FAQPage question has no answer: {q!r}")
+    # the glance table on the landing page must carry a source link on every row
+    home = (DOCS / "index.html").read_text(encoding="utf-8")
+    if 'class="data glance-table"' in home:
+        glance = home.split('class="data glance-table"', 1)[1].split("</table>", 1)[0]
+        rows = glance.count("<tr") - 1
+        sourced = len(re.findall(r'https://www\.amazon\.com/dp/', glance))
+        buyd = len(re.findall(r'rel="sponsored', glance))
+        if rows != 5:
+            fail(f"index.html: glance table has {rows} rows (want all 5 tools)")
+        if sourced < 5 or buyd < 5:
+            fail(f"index.html: glance table has {sourced} listing links and {buyd} sponsored links for 5 rows")
+    else:
+        fail("index.html: the at-a-glance table is missing")
+    if not FAILURES:
+        ok("FAQPage data mirrors the visible questions; glance table row-sourced")
+
+    # ------------------------------------------------------------------ assets
+    check("assets")
+    # Added 2026-11-20. The site shipped a stylesheet whose first line was the
+    # literal text "<<<<<<< HEAD" (an unresolved merge conflict, reproduced on the
+    # live host). A browser is required to core (!) an unknown selector, which
+    # swallowed the @font-face block and the :root custom properties: no fonts, no
+    # colour tokens, no design system, on every page. Nothing in this gate looked
+    # at the CSS bytes, so 30 green sections shipped a broken site.
+    #
+    # These checks are deliberately structural, not stylistic: they assert the
+    # artifact a browser will parse, and the presets the pages depend on.
+    CONFLICT_MARKER = re.compile(r"^(<{7}|={7}|>{7})(\s|$)", re.M)
+    # Only the files a built page actually loads can break the reader's view, so
+    # scan those (plus every .js, which cannot be scoped by a media query). An
+    # unrelated archived stylesheet in the same folder is not a shipping defect.
+    linked = set()
+    for page in html_files:
+        text = page.read_text(encoding="utf-8")
+        # Strip any ?v= cache-buster: the artifact on disk is site.css, the page
+        # requests site.css?v=<hash>. Comparing the raw string against the file
+        # list would fail for every page once assets are versioned.
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
+            linked.add(rel)
+        for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
+            linked.add(rel)
+    css_files = sorted(DOCS / rel for rel in linked if rel.endswith((".css", ".js")) and (DOCS / rel).exists())
+    if not css_files:
+        fail("no stylesheet or script linked by a built page exists in docs/ — nothing styles the site")
+    for f in css_files:
+        text = f.read_text(encoding="utf-8")
+        m = CONFLICT_MARKER.search(text)
+        if m:
+            line = text[:m.start()].count("\n") + 1
+            fail(f"{f.relative_to(DOCS)}: unresolved merge-conflict marker at line {line} "
+                 f"({m.group(0).strip()!r}) — a browser drops the rest of the rule block")
+        if f.suffix == ".css":
+            # a stylesheet that does not declare the design tokens renders unstyled
+            if ":root" not in text:
+                fail(f"{f.relative_to(DOCS)}: no :root block — every var(--token) is undefined")
+            if text.count("{") != text.count("}"):
+                fail(f"{f.relative_to(DOCS)}: unbalanced braces "
+                     f"({text.count('{')} open vs {text.count('}')} close)")
+            for tok in ("--paper", "--ink", "--terracotta", "--serif", "--sans", "--rule"):
+                if tok + ":" not in text:
+                    fail(f"{f.relative_to(DOCS)}: design token {tok} is not defined")
+            # every class the built pages actually use must exist in the sheet
+            used = set()
+            for page in html_files:
+                for attr in re.findall(r'class="([^"]*)"', page.read_text(encoding="utf-8")):
+                    used.update(attr.split())
+            defined = set(re.findall(r"\.(-?[_a-zA-Z][_a-zA-Z0-9-]*)", text))
+            missing = sorted(c for c in used if c not in defined)
+            if missing:
+                fail(f"{f.relative_to(DOCS)}: {len(missing)} class(es) used by a built page are "
+                     f"never defined: {', '.join(missing[:8])}")
+    if not FAILURES:
+        ok("stylesheets parse as stylesheets: no conflict markers, tokens defined, "
+           "every class used by a page exists")
+    # Weight budget. The landing page shipped 2.4 MB of PNG for six flat-colour
+    # illustrations; WebP siblings brought the same art to 230 KB. A budget is
+    # the only thing that stops the next illustration from quietly undoing it.
+    BUDGET_FIRST_VIEW_KB = 900
+    for name, budget in (("index.html", BUDGET_FIRST_VIEW_KB),
+                         ("shop.html", BUDGET_FIRST_VIEW_KB),
+                         ("decide.html", BUDGET_FIRST_VIEW_KB)):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        total = 0
+        for rel in re.findall(r'<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"\s]+)"', text):
+            # a <picture> source is what a modern browser actually downloads
+            pth = DOCS / rel
+            if pth.exists():
+                total += pth.stat().st_size
+        if total > budget * 1024:
+            fail(f"{name}: first-view imagery is {total // 1024} KB (budget {budget} KB)")
+    # every <picture> must have a WebP source and a PNG fallback, and both exist
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for m in re.finditer(r'<picture>\s*<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"[^>]*>\s*<img[^>]+src="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"', text):
+            webp, png = m.group(1), m.group(2)
+            if not webp.endswith(".webp"):
+                fail(f"{f.name}: <picture> source is not WebP ({webp})")
+            for rel in (webp, png):
+                if not (DOCS / rel).exists():
+                    fail(f"{f.name}: <picture> file missing from docs/: {rel}")
+    if not FAILURES:
+        ok(f"first-view imagery within the {BUDGET_FIRST_VIEW_KB} KB budget; every <picture> "
+           f"has an existing WebP source and PNG fallback")
+
     # -------------------------------------------------------------- long reads
     check("longreads")
     # Rules for long-form pieces (added 2026-11-20). A long read is an argument,
@@ -496,7 +750,7 @@ def main() -> int:
         for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"]+)"', text):
             if not (DOCS / rel).exists():
                 fail(f"{f.name}: image {rel} missing from docs/")
-        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             if not (DOCS / rel).exists():
                 fail(f"{f.name}: stylesheet {rel} missing from docs/")
     # the docs must not claim a hands-on test
@@ -633,6 +887,194 @@ def main() -> int:
         fail("measure.js: guide_read_75 does not cover article-* pages, so long reads are unmeasured")
     else:
         ok("depth event covers both guide-* and article-* pages")
+
+    # ----------------------------------------------------------------- briefs
+    check("briefs")
+    # X-04: the decision layer. A brief is only useful if every fact in it points
+    # at a row a reader can open, and only honest if it names what is missing. So
+    # the gate asserts: the page exists and is reachable; every declared brief is
+    # rendered with an anchor; every cited register id exists in that register;
+    # and no brief is published with an empty "not known" list, which would mean
+    # a decision dressed up as a conclusion.
+    briefs_doc = DOCS / "briefs.html"
+    if not briefs_doc.exists():
+        fail("docs/briefs.html is missing but briefs are declared in data/p2/briefs.json")
+    else:
+        btext = briefs_doc.read_text(encoding="utf-8")
+        bjson = json.loads((DATA / "briefs.json").read_text(encoding="utf-8"))["briefs"]
+        flag_ids = {x["id"] for x in json.loads((DATA / "flags.json").read_text(encoding="utf-8"))["flags"]}
+        q_ids = {x["id"] for x in json.loads((DATA / "questions.json").read_text(encoding="utf-8"))["questions"]}
+        sg_ids = {x["id"] for x in json.loads((DATA / "suggestions.json").read_text(encoding="utf-8"))["suggestions"]}
+        d_ids = {x["id"] for x in json.loads((DATA / "decisions.json").read_text(encoding="utf-8"))["decisions"]}
+        reg = {"F": flag_ids, "Q": q_ids, "SG": sg_ids, "D": d_ids}
+        for b in bjson:
+            if f'id="{b["id"]}"' not in btext:
+                fail(f"briefs.html: brief {b['id']} is declared but not rendered")
+            if not b.get("not_known"):
+                fail(f"data/p2/briefs.json: {b['id']} lists nothing as unknown — "
+                     "a decision with no open question is a conclusion, not a brief")
+            if not b.get("known"):
+                fail(f"data/p2/briefs.json: {b['id']} cites no evidence")
+            for ref in b.get("flags", []) + b.get("questions", []):
+                ns = ref.split("-")[0]
+                if ns not in reg or ref not in reg[ns]:
+                    fail(f"data/p2/briefs.json: {b['id']} cites {ref}, which is not in its register")
+        # every id cited inside a known[]/cheapest-test string must resolve too
+        idscan = re.compile(r"\b(F-P?\d{1,3}|Q-P?\d{1,3}|SG-\d{1,3}|D-P?\d{1,3})\b")
+        for b in bjson:
+            blob = json.dumps({k: b[k] for k in ("known", "not_known", "cheapest_first_test",
+                                                  "what_it_blocks", "what_it_does_not_block")})
+            for rid in set(idscan.findall(blob)):
+                ns = rid.split("-")[0]
+                if ns in reg and rid not in reg[ns]:
+                    fail(f"data/p2/briefs.json: {b['id']} text cites {rid}, missing from that register")
+        # findable: the briefs page must be in the sitemap and reachable from the footer
+        smap = (DOCS / "sitemap.xml").read_text(encoding="utf-8")
+        if "briefs.html" not in smap:
+            fail("sitemap.xml does not list briefs.html")
+        if 'href="briefs.html"' not in (DOCS / "index.html").read_text(encoding="utf-8"):
+            fail("index.html does not link briefs.html (the footer directory must carry it)")
+    if not FAILURES:
+        ok(f"{'briefs' and len(bjson)} briefs rendered; every citation resolves; page in sitemap + footer")
+
+    # --------------------------------------------------------- one-site/noindex
+    check("one-site")
+    # "Make it findable" means one site, not four. Every archived build is still
+    # fetchable at the live host; left unmarked it competes with the canonical page
+    # it duplicates. guard_archive() writes a noindex into each one on every build,
+    # and this section is what stops that from silently regressing.
+    arch = ROOT / "archive"
+    if arch.is_dir():
+        unmarked = []
+        for f in arch.rglob("*"):
+            if f.is_file() and f.suffix in (".html", ".xml"):
+                if "noindex" not in f.read_text(encoding="utf-8", errors="replace"):
+                    unmarked.append(f.relative_to(arch).as_posix())
+        if unmarked:
+            fail(f"{len(unmarked)} archived pages ship without noindex, so duplicate copies of "
+                 f"the site stay indexable (first: {unmarked[0]}) — rerun tools/build.py")
+    robots = (DOCS / "robots.txt").read_text(encoding="utf-8")
+    for required in ("Disallow: /Prod2/archive/", "Disallow: /Prod2/data/", "Sitemap: "):
+        if required not in robots:
+            fail(f"robots.txt: missing '{required}'")
+    # exactly one canonical home: every page points at the same base, and the
+    # sitemap holds no duplicates and no unbuilt URL.
+    cands = set()
+    for f in html_files:
+        m = re.search(r'<link rel="canonical" href="([^"]+)"', f.read_text(encoding="utf-8"))
+        if not m:
+            fail(f"{f.name}: no canonical link (search engines must be told which URL is the page)")
+        else:
+            cands.add(m.group(1).rsplit("/", 1)[0])
+    if len(cands) > 1:
+        fail(f"pages declare {len(cands)} different canonical bases: {sorted(cands)}")
+    smap = (DOCS / "sitemap.xml").read_text(encoding="utf-8")
+    locs = re.findall(r"<loc>([^<]+)</loc>", smap)
+    if len(locs) != len(set(locs)):
+        fail("sitemap.xml contains duplicate <loc> entries")
+    built_names = {f.name for f in html_files}
+    missing_from_sitemap = sorted(n for n in built_names if f"/{n}<" not in smap)
+    if missing_from_sitemap:
+        fail(f"{len(missing_from_sitemap)} built pages absent from sitemap.xml: {missing_from_sitemap[:4]}")
+    # Asset URLs must carry a content version. Pages serves assets through a CDN:
+    # on 2026-11-20 the fixed stylesheet was in the repo and the CDN still served
+    # the conflict-broken copy, so a reader kept seeing a broken site after a
+    # successful deploy. Versioning the URL makes the deploy actually take effect.
+    unversioned = []
+    for f in html_files:
+        t = f.read_text(encoding="utf-8")
+        # Only real asset references: a <link> to a stylesheet or a <script src>.
+        # A bare href to the stylesheet is evidence *about* an asset (F-P29 cites
+        # the live stylesheet URL as its proof), not a request for one.
+        for m in re.finditer(r'<link[^>]+href="[^"]*?/assets/css/[^"?]+"'
+                             r'|<script[^>]+src="[^"]*?/assets/js/[^"?]+"', t):
+            unversioned.append(f"{f.name}: {m.group(0)[:60]}")
+    if unversioned:
+        fail(f"{len(unversioned)} asset URLs carry no ?v= cache-buster, so a fix can sit "
+             f"behind a stale CDN copy (first: {unversioned[0]})")
+    if not FAILURES:
+        ok(f"one canonical base; {len(locs)} sitemap URLs, no duplicates; archive noindexed; "
+           f"robots scoped; assets cache-busted")
+
+    # --------------------------------------------------------------- integrity
+    check("integrity")
+    # A raw merge-conflict marker shipped in assets/css/site.css on 2026-11-20 and
+    # build.py copied it verbatim into docs/assets/css/, so the published stylesheet
+    # was invalid for every reader while every other section stayed green: no section
+    # read the static assets. Two fixes: resolve the file (done), and gate it here.
+    CONFLICT_RE = re.compile(r"^(<<<<<<<|>>>>>>>|\|\|\|\|\|\|\|)( |$)|^=======$", re.M)
+    static_exts = {".css", ".js", ".svg", ".html", ".xml", ".json", ".txt"}
+    for root_dir, label in ((DOCS, "docs/"), (ROOT / "assets", "assets/")):
+        for f in root_dir.rglob("*"):
+            if not f.is_file() or f.suffix not in static_exts:
+                continue
+            if "archive" in f.parts:
+                continue
+            try:
+                text = f.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                continue
+            if CONFLICT_RE.search(text):
+                fail(f"{label}{f.relative_to(root_dir).as_posix()}: raw merge-conflict marker shipped")
+    # The stylesheet must actually parse far enough to define the token block the
+    # pages depend on: a truncated or marker-broken file loses :root and the site
+    # renders unstyled. Assert the tokens and the two families the build preloads.
+    css = DOCS / "assets" / "css" / "site.css"
+    if not css.exists():
+        fail("docs/assets/css/site.css is missing")
+    else:
+        c = css.read_text(encoding="utf-8")
+        if c.count("{") != c.count("}"):
+            fail(f"site.css: unbalanced braces ({c.count('{')} open / {c.count('}')} close)")
+        for token in ("--paper:", "--ink:", "--serif:", "--sans:"):
+            if token not in c:
+                fail(f"site.css: design token {token} missing (stylesheet truncated?)")
+        # Both a static-subset and a variable stack are valid; what must not happen
+        # is a stylesheet with no usable face for each family the build preloads.
+        # (tools/design_qa.py parses the CSS properly; this is the cheap assertion.)
+        if "@font-face" not in c:
+            fail("site.css: no @font-face at all, so the preloaded fonts are never used")
+        for family in ('"Fraunces"', '"Inter"'):
+            if family not in c:
+                fail(f"site.css: no @font-face declares {family}")
+        if not re.search(r'src:\s*url\("\.\./fonts/[^"]+\.woff2"\)', c):
+            fail("site.css: no @font-face points at a local .woff2 (a CDN face would leak reader IPs)")
+    # Every register id referenced from a page or another register must exist.
+    registers = {}
+    for name, key in (("flags.json", "flags"), ("questions.json", "questions"),
+                      ("suggestions.json", "suggestions"), ("decisions.json", "decisions")):
+        p = DATA / name
+        if p.exists():
+            registers[name] = {x["id"] for x in json.loads(p.read_text(encoding="utf-8"))[key]}
+    all_ids = set().union(*registers.values()) if registers else set()
+    id_re = re.compile(r"\b(F-P?\d{1,3}|Q(?:-P)?\d{1,3}|SG-\d{1,3}|D(?:-P)?\d{1,3})\b")
+    # A range such as "D-P10..D-P17" names an ID space, not a reference to a row,
+    # so drop range expressions before collecting ids to check.
+    range_re = re.compile(r"\b[A-Z]{1,2}(?:-P)?\d{1,3}\s*[.–-]{1,2}\s*[A-Z]{1,2}(?:-P)?\d{1,3}\b")
+    for name in registers:
+        text = range_re.sub(" ", (DATA / name).read_text(encoding="utf-8"))
+        # Renumber provenance sentences exist to name a row's FORMER ids ("renumbered
+        # from Q-P24 during the integration", "D-P10 -> D-P16 -> D-P24 (main consumed
+        # each ID)"). They are history, not live references: strip every sentence that
+        # contains "renumber" before collecting ids, exactly as the page-level scan
+        # above treats provenance. A live citation never lives inside such a sentence.
+        text = re.sub(r"[^.]*[Rr]enumbered?[^.]*\.?", " ", text)
+        for rid in set(id_re.findall(text)):
+            # a register may cite a neighbouring register's id; only flag ids that
+            # exist in NO register at all, which is the real dangling-reference case.
+            if rid not in all_ids:
+                fail(f"data/p2/{name}: cites {rid}, which exists in no register")
+    # every dated verification record must name a date and the tool that read it
+    for p in DATA.glob("verification-*.json"):
+        try:
+            blob = json.loads(p.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            fail(f"data/p2/{p.name}: not valid JSON ({exc})")
+            continue
+        if not re.search(r"\d{4}-\d{2}-\d{2}", p.name):
+            fail(f"data/p2/{p.name}: verification record filename carries no date")
+    if not FAILURES:
+        ok("no conflict markers shipped; stylesheet tokens intact; register ids resolve")
 
     # -------------------------------------------------------------- freshness
     check("freshness")

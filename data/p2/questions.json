@@ -2,14 +2,14 @@
  "_meta": {
   "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 reconciliation: three passes share the register. Event-vocabulary pass added Q-P14; anti-slop pass added Q-P10 (working-brand ratification, decision D-P18, flag F-P21) and Q-P11 (availability snapshots — answered no by the D-P11 policy read). | 2026-11-20 (arena/7cec0d73-prod2, final integration): rows carried forward from the open branches arena/37b265a4-prod2 (PR #43), arena/20f83238-prod2 (PR #47) and arena/e0d92902-prod2 (PR #41) by content, renumbered where the source id collided with a main row. No main row was dropped or rewritten in place."
+  "last_change": "Merged with origin/main (2026-11-20): main's rows kept for shared ids; Q-P12, Q-P13 and Q-P30–Q-P39 (PR #41's rows, renumbered) carried from arena/7cec0d73-prod2."
  },
  "questions": [
   {
    "id": "Q-01",
    "area": "Money",
    "question": "Is the Associates account enrolled under tracking ID shopnow047c-20, and has each published link been validated in that account?",
-   "known": "The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). All five supplied short links resolved without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central.",
+   "known": "The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). On 2026-11-19 all five supplied short links were recorded as resolving without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central. 2026-11-20 re-read: only one of five owner short links reached its intended ASIN in the fetch-tool read (F-P24, Q-P15).",
    "unknown": "Account enrollment status; Partner Tag registration; whether test clicks report.",
    "how_to_discover": "Owner logs into Associates Central: confirm the Partner Tag, generate or validate one Special Link per product, run a test click and read it in the report (protocol on the measurement page).",
    "answerable_by": "The account holder.",
@@ -124,7 +124,7 @@
    "id": "Q-P03",
    "area": "Product identity",
    "question": "Do the five submitted links continue to point at the same five products over time?",
-   "known": "On 2026-11-19 all five resolved to the recorded ASINs. Listings drift (titles change, variants swap, default offers change — F-44, F-49, F-29).",
+   "known": "On 2026-11-19 all five resolved to the recorded ASINs. Listings drift (titles change, variants swap, default offers change — F-44, F-49, F-29). 2026-11-20 re-read: one of five short links reached its intended ASIN; the four others did not (F-P24, Q-P15). The /dp/ listings themselves still matched their titles.",
    "unknown": "Future drift.",
    "how_to_discover": "Re-run the verification pass each season or before any campaign push; record dated observations in the register.",
    "answerable_by": "Any verification session.",

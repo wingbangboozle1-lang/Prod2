@@ -1,6 +1,16 @@
 <p class="eyebrow">Decisions</p>
 <h1>Pick a path before we build it.</h1>
-<p class="lede">Everything proposed for this site lands here first, with its evidence, its cost and what it blocks. Nothing below is implemented until a path is chosen — so this page is a review surface, not a changelog.</p>
+<p class="lede">Everything proposed for this site lands here first, with its evidence, its cost and what it blocks. This page is a review surface, not a changelog — and on 2026-11-20 it did its job: the queue was reviewed end to end and a path was chosen (<a href="decisions.html#D-P22">D-P22</a>).</p>
+
+<div class="callout callout-sage">
+  <p class="eyebrow">Reviewed 2026-11-20 — the queue is decided (D-P22)</p>
+  <p>With no manual input available, the reviewer slot was filled by the integration session for this pass. <strong>Path A — prove the traffic first — is the chosen strategy</strong>: host the endpoint, verify Search Console, run the runbook, then pick topics from measured queries. Every other item is decided too, item by item — <span class="status status-accepted">accepted</span> with its gate, <span class="status status-shipped">shipped</span> where the shop passes already delivered it, <span class="status status-deferred">deferred</span> with its blocker stated, or <span class="status status-rejected">rejected</span> against the policy reads. Deferred is a decision with a reason, not limbo. The promotion hold (<a href="#SG-14">SG-14</a>) is now standing policy (<a href="decisions.html#D-P23">D-P23</a>), and one new discovery item (<a href="#SG-48">SG-48</a>, the monthly owner digest) keeps the owner actions from ageing silently. To revisit any call: record a different choice against the item's ID and the decision log takes it from there.</p>
+</div>
+
+<div class="callout">
+  <h2>Before any of this: eleven facts are missing</h2>
+  <p>The board below proposes work. A handful of those proposals cannot be judged until four facts exist that only the owner can obtain — whether the tracking tag is live, where analytics runs, whether a domain is controlled, and whether the brand name is clear. Those are set out, one row each, with what we know, what is missing and how it gets found, on <a href="before-you-decide.html"><strong>Before you decide anything</strong></a>. Read that page first if you only have ten minutes; read this one when you want to pick a path.</p>
+</div>
 
 <h2 id="ranked">Do these five things, in this order</h2>
 <p>Thirty-eight items propose work. Only a handful of them change what happens next, and most cost you minutes rather than days. This is the short list, ranked by how much it unblocks per hour of your time. Everything below it is optional.</p>
@@ -52,7 +62,7 @@
 <p class="small-note">Ranking rationale: items 1–2 are the only ones that make anything <em>measurable</em>; item 3 is the only one whose cost rises over time; item 4 unblocks a feature that is already built and tested. Items 5 and everything below wait on those. Nothing on this page has been implemented except where a row is marked <span class="status status-shipped">shipped</span>.</p>
 
 <h2 id="paths">Three paths, one choice</h2>
-<p>The thirty-four items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
+<p>The items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
 
 <div class="path-grid">
   <article class="path-card recommended">
@@ -71,7 +81,7 @@
   <article class="path-card">
     <p class="kicker">Alternative</p>
     <h3>Path B — Consolidate the shop</h3>
-    <p>Turn five products and ten guides into one dense, linkable cluster: one buyer section per product, one hub per format, and the counter-depth spec as the signature comparison.</p>
+    <p>Turn five products, ten guides and two long reads into one dense, linkable cluster: one buyer section per product, one hub per format, and the counter-depth spec as the signature comparison.</p>
     <ul>
       <li><a href="#SG-12">SG-12</a> — a buyer-first section for every product</li>
       <li><a href="#SG-13">SG-13</a> — one cluster per format, linked into a hub</li>
@@ -113,7 +123,7 @@
 </div>
 
 <h2 id="queue">The full queue</h2>
-<p>Every item, with the evidence for it, what it costs, and our recommendation. Status is one of <span class="status status-shipped">shipped</span>, <span class="status status-accepted">accepted</span> (mandated by the standing brief) or <span class="status status-proposed">proposed</span> (waiting on a choice).</p>
+<p>Every item, with the evidence for it, what it costs, and our recommendation. Status is one of <span class="status status-shipped">shipped</span> (built and live), <span class="status status-accepted">accepted</span> (decided in, with its gate stated), <span class="status status-deferred">deferred</span> (decided to wait, with its blocker stated), <span class="status status-rejected">rejected</span> (decided out, against a recorded reason) or <span class="status status-proposed">proposed</span> (new, awaiting the next review).</p>
 
 {{suggestions}}
 
@@ -121,6 +131,7 @@
   <h3>What changed in this pass</h3>
   <p>The shop rebuild you are reading was proposed here before it was built: <a href="#SG-31">SG-31</a> (pick a visual direction), <a href="#SG-33">SG-33</a> (reversible tokens), <a href="#SG-27">SG-27</a> (shop-first navigation), <a href="#SG-28">SG-28</a> (the shipped feed) and <a href="#SG-35">SG-35</a> (a standing seasonal desk). The brief mandated a polished, shop-like front end, so those rows moved from <em>proposed</em> to <em>shipped</em> with the work recorded rather than waiting for a second nod. Everything they depend on — clearance, domain, measured data — still waits for the owner.</p>
   <p><strong>2026-11-20 anti-slop pass (arena/f55b5827-prod2):</strong> <a href="#SG-15">SG-15</a> (the brief's Fraunces + Inter shipped self-hosted), <a href="#SG-38">SG-38</a> (the working brand "The Crisp Counter", D-P18, clearance still open as <a href="flagged.html#F-P21">F-P21</a>), <a href="#SG-40">SG-40</a> (seasonal title calendar; the December gifting guide is live) and <a href="#SG-32">SG-32</a> (the decision-maker path above). <a href="#SG-42">SG-42</a> (availability snapshots) was closed as rejected on the policy read in decision D-P11 — the same Program Policies clause governs availability as prices.</p>
+  <p><strong>2026-11-20 reviewer pass (arena/20f83238-prod2):</strong> the queue was decided end to end (<a href="decisions.html#D-P22">D-P22</a> chose Path A). Items the earlier passes had built but left marked — <a href="#SG-11">SG-11</a>, <a href="#SG-12">SG-12</a>, <a href="#SG-13">SG-13</a>, <a href="#SG-17">SG-17</a>, <a href="#SG-35">SG-35</a> — now read <em>shipped</em> to match reality; <a href="#SG-05">SG-05</a> was reconciled to <em>rejected</em> against <a href="decisions.html#D-P11">D-P11</a> (the queue and the decision log had disagreed — flag <a href="flagged.html#F-P29">F-P29</a>, resolved). The hold in <a href="#SG-14">SG-14</a> became standing policy (<a href="decisions.html#D-P23">D-P23</a>).</p>
 </div>
 
 <p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>. Every row keeps its dependency IDs, which resolve on the <a href="questions.html">open questions</a> page.</p>

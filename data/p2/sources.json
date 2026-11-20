@@ -73,7 +73,8 @@
     "2026-11-14",
     "2026-11-16",
     "2026-11-17",
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20"
    ]
   },
   {
@@ -85,7 +86,8 @@
     "2026-11-14",
     "2026-11-16",
     "2026-11-17",
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20"
    ]
   },
   {
@@ -97,7 +99,8 @@
     "2026-11-14",
     "2026-11-16",
     "2026-11-17",
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20"
    ]
   },
   {
@@ -106,7 +109,8 @@
    "url": "https://link.amazon/B0c8moW59",
    "kind": "Owner-supplied link",
    "read": [
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20"
    ]
   },
   {
@@ -115,7 +119,8 @@
    "url": "https://link.amazon/B0f3GKalj",
    "kind": "Owner-supplied link",
    "read": [
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-20"
    ]
   },
   {
@@ -159,13 +164,15 @@
   },
   {
    "id": "S-COMM",
-   "title": "Associates Standard Commission Income Statement — Table 1 rate schedule (Kitchen 4.50%, Home 3.00%)",
+   "title": "Associates Program Standard Commission Income Statement — Table 1 fixed rates (Kitchen 4.50%, Home/furniture 3.00%, All Other 4.00%)",
    "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
    "kind": "Official policy",
    "read": [
     "2026-11-14",
-    "2026-11-17"
-   ]
+    "2026-11-17",
+    "2026-11-20"
+   ],
+   "note": "Re-read 2026-11-20 with the fetch tool. Page title observed verbatim: 'Associates Program Standard Commission Income Statement'. The table maps programme CATEGORIES to rates; it does not map an ASIN to a category, so no per-product rate is derived from it (F-01 stays open). Verbatim rows recorded in data/p2/verification-2026-11-20.json -> third_pass_2026_11_20_arena_15730819.rate_layer_read_2026_11_20."
   },
   {
    "id": "S-HELP",

@@ -1,8 +1,9 @@
 {
  "_meta": {
   "description": "The nine decisions this repository is actually waiting on, ranked by what they unblock. Derived from the suggestion queue and the open-questions register; rendered on the Analysis page so a reviewer sees the whole board in one place rather than reconstructing it from eight pages.",
-  "updated_utc": "2026-11-19",
-  "how_to_use": "Answer the waiting_on field — usually one sentence — and the items above it move. Nothing here blocks publication: the site stays live and correct while every one of these stays open."
+  "updated_utc": "2026-11-20",
+  "how_to_use": "Answer the waiting_on field — usually one sentence — and the items above it move. Nothing here blocks publication: the site stays live and correct while every one of these stays open.",
+  "last_change": "rank 9 resolved 2026-11-20 (arena/7cec0d73-prod2): PR #16 closed, not merged; wanted content ported via the generated build."
  },
  "ordering": [
   {
@@ -114,10 +115,10 @@
   },
   {
    "rank": 9,
-   "decision": "Close the open pull request hazard",
-   "item": "Q-P30 / SG-32 — PR #16 would overwrite the generated root the live site is served from.",
-   "why": "It is not a content question, it is repository safety: one merge from a stale branch replaces the publication with a hand-authored copy and breaks the reproducibility check that guards it.",
-   "waiting_on": "Close it, or ask for it to be retargeted. Logged as RR-5 and RR-6 on the coordination board.",
+   "decision": "Close out the PR #16 hazard (resolved: the PR is closed)",
+   "item": "Q-P30 / SG-32 — PR #16 was closed on 2026-11-20, not merged (GitHub API). Its wanted content was ported onto main's generated pipeline; its hand-authored root pages stay unmerged.",
+   "why": "It was a repository-safety question: one merge from a stale branch would replace the publication with a hand-authored copy and break the reproducibility check that guards it. Answered by the integration session: the PR is closed, the hazard is gone, and the wanted reader-facing work arrived through the generated build instead.",
+   "waiting_on": "Nothing — resolved. The coordination board records the port; SG-32's cleanup item stays open only as bookkeeping.",
    "effort": "Minutes",
    "unblocks": [
     "a clean next merge"

@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded. | 2026-11-20 (arena/7cec0d73-prod2, final integration): rows carried forward from the open branches arena/37b265a4-prod2 (PR #43), arena/20f83238-prod2 (PR #47) and arena/e0d92902-prod2 (PR #41) by content, renumbered where the source id collided with a main row. No main row was dropped or rewritten in place."
+  "last_change": "Merged with origin/main (2026-11-20): main's rows kept for shared ids (both integrations had independently renumbered PR #47's D-P21/D-P22 to D-P22/D-P23); D-P24 (PR #41's handoff record) carried from arena/7cec0d73-prod2."
  },
  "decisions": [
   {
@@ -321,18 +321,16 @@
    "recorded_choice": "Path A — 'Prove the traffic first' — is chosen as the standing strategy (the queue's own recommendation; recorded here in the reviewer slot the brief requires, with no manual input available). Concretely: SG-06 (endpoint) + SG-29 (Search Console) + SG-44 (the runbook) are the next actions; SG-34 switches topic selection to measured queries once 14 days of data exist; Path B and Path C items are decided item-by-item in the queue (shipped where the shop passes already delivered them — SG-13, SG-17, SG-35; deferred to Path B's editorial hours or Path C's clearance — SG-02, SG-08, SG-10, SG-39, SG-43; gated on owner answers — SG-01, SG-36, SG-41). Deferred is a recorded decision with a stated blocker, not limbo, and nothing is dropped. No new reader-facing scope beyond the published calendar ships until measurement exists.",
    "sources": [
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json"
-   ],
-   "renumber_note": "Renumbered from D-P21 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
+   ]
   },
   {
    "id": "D-P23",
    "question": "Do paid promotion, a newsletter, or any paid placement run before attribution is proven?",
    "status": "Recorded 2026-11-20",
-   "recorded_choice": "No. SG-14 is accepted as a standing hold: no paid promotion and no newsletter until one clean attribution test exists (a tagged Special Link per product clicked and read back in the Associates tracking report — the protocol on the measurement page). The brief's evidence-first rule applies to spend even more than to copy: an unmeasured funnel cannot tell a promotion from a leak. The hold lifts on the owner's record of that one test.",
+   "recorded_choice": "No. SG-14 is accepted as a standing hold: no paid promotion and no newsletter until one clean attribution test exists (a tagged Special Link per product clicked and read back in the Associates tracking report — the protocol on the measurement page). The brief's evidence-first rule applies to spend even more than to copy: an unmeasured funnel cannot tell a promotion from a leak. The hold lifts on the owner's record of that one test. (Recorded by the D-P22 reviewer pass.)",
    "sources": [
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json"
-   ],
-   "renumber_note": "Renumbered from D-P22 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
+   ]
   },
   {
    "id": "D-P24",

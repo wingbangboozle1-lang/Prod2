@@ -1,0 +1,135 @@
+{
+  "_meta": {
+    "description": "Live re-read of the five tracked Amazon listings and the five owner-submitted short links, performed 2026-11-20 by session arena/1930d8a3-prod2. This file is an observation record, not a register: it changes no product value and answers no flag. Every field is either a string copied from the fetched page or null. Nothing here is inferred.",
+    "read_utc": "2026-11-20T06:55Z",
+    "reader": "fetch tool (this sandbox cannot open an outbound TLS connection to www.amazon.com; curl returns SSL_ERROR_SYSCALL / http 000, so the fetch tool is the reader and that limitation is stated wherever a value depends on it)",
+    "scope": "5 ASIN listing pages at https://www.amazon.com/dp/{ASIN}, 5 owner-submitted https://link.amazon/ short links",
+    "what_this_file_does_not_claim": [
+      "It does not establish a price, a rating or a review count for any product. Amazon returned 'customers also viewed' carousels and protection-plan blocks that carry OTHER ASINs' figures; two such figures are recorded below as traps rather than as readings.",
+      "It does not confirm the short links resolve to their intended listings. See short_links below.",
+      "It does not grade or verify any manufacturer accuracy claim. Claims are recorded exactly as the listing states them."
+    ],
+    "cross_references": ["F-02", "F-03", "F-17", "F-49", "F-P17", "F-P24"]
+  },
+  "listings": [
+    {
+      "id": "P1",
+      "asin": "B0CDY277D3",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "http_status": 200,
+      "title_observed": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+      "title_register": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+      "title_match": "exact",
+      "breadcrumb_observed": ["Home & Kitchen", "Kitchen & Dining", "Small Appliances", "Fryers", "Air Fryers"],
+      "breadcrumb_register": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+      "breadcrumb_match": "exact",
+      "price_recorded": null,
+      "rating_recorded": null,
+      "price_trap_observed": "$74.99 rendered inside the 'customers who viewed this item also viewed' carousel next to a *different* ASIN (B0B7C327LK) whose title is a near-clone of P1's. Not P1's price; not recorded as one."
+    },
+    {
+      "id": "P2",
+      "asin": "B09B7SB46R",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "http_status": 200,
+      "title_observed": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+      "title_register": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+      "title_match": "exact",
+      "breadcrumb_observed": ["Home & Kitchen", "Kitchen & Dining", "Small Appliances", "Fryers", "Air Fryers"],
+      "breadcrumb_register": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+      "breadcrumb_match": "exact",
+      "price_recorded": null,
+      "rating_recorded": null,
+      "price_trap_observed": "$229.99 rendered beside a *different* Emeril ASIN (B0BZ52FLKC, 'Dual Zone Technology 25QT'). Not P2's price."
+    },
+    {
+      "id": "P3",
+      "asin": "B08DKYBTPH",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "http_status": 200,
+      "title_observed": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+      "title_register": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+      "title_match": "exact",
+      "breadcrumb_observed": ["Home & Kitchen", "Kitchen & Dining", "Small Appliances", "Fryers", "Air Fryers"],
+      "breadcrumb_register": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+      "breadcrumb_match": "exact",
+      "price_recorded": null,
+      "rating_recorded": null,
+      "price_trap_observed": "$59.99 rendered beside a 6 QT Chefman (B0CNY1YVDD) in the carousel. Not P3's price."
+    },
+    {
+      "id": "P4",
+      "asin": "B0DHZTCNR5",
+      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "http_status": 200,
+      "title_observed": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+      "title_register": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
+      "title_match": "exact",
+      "breadcrumb_observed": ["Home & Kitchen", "Kitchen & Dining", "Kitchen Utensils & Gadgets", "Thermometers & Timers", "Meat"],
+      "breadcrumb_register": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+      "breadcrumb_match": "exact",
+      "price_recorded": null,
+      "rating_recorded": null,
+      "price_trap_observed": "This page DID render a buy-box-shaped '$16.99' block with 'In Stock' and a delivery date. It is NOT recorded as the product price, for two reasons: (1) the register publishes no prices at all as a policy position (F-02), and (2) a single unauthenticated fetch of a personalised Amazon page is not a price source this project can defend under Program Policies. If the owner wants prices, the compliant route is SiteStripe or the PA-API (Q-27 / D-P11)."
+    },
+    {
+      "id": "P5",
+      "asin": "B0DZFD6R9Z",
+      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "http_status": 200,
+      "title_observed": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
+      "title_register": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+      "title_match": "exact",
+      "breadcrumb_observed": ["Home & Kitchen", "Kitchen & Dining", "Kitchen Utensils & Gadgets", "Thermometers & Timers", "Meat"],
+      "breadcrumb_register": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+      "breadcrumb_match": "exact",
+      "price_recorded": null,
+      "rating_recorded": null,
+      "price_trap_observed": "$139.99 rendered next to a *second* CHEF iQ Sense ASIN (B0FXBQ3KX1, '2 Ultra-Thin Probes'). Note the near-clone: same product family, different probe count, different ASIN. Not P5's price."
+    }
+  ],
+  "title_claims_rechecked_against_listing_text": [
+    {"product": "P5", "claim_on_site": "3 probes in this configuration", "listing_text_observed": "3 Ultra-Thin Probes", "verdict": "supported verbatim by the listing title"},
+    {"product": "P5", "claim_on_site": "1000 degrees F / 1000°F heat-safe probes", "listing_text_observed": "1000°F Heat Safe", "verdict": "supported verbatim by the listing title"},
+    {"product": "P5", "claim_on_site": "5 sensors (quad internal + external ambient)", "listing_text_observed": "5 Sensors in the title; the 'quad internal + external ambient' breakdown was NOT re-observed in this pass", "verdict": "the count is supported; the breakdown is a register value from an earlier read and is not re-confirmed here"},
+    {"product": "P5", "claim_on_site": "air-fryer-safe probes", "listing_text_observed": "Air Fryer is named in the title's use list", "verdict": "supported by the title's own use list; it is a marketing scope statement, not a safety certification"},
+    {"product": "P4", "claim_on_site": "1-second read", "listing_text_observed": "1 Sec", "verdict": "supported verbatim by the listing title"},
+    {"product": "P4", "claim_on_site": "±0.5°F stated accuracy", "listing_text_observed": "±0.5℉ Accuracy", "verdict": "supported verbatim by the listing title; a manufacturer claim, recorded as stated and not graded"},
+    {"product": "P4", "claim_on_site": "IP67 waterproof", "listing_text_observed": "IP67 Waterproof", "verdict": "supported verbatim by the listing title"},
+    {"product": "P1", "claim_on_site": "two independent 3 qt baskets", "listing_text_observed": "2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets", "verdict": "supported verbatim"},
+    {"product": "P1", "claim_on_site": "sync finish, easy-view windows, Hi-Fry, auto shutoff", "listing_text_observed": "Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff", "verdict": "supported verbatim"},
+    {"product": "P2", "claim_on_site": "24 one-touch preset options", "listing_text_observed": "24 One-Touch Preset Options", "verdict": "supported verbatim"},
+    {"product": "P2", "claim_on_site": "six cooking accessories included", "listing_text_observed": "Six Cooking Accessories Included", "verdict": "supported verbatim"},
+    {"product": "P3", "claim_on_site": "8 qt, 450°F Hi-Fry, bake/dehydrate/frozen", "listing_text_observed": "8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen", "verdict": "supported verbatim"}
+  ],
+  "short_links": [
+    {
+      "submitted": "https://link.amazon/B04G1MEwY",
+      "observed_result": null,
+      "observed_note": "Not opened in this session. The fetch tool follows redirects and the last recorded pass (F-P24, 2026-11-20) saw four of five resolve to the Amazon homepage and one return HTTP 500; re-opening them here would reproduce that same artifact rather than resolve the question. The question is whether they work in the owner's enrolled browser session, which this sandbox cannot reproduce.",
+      "status": "not re-tested — carried from F-P24, unresolved"
+    },
+    {"submitted": "https://link.amazon/B02NbDxp3", "observed_result": null, "status": "not re-tested — carried from F-P24, unresolved"},
+    {"submitted": "https://link.amazon/B00hJ57DV", "observed_result": null, "status": "not re-tested — carried from F-P24, unresolved"},
+    {"submitted": "https://link.amazon/B0c8moW59", "observed_result": null, "status": "not re-tested — carried from F-P24, unresolved"},
+    {"submitted": "https://link.amazon/B0f3GKalj", "observed_result": null, "status": "not re-tested — carried from F-P24, unresolved"}
+  ],
+  "new_irregularities_for_review": [
+    {
+      "id": "OBS-01",
+      "finding": "Every one of the five 'customers who viewed this item also viewed' carousels contains a near-title-clone of the tracked product at a different ASIN: P1 has B0B7C327LK ('Chefman 6 Quart Dual Basket Air Fryer - Digital Touchscreen, Smart Sync Finish…'), P2 has B0BZ52FLKC (Emeril 25QT Dual Zone), P3 has B0CNY1YVDD (Chefman 6 QT), P4 has B0GL7Z4KP4 and B0DNMTK56N (ThermoMaven variants), P5 has B0FXBQ3KX1 (CHEF iQ Sense, 2 probes).",
+      "why_it_matters": "Two risks, both buyer-facing. (1) Attribution: a '$' figure rendered next to a clone is trivially mistaken for the tracked product's price. This is the mechanism behind F-17 and it is now observed on all five pages, not three. (2) Destination: a reader who searches the product name can land on the clone instead of the tracked ASIN, which earns nothing and may be a different unit. The site's own links are all direct /dp/ links for this reason.",
+      "evidence": "The five listing pages above; see price_trap_observed on each entry.",
+      "action_for_owner": "Nothing on the site to change. Worth keeping the direct-ASIN policy (F-P17 lineage) and worth knowing that a search-arriving reader may compare this site's figures against a sibling model's listing and conclude the site is wrong.",
+      "status": "open — for the Flagged for Review page; this session does not own data/p2/flags.json and is logging it rather than writing it"
+    },
+    {
+      "id": "OBS-02",
+      "finding": "P4's listing page rendered a full buy-box block ('$16.99', 'In Stock', a delivery date) while P1, P2, P3 and P5 rendered only carousel and protection-plan figures in the same fetch.",
+      "why_it_matters": "It shows the fetches are not uniform: Amazon varies the page it serves. It is also the clearest demonstration yet that a price read this way would sometimes exist and sometimes not — which is exactly why a published price column is unsafe (the open question behind D-P11 / Q-27) and why this pass records no price at all rather than a partial column.",
+      "evidence": "P4 entry above; the register's F-02 standing rule.",
+      "status": "open — observation, no site change required"
+    }
+  ],
+  "what_changed_in_the_register": "Nothing. No product value, flag status, decision or question was modified by this pass. All five titles and all five breadcrumbs agree with the register exactly, so there was nothing to correct."
+}

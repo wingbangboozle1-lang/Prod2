@@ -1,8 +1,36 @@
 # Executive summary — The Crisp Counter (Prod2 affiliate publication)
 
-**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
+**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it. As of the 15730819 pass the landing page leads with the shelf and the two long reads, carries one trust line instead of four, and prints 12 cards instead of 24.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
+
+## Two things a reviewer should know before reading any of this
+
+1. **The published stylesheet was broken, and it is fixed.** `assets/css/site.css` was committed
+   with raw merge-conflict markers on 2026-11-20 (`<<<<<<< HEAD` at line 1, `>>>>>>> origin/main`
+   at line 75), and the build copies `assets/` verbatim into `docs/`. Every reader saw a stylesheet
+   that was not valid CSS. No existing gate section read the static assets, which is why it shipped
+   green. Fixed at source, and a new `integrity` section now fails the build on any conflict marker
+   and on a stylesheet that has lost its braces, design tokens or font-faces.
+2. **There is now a decision page, not just a flag list.** `briefs.html` holds six briefs — one per
+   decision the owner actually has to make — ordered by irreversibility, each stating what is known
+   *with the register row that proves it*, what is missing, the exact question, who can answer it,
+   and the cheapest test that closes it. See **The decisions** below.
+
+## The decisions (new 2026-11-20)
+
+| # | Decision | Who answers | Why it is first |
+|---|---|---|---|
+| B-01 | Is the Associates account enrolled, and does `shopnow047c-20` attribute? | Owner, in Associates Central | Every revenue statement on this project depends on it |
+| B-02 | Can the site legally publish under its current name? | Owner, with a trademark search | A rename touches every page and the feed URL at once |
+| B-03 | May the site publish a price at all? | Owner (API enrolment), then a licence read | A price is the biggest trust signal and the easiest breach |
+| B-04 | Where does the click counter send its numbers? | Owner | Until it does, no topic choice can be measured |
+| B-05 | Should the whole repository stop being readable on the live host? | Repository admin | Pages is in legacy root mode; everything committed is fetchable |
+| B-06 | Is there a legal way to show the actual product? | Owner (SiteStripe) | Separates a publication from a set of diagrams |
+
+Each brief carries the evidence links to the official page that decides it. Nothing on that page
+asserts a conclusion the registers do not already support, and the gate fails the build if a brief
+cites a row that does not exist or publishes an empty "not known" list.
 
 ## The five products (tracking ID `shopnow047c-20`)
 
@@ -69,10 +97,10 @@ whether it worked.
 
 ## Decision-support system (review surfaces)
 
-- **Suggestion queue** (`suggestions.html`): 38 proposals, opened by a ranked five-row short list of the only items that change what happens next, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
-- **Open questions** (`questions.html`): 22 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
+- **Suggestion queue** (`suggestions.html`): 48 proposals, opened by a ranked five-row short list of the only items that change what happens next, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
+- **Open questions** (`questions.html`): 34 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
 - **Flagged for review** (`flagged.html`): 43 items (27 open, 12 resolved, 4 standing), each with an evidence link. Four added 2026-11-20 by other sessions: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary). Added 2026-11-20 by arena/37b265a4-prod2: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24) and F-P28 (products.json and the intent record versus the 2026-11-20 reads).
-- **Decision log** (`decisions.html`): 32 recorded decisions, including D-P21 (which event vocabulary is authoritative) from the latest pass.
+- **Decision log** (`decisions.html`): 35 recorded decisions, including D-P21 (which event vocabulary is authoritative) from the latest pass.
 
 ## Measurement (machinery shipped, not yet on)
 
@@ -86,7 +114,7 @@ whether it worked.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **13 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## The publication passes (2026-11-20 — three sessions, reconciled)
 
@@ -115,7 +143,7 @@ branded publication with timely articles, not generated output — and this merg
 ## The publication pass (2026-11-19, arena/9f84489c-prod2)
 
 The reader-facing site now reads like a shop, not an audit (decision D-P07): the front page leads
-with the five product cards before any data table; a guides hub groups eight question-shaped guides
+with the five product cards before any data table; a guides hub groups ten guide pages
 into two clusters (air fryers, meat thermometers) with pillar pages; a seasonal desk (holiday
 hosting live, grilling season staged) rotates from `data/p2/calendar.json`; the reader nav carries
 clear labels (Compare · Products · Guides · Buying guide · Air fryers · Thermometers) while every
@@ -200,7 +228,7 @@ Full source list with links: `data/p2/sources.json` and the **About** page.
 - **Two category pages** — Air Fryer Ovens, Meat Thermometers.
 - **Comparison page** — three-question "which one is for you" chooser, side-by-side table, and a
   counter-space analysis (capacity per unit of counter depth; depth figures flagged, not guessed).
-- **Eight question-shaped guides** — one page per buyer question, with FAQ structure and Article +
+- **Ten guide pages** (eight calendar topics plus the gift and holiday guides) — one page per buyer question, with FAQ structure and Article +
   FAQPage structured data, internally linked to the comparison, category and each other.
 - **Research Desk** — the full register, the product-intent confirmation record, the (empty)
   campaign ledger, and the source register.
@@ -262,7 +290,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 
 # Executive summary — Prod2 affiliate publication
 
-**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
+**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it. As of the 15730819 pass the landing page leads with the shelf and the two long reads, carries one trust line instead of four, and prints 12 cards instead of 24.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
 
@@ -302,10 +330,10 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 
 ## Decision-support system (review surfaces)
 
-- **Suggestion queue** (`suggestions.html`): 38 proposals, opened by a ranked five-row short list of the only items that change what happens next, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
-- **Open questions** (`questions.html`): 22 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
+- **Suggestion queue** (`suggestions.html`): 48 proposals, opened by a ranked five-row short list of the only items that change what happens next, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
+- **Open questions** (`questions.html`): 34 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
 - **Flagged for review** (`flagged.html`): 43 items (27 open, 12 resolved, 4 standing), each with an evidence link. Four added 2026-11-20 by other sessions: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary). Added 2026-11-20 by arena/37b265a4-prod2: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24) and F-P28 (products.json and the intent record versus the 2026-11-20 reads).
-- **Decision log** (`decisions.html`): 32 recorded decisions, including D-P21 (which event vocabulary is authoritative) from the latest pass.
+- **Decision log** (`decisions.html`): 35 recorded decisions, including D-P21 (which event vocabulary is authoritative) from the latest pass.
 
 ## Measurement (machinery shipped, not yet on)
 
@@ -319,7 +347,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **13 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## Open decisions for the owner
 
