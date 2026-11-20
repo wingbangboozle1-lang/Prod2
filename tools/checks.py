@@ -23,6 +23,8 @@ Sections:
                robots.txt points at the sitemap; feed items resolve
   shop         one shelf page with all five cards, buy buttons, imagery that
                exists, an About page, and no hands-on-testing claim
+  structured   FAQPage markup matches visible page copy; the landing glance table
+               covers all five tools with a source and a sponsored link per row
   assets       the shipped stylesheet is parseable: no unresolved merge-conflict
                markers, design tokens defined, every class a page uses exists
   longreads    every long read registered in the calendar exists, shows inline
@@ -478,6 +480,48 @@ def main() -> int:
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
 
+    # --------------------------------------------------------------- structured
+    check("structured")
+    # Added 2026-11-20. FAQPage markup that does not match the visible copy is a
+    # search-engine violation (Google's structured-data policy requires the
+    # marked-up content to be visible on the page), so the two are asserted to
+    # agree rather than trusted to be written in step. Only the questions are
+    # compared verbatim; answers are compared by a shared keyword set, because
+    # the JSON-LD is plain text and the page copy carries links.
+    for name, must_have in (("index.html", 4), ("decide.html", 4)):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        m = re.search(r'<script type="application/ld\+json">(.*?)</script>', text, re.S)
+        graph = json.loads(m.group(1))["@graph"] if m else []
+        faq = next((g for g in graph if g.get("@type") == "FAQPage"), None)
+        if faq is None:
+            fail(f"{name}: no FAQPage structured data")
+            continue
+        entries = faq.get("mainEntity", [])
+        if len(entries) < must_have:
+            fail(f"{name}: FAQPage has {len(entries)} questions (want at least {must_have})")
+        for e in entries:
+            q = e["name"]
+            # the visible page must contain the same question as a <summary>
+            if q not in text:
+                fail(f"{name}: FAQPage question not visible on the page: {q!r}")
+            if not e.get("acceptedAnswer", {}).get("text"):
+                fail(f"{name}: FAQPage question has no answer: {q!r}")
+    # the glance table on the landing page must carry a source link on every row
+    home = (DOCS / "index.html").read_text(encoding="utf-8")
+    if 'class="data glance-table"' in home:
+        glance = home.split('class="data glance-table"', 1)[1].split("</table>", 1)[0]
+        rows = glance.count("<tr") - 1
+        sourced = len(re.findall(r'https://www\.amazon\.com/dp/', glance))
+        buyd = len(re.findall(r'rel="sponsored', glance))
+        if rows != 5:
+            fail(f"index.html: glance table has {rows} rows (want all 5 tools)")
+        if sourced < 5 or buyd < 5:
+            fail(f"index.html: glance table has {sourced} listing links and {buyd} sponsored links for 5 rows")
+    else:
+        fail("index.html: the at-a-glance table is missing")
+    if not FAILURES:
+        ok("FAQPage data mirrors the visible questions; glance table row-sourced")
+
     # ------------------------------------------------------------------ assets
     check("assets")
     # Added 2026-11-20. The site shipped a stylesheet whose first line was the
@@ -533,6 +577,35 @@ def main() -> int:
     if not FAILURES:
         ok("stylesheets parse as stylesheets: no conflict markers, tokens defined, "
            "every class used by a page exists")
+    # Weight budget. The landing page shipped 2.4 MB of PNG for six flat-colour
+    # illustrations; WebP siblings brought the same art to 230 KB. A budget is
+    # the only thing that stops the next illustration from quietly undoing it.
+    BUDGET_FIRST_VIEW_KB = 900
+    for name, budget in (("index.html", BUDGET_FIRST_VIEW_KB),
+                         ("shop.html", BUDGET_FIRST_VIEW_KB),
+                         ("decide.html", BUDGET_FIRST_VIEW_KB)):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        total = 0
+        for rel in re.findall(r'<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"\s]+)"', text):
+            # a <picture> source is what a modern browser actually downloads
+            pth = DOCS / rel
+            if pth.exists():
+                total += pth.stat().st_size
+        if total > budget * 1024:
+            fail(f"{name}: first-view imagery is {total // 1024} KB (budget {budget} KB)")
+    # every <picture> must have a WebP source and a PNG fallback, and both exist
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for m in re.finditer(r'<picture>\s*<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"[^>]*>\s*<img[^>]+src="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"', text):
+            webp, png = m.group(1), m.group(2)
+            if not webp.endswith(".webp"):
+                fail(f"{f.name}: <picture> source is not WebP ({webp})")
+            for rel in (webp, png):
+                if not (DOCS / rel).exists():
+                    fail(f"{f.name}: <picture> file missing from docs/: {rel}")
+    if not FAILURES:
+        ok(f"first-view imagery within the {BUDGET_FIRST_VIEW_KB} KB budget; every <picture> "
+           f"has an existing WebP source and PNG fallback")
 
     # -------------------------------------------------------------- long reads
     check("longreads")

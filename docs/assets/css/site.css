@@ -940,3 +940,29 @@ h2#B-01, h2#B-02, h2#B-03, h2#B-04, h2#B-05, h2#B-06 { scroll-margin-top: 4rem; 
 .hero-compact { padding-bottom: .5rem; }
 .hero-compact h1 { max-width: 24ch; }
 .hero-compact .lede { max-width: 44rem; }
+
+/* ---------- landing: glance table + reader FAQ ---------- */
+.glance-table td:first-child { min-width: 15rem; }
+.glance-table .btn { padding: .5rem .9rem; font-size: .85rem; white-space: nowrap; }
+.glance-table .paid { display: none; } /* the buy button carries the label; the note below carries the disclosure */
+
+.faq { display: grid; gap: .6rem; margin: 1.3rem 0 2rem; max-width: 54rem; }
+.faq-item {
+  background: var(--paper-card); border: 1px solid var(--rule); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.faq-item summary {
+  cursor: pointer; list-style: none; padding: 1rem 1.2rem;
+  font-family: var(--serif); font-size: 1.08rem; font-weight: 600; line-height: 1.3;
+  display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+  min-height: 44px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+"; font-family: var(--sans); font-size: 1.25rem; font-weight: 400;
+  color: var(--terracotta); flex: 0 0 auto; line-height: 1;
+}
+.faq-item[open] summary::after { content: "–"; }
+.faq-item[open] summary { border-bottom: 1px solid var(--rule); background: var(--paper-deep); }
+.faq-body { padding: .95rem 1.2rem 1.05rem; }
+.faq-body p { margin: 0; font-size: .95rem; line-height: 1.6; color: var(--ink-soft); max-width: 46rem; }

@@ -227,6 +227,32 @@ def listing_link(p: dict, label: str = "listing") -> str:
             f'rel="noopener" target="_blank">{esc(label)}</a>')
 
 
+def picture(src: str, alt: str, *, cls: str = "", loading: str = "lazy",
+            width: int = 1200, height: int = 900, base: str | None = None) -> str:
+    """<picture> with a WebP source and the original PNG as the fallback.
+
+    Why: the five illustrations and the hero were 446-561 KB PNGs of flat colour
+    (2.4 MB for the six images on the landing page). The same art re-encoded as
+    WebP at q84 is 9.9-111 KB with no visible difference, which is the difference
+    between a fast page and a slow one on a phone. The PNGs stay in the repo and
+    are the fallback for every browser that does not take WebP, and as the
+    reference copy for anyone editing the art. Both files are loaded from this
+    site — no image CDN, per the privacy statement.
+    """
+    b = base if base is not None else BASE
+    webp = src[:-4] + ".webp" if src.endswith(".png") else None
+    alt_attr = f'alt="{esc(alt)}"' if alt else 'alt=""'
+    cls_attr = f' class="{esc(cls)}"' if cls else ""
+    img = (f'<img src="{esc(b)}/{esc(src)}" {alt_attr}{cls_attr} loading="{loading}" '
+           f'width="{width}" height="{height}" decoding="async">')
+    if not webp:
+        return img
+    return (f'<picture>'
+            f'<source type="image/webp" srcset="{esc(b)}/{esc(webp)}">'
+            f'{img}'
+            f'</picture>')
+
+
 def buy_link(p: dict, text: str | None = None, cls: str = "btn btn-buy") -> str:
     label = text or f"See the {p['name_short']} on Amazon"
     return amazon_link(p["buy_url"], label, cls) + f' <span class="paid">{esc(PAID_LABEL)}</span>'
@@ -438,6 +464,80 @@ def hook_counter_space(_="") -> str:
             '<p class="table-note">Capacity per in² = listed qt ÷ (listed depth × listed width). '
             'A derived value, not a manufacturer figure — the formula is the point (decision D-26). '
             'It answers: how much cooking space do I get per square inch of counter surrendered?</p>')
+
+
+def hook_glance_table(_="") -> str:
+    """The landing page's at-a-glance table: one line per tool, the three values a
+    buyer weighs first, and the buy action. Deliberately NOT the full comparison
+    table (that is compare.html's job and it is nine columns wide); this is the
+    shelf read at a glance above the fold-scroll, with a source on every row."""
+    rows = []
+    for p in PRODUCTS:
+        if p["id"] in ("P1", "P2", "P3"):
+            depth = re.match(r'([\d.]+)"D', p.get("dimensions") or "")
+            depth_txt = (depth.group(1) + '" deep') if depth else '<span class="unverified">—</span>'
+            cap = p.get("capacity") or '<span class="unverified">—</span>'
+            kind = "Air fryer"
+        else:
+            depth_txt = "—"
+            cap = "—"
+            kind = "Thermometer"
+        rows.append(
+            f'<tr><td><strong>{esc(p["name_short"])}</strong><br>'
+            f'<span class="muted">{esc(p["format"])}</span></td>'
+            f'<td>{kind}</td>'
+            f'<td>{esc(cap) if "unverified" not in str(cap) else cap}</td>'
+            f'<td>{depth_txt}</td>'
+            f'<td>{listing_link(p, "listing")}</td>'
+            f'<td>{buy_link(p, "Check price")}</td></tr>')
+    return ('<div class="table-scroll"><table class="data glance-table">'
+            '<thead><tr><th>Tool</th><th>Type</th><th>Listed capacity</th>'
+            '<th>Counter depth</th><th>Source</th><th></th></tr></thead><tbody>'
+            + "".join(rows) + '</tbody></table></div>'
+            '<p class="table-note">Depth is the listed front-to-back dimension, the number that decides '
+            'whether a machine fits your counter. Capacity is quoted exactly as the listing states it. '
+            'No prices and no ratings are published (<a href="flagged.html#F-02">F-02</a>); '
+            '<a href="compare.html#table">the full nine-column comparison is one click away</a>.</p>')
+
+
+def hook_landing_faq(_="") -> str:
+    """Reader questions answered on the landing page. Each answer states only what
+    a listed value or an official source supports, and links the place the reader
+    can check it. This is also the visible half of the FAQPage JSON-LD."""
+    qa = [
+        ("Which air fryer should I buy?",
+         "It depends on two numbers you already have: how deep your counter is and whether you cook two "
+         'dishes at once. <a href="decide.html">Four questions on the decision page</a> will name one machine '
+         'and quote the listed fact the answer rests on. The short version: under 13 inches of depth, the '
+         'single-basket machine is the only one on this shelf that fits; two dishes that must finish together '
+         'point at the dual basket; rack and sheet-pan cooking points at the French-door oven.'),
+        ("Why are there no prices on this site?",
+         "Because a price we cannot fetch from Amazon is a price we would be making up. Amazon\'s Program "
+         'Policies restrict how prices may be displayed, and a price cached from last week is worse than no '
+         'price at all. Every buy button goes to the live listing, where the current price is Amazon\'s own '
+         'and always current (<a href="flagged.html#F-02">F-02</a>).'),
+        ("Why no star ratings or \"best\" badge?",
+         "Two reasons, both recorded. Star ratings are Amazon\'s content and their display is governed by the "
+         'Associates agreement, so this site does not republish them. And nobody here has cooked with these '
+         'machines, so a "best" badge would be an opinion dressed as a test result — the publish gate fails '
+         'the build if the site claims hands-on testing (<a href="about.html">about the site</a>).'),
+        ("How do you pick which products to follow?",
+         "The owner selected five: three air-fryer formats and two thermometer workflows. This site adds no "
+         'others and ranks none of them. What it does is read each official listing, date the read, and '
+         'publish the values with the link they came from (<a href="method.html">the source register</a>).'),
+        ("What if a listing changes after you read it?",
+         "Then our figure is stale and says so: every value carries the date it was read, and each product "
+         'card names the most recent re-check. Where a listing states a value two ways, both readings are '
+         'kept rather than averaged (<a href="flagged.html">the flagged page</a> lists every such case).'),
+        ("Do the links cost me anything?",
+         "No. They are Amazon Associates links: the price you pay is the listing\'s price, and a qualifying "
+         'purchase may earn this site a commission. That is the disclosure at the top of every page, and it '
+         'is repeated in the footer (<a href="compliance.html">how disclosures are handled</a>).'),
+    ]
+    items = "".join(
+        f'<details class="faq-item"><summary>{q}</summary><div class="faq-body"><p>{a}</p></div></details>'
+        for q, a in qa)
+    return f'<div class="faq">{items}</div>'
 
 
 def hook_chooser(_="") -> str:
@@ -738,11 +838,12 @@ def hook_product_cards(_="") -> str:
     cards = []
     for p in PRODUCTS:
         src, alt = PRODUCT_IMAGES[p["id"]]
+        thumb = picture(src, "", loading="lazy", width=1200, height=900)
         cards.append(f"""
 <article class="card product-card" id="{esc(p['id'])}">
   <a class="thumb" href="{esc(p['buy_url'])}" rel="sponsored nofollow noopener" target="_blank"
      data-affiliate="1" tabindex="-1" aria-hidden="true">
-    <img src="{esc(BASE)}/{src}" alt="" loading="lazy" width="1200" height="900">
+    {thumb}
     <span class="rank">{esc(p['format'])}</span>
   </a>
   <div class="body">
@@ -1000,6 +1101,8 @@ HOOKS = {
     "thermo_table": hook_thermo_table,
     "counter_space": hook_counter_space,
     "chooser": hook_chooser,
+    "glance_table": hook_glance_table,
+    "landing_faq": hook_landing_faq,
     "intent_table": hook_intent_table,
     "sources_table": hook_sources_table,
     "flags_open": lambda _: hook_flags("open"),
@@ -1132,6 +1235,27 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
             })
         graph.append({"@type": "ItemList", "name": "Products compared on " + BRAND,
                       "itemListElement": items})
+    if page_id == "index":
+        # The landing FAQ is the site's best shot at a search feature, so the
+        # structured data must mirror the visible copy. The question strings are
+        # asserted against index.html by tools/checks.py.
+        graph.append({
+            "@type": "FAQPage",
+            "mainEntity": [
+                {"@type": "Question", "name": "Which air fryer should I buy?",
+                 "acceptedAnswer": {"@type": "Answer", "text":
+                   "It depends on two numbers: counter depth and whether you cook two dishes at once. The listed depths of the three air fryers followed here are 12.75 inches (single basket), 13.38 inches (dual basket) and 16.9 inches (French-door oven). Under 13 inches of depth only the single-basket machine fits."}},
+                {"@type": "Question", "name": "Why are there no prices on this site?",
+                 "acceptedAnswer": {"@type": "Answer", "text":
+                   "Because a price that is not served by Amazon would be invented. Amazon's Program Policies restrict how prices may be displayed, so every buy button links to the live listing where the price is Amazon's own."}},
+                {"@type": "Question", "name": "Why no star ratings or best badge?",
+                 "acceptedAnswer": {"@type": "Answer", "text":
+                   "Star ratings are Amazon's content and their display is governed by the Associates agreement. No machine on this site has been tested hands-on, so a best badge would be an opinion rather than a test result."}},
+                {"@type": "Question", "name": "Do the links cost me anything?",
+                 "acceptedAnswer": {"@type": "Answer", "text":
+                   "No. They are Amazon Associates links: you pay the listing's price, and a qualifying purchase may earn this site a commission. A disclosure appears at the top of every page and repeats in the footer."}},
+            ]
+        })
     if page_id == "decide":
         # Mirrors the visible questions and answers on decide.html word for word
         # where it states a fact; the answers route to a format, never a claim.
@@ -1232,6 +1356,11 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
         endpoint=esc(SETTINGS.get("analytics_endpoint", "") or ""),
         site_verification=site_verification,
     )
+    if page_id == "index":
+        # the hero is the largest contentful paint on the landing page: tell the
+        # browser about it in the head instead of waiting for the <img> to be parsed
+        out = out.replace('</head>', f'<link rel="preload" as="image" type="image/webp" '
+                                     f'href="{BASE}/assets/img/hero-kitchen.webp" fetchpriority="high">\n</head>', 1)
     extra = ""
     if page_id in PAGE_SCRIPTS:
         extra = "".join(f'<script src="{BASE}/assets/js/{src}" defer></script>\n'
