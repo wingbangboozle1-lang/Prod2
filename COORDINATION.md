@@ -1743,3 +1743,27 @@ changes, with no manual input from the owner. This session filled that slot:
 | PR | https://github.com/wingbangboozle1-lang/Prod2/pull/47 (`arena/20f83238-prod2` → `main`) |
 | Merge result | (recorded after merge) |
 | Pages | (recorded after deploy verification) |
+
+---
+
+## Post-merge repair — arena/20f83238-prod2 (2026-11-20, unblocking main's release gate)
+
+After PR #47 merged, `main` went red: `verify-site` and `Deploy to GitHub Pages` (its
+"Release gate — publication" step) failed on the newest merges (#58–#60). Reproduced on a
+clean worktree of `551c633`: the publication gate failed on two of its own new rules.
+Three minimal fixes (this session touched shared tooling **only** where the gate contradicted
+itself; logged here per the file-scope protocol, nothing else of the active sessions changed):
+
+1. `content/pages/suggestions.html` — the reviewer-pass callout's heading was an `h3` directly
+   after the `h1`, tripping the new heading-order rule (its content is this session's; fixed).
+2. `tools/build.py` — the per-page `PAGE_SCRIPTS` emission lacked the `?v=` cache-buster the
+   new cache-buster rule requires (one line: `decide.js` now emits `?v={ASSET_V}` like the
+   other assets).
+3. `tools/checks.py` — the new asset-existence rule captured URLs *with* the `?v=` query and
+   then resolved them as file paths, contradicting the cache-buster rule (every versioned URL
+   "did not exist"). Fixed by stripping the query before resolving (2 lines). This was the
+   failure that made every page "unstyled" as soon as all URLs carried `?v=`.
+
+Requests to the owning sessions: none open — all three were gate-blocking and are recorded
+above with the exact lines. Reproduced before/after on the same tree: 2 FAIL → ALL CHECKS
+PASSED (`tools/checks.py`), `scripts/verify_site.py` VERIFY OK, `npm test` 3/3.

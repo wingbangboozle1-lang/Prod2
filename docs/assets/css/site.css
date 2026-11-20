@@ -596,6 +596,7 @@ a.src:hover { color: var(--ink); }
   padding: 1.2rem 1.4rem; margin: 1.8rem 0; box-shadow: var(--shadow-sm);
 }
 .callout h3 { margin-top: 0; font-size: 1.08rem; }
+.callout h2 { margin-top: 0; font-size: 1.35rem; }
 .callout p:last-child, .callout ol:last-child, .callout ul:last-child { margin-bottom: 0; }
 .callout-sage { border-left-color: var(--sage); background: var(--sage-wash); }
 .callout-warm { border-left-color: var(--gold); background: #FDF9EE; }

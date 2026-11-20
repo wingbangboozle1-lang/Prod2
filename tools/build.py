@@ -1396,7 +1396,7 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
                                      f'href="{BASE}/assets/img/hero-kitchen.webp" fetchpriority="high">\n</head>', 1)
     extra = ""
     if page_id in PAGE_SCRIPTS:
-        extra = "".join(f'<script src="{BASE}/assets/js/{src}" defer></script>\n'
+        extra = "".join(f'<script src="{BASE}/assets/js/{src}?v={ASSET_V}" defer></script>\n'
                         for src in PAGE_SCRIPTS[page_id])
         out = out.replace("</body>", extra + "</body>")
     (DOCS / path).write_text(out, encoding="utf-8")

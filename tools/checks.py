@@ -613,9 +613,9 @@ def main() -> int:
     for page in html_files:
         text = page.read_text(encoding="utf-8")
         for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
-            linked.add(rel)
+            linked.add(rel.split("?", 1)[0])  # strip the ?v= cache-buster before resolving
         for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
-            linked.add(rel)
+            linked.add(rel.split("?", 1)[0])
     css_files = sorted(DOCS / rel for rel in linked if rel.endswith((".css", ".js")) and (DOCS / rel).exists())
     if not css_files:
         fail("no stylesheet or script linked by a built page exists in docs/ — nothing styles the site")
