@@ -89,7 +89,38 @@ edits (those are #43/#45/#47's scope). This session writes only:
 
 | Item | Value |
 | --- | --- |
-| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/58 |
+| PR (main work) | https://github.com/wingbangboozle1-lang/Prod2/pull/58 |
+| Merge result | **Merged 2026-11-20 07:06:15 UTC**, merge commit `0c4ce4b8` (`gh pr merge 58 --merge`) |
+| Follow-up PR | https://github.com/wingbangboozle1-lang/Prod2/pull/64 — the two gate failures the above merge left on `main` |
+| Follow-up merge | **Merged 2026-11-20 07:14:26 UTC**, merge commit `fc01b327` |
+| Workflows on `fc01b32` | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Pages | `status: built`, `build_type: legacy` (the `F-P19`/`F-P20` owner setting is still pending) |
+| Live check | `decide.html` fetched live and correct; `/assets/css/site.css` fetched live and now begins with a valid comment, not `<<<<<<< HEAD`; asset URLs carry `?v=1cb1b9dcef` |
+
+### What went wrong in the integration, recorded rather than smoothed over
+
+1. **CI went red on `main` after #58 merged.** I reproduced it in a clean clone rather than
+   assuming a flake: (a) `suggestions.html` opened a section with an `h3` under the `h1` — the page
+   had merged *after* the `a11y` gate landed, so nothing had checked it; (b) my per-page
+   `<script src>` for `decide.js` had no `?v=` cache-buster, which the `one-site` gate requires.
+   Both fixed in #64. **A third, worse version of (b)** was found while fixing it: the hero
+   `<picture>` and its preload also had no buster, so a redrawn illustration or a re-encoded WebP
+   would have shipped invisible behind the CDN. That is the same class of failure that let the
+   broken stylesheet survive three deploys, so it is now closed everywhere the build emits an
+   asset URL.
+2. **My own gates had a bug that the fix exposed.** They did filesystem lookups with the query
+   string attached, so `?v=` made `assets` report "nothing styles the site" and produced 81 phantom
+   missing-image failures. Every lookup now strips the query first. Worth stating plainly: the
+   gate that caught the real defect also had a defect, and adding a URL parameter is exactly the
+   change that surfaces that kind of assumption.
+3. **A commit was briefly made against a local `main` checkout.** It was moved onto this session
+   branch before any push, so nothing was ever written to `main` outside the PR flow, and
+   `origin/main` has no commit from this session that did not arrive by merge. Recorded because
+   the rule is one branch per session and the honest record is that the rule was nearly broken.
+4. **Three sessions fixed the CSS conflict independently** (#56, #57, and this branch). All three
+   resolutions were equivalent; the rebases kept the merged result each time and nothing was
+   discarded. Two of them also added the same cache-buster handling in `checks.py`; the better
+   commented version was kept.
 
 
 Notes on overlap (updated at close):
