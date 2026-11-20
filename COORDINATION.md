@@ -25,14 +25,14 @@ by its own session — logged, not edited). PRs #29–#34, #36–#38 are merged.
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
-| W-01 Measurement: fix the event-vocabulary split so the shipped counter and the shipped collector agree (closes F-P23 / Q-P14 / SG-41) | in progress | arena/644d217b-prod2 | `assets/js/measure.js`, `server.mjs`, `data/p2/events.json`, `tests/server.test.mjs` |
-| W-02 Reader-facing depth: expand the short guides into real publication articles (new long-form pieces, one per buying decision) | in progress | arena/644d217b-prod2 | `content/pages/guide-*.html`, `content/pages/article-*.html`, `tools/build.py` |
-| W-03 Landing/authored voice: masthead + a real "start here" path, without adding dashboard clutter to the front page | in progress | arena/644d217b-prod2 | `content/pages/index.html`, `assets/css/site.css` |
-| W-04 Suggestions: a reviewable decision queue (ranked, with cost/reversibility/owner action) so the owner picks a path before changes land | in progress | arena/644d217b-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
-| W-05 Open questions: the missing-information register, extended with discovery paths | in progress | arena/644d217b-prod2 | `data/p2/questions.json`, `content/pages/questions.html` |
-| W-06 Line-by-line verification of every published product value against the live official listing (2026-11-20 read) | in progress | arena/644d217b-prod2 | `data/p2/verification-2026-11-20.json`, `data/p2/products.json` (read-only unless a value is wrong) |
-| W-07 Gate: new checks that would have caught the defects found this pass | in progress | arena/644d217b-prod2 | `tools/checks.py` |
-| W-08 Integration: rebuild, re-verify, PR to main, merge, Pages live check, record here | pending | arena/644d217b-prod2 | `docs/`, root mirror, `COORDINATION.md`, `EXECUTIVE_SUMMARY.md` |
+| W-01 Measurement: fix the event-vocabulary split so the shipped counter and the shipped collector agree (closes F-P23 / Q-P14 / SG-41) | done | arena/644d217b-prod2 | `assets/js/measure.js`, `server.mjs`, `data/p2/events.json`, `tests/server.test.mjs` |
+| W-02 Reader-facing depth: expand the short guides into real publication articles (new long-form pieces, one per buying decision) | done | arena/644d217b-prod2 | `content/pages/guide-*.html`, `content/pages/article-*.html`, `tools/build.py` |
+| W-03 Landing/authored voice: masthead + a real "start here" path, without adding dashboard clutter to the front page | done | arena/644d217b-prod2 | `content/pages/index.html`, `assets/css/site.css` |
+| W-04 Suggestions: a reviewable decision queue (ranked, with cost/reversibility/owner action) so the owner picks a path before changes land | done | arena/644d217b-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| W-05 Open questions: the missing-information register, extended with discovery paths | done | arena/644d217b-prod2 | `data/p2/questions.json`, `content/pages/questions.html` |
+| W-06 Line-by-line verification of every published product value against the live official listing (2026-11-20 read) | done | arena/644d217b-prod2 | `data/p2/verification-2026-11-20.json`, `data/p2/products.json` (read-only unless a value is wrong) |
+| W-07 Gate: new checks that would have caught the defects found this pass | done | arena/644d217b-prod2 | `tools/checks.py` |
+| W-08 Integration: rebuild, re-verify, PR to main, merge, Pages live check, record here | done | arena/644d217b-prod2 | `docs/`, root mirror, `COORDINATION.md`, `EXECUTIVE_SUMMARY.md` |
 
 Claim protocol notes:
 - **Verification boundary, recorded honestly:** this sandbox has outbound HTTP to
@@ -43,6 +43,92 @@ Claim protocol notes:
   **ASIN** and **breadcrumb** are available, prices/ratings render as `$`-strings inside
   recommendation widgets and are **not** attributable to the product page, so they stay unpublished.
 - Flagged irregularities do not block the merge; they go to the Flagged for Review page.
+
+
+### Claim results (W-01..W-08, 2026-11-20)
+
+- **W-01 · measurement (done).** The published contract named five events; the only collector in the
+  repo answered **400** to three of them (`guide_read_75`, `category_click`, `feed_click`) and collapsed
+  every page view into `page_view|/unknown`. Hosting it unchanged would have silently dropped two thirds
+  of the site's measurement. Fixed at the collector, not by renaming the site's events: `server.mjs` now
+  accepts and correctly keys all five, keeps the older Countercraft names so no existing client breaks,
+  and bounds every value it stores (a 10-character ASIN pattern, a category slug, a cleaned path).
+  Three things now stop a regression: a test that reads the five names out of `assets/js/measure.js`,
+  a hard gate failure in `tools/checks.py` (was a printed note), and `D-P21` recording which list wins.
+  `F-P23` resolved, `Q-P14` answered, `SG-41` shipped.
+- **W-02 · reader-facing depth (done).** Two long-form pieces, each arguing one buying decision from an
+  official guidance source the listings do not carry:
+  - `article-thermometer-placement.html`, 1,295 words — USDA FSIS *Food Thermometers* factsheet (the
+    2–4 °F typical instrument range, the "reading will only be correct if placed properly" rule, the
+    per-food placement table, the thin-food sensing-area rule, the "at least 1 inch" wireless figure,
+    care and ice-water calibration) plus the FSIS *Safe Minimum Internal Temperature Chart*.
+  - `article-air-fryer-doneness.html`, 1,212 words — Nebraska Extension's peer-reviewed *Food Safety
+    Tips for Air Fryers* (overfilling prevents even cooking; a thermometer is the only way to be sure;
+    clean the basket after every use) plus the same FSIS chart.
+  Both carry the mandatory "what we could not verify" block, are in the sitemap, feed and JSON-LD, and
+  are linked from both category pillars and three guides. New source ids `S-FSIS-CHART`,
+  `S-FSIS-THERMO`, `S-UNL-AIRFRYER`, each read **live on 2026-11-20**.
+- **W-03 · landing and authored voice (done).** A "Read this before you buy either" block now sits
+  directly under the shelf; the guides hub leads with the long reads; the front-page trust row no longer
+  claims ten guides when the build renders twelve pieces. No dashboard clutter was added to the front
+  page — the governance surfaces stay in the footer, per D-06.
+- **W-04 · suggestions (done).** `SG-45` (long-form argument pieces, shipped), `SG-46` (move Pages to
+  the Actions artifact and delete the root mirror — ranked first on the board because it is one
+  dropdown, closes F-P19/F-P20 and removes the double-commit this repo pays on every pass), `SG-47`
+  (real product photography via the licensed channel, or a commissioned drawing set). The page now
+  opens with a **ranked five-row short list** (cost to you, reversibility, exact owner action) instead
+  of asking a reviewer to read 38 proposals in registry order.
+- **W-05 · open questions (done).** `Q-P15` (is there a length standard, and is length even the right
+  control — offers a sourced-claims-per-100-words floor as the only option filler cannot satisfy),
+  `Q-P16` (can this project show a real product photo at all, and the single test that settles it:
+  open a SiteStripe link on one enrolled product), `Q-P17` (where the endpoint runs and who pays).
+- **W-06 · line-by-line verification (done).** All five listings re-fetched on 2026-11-20 and the
+  register compared field by field. **Titles agree verbatim with the register** for P1–P5, including the
+  ThermoMaven title, which had been recorded with a second-segment discrepancy in `F-P01` and now reads
+  as the register has it. **Breadcrumbs agree** for P1, P3, P4 and P5 (P2's breadcrumb did not appear in
+  the fetched variant this pass and stays null — not inferred). Every published dimension string in
+  `docs/` was cross-checked against the register programmatically: `13.38 / 11.81 / 10.63` (P1),
+  `16.9 / 15.8 / 14.8` (P2), `12.75 / 13.5 / 10` (P3) all match, and no unexplained inch value appears
+  on any page. **No published value changed.** Prices and ratings stay unpublished: on these fetches the
+  `$` figures appear inside "customers also viewed" carousels and protection-plan blocks, which are
+  other ASINs' prices — a live example of exactly the attribution trap `F-P17` records, and the reason
+  the site keeps both blank (`F-02`, `D-P10`).
+- **W-07 · gate (done).** New `longreads` section (page exists, ≥3 inline source markers, unverified
+  block present, only allow-listed official hosts cited, present in sitemap and feed) and two
+  measurement assertions (the endpoint must accept every name the client can send; the depth event must
+  cover `article-*` as well as `guide-*`). `tools/checks.py` header updated to match: 13 sections.
+- **W-08 · integration (this record).** `tools/build.py` + `tools/checks.py` → **ALL CHECKS PASSED**
+  (30 pages, 13 sections); `scripts/build_site.py` + `scripts/verify_site.py` → **VERIFY OK, 18 pages**;
+  `npm test` → **3/3**. Root mirror byte-identical to `docs/` (30/30 HTML files, same hashes).
+
+### Files this pass touched
+
+`assets/js/measure.js` · `server.mjs` · `tests/server.test.mjs` · `tools/build.py` · `tools/checks.py` ·
+`content/pages/{index,guides,suggestions,buying-guide,category-air-fryers,category-thermometers,guide-capacity,guide-thermometer-accuracy}.html` ·
+`content/pages/article-{thermometer-placement,air-fryer-doneness}.html` (new) ·
+`data/p2/{sources,flags,questions,decisions,suggestions,calendar}.json` · `docs/` + root mirror ·
+`EXECUTIVE_SUMMARY.md` · `COORDINATION.md`.
+
+### Irregularities found this pass (all published, none blocking)
+
+| # | Finding | Where it is published |
+| --- | --- | --- |
+| 1 | The collector rejected three of the five events the site publishes, and keyed every page view as `/unknown`. Fixed this pass; recorded in full because it is the clearest example of a gate that was printing a warning while the defect shipped. | Flagged `F-P23` (resolved), decision `D-P21` |
+| 2 | The depth event did not cover `article-*` pages, so both new long reads would have been unmeasured. Fixed; now asserted in the gate. | `tools/checks.py` measurement section |
+| 3 | The executive summary carried counts from two passes ago (28/15/32/27/9) and still named the project by its codename. Corrected to the rendered values. | `EXECUTIVE_SUMMARY.md` |
+| 4 | Amazon listing fetches return a variant in which prices and star ratings belong to *other* ASINs in carousels. Any future pass that copies a `$` string from a fetched listing will misattribute it. | `F-P17`, `F-02`, and the W-06 note above |
+
+### Open PR handled by logging, not editing
+
+**PR #35** (`arena/dd4bae8a-prod2`, "Publication pass: shop-first redesign…", 100 files) is still
+`CONFLICTING` against `main` as of 2026-11-20 06:45 UTC. Its last commit is 06:27 UTC, so it is inside
+its own claim window and **has not been touched** — no file it owns was edited and no branch of its was
+touched. Its scope overlaps every reader-facing surface in this pass; if its author returns, it must be
+rebased on this merge and its content reconciled by hand, because this branch has changed
+`tools/build.py`, `assets/js/measure.js`, `server.mjs`, the guide registry and the suggestions/questions
+registers underneath it. If it is still stale and conflicting **60 minutes after its last commit**
+(07:27 UTC), any session may take it over under the handoff rule and should treat this record as the
+current state of `main`.
 
 ---
 
