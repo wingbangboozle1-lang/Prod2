@@ -181,6 +181,111 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/4fef743e-prod2 (2026-11-20, findability + line-by-line verification pass + integration)
+
+Branched from `d7f58d1` (main after PR #44). Protocol note, same as prior sessions: the platform fixes
+one branch per session (`arena/4fef743e-prod2`), so no `session-<id>/<task>` branches are created;
+this claim block is the record. **Six PRs were open at claim time and are logged, not touched:**
+#35 (arena/dd4bae8a-prod2), #41 (arena/e0d92902-prod2), #45 (arena/19fb7064-prod2),
+#47 (arena/20f83238-prod2), #49 (arena/82d0f434-prod2), #51 (arena/e292fb4d-prod2).
+Full file lists of those PRs were read with `gh pr diff --name-only` before this claim and the
+scope below was chosen to sit **outside every one of them**, with two noted exceptions (below).
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 One site to index: robots/canonical policy so search engines see the publication, not the source tree or the duplicate `docs/` + `site/` + `archive/` copies | done | arena/4fef743e-prod2 | `tools/build.py` (**only `build_robots()` — hunk noted below**), `tools/root_mirror.py`, `scripts/verify_site.py`, `robots.txt`, `docs/robots.txt` (generated) |
+| X-02 Line-by-line live-output verification of every published page against the brief's hard rules (disclosure above the fold + footer repeat on every page, `rel="sponsored"` on every outbound product link, a source link on every table row of fact, no broken internal links, unique meta) | done | arena/4fef743e-prod2 | `REVIEW-2026-11-20-4fef743e.md` (new), `scripts/verify_site.py` |
+| X-03 Pages exposure (F-P19/F-P20 / SG-46): attempt the `build_type=workflow` switch via the Pages API; if the token still gets 403, record the exact owner click-path | done | arena/4fef743e-prod2 | (API call only), `COORDINATION.md` |
+| X-04 Repo review with official source links for manual review; irregularity flags; suggestion/decision blocks logged for the queue owners | done | arena/4fef743e-prod2 | `REVIEW-2026-11-20-4fef743e.md` (new) |
+| X-05 Integration: rebuild both outputs, run every gate (`tools/checks.py`, `scripts/verify_site.py`, `npm test`), PR to main, merge, Pages live check, record here | in progress | arena/4fef743e-prod2 | `COORDINATION.md`, generated outputs |
+
+### Claim results (X-01..X-05, 2026-11-20)
+
+- **X-01 · one site to index (done).** Canonicals were already correct on all 30 published pages
+  (rule F), but the crawl policy only excluded `/Prod2/archive/`, leaving `docs/` (a byte-identical
+  second copy), `site/` (the preserved older build), `content/`, `data/`, `tools/`, `scripts/`,
+  `tests/` and root `.md` files crawlable on the live host. `tools/build.py::build_robots()` now
+  disallows every source/duplicate tree (change confined to that one function); `robots.txt` at the
+  root mirror and in `docs/` regenerated. The policy is **gated**: `scripts/verify_site.py` now runs
+  `tools/audit_publication.py` (new, read-only) against both the root mirror and `docs/` and fails
+  the build on any of its hard rules (A/B/C/D/F/J), plus a robots-consistency check. Caveat
+  published (proposed F-P25): on `*.github.io` project sites the spec-mandated robots.txt lives at
+  the *host root*, so canonicals + Search Console (SG-29) remain the effective controls —
+  recorded in the review with the Google source link.
+- **X-02 · line-by-line verification (done).** All five official listings re-read live 2026-11-20
+  via the fetch tool: titles match `data/p2/products.json` **verbatim** for P1–P5; breadcrumbs
+  match (P2's chain, absent in the W-06 variant, appeared today and already matched the register's
+  `category_read` 2026-11-19 — no register change made). Prices/ratings remain unpublished: the
+  fetched variants again interleaved other ASINs' carousel prices (a live repeat of the F-P17
+  trap). FTC *Disclosures 101* (S-FTC1) and the Associates disclosure help page (S-HELP) re-read
+  live; the site's masthead strip + footer statement + "(paid link)" markers match both sources'
+  own wording. Page audit: 30/30 pages pass disclosure-above-fold, footer statement, product-link
+  contract (`rel="sponsored"` + `tag=shopnow047c-20` on `/dp/` links, no `tag=` on citations, no
+  live short-link hrefs), canonical, internal links, unique meta, JSON-LD; 146 table rows carry
+  source links, 73 carry explicit flag/blank markers, and the remaining 15 are adjudicated in the
+  review (4 table-level S-COMM citations, 7 calendar-hypothesis rows, 4 editorial scenario rows
+  logged as request R-1). Observations stored in
+  `data/p2/live-check-2026-11-20-4fef743e.json` (new).
+- **X-03 · Pages exposure (done, owner action stands).** `PUT /repos/…/pages {"build_type":"workflow"}`
+  → **HTTP 403** "Resource not accessible by integration" (2026-11-20, re-confirmed). The sandbox
+  token cannot flip it. Exact owner steps recorded in the review §4.5 and on the Flagged page:
+  **Settings → Pages → Build and deployment → Source: GitHub Actions** — the deploy workflow
+  already uploads `docs/` as the artifact, so the switch deletes the exposure outright.
+- **X-04 · repo review (done).** `REVIEW-2026-11-20-4fef743e.md` (new): every verified value with
+  its official URL and read date; the product-intent record checked field-by-field (intended ASIN
+  and observed redirect never merged — conformant); short links left **unjudged** (FLG-003/F-P24
+  wording kept); irregularities table; logged requests R-1/R-2 to the owning PRs' files;
+  ready-to-paste suggestion blocks SG-48..SG-52 and question blocks Q-P18/Q-P19 held for the
+  queue owners (per protocol, `data/p2/suggestions.json`/`questions.json` are owned by open PRs
+  #41/#47/#49 and were **not** edited).
+- **X-05 · integration (this record).** `python3 tools/build.py` → 30 pages + root mirror;
+  `tools/checks.py` → ALL CHECKS PASSED (freshness: `docs/` matches a fresh render);
+  `scripts/verify_site.py` → VERIFY OK (18 Countercraft pages + publication audit);
+  `npm test` → 3/3. Changed files this pass: `tools/build.py` (one function),
+  `scripts/verify_site.py` (one appended section), `tools/audit_publication.py` (new),
+  `REVIEW-2026-11-20-4fef743e.md` (new), `data/p2/live-check-2026-11-20-4fef743e.json` (new),
+  `robots.txt` + `docs/robots.txt` (generated).
+
+**Hunk map for rebase reconciliation** (open PRs #35/#41/#49 touch `tools/build.py`):
+the only change in that file is inside `build_robots()` (the robots policy text). No other
+function changed. `scripts/verify_site.py` gained one section before its summary block.
+`tools/checks.py`, `data/p2/*` registers, `content/pages/*` and all reader-facing HTML sources
+are untouched by this pass.
+
+### Merge-conflict log (this session's integration, 2026-11-20)
+
+`origin/main` moved from `d7f58d1` to `34994f4` while this pass was in flight (PRs #43–#72,
+including another findability pass — `caa4b2f`, "archive noindexed on every build, robots
+scoped, canonical asserted"). Four files conflicted at the merge, exactly the hunk map above.
+**Nothing from any session was discarded:**
+1. `tools/build.py::build_robots()` — **union of both policies**: main's `guard_archive()`
+   noindex rationale comment kept alongside this pass's duplicate-tree rationale, and the
+   disallow list is the union (main added `data/ tools/ content/ scripts/ tests/`; this pass
+   adds `docs/ site/ var/ npm/ .arena-import/ *.md$ server.mjs analytics-client.js
+   package.json .gitignore .nojekyll`). Main's `guard_archive()` (per-file noindex in
+   `archive/`) is untouched and remains the enforcement behind the ask.
+2. `robots.txt` + `docs/robots.txt` — regenerated from the merged `build_robots()` (both sides
+   were generated outputs of the same function).
+3. `COORDINATION.md` — both claim blocks kept (this pass's X-01..X-05 block and
+   arena/37b265a4's claim block), one above the other.
+Post-merge gates on the 40-page tree: `tools/checks.py` **ALL CHECKS PASSED** (19 sections
+incl. `one-site` "robots scoped" with the union list), `scripts/verify_site.py` **VERIFY OK**,
+`npm test` **10/10**, `tools/audit_publication.py` **no violations** (40/40 pages).
+
+**Overlap notes (recorded for rebase reconciliation, per protocol):**
+1. `tools/build.py` is touched by open PRs #35, #41, #49. X-01 needs one function only:
+   `build_robots()` (~line 1122, near `build_sitemap()`). The change is a larger `Disallow:` list.
+   If a rebasing session conflicts on that hunk: keep both — their content changes anywhere else in
+   the file, this session's change is confined to `build_robots()` + its generated `robots.txt` pair.
+2. `docs/robots.txt` + `robots.txt` are generated outputs of `tools/build.py`; no open PR lists them.
+   `sitemap.xml`/`feed.xml` outputs belong to PR #41's edits and are **not** touched here.
+3. `tools/checks.py` (claimed by four open PRs) is not touched; new gate logic goes into
+   `scripts/verify_site.py`, which is unclaimed and already runs in `verify.yml`.
+
+---
+
+---
+
 ## PARALLEL CLAIM — session arena/2adc150a-prod2 (2026-11-20, sale-week guide + gate extension)
 
 Rows labeled SW- to avoid the X- prefix already used by arena/3936beb1-prod2's read-only audit above.

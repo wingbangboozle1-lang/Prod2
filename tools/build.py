@@ -1867,20 +1867,35 @@ def build_sitemap() -> None:
 
 
 def build_robots() -> None:
-    # One site to index. Everything under archive/ is a previous build of this
-    # same project; leaving it crawlable splits link equity between a live page
-    # and three dead copies of it. The robots file asks; guard_archive() enforces
-    # with a per-file noindex, because robots.txt alone cannot stop indexing of a
-    # page that is already linked.
+    # One site to index. Two complementary controls (union of the 2026-11-20 passes):
+    # (a) archive/ is a previous build of this same project — the robots file asks
+    #     crawlers to skip it, and guard_archive() enforces with a per-file noindex,
+    #     because robots.txt alone cannot stop indexing of a page that is linked;
+    # (b) legacy Pages serves the repo root, so working trees (data/, content/,
+    #     tools/, …), the docs/ mirror and the preserved site/ build are also
+    #     fetchable on the live host — duplicates or source, never answers a buyer
+    #     needs. Canonicals on every published page are the primary control; this
+    #     file is the crawl policy on top.
     (DOCS / "robots.txt").write_text(
         "User-agent: *\n"
         "Allow: /\n"
         "Disallow: /Prod2/archive/\n"
+        "Disallow: /Prod2/docs/\n"
+        "Disallow: /Prod2/site/\n"
         "Disallow: /Prod2/data/\n"
         "Disallow: /Prod2/tools/\n"
         "Disallow: /Prod2/content/\n"
         "Disallow: /Prod2/scripts/\n"
-        "Disallow: /Prod2/tests/\n\n"
+        "Disallow: /Prod2/tests/\n"
+        "Disallow: /Prod2/var/\n"
+        "Disallow: /Prod2/npm/\n"
+        "Disallow: /Prod2/.arena-import/\n"
+        "Disallow: /*.md$\n"
+        "Disallow: /Prod2/server.mjs\n"
+        "Disallow: /Prod2/analytics-client.js\n"
+        "Disallow: /Prod2/package.json\n"
+        "Disallow: /Prod2/.gitignore\n"
+        "Disallow: /Prod2/.nojekyll\n\n"
         f"Sitemap: {BASE}/sitemap.xml\n", encoding="utf-8")
 
 
