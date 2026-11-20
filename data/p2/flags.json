@@ -324,6 +324,18 @@
    "opened_utc": "2026-11-20",
    "closed_utc": "2026-11-20",
    "opened_by": "arena/dd4bae8a-prod2"
+  },
+  {
+   "id": "F-P21",
+   "status": "resolved",
+   "title": "Three of the five shipped events were being rejected by the endpoint",
+   "detail": "The privacy-preserving tracker (assets/js/measure.js) emits five events. The self-hosted collector (server.mjs) only accepted three of them: guide_read_75, category_click and feed_click were answered 400 and discarded, with no visible error on the site. Separately, the tracker sends the page as 'path' while the collector read only 'page', so every page view was stored under a single 'page_view|/unknown' row, and category clicks lost the section they pointed at. Net effect had the endpoint been deployed: guide completion, category interest and feed clicks would have been silently unmeasurable - exactly the events the measurement brief asks for.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/tests/server.test.mjs",
+   "evidence_note": "Three regression tests added: every event named in measure.js must be accepted (the list is read out of the tracker so the two cannot drift), page paths must survive aggregation, and category targets must keep their fragment.",
+   "how_to_resolve": "Fixed in server.mjs. npm test now covers all five events end to end. The endpoint still needs a host before any of it leaves a visitor's browser (F-19).",
+   "opened_utc": "2026-11-20",
+   "closed_utc": "2026-11-20",
+   "opened_by": "arena/dd4bae8a-prod2"
   }
  ]
 }

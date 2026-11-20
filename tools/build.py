@@ -543,17 +543,57 @@ def hook_suggestions_summary(_="") -> str:
 
 
 def hook_decisions(_="") -> str:
-    out = []
+    """Grouped by what the decision is about, newest project decisions first
+    inside each group, so the log reads as a record rather than a dump."""
+    groups: dict[str, list[dict]] = {}
     for d in DECISIONS:
-        srcs = "".join(f'<a class="src" href="{esc(u)}" rel="noopener" target="_blank">source</a> ' for u in d.get("sources", []))
-        out.append(f"""
-<article class="card d-card" id="{esc(d['id'])}">
+        did = d["id"]
+        if did.startswith("D-P10") or did in ("D-P10", "D-P11"):
+            g = "This pass (2026-11-20)"
+        elif did.startswith("D-P"):
+            g = "This project's publication decisions"
+        else:
+            g = "Carried decisions from the verified register"
+        groups.setdefault(g, []).append(d)
+    order = ["This pass (2026-11-20)", "This project's publication decisions",
+             "Carried decisions from the verified register"]
+    out = []
+    for g in order:
+        rows = groups.get(g, [])
+        if not rows:
+            continue
+        out.append(f'<h2>{esc(g)} <span class="muted" style="font-size:1rem;font-family:var(--sans)">'
+                   f'({len(rows)})</span></h2>')
+        out.append('<div class="card-grid">')
+        for d in rows:
+            srcs = "".join(
+                f'<a class="src" href="{esc(u)}" rel="noopener" target="_blank">source</a> '
+                for u in d.get("sources", []))
+            resolves = d.get("resolves")
+            resolve_html = (f'<p class="small-note">Closes: {esc(", ".join(resolves))}</p>'
+                            if resolves else "")
+            out.append(f"""
+<article class="d-card" id="{esc(d['id'])}">
+  <p><span class="status status-recorded">{esc(d['status'])}</span></p>
   <h3><code>{esc(d['id'])}</code> {esc(d['question'])}</h3>
-  <p class="status status-recorded">{esc(d['status'])}</p>
-  <p>{esc(d['recorded_choice'])}</p>
-  <p>{srcs}</p>
+  <dl><dt>Recorded choice</dt><dd>{esc(d['recorded_choice'])}</dd></dl>
+  {resolve_html}
+  <p class="small-note">{srcs}</p>
 </article>""")
+        out.append("</div>")
     return "".join(out)
+
+
+def hook_decisions_summary(_="") -> str:
+    rows = []
+    for d in DECISIONS:
+        rows.append(f'<tr><td><a href="#{esc(d["id"])}"><code>{esc(d["id"])}</code></a></td>'
+                    f'<td>{esc(d["question"])}</td>'
+                    f'<td>{esc(d.get("status", ""))}</td></tr>')
+    return ('<div class="table-scroll"><table class="data">'
+            '<caption>Decision log — every recorded choice, newest first</caption>'
+            '<thead><tr><th>ID</th><th>The question it answers</th><th>When recorded</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table></div>')
 
 
 def hook_ledger_events(_="") -> str:
@@ -887,6 +927,7 @@ HOOKS = {
     "suggestions": hook_suggestions,
     "suggestions_summary": hook_suggestions_summary,
     "decisions": hook_decisions,
+    "decisions_summary": hook_decisions_summary,
     "ledger_events": hook_ledger_events,
     "ledger_table": hook_ledger_table,
     "local_events": hook_local_events,
