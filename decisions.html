@@ -261,6 +261,18 @@
   <p>The site&#x27;s five documented events (page_view, outbound_click, guide_read_75, category_click, feed_click) are authoritative, because they are the published contract in data/p2/events.json and the ones the reader-facing measurement page describes. The collector was changed to accept them, not the reverse: renaming the site&#x27;s events to fit the endpoint would have made the published register wrong. The collector keeps its older Countercraft names as additional accepted values so no existing client breaks.</p>
   <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs" rel="noopener" target="_blank">source</a> </p>
 </article>
+<article class="card d-card" id="D-P22">
+  <h3><code>D-P22</code> Which path does the suggestion queue&#x27;s reviewer choose, and what does the choice decide?</h3>
+  <p class="status status-recorded">Recorded 2026-11-20</p>
+  <p>Path A — &#x27;Prove the traffic first&#x27; — is chosen as the standing strategy (the queue&#x27;s own recommendation; recorded here in the reviewer slot the brief requires, with no manual input available). Concretely: SG-06 (endpoint) + SG-29 (Search Console) + SG-44 (the runbook) are the next actions; SG-34 switches topic selection to measured queries once 14 days of data exist; Path B and Path C items are decided item-by-item in the queue (shipped where the shop passes already delivered them — SG-13, SG-17, SG-35; deferred to Path B&#x27;s editorial hours or Path C&#x27;s clearance — SG-02, SG-08, SG-10, SG-39, SG-43; gated on owner answers — SG-01, SG-36, SG-41). Deferred is a recorded decision with a stated blocker, not limbo, and nothing is dropped. No new reader-facing scope beyond the published calendar ships until measurement exists.</p>
+  <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">source</a> </p>
+</article>
+<article class="card d-card" id="D-P23">
+  <h3><code>D-P23</code> Do paid promotion, a newsletter, or any paid placement run before attribution is proven?</h3>
+  <p class="status status-recorded">Recorded 2026-11-20</p>
+  <p>No. SG-14 is accepted as a standing hold: no paid promotion and no newsletter until one clean attribution test exists (a tagged Special Link per product clicked and read back in the Associates tracking report — the protocol on the measurement page). The brief&#x27;s evidence-first rule applies to spend even more than to copy: an unmeasured funnel cannot tell a promotion from a leak. The hold lifts on the owner&#x27;s record of that one test. (Recorded by the D-P22 reviewer pass.)</p>
+  <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">source</a> </p>
+</article>
 
 <p class="small-note">Machine-readable log: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/decisions.json" rel="noopener" target="_blank">data/p2/decisions.json</a>.</p>
 
