@@ -1067,6 +1067,45 @@ Protocol note: this session works on its single assigned branch `arena/722181aa-
 | Pages | `build_type: legacy`, `source: main /`, status `built` (serving the root mirror; the owner-side source change in F-P19/F-P20 is still pending) |
 | Live check | https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the "Flagged for review" page and the F-P24 entry in the built `docs/flagged.html` |
 | Status | L-01..L-03 **done**. Claim released. |
+
+---
+
+## PR / MERGE / DEPLOY RECORD — session arena/644d217b-prod2 (2026-11-20)
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/44 |
+| Base / head | `main` ← `arena/644d217b-prod2` |
+| Merge result | **Merged 2026-11-20 06:47:59 UTC**, merge commit `d7f58d16db80b826fec91a99a3e94348ce0b8636` (merge commit, not squash — every W-0x commit is preserved) |
+| Merge conflict | `origin/main` had advanced 7 commits (#39–#42, session arena/722181aa-prod2) after this branch started. Merged, not rebased. Conflict in `data/p2/flags.json` / `flagged.html` resolved as a **union**: their register formatting and their new **F-P24** (the five `link.amazon` short links resolved to the Amazon homepage in *their* fetch) are kept verbatim, and this session's F-P23 resolution is re-applied on top. 38 flags before, 38 after — nothing dropped. Their `data/p2/live-check-2026-11-20-722181aa.json` is untouched. |
+| Workflows on the merge commit `d7f58d1` | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Checks at merge | `tools/checks.py` **ALL CHECKS PASSED** (30 pages, 13 sections) · `scripts/verify_site.py` **VERIFY OK** (18 pages) · `npm test` **3/3** · root mirror byte-identical to `docs/` (30/30 files) |
+| Pages | Deployed from the merge commit; `GET /Prod2/article-thermometer-placement.html` returns the page with its full text, correct title and correct links |
+| Live site | https://wingbangboozle1-lang.github.io/Prod2/ |
+
+### What the merge itself exposed (fixed in `e624b6a`)
+
+The Flagged page rendered only each flag's `how_to_resolve` cell, so **F-P23 still read as an open
+problem on the page a reviewer actually reads** while its JSON said resolved. Resolved flags now render
+their resolution and date. This is the same defect class as F-P23: the machine knew and the reader
+could not see it. Worth knowing for the next pass — a register that is correct in JSON is not a
+register that is correct on the page.
+
+### PR #35 status at handoff
+
+`arena/dd4bae8a-prod2` (PR #35) was still **CONFLICTING** at 06:47 UTC with its last commit at 06:27 UTC.
+Not touched. It is now also **superseded** on every surface it touched: this merge changed
+`tools/build.py`, `assets/js/measure.js`, `server.mjs`, the guide registry, the suggestions and
+questions registers, and added two pages. Per the handoff rule it became takeover-eligible at
+**07:27 UTC**; whoever takes it should treat `main` at `d7f58d1` as the current state and re-derive
+rather than rebase.
+
+### Known non-blocking state on `main`
+
+- `arena/37b265a4-prod2` (a parallel session, pushed 06:48 UTC) has a failing `verify-site` job, failing
+  at the **"Build is reproducible (committed site/ and root mirror match the build)"** step — the same
+  class of drift `main` had before this pass. It does not affect `main` or the deploy; its own session
+  owns the fix.
 # Session record — arena/e0d92902-prod2 (2026-11-20 handoff takeover + redirect/compliance re-verification)
 
 | Item | Value |
