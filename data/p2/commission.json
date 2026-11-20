@@ -11,7 +11,7 @@
    "Not a popularity, price or ranking claim, and it is not reader-facing marketing copy."
   ],
   "evidence_rule": "The rate row is quoted from the official table with its row text, and the category assignment is derived from the listing's own department path with the derivation shown in 'mapping_basis'. A value with no official row behind it is not published.",
-  "mapping_limit": "The Commission Income Statement names Amazon's commission categories; it does not publish a browse-node-to-category map. The mapping below therefore rests on the listing's own department path, which is official and dated. The exact commission category Amazon assigns this account for each ASIN is confirmable only from the account's own report — that residual gap is carried as flag F-P25 and question Q-P18.",
+  "mapping_limit": "The Commission Income Statement names Amazon's commission categories; it does not publish a browse-node-to-category map. The mapping below therefore rests on the listing's own department path, which is official and dated. The exact commission category Amazon assigns this account for each ASIN is confirmable only from the account's own report — that residual gap is carried as flag F-P29 and question Q-P19.",
   "not_verified": [
    "Associates enrollment status of this account and whether tag=shopnow047c-20 attributes (F-57, F-58).",
    "Whether the account is on the Standard rate table at all, or on a contract-specific schedule.",
@@ -59,7 +59,7 @@
    "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining; the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%. 'Home' (3.00%) covers the Home department and 'All Other Categories' (4.00%) is the residual row, so neither is a candidate.",
    "actual_rate_percent": null,
    "actual_rate_source": null,
-   "actual_rate_note": "Null by rule: this account's own Commission Income Statement is the only authority for its contract rate, and the project does not have it (F-P25)."
+   "actual_rate_note": "Null by rule: this account's own Commission Income Statement is the only authority for its contract rate, and the project does not have it (F-P29)."
   },
   {
    "product_id": "P2",
@@ -74,7 +74,7 @@
    "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining; the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%.",
    "actual_rate_percent": null,
    "actual_rate_source": null,
-   "actual_rate_note": "Null by rule (F-P25)."
+   "actual_rate_note": "Null by rule (F-P29)."
   },
   {
    "product_id": "P3",
@@ -89,7 +89,7 @@
    "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining; the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%.",
    "actual_rate_percent": null,
    "actual_rate_source": null,
-   "actual_rate_note": "Null by rule (F-P25)."
+   "actual_rate_note": "Null by rule (F-P29)."
   },
   {
    "product_id": "P4",
@@ -104,7 +104,7 @@
    "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining (Kitchen Utensils & Gadgets > Thermometers & Timers > Meat); the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%. Note this ASIN is not an air fryer and is not in the Fryers browse node, but it shares the department, and the rate table is keyed by category, not by browse node.",
    "actual_rate_percent": null,
    "actual_rate_source": null,
-   "actual_rate_note": "Null by rule (F-P25)."
+   "actual_rate_note": "Null by rule (F-P29)."
   },
   {
    "product_id": "P5",
@@ -119,7 +119,7 @@
    "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining (Kitchen Utensils & Gadgets > Thermometers & Timers > Meat); the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%.",
    "actual_rate_percent": null,
    "actual_rate_source": null,
-   "actual_rate_note": "Null by rule (F-P25)."
+   "actual_rate_note": "Null by rule (F-P29)."
   }
  ],
  "catalogue_summary": {

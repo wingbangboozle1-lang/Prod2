@@ -315,7 +315,7 @@
    ]
   },
   {
-   "id": "Q-P18",
+   "id": "Q-P19",
    "area": "Commercial",
    "question": "What category and rate does this Associates account actually earn on each of the five ASINs?",
    "known": "Amazon's Standard Commission Income Statement Table 1 (read 2026-11-20) prices the 'Kitchen' product category at 4.50%, and all five listings read under the Home & Kitchen > Kitchen & Dining department, so the published table shows one sourced Standard rate for all five. The category derivation and its limit are recorded in data/p2/commission.json.",

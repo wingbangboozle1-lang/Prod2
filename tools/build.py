@@ -1195,8 +1195,23 @@ def build_sitemap() -> None:
 
 
 def build_robots() -> None:
+    # Pages currently serves the repository ROOT (build_type: legacy, source
+    # "main /") - see flag F-P19/F-P20. That means the source registers, the
+    # content fragments and the build tools are technically fetchable at the
+    # public URL. robots.txt is not access control, but disallowing the source
+    # directories keeps them out of search results and stops them being read as
+    # duplicate content for the publication.
     (DOCS / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\nDisallow: /Prod2/archive/\n\n"
+        "User-agent: *\nAllow: /\n"
+        "Disallow: /Prod2/archive/\n"
+        "Disallow: /Prod2/data/\n"
+        "Disallow: /Prod2/content/\n"
+        "Disallow: /Prod2/tools/\n"
+        "Disallow: /Prod2/scripts/\n"
+        "Disallow: /Prod2/tests/\n"
+        "Disallow: /Prod2/site/\n"
+        "Disallow: /Prod2/.git/\n"
+        "Disallow: /Prod2/.github/\n\n"
         f"Sitemap: {BASE}/sitemap.xml\n", encoding="utf-8")
 
 
