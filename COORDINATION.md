@@ -2,11 +2,42 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current sessions: **session-arena-9f84489c** (branch `arena/9f84489c-prod2`, publication polish pass — claim below) · session-arena-8ff10f50-prod2 (branch `arena/8ff10f50-prod2`, PRs #19/#21 merged)
+Current sessions: **session-arena-f55b5827** (branch `arena/f55b5827-prod2`, anti-slop design + brand + seasonal-guide pass — active claim below) · session-arena-9f84489c (branch `arena/9f84489c-prod2`, publication polish pass — PR #28 merged 2026-11-19, complete) · session-arena-8ff10f50-prod2 (branch `arena/8ff10f50-prod2`, PRs #19/#21 merged)
 
 ---
 
-## ACTIVE CLAIM — session arena/9f84489c-prod2 (2026-11-19, publication polish pass)
+## ACTIVE CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
+
+Owner directive 2026-11-20 (verbatim intent): the site must not read like "AI slop"; it should look like a polished
+marketing affiliate publication with catchy, timely articles that can earn organic traffic; suggestions and
+decision/question registers stay the review surfaces; no owner input available — work to completion, verify
+everything, PR, merge, confirm Pages.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| V-01 Ship the adopted brief's typography (self-hosted Fraunces + Inter, OFL) + design-token conformance pass | in progress | arena/f55b5827-prod2 | `assets/fonts/*`, `assets/css/site.css`, `DESIGN_PROMPT.md` |
+| V-02 Working-brand adoption on the owner directive ("The Crisp Counter") + preliminary name search; formal clearance stays open (Q-19) | in progress | arena/f55b5827-prod2 | `data/p2/settings.json`, `tools/make_og.py`, `assets/img/og-card.png`, `data/p2/flags.json` |
+| V-03 Catchy seasonal guide (December gifting window) + calendar queue extension (hypotheses only, D-19) | in progress | arena/f55b5827-prod2 | `content/pages/guide-gift-guide.html`, `data/p2/calendar.json`, `tools/build.py` |
+| V-04 Decision-making improvements + suggestion-batch SG-38..SG-43 | in progress | arena/f55b5827-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| V-05 Questions / missing-information register additions (Q-P10, Q-P11) | in progress | arena/f55b5827-prod2 | `data/p2/questions.json` |
+| V-06 Register + docs sync (decisions D-P10..D-P12, flag F-P15, README, EXECUTIVE_SUMMARY, DECISIONS, VOICE) | in progress | arena/f55b5827-prod2 | `data/p2/decisions.json`, `*.md`, `tools/build.py` (BUILD_DATE) |
+| V-07 Integration: rebuild both outputs, gate, line-by-line re-verify, PR to main, merge, Pages live check | in progress | arena/f55b5827-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+Protocol notes for this claim:
+- Branch `arena/f55b5827-prod2` from `f6e772f` (main at PR #28). Arena allows one branch per session; this session
+  is both the working and the integration session on this branch (same standing note as the arena/9f84489c claim).
+- The brand adoption is recorded as a **working brand** decision (D-P10) driven by the owner's 2026-11-20 directive;
+  formal trademark clearance has NOT been performed by this session — preliminary search only (see D-P10 and flag
+  F-P15 for the evidence links). Reversing it is a one-line change in `data/p2/settings.json` + rebuild.
+- The canonical deployed publication remains `docs/` (built by `tools/build.py`, gated by `tools/checks.py`),
+  mirrored to the repo root for legacy Pages serving (INT-07). The preserved Countercraft build (`site/`,
+  `scripts/build_site.py`) is intentionally untouched by this pass.
+- Results, sources, verification performed, and irregularities for this claim: see "Claim results" near the PR
+  record below.
+
+---
+
+## Completed claim — session arena/9f84489c-prod2 (2026-11-19, publication polish pass; PR #28 merged)
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
