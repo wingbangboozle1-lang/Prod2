@@ -38,7 +38,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 DATA = ROOT / "data" / "p2"
 
-DISCLOSURE = "As an Amazon Associate we earn from qualifying purchases."
+DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 TRACKING_TAG = "tag=shopnow047c-20"
 
 GOVERNANCE = {"executive-summary.html", "method.html", "flagged.html", "questions.html",

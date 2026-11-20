@@ -1,0 +1,49 @@
+<p class="eyebrow">About</p>
+<h1>Who writes this, and the four rules we do not bend.</h1>
+<p class="lede">{{brand}} is a small edited buying guide to five kitchen tools: three air fryers in three formats, and two meat thermometers. It is run by one editor with automated checking behind it, and it is funded by Amazon Associates commission — which is exactly why the rules below are published rather than implied.</p>
+
+<div class="callout">
+  <h3>The short version</h3>
+  <p>We read official listings, quote what they say, date every read, and link to the source on the same line as the claim. Where a value could not be confirmed, the cell stays blank and is listed on the <a href="flagged.html">Flagged for review</a> page. Nothing on this site is a hands-on test result, and we do not claim otherwise (<a href="decisions.html#D-06">D-06</a>).</p>
+</div>
+
+<h2>The four rules</h2>
+<ol>
+  <li><strong>Every figure has a receipt.</strong> A number appears only if it was read from an official listing or an official policy page on a dated pass, and the source link sits beside it. The read dates are on the <a href="method.html">method page</a>.</li>
+  <li><strong>Blank beats guessed.</strong> If a value cannot be confirmed from an official source, it is left blank and marked unverified. We never infer a price, a rating, a capacity or a commission rate.</li>
+  <li><strong>Paid links are always marked.</strong> Every outbound product link carries <code>rel="sponsored"</code>, opens in a new tab, and is labelled {{paid_label}}. The Associates disclosure sits under the masthead on every page and repeats in the footer.</li>
+  <li><strong>No claims we cannot license.</strong> Star ratings, review counts and any popularity or sales-volume claim require data Amazon licenses to us through the Creators API or Product Advertising API. We do not have that access, so those claims do not appear here — a rule the build gate enforces word by word (<a href="flagged.html#F-15">F-15</a>).</li>
+</ol>
+
+<h2>What we cannot tell you</h2>
+<p>Being straight about the limits is more useful than a badge. As of the last published pass:</p>
+<div class="table-scroll"><table class="data">
+  <thead><tr><th>We cannot tell you</th><th>Why</th><th>Where it is tracked</th></tr></thead>
+  <tbody>
+    <tr><td>The current price</td><td>Amazon permits published prices only when Amazon serves them or they come through the licensed APIs (<a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">Program Policies §2(b)</a>, read 2026-11-20). A scraped price is neither.</td><td><a href="flagged.html#F-02">F-02</a></td></tr>
+    <tr><td>Star ratings and review counts</td><td>Same licensing restriction; ratings require the licensed API.</td><td><a href="flagged.html#F-02">F-02</a></td></tr>
+    <tr><td>How these perform in a real kitchen</td><td>No unit has been bought or tested. That would be a different site with a different standard.</td><td><a href="decisions.html#D-06">D-06</a></td></tr>
+    <tr><td>How much commission each product pays</td><td>The rate table is category-based and not mapped here to a confirmed category for each ASIN.</td><td><a href="flagged.html#F-01">F-01</a></td></tr>
+    <tr><td>Whether anyone has bought through this site</td><td>The campaign ledger starts empty and only accepts rows from an authorized first-party report.</td><td><a href="measurement.html">Measurement</a></td></tr>
+  </tbody>
+</table></div>
+
+<h2>How the site is made</h2>
+<p>The site is generated from a data register by a build script, and a release gate refuses to publish if a disclosure is missing, a paid link loses its <code>rel="sponsored"</code> marking, a title is duplicated, a page drops out of the sitemap, or a claimed figure has no citation. The gate's output is printed on every build. If a check fails, the site does not go live.</p>
+<ul>
+  <li><strong>Editorial voice:</strong> published in the repo as <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/VOICE.md" rel="noopener" target="_blank">VOICE.md</a>.</li>
+  <li><strong>Design direction:</strong> <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md" rel="noopener" target="_blank">DESIGN_PROMPT.md</a>.</li>
+  <li><strong>Decision history:</strong> the <a href="decisions.html">decision log</a>, with every choice dated.</li>
+  <li><strong>Corrections and gaps:</strong> the <a href="flagged.html">Flagged for review</a> page, published deliberately rather than hidden.</li>
+</ul>
+
+<h2>Images</h2>
+<p>The illustrations on this site are drawn for it. We do not copy Amazon product photography onto these pages, and each illustration is generic to the <em>format</em> — a two-basket machine, a French-door oven, a folding probe — rather than a picture of the specific model. That is why every card says "illustration, not the product photo": the official listing is the only place to see the actual item.</p>
+
+<h2>About the commission, plainly</h2>
+<p>{{disclosure}} If you click a product link and buy, Amazon pays this site a percentage at no extra cost to you. It does not change what we publish: the five products are the five the owner asked us to cover, and the comparison shows where each one loses, not only where it wins. If that ever stops being true, this page changes first.</p>
+
+<h2>Corrections</h2>
+<p>If a figure here does not match the official listing, the listing wins and the figure gets fixed. The fastest route is the <a href="guides.html#ask">question form</a> or an issue on the <a href="https://github.com/wingbangboozle1-lang/Prod2" rel="noopener" target="_blank">repository</a>. Corrections that change a published value are recorded in the <a href="decisions.html">decision log</a> with their date.</p>
+
+{{byline}}

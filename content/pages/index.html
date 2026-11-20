@@ -1,54 +1,92 @@
 <section class="hero">
   <div class="hero-grid">
     <div>
-      <p class="eyebrow">{{brand}} · {{descriptor}}</p>
-      <h1>Find the format that fits your kitchen.</h1>
-      <p class="method-line">Three air fryers, two thermometers. Pick the format that suits how you cook, then check every number against its official listing — so you decide, not the hype. Each number shows its receipt.</p>
+      <p class="hero-kicker"><span>2026 edit</span> Five tools, three formats, no filler</p>
+      <h1>Find the air fryer that fits the way you actually cook.</h1>
+      <p class="lede">Two drawers or one? A basket or a little oven? We follow three air fryers and two meat thermometers, and we explain the trade-offs in plain English — capacity, counter fit, cleanup — using the numbers printed on the official listings.</p>
       <p class="cta-row">
-        <a class="btn" href="compare.html">Compare the five</a>
-        <a class="btn btn-ghost" href="guides.html">Read the guides</a>
+        <a class="btn" href="shop.html">Shop the shelf</a>
+        <a class="btn btn-ghost" href="compare.html">Compare the five</a>
       </p>
-      <p class="receipt-strip">Every number has a receipt: a source link and the date it was read, next to the figure. <a href="method.html">See the method</a>.</p>
+      <p class="receipt-strip">Every figure carries its receipt: a link to the listing it was read from and the date we read it. <a href="method.html">How we check</a>.</p>
+      <div class="trust-row">
+        <div><b>5</b><span>tools followed</span></div>
+        <div><b>3</b><span>air fryer formats</span></div>
+        <div><b>9</b><span>buyer guides</span></div>
+        <div><b>0</b><span>made-up specs</span></div>
+      </div>
     </div>
-    <div class="format-tiles">
-      <a class="tile" data-category="dual-basket" href="category-air-fryers.html#dual">
-        <svg viewBox="0 0 48 48" fill="none" stroke="#C4613C" stroke-width="2" aria-hidden="true"><rect x="6" y="16" width="16" height="22" rx="3"/><rect x="26" y="16" width="16" height="22" rx="3"/><path d="M10 12h8M30 12h8"/></svg>
-        <h3>Dual-basket air fryers</h3>
-        <p>Two dishes, one machine, finished together.</p>
-      </a>
-      <a class="tile" data-category="toaster-oven" href="category-air-fryers.html#oven">
-        <svg viewBox="0 0 48 48" fill="none" stroke="#C4613C" stroke-width="2" aria-hidden="true"><rect x="5" y="12" width="38" height="26" rx="3"/><path d="M5 22h38"/><circle cx="12" cy="17" r="1.5" fill="#C4613C"/><circle cx="18" cy="17" r="1.5" fill="#C4613C"/><path d="M12 30h24"/></svg>
-        <h3>Air fryer toaster ovens</h3>
-        <p>Rack cooking, sheet-pan meals, French doors.</p>
-      </a>
-      <a class="tile" data-category="single-basket" href="category-air-fryers.html#single">
-        <svg viewBox="0 0 48 48" fill="none" stroke="#C4613C" stroke-width="2" aria-hidden="true"><rect x="10" y="14" width="28" height="24" rx="4"/><path d="M16 10h16"/><path d="M10 22h28"/></svg>
-        <h3>Single-basket air fryers</h3>
-        <p>One big basket, the smallest footprint.</p>
-      </a>
-      <a class="tile" data-category="thermometers" href="category-thermometers.html">
-        <svg viewBox="0 0 48 48" fill="none" stroke="#C4613C" stroke-width="2" aria-hidden="true"><path d="M24 8v22"/><circle cx="24" cy="36" r="6"/><path d="M24 16h6M24 22h4"/></svg>
-        <h3>Meat thermometers</h3>
-        <p>Instant-read and wireless leave-in probes.</p>
-      </a>
+    <div class="hero-art">
+      <img src="{{base_url}}/assets/img/hero-kitchen.png" alt="Illustration of an air fryer and a digital meat thermometer on a kitchen counter" width="1200" height="900">
+      <p class="hero-note"><strong>What you will not find here</strong>Star ratings we cannot license, prices that change hourly, or a "best" badge anyone paid for. <a href="about.html">Why</a>.</p>
     </div>
   </div>
 </section>
 
-<h2>Start with the five</h2>
-<p class="lede">Three air fryers in three formats, two thermometers in two workflows. This is the whole shelf — pick a card, or <a href="compare.html">put them side by side</a>.</p>
+<div class="section-head">
+  <h2>The shelf</h2>
+  <a href="shop.html">Filter all five →</a>
+</div>
+<p class="section-intro">This is the whole catalogue — nothing hidden further down the page. Each card says what the tool is good at, the three listed features that matter, and links straight to the official listing so you can check the current price yourself.</p>
 {{product_cards}}
 
-<h2>Questions buyers actually ask</h2>
-<p class="lede">One question per guide, answered from the listings — not from a keyword list. A new guide every two weeks; <a href="guides.html">all of them live here</a>.</p>
+<h2>Start with the question you have</h2>
+<p class="lede">Most people arrive with one of these in mind. Pick the one that sounds like you and we will walk you to the right format.</p>
+<div class="card-grid">
+  <article class="card guide-card">
+    <span class="tag">Format</span>
+    <h3><a href="guide-basket-vs-oven.html">Basket or oven-style: what actually differs?</a></h3>
+    <p>Food shape, preheat patience, and how much of the counter you lose. The one decision that changes everything else.</p>
+    <a class="more" href="guide-basket-vs-oven.html">Read the guide</a>
+  </article>
+  <article class="card guide-card">
+    <span class="tag">Capacity</span>
+    <h3><a href="guide-how-many-quarts.html">How many quarts do you actually need?</a></h3>
+    <p>Quarts describe volume, not people. A serving-count sanity check built from the listed capacities.</p>
+    <a class="more" href="guide-how-many-quarts.html">Read the guide</a>
+  </article>
+  <article class="card guide-card">
+    <span class="tag">Counter fit</span>
+    <h3><a href="guide-cleanup-counter-space.html">Cleanup and counter-space trade-offs</a></h3>
+    <p>What the dimensions and dishwasher-safe parts tell you before the box arrives.</p>
+    <a class="more" href="guide-cleanup-counter-space.html">Read the guide</a>
+  </article>
+  <article class="card guide-card">
+    <span class="tag">Thermometers</span>
+    <h3><a href="guide-instant-vs-leave-in.html">Instant-read or leave-in?</a></h3>
+    <p>A one-second spot check and a probe you leave in the meat are different tools for different cooks.</p>
+    <a class="more" href="guide-instant-vs-leave-in.html">Read the guide</a>
+  </article>
+</div>
+
+<div class="two-col">
+  <div class="card">
+    <p class="eyebrow">Not sure yet</p>
+    <h3>Three questions, one answer</h3>
+    <p>How many people you cook for, how much counter depth you can spare, and whether two dishes need to finish together. That is the whole routing logic — no algorithm, no popularity contest.</p>
+    <p><a class="btn btn-sm" href="compare.html#chooser">Run the three questions</a></p>
+  </div>
+  <div class="card">
+    <p class="eyebrow">Already shopping</p>
+    <h3>Put them side by side</h3>
+    <p>Capacity, dimensions in inches, counter depth and the listed feature sets in one table, with a source link on every row and blanks where a value could not be confirmed.</p>
+    <p><a class="btn btn-sm btn-ghost" href="compare.html#table">Open the comparison</a></p>
+  </div>
+</div>
+
+<div class="section-head">
+  <h2>Every guide</h2>
+  <a href="guides.html">The guides hub →</a>
+</div>
+<p class="section-intro">One question per page, published on a fortnightly cadence. Start anywhere.</p>
 {{guide_cards}}
 
 <h2>The seasonal desk</h2>
-<p class="lede">Timed to the calendar, not to a hype cycle.</p>
+<p class="section-intro">Timed to the calendar, not to a hype cycle.</p>
 {{season_desk}}
 
 <h2>Follow a thread</h2>
-<p class="lede">Every guide belongs to a cluster with a pillar page at its center.</p>
+<p class="section-intro">Every guide belongs to a cluster with a pillar page at its centre.</p>
 {{clusters}}
 
 <div class="two-col">
@@ -57,13 +95,3 @@
 </div>
 
 {{byline}}
-
-<h2>The five, at a glance</h2>
-<p>Three air fryers in three formats and two thermometers — the machines this guide follows. The table sticks to what stays true across listings: format, capacity and counter fit. Prices and ratings move too fast to publish honestly, so every row links you to the live listing instead.</p>
-{{products_table}}
-{{comparison_cta}}
-
-<div class="callout callout-sage">
-  <h3>What this site is (and isn't)</h3>
-  <p>It's a small, edited buying guide: every figure traces to an official listing with the date it was read, and every product link is a clearly marked paid link. It isn't hands-on testing — nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>) — and it isn't a deals site: prices and ratings are deliberately unpublished (<a href="flagged.html#F-02">F-02</a>). <a href="method.html">See the method</a> · <a href="flagged.html">What's flagged</a> · <a href="questions.html">What we still don't know</a> · <a href="suggestions.html">Suggest a change</a></p>
-</div>
