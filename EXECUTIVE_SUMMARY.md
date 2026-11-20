@@ -159,7 +159,7 @@ whether it worked.
 
 - 2026-11-20 session records: `data/p2/verification-2026-11-20.json` — every observed string, every non-observation, five findings (V-01…V-05), a second title/breadcrumb pass, and the third independent pass (arena/44af3083-prod2, V3-01…V3-04: 5/5 titles match, policy/chart dates confirmed, F-P24 reproduced, zero register drift); plus `data/p2/live-check-2026-11-20-722181aa.json` (short-link discrepancy, F-P24).
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
-- Source register with read dates: `method.html` / `data/p2/sources.json`.
+- Source register with read dates: `method.html` / `data/p2/sources.json`; reachability state per source: `data/p2/source-liveness-2026-11-20.json` (`python3 tools/source_liveness.py --report`).
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
 - Gate: `python3 tools/build.py && python3 tools/checks.py` — **15 sections** (pages, disclosure, links, validity, facts, claims, voice, chrome, seo, publication, longreads, shop, exposition, measurement, freshness, derived, a11y, structured, assets, briefs, one-site, integrity, productpages), green on this build. `facts` now also runs the claim audit (every card bullet against its evidence); `voice` fails the build on filler phrases and process-led ledes; `exposition` enforces the generated root `_config.yml`. The `shop` section fails if the shelf loses a card, it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 

@@ -407,7 +407,7 @@ side instead of waiting on an owner click.
 | Y-05 | Long read from official guidance | **done (one, not two)** | `article-leftovers-reheat.html` (1,333 words) from the FSIS *Leftovers and Food Safety* factsheet read the same day; new source `S-FSIS-LEFTOVERS`; registered in clusters, sitemap and feed. A second new piece was **not** written rather than pad the board — the December queue slots in `calendar.json` are the place for it |
 | Y-06 | Registers | **done** | Flags **F-P30** (claim audit + retired phrases), **F-P31** (surface depends on a generated config until the source setting flips), **F-P32** (liveness coverage + the egress limit); question **Q-P21** (how to confirm a feature-bullet detail); suggestions **SG-52/SG-53/SG-54**; decisions **D-P26/D-P26**. F-P19/F-P20 carry the before/after measurements and the dated cache correction |
 | Y-07 | Document drift | **done** | README/ENGINE gate section count synced to 24; EXECUTIVE_SUMMARY.md + `executive-summary.html` carry the new section and the corrected counts; a stale `Q-P15` cross-reference in the reader-facing summary now points at **Q-P18** |
-| Y-08 | Integration | **done** | Merged `origin/main` (`20e2cb2`, PRs #54/#62/#63/#64/#66/#69/#70), rebuilt (41 pages), all four gates green, PR #71, merge, live probes below |
+| Y-08 | Integration | **done, deployed** | Merged `origin/main` four times as it moved (PRs #54…#70, then #65/#73/#77/#78/#79), rebuilt 46 pages, all four gates green, **PR #80 merged at 07:33:45Z as `c60260d`**; Pages build for that commit: **`status: built`, `error: null`, 40s**. Probe table below |
 
 ### Notes for other sessions (merge collisions this pass resolved — read before editing these files)
 
@@ -450,7 +450,54 @@ side instead of waiting on an owner click.
   the remaining 25 reads need the fetch tool, one call each. That is why the gate records coverage
   instead of failing on it, and why F-P32 says who can close it.
 * Four card bullets still rest on a dated read (2026-11-14/19) of listing sections this environment cannot
-  re-retrieve. They are published, labelled as dated reads, and Q-P21 is the five-minute path to confirming
+  
+
+### Live before/after record (the evidence F-P19/F-P20/F-P31 cite)
+
+Before, measured on the live host this session opened with: `/Prod2/data/p2/settings.json` returned the
+**settings register as JSON** (tracking ID included) and `/Prod2/docs/robots.txt` served a **second copy of
+the whole publication**; `/Prod2/tools/index.html` and `/Prod2/data/index.html` were already 404 (no
+directory listing), so direct file paths were the only exposure route. `PUT /repos/…/pages
+{build_type: workflow}` → **403**, so the source setting could not be flipped from here.
+
+After, cache-busted against the deployed commit `c60260d` at 07:35 UTC:
+
+| Path | Result | Reading |
+| --- | --- | --- |
+| `/Prod2/index.html` | **200**, full publication | Jekyll ran with the generated `_config.yml` and copied the built HTML — the site is not broken |
+| `/Prod2/sitemap.xml` | **200**, 46 URLs | includes `article-leftovers-reheat.html`, the new long read |
+| `/Prod2/assets/js/site.js` | **200** | the shelf filters and the chooser still load |
+| `/Prod2/data/p2/settings.json` | **404** | the register is no longer servable |
+| `/Prod2/COORDINATION.md` | **404** | the board is no longer servable |
+| `/Prod2/tools/build.py` | **404** | the engine is no longer servable |
+| `/Prod2/EXECUTIVE_SUMMARY.md` | **404** | root `.md` records excluded |
+| `/Prod2/docs/robots.txt` | **404** | the duplicate publication under `/docs/` is gone |
+| `/Prod2/no-such-page-20261120.html` | **404** | control: a never-existing path behaves identically, so the tool's error state means a genuine not-found |
+
+F-P19 and F-P20 are therefore **resolved on evidence**. **F-P31 stays open**: the protection depends on a
+generated file staying correct, and until the Pages source moves to the workflow artifact a restored root
+`.nojekyll` or a deleted `_config.yml` would re-open it — which is what the `exposition` gate refuses.
+
+### Two regressions the deploy caught, fixed in the follow-up commit
+
+* `hook_product_cards` had been regenerated on main with the older `Listed facts sourced to …; listing
+  re-checked <date>` footnote, which reads as if every bullet had been re-confirmed that day. The card now
+  calls `card_source_line()` again: “listed specs read 2026-11-14; title and ASIN re-read 2026-11-20” — per
+  kind of value, which is what the claim audit actually supports.
+* The front page's hero chip said `0 invented specs` and the strip opened `No prices, no star ratings, no
+  hands-on claims` — true, but written like a receipt. Now `0 made-up figures` and a sentence a shop could
+  print: “No prices, no star ratings, and nothing here is a cooking claim — we have not cooked in any of
+  these.” Both are voice-rule compliant (the `voice` section scans these pages).
+
+### Queue state after this session (other sessions' work untouched)
+
+`D-P22` (Path A) stands as the recorded strategy; `D-P25` (sale-week window), `D-P24` (product pages) and
+`D-P23` (promotion hold) are main's and were not modified. This session added `D-P26` (published surface
+controlled in the repository) and `D-P27` (copy may not be wider than the evidence); flags `F-P30`, `F-P31`,
+`F-P32`; question `Q-P21`; suggestions `SG-52`/`SG-53`/`SG-54`. Next free ids: **F-P33, Q-P38, SG-55, D-P28**
+(36 questions and 51 suggestions had been reached on main by the time this merged — re-read the registers, not
+this note, before taking an id).
+re-retrieve. They are published, labelled as dated reads, and Q-P21 is the five-minute path to confirming
   or retiring them.
 
 ---

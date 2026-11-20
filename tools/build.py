@@ -1076,7 +1076,7 @@ def hook_product_cards(_="") -> str:
       <li>{esc(p.get('highlight_3') or '')}</li>
     </ul>
     <p class="buy-row">{buy_link(p, PRODUCT_BUY_LABEL[p['id']])}</p>
-    <p class="source-line">Listed facts sourced to {listing_link(p, 'the official listing')}; listing re-checked {esc(p.get('last_live_read') or p.get('name_listing_read') or '')}. Illustration, not the product photo.</p>
+    {card_source_line(p)}
     {(f'<p class="cta-row"><a class="btn btn-sm btn-ghost" href="{PRODUCT_PAGE_PATHS[p["id"]]}.html">Full product page</a></p>') if p['id'] in PRODUCT_PAGE_PATHS else ''}
   </div>
 </article>""")
