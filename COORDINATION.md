@@ -28,7 +28,7 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 | D-08 Suggestions section: review-and-choose decision surface | done | arena/70b2b9f7-prod2 | `content/pages/suggestions.html`, `data/p2/suggestions.json` |
 | D-09 Questions register: missing-information discovery paths | done | arena/70b2b9f7-prod2 | `content/pages/questions.html`, `data/p2/questions.json` |
 | D-10 Gate extension + full build/verify | done | arena/70b2b9f7-prod2 | `tools/checks.py`, `docs/`, root mirror |
-| D-11 Integration: PR, merge, Pages deploy confirmed, docs sync | in progress | arena/70b2b9f7-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `docs/` |
+| D-11 Integration: PR, merge, Pages deploy confirmed, docs sync | done | arena/70b2b9f7-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `docs/` |
 
 Protocol notes for this claim:
 - Branch `arena/70b2b9f7-prod2`, branched from `f6e772f` (main at PR #28). Arena allows one branch per session; this session is both working and integration session on it.
@@ -149,6 +149,45 @@ No other session has an unexpired claim on these files. If this session stops, a
 | PR | What | Result |
 | --- | --- | --- |
 | #19 | Integration: product-forward landing page + transparency flag F-P08 + both builds verified + Pages deploy | Merged into `main` as merge commit `0030f90a69b53ecd226923ddd6125dc795f0b282`; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
+
+
+## PR / merge / deploy record — 2026-11-20 (arena/70b2b9f7-prod2)
+
+| PR | What | Result |
+| --- | --- | --- |
+| #31 | Shop-first rebuild: design system, shelf page, About/standards, live 2026-11-20 re-verification, gate 9 -> 11 sections | **Merged** into `main` as `a4166bbbdee2ba3ad7c66d7113979a3608e7f1d9` at 2026-11-20T06:19:46Z. `verify-site` pass · `Self-hosted analytics tests` pass · `Deploy to GitHub Pages` pass · `pages build and deployment` pass |
+| #32 | Publish date: `BUILD_DATE` 2026-11-19 -> 2026-11-20 (footer, sitemap `lastmod`, feed `pubDate`) | **Merged** into `main` as `8bc543b8b559de18f33b58449cf06331b002c2a0`. All four workflows pass |
+
+**Live check after deploy (not a workflow status — the actual published pages):**
+
+| URL | State |
+| --- | --- |
+| `/Prod2/` | New front page: illustrated hero, shelf of five cards with images, "Best for:" lines, buy buttons, `Published 2026-11-20` |
+| `/Prod2/shop.html` | Live: filters, five cards, chooser, shortlist comparison |
+| `/Prod2/about.html` | Live: four rules, limits table, imagery policy |
+| `og-card.png` | New social card rendering (served as the page's main image) |
+
+**One thing to know about verifying the live site from here:** `curl` cannot reach
+`*.github.io` from this sandbox (egress is limited to `github.com`, `codeload.github.com`,
+`api.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org`). The live pages were
+therefore verified through the page-fetch tool, which can reach them. The first fetch of `/Prod2/`
+returned the **previous** build — a stale CDN edge, not a deploy failure — and a second fetch
+returned the current build. If a live check looks wrong, re-fetch with a cache-busting query before
+concluding anything.
+
+### Integration with the two sessions that merged mid-pass
+
+PRs #29 and #30 landed on `main` after this branch was cut and both touched the front page and the
+product cards. They were integrated, not overwritten:
+
+- **Preserved from #29/#30:** all 45 added lines of `DESIGN_PROMPT.md` (marketing conversion layer,
+  the nine article hooks, the organic-traffic notes); the `scripts/build_site.py` shelf work on the
+  preserved Countercraft build; the explicit `Best for:` label, which is clearer than the bare
+  eyebrow this branch had; and their hero phrase "every fact checked".
+- **Kept from this branch:** the design system, the card component with imagery and a buy button,
+  the new `shop.html` and `about.html`, the six-link nav, and the extended gate.
+- **Regenerated rather than hand-merged:** `docs/`, the root mirror, `sitemap.xml`, `feed.xml`.
+  The merge is reproducible — a clean clone rebuilds byte-identical output.
 
 ## Task details
 
