@@ -41,7 +41,8 @@ Sections:
                divergence FAILS the build (F-P23 fixed 2026-11-20, D-P21)
   one-site     one canonical base across every page; sitemap complete and free of
                duplicates; every archived build carries noindex; robots.txt scoped
-               away from source and archive
+               away from source and archive; every css/js URL carries a content
+               version so a corrected asset cannot sit behind a stale CDN copy
   briefs       the decision layer: every declared brief rendered, every cited
                register id resolves, no brief with an empty "not known" list, and
                the page is in the sitemap and the footer directory (X-04)
@@ -723,7 +724,7 @@ def main() -> int:
         for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"]+)"', text):
             if not (DOCS / rel).exists():
                 fail(f"{f.name}: image {rel} missing from docs/")
-        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             if not (DOCS / rel).exists():
                 fail(f"{f.name}: stylesheet {rel} missing from docs/")
     # the docs must not claim a hands-on test
@@ -900,8 +901,25 @@ def main() -> int:
     missing_from_sitemap = sorted(n for n in built_names if f"/{n}<" not in smap)
     if missing_from_sitemap:
         fail(f"{len(missing_from_sitemap)} built pages absent from sitemap.xml: {missing_from_sitemap[:4]}")
+    # Asset URLs must carry a content version. Pages serves assets through a CDN:
+    # on 2026-11-20 the fixed stylesheet was in the repo and the CDN still served
+    # the conflict-broken copy, so a reader kept seeing a broken site after a
+    # successful deploy. Versioning the URL makes the deploy actually take effect.
+    unversioned = []
+    for f in html_files:
+        t = f.read_text(encoding="utf-8")
+        # Only real asset references: a <link> to a stylesheet or a <script src>.
+        # A bare href to the stylesheet is evidence *about* an asset (F-P29 cites
+        # the live stylesheet URL as its proof), not a request for one.
+        for m in re.finditer(r'<link[^>]+href="[^"]*?/assets/css/[^"?]+"'
+                             r'|<script[^>]+src="[^"]*?/assets/js/[^"?]+"', t):
+            unversioned.append(f"{f.name}: {m.group(0)[:60]}")
+    if unversioned:
+        fail(f"{len(unversioned)} asset URLs carry no ?v= cache-buster, so a fix can sit "
+             f"behind a stale CDN copy (first: {unversioned[0]})")
     if not FAILURES:
-        ok(f"one canonical base; {len(locs)} sitemap URLs, no duplicates; archive noindexed; robots scoped")
+        ok(f"one canonical base; {len(locs)} sitemap URLs, no duplicates; archive noindexed; "
+           f"robots scoped; assets cache-busted")
 
     # --------------------------------------------------------------- integrity
     check("integrity")
@@ -936,9 +954,16 @@ def main() -> int:
         for token in ("--paper:", "--ink:", "--serif:", "--sans:"):
             if token not in c:
                 fail(f"site.css: design token {token} missing (stylesheet truncated?)")
-        for face in ("fraunces-var.woff2", "inter-var.woff2"):
-            if face not in c:
-                fail(f"site.css: @font-face for {face} missing but the build preloads it")
+        # Both a static-subset and a variable stack are valid; what must not happen
+        # is a stylesheet with no usable face for each family the build preloads.
+        # (tools/design_qa.py parses the CSS properly; this is the cheap assertion.)
+        if "@font-face" not in c:
+            fail("site.css: no @font-face at all, so the preloaded fonts are never used")
+        for family in ('"Fraunces"', '"Inter"'):
+            if family not in c:
+                fail(f"site.css: no @font-face declares {family}")
+        if not re.search(r'src:\s*url\("\.\./fonts/[^"]+\.woff2"\)', c):
+            fail("site.css: no @font-face points at a local .woff2 (a CDN face would leak reader IPs)")
     # Every register id referenced from a page or another register must exist.
     registers = {}
     for name, key in (("flags.json", "flags"), ("questions.json", "questions"),
