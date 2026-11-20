@@ -1212,3 +1212,25 @@ Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Sing
 - F-P23 / Q-P14: event-vocabulary contract (resolved in code by the W-01 pass; the gate asserts the five names; whether a collector is deployed for live traffic was not checked this session).
 - F-P24: short-link discrepancy (blocker 3).
 - F-P17 / F-02: carousel prices and ratings belong to other ASINs; the site withholds prices and ratings.
+
+### Post-merge follow-up from this session (2026-11-20, after PR #44/#46)
+
+Two merges downstream of this session's work (#43 and #50) have landed on `main` and rebuilt `docs/`.
+Checked from the current `main`, not assumed:
+
+- `tools/checks.py` → **ALL CHECKS PASSED** on `b8d5816`, including the `freshness` section, so the
+  published artifact still matches a fresh render. The two long reads are present, and every gate this
+  session added (`longreads`, the measurement assertions) is still live and green.
+- The two long reads are still on the live host: `/Prod2/article-thermometer-placement.html` and
+  `/Prod2/article-air-fryer-doneness.html` both return their full text with correct titles.
+- `SG-46` / `SG-47` still render on the suggestions page. `index.html` and `guides.html` still link both
+  articles; both are still in `sitemap.xml` and `feed.xml`.
+- The `flagged.html` page now renders resolved items with their resolution text (the defect found in this
+  session's own merge), so `F-P23` reads as resolved instead of as an open problem.
+
+**One item for a later session:** `verify.yml` build-checks the Python sources (`build`, `verify`) and
+the Node endpoint (the `test` workflow runs `npm test`), but no workflow runs `node --check server.mjs`
+before the tests. This session validated `server.mjs` by hand, twice, after editing it. If a syntax
+error ever slipped in, the failure would surface in the analytics job rather than at build time; that
+is adequate but late. Adding one `node --check server.mjs` step to `.github/workflows/verify.yml` would
+make it immediate. Logged, not implemented, because this session no longer holds a claim on that file.
