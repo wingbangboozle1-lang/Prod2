@@ -14,10 +14,10 @@
 <meta property="og:site_name" content="The Crisp Counter — Kitchen notes &amp; buying guides">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="The Crisp Counter feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
-<link rel="icon" type="image/svg+xml" href="https://wingbangboozle1-lang.github.io/Prod2/assets/img/favicon.svg?v=8b63596e79">
+<link rel="icon" type="image/svg+xml" href="https://wingbangboozle1-lang.github.io/Prod2/assets/img/favicon.svg?v=1d5f70f853">
 <link rel="preload" href="https://wingbangboozle1-lang.github.io/Prod2/assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://wingbangboozle1-lang.github.io/Prod2/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css?v=8b63596e79">
+<link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css?v=1d5f70f853">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -60,7 +60,7 @@
   <div class="wrap masthead-row">
     <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">The Crisp Counter<span class="wordmark-dot">.</span></span>
       <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
-    <nav class="nav" aria-label="Site"><a href="shop.html">Shop</a><a href="decide.html">Find my match</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><a href="guides.html">Guides</a><a href="compare.html">Compare</a><a href="about.html">About</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="about.html">About &amp; standards</a><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="briefs.html">Decision briefs</a><a href="before-you-decide.html">Before you decide</a><a href="suggestions.html" aria-current="page">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
+    <nav class="nav" aria-label="Site"><a href="shop.html">Shop</a><a href="decide.html">Find my match</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><a href="guides.html">Guides</a><a href="compare.html">Compare</a><a href="about.html">About</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="about.html">About &amp; standards</a><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="analysis.html">Analysis &amp; findings</a><a href="design-prompt.html">Design prompt pack</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="briefs.html">Decision briefs</a><a href="before-you-decide.html">Before you decide</a><a href="suggestions.html" aria-current="page">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
   </div>
   <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate I earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links, marked (paid link); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
 </header>
@@ -823,6 +823,141 @@
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as a specified input to the next design pass; implement only after SG-06.</p>
 </article>
+<article class="card s-card" id="SG-25">
+  <header><h3><code>SG-25</code> Instrument the click path before testing anything on it</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Redesigns, title rewrites and seasonal hubs all get argued from taste today, because nothing is counted. Five events are defined, the client exists, and no endpoint receives them (F-19).</dd>
+    <dt>Proposal</dt><dd>Deploy the existing collector, point the site at it, and define the five events&#x27; report before any layout change is proposed: outbound_click by ASIN, guide_read_75, category_click, feed_click, page_view. Then set one rule: a design change ships with its hypothesis and the metric that would falsify it.</dd>
+    <dt>Evidence</dt><dd>The owner&#x27;s Priority 4 row (measure before automating optimization) and D-P05, which fixed the five-event set. The project ledger is deliberately empty until an authorized first-party report exists.</dd>
+    <dt>Expected impact</dt><dd>Indirect but compounding: it converts every later suggestion into a test.</dd>
+    <dt>Effort</dt><dd>Low to host; medium to keep the discipline.</dd>
+    <dt>Risk</dt><dd>Low; the collector is aggregate-only and stores nothing identifying.</dd>
+    
+    <dt>Depends on</dt><dd>Q-23, Q-P06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept as the precondition for SG-15..SG-24 being argued about with numbers.</p>
+</article>
+<article class="card s-card" id="SG-19">
+  <header><h3><code>SG-19</code> Answer first, then explain: a 40-word summary block and FAQ structured data on every guide</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Guides open with scene-setting paragraphs. A reader (and a crawler) has to scroll to find the answer, which is the opposite of how question-shaped pages earn their place.</dd>
+    <dt>Proposal</dt><dd>Each guide starts with a boxed &#x27;Short answer&#x27; of at most 40 words, then three to five H2 sections that each open with their own one-line answer, then a FAQ list mirroring the phrasing people type. Publish the FAQ block as FAQPage structured data in the same JSON-LD graph the build already emits, and validate the JSON-LD parses (the gate already does).</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s guidance on helpful, people-first content and on qualifying outbound links; the site already links every figure to its listing, which is the E-E-A-T signal to keep.</dd>
+    <dt>Expected impact</dt><dd>High for organic entry and for skim-through retention; the cheapest on-page improvement on this list.</dd>
+    <dt>Effort</dt><dd>Medium across eight guides; mechanical once the template exists.</dd>
+    <dt>Risk</dt><dd>Low, if the short answer never says more than the sourced body text.</dd>
+    
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept and apply retroactively to all eight guides in one pass.</p>
+</article>
+<article class="card s-card" id="SG-21">
+  <header><h3><code>SG-21</code> Rewrite titles and metas to a two-part pattern: the question, then the promise</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Current titles are correct and a little flat, and the brand suffix repeats on every page. Searchers choose on the title line; this is the cheapest lever on click-through that does not require a traffic claim.</dd>
+    <dt>Proposal</dt><dd>Pattern: &#x27;&lt;the question a person types&gt; — &lt;what they get in 4 minutes&gt;&#x27;. Keep titles under 60 visible characters, front-load the query noun, and write each meta description to the page&#x27;s actual content (50-170 chars, enforced today). Ban the empty intensifiers the gate already bans; catchy here means specific, not loud.</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s snippet guidance says the description should accurately summarise the page and that unique descriptions per page matter (S-GSNIP); the gate already enforces uniqueness and length (S-04 in the owner&#x27;s register, implemented 2026-11-16).</dd>
+    <dt>Expected impact</dt><dd>Medium-high on impressions-to-clicks; no effect without impressions, so pair with SG-06.</dd>
+    <dt>Effort</dt><dd>Low. Ten string edits in the page registry.</dd>
+    <dt>Risk</dt><dd>Low; the gate fails a duplicate or out-of-range description, so drift is caught.</dd>
+    
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept, but do it after SG-19 so each title matches the answer the page now leads with.</p>
+</article>
+<article class="card s-card" id="SG-18">
+  <header><h3><code>SG-18</code> Design an original illustration system in place of photography</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>A shop without product images looks unfinished, and copying listing photos is not an option: images are Program Content. The gap has to be filled with something we own.</dd>
+    <dt>Proposal</dt><dd>Commission or generate a small, consistent set of original line diagrams drawn by this project: basket vs oven cavity, French-door clearance, dual-zone timing, probe placement in a roast, counter-depth footprint to scale. Each figure is labelled with the listed measurement it illustrates and links to the source. Style rules (stroke width, palette, no perspective shading) go into the design brief so the set stays coherent.</dd>
+    <dt>Evidence</dt><dd>Operating Agreement Section 1 treats Amazon&#x27;s images as Program Content, so the compliant route is our own artwork (S-OA). Our own diagrams also satisfy Google&#x27;s originality guidance.</dd>
+    <dt>Expected impact</dt><dd>High on the &#x27;is this a real publication&#x27; question, which is what the current page lacks most.</dd>
+    <dt>Effort</dt><dd>Medium. Eight to twelve figures, plus a style block in the brief.</dd>
+    <dt>Risk</dt><dd>Low if figures only ever draw listed values; a diagram that implies a performance claim becomes a claim.</dd>
+    
+    <dt>Depends on</dt><dd>Q-P05</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. It is the only visual upgrade available that does not depend on licensing anything.</p>
+</article>
+<article class="card s-card" id="SG-26">
+  <header><h3><code>SG-26</code> A no-slop lint in the publish gate</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The site&#x27;s single biggest reputational risk is reading machine-made. Today the gate checks compliance and sources, but nothing about prose, so an opener like &#x27;In today&#x27;s fast-paced kitchen&#x27; can ship.</dd>
+    <dt>Proposal</dt><dd>Extend the gate&#x27;s claims section with an editorial blocklist and shape rules: no throat-clearing openers, no &#x27;look no further&#x27;, &#x27;game-changer&#x27;, &#x27;elevate&#x27;, &#x27;unleash&#x27;, &#x27;delve&#x27;, &#x27;in the world of&#x27;, &#x27;whether you&#x27;re a beginner or a seasoned pro&#x27;; no adjective pile-ups (three or more in a row); no second-person promises the register cannot support; every guide has an H2 within its first 300 words; no em-dash abuse beyond a set count. Fail the build, like everything else.</dd>
+    <dt>Evidence</dt><dd>Google&#x27;s guidance on originality and people-first content, plus its AI-content statement, both already in the source register; D-12 is the voice the rules encode.</dd>
+    <dt>Expected impact</dt><dd>Medium-high on the thing the owner flagged twice: not reading like generated filler.</dd>
+    <dt>Effort</dt><dd>Low. A list and four functions.</dd>
+    <dt>Risk</dt><dd>Medium false positives; mitigate with an explicit per-page exemption file that the gate prints so exceptions are visible in review, not silent.</dd>
+    
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. Voice rules that live only in a document decay; rules in the gate do not.</p>
+</article>
+<article class="card s-card" id="SG-23">
+  <header><h3><code>SG-23</code> Mobile-first pass: type scale, 44px tap targets, sticky comparison bar, no horizontal table traps</h3>
+  <span class="status status-recommended">recommended</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Most of this traffic arrives on a phone. Wide data tables and small nav links are the two things that make a careful site feel like a tool.</dd>
+    <dt>Proposal</dt><dd>Fluid root size with a clamp; every link, button and radio at least 44px; a sticky bottom bar carrying one sponsored CTA with a dismiss control; tables keep horizontal scroll but gain a shadow cue and a sticky first column; disclosure stays above the fold at 320px, checked by the gate.</dd>
+    <dt>Evidence</dt><dd>Page-experience guidance on mobile presentation; the owner&#x27;s own S-20 row in the requirements register.</dd>
+    <dt>Expected impact</dt><dd>High for readable mobile dwell and for the tap that earns the commission.</dd>
+    <dt>Effort</dt><dd>Low-medium. CSS plus a small script.</dd>
+    <dt>Risk</dt><dd>Low; a fixed bar must not cover the footer or the disclosure, which is the gate&#x27;s job.</dd>
+    
+    <dt>Depends on</dt><dd>—</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept and keep it as the baseline for future pages.</p>
+</article>
+<article class="card s-card" id="SG-20">
+  <header><h3><code>SG-20</code> A counter-fit calculator shoppers can actually use</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The counter-space analysis is a table. The reader&#x27;s real question is &#x27;will it fit where I want it&#x27;, which is arithmetic they have to do themselves.</dd>
+    <dt>Proposal</dt><dd>A no-network widget: the reader types their available depth and width, the page flags which of the five listed footprints clear it, and prints the clearance figures it compared against with links to the listings. Everything computed client-side from registered values; nothing stored; nothing sent anywhere.</dd>
+    <dt>Evidence</dt><dd>The chooser already proves the pattern (D-23). Page-experience guidance rewards interaction that answers the specific question.</dd>
+    <dt>Expected impact</dt><dd>Medium-high for engagement and for the &#x27;this site helped me&#x27; feeling that drives the click.</dd>
+    <dt>Effort</dt><dd>Low-medium. One script, one gate-safe template.</dd>
+    <dt>Risk</dt><dd>Medium on wording: a fit result is geometry, not a recommendation, and must say so; listing dimensions vary by read (F-29 style drift).</dd>
+    
+    <dt>Depends on</dt><dd>SG-22</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept after SG-22 puts read dates on the product blocks, so the calculator can quote its own staleness.</p>
+</article>
+<article class="card s-card" id="SG-22">
+  <header><h3><code>SG-22</code> Show the freshness of every figure on the product block, not only on the method page</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Read dates exist in the data and on the method page, but on the product block a 2026-11-14 dimension looks identical to a figure read today. Buyers and reviewers both read that as staleness or as a claim of currency.</dd>
+    <dt>Proposal</dt><dd>A compact &#x27;read 2026-11-14 · re-check due 2026-12-14&#x27; chip on each product block and on the calculator, driven by the register&#x27;s read dates, plus a gate rule that no product fact may publish without one. Set the re-check interval as a decision (Q-P11) rather than a habit.</dd>
+    <dt>Evidence</dt><dd>F-02 and F-29 already document value drift; the register carries *_read for every field, so the chip is free.</dd>
+    <dt>Expected impact</dt><dd>Medium. It turns the site&#x27;s real advantage into something visible in one glance.</dd>
+    <dt>Effort</dt><dd>Low. One chip component plus one gate rule.</dd>
+    <dt>Risk</dt><dd>Low.</dd>
+    
+    <dt>Depends on</dt><dd>Q-P11</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Accept. It is the cheapest trust signal available and it is already computed.</p>
+</article>
+<article class="card s-card" id="SG-24">
+  <header><h3><code>SG-24</code> Seasonal hubs, but only with dated official snapshots as the evidence</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Seasonality is where this category actually earns traffic, and the site currently has no seasonal surface. But seasonal framing without evidence is exactly the popularity claim the project&#x27;s own rule forbids.</dd>
+    <dt>Proposal</dt><dd>Two hub pages a year (gifting window, grilling window), written around use rather than hype: what people cook or give in that window, which of the five listed formats matches, and what the site can honestly say about timing. Any statement about what is popular carries a dated capture of an official Amazon category page and the capture is archived with the commit.</dd>
+    <dt>Evidence</dt><dd>F-15 and D-19 set the rule; the owner&#x27;s register row for S-16 adopted it on 2026-11-16. The Air Fryers category page is the pattern for a dated capture.</dd>
+    <dt>Expected impact</dt><dd>Medium-high in the right weeks, near zero outside them.</dd>
+    <dt>Effort</dt><dd>One pass per season, plus capture discipline.</dd>
+    <dt>Risk</dt><dd>Medium: a stale seasonal page reads as decay; retire it on a date, don&#x27;t let it linger.</dd>
+    
+    <dt>Depends on</dt><dd>SG-06</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Queue it for the first full cycle after measurement exists; do not write seasonal copy against a feeling.</p>
+</article>
 
 <div class="callout callout-sage">
   <h3>What changed in this pass</h3>
@@ -841,15 +976,15 @@
       <p class="footer-brand">The Crisp Counter <span>· Kitchen notes &amp; buying guides</span></p>
       <p class="footer-disclosure">As an Amazon Associate I earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
     </div>
-    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guide-gift-guide.html">The gift guide</a></li><li><a href="guide-sale-week.html">Sale week questions</a></li><li><a href="guide-preheat-shake.html">Preheat, shake, or don't?</a></li><li><a href="guide-turkey-done.html">Is the turkey done?</a></li><li><a href="guides.html">All guides</a></li></ul></div>
+    <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guide-gift-guide.html">The gift guide</a></li><li><a href="guide-dual-vs-single.html">Dual basket or one big basket?</a></li><li><a href="guide-probe-in-air-fryer.html">A leave-in probe in an air fryer?</a></li><li><a href="guide-sale-week.html">Sale week questions</a></li><li><a href="guide-preheat-shake.html">Preheat, shake, or don't?</a></li><li><a href="guide-turkey-done.html">Is the turkey done?</a></li><li><a href="guides.html">All guides</a></li></ul></div>
     <div><h2>Compare &amp; shop</h2><ul><li><a href="shop.html">Shop the shelf</a></li><li><a href="decide.html">Find my match</a></li><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li><li class="footer-sublist"><ul><li><a href="product-chefman-dual-basket.html">Chefman 6 qt dual basket air fryer oven</a></li><li><a href="product-emeril-french-door.html">Emeril Lagasse 26 qt French door air fryer toaster oven</a></li><li><a href="product-chefman-turbofry.html">Chefman 8 qt TurboFry air fryer</a></li><li><a href="product-thermomaven-instant-read.html">ThermoMaven 1-second digital meat thermometer</a></li><li><a href="product-chefiq-sense-wireless.html">CHEF iQ Sense Gen3 wireless meat thermometer</a></li></ul></li></ul></div>
     <div><h2>Read &amp; follow</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="guides.html#subscribe">Follow the feed</a></li><li><a href="guides.html#ask">Ask a question</a></li><li><a href="about.html">Who writes this</a></li></ul></div>
-    <div><h2>The work behind it</h2><ul><li><a href="about.html">About &amp; standards</a></li><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="briefs.html">Decision briefs</a></li><li><a href="before-you-decide.html">Before you decide</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+    <div><h2>The work behind it</h2><ul><li><a href="about.html">About &amp; standards</a></li><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="analysis.html">Analysis &amp; findings</a></li><li><a href="design-prompt.html">Design prompt pack</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="briefs.html">Decision briefs</a></li><li><a href="before-you-decide.html">Before you decide</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
   </div>
   <p class="wrap footer-legal">Published 2026-11-20. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
   Product links are Amazon Associates Special Links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
 </footer>
-<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/site.js?v=8b63596e79" defer></script>
-<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/measure.js?v=8b63596e79" defer></script>
+<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/site.js?v=1d5f70f853" defer></script>
+<script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/measure.js?v=1d5f70f853" defer></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/0a9f19fe-prod2): F-P29 added and marked resolved - the conflict-marker / unclosed-block stylesheet defect and the new browser-free stylesheet gate."
+  "last_change": "Second union with origin/main (PRs #54/#69/#70/#71/#72 merged by parallel sessions): flag sets identical, main's rows kept."
  },
  "flags": [
   {
