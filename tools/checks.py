@@ -23,6 +23,8 @@ Sections:
                robots.txt points at the sitemap; feed items resolve
   shop         one shelf page with all five cards, buy buttons, imagery that
                exists, an About page, and no hands-on-testing claim
+  assets       the shipped stylesheet is parseable: no unresolved merge-conflict
+               markers, design tokens defined, every class a page uses exists
   longreads    every long read registered in the calendar exists, shows inline
                sources, carries its "what we could not verify" block, cites only
                allow-listed official hosts, and is in the sitemap and the feed
@@ -475,6 +477,62 @@ def main() -> int:
             fail(f"{f.name}: verification meta present but settings token empty")
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
+
+    # ------------------------------------------------------------------ assets
+    check("assets")
+    # Added 2026-11-20. The site shipped a stylesheet whose first line was the
+    # literal text "<<<<<<< HEAD" (an unresolved merge conflict, reproduced on the
+    # live host). A browser is required to core (!) an unknown selector, which
+    # swallowed the @font-face block and the :root custom properties: no fonts, no
+    # colour tokens, no design system, on every page. Nothing in this gate looked
+    # at the CSS bytes, so 30 green sections shipped a broken site.
+    #
+    # These checks are deliberately structural, not stylistic: they assert the
+    # artifact a browser will parse, and the presets the pages depend on.
+    CONFLICT_MARKER = re.compile(r"^(<{7}|={7}|>{7})(\s|$)", re.M)
+    # Only the files a built page actually loads can break the reader's view, so
+    # scan those (plus every .js, which cannot be scoped by a media query). An
+    # unrelated archived stylesheet in the same folder is not a shipping defect.
+    linked = set()
+    for page in html_files:
+        text = page.read_text(encoding="utf-8")
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+            linked.add(rel)
+        for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+            linked.add(rel)
+    css_files = sorted(DOCS / rel for rel in linked if rel.endswith((".css", ".js")) and (DOCS / rel).exists())
+    if not css_files:
+        fail("no stylesheet or script linked by a built page exists in docs/ — nothing styles the site")
+    for f in css_files:
+        text = f.read_text(encoding="utf-8")
+        m = CONFLICT_MARKER.search(text)
+        if m:
+            line = text[:m.start()].count("\n") + 1
+            fail(f"{f.relative_to(DOCS)}: unresolved merge-conflict marker at line {line} "
+                 f"({m.group(0).strip()!r}) — a browser drops the rest of the rule block")
+        if f.suffix == ".css":
+            # a stylesheet that does not declare the design tokens renders unstyled
+            if ":root" not in text:
+                fail(f"{f.relative_to(DOCS)}: no :root block — every var(--token) is undefined")
+            if text.count("{") != text.count("}"):
+                fail(f"{f.relative_to(DOCS)}: unbalanced braces "
+                     f"({text.count('{')} open vs {text.count('}')} close)")
+            for tok in ("--paper", "--ink", "--terracotta", "--serif", "--sans", "--rule"):
+                if tok + ":" not in text:
+                    fail(f"{f.relative_to(DOCS)}: design token {tok} is not defined")
+            # every class the built pages actually use must exist in the sheet
+            used = set()
+            for page in html_files:
+                for attr in re.findall(r'class="([^"]*)"', page.read_text(encoding="utf-8")):
+                    used.update(attr.split())
+            defined = set(re.findall(r"\.(-?[_a-zA-Z][_a-zA-Z0-9-]*)", text))
+            missing = sorted(c for c in used if c not in defined)
+            if missing:
+                fail(f"{f.relative_to(DOCS)}: {len(missing)} class(es) used by a built page are "
+                     f"never defined: {', '.join(missing[:8])}")
+    if not FAILURES:
+        ok("stylesheets parse as stylesheets: no conflict markers, tokens defined, "
+           "every class used by a page exists")
 
     # -------------------------------------------------------------- long reads
     check("longreads")
