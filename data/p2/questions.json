@@ -41,7 +41,7 @@
    "id": "Q-23",
    "area": "Measurement",
    "question": "Where can the self-hosted analytics endpoint run?",
-   "known": "analytics-endpoint/server.py is standard-library Python, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.",
+   "known": "server.mjs is dependency-free Node, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.",
    "unknown": "Which host the owner wants (any VM/container/Function that speaks HTTPS).",
    "how_to_discover": "Owner picks a host; run the server; set the endpoint in data/p2/settings.json; rebuild. See the measurement page for the event contract.",
    "answerable_by": "The owner.",

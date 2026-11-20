@@ -449,6 +449,35 @@ def main() -> int:
     if not FAILURES:
         ok("one shelf, full cards, real imagery, no hands-on claim")
 
+    # ------------------------------------------------------------ exposition
+    check("exposition")
+    # The deploy artifact is docs/ alone. Nothing a reader can fetch may expose
+    # the registers, the page sources or the generator (flags F-P19/F-P20).
+    for stray in ("data", "content", "tools", "scripts", "tests"):
+        if (DOCS / stray).exists():
+            fail(f"docs/{stray}/ exists in the published artifact — source must not be servable")
+    for name in ("COORDINATION.md", "package.json", "server.mjs", ".env"):
+        if (DOCS / name).exists():
+            fail(f"docs/{name} would be published — source must not be servable")
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for bad in re.findall(r'href="(?:\.\./|/)(?:data|content|tools|scripts)/[^"]*"', text):
+            fail(f"{f.name}: links into the source tree ({bad})")
+        for bad in re.findall(r'src="(?:\.\./|/)(?:data|content|tools|scripts)/[^"]*"', text):
+            fail(f"{f.name}: embeds a source-tree asset ({bad})")
+    # a short link is evidence of what the owner submitted, never a clickable
+    # destination: its status is unresolved (F-03/FLG-003) and the site's own
+    # outbound hrefs are the tagged /dp/ URLs.
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for m in re.finditer(r'<a\b[^>]*href="https://link\.amazon/[^"]*"', text):
+            fail(f"{f.name}: link.amazon short link rendered as a clickable anchor")
+            break
+        if "link.amazon" in text and "<code>https://link.amazon" not in text:
+            fail(f"{f.name}: cites a short link without rendering it as inert code")
+    if not FAILURES:
+        ok("artifact is docs/ only; short links are quoted, never clickable")
+
     # -------------------------------------------------------------- freshness
     check("freshness")
     with tempfile.TemporaryDirectory() as td:

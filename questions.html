@@ -14,6 +14,8 @@
 <meta property="og:site_name" content="Prod2 — Kitchen notes &amp; buying guides">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="Prod2 feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
+<link rel="preload" href="https://wingbangboozle1-lang.github.io/Prod2/assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://wingbangboozle1-lang.github.io/Prod2/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css">
 <script type="application/ld+json">
 {
@@ -162,7 +164,7 @@
 <article class="card q-card" id="Q-23">
   <h3><code>Q-23</code> Where can the self-hosted analytics endpoint run?</h3>
   <dl>
-    <dt>What we know</dt><dd>analytics-endpoint/server.py is standard-library Python, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.</dd>
+    <dt>What we know</dt><dd>server.mjs is dependency-free Node, counts events only (no IPs, no cookies, no referrers), and is ready to deploy. GitHub Pages cannot host it. Until a host exists, settings.analytics_endpoint stays empty and the site sends nothing.</dd>
     <dt>What is missing</dt><dd>Which host the owner wants (any VM/container/Function that speaks HTTPS).</dd>
     <dt>How to discover it</dt><dd>Owner picks a host; run the server; set the endpoint in data/p2/settings.json; rebuild. See the measurement page for the event contract.</dd>
     <dt>Answerable by</dt><dd>The owner.</dd>

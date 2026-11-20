@@ -91,7 +91,7 @@
    "id": "SG-06",
    "title": "Deploy the analytics endpoint and turn on Search Console",
    "problem": "No first-party measurement exists (F-19); topic selection is instinct instead of measured queries (Q-P02).",
-   "proposal": "Host analytics-endpoint/server.py on an owner-controlled HTTPS host; set settings.analytics_endpoint; verify the domain in Google Search Console; submit the sitemap; record weekly counts in the campaign ledger only from authorized reports.",
+   "proposal": "Host server.mjs on an owner-controlled HTTPS host; set settings.analytics_endpoint; verify the domain in Google Search Console; submit the sitemap; record weekly counts in the campaign ledger only from authorized reports.",
    "evidence": "The brief's measurement-first priority; the machinery ships with this build.",
    "impact": "High — everything downstream (topics, optimization, revenue reporting) depends on it.",
    "effort": "Low-medium (hosting + config), mostly owner-side access work.",
