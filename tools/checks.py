@@ -322,6 +322,22 @@ def main() -> int:
                     fail(f"{f.name}: banned popularity claim word '{w}' (D-19)")
     if not FAILURES:
         ok("no prices, ratings or banned popularity claims")
+    # A page body that opens with "---" / "Key: value" / "---" is frontmatter the
+    # renderer does not understand: it ships as visible text. This happened on
+    # 2026-11-20 (before-you-decide.html) and was caught only by reading the live
+    # page, which no check does. Catch it in source instead.
+    for src in sorted((ROOT / "content" / "pages").glob("*.html")):
+        head = src.read_text(encoding="utf-8").lstrip()[:200]
+        if head.startswith("---") and re.search(r"^---\s*$", head.split("\n", 1)[1] if "\n" in head else "", re.M):
+            fail(f"content/pages/{src.name}: opens with a frontmatter block the renderer emits verbatim")
+        if re.match(r"^\s*---\s*\n[A-Za-z][\w ]*:", head):
+            fail(f"content/pages/{src.name}: looks like unstripped frontmatter — it will render as text")
+    # and the built page must not contain a bare delimiter row either
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        if re.search(r'>\s*---\s*<', text) or re.search(r'<p>\s*---\s*</p>', text):
+            fail(f"{f.name}: rendered a bare '---' delimiter as visible content")
+
 
     # ------------------------------------------------------- derived numbers
     # 2026-11-20: this session published "the smallest footprint" about the 8 qt
