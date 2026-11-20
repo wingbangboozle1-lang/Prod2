@@ -600,6 +600,55 @@ def hook_product_cards(_="") -> str:
     return '<div class="card-grid">' + "".join(cards) + '</div>'
 
 
+# label, product key, and the dated-read field that backs that key.
+# The date column must show the read that actually supports the value, not
+# whatever date happens to be newest on the record.
+MASTER_FACTS = [
+    ("Format", "format", "name_listing_read"),
+    ("Brand as listed", "brand", "brand_read"),
+    ("Model name", "model_name", "item_details_read"),
+    ("Model number", "model_number", "item_details_read"),
+    ("Capacity as listed", "capacity", "capacity_read"),
+    ("Dimensions as listed", "dimensions", "dimensions_read"),
+    ("Colour as listed", "color", "spec_table_read"),
+    ("Materials as listed", "material", "spec_table_read"),
+    ("Category path", "category_path", "category_read"),
+]
+
+
+def hook_master_table(_="") -> str:
+    """One row per fact, one column per product, each figure carrying the date
+    of the read that supports it. Blank stays blank and is marked unverified."""
+    head = "".join(
+        f'<th><a href="#facts-{esc(p["id"])}">{esc(p["id"])}</a><br>'
+        f'<span class="src-inline">ASIN {esc(p["asin"])}</span></th>' for p in PRODUCTS)
+    rows = []
+    for label, key, date_key in MASTER_FACTS:
+        cells = []
+        for p in PRODUCTS:
+            value = p.get(key)
+            read = p.get(date_key) or ""
+            if value in (None, ""):
+                cells.append('<td class="unverified">— unverified</td>')
+            else:
+                dateline = f'<br><span class="src-inline">read {esc(read)}</span>' if read else ""
+                cells.append(f"<td>{esc(value)}{dateline}</td>")
+        cell_html = "".join(cells)
+        rows.append(f'<tr><th scope="row">{esc(label)}</th>{cell_html}</tr>')
+    notes = []
+    for p in PRODUCTS:
+        notes.append(f'<li><a href="#facts-{esc(p["id"])}">{esc(p["id"])} · {esc(p["name_short"])}</a> '
+                     f'— full register, every row with its source id: {listing_link(p, "official listing")}</li>')
+    return ('<div class="table-scroll"><table class="data products-table">'
+            '<caption>Master register — blank means not stated on the listing</caption>'
+            f'<thead><tr><th>Fact</th>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
+            '<p class="table-note">Prices and star ratings are deliberately absent '
+            '(<a href="flagged.html#F-02">F-02</a>); the rule behind that is recorded in '
+            '<a href="decisions.html#D-P10">D-P10</a>. Read the live figures on the listing itself. '
+            'Read dates are the pass on which that specific field was read, so rows differ.</p>'
+            f'<ul class="small-note">{"".join(notes)}</ul>')
+
+
 def hook_facts(pid: str) -> str:
     p = PROD_BY_ID[pid]
     return ('<div class="table-scroll"><table class="data"><thead><tr><th>Fact</th><th>Value as listed</th>'
@@ -827,6 +876,7 @@ HOOKS = {
     "ledger_table": hook_ledger_table,
     "local_events": hook_local_events,
     "product_cards": hook_product_cards,
+    "master_table": hook_master_table,
     "guide_links": hook_guide_links,
     "comparison_cta": hook_comparison_cta,
     "guide_cards": hook_guide_cards,
