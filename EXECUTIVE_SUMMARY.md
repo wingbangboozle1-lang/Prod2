@@ -1,6 +1,6 @@
 # Executive summary — The Crisp Counter (Prod2 affiliate publication)
 
-**What this is:** a small Amazon-affiliate publication (brand: **Prod2 — Kitchen notes & buying guides**) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
+**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
 
@@ -14,7 +14,7 @@
 | P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | Live re-read 2026-11-20 (title, ±0.5℉/NIST, IP67 matched) |
 | P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | Live re-read 2026-11-20 (title, 3 probes, 1000°F matched) |
 
-- On 2026-11-19 all five short links resolved to the ASINs above, with no `tag=` parameter (F-03). On 2026-11-20 a same-day re-read confirmed one of five, and a second same-day read disagrees on two links, so the outcome is undecided until a browser check (F-P24, F-P27, F-P28). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
+- On 2026-11-19 all five short links resolved to the ASINs above **with no `tag=` parameter** (F-03). On 2026-11-20 a same-day re-read confirmed one of five at its intended ASIN, and a second same-day read disagrees on two links (F-P24, F-P27, F-P28; Q-P18). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
 - **Every listing was re-fetched live on 2026-11-20** and each observed string is recorded in `data/p2/verification-2026-11-20.json`. Prior records stated this environment could not reach Amazon; that was wrong (F-P18).
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
 - **No revenue is claimed.** Tag registration and click attribution are confirmable only inside Associates Central (F-57, F-58) — the one-link-per-product test is the owner's next step.
@@ -33,17 +33,46 @@
 - **New `about.html`**: who writes this, the four editorial rules, a "what we cannot tell you" table with a flag link on every row, and a plain statement of the commission relationship.
 - **Navigation cut from eleven links to six** (Shop · Air fryers · Thermometers · Guides · Compare · About). All dashboard surfaces remain in the footer directory, and the gate now fails if the reader nav exceeds seven links.
 - **Imagery**: six illustrations drawn for the site, generic to the format, captioned "illustration, not the product photo" (D-P12). No Amazon photography is copied.
-- Nine question-shaped guides on a fortnightly cadence, a buying guide, two category pages, and a sourced comparison table with the three-question chooser (D-23) and the counter-space analysis (D-26).
+- Ten question-shaped guides on a fortnightly cadence, plus two long reads (see below), a buying guide, two category pages, and a sourced comparison table with the three-question chooser (D-23) and the counter-space analysis (D-26).
 - The thermometer guide now leads with the **official USDA safe-minimum temperatures** and the cold-storage and power-outage limits, quoted with their last-reviewed dates (D-P14). This gives a reader an independent reason to care about accuracy instead of restating a marketing claim.
 - Disclosure strip under the masthead on **every** page + footer repeat; every product link marked sponsored.
 - Unique titles/meta, JSON-LD, sitemap.xml, robots.txt, RSS feed, typographic OG card (no product photography — S-18/D-22 still needs a decision).
 
+## Reader-facing work in the latest pass (2026-11-20, session arena/644d217b-prod2)
+
+The prior passes made the site correct and made it look like a shop. This pass answered the harder
+question — *why would anyone read it?* — with depth, and fixed the machinery that would have hidden
+whether it worked.
+
+- **Two long reads, sourced to official guidance rather than to the listings.**
+  `article-thermometer-placement.html` (1,295 words) argues that probe placement matters more than
+  stated precision, from the USDA FSIS Food Thermometers factsheet and the FSIS Safe Minimum Internal
+  Temperature Chart (both read 2026-11-20). `article-air-fryer-doneness.html` (1,212 words) argues
+  that internal temperature, not capacity or wattage, is the number that decides whether an air fryer
+  worked, from Nebraska Extension's peer-reviewed air-fryer food-safety guidance plus the same FSIS
+  chart. Both name what they could not verify.
+- **The measurement defect that would have hidden all of it is fixed.** The published contract named
+  five events; the only collector in the repo answered 400 to three of them, so two thirds of the
+  site's measurement would have been dropped silently the moment an endpoint was hosted. The collector
+  now accepts all five, a regression test reads the five names out of `measure.js`, and the gate fails
+  the build on any divergence (F-P23 resolved, Q-P14 answered, D-P21).
+- **The long reads are measured too.** The depth event fired only on pages whose build id starts with
+  `guide`, so both new articles would have been invisible. Fixed and gated.
+- **A ranked short list now opens the suggestion queue**, because 38 proposals with no ordering is not
+  a decision surface. Ranked by unblocked work per hour of owner time: Pages source (one dropdown),
+  analytics + Search Console, name clearance, the email-consent question, then the payoff step.
+- **Three new open questions** (Q-P15 length standard, Q-P16 whether real product photography is
+  obtainable at all, Q-P17 where the endpoint runs and who pays), each with the cheapest route to the
+  answer.
+- **New gate section `longreads`** enforces what the two new pieces do by hand: inline sources, the
+  unverified block, allow-listed official hosts, presence in sitemap and feed.
+
 ## Decision-support system (review surfaces)
 
-- **Suggestion queue** (`suggestions.html`): 28 proposals, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
-- **Open questions** (`questions.html`): 15 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
-- **Flagged for review** (`flagged.html`): 42 items (28 open, 10 resolved, 4 standing), each with an evidence link. Added 2026-11-20: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24, first published by arena/722181aa-prod2) and F-P28 (products.json and the intent record versus the 2026-11-20 reads). Earlier additions 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
-- **Decision log** (`decisions.html`): 27 recorded decisions including D-P10…D-P15 from the 2026-11-20 pass.
+- **Suggestion queue** (`suggestions.html`): 38 proposals, opened by a ranked five-row short list of the only items that change what happens next, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
+- **Open questions** (`questions.html`): 22 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
+- **Flagged for review** (`flagged.html`): 42 items (27 open, 11 resolved, 4 standing), each with an evidence link. Four added 2026-11-20 by other sessions: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary). Added 2026-11-20 by arena/37b265a4-prod2: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24) and F-P28 (products.json and the intent record versus the 2026-11-20 reads).
+- **Decision log** (`decisions.html`): 32 recorded decisions, including D-P21 (which event vocabulary is authoritative) from the latest pass.
 
 ## Measurement (machinery shipped, not yet on)
 
@@ -57,7 +86,7 @@
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **11 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, shop, publication, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **13 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## The publication passes (2026-11-20 — three sessions, reconciled)
 
@@ -136,17 +165,17 @@ checks the output before anything is published.
 
 ## The five products (all verified against official Amazon listings, 2026-11-19)
 
-| Submitted link | Resolves to (2026-11-19 read) | Product | Category | Price (withheld: F-02, F-P26) |
+| Submitted link | Resolves to (2026-11-19 record) | Product | Category | Price |
 | --- | --- | --- | --- | --- |
-| link.amazon/B04G1MEwY | B0CDY277D3 | CHEFMAN 6 Quart Dual Basket Air Fryer Oven | Air Fryer Ovens | withheld |
-| link.amazon/B02NbDxp3 | B09B7SB46R | Emeril Lagasse 26QT French Door Air Fryer Toaster Oven | Air Fryer Ovens | withheld |
-| link.amazon/B00hJ57DV | B08DKYBTPH | Chefman Air Fryer 8 Qt TurboFry 4-in-1 | Air Fryer Ovens | withheld |
-| link.amazon/B0c8moW59 | B0DHZTCNR5 | ThermoMaven 1 Sec Professional Digital Meat Thermometer | Meat Thermometers | withheld |
-| link.amazon/B0f3GKalj | B0DZFD6R9Z | CHEF iQ Sense Smart Wireless Meat Thermometer (Gen3) | Meat Thermometers | withheld |
+| link.amazon/B04G1MEwY | B0CDY277D3 | CHEFMAN 6 Quart Dual Basket Air Fryer Oven | Air Fryer Ovens | withheld (F-02) |
+| link.amazon/B02NbDxp3 | B09B7SB46R | Emeril Lagasse 26QT French Door Air Fryer Toaster Oven | Air Fryer Ovens | withheld (F-02) |
+| link.amazon/B00hJ57DV | B08DKYBTPH | Chefman Air Fryer 8 Qt TurboFry 4-in-1 | Air Fryer Ovens | withheld (F-02) |
+| link.amazon/B0c8moW59 | B0DHZTCNR5 | ThermoMaven 1 Sec Professional Digital Meat Thermometer | Meat Thermometers | withheld (F-02) |
+| link.amazon/B0f3GKalj | B0DZFD6R9Z | CHEF iQ Sense Smart Wireless Meat Thermometer (Gen3) | Meat Thermometers | withheld (F-02) |
 
 **Key finding:** every submitted link carries a **9-character short-link token**, not a
-10-character ASIN (Amazon defines an ASIN as 10 characters). On 2026-11-19 the tokens resolved to real
-10-character ASINs and listings. On 2026-11-20 a same-day re-read confirmed one of five, and a second same-day read disagrees on two links (F-P24, F-P27, F-P28). Intent and observation are kept in **separate fields** and
+10-character ASIN (Amazon defines an ASIN as 10 characters). The tokens resolve to real
+10-character ASINs and real listings. Intent and observation are kept in **separate fields** and
 never merged (see the product-intent confirmation record on the Research Desk).
 
 ## Verified from official sources
@@ -233,7 +262,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 
 # Executive summary — Prod2 affiliate publication
 
-**What this is:** a small Amazon-affiliate publication (brand: **Prod2 — Kitchen notes & buying guides**) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
+**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
 
@@ -247,7 +276,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 | P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | Live re-read 2026-11-20 (title, ±0.5℉/NIST, IP67 matched) |
 | P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | Live re-read 2026-11-20 (title, 3 probes, 1000°F matched) |
 
-- On 2026-11-19 all five short links resolved to the ASINs above, with no `tag=` parameter (F-03). On 2026-11-20 a same-day re-read confirmed one of five, and a second same-day read disagrees on two links, so the outcome is undecided until a browser check (F-P24, F-P27, F-P28). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
+- On 2026-11-19 all five short links resolved to the ASINs above **with no `tag=` parameter** (F-03). On 2026-11-20 a same-day re-read confirmed one of five at its intended ASIN, and a second same-day read disagrees on two links (F-P24, F-P27, F-P28; Q-P18). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
 - **Every listing was re-fetched live on 2026-11-20** and each observed string is recorded in `data/p2/verification-2026-11-20.json`. Prior records stated this environment could not reach Amazon; that was wrong (F-P18).
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
 - **No revenue is claimed.** Tag registration and click attribution are confirmable only inside Associates Central (F-57, F-58) — the one-link-per-product test is the owner's next step.
@@ -266,17 +295,17 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 - **New `about.html`**: who writes this, the four editorial rules, a "what we cannot tell you" table with a flag link on every row, and a plain statement of the commission relationship.
 - **Navigation cut from eleven links to six** (Shop · Air fryers · Thermometers · Guides · Compare · About). All dashboard surfaces remain in the footer directory, and the gate now fails if the reader nav exceeds seven links.
 - **Imagery**: six illustrations drawn for the site, generic to the format, captioned "illustration, not the product photo" (D-P12). No Amazon photography is copied.
-- Nine question-shaped guides on a fortnightly cadence, a buying guide, two category pages, and a sourced comparison table with the three-question chooser (D-23) and the counter-space analysis (D-26).
+- Ten question-shaped guides on a fortnightly cadence, plus two long reads (see below), a buying guide, two category pages, and a sourced comparison table with the three-question chooser (D-23) and the counter-space analysis (D-26).
 - The thermometer guide now leads with the **official USDA safe-minimum temperatures** and the cold-storage and power-outage limits, quoted with their last-reviewed dates (D-P14). This gives a reader an independent reason to care about accuracy instead of restating a marketing claim.
 - Disclosure strip under the masthead on **every** page + footer repeat; every product link marked sponsored.
 - Unique titles/meta, JSON-LD, sitemap.xml, robots.txt, RSS feed, typographic OG card (no product photography — S-18/D-22 still needs a decision).
 
 ## Decision-support system (review surfaces)
 
-- **Suggestion queue** (`suggestions.html`): 28 proposals, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
-- **Open questions** (`questions.html`): 15 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
-- **Flagged for review** (`flagged.html`): 42 items (28 open, 10 resolved, 4 standing), each with an evidence link. Added 2026-11-20: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24, first published by arena/722181aa-prod2) and F-P28 (products.json and the intent record versus the 2026-11-20 reads). Earlier additions 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
-- **Decision log** (`decisions.html`): 27 recorded decisions including D-P10…D-P15 from the 2026-11-20 pass.
+- **Suggestion queue** (`suggestions.html`): 38 proposals, opened by a ranked five-row short list of the only items that change what happens next, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
+- **Open questions** (`questions.html`): 22 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
+- **Flagged for review** (`flagged.html`): 42 items (27 open, 11 resolved, 4 standing), each with an evidence link. Four added 2026-11-20 by other sessions: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary). Added 2026-11-20 by arena/37b265a4-prod2: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24) and F-P28 (products.json and the intent record versus the 2026-11-20 reads).
+- **Decision log** (`decisions.html`): 32 recorded decisions, including D-P21 (which event vocabulary is authoritative) from the latest pass.
 
 ## Measurement (machinery shipped, not yet on)
 
@@ -290,7 +319,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **11 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, shop, publication, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **13 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## Open decisions for the owner
 

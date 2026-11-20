@@ -144,7 +144,7 @@ See `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, and the **About** page for sources a
 | Analytics endpoint | `server.mjs` works and is tested; not hosted (Q-23) |
 | Campaign ledger | Empty by rule; accepts only authorized first-party rows |
 | Release gate | 11 sections, green |
-| Open flags | 28 open, 10 resolved, 4 standing (42 flags; F-P25..F-P28 added 2026-11-20) — all on the Flagged for review page |
+| Open flags | 27 open, 11 resolved, 4 standing (42 flags; F-P25..F-P28 added 2026-11-20) — all on the Flagged for review page |
 
 Everything in the bottom half of that table is an owner action, not an engineering gap. The
 **Open questions** page lists the discovery route for each one.

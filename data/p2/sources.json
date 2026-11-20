@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Source register. Every published fact row points at one of these sources. Official sites only. Read dates are the dates the source was actually read for this project (prior dated sessions and the 2026-11-19 session).",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/70b2b9f7-prod2): USDA FoodSafety.gov temperature and storage charts added (S-USDA-COOK, S-USDA-COLD, S-USDA-OUTAGE); all product listings, the Operating Agreement and the Program Policies re-read live on 2026-11-20 and their read dates appended. 2026-11-20 (arena/37b265a4-prod2, R-01): short links S-L1..S-L5 and policy pages S-POL/S-OA re-read; read dates appended."
+  "last_change": "2026-11-20 (arena/644d217b-prod2): S-FSIS-CHART, S-FSIS-THERMO and S-UNL-AIRFRYER added after each page was read live on 2026-11-20 for the two new long-form articles."
  },
  "sources": [
   {
@@ -312,6 +312,33 @@
    "title": "USDA / FoodSafety.gov — Food Safety During Power Outage (last reviewed 2024-08-08)",
    "url": "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage",
    "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
+   ]
+  },
+  {
+   "id": "S-FSIS-CHART",
+   "title": "USDA FSIS — Safe Minimum Internal Temperature Chart (last updated 2025-04-14)",
+   "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart",
+   "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
+   ]
+  },
+  {
+   "id": "S-FSIS-THERMO",
+   "title": "USDA FSIS — Food Thermometers factsheet (thermometer types, placement, care, calibration)",
+   "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/kitchen-thermometers",
+   "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
+   ]
+  },
+  {
+   "id": "S-UNL-AIRFRYER",
+   "title": "Nebraska Extension (University of Nebraska–Lincoln) — Food Safety Tips for Air Fryers, peer-reviewed, updated 2025",
+   "url": "https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/",
+   "kind": "university extension guidance (US land-grant university)",
    "read": [
     "2026-11-20"
    ]

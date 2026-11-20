@@ -7,7 +7,16 @@ const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const SITE = path.join(ROOT, 'site'); // INT-06: canonical site is site/ (Countercraft); docs/ archived
 const STORE = path.resolve(process.env.EVENT_STORE || path.join(ROOT, 'var', 'events-aggregate.json'));
 const PORT = Number(process.env.PORT || 4173);
-const allowedEvents = new Set(['page_view', 'outbound_click', 'guide_open', 'category_open', 'rss_feed_click', 'chooser_completed', 'article_half_read', 'disclosure_viewed', 'cta_click', 'product_click', 'filter_apply', 'guide_read']);
+// Event vocabulary. Every name here must be one the site actually sends, and
+// every name the site sends must be here; otherwise the browser posts an event
+// this endpoint answers 400 to and the count is lost silently. That divergence
+// was flag F-P23 (2026-11-20). The first five are the site's documented five
+// (data/p2/events.json + assets/js/measure.js). The rest are the preserved
+// Countercraft client's family (assets/analytics.js), kept so nothing that
+// already posts to this endpoint is dropped. tools/checks.py section
+// "measurement" reads the five names out of measure.js and fails the build if
+// they are not all accepted here.
+const allowedEvents = new Set(['page_view', 'outbound_click', 'guide_read_75', 'category_click', 'feed_click', 'guide_open', 'category_open', 'rss_feed_click', 'chooser_completed', 'article_half_read', 'disclosure_viewed', 'cta_click', 'product_click', 'filter_apply', 'guide_read']);
 const products = new Set(['P01', 'P02', 'P03', 'P04', 'P05']);
 const guides = new Set(['basket-or-oven', 'capacity-checklist', 'cleanup-and-space', 'questions-before-buying']);
 const categories = new Set(['air-fryers', 'meat-thermometers']);
@@ -25,8 +34,22 @@ function keyFor(body) {
   // are deliberately ignored and never written to disk.
   const event = body?.type || body?.event;
   if (!allowedEvents.has(event)) return null;
-  if (event === 'page_view') return `${event}|${cleanPage(body.page)}`;
-  if (event === 'outbound_click') return `${event}|${products.has(body.product) ? body.product : 'unknown'}`;
+  // page_view accepts `page` (Countercraft) or `path` (the publication's measure.js).
+  if (event === 'page_view') return `${event}|${cleanPage(body.page ?? body.path)}`;
+  // outbound_click accepts a product id (Countercraft) or an ASIN (measure.js).
+  // Only a well-formed ASIN or a known product id is written; anything else is
+  // bucketed as 'unknown', never stored as free text.
+  if (event === 'outbound_click') {
+    if (products.has(body.product)) return `${event}|${body.product}`;
+    const asin = body.asin && /^[A-Z0-9]{10}$/.test(String(body.asin)) ? String(body.asin) : null;
+    return `${event}|${asin || 'unknown'}`;
+  }
+  if (event === 'guide_read_75') return `${event}|${cleanPage(body.path)}`;
+  if (event === 'category_click') {
+    const t = typeof body.target === 'string' && /^[a-zA-Z0-9\-]{1,40}$/.test(body.target) ? body.target : 'unknown';
+    return `${event}|${t}`;
+  }
+  if (event === 'feed_click') return `${event}|feed`;
   if (event === 'guide_open') return `${event}|${guides.has(body.guide) ? body.guide : 'unknown'}`;
   if (event === 'category_open') return `${event}|${categories.has(body.category) ? body.category : 'unknown'}`;
   if (event === 'chooser_completed') return `${event}|${products.has(body.recommendation) ? body.recommendation : 'unknown'}`;
@@ -36,7 +59,8 @@ function keyFor(body) {
   if (event === 'cta_click') return `${event}|cta`;
   if (event === 'filter_apply') return `${event}|filter`;
   if (event === 'guide_read') return `${event}|guide`;
-  return `${event}|feed`;
+  if (event === 'rss_feed_click') return `${event}|feed`;
+  return `${event}|other`;
 }
 async function record(key) {
   writeQueue = writeQueue.then(async () => {

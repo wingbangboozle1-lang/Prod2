@@ -298,6 +298,21 @@
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json"
    ]
+  },
+  {
+   "id": "D-P21",
+   "question": "Which event vocabulary is authoritative when the site's client and the collector disagree?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "The site's five documented events (page_view, outbound_click, guide_read_75, category_click, feed_click) are authoritative, because they are the published contract in data/p2/events.json and the ones the reader-facing measurement page describes. The collector was changed to accept them, not the reverse: renaming the site's events to fit the endpoint would have made the published register wrong. The collector keeps its older Countercraft names as additional accepted values so no existing client breaks.",
+   "rationale": "Flags F-P23 and Q-P14 recorded a silent 400 on three of five events. Publishing a measurement page while the receiving endpoint drops the majority of events is a correctness defect, not a style choice, so it is fixed rather than merely disclosed.",
+   "sources": [
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs"
+   ],
+   "affects": [
+    "F-P23",
+    "Q-P14",
+    "SG-41"
+   ]
   }
  ]
 }
