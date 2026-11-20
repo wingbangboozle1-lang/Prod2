@@ -36,6 +36,12 @@
         "why": "the title says 'Easy View Windows'; where the window sits is not recorded"
       },
       {
+        "phrase": "cooks on a rack",
+        "product": "P2",
+        "instead": "a French-door oven cavity instead of a basket",
+        "why": "the listing describes French doors, 24 presets and six accessories; no recorded string says rack"
+      },
+      {
         "phrase": "monitor away from the heat",
         "product": "P5",
         "instead": "3 ultra-thin wireless probes, WiFi unlimited range",

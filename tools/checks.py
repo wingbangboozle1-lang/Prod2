@@ -938,6 +938,15 @@ def main() -> int:
             fail(f"{name}: long read is not in the sitemap")
         if f"/{name}" not in (DOCS / "feed.xml").read_text(encoding="utf-8"):
             fail(f"{name}: long read is not in the feed")
+    # The front-page editorial count has to match what the build actually renders.
+    built_editorial = sorted(f.name for f in (DOCS).glob("*.html")
+                             if f.name.startswith(("guide-", "article-")) or f.name == "buying-guide.html")
+    m = re.search(r"<div><b>(\d+)</b><span>guides", (DOCS / "index.html").read_text(encoding="utf-8"))
+    if not m:
+        fail("index.html: the guides & long reads stat is missing or no longer in the hero")
+    elif int(m.group(1)) != len(built_editorial):
+        fail(f"index.html claims {m.group(1)} guides & long reads, the build renders "
+             f"{len(built_editorial)} — the stat must be {{editorial_count}}, not typed")
     if not FAILURES:
         ok(f"{len(longreads)} long reads: sourced, verified-block present, in sitemap and feed")
 
