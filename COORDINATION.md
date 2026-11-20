@@ -61,6 +61,11 @@ session once all other tasks are done.
 - **T12 (shop-like landing page):** reorder the front page so products lead (featured products + buy buttons above the register), keep guides + category tiles, and keep the disclosure strip above the fold.
 - **T13 (decision-input questions):** the open-questions register and the suggestions/decision portal already exist; verified present and linked from the nav/footer.
 
+## Claims this session (session-arena-43f4359d-prod2, branch `arena/43f4359d-prod2`)
+
+- **T11-integrate:** re-verify both builds (`scripts/build_site.py` + `tools/build.py`), `scripts/verify_site.py` + `tools/checks.py`, landing page product-first, commit, push, open PR from `arena/43f4359d-prod2` to `main`, merge, confirm Pages deploys; record PR link + merge result below.
+- **T12-shop-landing:** reorder `site/index.html` so product cards + buy buttons lead before guides/categories/register; disclosure stays above fold; `rel="sponsored"` on every outbound product link.
+
 No other session has an unexpired claim on these files. If this session stops, any other session may take over an `in progress` task older than 60 minutes with no commits and must note the handoff here.
 
 ## Verification boundary (this session)
