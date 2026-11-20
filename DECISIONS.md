@@ -16,7 +16,7 @@ This file mirrors `data/p2/decisions.json`, which is what the site renders on th
 
 | ID | Decision | Rationale | Source |
 | --- | --- | --- | --- |
-| D-01 | Five supplied short links resolved to five official listings, which are the products covered | Owner-supplied catalogue | `data/p2/intent-links.json` |
+| D-01 | Five supplied short links were recorded as resolving to five official listings on 2026-11-19. The 2026-11-20 R-01 read confirmed one of five at its intended ASIN (F-P24, F-P27, F-P28); the five official listings are the products covered | Owner-supplied catalogue | `data/p2/intent-links.json` |
 | D-05 | Every outbound product link is a tagged Special Link with `rel="sponsored"` | Program Policies §2(b); Google outbound-link guidance | S-POL, S-GOUT |
 | D-06 | No hands-on testing is claimed; the site is an edited buying guide | Nothing was purchased or tested | Brief |
 | D-12 | Privacy-preserving click counter: no cookies, five defined events | Measurement without third-party tracking | Brief |

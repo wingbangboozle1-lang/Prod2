@@ -3,7 +3,8 @@
     "description": "Design prompt pack: the brief an owner or a design session can hand to whoever restyles this site, assembled from the accepted constraints in the registers. Each block is copy-ready. Nothing in here is adopted as a decision until it appears in data/p2/decisions.json.",
     "updated_utc": "2026-11-19",
     "set_by": "arena/b650562d-prod2",
-    "how_it_relates_to_the_queue": "Every block names the suggestions (SG-xx) that carry its decision. A block whose suggestions are still 'proposed' is a brief for a path that has not been chosen yet - use it to choose, not as permission."
+    "how_it_relates_to_the_queue": "Every block names the suggestions (SG-xx) that carry its decision. A block whose suggestions are still 'proposed' is a brief for a path that has not been chosen yet - use it to choose, not as permission.",
+    "id_note": "Question IDs updated to the merged register (2026-11-20, arena/e0d92902-prod2): the handoff rows Q-P11/Q-P15/Q-P18/Q-P19 were renumbered Q-P24/Q-P26/Q-P29/Q-P30 during the merge race (PRs #36-#44 consumed the original IDs)."
   },
   "guardrails": [
     {
@@ -294,7 +295,7 @@
     }
   ],
   "sequence": [
-    "1. Answer the blocking questions that gate the design (Q-P11 cadence, Q-P19 publisher, Q-P05 imagery, Q-P06 domain, Q-P15 register, Q-P18 PR #16).",
+    "1. Answer the blocking questions that gate the design (Q-P24 cadence, Q-P30 publisher, Q-P05 imagery, Q-P06 domain, Q-P26 register, Q-P29 PR #16).",
     "2. Accept or reject the six ranked suggestions that the polish depends on: SG-15, SG-16, SG-19, SG-21, SG-22, SG-26.",
     "3. Run DP-1 and DP-2 as one pass (identity plus front page), so the shelf and the type system land together.",
     "4. Run DP-5 and DP-8 together with the lint, before adding any new article: prose rules added after a backlog only excuse the backlog.",

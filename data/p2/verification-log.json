@@ -1,8 +1,9 @@
 {
   "_meta": {
-    "description": "Verification ledger: one dated row per official-source check, with the URL a human can click to repeat it. The rule (adopted as Q-P11's default while that question stays open): no product value is published from a page whose listing has not been re-read inside 30 days.",
+    "description": "Verification ledger: one dated row per official-source check, with the URL a human can click to repeat it. The rule (adopted as Q-P24's default while that question stays open): no product value is published from a page whose listing has not been re-read inside 30 days.",
     "updated_utc": "2026-11-19",
-    "written_by": "arena/b650562d-prod2"
+    "written_by": "arena/b650562d-prod2",
+    "id_note": "Question IDs updated to the merged register (2026-11-20, arena/e0d92902-prod2): the handoff rows Q-P11/Q-P15/Q-P18/Q-P19 were renumbered Q-P24/Q-P26/Q-P29/Q-P30 during the merge race (PRs #36-#44 consumed the original IDs)."
   },
   "entries": [
     {

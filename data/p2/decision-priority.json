@@ -2,13 +2,14 @@
   "_meta": {
     "description": "The nine decisions this repository is actually waiting on, ranked by what they unblock. Derived from the suggestion queue and the open-questions register; rendered on the Analysis page so a reviewer sees the whole board in one place rather than reconstructing it from eight pages.",
     "updated_utc": "2026-11-19",
-    "how_to_use": "Answer the waiting_on field — usually one sentence — and the items above it move. Nothing here blocks publication: the site stays live and correct while every one of these stays open."
+    "how_to_use": "Answer the waiting_on field — usually one sentence — and the items above it move. Nothing here blocks publication: the site stays live and correct while every one of these stays open.",
+    "id_note": "Question IDs updated to the merged register (2026-11-20, arena/e0d92902-prod2): the handoff rows Q-P11/Q-P15/Q-P18/Q-P19 were renumbered Q-P24/Q-P26/Q-P29/Q-P30 during the merge race (PRs #36-#44 consumed the original IDs)."
   },
   "ordering": [
     {
       "rank": 1,
       "decision": "Decide the register question",
-      "item": "SG-31 / Q-P15 / F-P06 — is data/p2/ the only register that feeds published values?",
+      "item": "SG-31 / Q-P26 / F-P06 — is data/p2/ the only register that feeds published values?",
       "why": "Two files disagree about whether prices exist. Until one is canonical, every future pass has to rediscover which one the live page used, and a reviewer cannot tell a stale figure from a deliberate omission.",
       "waiting_on": "A one-line answer in COORDINATION.md. Any session can then move the other file to archive/ and say so on the method page.",
       "effort": "Minutes",
@@ -60,7 +61,7 @@
     {
       "rank": 5,
       "decision": "Set the re-verification cadence",
-      "item": "Q-P11 — how old may a published figure be before the build refuses it?",
+      "item": "Q-P24 — how old may a published figure be before the build refuses it?",
       "why": "Titles, preset counts and carousels have already been observed drifting between reads days apart. A site whose only claim is 'we checked' has to define what 'checked' is worth in time.",
       "waiting_on": "An interval (a day, a fortnight, a quarter) and who owns the sweep. Then the gate enforces it and the read-date chip on the product block means something.",
       "effort": "One number",
@@ -73,7 +74,7 @@
     {
       "rank": 6,
       "decision": "Name the publisher",
-      "item": "Q-P19 / SG-27 — who is speaking, and does the mandated disclosure use 'I' or an entity name?",
+      "item": "Q-P30 / SG-27 — who is speaking, and does the mandated disclosure use 'I' or an entity name?",
       "why": "Amazon prescribes the disclosure statement in the first person; the site is run as a project. A reader, a reviewer and the FTC's guidance all expect an identifiable party, and right now there is none.",
       "waiting_on": "The exact string to publish. A name, an entity, or a deliberate 'editorial desk, contact at…'.",
       "effort": "Minutes",
@@ -115,7 +116,7 @@
     {
       "rank": 9,
       "decision": "Close the open pull request hazard",
-      "item": "Q-P18 / SG-32 — PR #16 would overwrite the generated root the live site is served from.",
+      "item": "Q-P29 / SG-32 — PR #16 would overwrite the generated root the live site is served from.",
       "why": "It is not a content question, it is repository safety: one merge from a stale branch replaces the publication with a hand-authored copy and breaks the reproducibility check that guards it.",
       "waiting_on": "Close it, or ask for it to be retargeted. Logged as RR-5 and RR-6 on the coordination board.",
       "effort": "Minutes",

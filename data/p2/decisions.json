@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): D-P22 recorded (handoff integration; renumbered D-P10 -> D-P16 -> D-P21 -> D-P22 through the merge race)."
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): D-P22 row corrected for the collision renumbering (stale Q-P10..Q-P21 reference) and marked executed by PR #41; the duplicate integration decision this session had drafted (would have been D-P23) was dropped in favour of D-P22."
   },
   "decisions": [
     {
@@ -318,13 +318,14 @@
       "id": "D-P22",
       "question": "How is the 2026-11-20 pass (handoff takeover of stale PRs #23/#25 + first same-day live verification) recorded as decisions?",
       "status": "Recorded 2026-11-20",
-      "recorded_choice": "Adopted: (a) same-day live verification of all five submitted short links plus compliance pages, recorded in data/p2/verification-2026-11-20.json with dated observations appended to the intent register; (b) PR #25 content union — guides guide-dual-vs-single, guide-probe-in-air-fryer, guide-air-fryer-gift (clustered in calendar.json), analysis.html and design-prompt.html decision surfaces, registers decision-priority/design-prompts/verification-log, question rows Q-P10..Q-P21 and suggestion rows SG-18..SG-26 verbatim, the editorial voice-lint gate, and the settings-derived disclosure sentence in checks.py; (c) PR #23 content union — the Start here path on the front page. Not adopted (queued, review-gated): PR #25 mobile compare bar (SG-23 remains proposed; the site.js delta that powers it stays on that branch), its portal-v2 board hooks for questions/suggestions (main keeps the PR #27 status tables), and its replacement of guide titles for guide-how-many-quarts/guide-two-baskets-or-one (main keeps both; guide-dual-vs-single is differentiated by its capacity-math angle). Conflicts resolved at source without discarding the other sessions' work; their branches remain on the remote.",
+      "recorded_choice": "Adopted: (a) same-day live verification of all five submitted short links plus compliance pages, recorded in data/p2/verification-2026-11-20.json with dated observations appended to the intent register; (b) PR #25 content union — guides guide-dual-vs-single, guide-probe-in-air-fryer, guide-air-fryer-gift (clustered in calendar.json), analysis.html and design-prompt.html decision surfaces, registers decision-priority/design-prompts/verification-log, question rows (rows 10..21 of the pre-merge register — landed as Q-P12..Q-P13 plus renumbered Q-P22..Q-P32 after ID collisions) and suggestion rows SG-18..SG-26 verbatim, the editorial voice-lint gate, and the settings-derived disclosure sentence in checks.py; (c) PR #23 content union — the Start here path on the front page. Not adopted (queued, review-gated): PR #25 mobile compare bar (SG-23 remains proposed; the site.js delta that powers it stays on that branch), its portal-v2 board hooks for questions/suggestions (main keeps the PR #27 status tables), and its replacement of guide titles for guide-how-many-quarts/guide-two-baskets-or-one (main keeps both; guide-dual-vs-single is differentiated by its capacity-math angle). Conflicts resolved at source without discarding the other sessions' work; their branches remain on the remote.",
       "sources": [
         "https://github.com/wingbangboozle1-lang/Prod2/pull/23",
         "https://github.com/wingbangboozle1-lang/Prod2/pull/25",
         "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json"
       ],
-      "renumber_note": "Renumbered through the 2026-11-20 merge race: D-P10 -> D-P16 -> D-P21 -> D-P22 (main consumed each ID in PRs #29-#44). Content unchanged."
+      "renumber_note": "Renumbered through the 2026-11-20 merge race: D-P10 -> D-P16 -> D-P21 -> D-P22 (main consumed each ID in PRs #29-#44). Content unchanged.",
+      "execution_note": "Executed 2026-11-20 by arena/e0d92902-prod2 (PR #41): the pages, guides, registers, question rows and gates described here ship in that merge; the morning redirect observations are in data/p2/verification-2026-11-20.json (sessions.e0d92902) and data/p2/intent-links.json."
     }
   ]
 }

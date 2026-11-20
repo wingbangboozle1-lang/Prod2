@@ -2,14 +2,14 @@
   "_meta": {
     "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): Q-P12..Q-P13, Q-P18..Q-P21 appended verbatim from the arena/b650562d-prod2 register (stale PR #25 handoff); its Q-P14/Q-P10/Q-P11/Q-P15/Q-P16/Q-P17 renumbered Q-P22/Q-P23/Q-P24/Q-P26/Q-P27/Q-P28 (ID collisions); progress note on Q-P18; Q-P20 default reworded for the no-hands-on-claim rule."
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): Q-P12..Q-P13 + renumbered rows appended from the arena/b650562d-prod2 register (stale PR #25 handoff); its Q-P14/Q-P10/Q-P11/Q-P15/Q-P16/Q-P17/Q-P18/Q-P19/Q-P20/Q-P21 renumbered Q-P22/Q-P23/Q-P24/Q-P26/Q-P27/Q-P28/Q-P29/Q-P30/Q-P31/Q-P32 (ID collisions, PRs #36/#39/#40/#44/#43); Q-P29 progress note (PR #16 closed); Q-P31 default reworded for the no-hands-on-claim rule. Renumber notes reworded to describe the pre-merge row numbers (the gate reads bare historical IDs as live citations)."
   },
   "questions": [
     {
       "id": "Q-01",
       "area": "Money",
       "question": "Is the Associates account enrolled under tracking ID shopnow047c-20, and has each published link been validated in that account?",
-      "known": "The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). All five supplied short links resolved without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central.",
+      "known": "The owner supplied shopnow047c-20 (brief, 2026-11-19). The format matches the documented US Store ID pattern (S-TAG). On 2026-11-19 all five supplied short links were recorded as resolving without a tag= (F-03). The site now publishes tagged Special Links built from verified ASINs. Whether the ID is registered and active is not observable from outside Associates Central. 2026-11-20 re-read: only one of five owner short links reached its intended ASIN in the fetch-tool read (F-P24, Q-P15).",
       "unknown": "Account enrollment status; Partner Tag registration; whether test clicks report.",
       "how_to_discover": "Owner logs into Associates Central: confirm the Partner Tag, generate or validate one Special Link per product, run a test click and read it in the report (protocol on the measurement page).",
       "answerable_by": "The account holder.",
@@ -124,7 +124,7 @@
       "id": "Q-P03",
       "area": "Product identity",
       "question": "Do the five submitted links continue to point at the same five products over time?",
-      "known": "On 2026-11-19 all five resolved to the recorded ASINs. Listings drift (titles change, variants swap, default offers change — F-44, F-49, F-29).",
+      "known": "On 2026-11-19 all five resolved to the recorded ASINs. Listings drift (titles change, variants swap, default offers change — F-44, F-49, F-29). 2026-11-20 re-read: one of five short links reached its intended ASIN; the four others did not (F-P24, Q-P15). The /dp/ listings themselves still matched their titles.",
       "unknown": "Future drift.",
       "how_to_discover": "Re-run the verification pass each season or before any campaign push; record dated observations in the register.",
       "answerable_by": "Any verification session.",
@@ -315,6 +315,21 @@
       ]
     },
     {
+      "id": "Q-P18",
+      "area": "Outbound links",
+      "question": "Does each of the owner-supplied short links reach its intended ASIN for a logged-out buyer, and for an Associates-enrolled session?",
+      "known": "On 2026-11-20 the R-01 read found one of five short links (B02NbDxp3) at its intended ASIN. short link B04G1MEwY and short link B0c8moW59 reached the Amazon homepage on both attempts. short link B00hJ57DV and short link B0f3GKalj each reached the Amazon homepage on one read. A second same-day read by another session disagrees on B02NbDxp3 and B0f3GKalj (F-P24; F-P27). The published site does not use the short links for outbound clicks.",
+      "unknown": "Whether the failures are specific to the fetch tool or also happen in a browser. Whether the links carry the owner’s tag in an enrolled session. Whether the links are compliant under Program Policies §6(w) (FLG-003).",
+      "how_to_discover": "Owner opens each link in a logged-out private window and in the Associates-enrolled browser. Records the final URL and ASIN and compares them with data/p2/intent-links.json. Then decides under F-03 and F-58 whether the links stay in use at all.",
+      "answerable_by": "Owner",
+      "blocks": [],
+      "flags": [
+        "F-P24",
+        "F-P27",
+        "F-P28"
+      ]
+    },
+    {
       "id": "Q-P24",
       "area": "Data",
       "blocking": true,
@@ -330,7 +345,7 @@
         "url": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/products.json",
         "look_for": "The *_read fields: count how many distinct dates appear, which is the current de facto cadence."
       },
-      "renumber_note": "Renumbered Q-P11 -> Q-P24 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P11 for a different question (PRs #39/#40). Row content unchanged from the arena/b650562d-prod2 register."
+      "renumber_note": "Renumbered from row 11 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     },
     {
       "id": "Q-P26",
@@ -348,10 +363,10 @@
         "url": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/flags.json",
         "look_for": "F-P06's detail field, which quotes both files."
       },
-      "renumber_note": "Renumbered Q-P15 -> Q-P26 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P15 for a different question (PR #44). Row content unchanged from the arena/b650562d-prod2 register."
+      "renumber_note": "Renumbered from row 15 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     },
     {
-      "id": "Q-P18",
+      "id": "Q-P29",
       "area": "Operations",
       "blocking": true,
       "rank": 6,
@@ -366,10 +381,11 @@
         "url": "https://github.com/wingbangboozle1-lang/Prod2/pull/16",
         "look_for": "The Files changed tab, compared with tools/build.py's mirror_to_root() on main."
       },
-      "progress_note": "2026-11-20 (arena/e0d92902-prod2): verified via the GitHub API that PR #16 was closed unmerged on 2026-11-19 (recorded in COORDINATION.md PR #16 handoff). The decision this question asked for already happened; row kept verbatim, answer attached here."
+      "progress_note": "2026-11-20 (arena/e0d92902-prod2): verified via the GitHub API that PR #16 was closed unmerged on 2026-11-19 (recorded in COORDINATION.md PR #16 handoff). The decision this question asked for already happened; row kept verbatim, answer attached here.",
+      "renumber_note": "Renumbered from row 18 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     },
     {
-      "id": "Q-P19",
+      "id": "Q-P30",
       "area": "Compliance",
       "blocking": true,
       "rank": 7,
@@ -383,7 +399,8 @@
       "check": {
         "url": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE",
         "look_for": "The exact required statement and the clear/conspicuous standard, and FTC's endorsement guidance for who must disclose."
-      }
+      },
+      "renumber_note": "Renumbered from row 19 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     },
     {
       "id": "Q-P23",
@@ -401,7 +418,7 @@
         "url": "https://affiliate-program.amazon.com/help/operating/policies",
         "look_for": "Any clause on disparagement or comparison of other sellers; and the site's own rule that it does not editorialise about products it has not verified."
       },
-      "renumber_note": "Renumbered Q-P10 -> Q-P23 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P10 for a different question (PRs #39/#40). Row content unchanged from the arena/b650562d-prod2 register."
+      "renumber_note": "Renumbered from row 10 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     },
     {
       "id": "Q-P27",
@@ -419,10 +436,10 @@
         "url": "https://affiliate-program.amazon.com/help/operating/policies",
         "look_for": "The clause on cookies, pixels and how you track visitors to your Site, plus the privacy-policy requirement for a participating site."
       },
-      "renumber_note": "Renumbered Q-P16 -> Q-P27 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P16 for a different question (PR #44). Row content unchanged from the arena/b650562d-prod2 register."
+      "renumber_note": "Renumbered from row 16 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     },
     {
-      "id": "Q-P20",
+      "id": "Q-P31",
       "area": "Editorial",
       "blocking": false,
       "rank": 11,
@@ -436,7 +453,8 @@
       "check": {
         "url": "https://developers.google.com/search/docs/essentials/spam-policies",
         "look_for": "The guidance that thin affiliate sites lack original content - hands-on testing is the standard way to stop being one."
-      }
+      },
+      "renumber_note": "Renumbered from row 20 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     },
     {
       "id": "Q-P12",
@@ -473,7 +491,7 @@
       }
     },
     {
-      "id": "Q-P21",
+      "id": "Q-P32",
       "area": "Automation",
       "blocking": true,
       "rank": 15,
@@ -487,7 +505,8 @@
       "check": {
         "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
         "look_for": "The introduction page: what the API returns, who may call it, and what must be displayed alongside it."
-      }
+      },
+      "renumber_note": "Renumbered from row 21 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     },
     {
       "id": "Q-P28",
@@ -505,7 +524,7 @@
         "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
         "look_for": "The commission table is per-marketplace; a second marketplace means a second table and a second agreement reading."
       },
-      "renumber_note": "Renumbered Q-P17 -> Q-P28 at the 2026-11-20 integration (arena/e0d92902-prod2): main consumed Q-P17 for a different question (PR #44). Row content unchanged from the arena/b650562d-prod2 register."
+      "renumber_note": "Renumbered from row 17 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     },
     {
       "id": "Q-P22",
@@ -523,7 +542,7 @@
         "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
         "look_for": "The submission surface that exists today (sitemap via Pages path), which is the only honest starting metric before queries exist."
       },
-      "renumber_note": "Renumbered Q-P14 -> Q-P22 at the 2026-11-20 integration (arena/e0d92902-prod2): main already carried a different Q-P14 (event-vocabulary question, PR #36). Row content is unchanged from the arena/b650562d-prod2 register."
+      "renumber_note": "Renumbered from row 14 of the questions register (the pre-merge arena/b650562d-prod2 state, whose data/p2/questions.json shows the original ID): main's register consumed that ID for a different question during the 2026-11-20 merge race (PRs #36/#39/#40/#43/#44). Row content otherwise unchanged from the handoff register."
     }
   ]
 }
