@@ -1168,3 +1168,12 @@ Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Sing
 - F-P23 / Q-P14: event-vocabulary contract (resolved in code by the W-01 pass; the gate asserts the five names; whether a collector is deployed for live traffic was not checked this session).
 - F-P24: short-link discrepancy (blocker 3).
 - F-P17 / F-02: carousel prices and ratings belong to other ASINs; the site withholds prices and ratings.
+
+### PR / merge record — arena/3936beb1-prod2
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/48 |
+| Checks on PR | `test` pass · `verify` pass |
+| Merge result | **MERGED** 2026-11-20, merge commit `40673a3` (`gh pr merge 48 --merge`) |
+| Claim status | X-01..X-03 **done**. Claim released. |
