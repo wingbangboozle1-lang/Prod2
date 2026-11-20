@@ -753,6 +753,23 @@ recoverable from git reflog; its unique content is preserved in `archive/counter
 
 ## Conflict log
 
+- 2026-11-20 (arena/44af3083-prod2, second union): the integration merge of `origin/main` (PRs #43–#53,
+  sessions arena/37b265a4 / 644d217b / 3936beb1 / d5157db6 / e292fb4d) conflicted in 19 files.
+  Resolved as unions, nothing discarded: the four register files merged **by row id** (this pass's
+  Q-P15 browser-check folded into the parallel pass's Q-P18 with its evidence kept; this pass's
+  Q-P16/Q-P17 published as Q-P19/Q-P20; SG-45..SG-47 renumbered SG-49..SG-51; the parallel pass's
+  F-P24 third-read note kept verbatim and this pass's fourth-read note appended), `calendar.json`
+  gained both passes' cluster/season wiring, `content/pages/index.html` kept both the long-read
+  module and the turkey card, and every generated artifact was regenerated from the merged sources
+  rather than hand-merged. Cross-references renumbered in EXECUTIVE_SUMMARY.md, DESIGN_PROMPT.md,
+  REPO_AUDIT.md and this board.
+
+- 2026-11-20 (arena/44af3083-prod2): the claim commit hit a rebase conflict in `COORDINATION.md`
+  against arena/722181aa-prod2's appended L-01..L-03 record (PRs #39–#42 landed after this
+  branch was cut). Resolved as a **union merge** — their record kept verbatim, this claim kept
+  and revised (F-P24 was taken by their session; this session's new ids re-checked at write
+  time). Nothing discarded.
+
 - Two `git pull --rebase` operations collided with concurrent merges to `main` (PR #5→#6→#7 landed
   during this session's work). First rebase resolved by union-merging boards; second collision was
   resolved by resetting this branch onto consolidated `main` and re-applying the integration as new
@@ -1852,3 +1869,51 @@ The six briefs on `briefs.html` are the list. The two that block everything else
 click read in Associates Central) and **B-04** (an endpoint for the counter). Nothing in this session
 claims the account is enrolled, that any click is attributed, or that the site has measured traffic.
 It has not.
+
+# Session arena/44af3083-prod2 — claim (2026-11-20)
+
+Branch `arena/44af3083-prod2`, base `4398598` (`main`, merge of PR #33); rebased onto `main`
+at `1ee7576` (PRs #38–#42) at claim time — conflict with arena/722181aa-prod2's appended record
+resolved as a union merge (nothing discarded; see the conflict log). Single Arena session:
+it works its scope and is also the final integration pass for that scope. Claim written and
+pushed **before** any task work started. At the rebase, arena/722181aa-prod2's L-01..L-03 were
+already at **done/merged** (PR #39/#42), so no live claim overlaps this one's file scope.
+**Register ids re-checked after the rebase** (arena/722181aa-prod2 took F-P24): new rows here
+continue from whatever `data/p2/*.json` shows free at write time — recorded in the results below.
+
+| Task | Status | Session | Scope (files) | Notes |
+| --- | --- | --- | --- | --- |
+| R-01 Live re-verification pass (2026-11-20, independent second read): all five listings + Operating Agreement + Program Policies + USDA/FoodSafety charts; observed strings recorded with read timestamps; short-link resolution observed again (F-P24) | done | arena/44af3083-prod2 | `data/p2/verification-2026-11-20.json` (addendum section only) | Cross-checked against BOTH prior 2026-11-20 reads (arena/70b2b9f7's `verification-2026-11-20.json` and arena/722181aa's `live-check-2026-11-20-722181aa.json`); agreement or disagreement stated explicitly. No register value changes unless a listing read changes it. |
+| R-02 Publish calendar queue slot 1 early ("Preheat, shake, or don't") — question-shaped, listing-facts-only, sourced; auto-flows to sitemap + feed | done | arena/44af3083-prod2 | `content/pages/guide-preheat-shake.html` (new), `tools/build.py` (PAGES/GUIDE_IDS/GUIDE_LINKS/hooks), `data/p2/calendar.json` (slot 1 marked shipped) | Same early-publish precedent as slots 1/3 of the previous queue. Honors D-19 (no popularity claims) and F-02 (no prices/ratings). |
+| R-03 Timely Thanksgiving-week thermometer guide ("How do you know the turkey is done?") — USDA cook-temps sourced, thermometer workflow framing from P4/P5 listings | done | arena/44af3083-prod2 | `content/pages/guide-turkey-done.html` (new), `tools/build.py`, `data/p2/calendar.json` (holiday-hosting season wiring) | Seasonal desk item for the 2026-11-26 US Thanksgiving window; hypothesis only (D-19). |
+| R-04 Decision-support additions: suggestions SG-49..SG-51 (design/marketing inputs feeding DESIGN_PROMPT.md + next-pass chooser paths) + questions Q-P19/Q-P20 (missing-information discovery) | done | arena/44af3083-prod2 | `data/p2/suggestions.json`, `data/p2/questions.json`, `DESIGN_PROMPT.md` (append-only) | Proposals only; nothing implemented without a reviewer choice. |
+| R-05 Front-page shop polish + executive summary refresh | done | arena/44af3083-prod2 | `content/pages/index.html` (copy only), `EXECUTIVE_SUMMARY.md` | Copy-level; no register/price/rating changes. |
+| R-06 Rebuild + gates (`tools/build.py` + `tools/checks.py`, `scripts/verify_site.py`, `npm test`), PR to `main`, merge, Pages live check, record here | in progress | arena/44af3083-prod2 | `docs/`, root mirror, `COORDINATION.md` | Runs last. PR + merge without waiting for approval per the brief; deploy must be green before the record is written. |
+
+Parallel-session protocol: `git pull --rebase` before every push; a request to change another
+session's file is logged here, never edited directly. Flagged irregularities do not block the
+merge; they publish on the Flagged for Review page.
+
+## Results — arena/44af3083-prod2 (R-01..R-05 complete, 2026-11-20)
+
+| Task | Status | Sources | Verification performed | Irregularities |
+| --- | --- | --- | --- | --- |
+| R-01 Third live verification pass | done | `https://www.amazon.com/dp/{B0CDY277D3,B09B7SB46R,B08DKYBTPH,B0DHZTCNR5,B0DZFD6R9Z}` (read 2026-11-20) · `https://affiliate-program.amazon.com/help/operating/agreement` (Updated: October 15, 2025) · `https://affiliate-program.amazon.com/help/operating/policies` (Updated: April 14, 2026) · `https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures` (last reviewed November 21, 2024) · `…/cold-food-storage-charts` (September 19, 2023) · `…/food-safety-during-power-outage` (August 8, 2024) | 5/5 listing document titles match the register character-for-character (wrapper stripped); breadcrumbs match; policy + chart dates match. Recorded verbatim in `data/p2/verification-2026-11-20.json` → `third_pass_arena_44af3083` (V3-01..V3-04). Zero register drift. | F-P24 reproduced independently: `https://link.amazon/B04G1MEwY` and `https://link.amazon/B0c8moW59` both resolved to `https://www.amazon.com/` instead of their listings. Evidence appended to F-P24; intended-ASIN fields untouched. |
+| R-02 guide-preheat-shake.html | done | P1/P2/P3 listing facts (S-P1..S-P3, read 2026-11-19; feature tables 2026-11-14) | Every fact traced to the register; "What we could not verify" block included; S-24 pillar links present; flows to sitemap + feed by build. | none |
+| R-03 guide-turkey-done.html | done | S-USDA-COOK (165°F (74°C) poultry row, read 2026-11-20) + P4/P5 listing facts (S-P4/S-P5) | USDA figure quoted with its last-reviewed date; P4/P5 workflows from listing facts only; no hands-on claims (D-06). | none |
+| R-04 Registers + design inputs | done | Program Policies 2(b) (S-POL) · VOICE.md · D-19 | SG-49..SG-51 (proposals only) and Q-P19/Q-P20 recorded; this pass's Q-P15 browser-check row merged into the parallel pass's **Q-P18** (content kept, nothing discarded); F-P24 detail extended; `DESIGN_PROMPT.md` marketing-inputs section appended. Gate re-run after each register change. | Gate caught a `link.amazon` string on questions.html without inert-code rendering — fixed at the register (wording), gate left strict. Register ids collided with the parallel long-read pass (it took Q-P15..Q-P17, SG-45..SG-47, F-P25..F-P28, D-P21 on main); this pass renumbered around it and updated every cross-reference. |
+| R-05 Front page + exec summary | done | built pages | Trust-row guide count corrected 10 → 12; timely turkey question card; exec summary second-wave section; counts re-counted from the registers. | Front-page trust row had gone stale (10 vs 12 guides) — corrected. |
+
+**Builds at the end of the pass:** `python3 tools/build.py` → 30 pages → `python3 tools/checks.py` → **ALL CHECKS PASSED** (12 sections) · `python3 scripts/verify_site.py` → **VERIFY OK** (18 pages) · `npm test` → **2/2 pass**.
+
+**Register id usage this pass (final, after the parallel-pass collision):** flags — none new (F-P24 extended in place with the fourth-read note); questions — **Q-P19, Q-P20** (+ content merged into Q-P18); suggestions — **SG-49, SG-50, SG-51** (twice renumbered around parallel passes); decisions — none new. Next free ids: F-P30, Q-P21, SG-52, D-P24.
+
+## PR / merge / deploy record — arena/44af3083-prod2
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/54 (`arena/44af3083-prod2` → `main`) |
+| Merge result | (recorded after merge) |
+| Pages | (recorded after deploy check) |
+| Checks on PR | tools/checks.py ALL CHECKS PASSED · scripts/verify_site.py VERIFY OK · npm test 2/2 |
+
