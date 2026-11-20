@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-20 (arena/644d217b-prod2): SG-45..SG-47 added — long-form argument pieces (shipped), the one-dropdown Pages fix ranked first by payoff, and the imagery question split into a safe path and a licensed path."
+  "last_change": "2026-11-20 (arena/644d217b-prod2): SG-45..SG-47 added — long-form argument pieces (shipped), the one-dropdown Pages fix ranked first by payoff, and the imagery question split into a safe path and a licensed path. | 2026-11-20 (arena/7cec0d73-prod2, final integration): rows carried forward from the open branches arena/37b265a4-prod2 (PR #43), arena/20f83238-prod2 (PR #47) and arena/e0d92902-prod2 (PR #41) by content, renumbered where the source id collided with a main row. No main row was dropped or rewritten in place."
  },
  "suggestions": [
   {
@@ -24,8 +24,16 @@
    "depends_on": [
     "Q-19"
    ],
-   "status": "proposed",
-   "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items."
+   "status": "accepted",
+   "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "accepted",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-02",
@@ -37,8 +45,16 @@
    "effort": "Small (column reorder + one derived column in build).",
    "risk": "Low. Derived values must show the formula to stay within the evidence rule.",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept. Cheap, on-thesis."
+   "status": "deferred",
+   "recommendation": "Accept. Cheap, on-thesis.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "deferred",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-03",
@@ -84,8 +100,16 @@
    "depends_on": [
     "Q-27"
    ],
-   "status": "proposed",
-   "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand."
+   "status": "rejected",
+   "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "rejected",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-06",
@@ -115,8 +139,16 @@
    "depends_on": [
     "Owner input"
    ],
-   "status": "proposed",
-   "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available."
+   "status": "deferred",
+   "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "deferred",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-08",
@@ -128,8 +160,16 @@
    "effort": "One session (CSS/JS + checks update).",
    "risk": "Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept as a UX follow-up after the first traffic arrives."
+   "status": "deferred",
+   "recommendation": "Accept as a UX follow-up after the first traffic arrives.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "deferred",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-09",
@@ -155,8 +195,16 @@
    "effort": "One session.",
    "risk": "Low.",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Defer until measured queries confirm demand (after SG-06)."
+   "status": "deferred",
+   "recommendation": "Defer until measured queries confirm demand (after SG-06).",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "deferred",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-11",
@@ -171,8 +219,16 @@
     "Q-P02",
     "SG-06"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06."
+   "status": "shipped",
+   "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "shipped",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-12",
@@ -184,8 +240,16 @@
    "effort": "Small (copy in content/pages + one check that each block has both lines).",
    "risk": "Low. Must not claim testing that did not happen (D-06).",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept. It improves the shop feel without adding claims."
+   "status": "shipped",
+   "recommendation": "Accept. It improves the shop feel without adding claims.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "shipped",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-13",
@@ -199,9 +263,17 @@
    "depends_on": [
     "SG-09"
    ],
-   "status": "accepted",
+   "status": "shipped",
    "recommendation": "Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.",
-   "progress": "2026-11-19 publication pass: the clusters shipped - data/p2/calendar.json defines both clusters, guides.html is the hub, every guide links its pillar (gate-enforced). Adding more formats still waits."
+   "progress": "2026-11-19 publication pass: the clusters shipped - data/p2/calendar.json defines both clusters, guides.html is the hub, every guide links its pillar (gate-enforced). Adding more formats still waits.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "accepted",
+     "to": "shipped",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-14",
@@ -216,8 +288,16 @@
     "Q-01",
     "SG-06"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the sequencing rule for every growth decision."
+   "status": "accepted",
+   "recommendation": "Accept as the sequencing rule for every growth decision.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "accepted",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-15",
@@ -262,9 +342,17 @@
    "depends_on": [
     "Q-P07"
    ],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated.",
-   "progress": "Cross-ref: the seasonal scaffolding partially shipped (data/p2/calendar.json + the front-page seasonal desk, SG-35); this row covers the remaining merchandising depth."
+   "progress": "Cross-ref: the seasonal scaffolding partially shipped (data/p2/calendar.json + the front-page seasonal desk, SG-35); this row covers the remaining merchandising depth.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "shipped",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-27",
@@ -389,8 +477,16 @@
     "Q-P08",
     "Q-P02"
    ],
-   "status": "proposed",
-   "recommendation": "Accept. It is the payoff for SG-06 and requires no new machinery."
+   "status": "accepted",
+   "recommendation": "Accept. It is the payoff for SG-06 and requires no new machinery.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "accepted",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-35",
@@ -402,9 +498,17 @@
    "effort": "Half a session to make the front page date-aware (currently the season modules are static blocks).",
    "risk": "Low.",
    "depends_on": [],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Accept before the next season boundary (2026-12-31).",
-   "progress": "Seasonal desk + gifting window live 2026-11-20; front-page date-awareness (auto-retire on window end) remains queued before the 2026-12-31 boundary."
+   "progress": "Seasonal desk + gifting window live 2026-11-20; front-page date-awareness (auto-retire on window end) remains queued before the 2026-12-31 boundary.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "shipped",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-36",
@@ -419,8 +523,16 @@
     "Q-47",
     "SG-04"
    ],
-   "status": "proposed",
-   "recommendation": "Accept in principle now; activate with the capture endpoint."
+   "status": "accepted",
+   "recommendation": "Accept in principle now; activate with the capture endpoint.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "accepted",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-37",
@@ -479,9 +591,17 @@
    "depends_on": [
     "Q-P05"
    ],
-   "status": "proposed",
+   "status": "deferred",
    "recommendation": "Accept as the next visual item after the current pass settles; amend the brief first, then draw.",
-   "progress": "Update 2026-11-20 (reconciliation): the drawn-imagery part of this proposal shipped in the shop-front pass (arena/70b2b9f7-prod2, decision D-P12): drawn format illustrations and an original hero scene are live. Remaining: amend DESIGN_PROMPT.md’s imagery line (it still restricts graphics to glyphs) and add the seasonal hero-scene rotation."
+   "progress": "Update 2026-11-20 (reconciliation): the drawn-imagery part of this proposal shipped in the shop-front pass (arena/70b2b9f7-prod2, decision D-P12): drawn format illustrations and an original hero scene are live. Remaining: amend DESIGN_PROMPT.md’s imagery line (it still restricts graphics to glyphs) and add the seasonal hero-scene rotation.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "deferred",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-40",
@@ -512,8 +632,16 @@
     "Q-P08",
     "SG-34"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the standing growth runbook; it is the shortest credible path to measured organic traffic."
+   "status": "accepted",
+   "recommendation": "Accept as the standing growth runbook; it is the shortest credible path to measured organic traffic.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "accepted",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-42",
@@ -544,8 +672,16 @@
     "SG-34",
     "Q-P02"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the first measured-iteration item; do nothing until the gate opens."
+   "status": "deferred",
+   "recommendation": "Accept as the first measured-iteration item; do nothing until the gate opens.",
+   "status_history": [
+    {
+     "date_utc": "2026-11-20",
+     "from": "proposed",
+     "to": "deferred",
+     "by": "session arena/7cec0d73-prod2, carrying the reviewer pass recorded in PR #47 (branch arena/20f83238-prod2)"
+    }
+   ]
   },
   {
    "id": "SG-45",
@@ -593,6 +729,494 @@
    ],
    "status": "proposed",
    "recommendation": "Run (b) now; switch to (a) only if API access is granted."
+  },
+  {
+   "id": "SG-48",
+   "title": "Monthly owner digest: turn the open-question register into a standing prompt",
+   "problem": "The questions register answers what is missing and how to find it per row, but the owner only sees it by browsing the page. Missing information tends to stay missing when nobody is prompted with the exact lookup.",
+   "proposal": "A one-page monthly digest generated from questions.json by the existing build: the owner-answerable questions first (each with its exact lookup steps and what it unblocks), then what changed since the last digest. Repo issue or one page in the work section; no reader-facing surface changes.",
+   "evidence": "The brief's requirement that suggestions exist to discover missing information; the questions register already carries how_to_discover per row and the discovery-methods table on the questions page.",
+   "impact": "Medium — converts the register from documentation into a decision pipeline; compounds the SG-06 measurement habit.",
+   "effort": "Small — one build hook and a calendar reminder, after Path A's first measured month.",
+   "risk": "Low; nothing reader-facing changes and nothing is collected.",
+   "depends_on": [
+    "SG-06"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept at Path A's first monthly review (D-P22). It is the cheapest way to keep the owner actions in Q-01/Q-23/Q-P06/Q-P08/Q-P10 from ageing silently.",
+   "renumber_note": "Renumbered from SG-45 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used SG-45 for different rows."
+  },
+  {
+   "id": "SG-25",
+   "title": "Instrument the click path before testing anything on it",
+   "theme": "Measurement",
+   "rank": 2,
+   "feeds_design_prompt": false,
+   "status": "proposed",
+   "problem": "Redesigns, title rewrites and seasonal hubs all get argued from taste today, because nothing is counted. Five events are defined, the client exists, and no endpoint receives them (F-19).",
+   "proposal": "Deploy the existing collector, point the site at it, and define the five events' report before any layout change is proposed: outbound_click by ASIN, guide_read_75, category_click, feed_click, page_view. Then set one rule: a design change ships with its hypothesis and the metric that would falsify it.",
+   "evidence": "The owner's Priority 4 row (measure before automating optimization) and D-P05, which fixed the five-event set. The project ledger is deliberately empty until an authorized first-party report exists.",
+   "impact": "Indirect but compounding: it converts every later suggestion into a test.",
+   "effort": "Low to host; medium to keep the discipline.",
+   "risk": "Low; the collector is aggregate-only and stores nothing identifying.",
+   "depends_on": [
+    "Q-23",
+    "Q-P06"
+   ],
+   "links": [
+    {
+     "label": "Google: qualifying outbound links",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+    }
+   ],
+   "recommendation": "Accept as the precondition for SG-15..SG-24 being argued about with numbers.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Host the existing collector on any Node host, keep the ledger empty",
+     "what_changes": "Events accumulate; the ledger still only fills from authorized reports.",
+     "upside": "Measurement without inventing revenue numbers.",
+     "downside": "Someone must run a host (Q-23).",
+     "cost": "Owner action",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Local-only counters, revisit later",
+     "what_changes": "Nothing leaves the browser.",
+     "upside": "No hosting.",
+     "downside": "No learning; the next pass repeats today's guesswork.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-19",
+   "title": "Answer first, then explain: a 40-word summary block and FAQ structured data on every guide",
+   "theme": "Editorial & SEO",
+   "rank": 3,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Guides open with scene-setting paragraphs. A reader (and a crawler) has to scroll to find the answer, which is the opposite of how question-shaped pages earn their place.",
+   "proposal": "Each guide starts with a boxed 'Short answer' of at most 40 words, then three to five H2 sections that each open with their own one-line answer, then a FAQ list mirroring the phrasing people type. Publish the FAQ block as FAQPage structured data in the same JSON-LD graph the build already emits, and validate the JSON-LD parses (the gate already does).",
+   "evidence": "Google's guidance on helpful, people-first content and on qualifying outbound links; the site already links every figure to its listing, which is the E-E-A-T signal to keep.",
+   "impact": "High for organic entry and for skim-through retention; the cheapest on-page improvement on this list.",
+   "effort": "Medium across eight guides; mechanical once the template exists.",
+   "risk": "Low, if the short answer never says more than the sourced body text.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: people-first content",
+     "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    }
+   ],
+   "recommendation": "Accept and apply retroactively to all eight guides in one pass.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Short answer + FAQPage JSON-LD on every guide",
+     "what_changes": "Template change in the build; eight content passes.",
+     "upside": "Answers the query where the query is answered, with machine-readable support.",
+     "downside": "FAQ markup is presentational for the reader; do not expect a guaranteed rich result.",
+     "cost": "One pass",
+     "unlocks": "SG-21",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Short answer only, no extra structured data",
+     "what_changes": "Same prose change, no schema.",
+     "upside": "Simpler; nothing to maintain in two places.",
+     "downside": "Loses the explicit question/answer pairing the build could carry.",
+     "cost": "Half the effort",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Leave the prose as it is",
+     "what_changes": "Nothing.",
+     "upside": "No churn.",
+     "downside": "The answer stays buried below the fold.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-21",
+   "title": "Rewrite titles and metas to a two-part pattern: the question, then the promise",
+   "theme": "Editorial & SEO",
+   "rank": 4,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Current titles are correct and a little flat, and the brand suffix repeats on every page. Searchers choose on the title line; this is the cheapest lever on click-through that does not require a traffic claim.",
+   "proposal": "Pattern: '<the question a person types> — <what they get in 4 minutes>'. Keep titles under 60 visible characters, front-load the query noun, and write each meta description to the page's actual content (50-170 chars, enforced today). Ban the empty intensifiers the gate already bans; catchy here means specific, not loud.",
+   "evidence": "Google's snippet guidance says the description should accurately summarise the page and that unique descriptions per page matter (S-GSNIP); the gate already enforces uniqueness and length (S-04 in the owner's register, implemented 2026-11-16).",
+   "impact": "Medium-high on impressions-to-clicks; no effect without impressions, so pair with SG-06.",
+   "effort": "Low. Ten string edits in the page registry.",
+   "risk": "Low; the gate fails a duplicate or out-of-range description, so drift is caught.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: snippet and description guidance",
+     "url": "https://developers.google.com/search/docs/appearance/snippet"
+    }
+   ],
+   "recommendation": "Accept, but do it after SG-19 so each title matches the answer the page now leads with.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Question + promise, brand suffix dropped from guides",
+     "what_changes": "Titles read like answers; brand moves to the meta og:site_name.",
+     "upside": "Longer tail matched more precisely; less repetition.",
+     "downside": "Brand appears less in results for a small site that may want it.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Keep the brand suffix everywhere",
+     "what_changes": "Nothing changes.",
+     "upside": "Brand consistency in results.",
+     "downside": "Every title starts with the same prefix, which is what the pattern was meant to fix.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-18",
+   "title": "Design an original illustration system in place of photography",
+   "theme": "Brand",
+   "rank": 6,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "A shop without product images looks unfinished, and copying listing photos is not an option: images are Program Content. The gap has to be filled with something we own.",
+   "proposal": "Commission or generate a small, consistent set of original line diagrams drawn by this project: basket vs oven cavity, French-door clearance, dual-zone timing, probe placement in a roast, counter-depth footprint to scale. Each figure is labelled with the listed measurement it illustrates and links to the source. Style rules (stroke width, palette, no perspective shading) go into the design brief so the set stays coherent.",
+   "evidence": "Operating Agreement Section 1 treats Amazon's images as Program Content, so the compliant route is our own artwork (S-OA). Our own diagrams also satisfy Google's originality guidance.",
+   "impact": "High on the 'is this a real publication' question, which is what the current page lacks most.",
+   "effort": "Medium. Eight to twelve figures, plus a style block in the brief.",
+   "risk": "Low if figures only ever draw listed values; a diagram that implies a performance claim becomes a claim.",
+   "depends_on": [
+    "Q-P05"
+   ],
+   "links": [
+    {
+     "label": "Associates Operating Agreement",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    }
+   ],
+   "recommendation": "Accept. It is the only visual upgrade available that does not depend on licensing anything.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Original measured diagrams, spec-labelled",
+     "what_changes": "One figure per format decision, each captioned with the listed value and its source.",
+     "upside": "Ownable, defensible, and it looks like editorial intent.",
+     "downside": "Hand-drawn feel depends on execution; a bad diagram is worse than none.",
+     "cost": "One design pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Abstract brand art only",
+     "what_changes": "Typographic and geometric art, no measured diagrams.",
+     "upside": "Cheap and safe.",
+     "downside": "Adds beauty but no understanding.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Copy listing photographs",
+     "what_changes": "Product images on cards and guides.",
+     "upside": "Looks like a normal commerce page.",
+     "downside": "Program Content the site has no licence to host; take-down and account risk.",
+     "cost": "None - do not do this",
+     "unlocks": "nothing",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-26",
+   "title": "A no-slop lint in the publish gate",
+   "theme": "Trust & authority",
+   "rank": 7,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "The site's single biggest reputational risk is reading machine-made. Today the gate checks compliance and sources, but nothing about prose, so an opener like 'In today's fast-paced kitchen' can ship.",
+   "proposal": "Extend the gate's claims section with an editorial blocklist and shape rules: no throat-clearing openers, no 'look no further', 'game-changer', 'elevate', 'unleash', 'delve', 'in the world of', 'whether you're a beginner or a seasoned pro'; no adjective pile-ups (three or more in a row); no second-person promises the register cannot support; every guide has an H2 within its first 300 words; no em-dash abuse beyond a set count. Fail the build, like everything else.",
+   "evidence": "Google's guidance on originality and people-first content, plus its AI-content statement, both already in the source register; D-12 is the voice the rules encode.",
+   "impact": "Medium-high on the thing the owner flagged twice: not reading like generated filler.",
+   "effort": "Low. A list and four functions.",
+   "risk": "Medium false positives; mitigate with an explicit per-page exemption file that the gate prints so exceptions are visible in review, not silent.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: creating helpful, people-first content",
+     "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    },
+    {
+     "label": "Google: AI-generated content guidance",
+     "url": "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content"
+    }
+   ],
+   "recommendation": "Accept. Voice rules that live only in a document decay; rules in the gate do not.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Hard gate with visible exemptions",
+     "what_changes": "checks.py grows an 'editorial' section; exemptions printed in the run log.",
+     "upside": "Style becomes a release requirement.",
+     "downside": "Blocks a publish while a wording fix is trivial - the fix is usually one sentence.",
+     "cost": "One pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Warning-only lint in CI",
+     "what_changes": "Reports, does not fail.",
+     "upside": "No friction.",
+     "downside": "Warnings get ignored within two passes, as every team knows.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Prose rules in VOICE.md only",
+     "what_changes": "Nothing automated.",
+     "upside": "Zero build risk.",
+     "downside": "Nothing stops the next session.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-23",
+   "title": "Mobile-first pass: type scale, 44px tap targets, sticky comparison bar, no horizontal table traps",
+   "theme": "Reader experience",
+   "rank": 9,
+   "feeds_design_prompt": true,
+   "status": "recommended",
+   "note": "Implemented 2026-11-19 under D-P08 (presentation only): fluid type scale, min-height tap targets, visible focus rings, a dismissible sticky comparison bar on the comparison and product pages, and table scroll affordances. This mirrors the owner's register row S-20.",
+   "problem": "Most of this traffic arrives on a phone. Wide data tables and small nav links are the two things that make a careful site feel like a tool.",
+   "proposal": "Fluid root size with a clamp; every link, button and radio at least 44px; a sticky bottom bar carrying one sponsored CTA with a dismiss control; tables keep horizontal scroll but gain a shadow cue and a sticky first column; disclosure stays above the fold at 320px, checked by the gate.",
+   "evidence": "Page-experience guidance on mobile presentation; the owner's own S-20 row in the requirements register.",
+   "impact": "High for readable mobile dwell and for the tap that earns the commission.",
+   "effort": "Low-medium. CSS plus a small script.",
+   "risk": "Low; a fixed bar must not cover the footer or the disclosure, which is the gate's job.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: page experience",
+     "url": "https://developers.google.com/search/docs/appearance/page-experience"
+    }
+   ],
+   "recommendation": "Accept and keep it as the baseline for future pages.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Ship the CSS/JS pass now, no content change",
+     "what_changes": "Type scale, tap targets, sticky bar, table cues.",
+     "upside": "Immediate feel improvement with no factual exposure.",
+     "downside": "None material.",
+     "cost": "Done in this pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Rebuild the tables as card lists on small screens",
+     "what_changes": "Each product becomes a stacked card below 40rem.",
+     "upside": "No sideways scrolling at all.",
+     "downside": "Two presentations of one register to keep in sync.",
+     "cost": "One extra pass",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-20",
+   "title": "A counter-fit calculator shoppers can actually use",
+   "theme": "Reader experience",
+   "rank": 10,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "The counter-space analysis is a table. The reader's real question is 'will it fit where I want it', which is arithmetic they have to do themselves.",
+   "proposal": "A no-network widget: the reader types their available depth and width, the page flags which of the five listed footprints clear it, and prints the clearance figures it compared against with links to the listings. Everything computed client-side from registered values; nothing stored; nothing sent anywhere.",
+   "evidence": "The chooser already proves the pattern (D-23). Page-experience guidance rewards interaction that answers the specific question.",
+   "impact": "Medium-high for engagement and for the 'this site helped me' feeling that drives the click.",
+   "effort": "Low-medium. One script, one gate-safe template.",
+   "risk": "Medium on wording: a fit result is geometry, not a recommendation, and must say so; listing dimensions vary by read (F-29 style drift).",
+   "depends_on": [
+    "SG-22"
+   ],
+   "links": [
+    {
+     "label": "Google: page experience",
+     "url": "https://developers.google.com/search/docs/appearance/page-experience"
+    }
+   ],
+   "recommendation": "Accept after SG-22 puts read dates on the product blocks, so the calculator can quote its own staleness.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Client-side, listed values only, with a dated-source line",
+     "what_changes": "One input pair, five pass/fail rows, each linking to its listing.",
+     "upside": "Genuinely useful, zero data collection, defensible.",
+     "downside": "Only as fresh as the last register pass.",
+     "cost": "Low-medium",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Static printable checklist instead",
+     "what_changes": "A measure-your-counter worksheet.",
+     "upside": "No script, works offline.",
+     "downside": "Loses the direct answer.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Skip it",
+     "what_changes": "Nothing.",
+     "upside": "No maintenance.",
+     "downside": "Buyers do the arithmetic elsewhere and buy elsewhere.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-22",
+   "title": "Show the freshness of every figure on the product block, not only on the method page",
+   "theme": "Trust & authority",
+   "rank": 11,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Read dates exist in the data and on the method page, but on the product block a 2026-11-14 dimension looks identical to a figure read today. Buyers and reviewers both read that as staleness or as a claim of currency.",
+   "proposal": "A compact 'read 2026-11-14 · re-check due 2026-12-14' chip on each product block and on the calculator, driven by the register's read dates, plus a gate rule that no product fact may publish without one. Set the re-check interval as a decision (Q-P11) rather than a habit.",
+   "evidence": "F-02 and F-29 already document value drift; the register carries *_read for every field, so the chip is free.",
+   "impact": "Medium. It turns the site's real advantage into something visible in one glance.",
+   "effort": "Low. One chip component plus one gate rule.",
+   "risk": "Low.",
+   "depends_on": [
+    "Q-P11"
+   ],
+   "links": [
+    {
+     "label": "Associates Program Policies on Program Content display",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "recommendation": "Accept. It is the cheapest trust signal available and it is already computed.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Read date + re-check due chip, gate-enforced",
+     "what_changes": "Every product fact carries its date inline; stale pages fail the build.",
+     "upside": "Honest, automated, and distinctive.",
+     "downside": "Requires the cadence to actually be kept.",
+     "cost": "Low",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Read date only, no due date",
+     "what_changes": "Inline dates, no expiry rule.",
+     "upside": "No false precision.",
+     "downside": "Staleness is visible but nothing forces action.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Keep dates on the method page only",
+     "what_changes": "Nothing changes.",
+     "upside": "Cleaner cards.",
+     "downside": "The site's main differentiator stays hidden.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-24",
+   "title": "Seasonal hubs, but only with dated official snapshots as the evidence",
+   "theme": "Editorial & SEO",
+   "rank": 18,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Seasonality is where this category actually earns traffic, and the site currently has no seasonal surface. But seasonal framing without evidence is exactly the popularity claim the project's own rule forbids.",
+   "proposal": "Two hub pages a year (gifting window, grilling window), written around use rather than hype: what people cook or give in that window, which of the five listed formats matches, and what the site can honestly say about timing. Any statement about what is popular carries a dated capture of an official Amazon category page and the capture is archived with the commit.",
+   "evidence": "F-15 and D-19 set the rule; the owner's register row for S-16 adopted it on 2026-11-16. The Air Fryers category page is the pattern for a dated capture.",
+   "impact": "Medium-high in the right weeks, near zero outside them.",
+   "effort": "One pass per season, plus capture discipline.",
+   "risk": "Medium: a stale seasonal page reads as decay; retire it on a date, don't let it linger.",
+   "depends_on": [
+    "SG-06"
+   ],
+   "links": [
+    {
+     "label": "Amazon Air Fryers category page (the kind of dated snapshot the rule allows)",
+     "url": "https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011"
+    }
+   ],
+   "recommendation": "Queue it for the first full cycle after measurement exists; do not write seasonal copy against a feeling.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Seasonal hubs with archived dated captures",
+     "what_changes": "Two timed hub pages, each with its evidence snapshot and a retirement date.",
+     "upside": "Editorial rhythm that stays honest.",
+     "downside": "Requires the capture habit to survive.",
+     "cost": "Two passes a year",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Evergreen use-frames only ('cooking for two', 'thanksgiving turkey')",
+     "what_changes": "Use-case pages with no date-bound claims.",
+     "upside": "No decay and no upkeep.",
+     "downside": "Misses the seasonal query spike.",
+     "cost": "One pass",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "No seasonal surface",
+     "what_changes": "Nothing.",
+     "upside": "Zero upkeep.",
+     "downside": "The site stays flat year-round in a category that is not.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
   }
  ]
 }
