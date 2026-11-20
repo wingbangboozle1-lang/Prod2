@@ -435,7 +435,7 @@ def main() -> int:
             fail(f"{f.name}: FAQPage markup present with {blocks} visible entries — "
                  f"markup must describe content a reader can actually see")
     ok(f"{faq_pages} pages carry FAQ blocks with matching FAQPage markup "
-       "(descriptive markup only: no rich-result claim, see D-P23 / S-GFAQ)")
+       "(descriptive markup only: no rich-result claim, see D-P24 / S-GFAQ)")
 
     # ----------------------------------------------------------- publication
     check("publication")
@@ -574,7 +574,7 @@ def main() -> int:
                  f"the long read changed without the register being re-measured")
     # 4. shipping must advance the schedule. The register promises an interval; if the
     #    newest recorded publish plus that interval lands after next_due_utc, the
-    #    calendar was left behind by a build. This is the rule F-P30 asked for: the
+    #    calendar was left behind by a build. This is the rule F-P35 asked for: the
     #    cadence line stops being prose the moment the schedule can drift from it.
     cad = cal.get("cadence") or {}
     nxt, interval = cad.get("next_due_utc"), cad.get("interval_days")

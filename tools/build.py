@@ -879,7 +879,7 @@ def hook_readiness(_="") -> str:
     Derived mechanically: a suggestion's depends_on names the questions it waits on,
     and each question carries who can answer it and the cheapest route to the answer.
     Nothing in this table is authored here — it is the two registers shown against
-    each other, so it cannot drift from them (the class of defect F-P27 was).
+    each other, so it cannot drift from them (the class of defect F-P32 was).
     """
     q_by = {q["id"]: q for q in QUESTIONS}
     open_q = {q["id"] for q in QUESTIONS if q.get("status") != "answered"}
@@ -1150,7 +1150,7 @@ def jsonld_for(page_id: str, title: str, description: str, path: str, content: s
             # A value we could not read is omitted, never written as null or filled
             # with a placeholder: "brand": {"name": "unknown"} would be an invented
             # fact inside machine-readable data, which is exactly what the evidence
-            # rule forbids on the page itself (F-02 lineage, D-P24).
+            # rule forbids on the page itself (F-02 lineage, D-P25).
             if p.get("brand"):
                 node["brand"] = {"@type": "Brand", "name": p["brand"]}
             items.append({
@@ -1173,7 +1173,7 @@ def jsonld_for(page_id: str, title: str, description: str, path: str, content: s
     # FAQPage markup ships ONLY where the page actually shows a question-and-answer
     # block. Recorded deliberately: Google's supported-features gallery (read
     # 2026-11-20) does not list FAQ among the rich results it supports, so this is
-    # machine-readability, not a rich-results play (D-P23, F-P27).
+    # machine-readability, not a rich-results play (D-P24, F-P32).
     faq = faq_pairs(content)
     if len(faq) >= 2:
         graph.append({
@@ -1296,7 +1296,7 @@ def build_robots() -> None:
         # Two archived builds are still in the tree and, while Pages serves the repo
         # root (F-P19), still reachable by path. They are not the site: no canonical,
         # a second brand, a second copy of every guide. Kept out of the index rather
-        # than duplicated into it (F-P28, one-site rule INT-06).
+        # than duplicated into it (F-P33, one-site rule INT-06).
         "Disallow: /Prod2/archive/\nDisallow: /Prod2/site/\n\n"
         f"Sitemap: {BASE}/sitemap.xml\n", encoding="utf-8")
 

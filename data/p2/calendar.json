@@ -10,7 +10,7 @@
   "interval_days": 14,
   "first_publish_utc": "2026-11-19",
   "next_due_utc": "2026-12-04",
-  "rule": "Each new guide is added to data registers, to the sitemap and to the RSS feed by the same build. A guide publishes only with its sourced facts and its 'what we could not verify' block. The next topic is chosen from measured queries only after the SG-06 gate (Search Console + hosted endpoint + 14 days of events); until then the queue order is editorial. Publishing a reader page advances next_due_utc in the same commit; tools/checks.py's cadence section fails the build when it does not (F-P30). A slot whose stated source cannot answer its question carries blocked_by and publishes when the source exists, rather than shipping a guess to meet a date."
+  "rule": "Each new guide is added to data registers, to the sitemap and to the RSS feed by the same build. A guide publishes only with its sourced facts and its 'what we could not verify' block. The next topic is chosen from measured queries only after the SG-06 gate (Search Console + hosted endpoint + 14 days of events); until then the queue order is editorial. Publishing a reader page advances next_due_utc in the same commit; tools/checks.py's cadence section fails the build when it does not (F-P35). A slot whose stated source cannot answer its question carries blocked_by and publishes when the source exists, rather than shipping a guess to meet a date."
  },
  "seasons": [
   {
@@ -97,7 +97,7 @@
    "due_utc": "2026-12-03",
    "title": "Preheat, shake, or don't: which air fryer rituals change your food?",
    "answers_with": "Manual-ritual features verified on the three listings (shake reminder on P3, sync finish on P1)",
-   "blocked_by": "Q-P18",
+   "blocked_by": "Q-P19",
    "status": "blocked - a listing states a feature, not a ritual; the manuals are the source and are not held"
   },
   {

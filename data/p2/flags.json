@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/e1dbef32-prod2): F-P25..F-P30 appended — three defects found and fixed in this pass (paragraph balance, the FAQPage claim in the brief, placeholder values in structured data), one standing source note (the extension's Celsius slip), one open exposure (archived builds reachable while Pages serves the root), and one open inconsistency the new cadence gate surfaced (14-day promise vs the schedule actually kept). Append-only; no earlier row edited."
+  "last_change": "2026-11-20 (arena/e1dbef32-prod2): F-P30..F-P35 appended — three defects found and fixed in this pass (paragraph balance, the FAQPage claim in the brief, placeholder values in structured data), one standing source note (the extension's Celsius slip), one open exposure (archived builds reachable while Pages serves the root), and one open inconsistency the new cadence gate surfaced (14-day promise vs the schedule actually kept). Append-only; no earlier row edited. | ids for this pass start after main's F-P29/Q-P18/SG-48/D-P23, which this register also carries — no row renumbered, no row dropped."
  },
  "flags": [
   {
@@ -356,7 +356,7 @@
    "status": "open"
   },
   {
-   "id": "F-P25",
+   "id": "F-P30",
    "status": "resolved",
    "title": "The guides hub published an orphaned sentence, and no gate could see it",
    "detail": "content/pages/guides.html closed its lede with </p> and then continued the same sentence outside the paragraph, ending in a second stray </p>. A reader saw a fragment stranded between blocks; the built page carried an unmatched end tag. The gate checked nested <p> and duplicate ids but never counted paragraph balance, so the defect was invisible to the machine that publishes the site.",
@@ -367,7 +367,7 @@
    "resolved_utc": "2026-11-20"
   },
   {
-   "id": "F-P26",
+   "id": "F-P31",
    "status": "standing",
    "title": "A cited source contradicts itself on a unit conversion (eggs: 160°F printed as 73.9°C)",
    "detail": "The Nebraska Extension air-fryer handout's temperature table prints 'Eggs | 160°F (73.9°C)'. 160°F is 71.1°C, which is what the USDA FSIS chart prints in the same position; 73.9°C is 165°F. The two pages agree on the Fahrenheit figure this site publishes, and the extension table also omits the FSIS chart's 'Leftovers' row entirely (165°F). Nothing on this site converts or repairs a source: we publish the FSIS figure with its read date and leave the discrepancy visible here, because 'fixing' a citation silently is how a register becomes fiction.",
@@ -376,7 +376,7 @@
    "how_to_resolve": "No action for this site. It closes if the source corrects its table; a reviewer comparing our numbers against the extension page should expect the Celsius column to differ on that one row."
   },
   {
-   "id": "F-P27",
+   "id": "F-P32",
    "status": "resolved",
    "title": "The design brief promised FAQPage structured data that the generator never emitted",
    "detail": "DESIGN_PROMPT.md, under 'Organic traffic hooks', states that every guide page is built for search with 'FAQPage + Article structured data'. tools/build.py's jsonld_for() emitted WebSite, BreadcrumbList, ItemList and Article — and no FAQPage anywhere. No reader-facing page claims FAQ rich results, so no reader was misled, but the brief a future rebuild is supposed to implement was describing markup that did not exist, which is the same defect class as F-P12 (documentation asserting a shipped state the code does not have).",
@@ -387,7 +387,7 @@
    "resolved_utc": "2026-11-20"
   },
   {
-   "id": "F-P28",
+   "id": "F-P33",
    "status": "open",
    "title": "Two archived builds are still reachable by path while Pages serves the repository root",
    "detail": "site/ (the archived Countercraft build, 25 tracked files) and archive/countertop-dispatch/ both sit in the tree. While the Pages source is the repo root (F-P19), each is fetchable by URL, and neither carries a canonical pointing at this site: site/index.html is titled 'Countercraft — Kitchen gear worth the counter space.' A search engine that reaches either sees a second brand, a second copy of the same guide set and no signal about which one is the site. No price or rating was found in those files by this pass (grep for a $-then-digits pattern returned nothing), so this is an indexing and brand-dilution exposure, not a disclosure one.",
@@ -396,7 +396,7 @@
    "how_to_resolve": "One of two owner-side moves: set Settings → Pages → Source to 'GitHub Actions' so only the docs/ artifact is served (F-P19, which removes the exposure entirely), or approve deleting site/ and archive/ from the published branch. Interim mitigation shipped 2026-11-20: the generated robots.txt now disallows /Prod2/site/ as well as /Prod2/archive/. A robots line is a request, not a control — the source change is the fix."
   },
   {
-   "id": "F-P29",
+   "id": "F-P34",
    "status": "resolved",
    "title": "Structured data published placeholder facts: gtin13 null and a brand named 'unknown'",
    "detail": "The ItemList/Product nodes built for index, compare and products hard-coded \"gtin13\": null and filled a missing brand with the literal string 'unknown'. A null identifier is noise a crawler parses; a brand called 'unknown' is worse — it is an invented value inside machine-readable data, in a project whose whole rule is that an unread value stays blank. Today the placeholder never fires, because all five products do have a listed brand (Chefman, Emeril, Chefman, ThermoMaven, CHEF iQ); the defect is latent, and would have appeared the first time a listing read returned no brand.",
@@ -407,14 +407,14 @@
    "resolved_utc": "2026-11-20"
   },
   {
-   "id": "F-P30",
+   "id": "F-P35",
    "status": "resolved",
    "title": "The publishing cadence could not be audited: nothing linked a publish to the schedule",
-   "detail": "data/p2/calendar.json declares 'one new question-shaped guide' every 14 days, and the nine queue slots are spaced exactly 14 days apart (measured: the only distinct gap between consecutive slots is 14 days; first_publish 2026-11-19 + 14 = next_due 2026-12-03). What did not exist was any machine-checkable link between a page that actually shipped and that schedule. Six reader pages published 2026-11-19 and 2026-11-20 — including today's two guides and one long read — left next_due_utc untouched at 2026-12-03, so the front page could keep saying 'a new guide every two weeks' whether or not the register kept score. A second inconsistency came with it: queue slot 1 promises to answer 'Preheat, shake, or don't' from 'manual-ritual features verified on the three listings', but a listing states a feature, not a ritual — that slot is now marked blocked on Q-P18 instead of scheduled.",
+   "detail": "data/p2/calendar.json declares 'one new question-shaped guide' every 14 days, and the nine queue slots are spaced exactly 14 days apart (measured: the only distinct gap between consecutive slots is 14 days; first_publish 2026-11-19 + 14 = next_due 2026-12-03). What did not exist was any machine-checkable link between a page that actually shipped and that schedule. Six reader pages published 2026-11-19 and 2026-11-20 — including today's two guides and one long read — left next_due_utc untouched at 2026-12-03, so the front page could keep saying 'a new guide every two weeks' whether or not the register kept score. A second inconsistency came with it: queue slot 1 promises to answer 'Preheat, shake, or don't' from 'manual-ritual features verified on the three listings', but a listing states a feature, not a ritual — that slot is now marked blocked on Q-P19 instead of scheduled.",
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
    "evidence_note": "Gaps and dates computed from data/p2/calendar.json on 2026-11-20 by tools/checks.py's cadence section, not typed in by hand.",
-   "how_to_resolve": "Closed by the gate rule; the remaining decision — whether a 14-day rhythm is actually resourced — is Q-P19.",
-   "resolution": "Fixed 2026-11-20 with a rule rather than a cleanup: the publish gate (tools/checks.py, section 'cadence') now fails the build when the newest recorded publish + the declared interval falls after next_due_utc, so shipping silently without advancing the schedule is impossible. next_due_utc advanced to 2026-12-04, publishes are dated in calendar.published_early, and slot 1 carries blocked_by: Q-P18 with a status the guides hub renders.",
+   "how_to_resolve": "Closed by the gate rule; the remaining decision — whether a 14-day rhythm is actually resourced — is Q-P20.",
+   "resolution": "Fixed 2026-11-20 with a rule rather than a cleanup: the publish gate (tools/checks.py, section 'cadence') now fails the build when the newest recorded publish + the declared interval falls after next_due_utc, so shipping silently without advancing the schedule is impossible. next_due_utc advanced to 2026-12-04, publishes are dated in calendar.published_early, and slot 1 carries blocked_by: Q-P19 with a status the guides hub renders.",
    "resolved_utc": "2026-11-20"
   }
  ]

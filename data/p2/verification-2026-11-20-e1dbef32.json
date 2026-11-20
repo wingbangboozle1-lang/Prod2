@@ -97,7 +97,7 @@
     "Recipe instruction: \"Store leftovers in a sealed container in the refrigerator for up to four days.\"",
     "Its temperature table lists \"Eggs | 160°F (73.9°C)\" and has no 'Leftovers' row."
    ],
-   "observed_discrepancy": "160°F is 71.1°C, not 73.9°C (73.9°C is 165°F), and the Celsius figure the same table prints for the 165°F rows is 73.9°C. Recorded as F-P26; only the Fahrenheit figure both sources share is published.",
+   "observed_discrepancy": "160°F is 71.1°C, not 73.9°C (73.9°C is 165°F), and the Celsius figure the same table prints for the 165°F rows is 73.9°C. Recorded as F-P31; only the Fahrenheit figure both sources share is published.",
    "not_observed": "No preheat instruction, no holding temperature, no reheating time or setting, no clearance requirement.",
    "used_on": [
     "guide-safe-temp-chart.html",
@@ -118,8 +118,8 @@
    ],
    "used_on": [
     "DESIGN_PROMPT.md",
-    "decisions log D-P23",
-    "flag F-P27"
+    "decisions log D-P24",
+    "flag F-P32"
    ]
   },
   {
@@ -130,9 +130,9 @@
    "observed": "The supported-features table lists Article, Breadcrumb, Carousel, Course list, Dataset, Discussion forum, Education Q&A, Employer aggregate rating, Event, Image metadata, Job posting, Local business, Math solver, Movie, Organization, Product, Profile page, Q&A, Recipe, Review snippet, Software app, Speakable, Subscription and paywalled content, Vacation rental and Video. FAQ is not listed.",
    "not_observed": "The gallery describes Product as 'Information about a product, including price, availability, and review ratings' — fields this site does not publish (F-02). This site's Product node therefore carries none of them; whether to keep the node at all is a decision, not a fact.",
    "used_on": [
-    "flag F-P29",
-    "decision D-P24",
-    "question Q-P21 context"
+    "flag F-P34",
+    "decision D-P25",
+    "question Q-P22 context"
    ]
   },
   {
@@ -143,8 +143,8 @@
    "observed": "The changelog lists, under June 2026, the entry 'Removing documentation for the FAQ rich result feature'. Requesting the former documentation path https://developers.google.com/search/docs/appearance/structured-data/faqpage returned this changelog page instead of a FAQ guide (a redirect observed, not inferred).",
    "not_observed": "Secondary coverage dates the end of FAQ rich results to 2026-05-07 and describes Search Console and API support dropping in June and August 2026. Those specific dates were NOT confirmed against an official Google page in this sandbox and are not published on the site.",
    "used_on": [
-    "flag F-P27",
-    "decision D-P23"
+    "flag F-P32",
+    "decision D-P24"
    ]
   }
  ],
@@ -152,7 +152,7 @@
   {
    "id": "V-01",
    "check": "Paragraph balance on every built page",
-   "result": "33 pages, 0 mismatches after the guides.html repair; the defect reproduced before the fix (guides hub: 4 <p> opened, 5 </p> closed). Recorded as F-P25."
+   "result": "33 pages, 0 mismatches after the guides.html repair; the defect reproduced before the fix (guides hub: 4 <p> opened, 5 </p> closed). Recorded as F-P30."
   },
   {
    "id": "V-02",
@@ -162,17 +162,17 @@
   {
    "id": "V-03",
    "check": "Cadence arithmetic",
-   "result": "Declared interval 14 days; the nine queue slots are spaced exactly 14 days apart (only distinct gap measured: 14); first_publish 2026-11-19 + 14 = 2026-12-03, which next_due_utc read while six pages had already shipped on 2026-11-19 and 2026-11-20. next_due_utc advanced to 2026-12-04 under the new rule and the mismatch is recorded as F-P30."
+   "result": "Declared interval 14 days; the nine queue slots are spaced exactly 14 days apart (only distinct gap measured: 14); first_publish 2026-11-19 + 14 = 2026-12-03, which next_due_utc read while six pages had already shipped on 2026-11-19 and 2026-11-20. next_due_utc advanced to 2026-12-04 under the new rule and the mismatch is recorded as F-P35."
   },
   {
    "id": "V-04",
    "check": "Archived builds in the published tree",
-   "result": "git ls-files site → 25 files; site/index.html title 'Countercraft — Kitchen gear worth the counter space.'; a recursive grep for a currency-then-digits pattern in site/ returned no matches, so no price is exposed there. robots.txt now disallows /Prod2/site/ in addition to /Prod2/archive/. Recorded as F-P28 and Q-P21."
+   "result": "git ls-files site → 25 files; site/index.html title 'Countercraft — Kitchen gear worth the counter space.'; a recursive grep for a currency-then-digits pattern in site/ returned no matches, so no price is exposed there. robots.txt now disallows /Prod2/site/ in addition to /Prod2/archive/. Recorded as F-P33 and Q-P22."
   },
   {
    "id": "V-05",
    "check": "Structured-data placeholder sweep",
-   "result": "Before the fix, the Product node hard-coded gtin13 null and a brand fallback string 'unknown'; all five products do carry a read brand today (Chefman, Emeril, Chefman, ThermoMaven, CHEF iQ), so nothing wrong was published. The fallback is removed (F-P29, D-P24)."
+   "result": "Before the fix, the Product node hard-coded gtin13 null and a brand fallback string 'unknown'; all five products do carry a read brand today (Chefman, Emeril, Chefman, ThermoMaven, CHEF iQ), so nothing wrong was published. The fallback is removed (F-P34, D-P25)."
   },
   {
    "id": "V-06",
