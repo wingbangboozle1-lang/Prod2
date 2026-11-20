@@ -906,3 +906,34 @@ disallows `/Prod2/archive/` so only one site is indexable.
 - `REPO_AUDIT.md` added: the line-by-line review with evidence links, and an explicit list of what the audit does **not** claim.
 
 ---
+
+---
+
+## ACTIVE CLAIM — session arena/722181aa-prod2 (2026-11-20, live re-verification of the five listings + flagged short links)
+
+Protocol note: this session works on its single assigned branch `arena/722181aa-prod2` (the session's branch is fixed by the platform). The `session-<id>/<task>` naming in the brief is therefore not used; the claim is recorded here instead, and no other branch is created, switched to, or pushed.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| L-01 Live re-check of the five `/dp/` listings and the five submitted short links (2026-11-20) | done | arena/722181aa-prod2 | `data/p2/live-check-2026-11-20-722181aa.json` (new) |
+| L-02 Flag the short-link discrepancy (F-P24) and publish it on the Flagged page | done | arena/722181aa-prod2 | `data/p2/flags.json`, `docs/`, root mirror |
+| L-03 Rebuild, gate, PR to main, merge, Pages check; record here | done | arena/722181aa-prod2 | `COORDINATION.md`, `docs/`, root mirror |
+
+### Results (2026-11-20)
+
+- **L-01 Direct listings — all five live; titles match the register character-for-character:** `https://www.amazon.com/dp/B0CDY277D3` (P1), `…/dp/B09B7SB46R` (P2), `…/dp/B08DKYBTPH` (P3), `…/dp/B0DHZTCNR5` (P4), `…/dp/B0DZFD6R9Z` (P5). Observed values are stored verbatim in `data/p2/live-check-2026-11-20-722181aa.json`. No price, rating, or commission value was written to the site (F-02 unchanged).
+- **L-01 Short links — NOT confirmed today:** `https://link.amazon/B04G1MEwY`, `…/B02NbDxp3`, `…/B00hJ57DV`, `…/B0c8moW59` each resolved to `https://www.amazon.com/` (the homepage); `…/B0f3GKalj` returned HTTP 500. The register's earlier redirect history (2026-11-14 to 11-19) recorded the same ASINs. The cause (fetch-tool artifact vs. a change in the short-link service) is unknown; this is **not** resolved here.
+- **L-02:** **F-P24** added (open): short-link resolution discrepancy; owner/browser check required. Intended-ASIN fields were not changed. The site never publishes the short links as buy paths (they render as quoted text under F-03), so no reader-facing link is affected.
+- **Build/gate:** `python3 tools/build.py` → 28 pages; `python3 tools/checks.py` → ALL CHECKS PASSED; `python3 scripts/verify_site.py` → VERIFY OK.
+
+### Sources (official)
+
+- Amazon listings (read 2026-11-20): the five `https://www.amazon.com/dp/{ASIN}` URLs above.
+- Amazon's ASIN definition and tag format: already recorded in `data/p2/sources.json` (S-ASIN, S-TAG); not re-read this session.
+
+### Irregularities for manual review (not blocking)
+
+1. F-P24 — short links did not resolve to listings today (above).
+2. Pages source exposure (F-P19 / F-P20, carried): the Pages source is still `main /` (repo root). The root contains source/data files that the workflow `docs/` artifact does not, and this cannot be changed from the sandbox (403). **Owner action:** Settings → Pages → Source: GitHub Actions.
+3. Event-vocabulary mismatch (F-P23 / Q-P14, carried): three site events are rejected by `server.mjs`.
+

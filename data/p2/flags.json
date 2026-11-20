@@ -1,348 +1,357 @@
 {
- "_meta": {
-  "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
-  "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 reconciliation of three parallel passes: shop-front pass added F-P15..F-P20; event-vocabulary pass added F-P22/F-P23; anti-slop pass added the working-brand clearance flag F-P21. IDs kept disjoint; nothing discarded."
- },
- "flags": [
-  {
-   "id": "F-01",
-   "status": "open",
-   "title": "Product-level commission rate is unverified",
-   "detail": "The official Standard Commission Income Statement Table 1 lists Kitchen at 4.50% and Home at 3.00%. No official source reviewed maps these ASINs to a commission category, so every product-level rate is published blank. Do not infer a rate from the category band.",
-   "evidence": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
-   "evidence_note": "S-COMM, read 2026-11-14/2026-11-17",
-   "how_to_resolve": "Read the product-level rate from an Associates Central report after enrollment (owner action)."
+  "_meta": {
+    "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
+    "updated_utc": "2026-11-20",
+    "last_change": "2026-11-20 reconciliation of three parallel passes: shop-front pass added F-P15..F-P20; event-vocabulary pass added F-P22/F-P23; anti-slop pass added the working-brand clearance flag F-P21. IDs kept disjoint; nothing discarded."
   },
-  {
-   "id": "F-02",
-   "status": "standing",
-   "title": "Prices and star ratings are not published",
-   "detail": "Prices, ratings and review counts change constantly and would need a dated-snapshot discipline this site has not adopted (see D-19 for the evidence rule). They are visible on every listing and were observed during verification, but are withheld from all published pages. The site compares formats and listed specifications instead.",
-   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-   "evidence_note": "S-P1; standing editorial rule carried from the prior register",
-   "how_to_resolve": "Owner decision: adopt a dated-snapshot price policy (queued as suggestion SG-05) or keep the rule."
-  },
-  {
-   "id": "F-03",
-   "status": "open",
-   "title": "Supplied short links carry no tag= parameter",
-   "detail": "Every observed redirect of the five owner-supplied short links shows Amazon source-token parameters but no tag= parameter. Without an enrolled tag the clicks cannot be attributed. The site therefore publishes tagged Special Links built from the verified ASINs (D-01/D-14), and claims no attributed click or order.",
-   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
-   "evidence_note": "S-POL; observations in data/p2/verification-2026-11-19.json",
-   "how_to_resolve": "Run the one-link-per-product test in Associates Central (F-58)."
-  },
-  {
-   "id": "F-08",
-   "status": "open",
-   "title": "P3 belongs to a 6/8/9-quart size-variant family",
-   "detail": "Four GTINs are listed on the B08DKYBTPH page, confirming a size-variant family. A buyer (or a cart) can end up with a different size than the 8 qt record published here.",
-   "evidence": "https://www.amazon.com/dp/B08DKYBTPH",
-   "evidence_note": "S-P3, Item details read 2026-11-14",
-   "how_to_resolve": "None needed for publication; buyers are warned on the product row."
-  },
-  {
-   "id": "F-15",
-   "status": "standing",
-   "title": "Popularity and 'trending' claims need dated snapshots",
-   "detail": "Per decision D-19, a popularity claim is allowed only as a dated snapshot of an official page (page + read date named in the copy). Bare adjectives like 'trending' or 'best-selling' are banned from the copy rules.",
-   "evidence": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
-   "evidence_note": "S-GHELP; rule adopted 2026-11-16 (carried)",
-   "how_to_resolve": "Standing rule; enforced by tools/checks.py word blacklist."
-  },
-  {
-   "id": "F-19",
-   "status": "open",
-   "title": "Analytics endpoint is deployable but not yet hosted",
-   "detail": "GitHub Pages is static hosting. The privacy-preserving counter (docs/assets/js/measure.js) and the self-hosted endpoint (server.mjs, POST /api/events, Node 20+, no dependencies) ship with the site, but no server is deployed and settings.analytics_endpoint is empty, so the site sends nothing anywhere. Browser-local counts are visible to each visitor only and are not shared data. This flag previously cited a path, analytics-endpoint/server.py, that was never committed — corrected 2026-11-20 (F-P22).",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
-   "evidence_note": "server.mjs at the repo root; ANALYTICS-ENDPOINT.md documents it; tests/server.test.mjs covers it (npm test). Corrected 2026-11-20.",
-   "how_to_resolve": "Host server.mjs somewhere owner-controlled (behind HTTPS), set settings.analytics_endpoint, rebuild. Resolve F-P23 first: the endpoint's event vocabulary does not currently match the site's five events."
-  },
-  {
-   "id": "F-26",
-   "status": "open",
-   "title": "P2's listing states its cooking-function count in two ways",
-   "detail": "Listing sections have described the B09B7SB46R as having 24 cooking functions / 24 one-touch presets, while another count of 25 appeared in prior reads of a different section. The site publishes '24 as listed' with the read date and never a synthesized number.",
-   "evidence": "https://www.amazon.com/dp/B09B7SB46R",
-   "evidence_note": "S-P2; prior reads 2026-11-14/2026-11-16, title read 2026-11-19",
-   "how_to_resolve": "Count the presets on the listing during a dated re-read (any session)."
-  },
-  {
-   "id": "F-29",
-   "status": "open",
-   "title": "'Also viewed' carousels change between reads",
-   "detail": "Carousel membership and order on the three air-fryer listings changed again on the 2026-11-19 read (P1 slots 2/3 swapped vs 2026-11-14; P3 slot 2 replaced). Carousel data is stored as dated observations only and is never presented as a stable 'competitor set'.",
-   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-   "evidence_note": "S-P1; observations in data/p2/verification-2026-11-19.json",
-   "how_to_resolve": "Standing volatility; re-read on each verification pass."
-  },
-  {
-   "id": "F-44",
-   "status": "open",
-   "title": "P2's listing title second segment drifts between reads",
-   "detail": "The B09B7SB46R listing title's second segment changed across the 2026-11-14, 2026-11-15 and 2026-11-19 reads. The site publishes the current string with its read date and keeps previous strings in the register (see also F-66).",
-   "evidence": "https://www.amazon.com/dp/B09B7SB46R",
-   "evidence_note": "S-P2; strings recorded in data/p2/verification-2026-11-19.json and data/p2/products.json",
-   "how_to_resolve": "Standing volatility; the register keeps the dated history."
-  },
-  {
-   "id": "F-49",
-   "status": "open",
-   "title": "Default offers can be used items (Amazon Resale)",
-   "detail": "On the 2026-11-16 reads the default offers on B0CDY277D3 and B08DKYBTPH were used items sold by Amazon Resale. Buyers should check the seller and condition on the listing. Not re-observed on the 2026-11-19 read.",
-   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-   "evidence_note": "S-P1; prior read 2026-11-16 (S-PRIOR4)",
-   "how_to_resolve": "Standing buyer warning."
-  },
-  {
-   "id": "F-55",
-   "status": "resolved",
-   "title": "Two newly submitted short links were unverified — resolved 2026-11-19",
-   "detail": "The brief's two additional links (link.amazon/B0c8moW59, link.amazon/B0f3GKalj) were unresolved at the time of the prior register (they were excluded from product pages then — that exclusion did not mean either was invalid). The 2026-11-19 session resolved both: B0DHZTCNR5 (ThermoMaven 1-sec thermometer) and B0DZFD6R9Z (CHEF iQ Sense Gen3), read their official listings, and added them to the register as P4/P5. Product-intent records for all five links remain separate from observed redirects.",
-   "evidence": "https://www.amazon.com/dp/B0DHZTCNR5",
-   "evidence_note": "S-P4, S-P5; data/p2/verification-2026-11-19.json",
-   "how_to_resolve": "Resolved 2026-11-19. Attribution of these links remains governed by F-57/F-58."
-  },
-  {
-   "id": "F-57",
-   "status": "open",
-   "title": "Tracking ID registration is confirmable only inside Associates Central",
-   "detail": "The owner supplied shopnow047c-20 and its format matches the documented US Store ID pattern (ends in -20). Whether it is registered, active, and belongs to an enrolled account cannot be confirmed from outside Associates Central. Until then the site publishes the links but claims no attributed click, order or revenue.",
-   "evidence": "https://www.amazon.com/b?ie=UTF8&node=51812349011",
-   "evidence_note": "S-TAG, read 2026-11-17",
-   "how_to_resolve": "Owner logs into Associates Central and confirms the Partner Tag (Q-01)."
-  },
-  {
-   "id": "F-58",
-   "status": "open",
-   "title": "One-link-per-product Associates test not yet run",
-   "detail": "The enrolled-workflow test (generate/validate one Special Link per product, confirm destination and a test click in the reporting) gates attribution claims and scaling — not publication. It cannot run from a build sandbox.",
-   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
-   "evidence_note": "S-POL",
-   "how_to_resolve": "Owner runs the test per the protocol on the measurement page."
-  },
-  {
-   "id": "F-66",
-   "status": "open",
-   "title": "P2 title-segment drift (prior-register instance)",
-   "detail": "Prior instance of F-44: the stored second title segment dated 2026-11-14 differed from the 2026-11-15 read. Carried for history; the 2026-11-19 read extended the drift record again.",
-   "evidence": "https://www.amazon.com/dp/B09B7SB46R",
-   "evidence_note": "S-P2; S-PRIOR4",
-   "how_to_resolve": "Merged into F-44 going forward; kept for the dated trail."
-  },
-  {
-   "id": "F-67",
-   "status": "standing",
-   "title": "Short-link path codes are not ASINs",
-   "detail": "Amazon defines an ASIN as a 10-character alphanumeric identifier appearing after /dp/ in the product URL (S-ASIN). The submitted path codes (e.g. B04G1MEwY) are nine characters and live in the short-link path. They are recorded as link_path_code only and are never used as ASINs.",
-   "evidence": "https://sell.amazon.com/blog/what-is-an-asin",
-   "evidence_note": "S-ASIN, read 2026-11-17",
-   "how_to_resolve": "Standing rule."
-  },
-  {
-   "id": "F-P01",
-   "status": "open",
-   "title": "P4's page shows two different waterproofing subtitle strings",
-   "detail": "The B0DHZTCNR5 page <title> says 'IP67 Waterproof for Grill BBQ' while the Product Summary heading on the same page says 'Highly Waterproof for Grill BBQ Camping'. Both are recorded verbatim; published copy uses the <title> string with its 2026-11-19 read date and states IP67 only as 'listed in the title'.",
-   "evidence": "https://www.amazon.com/dp/B0DHZTCNR5",
-   "evidence_note": "S-P4, read 2026-11-19",
-   "how_to_resolve": "Confirm the certified IP rating from the manufacturer's documentation if it becomes available (owner)."
-  },
-  {
-   "id": "F-P02",
-   "status": "resolved",
-   "title": "Product scope: thermometers joined an air-fryer catalog — resolved 2026-11-19",
-   "detail": "The owner's brief lists five products to market; three resolve to air fryers and two (resolved 2026-11-19) to meat thermometers. The publication organizes them by format under one kitchen theme (countertop cooking + doneness tools) per decision D-P01. Not an irregularity in the data — recorded so the scope change is visible.",
-   "evidence": "https://www.amazon.com/dp/B0DZFD6R9Z",
-   "evidence_note": "S-P5; decision D-P01",
-   "how_to_resolve": "Resolved by D-P01 (2026-11-19)."
-  },
-  {
-   "id": "F-P04",
-   "status": "open",
-   "title": "P1 capacity unit wording differs between title and spec table",
-   "detail": "The B0CDY277D3 title states 6 Quart (2 × 3Qt baskets); the spec table read 2026-11-14 states '6 liters'. 6 qt is about 5.7 L, so the two wordings are not equal. Published copy uses the title wording with its read date; both readings are recorded.",
-   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-   "evidence_note": "S-P1; title read 2026-11-19, spec table read 2026-11-14",
-   "how_to_resolve": "Re-read the spec table in a dated session and record whichever the listing shows."
-  },
-  {
-   "id": "F-P05",
-   "status": "open",
-   "title": "P5 is a size-variant listing (1/2/3/4 probes)",
-   "detail": "The B0DZFD6R9Z listing offers 1/2/3/4-probe configurations. This record is the 3-probe Gen3 configuration shown in the title. Buyers should confirm the probe count in the variant selector.",
-   "evidence": "https://www.amazon.com/dp/B0DZFD6R9Z",
-   "evidence_note": "S-P5, read 2026-11-19",
-   "how_to_resolve": "Standing buyer warning."
-  },
-  {
-   "id": "F-P06",
-   "status": "open",
-   "title": "Two registers disagree on whether prices are published",
-   "detail": "data/products.json (the earlier Countercraft build) carries buy-box prices for all five ASINs (as listed on 2026-11-19; values are kept in that file only). data/p2/ withholds prices and ratings entirely (F-02). The earlier build's executive-summary appendix therefore conflicts with this build's rule. The Prod2 site publishes no prices.",
-   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-   "evidence_note": "Price text as observed on the official listing, read 2026-11-19 (arena/236bc1ed-prod2 recheck).",
-   "how_to_resolve": "Decision under Q-27 / SG-05. Until a dated-snapshot rule is adopted and automated, prices stay unpublished here. The Countercraft build stays archived and is not mirrored."
-  },
-  {
-   "id": "F-P07",
-   "status": "open",
-   "title": "Short-link redirect re-read covered two of five links in the latest pass",
-   "detail": "This session re-fetched link.amazon/B04G1MEwY (resolves to B0CDY277D3) and link.amazon/B0c8moW59 (resolves to B0DHZTCNR5). Both matched the register. The other three short links (P2, P3, P5) keep their 2026-11-19 reads and were not re-fetched in this pass.",
-   "evidence": "https://link.amazon/B02NbDxp3",
-   "evidence_note": "Submitted link for P2; the three unrefreshed short links are listed in data/p2/intent-links.json.",
-   "how_to_resolve": "Re-read all five short links in the next publishing pass. Not automated yet; a check that fails on a redirect change would close this gap."
-  },
-  {
-   "id": "F-P08",
-   "status": "open",
-   "title": "Session-8ff10f50 dimension values not re-confirmed in this pass",
-   "detail": "This session (arena/8ff10f50-prod2) could not re-read the official Amazon listings to confirm the product-table dimensions (D×W×H) and derived capacity-per-depth ratio for P1-P3 — the sandbox cannot reach amazon.com (egress is github.com, npm and PyPI only). Those values carry earlier read dates (2026-11-14) and are published with them, pending an owner re-read. Per the publication rule, values that cannot be confirmed from an official source at publishing time should be left blank and flagged rather than trusted by default; no value was inferred or filled in this pass.",
-   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-   "evidence_note": "data/p2/products.json (dimensions_read 2026-11-14); data/p2/verification-2026-11-19.json (carried_prior_reads)",
-   "how_to_resolve": "Owner re-reads the three air-fryer listings and either re-confirms the dimensions (update read date) or blanks them and marks them unverified until confirmed."
-  },
-  {
-   "id": "F-P09",
-   "status": "resolved",
-   "title": "Disclosure strip rendered a double-paren label artifact — resolved 2026-11-19",
-   "detail": "Every published page rendered 'Product links on this site are paid links ((paid link)); …': the template wrapped the paid-link label in parentheses even though the label itself already contains them (data/p2/settings.json paid_link_label = '(paid link)'). Found in a line-by-line review of the built pages on 2026-11-19. Fixed at the generator (tools/build.py, DISCLOSURE_STRIP) so the wording cannot drift, and the new validity section of tools/checks.py fails the build if '((paid' ever appears again. The disclosure sentence, placement and footer repeat were unaffected.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/3cd056a5999393f79e0a2cc4541386c6fe4a6eb4/docs/index.html#L146",
-   "evidence_note": "Built page as shipped on main at 3cd056a, line 146 (disclosure strip); review pass 2026-11-19, session arena/1ca951c0-prod2",
-   "how_to_resolve": "Resolved 2026-11-19: generator fix + validity gate (tools/checks.py)."
-  },
-  {
-   "id": "F-P10",
-   "status": "resolved",
-   "title": "products.html shipped duplicate id=\"P1..P5\" — resolved 2026-11-19",
-   "detail": "The product cards and the fact-section headings both used id=\"P1\" through id=\"P5\", so five fragment anchors were ambiguous (invalid HTML; products.html#Pn resolves to the first occurrence in document order). Found in the 2026-11-19 review pass. Fact headings now anchor to facts-P1..P5; the cards keep P1..P5, so every existing products.html#Pn link (JSON-LD ItemList, buying guide, category pages, guides) still resolves to the same card it always did. Duplicate ids now fail the build (tools/checks.py validity).",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/3cd056a5999393f79e0a2cc4541386c6fe4a6eb4/docs/products.html#L232",
-   "evidence_note": "Built page as shipped on main at 3cd056a, line 232 (first duplicate); review pass 2026-11-19, session arena/1ca951c0-prod2",
-   "how_to_resolve": "Resolved 2026-11-19: fact-heading anchors renamed + validity gate."
-  },
-  {
-   "id": "F-P11",
-   "status": "resolved",
-   "title": "Front page CTA rendered a nested <p> inside <p> — resolved 2026-11-19",
-   "detail": "The front-page template wrapped {{comparison_cta}} in <p class=\"cta-row\"> while the hook already returns a complete <p class=\"cta-row\">…</p>, producing an invalid nested paragraph around the primary call to action. Found in the 2026-11-19 review pass; the redundant wrapper was removed in content/pages/index.html. Nested <p> now fails the build (tools/checks.py validity).",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/3cd056a5999393f79e0a2cc4541386c6fe4a6eb4/docs/index.html#L188",
-   "evidence_note": "Built page as shipped on main at 3cd056a, line 188 (nested paragraph); review pass 2026-11-19, session arena/1ca951c0-prod2",
-   "how_to_resolve": "Resolved 2026-11-19: template wrapper removed + validity gate."
-  },
-  {
-   "id": "F-P12",
-   "status": "resolved",
-   "title": "DESIGN_PROMPT.md cites a different register lineage than the live site",
-   "detail": "The visual brief cites D-01/D-02 (brand 'The Crisp Counter', warm-editorial adoption), D-15 (mobile-first rules), Q-05 (photography path) and Q-10 (name clearance). Those ids belong to the predecessor Countercraft/Zone4 registers: in the live registers D-01 is the tagged-Special-Links decision, the photography question is Q-P05 with decision D-22 (now carried), name clearance is Q-19, and D-02/D-15 do not exist here. The brief's brand name also differs from the shipped wordmark ('Prod2', decision D-P03). A reader who follows the brief's ids from the live decision log lands on unrelated decisions. Publication is not blocked; the brief must be reconciled before the design pass implements it. Verified 2026-11-20: the live pages and tools/build.py both derive from data/p2/*.json and content/pages/*.html; DESIGN_PROMPT.md names the same lineage. Remaining discrepancy is prose only.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md",
-   "evidence_note": "Line-by-line cross-reference check 2026-11-19 (session arena/1ca951c0-prod2); brief ids compared against data/p2/*.json and data/imported/zone4/",
-   "how_to_resolve": "Resolved 2026-11-20: DESIGN_PROMPT.md synced to the shipped stack (fonts, imagery, lineage)."
-  },
-  {
-   "id": "F-P13",
-   "status": "open",
-   "title": "Google Search Console verification is not done (owner action)",
-   "detail": "The publication ships everything Search Console needs to be claimed and submitted (unique titles and meta descriptions, canonical URLs, sitemap.xml, robots.txt with the Sitemap line, RSS feed). Verification itself needs the owner's Google account: either the HTML-tag token (a slot exists in data/p2/settings.json -> search_console.verification_token, currently empty). Cross-reference: Q-P06 (owner domain control) and Q-P08 (who verifies). or the DNS/HTML-file method. Until then no search performance data exists, so topic selection stays editorial (Q-P02).",
-   "evidence": "https://developers.google.com/search/docs/appearance/google-search-console",
-   "evidence_note": "Google Search Central: Search Console is the first-party source of search query data; verification requires the property owner.",
-   "how_to_resolve": "Owner verifies the property in Search Console (paste the meta token into settings.json and rebuild, or use the HTML-file method), then submits sitemap.xml and the feed. Prepared checklist: measurement.html. Cross-ref: Q-P08, SG-29."
-  },
-  {
-   "id": "F-P14",
-   "status": "open",
-   "title": "Reader-capture form ships disconnected (privacy basis open)",
-   "detail": "The 'What should we answer next?' form is live but sends nothing anywhere: the consent basis for collecting an email address (Q-47) is not settled, and no capture endpoint is configured (data/p2/settings.json -> reader_capture). A visitor's typed question stays in their own browser. This is deliberate: the mechanism is built, the gate in front of it is real.",
-   "evidence": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
-   "evidence_note": "FTC guidance cited for the disclosure/consent standard that the capture consent text must meet (S07).",
-   "how_to_resolve": "Owner settles the consent text and the privacy-page wording (Q-47), then sets the capture endpoint URL in settings.json and rebuilds; the form activates with the consent checkbox required. Related: SG-30, SG-04."
-  },
-  {
-   "id": "F-P15",
-   "status": "resolved",
-   "title": "Disclosure wording did not match Operating Agreement section 5",
-   "detail": "The site published 'As an Amazon Associate we earn from qualifying purchases.' Section 5 prescribes the first-person form, and section 6(a) makes a violation of section 5 a material breach of the Agreement.",
-   "evidence": "https://affiliate-program.amazon.com/help/operating/agreement",
-   "evidence_note": "Section 5, quoted verbatim in data/p2/verification-2026-11-20.json; page updated 2025-10-15; read 2026-11-20.",
-   "how_to_resolve": "Resolved 2026-11-20: settings.disclosure_sentence and the release gate now use the prescribed first-person sentence on every page. Note that section 5 permits 'any substantially similar statement previously allowed', so the previous wording was arguably compliant; the prescribed form removes the doubt.",
-   "resolved_utc": "2026-11-20"
-  },
-  {
-   "id": "F-P16",
-   "status": "resolved",
-   "title": "A paid call to action labelled 'Compare all five' linked to a single product listing",
-   "detail": "The front-page CTA 'Compare all five' was an Amazon Associates link to P1's listing. The label promised a comparison and delivered one product. Program Policies 2(b) prohibits misleading claims, and a button label that does not describe its destination is the mildest form of that.",
-   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
-   "evidence_note": "Program Policies, updated 2026-04-14, section 2(b) misleading-claims sentence; read 2026-11-20.",
-   "how_to_resolve": "Resolved 2026-11-20: the CTA now points at compare.html, and the gate's link check keeps sponsored links distinguishable from internal navigation.",
-   "resolved_utc": "2026-11-20"
-  },
-  {
-   "id": "F-P17",
-   "status": "standing",
-   "title": "Carousel prices and ratings on a listing belong to neighbouring ASINs, not the product",
-   "detail": "On the 2026-11-20 reads, the visible price or star figure in several listings belonged to a different ASIN shown in the 'Customers who viewed this item also viewed' carousel. P1's page carried a star rating and count belonging to B0B7C327LK; P3's carried a price belonging to B0CNY1YVDD; P5's carried a price belonging to B0FXBQ3KX1. None of these is the target product's own value.",
-   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
-   "evidence_note": "Observed 2026-11-20 and recorded with the neighbouring ASIN identified in data/p2/verification-2026-11-20.json (finding V-03). The numeric values are held in that register only and are not republished on the site (F-02).",
-   "how_to_resolve": "Standing practice: any price or rating read from a listing must be tied to the ASIN in the canonical URL, never to a figure elsewhere on the page. This is one of the reasons the site publishes no prices or ratings at all.",
-   "resolved_utc": null
-  },
-  {
-   "id": "F-P18",
-   "status": "resolved",
-   "title": "Prior verification records stated the sandbox could not reach Amazon, so figures were carried forward",
-   "detail": "The 2026-11-19 records state that egress was limited to code-hosting hosts and that listing values were taken from earlier dated records rather than re-read. On 2026-11-20 the listings and official policy pages were retrieved and read directly.",
-   "evidence": "https://www.amazon.com/dp/B0DZFD6R9Z",
-   "evidence_note": "All five listings plus the Operating Agreement and Program Policies were fetched on 2026-11-20; each value is recorded with the chunk it came from in data/p2/verification-2026-11-20.json.",
-   "how_to_resolve": "Resolved 2026-11-20: the current pass is a direct read, not a carried-forward one. The carried-forward dates in data/p2/products.json remain accurate for the values they describe and are labelled as such.",
-   "resolved_utc": "2026-11-20"
-  },
-  {
-   "id": "F-P19",
-   "status": "open",
-   "title": "Archived builds are reachable on the live host and are only excluded by robots.txt",
-   "detail": "Archived builds (archive/counter-notes-v1, archive/counter-notes-docs, archive/counter-edit-build, 121 files) are reachable on the live host and are excluded only by a robots.txt rule. Same root cause as F-P20: Pages is in legacy root mode, so every archived directory is served. robots.txt stops well-behaved crawlers and nothing else. The 2026-11-20 workflow change publishes docs/ only going forward, but the archived trees remain readable until the owner switches the Pages source.",
-   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/archive/counter-notes-v1/",
-   "evidence_note": "docs/ artifact is the only publish root (.github/workflows/pages.yml); gate section 'exposition' in tools/checks.py; Pages API showed build_type=legacy, source=main,/ on 2026-11-20.",
-   "how_to_resolve": "Owner flips Pages source to GitHub Actions (see F-P20). Archived builds can then be dropped or left in git, unserved.",
-   "resolved_utc": null
-  },
-  {
-   "id": "F-P20",
-   "status": "open",
-   "title": "The whole working repository is readable on the live host (root-mode Pages)",
-   "detail": "GitHub Pages is in legacy mode with the source set to the repository ROOT: the Pages API returns build_type=legacy, source={branch: main, path: /}. Checked on 2026-11-20, https://…/Prod2/data/p2/settings.json returns the settings register as JSON to an anonymous reader. Counted at the same moment: data/ 42 files, content/ 27, tools/ 5, scripts/ 4, tests/ 1, archive/ 121 — 196 source files reachable by guessing a path. Nothing secret is in them (the tracking ID and disclosure text are published on purpose and the capture and analytics endpoints are empty), but it is not the intended surface, it exposes drafts and the archived builds, and robots.txt is a crawler convention, not access control. The token available to this session cannot change the setting: a PUT to build_type=workflow returns 403. Mitigated in-repo as far as a build can: the Pages workflow uploads the docs/ artifact only, and the new exposition gate section refuses any source directory inside docs/. If an owner ever flips the source to GitHub Actions, this whole class disappears.",
-   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json",
-   "evidence_note": "Anonymous GET of a source file on the live host, 2026-11-20; Pages API reports build_type=legacy, source=main,/; count from `python3 tools/root_mirror.py --report`.",
-   "how_to_resolve": "Owner: Settings → Pages → Source: GitHub Actions (one setting). Then confirm /data/p2/settings.json and /tools/build.py return 404 and close F-P19/F-P20.",
-   "resolved_utc": null
-  },
-  {
-   "id": "F-P22",
-   "status": "resolved",
-   "title": "Seven files cited an analytics endpoint path that does not exist — resolved 2026-11-20",
-   "detail": "measurement.html, privacy.html, events.json, questions.json, settings.json, suggestions.json, ENGINE.md and EXECUTIVE_SUMMARY.md all described the endpoint as 'analytics-endpoint/server.py'. No such file has ever been committed at any point in this repository's history. The only endpoint is server.mjs at the root. Every reference was corrected on 2026-11-20, flag F-19's evidence URL was repointed, and a gate rule now fails the build if a page cites a local path that does not exist.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
-   "evidence_note": "server.mjs committed at the repo root; ANALYTICS-ENDPOINT.md documents it; npm test exercises tests/server.test.mjs",
-   "how_to_resolve": "Resolved 2026-11-20: all references name server.mjs; gate rule added to tools/checks.py."
-  },
-  {
-   "id": "F-P23",
-   "status": "open",
-   "title": "The site's five events and the endpoint's accepted vocabulary do not match",
-   "detail": "measure.js would send page_view, outbound_click, guide_read_75, category_click and feed_click. server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. Three of the five site events (guide_read_75, category_click, feed_click) would be rejected by the only endpoint in this repository. Nothing is lost today because the endpoint is not hosted and the site transmits nothing, but connecting them unchanged would silently under-count. Not corrected in this pass because choosing the vocabulary is a decision, not a typo.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
-   "evidence_note": "the allowedEvents set in server.mjs vs the event list in docs/assets/js/measure.js and data/p2/events.json",
-   "how_to_resolve": "Pick one vocabulary: extend server.mjs to accept the three site events, or change measure.js to emit the endpoint's names. Record it as a decision, then gate the two lists against each other."
-  },
-  {
-   "id": "F-P21",
-   "title": "Working brand “The Crisp Counter” adopted on the owner's directive without formal trademark clearance",
-   "detail": "The 2026-11-20 anti-slop pass replaced the repository codename 'Prod2' on reader-facing surfaces with the design brief's working brand (decision D-P18). A preliminary web search that day returned no conflicting kitchen-appliance brand in the first page of results, but no formal USPTO/state/common-law search has been run. Until clearance, the brand is provisional and one-line reversible (data/p2/settings.json).",
-   "evidence": "https://tmsearch.uspto.gov/",
-   "evidence_note": "USPTO trademark search — the formal check that would resolve this; the preliminary 2026-11-20 web-search record sits in D-P10's sources.",
-   "how_to_resolve": "Run the formal clearance (Q-P10 / Q-19), then either ratify the name in the decision log or revert via settings.json and rebuild.",
-   "status": "open"
-  }
- ]
+  "flags": [
+    {
+      "id": "F-01",
+      "status": "open",
+      "title": "Product-level commission rate is unverified",
+      "detail": "The official Standard Commission Income Statement Table 1 lists Kitchen at 4.50% and Home at 3.00%. No official source reviewed maps these ASINs to a commission category, so every product-level rate is published blank. Do not infer a rate from the category band.",
+      "evidence": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "evidence_note": "S-COMM, read 2026-11-14/2026-11-17",
+      "how_to_resolve": "Read the product-level rate from an Associates Central report after enrollment (owner action)."
+    },
+    {
+      "id": "F-02",
+      "status": "standing",
+      "title": "Prices and star ratings are not published",
+      "detail": "Prices, ratings and review counts change constantly and would need a dated-snapshot discipline this site has not adopted (see D-19 for the evidence rule). They are visible on every listing and were observed during verification, but are withheld from all published pages. The site compares formats and listed specifications instead.",
+      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+      "evidence_note": "S-P1; standing editorial rule carried from the prior register",
+      "how_to_resolve": "Owner decision: adopt a dated-snapshot price policy (queued as suggestion SG-05) or keep the rule."
+    },
+    {
+      "id": "F-03",
+      "status": "open",
+      "title": "Supplied short links carry no tag= parameter",
+      "detail": "Every observed redirect of the five owner-supplied short links shows Amazon source-token parameters but no tag= parameter. Without an enrolled tag the clicks cannot be attributed. The site therefore publishes tagged Special Links built from the verified ASINs (D-01/D-14), and claims no attributed click or order.",
+      "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
+      "evidence_note": "S-POL; observations in data/p2/verification-2026-11-19.json",
+      "how_to_resolve": "Run the one-link-per-product test in Associates Central (F-58)."
+    },
+    {
+      "id": "F-08",
+      "status": "open",
+      "title": "P3 belongs to a 6/8/9-quart size-variant family",
+      "detail": "Four GTINs are listed on the B08DKYBTPH page, confirming a size-variant family. A buyer (or a cart) can end up with a different size than the 8 qt record published here.",
+      "evidence": "https://www.amazon.com/dp/B08DKYBTPH",
+      "evidence_note": "S-P3, Item details read 2026-11-14",
+      "how_to_resolve": "None needed for publication; buyers are warned on the product row."
+    },
+    {
+      "id": "F-15",
+      "status": "standing",
+      "title": "Popularity and 'trending' claims need dated snapshots",
+      "detail": "Per decision D-19, a popularity claim is allowed only as a dated snapshot of an official page (page + read date named in the copy). Bare adjectives like 'trending' or 'best-selling' are banned from the copy rules.",
+      "evidence": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "evidence_note": "S-GHELP; rule adopted 2026-11-16 (carried)",
+      "how_to_resolve": "Standing rule; enforced by tools/checks.py word blacklist."
+    },
+    {
+      "id": "F-19",
+      "status": "open",
+      "title": "Analytics endpoint is deployable but not yet hosted",
+      "detail": "GitHub Pages is static hosting. The privacy-preserving counter (docs/assets/js/measure.js) and the self-hosted endpoint (server.mjs, POST /api/events, Node 20+, no dependencies) ship with the site, but no server is deployed and settings.analytics_endpoint is empty, so the site sends nothing anywhere. Browser-local counts are visible to each visitor only and are not shared data. This flag previously cited a path, analytics-endpoint/server.py, that was never committed — corrected 2026-11-20 (F-P22).",
+      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
+      "evidence_note": "server.mjs at the repo root; ANALYTICS-ENDPOINT.md documents it; tests/server.test.mjs covers it (npm test). Corrected 2026-11-20.",
+      "how_to_resolve": "Host server.mjs somewhere owner-controlled (behind HTTPS), set settings.analytics_endpoint, rebuild. Resolve F-P23 first: the endpoint's event vocabulary does not currently match the site's five events."
+    },
+    {
+      "id": "F-26",
+      "status": "open",
+      "title": "P2's listing states its cooking-function count in two ways",
+      "detail": "Listing sections have described the B09B7SB46R as having 24 cooking functions / 24 one-touch presets, while another count of 25 appeared in prior reads of a different section. The site publishes '24 as listed' with the read date and never a synthesized number.",
+      "evidence": "https://www.amazon.com/dp/B09B7SB46R",
+      "evidence_note": "S-P2; prior reads 2026-11-14/2026-11-16, title read 2026-11-19",
+      "how_to_resolve": "Count the presets on the listing during a dated re-read (any session)."
+    },
+    {
+      "id": "F-29",
+      "status": "open",
+      "title": "'Also viewed' carousels change between reads",
+      "detail": "Carousel membership and order on the three air-fryer listings changed again on the 2026-11-19 read (P1 slots 2/3 swapped vs 2026-11-14; P3 slot 2 replaced). Carousel data is stored as dated observations only and is never presented as a stable 'competitor set'.",
+      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+      "evidence_note": "S-P1; observations in data/p2/verification-2026-11-19.json",
+      "how_to_resolve": "Standing volatility; re-read on each verification pass."
+    },
+    {
+      "id": "F-44",
+      "status": "open",
+      "title": "P2's listing title second segment drifts between reads",
+      "detail": "The B09B7SB46R listing title's second segment changed across the 2026-11-14, 2026-11-15 and 2026-11-19 reads. The site publishes the current string with its read date and keeps previous strings in the register (see also F-66).",
+      "evidence": "https://www.amazon.com/dp/B09B7SB46R",
+      "evidence_note": "S-P2; strings recorded in data/p2/verification-2026-11-19.json and data/p2/products.json",
+      "how_to_resolve": "Standing volatility; the register keeps the dated history."
+    },
+    {
+      "id": "F-49",
+      "status": "open",
+      "title": "Default offers can be used items (Amazon Resale)",
+      "detail": "On the 2026-11-16 reads the default offers on B0CDY277D3 and B08DKYBTPH were used items sold by Amazon Resale. Buyers should check the seller and condition on the listing. Not re-observed on the 2026-11-19 read.",
+      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+      "evidence_note": "S-P1; prior read 2026-11-16 (S-PRIOR4)",
+      "how_to_resolve": "Standing buyer warning."
+    },
+    {
+      "id": "F-55",
+      "status": "resolved",
+      "title": "Two newly submitted short links were unverified — resolved 2026-11-19",
+      "detail": "The brief's two additional links (link.amazon/B0c8moW59, link.amazon/B0f3GKalj) were unresolved at the time of the prior register (they were excluded from product pages then — that exclusion did not mean either was invalid). The 2026-11-19 session resolved both: B0DHZTCNR5 (ThermoMaven 1-sec thermometer) and B0DZFD6R9Z (CHEF iQ Sense Gen3), read their official listings, and added them to the register as P4/P5. Product-intent records for all five links remain separate from observed redirects.",
+      "evidence": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "evidence_note": "S-P4, S-P5; data/p2/verification-2026-11-19.json",
+      "how_to_resolve": "Resolved 2026-11-19. Attribution of these links remains governed by F-57/F-58."
+    },
+    {
+      "id": "F-57",
+      "status": "open",
+      "title": "Tracking ID registration is confirmable only inside Associates Central",
+      "detail": "The owner supplied shopnow047c-20 and its format matches the documented US Store ID pattern (ends in -20). Whether it is registered, active, and belongs to an enrolled account cannot be confirmed from outside Associates Central. Until then the site publishes the links but claims no attributed click, order or revenue.",
+      "evidence": "https://www.amazon.com/b?ie=UTF8&node=51812349011",
+      "evidence_note": "S-TAG, read 2026-11-17",
+      "how_to_resolve": "Owner logs into Associates Central and confirms the Partner Tag (Q-01)."
+    },
+    {
+      "id": "F-58",
+      "status": "open",
+      "title": "One-link-per-product Associates test not yet run",
+      "detail": "The enrolled-workflow test (generate/validate one Special Link per product, confirm destination and a test click in the reporting) gates attribution claims and scaling — not publication. It cannot run from a build sandbox.",
+      "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
+      "evidence_note": "S-POL",
+      "how_to_resolve": "Owner runs the test per the protocol on the measurement page."
+    },
+    {
+      "id": "F-66",
+      "status": "open",
+      "title": "P2 title-segment drift (prior-register instance)",
+      "detail": "Prior instance of F-44: the stored second title segment dated 2026-11-14 differed from the 2026-11-15 read. Carried for history; the 2026-11-19 read extended the drift record again.",
+      "evidence": "https://www.amazon.com/dp/B09B7SB46R",
+      "evidence_note": "S-P2; S-PRIOR4",
+      "how_to_resolve": "Merged into F-44 going forward; kept for the dated trail."
+    },
+    {
+      "id": "F-67",
+      "status": "standing",
+      "title": "Short-link path codes are not ASINs",
+      "detail": "Amazon defines an ASIN as a 10-character alphanumeric identifier appearing after /dp/ in the product URL (S-ASIN). The submitted path codes (e.g. B04G1MEwY) are nine characters and live in the short-link path. They are recorded as link_path_code only and are never used as ASINs.",
+      "evidence": "https://sell.amazon.com/blog/what-is-an-asin",
+      "evidence_note": "S-ASIN, read 2026-11-17",
+      "how_to_resolve": "Standing rule."
+    },
+    {
+      "id": "F-P01",
+      "status": "open",
+      "title": "P4's page shows two different waterproofing subtitle strings",
+      "detail": "The B0DHZTCNR5 page <title> says 'IP67 Waterproof for Grill BBQ' while the Product Summary heading on the same page says 'Highly Waterproof for Grill BBQ Camping'. Both are recorded verbatim; published copy uses the <title> string with its 2026-11-19 read date and states IP67 only as 'listed in the title'.",
+      "evidence": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "evidence_note": "S-P4, read 2026-11-19",
+      "how_to_resolve": "Confirm the certified IP rating from the manufacturer's documentation if it becomes available (owner)."
+    },
+    {
+      "id": "F-P02",
+      "status": "resolved",
+      "title": "Product scope: thermometers joined an air-fryer catalog — resolved 2026-11-19",
+      "detail": "The owner's brief lists five products to market; three resolve to air fryers and two (resolved 2026-11-19) to meat thermometers. The publication organizes them by format under one kitchen theme (countertop cooking + doneness tools) per decision D-P01. Not an irregularity in the data — recorded so the scope change is visible.",
+      "evidence": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "evidence_note": "S-P5; decision D-P01",
+      "how_to_resolve": "Resolved by D-P01 (2026-11-19)."
+    },
+    {
+      "id": "F-P04",
+      "status": "open",
+      "title": "P1 capacity unit wording differs between title and spec table",
+      "detail": "The B0CDY277D3 title states 6 Quart (2 × 3Qt baskets); the spec table read 2026-11-14 states '6 liters'. 6 qt is about 5.7 L, so the two wordings are not equal. Published copy uses the title wording with its read date; both readings are recorded.",
+      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+      "evidence_note": "S-P1; title read 2026-11-19, spec table read 2026-11-14",
+      "how_to_resolve": "Re-read the spec table in a dated session and record whichever the listing shows."
+    },
+    {
+      "id": "F-P05",
+      "status": "open",
+      "title": "P5 is a size-variant listing (1/2/3/4 probes)",
+      "detail": "The B0DZFD6R9Z listing offers 1/2/3/4-probe configurations. This record is the 3-probe Gen3 configuration shown in the title. Buyers should confirm the probe count in the variant selector.",
+      "evidence": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "evidence_note": "S-P5, read 2026-11-19",
+      "how_to_resolve": "Standing buyer warning."
+    },
+    {
+      "id": "F-P06",
+      "status": "open",
+      "title": "Two registers disagree on whether prices are published",
+      "detail": "data/products.json (the earlier Countercraft build) carries buy-box prices for all five ASINs (as listed on 2026-11-19; values are kept in that file only). data/p2/ withholds prices and ratings entirely (F-02). The earlier build's executive-summary appendix therefore conflicts with this build's rule. The Prod2 site publishes no prices.",
+      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+      "evidence_note": "Price text as observed on the official listing, read 2026-11-19 (arena/236bc1ed-prod2 recheck).",
+      "how_to_resolve": "Decision under Q-27 / SG-05. Until a dated-snapshot rule is adopted and automated, prices stay unpublished here. The Countercraft build stays archived and is not mirrored."
+    },
+    {
+      "id": "F-P07",
+      "status": "open",
+      "title": "Short-link redirect re-read covered two of five links in the latest pass",
+      "detail": "This session re-fetched link.amazon/B04G1MEwY (resolves to B0CDY277D3) and link.amazon/B0c8moW59 (resolves to B0DHZTCNR5). Both matched the register. The other three short links (P2, P3, P5) keep their 2026-11-19 reads and were not re-fetched in this pass.",
+      "evidence": "https://link.amazon/B02NbDxp3",
+      "evidence_note": "Submitted link for P2; the three unrefreshed short links are listed in data/p2/intent-links.json.",
+      "how_to_resolve": "Re-read all five short links in the next publishing pass. Not automated yet; a check that fails on a redirect change would close this gap."
+    },
+    {
+      "id": "F-P08",
+      "status": "open",
+      "title": "Session-8ff10f50 dimension values not re-confirmed in this pass",
+      "detail": "This session (arena/8ff10f50-prod2) could not re-read the official Amazon listings to confirm the product-table dimensions (D×W×H) and derived capacity-per-depth ratio for P1-P3 — the sandbox cannot reach amazon.com (egress is github.com, npm and PyPI only). Those values carry earlier read dates (2026-11-14) and are published with them, pending an owner re-read. Per the publication rule, values that cannot be confirmed from an official source at publishing time should be left blank and flagged rather than trusted by default; no value was inferred or filled in this pass.",
+      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+      "evidence_note": "data/p2/products.json (dimensions_read 2026-11-14); data/p2/verification-2026-11-19.json (carried_prior_reads)",
+      "how_to_resolve": "Owner re-reads the three air-fryer listings and either re-confirms the dimensions (update read date) or blanks them and marks them unverified until confirmed."
+    },
+    {
+      "id": "F-P09",
+      "status": "resolved",
+      "title": "Disclosure strip rendered a double-paren label artifact — resolved 2026-11-19",
+      "detail": "Every published page rendered 'Product links on this site are paid links ((paid link)); …': the template wrapped the paid-link label in parentheses even though the label itself already contains them (data/p2/settings.json paid_link_label = '(paid link)'). Found in a line-by-line review of the built pages on 2026-11-19. Fixed at the generator (tools/build.py, DISCLOSURE_STRIP) so the wording cannot drift, and the new validity section of tools/checks.py fails the build if '((paid' ever appears again. The disclosure sentence, placement and footer repeat were unaffected.",
+      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/3cd056a5999393f79e0a2cc4541386c6fe4a6eb4/docs/index.html#L146",
+      "evidence_note": "Built page as shipped on main at 3cd056a, line 146 (disclosure strip); review pass 2026-11-19, session arena/1ca951c0-prod2",
+      "how_to_resolve": "Resolved 2026-11-19: generator fix + validity gate (tools/checks.py)."
+    },
+    {
+      "id": "F-P10",
+      "status": "resolved",
+      "title": "products.html shipped duplicate id=\"P1..P5\" — resolved 2026-11-19",
+      "detail": "The product cards and the fact-section headings both used id=\"P1\" through id=\"P5\", so five fragment anchors were ambiguous (invalid HTML; products.html#Pn resolves to the first occurrence in document order). Found in the 2026-11-19 review pass. Fact headings now anchor to facts-P1..P5; the cards keep P1..P5, so every existing products.html#Pn link (JSON-LD ItemList, buying guide, category pages, guides) still resolves to the same card it always did. Duplicate ids now fail the build (tools/checks.py validity).",
+      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/3cd056a5999393f79e0a2cc4541386c6fe4a6eb4/docs/products.html#L232",
+      "evidence_note": "Built page as shipped on main at 3cd056a, line 232 (first duplicate); review pass 2026-11-19, session arena/1ca951c0-prod2",
+      "how_to_resolve": "Resolved 2026-11-19: fact-heading anchors renamed + validity gate."
+    },
+    {
+      "id": "F-P11",
+      "status": "resolved",
+      "title": "Front page CTA rendered a nested <p> inside <p> — resolved 2026-11-19",
+      "detail": "The front-page template wrapped {{comparison_cta}} in <p class=\"cta-row\"> while the hook already returns a complete <p class=\"cta-row\">…</p>, producing an invalid nested paragraph around the primary call to action. Found in the 2026-11-19 review pass; the redundant wrapper was removed in content/pages/index.html. Nested <p> now fails the build (tools/checks.py validity).",
+      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/3cd056a5999393f79e0a2cc4541386c6fe4a6eb4/docs/index.html#L188",
+      "evidence_note": "Built page as shipped on main at 3cd056a, line 188 (nested paragraph); review pass 2026-11-19, session arena/1ca951c0-prod2",
+      "how_to_resolve": "Resolved 2026-11-19: template wrapper removed + validity gate."
+    },
+    {
+      "id": "F-P12",
+      "status": "resolved",
+      "title": "DESIGN_PROMPT.md cites a different register lineage than the live site",
+      "detail": "The visual brief cites D-01/D-02 (brand 'The Crisp Counter', warm-editorial adoption), D-15 (mobile-first rules), Q-05 (photography path) and Q-10 (name clearance). Those ids belong to the predecessor Countercraft/Zone4 registers: in the live registers D-01 is the tagged-Special-Links decision, the photography question is Q-P05 with decision D-22 (now carried), name clearance is Q-19, and D-02/D-15 do not exist here. The brief's brand name also differs from the shipped wordmark ('Prod2', decision D-P03). A reader who follows the brief's ids from the live decision log lands on unrelated decisions. Publication is not blocked; the brief must be reconciled before the design pass implements it. Verified 2026-11-20: the live pages and tools/build.py both derive from data/p2/*.json and content/pages/*.html; DESIGN_PROMPT.md names the same lineage. Remaining discrepancy is prose only.",
+      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md",
+      "evidence_note": "Line-by-line cross-reference check 2026-11-19 (session arena/1ca951c0-prod2); brief ids compared against data/p2/*.json and data/imported/zone4/",
+      "how_to_resolve": "Resolved 2026-11-20: DESIGN_PROMPT.md synced to the shipped stack (fonts, imagery, lineage)."
+    },
+    {
+      "id": "F-P13",
+      "status": "open",
+      "title": "Google Search Console verification is not done (owner action)",
+      "detail": "The publication ships everything Search Console needs to be claimed and submitted (unique titles and meta descriptions, canonical URLs, sitemap.xml, robots.txt with the Sitemap line, RSS feed). Verification itself needs the owner's Google account: either the HTML-tag token (a slot exists in data/p2/settings.json -> search_console.verification_token, currently empty). Cross-reference: Q-P06 (owner domain control) and Q-P08 (who verifies). or the DNS/HTML-file method. Until then no search performance data exists, so topic selection stays editorial (Q-P02).",
+      "evidence": "https://developers.google.com/search/docs/appearance/google-search-console",
+      "evidence_note": "Google Search Central: Search Console is the first-party source of search query data; verification requires the property owner.",
+      "how_to_resolve": "Owner verifies the property in Search Console (paste the meta token into settings.json and rebuild, or use the HTML-file method), then submits sitemap.xml and the feed. Prepared checklist: measurement.html. Cross-ref: Q-P08, SG-29."
+    },
+    {
+      "id": "F-P14",
+      "status": "open",
+      "title": "Reader-capture form ships disconnected (privacy basis open)",
+      "detail": "The 'What should we answer next?' form is live but sends nothing anywhere: the consent basis for collecting an email address (Q-47) is not settled, and no capture endpoint is configured (data/p2/settings.json -> reader_capture). A visitor's typed question stays in their own browser. This is deliberate: the mechanism is built, the gate in front of it is real.",
+      "evidence": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "evidence_note": "FTC guidance cited for the disclosure/consent standard that the capture consent text must meet (S07).",
+      "how_to_resolve": "Owner settles the consent text and the privacy-page wording (Q-47), then sets the capture endpoint URL in settings.json and rebuilds; the form activates with the consent checkbox required. Related: SG-30, SG-04."
+    },
+    {
+      "id": "F-P15",
+      "status": "resolved",
+      "title": "Disclosure wording did not match Operating Agreement section 5",
+      "detail": "The site published 'As an Amazon Associate we earn from qualifying purchases.' Section 5 prescribes the first-person form, and section 6(a) makes a violation of section 5 a material breach of the Agreement.",
+      "evidence": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "evidence_note": "Section 5, quoted verbatim in data/p2/verification-2026-11-20.json; page updated 2025-10-15; read 2026-11-20.",
+      "how_to_resolve": "Resolved 2026-11-20: settings.disclosure_sentence and the release gate now use the prescribed first-person sentence on every page. Note that section 5 permits 'any substantially similar statement previously allowed', so the previous wording was arguably compliant; the prescribed form removes the doubt.",
+      "resolved_utc": "2026-11-20"
+    },
+    {
+      "id": "F-P16",
+      "status": "resolved",
+      "title": "A paid call to action labelled 'Compare all five' linked to a single product listing",
+      "detail": "The front-page CTA 'Compare all five' was an Amazon Associates link to P1's listing. The label promised a comparison and delivered one product. Program Policies 2(b) prohibits misleading claims, and a button label that does not describe its destination is the mildest form of that.",
+      "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
+      "evidence_note": "Program Policies, updated 2026-04-14, section 2(b) misleading-claims sentence; read 2026-11-20.",
+      "how_to_resolve": "Resolved 2026-11-20: the CTA now points at compare.html, and the gate's link check keeps sponsored links distinguishable from internal navigation.",
+      "resolved_utc": "2026-11-20"
+    },
+    {
+      "id": "F-P17",
+      "status": "standing",
+      "title": "Carousel prices and ratings on a listing belong to neighbouring ASINs, not the product",
+      "detail": "On the 2026-11-20 reads, the visible price or star figure in several listings belonged to a different ASIN shown in the 'Customers who viewed this item also viewed' carousel. P1's page carried a star rating and count belonging to B0B7C327LK; P3's carried a price belonging to B0CNY1YVDD; P5's carried a price belonging to B0FXBQ3KX1. None of these is the target product's own value.",
+      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+      "evidence_note": "Observed 2026-11-20 and recorded with the neighbouring ASIN identified in data/p2/verification-2026-11-20.json (finding V-03). The numeric values are held in that register only and are not republished on the site (F-02).",
+      "how_to_resolve": "Standing practice: any price or rating read from a listing must be tied to the ASIN in the canonical URL, never to a figure elsewhere on the page. This is one of the reasons the site publishes no prices or ratings at all.",
+      "resolved_utc": null
+    },
+    {
+      "id": "F-P18",
+      "status": "resolved",
+      "title": "Prior verification records stated the sandbox could not reach Amazon, so figures were carried forward",
+      "detail": "The 2026-11-19 records state that egress was limited to code-hosting hosts and that listing values were taken from earlier dated records rather than re-read. On 2026-11-20 the listings and official policy pages were retrieved and read directly.",
+      "evidence": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "evidence_note": "All five listings plus the Operating Agreement and Program Policies were fetched on 2026-11-20; each value is recorded with the chunk it came from in data/p2/verification-2026-11-20.json.",
+      "how_to_resolve": "Resolved 2026-11-20: the current pass is a direct read, not a carried-forward one. The carried-forward dates in data/p2/products.json remain accurate for the values they describe and are labelled as such.",
+      "resolved_utc": "2026-11-20"
+    },
+    {
+      "id": "F-P19",
+      "status": "open",
+      "title": "Archived builds are reachable on the live host and are only excluded by robots.txt",
+      "detail": "Archived builds (archive/counter-notes-v1, archive/counter-notes-docs, archive/counter-edit-build, 121 files) are reachable on the live host and are excluded only by a robots.txt rule. Same root cause as F-P20: Pages is in legacy root mode, so every archived directory is served. robots.txt stops well-behaved crawlers and nothing else. The 2026-11-20 workflow change publishes docs/ only going forward, but the archived trees remain readable until the owner switches the Pages source.",
+      "evidence": "https://wingbangboozle1-lang.github.io/Prod2/archive/counter-notes-v1/",
+      "evidence_note": "docs/ artifact is the only publish root (.github/workflows/pages.yml); gate section 'exposition' in tools/checks.py; Pages API showed build_type=legacy, source=main,/ on 2026-11-20.",
+      "how_to_resolve": "Owner flips Pages source to GitHub Actions (see F-P20). Archived builds can then be dropped or left in git, unserved.",
+      "resolved_utc": null
+    },
+    {
+      "id": "F-P20",
+      "status": "open",
+      "title": "The whole working repository is readable on the live host (root-mode Pages)",
+      "detail": "GitHub Pages is in legacy mode with the source set to the repository ROOT: the Pages API returns build_type=legacy, source={branch: main, path: /}. Checked on 2026-11-20, https://…/Prod2/data/p2/settings.json returns the settings register as JSON to an anonymous reader. Counted at the same moment: data/ 42 files, content/ 27, tools/ 5, scripts/ 4, tests/ 1, archive/ 121 — 196 source files reachable by guessing a path. Nothing secret is in them (the tracking ID and disclosure text are published on purpose and the capture and analytics endpoints are empty), but it is not the intended surface, it exposes drafts and the archived builds, and robots.txt is a crawler convention, not access control. The token available to this session cannot change the setting: a PUT to build_type=workflow returns 403. Mitigated in-repo as far as a build can: the Pages workflow uploads the docs/ artifact only, and the new exposition gate section refuses any source directory inside docs/. If an owner ever flips the source to GitHub Actions, this whole class disappears.",
+      "evidence": "https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json",
+      "evidence_note": "Anonymous GET of a source file on the live host, 2026-11-20; Pages API reports build_type=legacy, source=main,/; count from `python3 tools/root_mirror.py --report`.",
+      "how_to_resolve": "Owner: Settings → Pages → Source: GitHub Actions (one setting). Then confirm /data/p2/settings.json and /tools/build.py return 404 and close F-P19/F-P20.",
+      "resolved_utc": null
+    },
+    {
+      "id": "F-P22",
+      "status": "resolved",
+      "title": "Seven files cited an analytics endpoint path that does not exist — resolved 2026-11-20",
+      "detail": "measurement.html, privacy.html, events.json, questions.json, settings.json, suggestions.json, ENGINE.md and EXECUTIVE_SUMMARY.md all described the endpoint as 'analytics-endpoint/server.py'. No such file has ever been committed at any point in this repository's history. The only endpoint is server.mjs at the root. Every reference was corrected on 2026-11-20, flag F-19's evidence URL was repointed, and a gate rule now fails the build if a page cites a local path that does not exist.",
+      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
+      "evidence_note": "server.mjs committed at the repo root; ANALYTICS-ENDPOINT.md documents it; npm test exercises tests/server.test.mjs",
+      "how_to_resolve": "Resolved 2026-11-20: all references name server.mjs; gate rule added to tools/checks.py."
+    },
+    {
+      "id": "F-P23",
+      "status": "open",
+      "title": "The site's five events and the endpoint's accepted vocabulary do not match",
+      "detail": "measure.js would send page_view, outbound_click, guide_read_75, category_click and feed_click. server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. Three of the five site events (guide_read_75, category_click, feed_click) would be rejected by the only endpoint in this repository. Nothing is lost today because the endpoint is not hosted and the site transmits nothing, but connecting them unchanged would silently under-count. Not corrected in this pass because choosing the vocabulary is a decision, not a typo.",
+      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
+      "evidence_note": "the allowedEvents set in server.mjs vs the event list in docs/assets/js/measure.js and data/p2/events.json",
+      "how_to_resolve": "Pick one vocabulary: extend server.mjs to accept the three site events, or change measure.js to emit the endpoint's names. Record it as a decision, then gate the two lists against each other."
+    },
+    {
+      "id": "F-P21",
+      "title": "Working brand “The Crisp Counter” adopted on the owner's directive without formal trademark clearance",
+      "detail": "The 2026-11-20 anti-slop pass replaced the repository codename 'Prod2' on reader-facing surfaces with the design brief's working brand (decision D-P18). A preliminary web search that day returned no conflicting kitchen-appliance brand in the first page of results, but no formal USPTO/state/common-law search has been run. Until clearance, the brand is provisional and one-line reversible (data/p2/settings.json).",
+      "evidence": "https://tmsearch.uspto.gov/",
+      "evidence_note": "USPTO trademark search — the formal check that would resolve this; the preliminary 2026-11-20 web-search record sits in D-P10's sources.",
+      "how_to_resolve": "Run the formal clearance (Q-P10 / Q-19), then either ratify the name in the decision log or revert via settings.json and rebuild.",
+      "status": "open"
+    },
+    {
+      "id": "F-P24",
+      "title": "Submitted link.amazon short links did not resolve to product listings in the 2026-11-20 live re-check",
+      "detail": "On 2026-11-20 the five submitted link.amazon URLs were fetched with redirects followed. Four resolved to the Amazon homepage (https://www.amazon.com/) and one returned HTTP 500. The five ASIN listing pages (https://www.amazon.com/dp/{ASIN}) were all live and their titles match data/p2/products.json exactly. The register's earlier redirect history (2026-11-14, 16, 17, 19) recorded these short links resolving to the same ASINs. The site does not publish the short links as buy paths (they render as quoted text under F-03), so no reader-facing link is broken by this. The difference is not explained: it may be a fetch-tool artifact or a change in the short-link service. Intended-ASIN fields were NOT changed. Full record: data/p2/live-check-2026-11-20-722181aa.json.",
+      "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+      "evidence_note": "Live /dp/ listing for P1 (title matches register). Short-link observations and the four other ASIN pages are in data/p2/live-check-2026-11-20-722181aa.json.",
+      "how_to_resolve": "Owner (or any reviewer with a normal browser) opens each of the five link.amazon URLs and records the final URL and ASIN in a dated redirect observation in data/p2/intent-links.json. If the short links no longer resolve to the registered ASINs, the intended_asin values stay as the /dp/ pages show and the mismatch is escalated under F-03 / F-57.",
+      "status": "open"
+    }
+  ]
 }
