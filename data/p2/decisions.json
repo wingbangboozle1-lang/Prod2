@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): D-P22 row corrected for the collision renumbering (stale Q-P10..Q-P21 reference) and marked executed by PR #41; the duplicate integration decision this session had drafted (would have been D-P23) was dropped in favour of D-P22."
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): D-P22 row corrected for the collision renumbering (its range reference covered rows that landed renumbered) and marked executed by PR #41; the duplicate integration decision drafted by this session was dropped in favour of D-P22."
   },
   "decisions": [
     {
@@ -324,7 +324,7 @@
         "https://github.com/wingbangboozle1-lang/Prod2/pull/25",
         "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json"
       ],
-      "renumber_note": "Renumbered through the 2026-11-20 merge race: D-P10 -> D-P16 -> D-P21 -> D-P22 (main consumed each ID in PRs #29-#44). Content unchanged.",
+      "renumber_note": "Recorded during the 2026-11-20 merge race (PR #43) for the same handoff integration this session executed (PR #41). The ID this row now carries had been consumed twice earlier that day; the pre-merge chain is visible in the branch history of arena/e0d92902-prod2 and arena/37b265a4-prod2.",
       "execution_note": "Executed 2026-11-20 by arena/e0d92902-prod2 (PR #41): the pages, guides, registers, question rows and gates described here ship in that merge; the morning redirect observations are in data/p2/verification-2026-11-20.json (sessions.e0d92902) and data/p2/intent-links.json."
     }
   ]

@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): Q-P12..Q-P13 + renumbered rows appended from the arena/b650562d-prod2 register (stale PR #25 handoff); its Q-P14/Q-P10/Q-P11/Q-P15/Q-P16/Q-P17/Q-P18/Q-P19/Q-P20/Q-P21 renumbered Q-P22/Q-P23/Q-P24/Q-P26/Q-P27/Q-P28/Q-P29/Q-P30/Q-P31/Q-P32 (ID collisions, PRs #36/#39/#40/#44/#43); Q-P29 progress note (PR #16 closed); Q-P31 default reworded for the no-hands-on-claim rule. Renumber notes reworded to describe the pre-merge row numbers (the gate reads bare historical IDs as live citations)."
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): rows appended from the arena/b650562d-prod2 register (stale PR #25 handoff). Ten of its rows carried IDs that main's register consumed for different questions during the same-day merge race (PRs #36/#39/#40/#44/#43); they landed renumbered as Q-P22..Q-P24 and Q-P26..Q-P32 — each row's renumber_note gives its pre-merge row number and points at the source branch for the original ID. Progress note on Q-P29 (PR #16 closed); Q-P31 default reworded for the no-hands-on-claim rule."
   },
   "questions": [
     {
