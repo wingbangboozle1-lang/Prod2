@@ -1485,3 +1485,96 @@ merge; they publish on the Flagged for Review page.
 | Merge result | (recorded after merge) |
 | Pages | (recorded after deploy check) |
 | Checks on PR | tools/checks.py ALL CHECKS PASSED · scripts/verify_site.py VERIFY OK · npm test 2/2 |
+
+---
+
+---
+
+## SESSION RECORD — arena/20f83238-prod2 (2026-11-20, reviewer pass + integration)
+
+Protocol note: single Arena session on its assigned branch `arena/20f83238-prod2` (the
+`session-<id>/<task>` naming in the brief is not used; the claim is recorded here). Claimed
+R-01..R-06 at 2026-11-20 06:11 UTC (claim commit `02f7591`, pushed before any work started).
+
+| Task | Status | Session | Scope (files) | Notes |
+| --- | --- | --- | --- | --- |
+| R-01 Reviewer pass over the suggestion queue: decide every open SG item with rationale; record decisions; render the chosen path on the suggestions page | done | arena/20f83238-prod2 | `data/p2/{suggestions,decisions,flags}.json`, `content/pages/suggestions.html`, `assets/css/site.css` | D-P22/D-P23, F-P29, SG-48. |
+| R-02..R-03 (brand/type/seasonal pass + gift guide) | done (superseded) | arena/20f83238-prod2 | — | Built in this session's first WIP wave, then found **already merged to main** by the parallel anti-slop + shop-front passes (arena/70b2b9f7-prod2, arena/43f4359d-prod2, arena/f55b5827-prod2). Kept main's merged versions; this session's parallel copies were **not** re-applied (see the integration note below). |
+| R-04 Decision-readiness + measurement integrity | done | arena/20f83238-prod2 | — | Verified against main's build: measure.js on 28/28 pages, five events defined, ledger empty by rule, decision-readiness ground already covered by the questions page's discovery-methods table (R-04's planned table would have duplicated it — not added). |
+| R-05 Stale-PR handoff (PRs #23, #25) | done | arena/20f83238-prod2 | `gh` only | Both claims expired >8h; closed with handoff comments. Unique content carried: PR #23's start-here path + byline (superseded by the shop-front's shipped equivalents), PR #25's gift-guide topic (shipped as `guide-gift-guide.html`) and its probe-in-air-fryer topic (carried into the editorial calendar queue). Branches remain on the remote; nothing discarded. |
+| R-06 Integration: rebase onto consolidated main, union deltas only, gates, PR → main, merge, Pages check | done | arena/20f83238-prod2 | `docs/`, root mirror, `COORDINATION.md` | See the integration note below. |
+
+### Integration note — parallel-session collision (nothing discarded)
+
+This session's first wave (claim `02f7591` → WIP tip `d1dec62`, pushed 06:11–06:34 UTC) built a
+brand/type/seasonal pass that **independently converged** on the same design as five parallel
+sessions racing on `main` the same morning (PRs #29–#40: the shop-front pass, the anti-slop
+pass, the register reconciliation, the audit pass, the live re-check). On `git pull --rebase`
+the collision was discovered: main already carried the working brand (D-P18), self-hosted
+Fraunces+Inter (D-P19), the December gift guide (D-P20), and had taken the ids D-P10..D-P14,
+F-P15, Q-P10/Q-P11, SG-38..SG-44 (and later D-P21, F-P25..F-P28, SG-45..SG-47) for different rows. Resolution, per the conflict protocol:
+
+1. **Nothing of main's work was discarded or overwritten.** Main's merged registers, shop front
+   and gates are the base; this session re-applied **only its unique deltas** on top (the
+   reviewer decisions below).
+2. This session's WIP is preserved verbatim: remote branch tip `d1dec62241bbc50cf3e4176f984ac673c55f2f71`
+   on `arena/20f83238-prod2` (reflog) and a bundle at the session's workspace. Its duplicate
+   ids were **not** re-introduced; new rows continue the dense numbering at D-P22 / F-P29 / SG-48.
+3. The handoff rule was applied to PRs #23/#25 (expired claims) and the one-site rule held
+   throughout: one canonical publication (`docs/`).
+4. A **second** collision arrived while PR #47 was open (PRs #48/#50 landed D-P21 (event
+   vocabulary), F-P25..F-P28 and SG-45..SG-47). The union repeated: main's rows kept their
+   ids, this session's rows renumbered again to **D-P22/D-P23, F-P29, SG-48**, with all
+   in-page references updated (audited line by line against origin/main after the union).
+
+### What this session uniquely adds (the reviewer pass, R-01)
+
+The brief requires that someone review the suggestion queue and choose the best path before
+changes, with no manual input from the owner. This session filled that slot:
+
+- **D-P22 — Path A ("prove the traffic first") is the chosen strategy** (the queue's own
+  recommendation): endpoint + Search Console + runbook next; topics from measured queries after
+  14 days; every non-Path-A item decided individually.
+- **D-P23 — the promotion hold is standing policy (SG-14 accepted):** no paid promotion and no
+  newsletter until one clean attribution test exists.
+- **Queue coherence (F-P29, resolved):** SG-05 was still 'proposed' although D-P11 had answered
+  it in the negative — reconciled to 'rejected'. Items the merged passes built but left marked
+  (SG-11/12/13/17/35) now read 'shipped' to match reality; SG-02/07/08/10/39/41/43 are
+  'deferred' with their blockers stated; SG-01/34/36/44 are 'accepted' with their gates.
+- **SG-48 (new):** the monthly owner digest that turns the questions register into a standing
+  prompt — the brief's "suggestions to discover missing information" in standing form.
+- The suggestions page now opens with the review outcome and its status vocabulary includes
+  deferred and rejected; the walkthrough procedure stays for future reviews.
+
+### Sources used this session
+
+- The suggestion queue and decision log themselves (`data/p2/{suggestions,decisions}.json`),
+  the Program-Policies-derived rationale already recorded in D-P11/D-P15/D-P18..D-P20 (not
+  re-fetched here; egress allowlist unchanged). No product fact, price or rating was touched.
+- Owner lookup links cited for manual review where the decisions defer to owner actions:
+  Associates Central (Q-01), Google Search Console (Q-P08), USPTO trademark search (Q-19/Q-P10).
+
+### Verification performed (all green at merge)
+
+- `python3 tools/build.py && python3 tools/checks.py` — ALL CHECKS PASSED, 28 pages,
+  13 sections (measurement section prints the known, non-blocking F-P23 event-vocab NOTE per D-P15).
+- `python3 scripts/verify_site.py` — VERIFY OK (18 pages); `npm test` — 2/2.
+- Cross-reference sweep (gate-enforced): every F-/Q-/SG-/D- id cited on any page exists in its
+  register, including the new D-P22/D-P23/F-P29/SG-48.
+
+### Irregularities for manual review (non-blocking)
+
+1. F-P23 (carried) — site/endpoint event-vocabulary mismatch awaits the owner's choice (Q-P14).
+2. F-P19/F-P20 (carried) — Pages still serves the repo root; owner action: Settings → Pages →
+   Source: GitHub Actions.
+3. F-P24 (carried) — the submitted short links did not resolve to listings on the 2026-11-20
+   re-check; owner/browser check required. Untouched here by design.
+4. F-P29 (resolved this session) — queue/decision-log disagreement on SG-05, documented above.
+
+### PR / merge / deploy record
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/47 (`arena/20f83238-prod2` → `main`) |
+| Merge result | (recorded after merge) |
+| Pages | (recorded after deploy verification) |

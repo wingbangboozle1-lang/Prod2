@@ -582,6 +582,7 @@ a.src:hover { color: var(--ink); }
 .status-shipped { background: var(--sage-deep, #44543E); color: #fff; }
 .status-recorded { background: var(--sage-wash); color: var(--sage-deep); display: inline-block; border-color: #DDE4D8; }
 .status-rejected { background: var(--paper-deep); color: var(--muted); text-decoration: line-through; }
+.status-deferred { background: #FBF4DE; color: var(--gold); border-color: var(--gold); }
 .reco {
   background: var(--paper-deep); border-radius: var(--radius-sm);
   padding: .8rem 1rem; font-size: .9rem; margin: 0;
