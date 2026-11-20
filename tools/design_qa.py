@@ -514,13 +514,27 @@ def main() -> int:
     # ------------------------------------------------------------- tokens
     check("tokens")
     used: dict[str, int] = {}
+    # A var() with a fallback still paints: `var(--x, #fff)` degrades to #fff.
+    # Only a var() with NO fallback and NO definition loses the declaration, so
+    # the two cases are counted separately rather than treated as one failure.
+    fallback: dict[str, int] = {}
     for r in all_rules:
         for value in r.decls.values():
-            for m in re.finditer(r"var\(\s*(--[\w-]+)", value):
-                used[m.group(1)] = used.get(m.group(1), 0) + 1
+            for m in re.finditer(r"var\(\s*(--[\w-]+)\s*(,)?", value):
+                name, has_fb = m.group(1), bool(m.group(2))
+                if has_fb:
+                    fallback[name] = fallback.get(name, 0) + 1
+                else:
+                    used[name] = used.get(name, 0) + 1
     for name, count in sorted(used.items()):
         if name not in tokens:
-            fail(f"{name} used {count}x but never defined — every rule depending on it is dropped")
+            fail(f"{name} used {count}x with no definition and no fallback — the declaration is dropped")
+        elif name in tokens[name]:
+            fail(f"{name} is defined in terms of itself")
+    for name, count in sorted(fallback.items()):
+        if name not in tokens:
+            note(f"{name} is undefined but always used with a literal fallback ({count}x) — safe, but the "
+                 f"token layer is the wrong place for a one-off colour")
         elif name in tokens[name]:
             fail(f"{name} is defined in terms of itself")
     undefined_note = len([n for n in used if n not in tokens])
