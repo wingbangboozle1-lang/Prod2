@@ -1214,9 +1214,58 @@ def build_sitemap() -> None:
 
 
 def build_robots() -> None:
+    # One site to index. Everything under archive/ is a previous build of this
+    # same project; leaving it crawlable splits link equity between a live page
+    # and three dead copies of it. The robots file asks; guard_archive() enforces
+    # with a per-file noindex, because robots.txt alone cannot stop indexing of a
+    # page that is already linked.
     (DOCS / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\nDisallow: /Prod2/archive/\n\n"
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /Prod2/archive/\n"
+        "Disallow: /Prod2/data/\n"
+        "Disallow: /Prod2/tools/\n"
+        "Disallow: /Prod2/content/\n"
+        "Disallow: /Prod2/scripts/\n"
+        "Disallow: /Prod2/tests/\n\n"
         f"Sitemap: {BASE}/sitemap.xml\n", encoding="utf-8")
+
+
+NOINDEX = '<meta name="robots" content="noindex, nofollow">'
+NOINDEX_XML = '<!-- robots: noindex, nofollow — archived build, not a publication -->'
+
+
+def guard_archive() -> int:
+    """Mark every archived HTML/XML file non-indexable.
+
+    GitHub Pages serves this repository in legacy "main /" mode, so every .html
+    committed under archive/ is fetchable at the live host and competes with the
+    canonical site in search results. robots.txt is a request, not an access
+    control, so each archived document also gets a noindex directive written in
+    place on every build. Returns how many files were tagged.
+    """
+    tagged = 0
+    arch = ROOT / "archive"
+    if not arch.is_dir():
+        return 0
+    for f in arch.rglob("*"):
+        if not f.is_file() or f.suffix not in (".html", ".xml"):
+            continue
+        text = f.read_text(encoding="utf-8", errors="replace")
+        marker = NOINDEX if f.suffix == ".html" else NOINDEX_XML
+        if "noindex" in text:
+            continue
+        if f.suffix == ".html":
+            head = re.search(r"<head[^>]*>", text, re.I)
+            if head:
+                text = text[:head.end()] + "\n" + marker + text[head.end():]
+            else:  # a fragment with no <head>: prepend a bare directive
+                text = marker + "\n" + text
+        else:
+            text = marker + "\n" + text
+        f.write_text(text, encoding="utf-8")
+        tagged += 1
+    return tagged
 
 
 def main() -> None:
@@ -1234,7 +1283,10 @@ def main() -> None:
     build_sitemap()
     build_robots()
     (DOCS / ".nojekyll").write_text("")
+    archived = guard_archive()
     print(f"built {len(PAGES)} pages -> {DOCS}")
+    if archived:
+        print(f"tagged {archived} archived files noindex (they are served at the root)")
 
 
 def mirror_to_root():

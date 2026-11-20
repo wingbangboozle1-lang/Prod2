@@ -33,6 +33,9 @@ Sections:
                link.amazon short links are quoted evidence, never clickable
   measurement  the site's event list vs the endpoint's accepted names; any
                divergence FAILS the build (F-P23 fixed 2026-11-20, D-P21)
+  one-site     one canonical base across every page; sitemap complete and free of
+               duplicates; every archived build carries noindex; robots.txt scoped
+               away from source and archive
   briefs       the decision layer: every declared brief rendered, every cited
                register id resolves, no brief with an empty "not known" list, and
                the page is in the sitemap and the footer directory (X-04)
@@ -633,6 +636,48 @@ def main() -> int:
             fail("index.html does not link briefs.html (the footer directory must carry it)")
     if not FAILURES:
         ok(f"{'briefs' and len(bjson)} briefs rendered; every citation resolves; page in sitemap + footer")
+
+    # --------------------------------------------------------- one-site/noindex
+    check("one-site")
+    # "Make it findable" means one site, not four. Every archived build is still
+    # fetchable at the live host; left unmarked it competes with the canonical page
+    # it duplicates. guard_archive() writes a noindex into each one on every build,
+    # and this section is what stops that from silently regressing.
+    arch = ROOT / "archive"
+    if arch.is_dir():
+        unmarked = []
+        for f in arch.rglob("*"):
+            if f.is_file() and f.suffix in (".html", ".xml"):
+                if "noindex" not in f.read_text(encoding="utf-8", errors="replace"):
+                    unmarked.append(f.relative_to(arch).as_posix())
+        if unmarked:
+            fail(f"{len(unmarked)} archived pages ship without noindex, so duplicate copies of "
+                 f"the site stay indexable (first: {unmarked[0]}) — rerun tools/build.py")
+    robots = (DOCS / "robots.txt").read_text(encoding="utf-8")
+    for required in ("Disallow: /Prod2/archive/", "Disallow: /Prod2/data/", "Sitemap: "):
+        if required not in robots:
+            fail(f"robots.txt: missing '{required}'")
+    # exactly one canonical home: every page points at the same base, and the
+    # sitemap holds no duplicates and no unbuilt URL.
+    cands = set()
+    for f in html_files:
+        m = re.search(r'<link rel="canonical" href="([^"]+)"', f.read_text(encoding="utf-8"))
+        if not m:
+            fail(f"{f.name}: no canonical link (search engines must be told which URL is the page)")
+        else:
+            cands.add(m.group(1).rsplit("/", 1)[0])
+    if len(cands) > 1:
+        fail(f"pages declare {len(cands)} different canonical bases: {sorted(cands)}")
+    smap = (DOCS / "sitemap.xml").read_text(encoding="utf-8")
+    locs = re.findall(r"<loc>([^<]+)</loc>", smap)
+    if len(locs) != len(set(locs)):
+        fail("sitemap.xml contains duplicate <loc> entries")
+    built_names = {f.name for f in html_files}
+    missing_from_sitemap = sorted(n for n in built_names if f"/{n}<" not in smap)
+    if missing_from_sitemap:
+        fail(f"{len(missing_from_sitemap)} built pages absent from sitemap.xml: {missing_from_sitemap[:4]}")
+    if not FAILURES:
+        ok(f"one canonical base; {len(locs)} sitemap URLs, no duplicates; archive noindexed; robots scoped")
 
     # --------------------------------------------------------------- integrity
     check("integrity")
