@@ -2421,7 +2421,7 @@ experience) and the 2023-02 AI-content blog; `foodsafety.gov` (cook chart, cold 
 `fsis.usda.gov` (safe temperature chart, food thermometers); `food.unl.edu` (air fryer tips); live
 Pages host (33 files); `github.com/kanlerxz87-cyber/{Zone3,Zone4}`.
 
-| PR | (filled after merge) |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/68 (`arena/85ef21d8-prod2` → `main`) |
 
 ### Scope boundary addendum (2026-11-20, post-audit)
 
@@ -2606,3 +2606,12 @@ keeping both sides' work:
   its wanted content arrived through the generated build.
 
 Final state: 37 pages, all 14 checks plus the endpoint tests pass.
+
+### Merge + deploy record — arena/85ef21d8-prod2 (2026-11-20)
+
+| Item | Value |
+| --- | --- |
+| PR | #68 (single commit on `main`@`1a135ca`) |
+| Merge result | MERGED 2026-11-20T07:23:32Z, merge commit `407b2fa`; CI on the merge: build success (the deploy job was superseded by later merges — the latest deploy serves) |
+| Pages after merge | Deploy for `main`@`c60260d` completed success; live check: sitemap.xml serves 46 URLs matching `main`'s build (site grew past the 30-page audit set — see the scope-boundary addendum), index/flagged titles match the build, all product links tagged `shopnow047c-20` with "(paid link)" labels, no published prices |
+| Board hygiene | During the merge window several sessions appended to this board concurrently; this session's commits were rebuilt additively onto each newest `main` (+additions only, no other session's rows touched) until #68 merged cleanly |
