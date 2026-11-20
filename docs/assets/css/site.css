@@ -970,3 +970,19 @@ h2#B-01, h2#B-02, h2#B-03, h2#B-04, h2#B-05, h2#B-06 { scroll-margin-top: 4rem; 
 /* product-card headings: keep the serif lift but allow a long model name to wrap
    without orphan words on a narrow card */
 .product-card h3.card-title { text-wrap: balance; }
+
+/* numbered step lists (before-you-decide.html): a real ordered list, styled so the
+   numeral reads as a step marker rather than as body text */
+ol.numbered { list-style: none; counter-reset: step; padding: 0; margin: 1.3rem 0; max-width: 52rem; }
+ol.numbered > li {
+  counter-increment: step; position: relative; padding: .15rem 0 .15rem 2.6rem; margin: 0 0 .9rem;
+  font-size: .96rem; line-height: 1.55;
+}
+ol.numbered > li::before {
+  content: counter(step); position: absolute; left: 0; top: 0;
+  width: 1.75rem; height: 1.75rem; border-radius: 50%;
+  background: var(--terracotta-wash); color: var(--terracotta-deep);
+  border: 1px solid rgba(194, 85, 47, .22);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-size: .8rem; font-weight: 750;
+}
