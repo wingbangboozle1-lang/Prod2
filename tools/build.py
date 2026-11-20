@@ -1080,6 +1080,23 @@ def hook_longread_cards(_="") -> str:
     return '<div class="card-grid">' + "".join(cards) + "</div>"
 
 
+def hook_longread_links(_="") -> str:
+    """The long reads, as an inline sentence — generated, because the typed version of
+    this line kept saying "the two long reads" after the third one published."""
+    items = [(it["path"][:-5], PAGE_TITLES.get(it["path"][:-5], "").split(" | ")[0])
+             for it in (CALENDAR.get("longreads") or {}).get("items") or []
+             if it["path"][:-5] in PAGE_TITLES]
+    links = [f'<a href="{esc(gid)}.html">{esc(title)}</a>' for gid, title in items]
+    if not links:
+        return ""
+    if len(links) == 1:
+        listed = links[0]
+    else:
+        listed = ", ".join(links[:-1]) + ", and " + links[-1]
+    n = "long read" if len(links) == 1 else "long reads"
+    return f"The {len(links)} {n}: {listed}."
+
+
 def hook_trust_row(_="") -> str:
     """The hero's count row, computed from the registers instead of typed by hand.
 
@@ -1367,6 +1384,7 @@ HOOKS = {
     "decide_faq": hook_decide_faq,
     "trust_row": hook_trust_row,
     "longread_cards": hook_longread_cards,
+    "longread_links": hook_longread_links,
     "queue_stats": hook_queue_stats,
     "readiness": hook_readiness,
     "intent_table": hook_intent_table,
