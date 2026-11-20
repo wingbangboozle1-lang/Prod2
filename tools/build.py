@@ -22,7 +22,7 @@ CONTENT = ROOT / "content"
 ASSETS_SRC = ROOT / "assets"
 DOCS = ROOT / "docs"
 
-BUILD_DATE = "2026-11-19"  # set on each publishing pass
+BUILD_DATE = "2026-11-20"  # set on each publishing pass
 
 
 def load(name: str):
@@ -55,9 +55,17 @@ PROD_BY_ID = {p["id"]: p for p in PRODUCTS}
 # ---------------------------------------------------------------------------
 PAGES = [
     ("index", "index.html",
-     f"Find the format that fits your kitchen | {BRAND}",
-     "Three air fryers and two meat thermometers compared by format, capacity and counter fit. Every figure links to the official listing it was read from.",
+     f"Air fryers and meat thermometers, chosen by format | {BRAND}",
+     "Three air fryers in three formats and two meat thermometers, compared by capacity, counter fit and cleanup. Every figure cites the official listing it came from.",
      "home"),
+    ("shop", "shop.html",
+     f"Shop: the five kitchen tools we follow | {BRAND}",
+     "One shelf: three air fryer formats and two thermometer workflows, filtered by what you cook and how much counter you can spare. Paid links, marked.",
+     "shop"),
+    ("about", "about.html",
+     f"About {BRAND}: who writes this and how we check | {BRAND}",
+     "Who edits this site, the four rules every page follows, how figures are read and dated, and exactly what we cannot tell you yet.",
+     "about"),
     ("compare", "compare.html",
      f"Compare the five products side by side | {BRAND}",
      "One sourced comparison table: format, capacity, dimensions, counter depth and listed features — plus a three-question chooser and the counter-space analysis.",
@@ -188,22 +196,29 @@ def listing_link(p: dict, label: str = "listing") -> str:
             f'rel="noopener" target="_blank">{esc(label)}</a>')
 
 
-def buy_link(p: dict, text: str | None = None) -> str:
+def buy_link(p: dict, text: str | None = None, cls: str = "btn btn-buy") -> str:
     label = text or f"See the {p['name_short']} on Amazon"
-    return amazon_link(p["buy_url"], label, "btn") + f' <span class="paid">{esc(PAID_LABEL)}</span>'
+    return amazon_link(p["buy_url"], label, cls) + f' <span class="paid">{esc(PAID_LABEL)}</span>'
 
 
 # ---------------------------------------------------------------------------
 # Layout chrome
 # ---------------------------------------------------------------------------
+# Reader navigation: what a shopper needs. Six links, one group.
+# D-06 (2026-11-20): the previous nav carried eleven links, five of which were
+# dashboard surfaces. Those move to the footer's "The work behind it" directory,
+# which the gate still requires on every page.
 NAV_READER = [
+    ("shop.html", "Shop"),
     ("category-air-fryers.html", "Air fryers"),
     ("category-thermometers.html", "Thermometers"),
-    ("compare.html", "Compare all"),
     ("guides.html", "Guides"),
-    ("buying-guide.html", "Buying guide"),
+    ("compare.html", "Compare"),
+    ("about.html", "About"),
 ]
+# Everything an owner, reviewer or search engine needs, reachable from every page.
 NAV_WORK = [
+    ("about.html", "About &amp; standards"),
     ("executive-summary.html", "Executive summary"),
     ("method.html", "Method &amp; sources"),
     ("flagged.html", "Flagged for review"),
@@ -251,12 +266,12 @@ def build_footer() -> str:
     def lis(items):
         return "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in items)
     guides = lis(GUIDE_LINKS)
-    shop = lis([("compare.html", "Compare the five"), ("products.html", "Products &amp; specs"),
-                ("category-air-fryers.html", "Air fryers"), ("category-thermometers.html", "Thermometers"),
-                ("buying-guide.html", "Buying guide")])
+    shop = lis([("shop.html", "Shop the shelf"), ("compare.html", "Compare the five"),
+                ("products.html", "Products &amp; specs"), ("category-air-fryers.html", "Air fryers"),
+                ("category-thermometers.html", "Thermometers"), ("buying-guide.html", "Buying guide")])
     read = lis([("guides.html", "All guides"), ("buying-guide.html", "Buying guide"),
                 ("guides.html#subscribe", "Follow the feed"), ("guides.html#ask", "Ask a question"),
-                ("guides.html#byline", "Who writes this")])
+                ("about.html", "Who writes this")])
     work = lis(NAV_WORK)
     return f"""
 <footer class="footer">
@@ -281,7 +296,6 @@ DISCLOSURE_STRIP = (f'<div class="disclosure" role="note">'
                     f'<span class="disclosure-more">Product links on this site are paid links, marked {esc(PAID_LABEL)}; '
                     f'we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span>'
                     f'</div>')
-
 
 # ---------------------------------------------------------------------------
 # Data-rendering hooks
@@ -517,6 +531,32 @@ def hook_suggestions(_="") -> str:
     return "".join(out)
 
 
+def hook_decisions(_="") -> str:
+    out = []
+    for d in DECISIONS:
+        srcs = "".join(f'<a class="src" href="{esc(u)}" rel="noopener" target="_blank">source</a> ' for u in d.get("sources", []))
+        out.append(f"""
+<article class="card d-card" id="{esc(d['id'])}">
+  <h3><code>{esc(d['id'])}</code> {esc(d['question'])}</h3>
+  <p class="status status-recorded">{esc(d['status'])}</p>
+  <p>{esc(d['recorded_choice'])}</p>
+  <p>{srcs}</p>
+</article>""")
+    return "".join(out)
+
+
+def hook_decisions_summary(_="") -> str:
+    rows = []
+    for d in DECISIONS:
+        rows.append(f'<tr><td><a href="#{esc(d["id"])}"><code>{esc(d["id"])}</code></a></td>'
+                    f'<td>{esc(d["question"])}</td>'
+                    f'<td>{esc(d.get("status", ""))}</td></tr>')
+    return ('<div class="table-scroll"><table class="data">'
+            '<caption>Decision log — every recorded choice, newest first</caption>'
+            '<thead><tr><th>ID</th><th>The question it answers</th><th>When recorded</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table></div>')
+
+
 def hook_suggestions_summary(_="") -> str:
     """One scannable row per suggestion: what you would actually be deciding."""
     rows = []
@@ -540,60 +580,6 @@ def hook_suggestions_summary(_="") -> str:
         '<thead><tr><th>ID</th><th>What it would change</th><th>Status</th>'
         '<th>Cost to you</th><th>Reversibility</th><th>Your action</th></tr></thead>'
         f'<tbody>{"".join(rows)}</tbody></table></div>')
-
-
-def hook_decisions(_="") -> str:
-    """Grouped by what the decision is about, newest project decisions first
-    inside each group, so the log reads as a record rather than a dump."""
-    groups: dict[str, list[dict]] = {}
-    for d in DECISIONS:
-        did = d["id"]
-        if did.startswith("D-P10") or did in ("D-P10", "D-P11"):
-            g = "This pass (2026-11-20)"
-        elif did.startswith("D-P"):
-            g = "This project's publication decisions"
-        else:
-            g = "Carried decisions from the verified register"
-        groups.setdefault(g, []).append(d)
-    order = ["This pass (2026-11-20)", "This project's publication decisions",
-             "Carried decisions from the verified register"]
-    out = []
-    for g in order:
-        rows = groups.get(g, [])
-        if not rows:
-            continue
-        out.append(f'<h2>{esc(g)} <span class="muted" style="font-size:1rem;font-family:var(--sans)">'
-                   f'({len(rows)})</span></h2>')
-        out.append('<div class="card-grid">')
-        for d in rows:
-            srcs = "".join(
-                f'<a class="src" href="{esc(u)}" rel="noopener" target="_blank">source</a> '
-                for u in d.get("sources", []))
-            resolves = d.get("resolves")
-            resolve_html = (f'<p class="small-note">Closes: {esc(", ".join(resolves))}</p>'
-                            if resolves else "")
-            out.append(f"""
-<article class="d-card" id="{esc(d['id'])}">
-  <p><span class="status status-recorded">{esc(d['status'])}</span></p>
-  <h3><code>{esc(d['id'])}</code> {esc(d['question'])}</h3>
-  <dl><dt>Recorded choice</dt><dd>{esc(d['recorded_choice'])}</dd></dl>
-  {resolve_html}
-  <p class="small-note">{srcs}</p>
-</article>""")
-        out.append("</div>")
-    return "".join(out)
-
-
-def hook_decisions_summary(_="") -> str:
-    rows = []
-    for d in DECISIONS:
-        rows.append(f'<tr><td><a href="#{esc(d["id"])}"><code>{esc(d["id"])}</code></a></td>'
-                    f'<td>{esc(d["question"])}</td>'
-                    f'<td>{esc(d.get("status", ""))}</td></tr>')
-    return ('<div class="table-scroll"><table class="data">'
-            '<caption>Decision log — every recorded choice, newest first</caption>'
-            '<thead><tr><th>ID</th><th>The question it answers</th><th>When recorded</th></tr></thead>'
-            f'<tbody>{"".join(rows)}</tbody></table></div>')
 
 
 def hook_ledger_events(_="") -> str:
@@ -621,43 +607,274 @@ def hook_local_events(_="") -> str:
             '<th>Fields</th></tr></thead><tbody>' + rows + '</tbody></table></div>')
 
 
-# Where each product card's "full specs" link lands.
-PRODUCT_LANDING = {
-    "P1": "category-air-fryers.html#dual",
-    "P2": "category-air-fryers.html#oven",
-    "P3": "category-air-fryers.html#single",
-    "P4": "category-thermometers.html#instant",
-    "P5": "category-thermometers.html#wireless",
+# Product imagery: drawn, ours, and deliberately generic. No Amazon product
+# photography is copied onto this site; each card is a format illustration so a
+# reader sees the shape of the appliance, not a brand's asset (see about.html).
+PRODUCT_IMAGES = {
+    "P1": ("assets/img/fmt-dual-basket.png", "Two-basket air fryer, drawn from the format"),
+    "P2": ("assets/img/fmt-toaster-oven.png", "French-door air fryer toaster oven, drawn from the format"),
+    "P3": ("assets/img/fmt-single-basket.png", "Single-basket air fryer, drawn from the format"),
+    "P4": ("assets/img/fmt-instant-read.png", "Folding instant-read thermometer, drawn from the format"),
+    "P5": ("assets/img/fmt-wireless-probe.png", "Wireless leave-in probe and hub, drawn from the format"),
+}
+# Plain-English positioning. Every claim here restates a listed feature that is
+# already published on the card; these are the "who is this for" line, not a ranking.
+PRODUCT_BEST_FOR = {
+    "P1": "Two dishes, one finish time",
+    "P2": "Sheet-pan meals and rack cooking",
+    "P3": "One big basket, the least counter",
+    "P4": "A one-second spot check",
+    "P5": "Long cooks, watched from away",
+}
+PRODUCT_BUY_LABEL = {
+    "P1": "Check price on Amazon",
+    "P2": "Check price on Amazon",
+    "P3": "Check price on Amazon",
+    "P4": "Check price on Amazon",
+    "P5": "Check price on Amazon",
 }
 
 
 def hook_product_cards(_="") -> str:
     cards = []
     for p in PRODUCTS:
-        landing = PRODUCT_LANDING.get(p["id"], "products.html")
+        src, alt = PRODUCT_IMAGES[p["id"]]
         cards.append(f"""
 <article class="card product-card" id="{esc(p['id'])}">
-  <p class="card-kicker">{esc(p['format'])}</p>
-  <h3><a href="{esc(landing)}">{esc(p['name_short'])}</a></h3>
-  <span class="asin">ASIN {esc(p['asin'])}</span>
-  <ul>
-    <li>{esc(p.get('highlight_1') or '')}</li>
-    <li>{esc(p.get('highlight_2') or '')}</li>
-    <li>{esc(p.get('highlight_3') or '')}</li>
-  </ul>
-  <div class="card-foot">
-    {buy_link(p)}
-    <p class="card-src">Facts from {listing_link(p, 'the official listing')} \
-      &middot; read {esc(p.get('name_listing_read') or '')} \
-      &middot; <a href="products.html#{esc(p['id'])}">full specs</a></p>
+  <a class="thumb" href="{esc(p['buy_url'])}" rel="sponsored nofollow noopener" target="_blank"
+     data-affiliate="1" tabindex="-1" aria-hidden="true">
+    <img src="{esc(BASE)}/{src}" alt="" loading="lazy" width="1200" height="900">
+    <span class="rank">{esc(p['format'])}</span>
+  </a>
+  <div class="body">
+    <p class="eyebrow">Best for: {esc(PRODUCT_BEST_FOR[p['id']])}</p>
+    <h3><a href="products.html#{esc(p['id'])}" style="color:inherit;text-decoration:none">{esc(p['name_short'])}</a></h3>
+    <p class="muted asin">{esc(p['asin'])}</p>
+    <ul>
+      <li>{esc(p.get('highlight_1') or '')}</li>
+      <li>{esc(p.get('highlight_2') or '')}</li>
+      <li>{esc(p.get('highlight_3') or '')}</li>
+    </ul>
+    <p class="buy-row">{buy_link(p, PRODUCT_BUY_LABEL[p['id']])}</p>
+    <p class="source-line">Listed facts sourced to {listing_link(p, 'the official listing')}; listing re-checked {esc(p.get('last_live_read') or p.get('name_listing_read') or '')}. Illustration, not the product photo.</p>
   </div>
 </article>""")
-    return '<div class="shelf">' + "".join(cards) + "</div>"
+    return '<div class="shelf">' + "".join(cards) + '</div>'
 
 
-# label, product key, and the dated-read field that backs that key.
-# The date column must show the read that actually supports the value, not
-# whatever date happens to be newest on the record.
+def hook_facts(pid: str) -> str:
+    p = PROD_BY_ID[pid]
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>Fact</th><th>Value as listed</th>'
+            '<th>Read (UTC)</th><th>Source</th></tr></thead><tbody>' + spec_rows(p) + '</tbody></table></div>')
+
+
+def hook_guide_links(_="") -> str:
+    items = "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in GUIDE_LINKS)
+    return f'<ul class="guide-links">{items}</ul>'
+
+
+def hook_comparison_cta(_="") -> str:
+    # Fixed 2026-11-20: this used to be a paid Amazon link labelled "Compare all
+    # five", which pointed at P1's listing. A comparison call to action must lead
+    # to the comparison, not to one product (misleading-label risk under
+    # Program Policies §2(b)).
+    return ('<p class="cta-row"><a class="btn" href="compare.html">Compare all five side by side</a>'
+            ' <a class="btn btn-ghost" href="buying-guide.html">Read the buying guide</a></p>')
+
+
+GUIDE_BLURBS = {
+    "guide-basket-vs-oven": "The format decision, decoded: food shape, preheat patience, cleanup.",
+    "guide-capacity": "Quarts lie when you compare across formats. Make them mean the same thing.",
+    "guide-cleanup-counter-space": "What listed dimensions and dishwasher-safe parts tell you before it arrives.",
+    "guide-multifunction": "Twenty-four presets, twenty-four reasons to buy? The questions that count them down.",
+    "guide-thermometer-accuracy": "±0.5°F versus ±1°F, check-it versus watch-it: what the claims really say.",
+    "guide-how-many-quarts": "A serving-count sanity check from the listed capacities, not the marketing.",
+    "guide-two-baskets-or-one": "Batch math meets listed specs: when two drawers beat one big basket.",
+    "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
+    "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
+}
+GUIDE_TAGS = {
+    "guide-basket-vs-oven": "Format",
+    "guide-capacity": "Capacity",
+    "guide-cleanup-counter-space": "Counter space",
+    "guide-multifunction": "Multi-function",
+    "guide-thermometer-accuracy": "Thermometers",
+    "guide-how-many-quarts": "Capacity",
+    "guide-two-baskets-or-one": "Format",
+    "guide-holiday-hosting": "Seasonal",
+    "guide-instant-vs-leave-in": "Thermometers",
+}
+
+
+def _guide_card(gid: str) -> str:
+    title = GUIDE_TITLES[gid].split(" | ")[0]
+    return f"""
+  <article class="card guide-card">
+    <span class="tag">{esc(GUIDE_TAGS.get(gid, "Guide"))}</span>
+    <h3><a href="{gid}.html">{esc(title)}</a></h3>
+    <p>{esc(GUIDE_BLURBS.get(gid, ""))}</p>
+    <a class="more" href="{gid}.html">Read the guide</a>
+  </article>"""
+
+
+def hook_guide_cards(_="") -> str:
+    return '<div class="card-grid">' + "".join(_guide_card(g) for g in GUIDE_IDS) + "</div>"
+
+
+def hook_subscribe(_="") -> str:
+    return f"""
+<div class="card subscribe-card" id="subscribe">
+  <h3>Follow the feed</h3>
+  <p>Every new guide lands in <a href="feed.xml" data-feed="1">the RSS feed</a> the day it publishes. It is the reader channel on this site that collects nothing at all: no sign-up, no address, no tracking.</p>
+  <p class="muted">Feed address: <code>{esc(BASE)}/feed.xml</code> — paste it into any feed reader.</p>
+</div>"""
+
+
+def hook_reader_capture(_="") -> str:
+    consent = esc(SETTINGS.get("reader_capture", {}).get("consent_checkbox_text",
+                                                          "Use my question only to answer it on the site."))
+    endpoint = SETTINGS.get("reader_capture", {}).get("endpoint", "") or ""
+    state = "live" if endpoint else "disconnected"
+    return f"""
+<div class="card capture-card" id="ask">
+  <h3>What should we answer next?</h3>
+  <p>Every guide here starts from a real buyer question. Ask yours in one line — if it fits the five products we follow, it enters the <a href="guides.html">guide queue</a>.</p>
+  <form class="capture-form" data-capture="{esc(state)}" data-capture-endpoint="{esc(endpoint)}">
+    <label for="capture-question">Your question</label>
+    <textarea id="capture-question" name="question" rows="3" required
+      placeholder="e.g. Can two baskets really finish dinner at the same time?"></textarea>
+    <label for="capture-email">Email <span class="muted">(optional — only to tell you when the answer publishes)</span></label>
+    <input id="capture-email" name="email" type="email" autocomplete="email">
+    <label class="capture-consent"><input type="checkbox" name="consent" required> {consent}</label>
+    <button type="submit" class="btn">Send the question</button>
+    <p class="capture-note" data-capture-note hidden></p>
+    <p class="muted small-note">This form is currently <strong>disconnected on purpose</strong>: nothing is sent anywhere until the privacy basis for holding an email is settled (<a href="questions.html#Q-47">Q-47</a>) and an endpoint is configured (<a href="flagged.html#F-P14">F-P14</a>). Until then your question stays in your own browser.</p>
+  </form>
+</div>"""
+
+
+def hook_byline(_="") -> str:
+    return f"""
+<div class="byline-strip" id="byline">
+  <div>
+    <h3>Who writes this</h3>
+    <p>{esc(BRAND)} is an edited buying guide, not a store and not a lab. Every figure was read from an official listing or an official policy page on a dated pass, and the citation sits next to it. Nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>), so nothing pretends otherwise. <a href="about.html">Read the four rules every page follows</a>, or go straight to the <a href="method.html">receipts</a>.</p>
+  </div>
+  <p class="byline-meta">Published {esc(BUILD_DATE)} · <a href="feed.xml" data-feed="1">RSS</a> · <a href="https://github.com/wingbangboozle1-lang/Prod2" rel="noopener" target="_blank">Source register on GitHub</a></p>
+</div>"""
+
+
+def hook_season_desk(_="") -> str:
+    blocks = []
+    for s in CALENDAR["seasons"]:
+        links = "".join(
+            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
+            for g in s["guides"])
+        blocks.append(f"""
+  <div class="card season-card">
+    <p class="eyebrow">{esc(s["window"])} · {esc(s["status"])}</p>
+    <h3>{esc(s["name"])}</h3>
+    <p>{esc(s["line"])}</p>
+    <ul class="season-guides">{links}</ul>
+  </div>""")
+    return ('<div class="card-grid season-grid">' + "".join(blocks) + "</div>"
+            + '<p class="table-note">Seasons follow the US calendar (the marketplace is amazon.com). '
+            "They are an editorial rotation, not a demand claim — no season is chosen from a trend figure "
+            '(<a href="flagged.html#F-15">F-15</a>). Rotation register: '
+            '<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json" rel="noopener" target="_blank">data/p2/calendar.json</a>.</p>')
+
+
+def hook_clusters(_="") -> str:
+    blocks = []
+    for c in CALENDAR["clusters"]:
+        links = "".join(
+            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
+            for g in c["guides"])
+        blocks.append(f"""
+  <div class="card cluster-card">
+    <p class="eyebrow">Cluster · {len(c["guides"])} guides</p>
+    <h3><a href="{esc(c["pillar"])}">{esc(c["name"])}</a></h3>
+    <p>{esc(c["line"])}</p>
+    <ul class="cluster-guides">{links}</ul>
+    <p><a class="more" href="{esc(c["pillar"])}">The {esc(c["name"].lower())} pillar page</a></p>
+  </div>""")
+    return '<div class="card-grid cluster-grid">' + "".join(blocks) + "</div>"
+
+
+def hook_queue(_="") -> str:
+    rows = "".join(
+        f'<tr><td>{esc(q["due_utc"])}</td><td>{esc(q["title"])}</td><td>{esc(q["answers_with"])}</td></tr>'
+        for q in CALENDAR["queue"])
+    return (f'<div class="table-scroll"><table class="data"><thead><tr><th>Due (UTC)</th>'
+            f"<th>Working title — a hypothesis, not a popularity claim</th>"
+            f"<th>Answerable from</th></tr></thead><tbody>{rows}</tbody></table></div>"
+            f'<p class="table-note">Cadence: {esc(CALENDAR["cadence"]["unit"])}, every '
+            f'{esc(str(CALENDAR["cadence"]["interval_days"]))} days; next due '
+            f'{esc(CALENDAR["cadence"]["next_due_utc"])}. {esc(CALENDAR["cadence"]["rule"])}</p>')
+
+
+def hook_questions_summary(_="") -> str:
+    rows = []
+    for q in QUESTIONS:
+        state = "owner action" if "account holder" in q.get("answerable_by", "").lower() else "open"
+        rows.append(f'<tr><td><a href="#{esc(q["id"])}"><code>{esc(q["id"])}</code></a></td>'
+                    f'<td>{esc(q["area"])}</td><td>{esc(q["question"])}</td>'
+                    f'<td>{esc(state)}</td><td>{esc(", ".join(q.get("blocks", [])) or "—")}</td></tr>')
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>ID</th><th>Area</th>'
+            '<th>The question</th><th>State</th><th>What it blocks</th></tr></thead><tbody>'
+            + "".join(rows) + "</tbody></table></div>"
+            + '<p class="table-note">The full register below answers each row in five fields: '
+            "what we know, what is missing, how to discover it, who can answer it, and what it blocks.</p>")
+
+
+def hook_guides_index(_="") -> str:
+    out = []
+    for c in CALENDAR["clusters"]:
+        items = "".join(_guide_card(g[:-5]) for g in c["guides"] if g[:-5] in GUIDE_TITLES)
+        out.append(f'<h2 class="cluster-head">Cluster: {esc(c["name"])}</h2>'
+                   f'<p class="lede">{esc(c["line"])} Start at the '
+                   f'<a href="{esc(c["pillar"])}">{esc(c["name"].lower())} pillar</a> or pick a question.</p>'
+                   f'<div class="card-grid">{items}</div>')
+    return "".join(out)
+
+
+def hook_shop_grid(_="") -> str:
+    """The shelf with filter chips. Filters are progressive enhancement: with no
+    JavaScript every card is simply visible, so the page still sells."""
+    groups = [
+        ("af", "Air fryers", [p for p in PRODUCTS if p["format"].lower().find("thermometer") == -1]),
+        ("th", "Thermometers", [p for p in PRODUCTS if p["format"].lower().find("thermometer") != -1]),
+    ]
+    chips = ['<a class="chip is-active" href="shop.html" aria-pressed="true">All <span class="count">5</span></a>']
+    for pid, label, members in groups:
+        chips.append(f'<button type="button" class="chip" data-filter="{pid}" aria-pressed="false">'
+                     f'{esc(label)} <span class="count">{len(members)}</span></button>')
+    # format-level filters, one per distinct listed format
+    fmt_chips = []
+    seen = set()
+    for p in PRODUCTS:
+        f = p["format"]
+        if f in seen:
+            continue
+        seen.add(f)
+        slug = f.lower().replace(" ", "-").replace("&", "and")
+        fmt_chips.append(f'<button type="button" class="chip" data-format="{esc(slug)}" aria-pressed="false">'
+                         f'{esc(f)}</button>')
+    cards = hook_product_cards("")
+    return (f'<div class="filter-bar" role="group" aria-label="Filter the shelf">'
+            f'<span class="label">Show</span>{"".join(chips)}</div>'
+            f'<div class="filter-bar" role="group" aria-label="Filter by format">'
+            f'<span class="label">Format</span>{"".join(fmt_chips)}</div>'
+            f'{cards}'
+            '<p class="filter-status" id="filter-status" role="status" aria-live="polite"></p>')
+
+
+def hook_compare_table(_="") -> str:
+    """The decision-grade comparison table: attributed columns, sourced cells,
+    blanks that stay blank. Wraps the existing products_table output."""
+    return hook_products_table("")
+
+
 MASTER_FACTS = [
     ("Format", "format", "name_listing_read"),
     ("Brand as listed", "brand", "brand_read"),
@@ -743,183 +960,6 @@ GUIDE_TAGS = {
     "guide-instant-vs-leave-in": "Thermometers",
 }
 
-
-GUIDE_ART = {
-    "guide-basket-vs-oven": "g-basket-vs-oven",
-    "guide-capacity": "g-capacity",
-    "guide-cleanup-counter-space": "g-counter-space",
-    "guide-multifunction": "g-multifunction",
-    "guide-thermometer-accuracy": "g-thermometer",
-    "guide-how-many-quarts": "g-quarts",
-    "guide-two-baskets-or-one": "g-two-baskets",
-    "guide-holiday-hosting": "g-holiday",
-    "guide-instant-vs-leave-in": "g-instant-vs-leavein",
-}
-
-
-def reading_time(fragment: str) -> str:
-    """Words / 220, rounded up. A publication tells you what it is asking for."""
-    text = re.sub(r"<[^>]+>", " ", fragment)
-    text = re.sub(r"\{\{[^}]*\}\}", " ", text)
-    words = len(text.split())
-    return f"{max(1, round(words / 220))} min read"
-
-
-def guide_art(gid: str, alt: str, cls: str = "") -> str:
-    """A guide's own diagram. All artwork is the site's own; see tools/make_art.py."""
-    stem = GUIDE_ART.get(gid)
-    if not stem:
-        return ""
-    cls_attr = f' class="{cls}"' if cls else ""
-    return (f'<img{cls_attr} src="{esc(BASE)}/assets/img/{stem}.png" width="800" height="500" '
-            f'loading="lazy" alt="{esc(alt)}">')
-
-
-def _guide_card(gid: str) -> str:
-    title = GUIDE_TITLES[gid].split(" | ")[0]
-    art = guide_art(gid, f"Diagram for the guide: {title}")
-    return f"""
-  <article class="guide-card">
-    <a href="{gid}.html" tabindex="-1" aria-hidden="true">{art}</a>
-    <div class="guide-card-body">
-      <p class="card-kicker">{esc(GUIDE_TAGS.get(gid, "Guide"))}</p>
-      <h3><a href="{gid}.html">{esc(title)}</a></h3>
-      <p>{esc(GUIDE_BLURBS.get(gid, ""))}</p>
-      <a class="more" href="{gid}.html">Read the guide →</a>
-    </div>
-  </article>"""
-
-
-def hook_guide_cards(_="") -> str:
-    return '<div class="guide-grid">' + "".join(_guide_card(g) for g in GUIDE_IDS) + "</div>"
-
-
-def hook_subscribe(_="") -> str:
-    return f"""
-<div class="panel" id="subscribe">
-  <h3 style="margin-top:0">Follow the feed</h3>
-  <p>Every new guide lands in <a href="feed.xml" data-feed="1">the RSS feed</a> the day it
-  publishes. It is the one reader channel here that collects nothing: no sign-up, no address,
-  no tracking.</p>
-  <p class="small-note">Feed address: <code>{esc(BASE)}/feed.xml</code> — paste it into any feed reader.</p>
-  <p class="small-note">A new question-shaped guide every two weeks. Next due
-  {esc(CALENDAR["cadence"]["next_due_utc"])}.</p>
-</div>"""
-
-
-def hook_reader_capture(_="") -> str:
-    consent = esc(SETTINGS.get("reader_capture", {}).get("consent_checkbox_text",
-                                                          "Use my question only to answer it on the site."))
-    endpoint = SETTINGS.get("reader_capture", {}).get("endpoint", "") or ""
-    state = "live" if endpoint else "disconnected"
-    return f"""
-<div class="card capture-card" id="ask">
-  <h3>What should we answer next?</h3>
-  <p>Every guide here starts from a real buyer question. Ask yours — if it fits the five products we follow, it enters the <a href="guides.html">guide queue</a>.</p>
-  <form class="capture-form" data-capture="{esc(state)}" data-capture-endpoint="{esc(endpoint)}">
-    <label for="capture-question">Your question</label>
-    <textarea id="capture-question" name="question" rows="3" required
-      placeholder="e.g. Can two baskets really finish dinner at the same time?"></textarea>
-    <label for="capture-email">Email <span class="muted">(optional — only to tell you when the answer publishes)</span></label>
-    <input id="capture-email" name="email" type="email" autocomplete="email">
-    <label class="capture-consent"><input type="checkbox" name="consent" required> {consent}</label>
-    <button type="submit" class="btn">Send the question</button>
-    <p class="capture-note" data-capture-note hidden></p>
-    <p class="muted small-note">This form is currently <strong>disconnected on purpose</strong>: nothing is sent anywhere until the privacy basis for holding an email is settled (<a href="questions.html#Q-47">Q-47</a>) and an endpoint is configured (<a href="flagged.html#F-P14">F-P14</a>). Until then your question stays in your own browser.</p>
-  </form>
-</div>"""
-
-
-def hook_byline(_="") -> str:
-    return f"""
-<div class="byline" id="byline">
-  <div class="byline-avatar" aria-hidden="true">P2</div>
-  <div class="byline-body">
-    <p class="byline-name">The {esc(BRAND)} desk</p>
-    <p class="byline-meta">Kitchen notes &amp; buying guides · updated {esc(BUILD_DATE)} · <a href="feed.xml" data-feed="1">RSS</a> · <a href="method.html">How we check</a></p>
-    <p>We are an edited desk, not a test kitchen. Every figure here was read off the official
-    listing on a dated pass and carries its link; where a number moves too fast to publish
-    honestly — prices, star ratings — we send you to the listing instead of freezing a guess.
-    Nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>), and the
-    writing says so. <a href="method.html">Read the method</a>.</p>
-  </div>
-</div>"""
-
-
-def hook_season_desk(_="") -> str:
-    blocks = []
-    for s in CALENDAR["seasons"]:
-        links = "".join(
-            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
-            for g in s["guides"])
-        blocks.append(f"""
-  <div class="card season-card">
-    <p class="eyebrow">{esc(s["window"])} · {esc(s["status"])}</p>
-    <h3>{esc(s["name"])}</h3>
-    <p>{esc(s["line"])}</p>
-    <ul class="season-guides">{links}</ul>
-  </div>""")
-    return ('<div class="card-grid season-grid">' + "".join(blocks) + "</div>"
-            + '<p class="table-note">Seasons follow the US calendar (the marketplace is amazon.com). '
-            "They are an editorial rotation, not a demand claim — no season is chosen from a trend figure "
-            '(<a href="flagged.html#F-15">F-15</a>). Rotation register: '
-            '<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json" rel="noopener" target="_blank">data/p2/calendar.json</a>.</p>')
-
-
-def hook_clusters(_="") -> str:
-    blocks = []
-    for c in CALENDAR["clusters"]:
-        links = "".join(
-            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
-            for g in c["guides"])
-        blocks.append(f"""
-  <div class="card cluster-card">
-    <p class="eyebrow">Cluster · {len(c["guides"])} guides</p>
-    <h3><a href="{esc(c["pillar"])}">{esc(c["name"])}</a></h3>
-    <p>{esc(c["line"])}</p>
-    <ul class="cluster-guides">{links}</ul>
-    <p><a class="more" href="{esc(c["pillar"])}">The {esc(c["name"].lower())} pillar page</a></p>
-  </div>""")
-    return '<div class="card-grid cluster-grid">' + "".join(blocks) + "</div>"
-
-
-def hook_queue(_="") -> str:
-    rows = "".join(
-        f'<tr><td>{esc(q["due_utc"])}</td><td>{esc(q["title"])}</td><td>{esc(q["answers_with"])}</td></tr>'
-        for q in CALENDAR["queue"])
-    return (f'<div class="table-scroll"><table class="data"><thead><tr><th>Due (UTC)</th>'
-            f"<th>Working title — a hypothesis, not a popularity claim</th>"
-            f"<th>Answerable from</th></tr></thead><tbody>{rows}</tbody></table></div>"
-            f'<p class="table-note">Cadence: {esc(CALENDAR["cadence"]["unit"])}, every '
-            f'{esc(str(CALENDAR["cadence"]["interval_days"]))} days; next due '
-            f'{esc(CALENDAR["cadence"]["next_due_utc"])}. {esc(CALENDAR["cadence"]["rule"])}</p>')
-
-
-def hook_questions_summary(_="") -> str:
-    rows = []
-    for q in QUESTIONS:
-        state = "owner action" if "account holder" in q.get("answerable_by", "").lower() else "open"
-        rows.append(f'<tr><td><a href="#{esc(q["id"])}"><code>{esc(q["id"])}</code></a></td>'
-                    f'<td>{esc(q["area"])}</td><td>{esc(q["question"])}</td>'
-                    f'<td>{esc(state)}</td><td>{esc(", ".join(q.get("blocks", [])) or "—")}</td></tr>')
-    return ('<div class="table-scroll"><table class="data"><thead><tr><th>ID</th><th>Area</th>'
-            '<th>The question</th><th>State</th><th>What it blocks</th></tr></thead><tbody>'
-            + "".join(rows) + "</tbody></table></div>"
-            + '<p class="table-note">The full register below answers each row in five fields: '
-            "what we know, what is missing, how to discover it, who can answer it, and what it blocks.</p>")
-
-
-def hook_guides_index(_="") -> str:
-    out = []
-    for c in CALENDAR["clusters"]:
-        items = "".join(_guide_card(g[:-5]) for g in c["guides"] if g[:-5] in GUIDE_TITLES)
-        out.append(f'<h2 class="cluster-head">Cluster: {esc(c["name"])}</h2>'
-                   f'<p class="lede">{esc(c["line"])} Start at the '
-                   f'<a href="{esc(c["pillar"])}">{esc(c["name"].lower())} pillar</a> or pick a question.</p>'
-                   f'<div class="card-grid">{items}</div>')
-    return "".join(out)
-
-
 HOOKS = {
     "products_table": hook_products_table,
     "air_fryer_table": hook_air_fryer_table,
@@ -933,14 +973,11 @@ HOOKS = {
     "flags_standing": lambda _: hook_flags("standing"),
     "questions": hook_questions,
     "suggestions": hook_suggestions,
-    "suggestions_summary": hook_suggestions_summary,
     "decisions": hook_decisions,
-    "decisions_summary": hook_decisions_summary,
     "ledger_events": hook_ledger_events,
     "ledger_table": hook_ledger_table,
     "local_events": hook_local_events,
     "product_cards": hook_product_cards,
-    "master_table": hook_master_table,
     "guide_links": hook_guide_links,
     "comparison_cta": hook_comparison_cta,
     "guide_cards": hook_guide_cards,
@@ -952,6 +989,11 @@ HOOKS = {
     "queue": hook_queue,
     "questions_summary": hook_questions_summary,
     "guides_index": hook_guides_index,
+    "shop_grid": hook_shop_grid,
+    "compare_table": hook_compare_table,
+    "master_table": hook_master_table,
+    "decisions_summary": hook_decisions_summary,
+    "suggestions_summary": hook_suggestions_summary,
 }
 
 
@@ -1058,9 +1100,8 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
             "@type": "Article", "headline": title.split(" | ")[0],
             "description": description, "url": BASE + "/" + path,
             "datePublished": BUILD_DATE, "dateModified": BUILD_DATE,
-            "author": {"@type": "Organization", "name": f"{BRAND} editorial desk"},
-            "publisher": {"@type": "Organization", "name": BRAND,
-                          "logo": {"@type": "ImageObject", "url": BASE + "/assets/img/mark.png"}},
+            "author": {"@type": "Organization", "name": BRAND},
+            "publisher": {"@type": "Organization", "name": BRAND},
             "mainEntityOfPage": {"@type": "WebPage", "@id": BASE + "/" + path},
         })
     return json.dumps({"@context": "https://schema.org", "@graph": graph},
@@ -1077,22 +1118,14 @@ LAYOUT = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<meta name="theme-color" content="#FBF7F1">
-<link rel="icon" type="image/png" href="{base}/assets/img/mark.png">
-<link rel="apple-touch-icon" href="{base}/assets/img/mark.png">
 <link rel="canonical" href="{canonical}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
-<meta property="og:type" content="{og_type}">
+<meta property="og:type" content="website">
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{base}/assets/img/og-card.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta property="og:site_name" content="{brand} — {descriptor}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{title}">
-<meta name="twitter:description" content="{description}">
-<meta name="twitter:image" content="{base}/assets/img/og-card.png">
 {site_verification}<link rel="alternate" type="application/rss+xml" title="{brand} feed" href="{base}/feed.xml">
 <link rel="stylesheet" href="{base}/assets/css/site.css">
 <script type="application/ld+json">
@@ -1103,15 +1136,13 @@ LAYOUT = """<!DOCTYPE html>
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <a class="wordmark" href="{base}/index.html">
-      <img src="{base}/assets/img/mark.png" width="34" height="34" alt="">
-      <span><span class="wordmark-name">{brand}</span>
-      <span class="wordmark-desc">{descriptor}</span></span></a>
+    <a class="wordmark" href="{base}/index.html"><span class="wordmark-name">{brand}<span class="wordmark-dot">.</span></span>
+      <span class="wordmark-desc">{descriptor}</span></a>
     {nav}
   </div>
+  {disclosure}
 </header>
-{disclosure}
-<main id="main" class="{main_class}">
+<main id="main" class="wrap">
 {content}
 </main>
 {footer}
@@ -1121,24 +1152,14 @@ LAYOUT = """<!DOCTYPE html>
 </html>
 """
 
+
 def build_page(page_id: str, path: str, title: str, description: str, section: str) -> None:
     frag = (CONTENT / "pages" / f"{page_id}.html").read_text(encoding="utf-8")
     content = render_fragment(frag)
-    is_article = (page_id.startswith("guide") and page_id != "guides") or page_id == "buying-guide"
-    if is_article:
-        # Article header: the question, then the practical commitment it asks for.
-        meta = (f'<p class="article-meta">{esc(reading_time(frag))} · '
-                f'Every figure dated and sourced · <a href="method.html">How we check</a></p>')
-        marker = "</p>"
-        idx = content.find('class="lede"')
-        if idx != -1:
-            end = content.find(marker, idx)
-            content = content[:end + len(marker)] + "\n" + meta + content[end + len(marker):]
     nav = build_nav(path)
     token = (SETTINGS.get("search_console", {}) or {}).get("verification_token", "") or ""
     site_verification = (f'<meta name="google-site-verification" content="{esc(token)}">\n'
                          if token else "")
-    is_article = (page_id.startswith("guide") and page_id != "guides") or page_id == "buying-guide"
     out = LAYOUT.format(
         title=esc(title), description=esc(description), canonical=f"{BASE}/{path}",
         base=esc(BASE), brand=esc(BRAND), descriptor=esc(DESCRIPTOR),
@@ -1147,36 +1168,28 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
         content=content, footer=build_footer(),
         endpoint=esc(SETTINGS.get("analytics_endpoint", "") or ""),
         site_verification=site_verification,
-        og_type="article" if is_article else "website",
-        main_class="wrap" if page_id not in ("guide", ) else "wrap",
     )
     (DOCS / path).write_text(out, encoding="utf-8")
 
 
 def build_feed() -> None:
-    """RSS 2.0. Items carry a stable GUID, a category and a summary so a reader
-    client can tell the entries apart without opening them."""
     items = []
     for gid in GUIDE_IDS + ["buying-guide"]:
         p = next(x for x in PAGES if x[0] == gid)
-        cat = GUIDE_TAGS.get(gid, "Guide")
         items.append(f"""    <item>
       <title>{esc(p[2].split(' | ')[0])}</title>
       <link>{BASE}/{p[1]}</link>
       <guid isPermaLink="true">{BASE}/{p[1]}</guid>
-      <category>{esc(cat)}</category>
       <description>{esc(p[3])}</description>
       <pubDate>{BUILD_DATE}T09:00:00Z</pubDate>
     </item>""")
     feed = f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0">
   <channel>
     <title>{esc(BRAND)} — {esc(DESCRIPTOR)}</title>
     <link>{BASE}/</link>
-    <atom:link href="{BASE}/feed.xml" rel="self" type="application/rss+xml"/>
     <description>{esc(TAGLINE)}. Question-shaped kitchen buying guides with every figure sourced.</description>
     <language>en-us</language>
-    <copyright>Amazon Associates disclosure: {esc(DISCLOSURE)}</copyright>
     <lastBuildDate>{BUILD_DATE}T09:00:00Z</lastBuildDate>
 {chr(10).join(items)}
   </channel>
@@ -1205,6 +1218,10 @@ def main() -> None:
     DOCS.mkdir(exist_ok=True)
     (DOCS / "assets").mkdir(exist_ok=True)
     if ASSETS_SRC.exists():
+        # Mirror, do not overlay: an asset deleted or replaced in assets/ must
+        # disappear from docs/assets/ too, or the freshness check fails forever.
+        if (DOCS / "assets").exists():
+            shutil.rmtree(DOCS / "assets")
         shutil.copytree(ASSETS_SRC, DOCS / "assets", dirs_exist_ok=True)
     for page_id, path, title, desc, section in PAGES:
         build_page(page_id, path, title, desc, section)

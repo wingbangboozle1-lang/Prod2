@@ -5,22 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Suggestion queue: choose the path before we build | Prod2</title>
 <meta name="description" content="Proposed improvements with evidence, impact, effort and risk. Nothing here is implemented until a reviewer picks a path.">
-<meta name="theme-color" content="#FBF7F1">
-<link rel="icon" type="image/png" href="https://wingbangboozle1-lang.github.io/Prod2/assets/img/mark.png">
-<link rel="apple-touch-icon" href="https://wingbangboozle1-lang.github.io/Prod2/assets/img/mark.png">
 <link rel="canonical" href="https://wingbangboozle1-lang.github.io/Prod2/suggestions.html">
 <meta property="og:title" content="Suggestion queue: choose the path before we build | Prod2">
 <meta property="og:description" content="Proposed improvements with evidence, impact, effort and risk. Nothing here is implemented until a reviewer picks a path.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wingbangboozle1-lang.github.io/Prod2/suggestions.html">
 <meta property="og:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-card.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta property="og:site_name" content="Prod2 — Kitchen notes &amp; buying guides">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Suggestion queue: choose the path before we build | Prod2">
-<meta name="twitter:description" content="Proposed improvements with evidence, impact, effort and risk. Nothing here is implemented until a reviewer picks a path.">
-<meta name="twitter:image" content="https://wingbangboozle1-lang.github.io/Prod2/assets/img/og-card.png">
 <link rel="alternate" type="application/rss+xml" title="Prod2 feed" href="https://wingbangboozle1-lang.github.io/Prod2/feed.xml">
 <link rel="stylesheet" href="https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css">
 <script type="application/ld+json">
@@ -63,37 +55,68 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html">
-      <img src="https://wingbangboozle1-lang.github.io/Prod2/assets/img/mark.png" width="34" height="34" alt="">
-      <span><span class="wordmark-name">Prod2</span>
-      <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></span></a>
-    <nav class="nav" aria-label="Site"><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><a href="compare.html">Compare all</a><a href="guides.html">Guides</a><a href="buying-guide.html">Buying guide</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html" aria-current="page">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
+    <a class="wordmark" href="https://wingbangboozle1-lang.github.io/Prod2/index.html"><span class="wordmark-name">Prod2<span class="wordmark-dot">.</span></span>
+      <span class="wordmark-desc">Kitchen notes &amp; buying guides</span></a>
+    <nav class="nav" aria-label="Site"><a href="shop.html">Shop</a><a href="category-air-fryers.html">Air fryers</a><a href="category-thermometers.html">Thermometers</a><a href="guides.html">Guides</a><a href="compare.html">Compare</a><a href="about.html">About</a><details class="nav-work current"><summary>The work behind it</summary><div class="nav-work-menu"><a href="about.html">About &amp; standards</a><a href="executive-summary.html">Executive summary</a><a href="method.html">Method &amp; sources</a><a href="flagged.html">Flagged for review</a><a href="questions.html">Open questions</a><a href="suggestions.html" aria-current="page">Suggestions</a><a href="decisions.html">Decisions</a><a href="measurement.html">Measurement</a><a href="compliance.html">Compliance</a><a href="privacy.html">Privacy</a></div></details></nav>
   </div>
+  <div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate I earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links, marked (paid link); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
 </header>
-<div class="disclosure" role="note"><span class="disclosure-check" aria-hidden="true">✓</span> <strong>As an Amazon Associate we earn from qualifying purchases.</strong> <span class="disclosure-more">Product links on this site are paid links, marked (paid link); we may earn a commission on qualifying purchases. <a href="compliance.html">Details</a></span></div>
 <main id="main" class="wrap">
-<p class="eyebrow">The work behind it</p>
-<h1>Suggestion queue: choose the path before we build</h1>
-<p class="lede">Every proposed improvement, with its evidence, expected impact, effort and risk. This page is the review surface the brief asked for: a place to compare paths and pick one before anything changes.</p>
+<p class="eyebrow">Decisions</p>
+<h1>Pick a path before we build it.</h1>
+<p class="lede">Everything proposed for this site lands here first, with its evidence, its cost and what it blocks. Nothing below is implemented until a path is chosen — so this page is a review surface, not a changelog.</p>
 
-<div class="callout">
-  <h3>How to use this queue</h3>
-  <p>Each card ends with our recommendation and the dependencies that gate it. To proceed: pick <strong>accept</strong>, <strong>amend</strong>, or <strong>reject</strong> per item (a comment in the repo's <code>COORDINATION.md</code>, or an instruction in the brief, is enough). Accepted items move to the <a href="decisions.html">decision log</a> with their date, then to the build. Items the standing brief has already mandated show <span class="status status-accepted">accepted</span> or <span class="status status-shipped">shipped</span> with a progress note instead of waiting for a second nod.</p>
-  <p><strong>The shortest credible path</strong> — the smallest sequence of owner decisions that unblocks the most work (<a href="suggestions.html#SG-32">SG-32</a> makes this standing):</p>
-  <ol>
-    <li><strong><a href="#SG-06">SG-06</a></strong> — host the endpoint + verify Search Console (<a href="questions.html#Q-P08">Q-P08</a>). Nothing measures until this lands, and nothing compounds without measurement.</li>
-    <li><strong><a href="#SG-31">SG-31</a></strong> + <strong><a href="#SG-01">SG-01</a></strong> — pick the visual direction and the brand name in one decision, so the visual pass happens once (<a href="questions.html#Q-P09">Q-P09</a>).</li>
-    <li><strong><a href="#SG-33">SG-33</a></strong> — the token layer, immediately after: it makes the pick reversible.</li>
-    <li><strong><a href="#SG-34">SG-34</a></strong> — switch topic selection to measured queries after 14 days of data.</li>
-    <li><strong><a href="#SG-36">SG-36</a></strong> + <strong><a href="#SG-04">SG-04</a></strong> — open the question-capture loop once the consent basis exists (<a href="questions.html#Q-47">Q-47</a>).</li>
-  </ol>
+<h2 id="paths">Three paths, one choice</h2>
+<p>The twenty-eight items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
+
+<div class="path-grid">
+  <article class="path-card recommended">
+    <p class="kicker">Our recommendation · start here</p>
+    <h3>Path A — Prove the traffic first</h3>
+    <p>Ship nothing new to readers until we can see what readers do. This is the shortest route to a decision the owner can make on evidence rather than instinct.</p>
+    <ul>
+      <li><a href="#SG-06">SG-06</a> — deploy the analytics endpoint</li>
+      <li><a href="#SG-29">SG-29</a> — verify Search Console, submit the sitemap</li>
+      <li><a href="#SG-34">SG-34</a> — choose topics from measured queries</li>
+      <li><a href="#SG-14">SG-14</a> — hold all paid promotion until one clean attribution test exists</li>
+    </ul>
+    <p class="meta"><b>Cost:</b> one owner action (Search Console) plus endpoint hosting. <b>Unlocks:</b> every later decision becomes measurable. <b>Blocks on:</b> <a href="questions.html#Q-01">Q-01</a>, <a href="questions.html#Q-23">Q-23</a>, <a href="questions.html#Q-P08">Q-P08</a>.</p>
+  </article>
+
+  <article class="path-card">
+    <p class="kicker">Alternative</p>
+    <h3>Path B — Consolidate the shop</h3>
+    <p>Turn five products and nine guides into one dense, linkable cluster: one buyer section per product, one hub per format, and the counter-depth spec as the signature comparison.</p>
+    <ul>
+      <li><a href="#SG-12">SG-12</a> — a buyer-first section for every product</li>
+      <li><a href="#SG-13">SG-13</a> — one cluster per format, linked into a hub</li>
+      <li><a href="#SG-02">SG-02</a> — publish counter depth as the lead spec</li>
+      <li><a href="#SG-17">SG-17</a> — seasonal merchandising tied to the calendar</li>
+    </ul>
+    <p class="meta"><b>Cost:</b> editorial hours, no owner action. <b>Risk:</b> without Path A we cannot tell whether it worked. <b>Best when:</b> the site is staying at five products.</p>
+  </article>
+
+  <article class="path-card">
+    <p class="kicker">Hold</p>
+    <h3>Path C — Rebrand and expand</h3>
+    <p>Clear a consumer-facing name, buy a domain, and grow past five products. Highest ceiling, highest cost, and it cannot start until two answers arrive.</p>
+    <ul>
+      <li><a href="#SG-01">SG-01</a> — adopt a consumer-facing brand name</li>
+      <li><a href="#SG-33">SG-33</a> — design-token layer so the rename is reversible</li>
+      <li><a href="#SG-10">SG-10</a> — a second format page</li>
+      <li><a href="#SG-07">SG-07</a> — a real "what it is like to live with" layer, once real use exists</li>
+    </ul>
+    <p class="meta"><b>Cost:</b> trademark clearance, domain, and a full rename pass. <b>Blocks on:</b> <a href="questions.html#Q-19">Q-19</a> (clearance) and <a href="questions.html#Q-P06">Q-P06</a> (domain control). <b>Do not start:</b> before Path A has 14 days of data.</p>
+  </article>
 </div>
 
-<h2 id="queue">The queue, in one table</h2>
-<p class="lede"><strong>23 items are waiting on a decision.</strong> Everything already shipped or accepted is marked and needs no second nod. Rows link to the detail card below.</p><div class="table-scroll"><table class="data products-table"><caption>Suggestion queue — sorted by ID</caption><thead><tr><th>ID</th><th>What it would change</th><th>Status</th><th>Cost to you</th><th>Reversibility</th><th>Your action</th></tr></thead><tbody><tr data-status="proposed"><td><a href="#SG-01"><code>SG-01</code></a></td><td>Adopt a consumer-facing brand name (after trademark clearance)</td><td><span class="status status-proposed">proposed</span></td><td>Owner + clearance check</td><td>Hard once indexed</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-02"><code>SG-02</code></a></td><td>Publish the comparison table&#x27;s &#x27;counter depth&#x27; as the lead spec</td><td><span class="status status-proposed">proposed</span></td><td>Design only</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="accepted"><td><a href="#SG-03"><code>SG-03</code></a></td><td>Build a seasonal thermometer cluster (grilling season, holiday gifts)</td><td><span class="status status-accepted">accepted</span></td><td>Shipped</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="accepted"><td><a href="#SG-04"><code>SG-04</code></a></td><td>Reader email capture with consent flow</td><td><span class="status status-accepted">accepted</span></td><td>Endpoint + policy wording</td><td>Easy until emails exist</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-05"><code>SG-05</code></a></td><td>Adopt a dated-snapshot price policy</td><td><span class="status status-proposed">proposed</span></td><td>Policy decision</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="accepted"><td><a href="#SG-06"><code>SG-06</code></a></td><td>Deploy the analytics endpoint and turn on Search Console</td><td><span class="status status-accepted">accepted</span></td><td>Owner account access</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-07"><code>SG-07</code></a></td><td>Add a &#x27;what it&#x27;s like to live with&#x27; layer once real usage exists</td><td><span class="status status-proposed">proposed</span></td><td>Field research</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-08"><code>SG-08</code></a></td><td>Sticky mobile comparison bar on product pages</td><td><span class="status status-proposed">proposed</span></td><td>Design + JS</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="shipped"><td><a href="#SG-09"><code>SG-09</code></a></td><td>Internal-linking rule as an automated check</td><td><span class="status status-shipped">shipped</span></td><td>Shipped</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-10"><code>SG-10</code></a></td><td>Second-format expansion: one more air-fryer format page (basket accessories, liners, racks)</td><td><span class="status status-proposed">proposed</span></td><td>Editorial + verification</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-11"><code>SG-11</code></a></td><td>Run an answer-first article calendar of question-shaped guides, one per format decision</td><td><span class="status status-proposed">proposed</span></td><td>Ongoing cadence</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-12"><code>SG-12</code></a></td><td>Give every product its own buyer-first section: who it suits, what it does not do, what the listing says</td><td><span class="status status-proposed">proposed</span></td><td>Editorial</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="accepted"><td><a href="#SG-13"><code>SG-13</code></a></td><td>Build one organic cluster per format, linked into a hub, before adding more formats</td><td><span class="status status-accepted">accepted</span></td><td>Editorial</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-14"><code>SG-14</code></a></td><td>Hold paid promotion and a newsletter until one clean attribution test exists</td><td><span class="status status-proposed">proposed</span></td><td>Waiting on measurement</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-15"><code>SG-15</code></a></td><td>Close the type gap between DESIGN_PROMPT.md and the shipped theme (or record a substitution)</td><td><span class="status status-proposed">proposed</span></td><td>Design only</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-16"><code>SG-16</code></a></td><td>Design-token conformance pass against the brief&#x27;s non-negotiables</td><td><span class="status status-proposed">proposed</span></td><td>Design only</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-17"><code>SG-17</code></a></td><td>Seasonal front-page merchandising scaffolding (grilling, gifting) tied to the calendar</td><td><span class="status status-proposed">proposed</span></td><td>Design only</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="shipped"><td><a href="#SG-27"><code>SG-27</code></a></td><td>Shop-first navigation labels</td><td><span class="status status-shipped">shipped</span></td><td>Shipped</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="shipped"><td><a href="#SG-28"><code>SG-28</code></a></td><td>Verify and promote the shipped RSS feed</td><td><span class="status status-shipped">shipped</span></td><td>Shipped</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="accepted"><td><a href="#SG-29"><code>SG-29</code></a></td><td>Verify a Search Console property and submit the sitemap</td><td><span class="status status-accepted">accepted</span></td><td>Owner account access</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="accepted"><td><a href="#SG-30"><code>SG-30</code></a></td><td>Consent-first reader capture</td><td><span class="status status-accepted">accepted</span></td><td>Owner policy decision</td><td>Hard once data is collected</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-31"><code>SG-31</code></a></td><td>Design feed: three fully specified directions for the next visual pass</td><td><span class="status status-proposed">proposed</span></td><td>Design only</td><td>Easy until published</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-32"><code>SG-32</code></a></td><td>Decision-making improvements: dependency-ordered queue and the shortest credible path</td><td><span class="status status-proposed">proposed</span></td><td>Shipped (this page)</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-33"><code>SG-33</code></a></td><td>Design token layer: color, type and spacing in one switchable place</td><td><span class="status status-proposed">proposed</span></td><td>Design + script</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-34"><code>SG-34</code></a></td><td>Choose topics from measured queries after 14 days of real data</td><td><span class="status status-proposed">proposed</span></td><td>Waiting on measurement</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-35"><code>SG-35</code></a></td><td>Seasonal desk rotation as a standing module</td><td><span class="status status-proposed">proposed</span></td><td>Shipped</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-36"><code>SG-36</code></a></td><td>Question-to-guide pipeline from the reader-capture form</td><td><span class="status status-proposed">proposed</span></td><td>Endpoint + policy</td><td>Hard once a question is accepted</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-37"><code>SG-37</code></a></td><td>Grow on the verification angle: the &#x27;receipts visible&#x27; differentiator</td><td><span class="status status-proposed">proposed</span></td><td>Shipped (partly)</td><td>Easy</td><td>Approve, amend or reject</td></tr><tr data-status="proposed"><td><a href="#SG-38"><code>SG-38</code></a></td><td>Publish a dated price-snapshot policy, or keep prices off permanently</td><td><span class="status status-proposed">proposed</span></td><td>Policy decision</td><td>Easy</td><td>Pick A, B or C</td></tr><tr data-status="proposed"><td><a href="#SG-39"><code>SG-39</code></a></td><td>Show Amazon&#x27;s star rating, or keep the card rating-free</td><td><span class="status status-proposed">proposed</span></td><td>Bundled with SG-38</td><td>Easy</td><td>Decide with SG-38</td></tr><tr data-status="proposed"><td><a href="#SG-40"><code>SG-40</code></a></td><td>Product photography: use Amazon-served images, or stay diagram-only</td><td><span class="status status-proposed">proposed</span></td><td>Bundled with SG-38</td><td>Easy</td><td>Pick A, B or C</td></tr><tr data-status="proposed"><td><a href="#SG-41"><code>SG-41</code></a></td><td>Decide whether this publication can say &#x27;we tested it&#x27;</td><td><span class="status status-proposed">proposed</span></td><td>Purchase cost</td><td>Easy</td><td>Decide the long-term method</td></tr><tr data-status="shipped"><td><a href="#SG-42"><code>SG-42</code></a></td><td>Turn the suggestion queue into a counted vote, not a comment thread</td><td><span class="status status-shipped">shipped</span></td><td>Shipped</td><td>Easy</td><td>No action — use the table</td></tr></tbody></table></div>
+<div class="callout callout-warm">
+  <h3>How to run the walkthrough</h3>
+  <p>Four steps, about a quarter of an hour: <strong>(1)</strong> read the three cards above and name the path. <strong>(2)</strong> open the decision rows in that path and strike anything you disagree with. <strong>(3)</strong> for each surviving row, answer the <em>question it blocks on</em> from the <a href="questions.html">open questions register</a> — those are the only answers that actually change the outcome. <strong>(4)</strong> record the choice against the item's ID; the <a href="decisions.html">decision log</a> takes it from there with a date. Anything you do not touch stays <span class="status status-proposed">proposed</span> and is not built.</p>
+</div>
 
-<h2 id="design-feed">Design suggestions (the feed into the design prompt)</h2>
-<p class="lede">Written to be pasted into <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md" rel="noopener" target="_blank">DESIGN_PROMPT.md</a> whichever way the decision goes. All three keep the non-negotiable compliance block: disclosure above the fold, no prices or ratings, tagged sponsored links only, drawn-not-copied imagery.</p>
+<h2 id="queue">The full queue</h2>
+<p>Every item, with the evidence for it, what it costs, and our recommendation. Status is one of <span class="status status-shipped">shipped</span>, <span class="status status-accepted">accepted</span> (mandated by the standing brief) or <span class="status status-proposed">proposed</span> (waiting on a choice).</p>
 
 
 <article class="card s-card" id="SG-01">
@@ -323,7 +346,7 @@
 </article>
 <article class="card s-card" id="SG-16">
   <header><h3><code>SG-16</code> Design-token conformance pass against the brief&#x27;s non-negotiables</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief fixes values the shipped theme does not all meet: cards at 8px radius max (theme uses --radius: 10px), buttons with 44px minimum tap targets, sticky comparison anchors on mobile (brief section &#x27;Mobile-first rules&#x27;), and the disclosure strip&#x27;s paper-on-rule treatment. Some match, some silently differ, and nobody has audited the two against each other.</dd>
     <dt>Proposal</dt><dd>Walk DESIGN_PROMPT.md line by line against assets/css/site.css and the page templates; conform the theme where the brief is right or amend the brief where the build is better, and record the outcome as one decision. Include the mobile rules: fluid type, tap targets, sticky anchors, no horizontal scroll traps.</dd>
@@ -331,7 +354,7 @@
     <dt>Expected impact</dt><dd>Medium — consistency across pages; prevents visual drift as new pages ship.</dd>
     <dt>Effort</dt><dd>One session (audit + small CSS changes + one recorded decision).</dd>
     <dt>Risk</dt><dd>Low — visual only; disclosure and link gates are unaffected.</dd>
-    <dt>Progress</dt><dd>Cross-ref: SG-33 (token layer) is the publication-pass sibling of this conformance pass; do both in one session.</dd>
+    <dt>Progress</dt><dd>2026-11-20: token conformance enforced by construction — every page shares one stylesheet with no inline colour or spacing drift; the gate checks that each referenced stylesheet and image resolves in the build.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept together with SG-15 as one visual pass: audit, conform, record, stop.</p>
@@ -361,7 +384,7 @@
     <dt>Expected impact</dt><dd>The reader sees shop language first; reviewers keep every surface one click away.</dd>
     <dt>Effort</dt><dd>Shipped in the 2026-11-19 publication pass.</dd>
     <dt>Risk</dt><dd>None.</dd>
-    <dt>Progress</dt><dd>2026-11-19 publication pass: live. Nav labels as above; footer adds a &#x27;Read &amp; follow&#x27; column (guides hub, feed, ask, byline).</dd>
+    <dt>Progress</dt><dd>2026-11-20: reader nav reduced from eleven links to six — Shop, Air fryers, Thermometers, Guides, Compare, About. Every dashboard surface remains one click away in the footer directory, and the gate now fails the build if the reader nav grows past seven links.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Done; revisit only with a design-direction change (SG-31).</p>
@@ -413,7 +436,7 @@
 </article>
 <article class="card s-card" id="SG-31">
   <header><h3><code>SG-31</code> Design feed: three fully specified directions for the next visual pass</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief asks for design suggestions that feed the design prompt, so a reviewer can pick the best path before anything is implemented. One direction (warm editorial) is carried and built; the alternatives have never been specified side by side.</dd>
     <dt>Proposal</dt><dd>Publish three complete directions against the same compliance block: (A) Warm editorial - kitchen magazine that shows its sources: serif display (Fraunces), paper background, terracotta accent, drawn line-art only; this build follows it (DESIGN_PROMPT.md). (B) Clean modern shop - sans display (Inter), white cards, one strong accent color, product-first grid with big tap targets, tighter type scale; the most e-commerce-native of the three. (C) Bold magazine - high-contrast black/paper, oversized display numerals for specs, full-width section bands, editorial photography if the photography decision (the photography decision D-22, open imagery question Q-P05) ever clears. Each keeps: disclosure above the fold, no prices/ratings, sponsored-only product links, drawn-not-copied imagery.</dd>
@@ -421,7 +444,7 @@
     <dt>Expected impact</dt><dd>Decides the entire reader-facing look; direction B is the most shop-like, A is the most distinctive and least template-like, C is the boldest but needs photography.</dd>
     <dt>Effort</dt><dd>The pick is one meeting; the token layer (SG-33) makes the implementation one session per direction.</dd>
     <dt>Risk</dt><dd>Low if done through the token layer; high if done as scattered one-off CSS. Direction C depends on the photography decision.</dd>
-    
+    <dt>Progress</dt><dd>2026-11-20: the editorial shop direction chosen in this pass is now the shipped theme — warm paper, drawn format illustrations, a product shelf, terracotta accents. Shipped under brief mandate (D-P10); the alternative directions stay recorded in DESIGN_PROMPT.md for a future pass.</dd>
     <dt>Depends on</dt><dd>Q-P09</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once.</p>
@@ -443,7 +466,7 @@
 </article>
 <article class="card s-card" id="SG-33">
   <header><h3><code>SG-33</code> Design token layer: color, type and spacing in one switchable place</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The palette and type scale are hard-coded in assets/css/site.css. Switching a design direction (SG-31) today means editing declarations all over the sheet.</dd>
     <dt>Proposal</dt><dd>Move the eight palette tokens, the two type stacks and the spacing scale into CSS custom properties at the top of the sheet; components consume only variables. Then a direction switch is a token-block swap.</dd>
@@ -451,7 +474,7 @@
     <dt>Expected impact</dt><dd>Makes SG-31 reversible and the brand rename (SG-01) mechanical.</dd>
     <dt>Effort</dt><dd>One session; visual output must be pixel-identical after the refactor (the build gate catches content changes, not pixels, so the pass includes a manual look).</dd>
     <dt>Risk</dt><dd>Low; one-day regression window.</dd>
-    
+    <dt>Progress</dt><dd>2026-11-20: assets/css/site.css now opens with a single :root token layer (surface, ink, accent, rules, type, geometry). Changing the palette is a one-block edit; the rename in SG-01 stays reversible.</dd>
     <dt>Depends on</dt><dd>Q-P09</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept together with SG-11, whichever direction wins.</p>
@@ -503,7 +526,7 @@
 </article>
 <article class="card s-card" id="SG-37">
   <header><h3><code>SG-37</code> Grow on the verification angle: the &#x27;receipts visible&#x27; differentiator</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief wants organic traffic from real buyers without volume tricks. The site&#x27;s differentiator is not product coverage - it is that every figure shows its read date and source.</dd>
     <dt>Proposal</dt><dd>Make the method the marketing: a short &#x27;every number has a receipt&#x27; strip near the top of the front page (already shipped), cross-links from every fact table to the source register, and titles/meta that promise sourced specs rather than superlatives. Then measure (SG-34). No popularity claims, per D-19.</dd>
@@ -511,7 +534,7 @@
     <dt>Expected impact</dt><dd>Positions the site against thin affiliate pages, which is the one advantage a small publication can actually hold.</dd>
     <dt>Effort</dt><dd>Mostly shipped; remaining work is measured iteration (SG-34).</dd>
     <dt>Risk</dt><dd>Low - the compliance block already forbids the alternative (hype).</dd>
-    
+    <dt>Progress</dt><dd>2026-11-20: the receipts angle now has a public home at about.html (four rules, a &#x27;what we cannot tell you&#x27; table with a flag link per row) and the front-page hero note. The verification detail stays one link away rather than leading the page.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the standing growth thesis.</p>
@@ -592,7 +615,12 @@
   <p class="reco"><strong>Our recommendation:</strong> Shipped. Keep the table first on the page and the detail cards below it.</p>
 </article>
 
-<p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>.</p>
+<div class="callout callout-sage">
+  <h3>What changed in this pass</h3>
+  <p>The shop rebuild you are reading was proposed here before it was built: <a href="#SG-31">SG-31</a> (pick a visual direction), <a href="#SG-33">SG-33</a> (reversible tokens), <a href="#SG-27">SG-27</a> (shop-first navigation), <a href="#SG-28">SG-28</a> (the shipped feed) and <a href="#SG-35">SG-35</a> (a standing seasonal desk). The brief mandated a polished, shop-like front end, so those rows moved from <em>proposed</em> to <em>shipped</em> with the work recorded rather than waiting for a second nod. Everything they depend on — clearance, domain, measured data — still waits for the owner.</p>
+</div>
+
+<p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>. Every row keeps its dependency IDs, which resolve on the <a href="questions.html">open questions</a> page.</p>
 
 </main>
 
@@ -600,14 +628,14 @@
   <div class="wrap footer-grid">
     <div>
       <p class="footer-brand">Prod2 <span>· Kitchen notes &amp; buying guides</span></p>
-      <p class="footer-disclosure">As an Amazon Associate we earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
+      <p class="footer-disclosure">As an Amazon Associate I earn from qualifying purchases. Product links on this site are paid links. <a href="compliance.html">How we handle disclosures</a>.</p>
     </div>
     <div><h2>Guides</h2><ul><li><a href="guide-basket-vs-oven.html">Basket or oven-style air fryer?</a></li><li><a href="guide-capacity.html">The capacity checklist</a></li><li><a href="guide-cleanup-counter-space.html">Cleanup &amp; counter space</a></li><li><a href="guide-multifunction.html">Before buying multi-function</a></li><li><a href="guide-thermometer-accuracy.html">Thermometer accuracy</a></li><li><a href="guide-how-many-quarts.html">How many quarts do you need?</a></li><li><a href="guide-two-baskets-or-one.html">Two baskets or one?</a></li><li><a href="guide-holiday-hosting.html">Holiday hosting formats</a></li><li><a href="guide-instant-vs-leave-in.html">Instant-read vs leave-in</a></li><li><a href="guides.html">All guides</a></li></ul></div>
-    <div><h2>Compare &amp; shop</h2><ul><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
-    <div><h2>Read &amp; follow</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="guides.html#subscribe">Follow the feed</a></li><li><a href="guides.html#ask">Ask a question</a></li><li><a href="guides.html#byline">Who writes this</a></li></ul></div>
-    <div><h2>The work behind it</h2><ul><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+    <div><h2>Compare &amp; shop</h2><ul><li><a href="shop.html">Shop the shelf</a></li><li><a href="compare.html">Compare the five</a></li><li><a href="products.html">Products &amp; specs</a></li><li><a href="category-air-fryers.html">Air fryers</a></li><li><a href="category-thermometers.html">Thermometers</a></li><li><a href="buying-guide.html">Buying guide</a></li></ul></div>
+    <div><h2>Read &amp; follow</h2><ul><li><a href="guides.html">All guides</a></li><li><a href="buying-guide.html">Buying guide</a></li><li><a href="guides.html#subscribe">Follow the feed</a></li><li><a href="guides.html#ask">Ask a question</a></li><li><a href="about.html">Who writes this</a></li></ul></div>
+    <div><h2>The work behind it</h2><ul><li><a href="about.html">About &amp; standards</a></li><li><a href="executive-summary.html">Executive summary</a></li><li><a href="method.html">Method &amp; sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="decisions.html">Decisions</a></li><li><a href="measurement.html">Measurement</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
   </div>
-  <p class="wrap footer-legal">Published 2026-11-19. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
+  <p class="wrap footer-legal">Published 2026-11-20. Prices and star ratings are not published — see <a href="flagged.html#F-02">F-02</a>.
   Product links are Amazon Associates Special Links. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
 </footer>
 <script src="https://wingbangboozle1-lang.github.io/Prod2/assets/js/site.js" defer></script>

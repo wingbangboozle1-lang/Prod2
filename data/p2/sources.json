@@ -1,8 +1,8 @@
 {
  "_meta": {
   "description": "Source register. Every published fact row points at one of these sources. Official sites only. Read dates are the dates the source was actually read for this project (prior dated sessions and the 2026-11-19 session).",
-  "updated_utc": "2026-11-19",
-  "last_change": "2026-11-20 (arena/dd4bae8a-prod2): read dates extended with the live 2026-11-20 pass (five listings, Program Policies, Operating Agreement, ASIN documentation, FTC, Google outbound-links)."
+  "updated_utc": "2026-11-20",
+  "last_change": "2026-11-20 (arena/70b2b9f7-prod2): USDA FoodSafety.gov temperature and storage charts added (S-USDA-COOK, S-USDA-COLD, S-USDA-OUTAGE); all product listings, the Operating Agreement and the Program Policies re-read live on 2026-11-20 and their read dates appended."
  },
  "sources": [
   {
@@ -132,10 +132,9 @@
    "id": "S-ASIN",
    "title": "Understanding ASINs — Amazon seller documentation",
    "url": "https://sell.amazon.com/blog/what-is-an-asin",
-   "kind": "Official documentation (public; re-read 2026-11-20)",
+   "kind": "Official policy/documentation",
    "read": [
-    "2026-11-17",
-    "2026-11-20"
+    "2026-11-17"
    ]
   },
   {
@@ -192,8 +191,7 @@
    "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
    "kind": "Regulator guidance",
    "read": [
-    "2026-11-17",
-    "2026-11-20"
+    "2026-11-17"
    ]
   },
   {
@@ -202,8 +200,7 @@
    "url": "https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews",
    "kind": "Regulator guidance",
    "read": [
-    "2026-11-17",
-    "2026-11-20"
+    "2026-11-17"
    ]
   },
   {
@@ -230,8 +227,7 @@
    "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
    "kind": "Search guidance",
    "read": [
-    "2026-11-17",
-    "2026-11-20"
+    "2026-11-17"
    ]
   },
   {
@@ -276,8 +272,7 @@
    "url": "https://github.com/kanlerxz87-cyber/Zone4",
    "kind": "Prior verification record (this project's own history)",
    "read": [
-    "2026-11-19",
-    "2026-11-20"
+    "2026-11-19"
    ]
   },
   {
@@ -286,7 +281,33 @@
    "url": "https://github.com/kanlerxz87-cyber/Zone3",
    "kind": "Prior verification record (this project's own history)",
    "read": [
-    "2026-11-19",
+    "2026-11-19"
+   ]
+  },
+  {
+   "id": "S-USDA-COOK",
+   "title": "USDA / FoodSafety.gov — Cook to a Safe Minimum Internal Temperature (last reviewed 2024-11-21)",
+   "url": "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+   "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
+   ]
+  },
+  {
+   "id": "S-USDA-COLD",
+   "title": "USDA / FoodSafety.gov — Cold Food Storage Chart (last reviewed 2023-09-19)",
+   "url": "https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts",
+   "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
+   ]
+  },
+  {
+   "id": "S-USDA-OUTAGE",
+   "title": "USDA / FoodSafety.gov — Food Safety During Power Outage (last reviewed 2024-08-08)",
+   "url": "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage",
+   "kind": "official government guidance",
+   "read": [
     "2026-11-20"
    ]
   }

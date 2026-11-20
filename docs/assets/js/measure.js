@@ -56,10 +56,16 @@
       });
     });
 
-    /* category tiles */
-    document.querySelectorAll("a[data-category]").forEach(function (a) {
+    /* category entries: explicit data-category tiles, plus any link into a
+       category page (the shelf filters route through prod2Record below). */
+    var catLinks = Array.prototype.slice.call(
+      document.querySelectorAll('a[data-category], a[href*="category-"]')
+    );
+    catLinks.forEach(function (a) {
       a.addEventListener("click", function () {
-        record("category_click", { target: a.getAttribute("data-category") });
+        var label = a.getAttribute("data-category") ||
+          (a.getAttribute("href") || "").replace(/^.*category-/, "").replace(/\.html.*$/, "");
+        record("category_click", { target: label });
       });
     });
 
@@ -80,6 +86,10 @@
       }, { passive: true });
     }
   });
+
+  /* expose the recorder so the shelf filters can log a category selection
+     without duplicating the endpoint logic (still one of the five events). */
+  window.prod2Record = record;
 
   /* expose the local log for the measurement page */
   window.prod2LocalCounts = function () {

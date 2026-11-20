@@ -68,6 +68,51 @@ constraints are non-negotiable and listed at the end.
 4. Held products (P4/P5) never render as links, cards or rows with destinations.
 5. No "trending"/popularity claims anywhere reader-facing.
 
+## Marketing conversion layer (added 2026-11-20 — shop-forward polish)
+
+The front page must read like a shop, not an audit. Product cards lead the
+fold above any register or process explanation. Each product card carries:
+
+- A human-readable format label ("Dual-basket air fryer", not "P1")
+- The short listing title (no price, no rating — compliance rule)
+- Three listed-feature bullets, each traceable to its source
+- A primary CTA button to the official listing (`rel="sponsored"`,
+  `tag=shopnow047c-20`, destination URL — no shortener)
+- A secondary "see specs" link to the products page
+
+## Catchy trendy article hooks (editorial hypotheses, not popularity claims)
+
+Working titles for the question-shaped guide calendar — each is a buyer
+question, not a claim about search volume or product superiority:
+
+- "Basket or oven-style air fryer: what should you compare?" (format
+  decision, decoded)
+- "A no-hype checklist for comparing air fryer capacity" (quarts lie across
+  formats — make them mean the same thing)
+- "How to assess cleanup and counter-space trade-offs" (dimensions +
+  dishwasher-safe parts, before it arrives)
+- "Questions to ask before buying a multi-function kitchen appliance" (24
+  presets, 24 reasons to buy? Count them down)
+- "How many quarts do you actually need?" (serving-count sanity check from
+  listed capacities)
+- "Two baskets or one: when do two drawers earn their space?" (batch math
+  meets listed specs)
+- "How accurate does a meat thermometer need to be?" (±0.5°F vs ±1°F,
+  check-it vs watch-it)
+- "Instant-read vs leave-in: which thermometer for which cook" (spot-check
+  vs watch-a-roast-from-your-phone)
+- "Holiday hosting: which format earns the counter?" (big meals, borrowed
+  counter space, eat-in waves)
+
+## Organic traffic hooks
+
+Every guide page is built for search: unique `<title>` + meta description,
+FAQPage + Article structured data, canonical URL, and inclusion in both
+`sitemap.xml` and `feed.xml` by the same build. Search Console verification
+meta is emitted when the owner supplies the token (settings.json). The feed
+covers every guide so subscribers get each new question-shaped article the
+day it publishes.
+
 ## Queued inputs (2026-11-19)
 
 The suggestion queue now carries three design items that feed this brief

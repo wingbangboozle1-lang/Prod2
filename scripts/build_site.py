@@ -417,6 +417,16 @@ def build_pages(products, sources, suggestions, articles, ledger):
         for cat in [{"slug": "air-fryer-ovens", "label": "Air Fryer Ovens", "items": air},
                     {"slug": "meat-thermometers", "label": "Meat Thermometers", "items": meat}]
     )
+    # product cards — shop first: every product gets a card with a sponsored buy button
+    product_cards = "".join(
+        "<div class='card'><span class='meta'>%s</span><h3>%s</h3>"
+        "<p class='small'>Capacity: %s</p><p class='small'>Price (as listed): %s</p>"
+        "%s</div>"
+        % (esc(p["category"]), esc(p["title"]), esc(p["capacity_qt"] or "—"),
+           price_cell(p) or "—",
+           product_link(p, "See on Amazon →", "btn ghost"))
+        for p in products
+    )
     # mini register preview (the "data" part, below the fold)
     reg_rows = "".join(
         "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
@@ -427,10 +437,12 @@ def build_pages(products, sources, suggestions, articles, ledger):
         "<section class='hero'><p class='eyebrow'>The counter-space edit</p>"
         "<h1>Kitchen gear worth the counter space.</h1>"
         "<p class='lead'>%s We check the listings before we write, so the comparisons are built on "
-        "what the product page actually says — not guesswork. Start with the guides, then dig into the "
-        "verified data when you want the detail.</p>"
-        "<div class='cta'><a class='btn' href='comparison.html' data-event='cta_click' data-label='compare'>Compare the models</a>"
-        "<a class='btn ghost' href='guides.html' data-event='cta_click' data-label='guides'>Read the guides</a></div></section>"
+        "what the product page actually says — not guesswork. Start with a product below, then dig into the guides and the register.</p>"
+        "<div class='cta'><a class='btn' href='comparison.html' data-event='cta_click' data-label='compare'>Compare all five models</a>"
+        "<a class='btn ghost' href='guides.html' data-event='cta_click' data-label='guides'>Read the buying guides</a></div></section>"
+        "<section><p class='eyebrow'>The shelf</p><p class='muted small'>Every product we track, with its verified listing and a direct link to Amazon. "
+        "All outbound links are marked as sponsored.</p>"
+        "<div class='grid cols-3'>%s</div></section>"
         "<section><p class='eyebrow'>Featured guides</p><div class='grid cols-2'>%s</div></section>"
         "<section><p class='eyebrow'>Shop by category</p><div class='grid cols-2'>%s</div></section>"
         "<section><p class='eyebrow'>The register</p><p class='muted small'>Every listing we track, with the source for each row. "
@@ -439,7 +451,7 @@ def build_pages(products, sources, suggestions, articles, ledger):
         "<tbody>%s</tbody></table></div>"
         "<p class='small muted' style='margin-top:10px'>Full detail, the product-intent record and the campaign ledger are on the "
         "<a href='research-desk.html'>Research Desk</a>.</p></section>"
-    ) % (esc(TAGLINE), featured_cards, cat_tiles, reg_rows)
+    ) % (esc(TAGLINE), product_cards, featured_cards, cat_tiles, reg_rows)
     index_head = ldjson({
         "@context": "https://schema.org", "@type": "WebSite", "name": BRAND,
         "url": "https://wingbangboozle1-lang.github.io/Prod2/",

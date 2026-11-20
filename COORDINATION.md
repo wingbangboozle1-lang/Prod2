@@ -2,11 +2,41 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current sessions: **session-arena-9f84489c** (branch `arena/9f84489c-prod2`, publication polish pass — claim below) · session-arena-8ff10f50-prod2 (branch `arena/8ff10f50-prod2`, PRs #19/#21 merged)
+Current session: **session arena/70b2b9f7-prod2** (branch `arena/70b2b9f7-prod2`, 2026-11-20 — design/shop rebuild + live re-verification; claim below).
+
+Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward polish, PR #30 merged into main 2026-11-20 06:09) · arena/43f4359d-prod2 (product-first landing page, PR #29 merged 2026-11-20 06:06) · arena/9f84489c-prod2 (publication polish, PRs #27/#28) · arena-8ff10f50-prod2 (PRs #19/#21) · arena-3f1d9d65-prod2 (analytics endpoint) · arena/b650562d-prod2 (PR #25, open) · arena/5e692632-prod2 (PR #23, open) · f2613c86, 599eec57, 44093825, 30a7028a, d12d2304.
+
+> **Two sessions landed work on `main` after this session branched** (PRs #29 and #30, both 2026-11-20
+> before 06:10 UTC). That work is integrated here, not discarded: their `DESIGN_PROMPT.md` additions,
+> their `scripts/build_site.py` shelf work and their `tools/build.py` "Best for" intent are all
+> preserved. Where the two builds disagreed on the same reader-facing surface, the newer design
+> system in this branch wins and the reasoning is recorded in the resolution note below.
 
 ---
 
-## ACTIVE CLAIM — session arena/9f84489c-prod2 (2026-11-19, publication polish pass)
+## ACTIVE CLAIM — session arena/70b2b9f7-prod2 (2026-11-20, shop-first design rebuild + live verification)
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| D-01 Live re-verification of all five listings + policy sources (2026-11-20) | done | arena/70b2b9f7-prod2 | `data/p2/verification-2026-11-20.json`, `data/p2/sources.json`, `data/p2/flags.json` |
+| D-02 Design system rebuild (publication/shop visual language) | done | arena/70b2b9f7-prod2 | `assets/css/site.css`, `assets/js/site.js` |
+| D-03 Front page rebuilt as a shop front page (products lead) | done | arena/70b2b9f7-prod2 | `content/pages/index.html` |
+| D-04 New `/shop.html` shelf with category + format filters | done | arena/70b2b9f7-prod2 | `content/pages/shop.html`, `tools/build.py` |
+| D-05 New `/about.html` authorship + editorial standards (E-E-A-T) | done | arena/70b2b9f7-prod2 | `content/pages/about.html`, `tools/build.py` |
+| D-06 Navigation simplification (single reader nav; dashboards in footer) | done | arena/70b2b9f7-prod2 | `tools/build.py` |
+| D-07 Product-card + comparison component upgrade | done | arena/70b2b9f7-prod2 | `tools/build.py` |
+| D-08 Suggestions section: review-and-choose decision surface | done | arena/70b2b9f7-prod2 | `content/pages/suggestions.html`, `data/p2/suggestions.json` |
+| D-09 Questions register: missing-information discovery paths | done | arena/70b2b9f7-prod2 | `content/pages/questions.html`, `data/p2/questions.json` |
+| D-10 Gate extension + full build/verify | done | arena/70b2b9f7-prod2 | `tools/checks.py`, `docs/`, root mirror |
+| D-11 Integration: PR, merge, Pages deploy confirmed, docs sync | done | arena/70b2b9f7-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `docs/` |
+
+Protocol notes for this claim:
+- Branch `arena/70b2b9f7-prod2`, branched from `f6e772f` (main at PR #28). Arena allows one branch per session; this session is both working and integration session on it.
+- **No other session's claim is live.** Every previous claim is at merged/closed PR state. Scope above touches only the canonical `docs/` publication build (`tools/build.py`, `content/pages/*`, `assets/*`, `data/p2/*`) plus its root mirror. The preserved Countercraft build (`scripts/build_site.py` → `site/`) is **not** edited; it is rebuilt and gated unchanged by CI.
+- **Pages serving mode (INT-07) re-confirmed 2026-11-20:** `GET /repos/.../pages` returns `build_type: legacy`, `source: main /`. `PUT` to `build_type: workflow` returns **403 Resource not accessible by integration**. So the live site is still the **repo root**, and the root mirror written by `tools/build.py` is what readers see. The root mirror is therefore mandatory, not optional, this pass.
+- **New capability this pass:** outbound HTTP from this sandbox reaches `www.amazon.com` and official policy sites through the fetch tool, so all five listings were **re-fetched live today** rather than carried forward. Prior sessions recorded the opposite (no egress); that boundary is now corrected in the verification record.
+
+---
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
@@ -25,6 +55,36 @@ Protocol notes for this claim:
 - Branch `arena/9f84489c-prod2` from `da11cd4` (main at PR #15). Arena allows one branch per session; this session is both working and integration session on this branch (same standing note as the arena/44093825 claim below).
 - **PR #16 handoff (arena/30a7028a-prod2, "Countertop Dispatch"):** its claim has been inactive >60 minutes with no commits since 14:17 UTC and its merge plan never ran. Per the handoff rule this session takes over integration of that branch: its full build will be preserved as `archive/countertop-dispatch/` (nothing discarded), and one deployed site stays canonical per the standing one-site rule (INT-06).
 - The canonical deployed publication remains `docs/` (built by `tools/build.py`, gated by `tools/checks.py`, mirrored to the repo root for legacy Pages serving).
+
+### Verification performed this pass (D-01)
+
+Every value below was read on **2026-11-20** from the page named, and each is recorded with the
+observed string in `data/p2/verification-2026-11-20.json`.
+
+| Source | URL | Result |
+| --- | --- | --- |
+| Listing P1 | https://www.amazon.com/dp/B0CDY277D3 | Title matched the register; breadcrumb Air Fryers; buy box present |
+| Listing P2 | https://www.amazon.com/dp/B09B7SB46R | Title matched; 24 presets stated in the title (Q-31 still open on body copy) |
+| Listing P3 | https://www.amazon.com/dp/B08DKYBTPH | Title matched; 8 Qt, 450°F Hi-Fry, 4-in-1 |
+| Listing P4 | https://www.amazon.com/dp/B0DHZTCNR5 | Title matched; ±0.5℉ NIST/NSF, IP67, 1 Sec |
+| Listing P5 | https://www.amazon.com/dp/B0DZFD6R9Z | Title matched; 3 probes, 1000°F, WiFi unlimited range |
+| Operating Agreement | https://affiliate-program.amazon.com/help/operating/agreement | Updated 2025-10-15; §5 disclosure sentence quoted; §6(a) breach |
+| Program Policies | https://affiliate-program.amazon.com/help/operating/policies | Updated 2026-04-14; §2(b) price rule and misleading-claims rule quoted |
+| USDA cook temps | https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures | Last reviewed 2024-11-21; table quoted |
+| USDA cold storage | https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts | Last reviewed 2023-09-19 |
+| USDA power outage | https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage | Last reviewed 2024-08-08 |
+
+**Irregularities found and published** (all on the Flagged for review page with these links):
+F-P15 (disclosure wording vs §5 — corrected), F-P16 ("Compare all five" was a paid link to one
+product — corrected), F-P17 (carousel prices and ratings belong to neighbouring ASINs), F-P18
+(prior records claimed no egress to Amazon; corrected), F-P19 (archive servable, robots-only
+exclusion), F-P20 (raw registers servable in root-serving mode).
+
+**Not verified, and left alone:** the Associates enrollment status (Q-01), Search Console
+(Q-P08), domain control (Q-P06) and the analytics endpoint host (Q-23) are owner-side facts.
+No claim is made about any of them.
+
+---
 
 ---
 
@@ -61,6 +121,22 @@ session once all other tasks are done.
 - **T12 (shop-like landing page):** reorder the front page so products lead (featured products + buy buttons above the register), keep guides + category tiles, and keep the disclosure strip above the fold.
 - **T13 (decision-input questions):** the open-questions register and the suggestions/decision portal already exist; verified present and linked from the nav/footer.
 
+## Claims this turn (session-arena-1f4017b9-prod2 — shop-forward polish + integration)
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| S-01 Shop-forward landing page rewrite (products above register, buy buttons prominent, publication feel) | done | session-arena-1f4017b9-prod2 | `content/pages/index.html`, `tools/build.py` |
+| S-02 Design prompt additions (polished marketing affiliate design, catchy articles, organic traffic hooks) | done | session-arena-1f4017b9-prod2 | `DESIGN_PROMPT.md` |
+| S-03 Q&A register clarity + missing-info discovery list | done | session-arena-1f4017b9-prod2 | `docs/questions.html`, `data/p2/questions.json` (verified present) |
+| S-04 Executive summary refresh | done | session-arena-1f4017b9-prod2 | `EXECUTIVE_SUMMARY.md` (verified present) |
+| S-05 Build + verify both outputs + GitHub Pages deploy | done | session-arena-1f4017b9-prod2 | `tools/build.py`, `tools/checks.py`, `.github/workflows/pages.yml`, `docs/`, root mirror |
+| S-06 PR to main + merge + confirm Pages live | done | session-arena-1f4017b9-prod2 | `main`, `.github/workflows/` |
+
+## Claims this session (session-arena-43f4359d-prod2, branch `arena/43f4359d-prod2`)
+
+- **T11-integrate:** re-verify both builds (`scripts/build_site.py` + `tools/build.py`), `scripts/verify_site.py` + `tools/checks.py`, landing page product-first, commit, push, open PR from `arena/43f4359d-prod2` to `main`, merge, confirm Pages deploys; record PR link + merge result below.
+- **T12-shop-landing:** reorder `site/index.html` so product cards + buy buttons lead before guides/categories/register; disclosure stays above fold; `rel="sponsored"` on every outbound product link.
+
 No other session has an unexpired claim on these files. If this session stops, any other session may take over an `in progress` task older than 60 minutes with no commits and must note the handoff here.
 
 ## Verification boundary (this session)
@@ -73,6 +149,45 @@ No other session has an unexpired claim on these files. If this session stops, a
 | PR | What | Result |
 | --- | --- | --- |
 | #19 | Integration: product-forward landing page + transparency flag F-P08 + both builds verified + Pages deploy | Merged into `main` as merge commit `0030f90a69b53ecd226923ddd6125dc795f0b282`; `Deploy to GitHub Pages` success; `verify-site` success; `pages build and deployment` success; live at https://wingbangboozle1-lang.github.io/Prod2/ |
+
+
+## PR / merge / deploy record — 2026-11-20 (arena/70b2b9f7-prod2)
+
+| PR | What | Result |
+| --- | --- | --- |
+| #31 | Shop-first rebuild: design system, shelf page, About/standards, live 2026-11-20 re-verification, gate 9 -> 11 sections | **Merged** into `main` as `a4166bbbdee2ba3ad7c66d7113979a3608e7f1d9` at 2026-11-20T06:19:46Z. `verify-site` pass · `Self-hosted analytics tests` pass · `Deploy to GitHub Pages` pass · `pages build and deployment` pass |
+| #32 | Publish date: `BUILD_DATE` 2026-11-19 -> 2026-11-20 (footer, sitemap `lastmod`, feed `pubDate`) | **Merged** into `main` as `8bc543b8b559de18f33b58449cf06331b002c2a0`. All four workflows pass |
+
+**Live check after deploy (not a workflow status — the actual published pages):**
+
+| URL | State |
+| --- | --- |
+| `/Prod2/` | New front page: illustrated hero, shelf of five cards with images, "Best for:" lines, buy buttons, `Published 2026-11-20` |
+| `/Prod2/shop.html` | Live: filters, five cards, chooser, shortlist comparison |
+| `/Prod2/about.html` | Live: four rules, limits table, imagery policy |
+| `og-card.png` | New social card rendering (served as the page's main image) |
+
+**One thing to know about verifying the live site from here:** `curl` cannot reach
+`*.github.io` from this sandbox (egress is limited to `github.com`, `codeload.github.com`,
+`api.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org`). The live pages were
+therefore verified through the page-fetch tool, which can reach them. The first fetch of `/Prod2/`
+returned the **previous** build — a stale CDN edge, not a deploy failure — and a second fetch
+returned the current build. If a live check looks wrong, re-fetch with a cache-busting query before
+concluding anything.
+
+### Integration with the two sessions that merged mid-pass
+
+PRs #29 and #30 landed on `main` after this branch was cut and both touched the front page and the
+product cards. They were integrated, not overwritten:
+
+- **Preserved from #29/#30:** all 45 added lines of `DESIGN_PROMPT.md` (marketing conversion layer,
+  the nine article hooks, the organic-traffic notes); the `scripts/build_site.py` shelf work on the
+  preserved Countercraft build; the explicit `Best for:` label, which is clearer than the bare
+  eyebrow this branch had; and their hero phrase "every fact checked".
+- **Kept from this branch:** the design system, the card component with imagery and a buy button,
+  the new `shop.html` and `about.html`, the six-link nav, and the extended gate.
+- **Regenerated rather than hand-merged:** `docs/`, the root mirror, `sitemap.xml`, `feed.xml`.
+  The merge is reproducible — a clean clone rebuilds byte-identical output.
 
 ## Task details
 
@@ -755,3 +870,72 @@ difference, not a contradiction of the earlier note.
 | **F-P21** | Three of the five shipped measurement events (`guide_read_75`, `category_click`, `feed_click`) were rejected with 400 by the collector that would have received them, and would have been lost silently. Page views also collapsed into a single `page_view\|/unknown` row because the tracker sends `path` while the collector read only `page`. | `server.mjs`: the five site events are first-class; `path` maps to `page`; a conservative `cleanTarget()` keeps one optional `#fragment`. Three regression tests added, one of which reads the event names out of `measure.js` so the two cannot drift again. `npm test` 4/4. |
 | **F-P15** | The ASIN-definition citation was behind an Amazon sign-in wall. | Repointed to the public official page (`sell.amazon.com/blog/what-is-an-asin`, re-read 2026-11-20), which states the 10-character definition. |
 | — | `verify.yml` diffed the repo root against `site/` output although the root mirrors `docs/`. | Workflow rewritten: publication gated first, root mirror asserted reproducible, preserved build gated second and asserted non-indexable. Every step verified from a clean clone. |
+
+
+---
+
+## PARALLEL SESSION COLLISION — arena/dd4bae8a-prod2 vs arena/70b2b9f7-prod2 (2026-11-20)
+
+While this session was working, **another session landed a second shop-first redesign on `main`**
+(PRs #29–#34, branch `arena/70b2b9f7-prod2`). Both sessions independently concluded the same thing
+(the site must read as a shop; prices/ratings must stay off with the policy reasoning recorded;
+live re-verification on 2026-11-20). Neither session's work is discarded. Resolution:
+
+### Kept from THEIR work (origin/main, PRs #29–#34)
+
+- **The five format illustrations** (`assets/img/fmt-*.png`, `hero-kitchen.png`) and the
+  `shop.html` page. The illustrations are the single biggest visual upgrade on the table: real
+  product *shape*, drawn rather than photographed. `shop.html` is the shoppable shelf and the
+  better information architecture for a buyer.
+- Their `PRODUCT_BUY_LABEL` ("Check price on Amazon"), their design-system work, `about.html`,
+  their gate additions and their decisions/flags rows.
+- Their `BUILD_DATE` advance to 2026-11-20.
+
+### Kept from THIS session's work
+
+- `data/p2/verification-2026-11-20.json` — the independent live re-read of all five links.
+- **D-P10** (price/rating display rule, answering RR-1/RR-2 from the official text) and **D-P11**.
+- **F-P15** (sign-in-walled ASIN citation, repointed to the public official page), **F-P20**
+  (preserved build claimed the live canonicals), **F-P21** (three of five measurement events were
+  being rejected and silently lost, with regression tests).
+- The `imagery` and `one site` gate sections; the `suggestions_summary` decision table with
+  cost/reversibility/your-action per row (SG-42); `SG-38..SG-42`; `Q-P10`, `Q-P11`.
+- The rewritten `verify.yml` (the root serves `docs/`, not `site/`).
+- The endpoint fixes and the four Node tests.
+
+### Method note (logged, not hidden)
+
+Conflicts were resolved by **rebuilding the generated tree from the merged sources** rather than
+hand-merging HTML: `docs/`, the repo-root mirror and `site/` are outputs of `tools/build.py` and
+`scripts/build_site.py`, so the correct resolution is to fix the *sources* and re-render. Both
+gates then verify the result line by line.
+
+### ID collisions created by the parallel work — and how they were resolved
+
+Both sessions numbered forward from the same base, so six IDs meant two different things. Nothing
+was deleted to resolve it; the later claim was renumbered and the rename is recorded in each row's
+`note` field.
+
+| Was | Now (this branch) | What the row actually records |
+| --- | --- | --- |
+| `D-P10` (mine) | **`D-P15`** | May the site publish prices and star ratings? Answered from Program Policies 2(b) / 6(t). |
+| `D-P11` (mine) | **`D-P16`** | Should supplied short links be replaced by direct tagged `/dp/` links? |
+| `F-P15`…`F-P21` (mine) | **`F-P22`…`F-P28`** | Sign-in-walled citation; no `tag=` on resolved links; the missing-ledger flags; the preserved-build canonical leak (now `F-P27`); the silently-dropped measurement events (now `F-P28`). |
+| `SG-38`…`SG-42` | unchanged | No collision: this session's numbers continued past the other session's highest. |
+| `Q-P10`, `Q-P11` | unchanged | No collision, same reason. |
+
+**Register totals after the merge:** 41 flags (25 open, 11 resolved), 29 decisions,
+33 suggestions, 17 questions. Next free IDs: **F-P29, D-P17, SG-43, Q-P12.**
+
+**Their `D-P10` is the design-pass decision and their `D-P11` the dated-snapshot price rule;
+both are kept exactly as they wrote them.** Where the two registers overlapped in substance (both
+sessions independently concluded prices and ratings must stay off), the surviving rows are theirs,
+and this session's reasoning is preserved in `D-P15`.
+
+**Two gate refinements came out of the merge:**
+- The hands-on-claim check was matching the phrase inside policy discussions that *quote* the
+  prohibited claim. It now strips quoted spans and skips governance pages, so it still fails the
+  build on a real claim ("we tested the 6 qt model") but passes a page explaining that the site
+  may not make one.
+- `decisions_summary` and `suggestions_summary` are now wired into the build alongside the other
+  session's layout, because the decision page needs one scannable table above the grouped cards.

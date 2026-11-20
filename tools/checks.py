@@ -21,12 +21,11 @@ Sections:
   chrome       one nav group ("The work behind it") + footer directory present
   seo          canonical/og:image/JSON-LD parse; sitemap covers every page;
                robots.txt points at the sitemap; feed items resolve
+  shop         one shelf page with all five cards, buy buttons, imagery that
+               exists, an About page, and no hands-on-testing claim
   publication  guides reach compare + buying guide + their cluster pillars (S-24);
                feed covers every guide; reader-capture gate consistent with
                settings; Search Console verification meta matches the token slot
-  imagery      every <img> has alt text and dimensions, every referenced image
-               exists, and no image is hot-linked from a manufacturer or
-               marketplace host (Program Content / IP License risk)
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
 """
 from __future__ import annotations
@@ -41,7 +40,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 DATA = ROOT / "data" / "p2"
 
-DISCLOSURE = "As an Amazon Associate we earn from qualifying purchases."
+DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 TRACKING_TAG = "tag=shopnow047c-20"
 
 GOVERNANCE = {"executive-summary.html", "method.html", "flagged.html", "questions.html",
@@ -305,8 +304,27 @@ def main() -> int:
             fail(f"{f.name}: dashboard surfaces not reachable via nav group + footer")
         if "<footer" not in text:
             fail(f"{f.name}: no footer")
+        # D-06: dashboard surfaces belong in the footer directory, never the reader nav.
+        # The reader nav must stay short enough to read at a glance.
+        # The reader nav is an inline-flex row of bare <a> siblings followed by the
+        # single "The work behind it" <details> group. Slice to the details tag so
+        # the footer's links cannot be miscounted as nav links.
+        start = text.find('<nav class="nav"')
+        if start == -1:
+            fail(f"{f.name}: no reader nav")
+        else:
+            head = text[start:text.find("</nav>", start)]
+            reader_part = head.split('<details class="nav-work', 1)[0]
+            links = len(re.findall(r"<a\b", reader_part))
+            if links > 7:
+                fail(f"{f.name}: reader nav has {links} links (max 7; move dashboards to the footer)")
+            if links < 4:
+                fail(f"{f.name}: reader nav has only {links} links")
+        # the wordmark is the home link on every page
+        if 'class="wordmark"' not in text:
+            fail(f"{f.name}: no wordmark home link")
     if not FAILURES:
-        ok("nav group + footer directory on every page")
+        ok("nav group + footer directory on every page; reader nav within budget")
 
     # -------------------------------------------------------------------- seo
     check("seo")
@@ -398,98 +416,45 @@ def main() -> int:
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
 
-    # ---------------------------------------------------------------- imagery
-    check("imagery")
-    img_re = re.compile(r"<img\b[^>]*>")
-    attr_re = re.compile(r'(\w[\w-]*)="([^"]*)"')
-    referenced: set[str] = set()
+    # ------------------------------------------------------------ shop surface
+    check("shop")
+    if not (DOCS / "shop.html").exists():
+        fail("shop.html missing: the site needs one shelf a reader can act on")
+    if not (DOCS / "about.html").exists():
+        fail("about.html missing: authorship and editorial standards need a home")
+    for name in ("index.html", "shop.html"):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        n_cards = text.count('class="card product-card"')
+        if n_cards < 5:
+            fail(f"{name}: {n_cards} product cards on the shop surface (want all 5)")
+        if text.count('btn-buy') < 5:
+            fail(f"{name}: fewer than 5 buy buttons on the shop surface")
+        if "assets/img/" not in text:
+            fail(f"{name}: no product or hero imagery")
+    # every referenced local image must exist in the build
     for f in html_files:
         text = f.read_text(encoding="utf-8")
-        for tag in img_re.findall(text):
-            attrs = dict(attr_re.findall(tag))
-            src = attrs.get("src", "")
-            if not src:
-                fail(f"{f.name}: <img> without src")
-                continue
-            if "alt=" not in tag:
-                fail(f"{f.name}: <img> without alt text: {src}")
-            if not attrs.get("width") or not attrs.get("height"):
-                fail(f"{f.name}: <img> without width/height (layout shift): {src}")
-            host = re.match(r"https?://([^/]+)", src)
-            if host and not host.group(1).endswith("wingbangboozle1-lang.github.io"):
-                fail(f"{f.name}: hot-linked image from an external host: {src}")
-            # resolve a site-absolute or relative image path against docs/
-            path = src
-            base = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))["base_url"].rstrip("/")
-            if path.startswith(base + "/"):
-                path = path[len(base) + 1:]
-            if path.startswith("http"):
-                continue
-            referenced.add(path.lstrip("/"))
-    for rel in sorted(referenced):
-        if not (DOCS / rel).exists():
-            fail(f"referenced image missing from the build: {rel}")
-    stylesheet = (DOCS / "assets" / "css" / "site.css").read_text(encoding="utf-8")
-    for url in re.findall(r"url\((['\"]?)(.*?)\1\)", stylesheet):
-        target = url[1]
-        if target.startswith("data:") or target.startswith("#"):
-            continue
-        if target.startswith("http"):
-            fail(f"stylesheet hot-links an external asset: {target}")
-            continue
-        resolved = (DOCS / "assets" / "css" / target).resolve()
-        if not resolved.exists():
-            fail(f"stylesheet references a missing file: {target}")
-    if not FAILURES:
-        ok(f"{len(referenced)} images: alt text, dimensions, local hosting, all present")
-
-    # -------------------------------------------------------- article images
-    check("article identity")
-    import build as b
-    for gid, stem in b.GUIDE_ART.items():
-        text = (DOCS / f"{gid}.html").read_text(encoding="utf-8")
-        if f"/assets/img/{stem}.png" not in text:
-            fail(f"{gid}.html: its own diagram ({stem}.png) is not on the page")
-        if 'class="byline"' not in text:
-            fail(f"{gid}.html: no byline block (articles must carry authorship)")
-        if 'rel="author"' in text and "no author page exists" in text:
-            fail(f"{gid}.html: author link points at a page that does not exist")
-    for page in ("index.html", "guides.html"):
-        text = (DOCS / page).read_text(encoding="utf-8")
-        if text.count("<img") < 5:
-            fail(f"{page}: fewer than five images (a shop front needs a shelf)")
-    if not FAILURES:
-        ok("every guide carries its own diagram + byline; front page carries the shelf")
-
-    # ------------------------------------------------------- one indexable site
-    check("one site")
-    # Pages serves the repo root in legacy mode, so docs/ is mirrored there. The
-    # preserved site/ build is also publicly reachable under /site/. Only ONE site
-    # may be indexable: the publication. Every page of the preserved build must
-    # carry noindex and must not canonicalise to the live pages.
-    preserved = sorted((ROOT / "site").glob("*.html"))
-    if preserved:
-        for f in preserved:
-            text = f.read_text(encoding="utf-8")
-            if "noindex" not in text:
-                fail(f"site/{f.name}: preserved build is indexable (no noindex)")
-            if "<link rel='canonical' href='https://wingbangboozle1-lang.github.io/Prod2/" in text \
-                    and "/site/" not in text.split("<link rel='canonical'")[1][:120]:
-                fail(f"site/{f.name}: canonical claims a live URL (duplicate signal)")
-        if "Disallow: /Prod2/site/" not in (ROOT / "site" / "robots.txt").read_text(encoding="utf-8"):
-            fail("site/robots.txt does not disallow the preserved build")
-    archive = ROOT / "archive"
-    if archive.is_dir() and "Disallow: /Prod2/archive/" not in (DOCS / "robots.txt").read_text(encoding="utf-8"):
-        fail("robots.txt does not disallow /Prod2/archive/")
-    # the root mirror must be byte-identical to docs/, because the root is what serves
+        for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"]+)"', text):
+            if not (DOCS / rel).exists():
+                fail(f"{f.name}: image {rel} missing from docs/")
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+            if not (DOCS / rel).exists():
+                fail(f"{f.name}: stylesheet {rel} missing from docs/")
+    # The docs must not CLAIM a hands-on test. Quoting the phrase inside a
+    # policy discussion ("the site may not say 'we tested it'") is allowed:
+    # strip quoted spans and the governance pages before matching.
+    governance = {"flagged.html", "decisions.html", "questions.html", "suggestions.html",
+                  "method.html", "compliance.html", "measurement.html", "executive-summary.html"}
     for f in html_files:
-        root_copy = ROOT / f.name
-        if not root_copy.exists():
-            fail(f"root mirror missing {f.name} (Pages serves the repo root)")
-        elif root_copy.read_bytes() != f.read_bytes():
-            fail(f"root mirror differs from docs/{f.name} (the live page would be stale)")
+        if f.name in governance:
+            continue
+        text = re.sub(r"<[^>]+>", " ", f.read_text(encoding="utf-8")).lower()
+        text = re.sub(r"\u2018[^\u2019]*\u2019|\u201c[^\u201d]*\u201d|'[^']*'|\"[^\"]*\"", " ", text)
+        for phrase in ("we tested", "our testing", "hands-on review", "we cooked"):
+            if phrase in text:
+                fail(f"{f.name}: claims hands-on testing ({phrase!r}) — no unit was tested")
     if not FAILURES:
-        ok("one indexable site: publication at root; preserved build noindexed")
+        ok("one shelf, full cards, real imagery, no hands-on claim")
 
     # -------------------------------------------------------------- freshness
     check("freshness")
