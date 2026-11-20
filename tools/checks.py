@@ -33,6 +33,10 @@ Sections:
                link.amazon short links are quoted evidence, never clickable
   measurement  the site's event list vs the endpoint's accepted names; any
                divergence FAILS the build (F-P23 fixed 2026-11-20, D-P21)
+  integrity    no raw merge-conflict marker in any shipped file (a marker shipped
+               in assets/css/site.css on 2026-11-20 and broke the live stylesheet);
+               the stylesheet still defines its tokens and font-faces; register
+               ids cited from a register exist somewhere (X-01/X-05, 2026-11-20)
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
 """
 from __future__ import annotations
@@ -577,6 +581,73 @@ def main() -> int:
         fail("measure.js: guide_read_75 does not cover article-* pages, so long reads are unmeasured")
     else:
         ok("depth event covers both guide-* and article-* pages")
+
+    # --------------------------------------------------------------- integrity
+    check("integrity")
+    # A raw merge-conflict marker shipped in assets/css/site.css on 2026-11-20 and
+    # build.py copied it verbatim into docs/assets/css/, so the published stylesheet
+    # was invalid for every reader while every other section stayed green: no section
+    # read the static assets. Two fixes: resolve the file (done), and gate it here.
+    CONFLICT_RE = re.compile(r"^(<<<<<<<|>>>>>>>|\|\|\|\|\|\|\|)( |$)|^=======$", re.M)
+    static_exts = {".css", ".js", ".svg", ".html", ".xml", ".json", ".txt"}
+    for root_dir, label in ((DOCS, "docs/"), (ROOT / "assets", "assets/")):
+        for f in root_dir.rglob("*"):
+            if not f.is_file() or f.suffix not in static_exts:
+                continue
+            if "archive" in f.parts:
+                continue
+            try:
+                text = f.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                continue
+            if CONFLICT_RE.search(text):
+                fail(f"{label}{f.relative_to(root_dir).as_posix()}: raw merge-conflict marker shipped")
+    # The stylesheet must actually parse far enough to define the token block the
+    # pages depend on: a truncated or marker-broken file loses :root and the site
+    # renders unstyled. Assert the tokens and the two families the build preloads.
+    css = DOCS / "assets" / "css" / "site.css"
+    if not css.exists():
+        fail("docs/assets/css/site.css is missing")
+    else:
+        c = css.read_text(encoding="utf-8")
+        if c.count("{") != c.count("}"):
+            fail(f"site.css: unbalanced braces ({c.count('{')} open / {c.count('}')} close)")
+        for token in ("--paper:", "--ink:", "--serif:", "--sans:"):
+            if token not in c:
+                fail(f"site.css: design token {token} missing (stylesheet truncated?)")
+        for face in ("fraunces-var.woff2", "inter-var.woff2"):
+            if face not in c:
+                fail(f"site.css: @font-face for {face} missing but the build preloads it")
+    # Every register id referenced from a page or another register must exist.
+    registers = {}
+    for name, key in (("flags.json", "flags"), ("questions.json", "questions"),
+                      ("suggestions.json", "suggestions"), ("decisions.json", "decisions")):
+        p = DATA / name
+        if p.exists():
+            registers[name] = {x["id"] for x in json.loads(p.read_text(encoding="utf-8"))[key]}
+    all_ids = set().union(*registers.values()) if registers else set()
+    id_re = re.compile(r"\b(F-P?\d{1,3}|Q(?:-P)?\d{1,3}|SG-\d{1,3}|D(?:-P)?\d{1,3})\b")
+    # A range such as "D-P10..D-P17" names an ID space, not a reference to a row,
+    # so drop range expressions before collecting ids to check.
+    range_re = re.compile(r"\b[A-Z]{1,2}(?:-P)?\d{1,3}\s*[.–-]{1,2}\s*[A-Z]{1,2}(?:-P)?\d{1,3}\b")
+    for name in registers:
+        text = range_re.sub(" ", (DATA / name).read_text(encoding="utf-8"))
+        for rid in set(id_re.findall(text)):
+            # a register may cite a neighbouring register's id; only flag ids that
+            # exist in NO register at all, which is the real dangling-reference case.
+            if rid not in all_ids:
+                fail(f"data/p2/{name}: cites {rid}, which exists in no register")
+    # every dated verification record must name a date and the tool that read it
+    for p in DATA.glob("verification-*.json"):
+        try:
+            blob = json.loads(p.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            fail(f"data/p2/{p.name}: not valid JSON ({exc})")
+            continue
+        if not re.search(r"\d{4}-\d{2}-\d{2}", p.name):
+            fail(f"data/p2/{p.name}: verification record filename carries no date")
+    if not FAILURES:
+        ok("no conflict markers shipped; stylesheet tokens intact; register ids resolve")
 
     # -------------------------------------------------------------- freshness
     check("freshness")
