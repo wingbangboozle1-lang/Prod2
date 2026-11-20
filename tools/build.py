@@ -1095,23 +1095,29 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
 
 
 def build_feed() -> None:
+    """RSS 2.0. Items carry a stable GUID, a category and a summary so a reader
+    client can tell the entries apart without opening them."""
     items = []
     for gid in GUIDE_IDS + ["buying-guide"]:
         p = next(x for x in PAGES if x[0] == gid)
+        cat = GUIDE_TAGS.get(gid, "Guide")
         items.append(f"""    <item>
       <title>{esc(p[2].split(' | ')[0])}</title>
       <link>{BASE}/{p[1]}</link>
       <guid isPermaLink="true">{BASE}/{p[1]}</guid>
+      <category>{esc(cat)}</category>
       <description>{esc(p[3])}</description>
       <pubDate>{BUILD_DATE}T09:00:00Z</pubDate>
     </item>""")
     feed = f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{esc(BRAND)} — {esc(DESCRIPTOR)}</title>
     <link>{BASE}/</link>
+    <atom:link href="{BASE}/feed.xml" rel="self" type="application/rss+xml"/>
     <description>{esc(TAGLINE)}. Question-shaped kitchen buying guides with every figure sourced.</description>
     <language>en-us</language>
+    <copyright>Amazon Associates disclosure: {esc(DISCLOSURE)}</copyright>
     <lastBuildDate>{BUILD_DATE}T09:00:00Z</lastBuildDate>
 {chr(10).join(items)}
   </channel>
