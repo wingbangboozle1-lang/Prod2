@@ -724,3 +724,48 @@ h2#B-01, h2#B-02, h2#B-03, h2#B-04, h2#B-05, h2#B-06 { scroll-margin-top: 4rem; 
   .brief-two { grid-template-columns: 1fr; }
   .brief-card { padding: 1.1rem 1rem; }
 }
+
+/* ---------- front-page question chooser (2026-11-20) ----------
+   Four links, not four more cards: a reader with a question in mind needs a
+   signpost, not a second copy of the guides hub. One row on desktop, a stack
+   with 44px targets on a phone. */
+.chooser-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .7rem;
+  margin: 1rem 0 1.6rem;
+}
+.chooser {
+  display: block;
+  padding: .95rem 1.1rem;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 1.35;
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.chooser span {
+  display: block;
+  margin-bottom: .25rem;
+  font-family: var(--sans);
+  font-size: .7rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+.chooser:hover, .chooser:focus-visible {
+  border-color: var(--terracotta);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+@media (min-width: 48rem) {
+  .chooser-row { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 44rem) {
+  .chooser-row { grid-template-columns: 1fr; }
+  .chooser { min-height: 44px; }
+}

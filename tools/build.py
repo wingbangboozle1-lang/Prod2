@@ -803,6 +803,24 @@ def _guide_card(gid: str) -> str:
   </article>"""
 
 
+# The front page used to print all ten guide cards, then a cluster block that
+# printed the same ten again, plus a four-card "start with the question" block:
+# 24 cards of the same material before a reader reached the end. The shelf and
+# the front-page guides hub are where completeness belongs (D-06's rule that a
+# reader surface leads with the products). Here, five cards — the ones that
+# match the questions a first-time buyer actually arrives with.
+FRONT_GUIDES = ["guide-basket-vs-oven", "guide-how-many-quarts",
+                "guide-cleanup-counter-space", "guide-instant-vs-leave-in",
+                "guide-multifunction"]
+
+
+def hook_front_guides(_="") -> str:
+    return ('<div class="card-grid">'
+            + "".join(_guide_card(g) for g in FRONT_GUIDES)
+            + '</div><p class="cta-row"><a class="btn btn-ghost" href="guides.html">'
+              'All twelve guides &amp; long reads &rarr;</a></p>')
+
+
 def hook_guide_cards(_="") -> str:
     return '<div class="card-grid">' + "".join(_guide_card(g) for g in GUIDE_IDS) + "</div>"
 
@@ -984,6 +1002,7 @@ HOOKS = {
     "guide_links": hook_guide_links,
     "comparison_cta": hook_comparison_cta,
     "guide_cards": hook_guide_cards,
+    "front_guides": hook_front_guides,
     "subscribe": hook_subscribe,
     "reader_capture": hook_reader_capture,
     "byline": hook_byline,
