@@ -268,6 +268,51 @@
    "answerable_by": "Owner",
    "blocks": [],
    "flags": []
+  },
+  {
+   "id": "Q-P15",
+   "area": "Content depth",
+   "question": "How long should a piece be before it is published, and how is that enforced?",
+   "known": "The ten original guides run 436-814 words. The two long reads added 2026-11-20 run 1,212-1,295 words. There is no stated minimum in any register, and the gate does not measure length, so 'thin' is currently a judgement call rather than a check.",
+   "unknown": "Whether a length floor is the right control at all; word count is a weak proxy for usefulness and a strong invitation to pad.",
+   "how_to_discover": "Owner picks one of: (a) no floor, judged per piece; (b) a floor of ~600 words for a guide and ~1,000 for a long read, gated; (c) a sourced-claims-per-100-words floor, which measures substance rather than length. Option (c) is the only one that cannot be satisfied by filler.",
+   "answerable_by": "Owner (editorial standard).",
+   "blocks": [
+    "SG-45 cadence",
+    "Any scaling of the content set"
+   ],
+   "flags": []
+  },
+  {
+   "id": "Q-P16",
+   "area": "Imagery",
+   "question": "Can this project show the real product photo at all, and through which channel?",
+   "known": "Every card carries a generated illustration with the line 'Illustration, not the product photo'. The Operating Agreement and IP License restrict use of Program Content including images, and this project has no Creators/PA API access.",
+   "unknown": "Whether Associates enrollees can obtain product images through the Associates Central link builder without API approval; whether an approved application would be granted for a site this size. Not verifiable from outside the account.",
+   "how_to_discover": "Owner checks Associates Central for the SiteStripe image/link tool on one enrolled product and reports whether an image can be obtained with a compliant attribution. That single test settles it.",
+   "answerable_by": "The account holder.",
+   "blocks": [
+    "SG-47",
+    "The shelf looking like a real shop"
+   ],
+   "flags": []
+  },
+  {
+   "id": "Q-P17",
+   "area": "Measurement",
+   "question": "Where will the analytics endpoint actually run, and who pays for it?",
+   "known": "server.mjs is written, tested (3/3) and now accepts every event the site sends. settings.analytics_endpoint is empty, so the site transmits nothing and counts only in each visitor's own browser.",
+   "unknown": "Host choice, cost, and whether the owner wants to run a Node service at all. Also unknown: retention period and who reads the aggregate.",
+   "how_to_discover": "Owner names a host, or decides the browser-local counter is enough for now. If the latter, the measurement page must say so plainly rather than implying traffic data exists.",
+   "answerable_by": "Owner.",
+   "blocks": [
+    "SG-06",
+    "SG-34",
+    "Every claim that the site is measured"
+   ],
+   "flags": [
+    "F-19"
+   ]
   }
  ]
 }
