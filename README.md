@@ -33,6 +33,11 @@ EXECUTIVE_SUMMARY.md  executive summary
 DECISIONS.md     decision log (taken + open)
 ```
 
+**What GitHub Pages serves:** the repository **root**, in legacy "main /" mode. The build mirrors
+`docs/` to the root, so the live URL (https://wingbangboozle1-lang.github.io/Prod2/) serves exactly
+the gated publication. `tools/checks.py` fails if the mirror drifts from `docs/` by a single byte,
+because a stale root page would be the page readers actually see.
+
 **Root mirror (INT-07):** GitHub Pages for this repo is in legacy "serve the repository root"
 mode, which only a repository admin can switch to Actions mode (the REST API returns 403 to the
 session token — recorded three times). The generator therefore mirrors the deterministic `site/`
@@ -44,6 +49,14 @@ root mirror in a single commit.
 consolidated, canonical site is the data-driven `site/` build. Everything else lives in `archive/`.
 The optional `server.mjs` endpoint serves `site/` and accepts all event families in aggregate-only
 form; the page tracker transmits nothing unless an endpoint is explicitly configured.
+
+## Design and imagery
+
+The publication is styled by a single stylesheet (`assets/css/site.css`) and illustrated entirely
+with its own generated artwork (`tools/make_art.py`). There is no product photography: Amazon's IP
+License governs listing images, and a photograph the site did not take would break its evidence
+rule. `DESIGN_PROMPT.md` records the shipped system (palette, type stack, page types, and the five
+things a future pass must not undo).
 
 ## The products
 
@@ -57,6 +70,10 @@ listings. See `data/p2/products.json` and the **Research Desk** page.
 - Every outbound Amazon product link is `rel="sponsored"`.
 - Product-intent record keeps intended vs. observed in separate fields.
 - Privacy-preserving click counter (no cookies); five events; self-hosted `/collect` endpoint.
+- **Prices and star ratings are not published.** This is a checked rule, not caution: Associates
+  Program Policies 2(b) permits prices only when Amazon serves the link displaying them or via
+  Creators/PA API, and Participation Requirements 6(t) permits ratings only via Creators/PA API.
+  Re-read 2026-11-20; recorded as decision D-P10; a gate check fails the build if either appears.
 - Irregularities and unverified values are published blank + flagged on the **Flagged for
   Review** page with source links — never inferred.
 

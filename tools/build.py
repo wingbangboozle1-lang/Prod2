@@ -757,6 +757,14 @@ GUIDE_ART = {
 }
 
 
+def reading_time(fragment: str) -> str:
+    """Words / 220, rounded up. A publication tells you what it is asking for."""
+    text = re.sub(r"<[^>]+>", " ", fragment)
+    text = re.sub(r"\{\{[^}]*\}\}", " ", text)
+    words = len(text.split())
+    return f"{max(1, round(words / 220))} min read"
+
+
 def guide_art(gid: str, alt: str, cls: str = "") -> str:
     """A guide's own diagram. All artwork is the site's own; see tools/make_art.py."""
     stem = GUIDE_ART.get(gid)
@@ -1116,6 +1124,16 @@ LAYOUT = """<!DOCTYPE html>
 def build_page(page_id: str, path: str, title: str, description: str, section: str) -> None:
     frag = (CONTENT / "pages" / f"{page_id}.html").read_text(encoding="utf-8")
     content = render_fragment(frag)
+    is_article = (page_id.startswith("guide") and page_id != "guides") or page_id == "buying-guide"
+    if is_article:
+        # Article header: the question, then the practical commitment it asks for.
+        meta = (f'<p class="article-meta">{esc(reading_time(frag))} · '
+                f'Every figure dated and sourced · <a href="method.html">How we check</a></p>')
+        marker = "</p>"
+        idx = content.find('class="lede"')
+        if idx != -1:
+            end = content.find(marker, idx)
+            content = content[:end + len(marker)] + "\n" + meta + content[end + len(marker):]
     nav = build_nav(path)
     token = (SETTINGS.get("search_console", {}) or {}).get("verification_token", "") or ""
     site_verification = (f'<meta name="google-site-verification" content="{esc(token)}">\n'

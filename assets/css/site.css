@@ -389,3 +389,11 @@ a.btn.btn-ghost.aff-link { color: var(--ink); }
   .card, .panel, .callout, .chooser { padding: .9rem .95rem; }
   .guide-card-body { padding: .8rem .9rem .95rem; }
 }
+
+/* article meta line: the practical commitment a guide asks for */
+.article-meta {
+  font: 600 .78rem/1.4 var(--sans); letter-spacing: .05em; text-transform: uppercase;
+  color: var(--muted); margin: -.2rem 0 1.6rem; padding-bottom: .9rem;
+  border-bottom: 1px solid var(--rule);
+}
+.article-meta a { color: var(--sage-deep); text-decoration: none; }
