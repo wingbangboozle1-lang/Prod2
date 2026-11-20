@@ -2028,3 +2028,86 @@ merge; they publish on the Flagged for Review page.
 | Live check | Fetched live 2026-11-20 ~07:20 UTC (fetch tool; cache-busting query after a stale first read): the merged build serves — trust row **14 guides & long reads**, assets carry `?v=` cache-busters, all five shelf cards carry tagged Special Links (`?tag=shopnow047c-20`) with the paid-link label and "listing re-checked 2026-11-20" source lines; `guide-turkey-done.html` serves with the USDA 165°F (74°C) citation and its read date. The first fetch showed the pre-merge build (a stale CDN edge — a documented quirk); the cache-busted re-fetch showed the current build. |
 | Status | **R-01..R-06 done.** Claim released. This record itself lands via the follow-up record PR (precedent: the record PR pattern used by arena/70b2b9f7 and arena/722181aa). |
 
+---
+
+## ACTIVE CLAIM — session arena/85ef21d8-prod2 (2026-11-20, full source-register audit + live-deploy line audit)
+
+Branched from `d7f58d1`; rebased onto `51a02ac` (main after PRs #48/#50). Single-branch rule
+followed: all work on `arena/85ef21d8-prod2`; no other branch created, switched to, or pushed.
+
+Six open PRs (#35, #41, #43, #45, #47, #49) were mapped file-by-file before claiming; none of them
+claims this scope. Their claimed files (`tools/*.py`, `server.mjs`, `tests/`, `content/pages/*`,
+`data/p2/{flags,questions,decisions,suggestions,calendar,sources,intent-links,verification-2026-11-20}.json`,
+root `*.md`, root html, workflows) are **not edited by this session**. A request to change an owned
+file will be logged here instead of edited.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| V-01 Fetch all 34 `data/p2/sources.json` URLs live (2026-11-20): liveness, host, official-status classification, load-bearing-claim spot check; third same-day observation of the five listings and five short links (F-P24 evidence) | done | arena/85ef21d8-prod2 | `data/p2/audit-2026-11-20-85ef21d8.json` (new) |
+| V-02 Live-deploy line audit: every published page on the live Pages host checked against the gated `docs/` build (title, disclosure strip, page sentinel); sitemap and feed live too | done | arena/85ef21d8-prod2 | `data/p2/audit-2026-11-20-85ef21d8.json` (same file, section 2) |
+| V-03 Verify the two S-PRIOR provenance repositories exist and carry what the registers claim | done | arena/85ef21d8-prod2 | same file, section 3 |
+| V-04 Record results, irregularities and owned-file change requests here; PR to main; merge; Pages check | done | arena/85ef21d8-prod2 | `COORDINATION.md`, generated `docs/` + root mirror (union-safe, no content change expected) |
+
+Read-only elsewhere. If the audit finds a reader-facing defect in a file owned by an open PR, the
+fix is requested here, not applied, per the protocol.
+
+
+### Results — arena/85ef21d8-prod2 (2026-11-20), V-01..V-04 done
+
+- **V-01 · source register (done).** All 34 `data/p2/sources.json` URLs addressed live on 2026-11-20
+  (fetch tool; git ls-remote for the two GitHub rows). Headline confirmations, each quoted verbatim on
+  the fetched page: **S-OA §5** carries exactly "As an Amazon Associate I earn from qualifying
+  purchases." (the sentence on every page of this site); **S-POL 2(b)** carries the prices rule ("may
+  only show prices and availability if: (a) we serve the link … or (b) … via Creators API or PA API")
+  and the tag-as-parameter rule; **S-HELP** names "(paid link)" as a compliant clear disclosure — the
+  exact label this site uses; **S-TAG** carries "Your US Store ID will end in -20"; **S-ASIN** carries
+  the 10-character ASIN definition; **S-COU** is Conditions of Use "Last updated: August 14, 2026"
+  with the no-collection-of-listings-or-prices license clause; **S-GOUT** carries `rel="sponsored"`;
+  **S-FSIS-CHART** (last updated Apr 14, 2025 — the date the site states) matches all six published
+  temperature rows; **S-FSIS-THERMO** matches every quoted figure (2–4 °F, placement condition,
+  2–3-inch sensing area, poultry three places, 1-inch wireless rule, care, ice-water calibration);
+  **S-UNL-AIRFRYER** matches all three quoted sentences ("peer-reviewed… updated in 2025" on page);
+  **S-USDA-COOK/COLD/OUTAGE** match the published figures and the stated review dates
+  (2024-11-21 / 2023-09-19 / 2024-08-08). All five `/dp/` listings live with titles matching
+  `data/p2/products.json` character-for-character and breadcrumbs matching. Record:
+  `data/p2/audit-2026-11-20-85ef21d8.json`.
+- **V-02 · live deploy (done).** All 30 published pages fetched from
+  https://wingbangboozle1-lang.github.io/Prod2/ — every `<title>` matches the gated `docs/` build
+  exactly; sitemap.xml lists all 30 pages; feed.xml carries the 14 content items; robots.txt carries
+  the Sitemap line. Build-level link integrity across the 30 pages: **182 tagged `/dp/` links, 0
+  untagged, 188 `rel="sponsored"`, 91 official-source links, 0 pages with a missing disclosure or an
+  untagged product link.**
+- **V-03 · prior registers (done).** Zone4 (HEAD `e1e0d0ef`) and Zone3 (HEAD `2ebb5a9c`) both exist
+  via git ls-remote; Zone4's branch list carries this project's own `arena/*` session branches, so the
+  S-PRIOR3/S-PRIOR4 provenance citations are real.
+- **V-04 · this record + PR/merge (done).** Irregularities for manual review (non-blocking, on the
+  audit record): **(a)** short links' **fourth same-day observation** — L1→B0CDY277D3, L2→B09B7SB46R,
+  L5→B0DZFD6R9Z (intended ASINs, `srctok-` tokens, **no `tag=`**), L3/L4→homepage; when they resolve
+  they land correctly; no validity conclusion drawn; F-P24 owner browser check stands —
+  **flags.json is owned by open PRs #43/#47, so this session does not edit it**; the owning session is
+  asked to fold this observation into F-P24's evidence. **(b)** S-COMM's Appendix rate table was not
+  re-located this pass (values rest on prior dated reads; site publishes no rates — F-01). **(c)**
+  S-FSIS-THERMO's register URL redirects to the canonical `food-thermometers` slug (content identical).
+  **(d)** P4's fetched variant showed a buy-box price figure; not published and not publishable under
+  S-POL 2(b) (verbatim today).
+
+Sources used (all fetched 2026-11-20): the five `https://www.amazon.com/dp/{B0CDY277D3,B09B7SB46R,B08DKYBTPH,B0DHZTCNR5,B0DZFD6R9Z}`
+listings; the five `https://link.amazon/*` short links; `affiliate-program.amazon.com/help/operating/agreement`,
+`…/help/operating/policies`, `…/help/node/topic/GPXFHVYZMTGPUMPE`; `sell.amazon.com/blog/what-is-an-asin`;
+`www.amazon.com/b?node=51812349011`; `www.amazon.com/gp/help/customer/display.html?nodeId=508088`;
+`www.amazon.com/Air-Fryers/b/?node=17659096011`; `www.ftc.gov` (Disclosures 101; Endorsements hub);
+`developers.google.com/search/docs` (helpful content, snippet, outbound links, spam policies, page
+experience) and the 2023-02 AI-content blog; `foodsafety.gov` (cook chart, cold storage, power outage);
+`fsis.usda.gov` (safe temperature chart, food thermometers); `food.unl.edu` (air fryer tips); live
+Pages host (33 files); `github.com/kanlerxz87-cyber/{Zone3,Zone4}`.
+
+| PR | (filled after merge) |
+
+### Scope boundary addendum (2026-11-20, post-audit)
+
+The audit's fetch set was the 30-page build at audit time. While this session was running, parallel
+sessions added pages (`decide.html`, `before-you-decide.html`, `briefs.html`) and changed
+`tools/build.py`/`tools/checks.py` (PRs #58, #62, #64, #66, #69). Those pages and gate changes are
+covered by their own sessions' records and are **outside this audit's fetch set**; the V-02 page
+count is stated as of the audit, not as of the current build. The V-01 source-register facts are
+unaffected (no audit-scoped register row changed).
