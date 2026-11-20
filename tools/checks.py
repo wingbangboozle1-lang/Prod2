@@ -317,6 +317,44 @@ def main() -> int:
     if not FAILURES:
         ok("no prices, ratings or banned popularity claims")
 
+    # ------------------------------------------------------- derived numbers
+    # 2026-11-20: this session published "the smallest footprint" about the 8 qt
+    # basket. The register says the DUAL basket is smallest (158 in2 vs 172).
+    # Every derived figure on a page must equal the register's arithmetic, so a
+    # wrong comparison fails the build instead of shipping.
+    check("derived")
+    import json as _json
+    _prods = {x["id"]: x for x in _json.loads((DATA / "products.json").read_text(encoding="utf-8"))["products"]}
+    _dims, _cap = {}, {"P1": 6.0, "P2": 26.0, "P3": 8.0}
+    for _pid, _p in _prods.items():
+        if _p.get("dimensions") and _p.get("capacity") and _pid in _cap:
+            _d = float(re.match(r'([\d.]+)"D', _p["dimensions"]).group(1))
+            _w = float(re.search(r'x ([\d.]+)"W', _p["dimensions"]).group(1))
+            _dims[_pid] = (_d, _w, _d * _w, _cap[_pid] / (_d * _w))
+    if len(_dims) >= 3:
+        _smallest = min(_dims, key=lambda k: _dims[k][2])
+        _densest = max(_dims, key=lambda k: _dims[k][3])
+        _shop = (DOCS / "shop.html").read_text(encoding="utf-8")
+        _m = re.search(r"footprint of the three \(([\d.]+)&nbsp;in&sup2;? against ([\d.]+) and ([\d.]+)\)", _shop)
+        if _m:
+            _quoted = sorted(float(x) for x in _m.groups())
+            _actual = sorted(round(v[2], 1) for v in _dims.values())
+            if [round(q) for q in _quoted] != [round(a) for a in _actual]:
+                fail(f"shop.html: quoted footprints {_quoted} != register footprints {_actual}")
+            _named = re.search(r"(?:the|The) ([A-Za-z0-9 ]+?) (?:has|have) the smallest listed footprint", _shop)
+            if _named:
+                fail("shop.html: names a 'smallest footprint' winner in prose — the gate cannot "
+                     "verify a product name here; state the numbers and let the reader compare")
+        # published per-in2 figures on the comparison page must match to 3dp
+        _cmp = (DOCS / "compare.html").read_text(encoding="utf-8")
+        for _pid, (_d, _w, _fp, _den) in _dims.items():
+            _expect = f"{_den:.3f}"
+            if _expect not in _cmp:
+                fail(f"compare.html: capacity-per-in2 for {_pid} should be {_expect}; not found")
+    if not FAILURES:
+        ok(f"published footprints and capacity densities match the register arithmetic "
+           f"({len(_dims)} products; smallest {_smallest}, densest {_densest})")
+
     # ------------------------------------------------------------------ chrome
     check("chrome")
     for f in html_files:
@@ -684,7 +722,11 @@ def main() -> int:
     unversioned = []
     for f in html_files:
         t = f.read_text(encoding="utf-8")
-        for m in re.finditer(r'(?:href|src)="[^"]*?/assets/(?:css|js)/[^"?]+"', t):
+        # Only real asset references: a <link> to a stylesheet or a <script src>.
+        # A bare href to the stylesheet is evidence *about* an asset (F-P29 cites
+        # the live stylesheet URL as its proof), not a request for one.
+        for m in re.finditer(r'<link[^>]+href="[^"]*?/assets/css/[^"?]+"'
+                             r'|<script[^>]+src="[^"]*?/assets/js/[^"?]+"', t):
             unversioned.append(f"{f.name}: {m.group(0)[:60]}")
     if unversioned:
         fail(f"{len(unversioned)} asset URLs carry no ?v= cache-buster, so a fix can sit "
@@ -726,9 +768,16 @@ def main() -> int:
         for token in ("--paper:", "--ink:", "--serif:", "--sans:"):
             if token not in c:
                 fail(f"site.css: design token {token} missing (stylesheet truncated?)")
-        for face in ("fraunces-var.woff2", "inter-var.woff2"):
-            if face not in c:
-                fail(f"site.css: @font-face for {face} missing but the build preloads it")
+        # Both a static-subset and a variable stack are valid; what must not happen
+        # is a stylesheet with no usable face for each family the build preloads.
+        # (tools/design_qa.py parses the CSS properly; this is the cheap assertion.)
+        if "@font-face" not in c:
+            fail("site.css: no @font-face at all, so the preloaded fonts are never used")
+        for family in ('"Fraunces"', '"Inter"'):
+            if family not in c:
+                fail(f"site.css: no @font-face declares {family}")
+        if not re.search(r'src:\s*url\("\.\./fonts/[^"]+\.woff2"\)', c):
+            fail("site.css: no @font-face points at a local .woff2 (a CDN face would leak reader IPs)")
     # Every register id referenced from a page or another register must exist.
     registers = {}
     for name, key in (("flags.json", "flags"), ("questions.json", "questions"),
