@@ -848,7 +848,7 @@ def hook_product_cards(_="") -> str:
   </a>
   <div class="body">
     <p class="eyebrow">Best for: {esc(PRODUCT_BEST_FOR[p['id']])}</p>
-    <h3><a href="products.html#{esc(p['id'])}" style="color:inherit;text-decoration:none">{esc(p['name_short'])}</a></h3>
+    <h3 class="card-title"><a href="products.html#{esc(p['id'])}" style="color:inherit;text-decoration:none">{esc(p['name_short'])}</a></h3>
     <p class="muted asin">{esc(p['asin'])}</p>
     <ul>
       <li>{esc(p.get('highlight_1') or '')}</li>
@@ -944,7 +944,7 @@ def hook_guide_cards(_="") -> str:
 def hook_subscribe(_="") -> str:
     return f"""
 <div class="card subscribe-card" id="subscribe">
-  <h3>Follow the feed</h3>
+  <h2>Follow the feed</h2>
   <p>Every new guide lands in <a href="feed.xml" data-feed="1">the RSS feed</a> the day it publishes. It is the reader channel on this site that collects nothing at all: no sign-up, no address, no tracking.</p>
   <p class="muted">Feed address: <code>{esc(BASE)}/feed.xml</code> — paste it into any feed reader.</p>
 </div>"""
@@ -957,7 +957,7 @@ def hook_reader_capture(_="") -> str:
     state = "live" if endpoint else "disconnected"
     return f"""
 <div class="card capture-card" id="ask">
-  <h3>What should we answer next?</h3>
+  <h2>What should we answer next?</h2>
   <p>Every guide here starts from a real buyer question. Ask yours in one line — if it fits the five products we follow, it enters the <a href="guides.html">guide queue</a>.</p>
   <form class="capture-form" data-capture="{esc(state)}" data-capture-endpoint="{esc(endpoint)}">
     <label for="capture-question">Your question</label>
@@ -977,7 +977,7 @@ def hook_byline(_="") -> str:
     return f"""
 <div class="byline-strip" id="byline">
   <div>
-    <h3>Who writes this</h3>
+    <h2>Who writes this</h2>
     <p>{esc(BRAND)} is an edited buying guide, not a store and not a lab. Every figure was read from an official listing or an official policy page on a dated pass, and the citation sits next to it. Nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>), so nothing pretends otherwise. <a href="about.html">Read the four rules every page follows</a>, or go straight to the <a href="method.html">receipts</a>.</p>
   </div>
   <p class="byline-meta">Published {esc(BUILD_DATE)} · <a href="feed.xml" data-feed="1">RSS</a> · <a href="https://github.com/wingbangboozle1-lang/Prod2" rel="noopener" target="_blank">Source register on GitHub</a></p>
@@ -993,7 +993,7 @@ def hook_season_desk(_="") -> str:
         blocks.append(f"""
   <div class="card season-card">
     <p class="eyebrow">{esc(s["window"])} · {esc(s["status"])}</p>
-    <h3>{esc(s["name"])}</h3>
+    <h2>{esc(s["name"])}</h2>
     <p>{esc(s["line"])}</p>
     <ul class="season-guides">{links}</ul>
   </div>""")
@@ -1013,7 +1013,7 @@ def hook_clusters(_="") -> str:
         blocks.append(f"""
   <div class="card cluster-card">
     <p class="eyebrow">Cluster · {len(c["guides"])} guides</p>
-    <h3><a href="{esc(c["pillar"])}">{esc(c["name"])}</a></h3>
+    <h2><a href="{esc(c["pillar"])}">{esc(c["name"])}</a></h2>
     <p>{esc(c["line"])}</p>
     <ul class="cluster-guides">{links}</ul>
     <p><a class="more" href="{esc(c["pillar"])}">The {esc(c["name"].lower())} pillar page</a></p>

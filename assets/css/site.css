@@ -966,3 +966,7 @@ h2#B-01, h2#B-02, h2#B-03, h2#B-04, h2#B-05, h2#B-06 { scroll-margin-top: 4rem; 
 .faq-item[open] summary { border-bottom: 1px solid var(--rule); background: var(--paper-deep); }
 .faq-body { padding: .95rem 1.2rem 1.05rem; }
 .faq-body p { margin: 0; font-size: .95rem; line-height: 1.6; color: var(--ink-soft); max-width: 46rem; }
+
+/* product-card headings: keep the serif lift but allow a long model name to wrap
+   without orphan words on a narrow card */
+.product-card h3.card-title { text-wrap: balance; }

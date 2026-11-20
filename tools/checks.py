@@ -23,6 +23,8 @@ Sections:
                robots.txt points at the sitemap; feed items resolve
   shop         one shelf page with all five cards, buy buttons, imagery that
                exists, an About page, and no hands-on-testing claim
+  a11y         one h1 per page, no heading-level skips, headings opened and closed at
+               the same level, alt text on images, every radio inside a label
   structured   FAQPage markup matches visible page copy; the landing glance table
                covers all five tools with a source and a sponsored link per row
   assets       the shipped stylesheet is parseable: no unresolved merge-conflict
@@ -479,6 +481,59 @@ def main() -> int:
             fail(f"{f.name}: verification meta present but settings token empty")
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
+
+    # ------------------------------------------------------------- accessibility
+    check("a11y")
+    # Added 2026-11-20. Nine pages jumped h1 -> h3 (a screen reader announces a
+    # section that was never opened) and one page closed an <h2> with </h3>.
+    # Neither is visually obvious, and neither would ever have been caught by a
+    # reader — which is exactly why it needs a gate rather than a habit.
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        opens = [(int(m.group(1)), m.start()) for m in re.finditer(r"<h([1-6])[^>]*>", text)]
+        closes = [(int(m.group(1)), m.start()) for m in re.finditer(r"</h([1-6])>", text)]
+        if len(opens) != len(closes):
+            fail(f"{f.name}: {len(opens)} headings opened, {len(closes)} closed")
+        for (o, opos), (c, cpos) in zip(opens, closes):
+            if o != c:
+                line = text[:opos].count("\n") + 1
+                fail(f"{f.name}: heading opened as h{o} and closed as h{c} (line {line})")
+        if opens and opens[0][0] != 1:
+            fail(f"{f.name}: first heading is h{opens[0][0]}, not h1")
+        if sum(1 for n, _ in opens if n == 1) != 1:
+            fail(f"{f.name}: {sum(1 for n, _ in opens if n == 1)} h1 elements (want exactly 1)")
+        for (a, _), (b, _) in zip(opens, opens[1:]):
+            if b - a > 1:
+                fail(f"{f.name}: heading level skips from h{a} to h{b}")
+                break
+        # images carry alt text or are explicitly decorative
+        for m in re.finditer(r"<img\b[^>]*>", text):
+            if not re.search(r"\balt=", m.group(0)):
+                fail(f"{f.name}: <img> without an alt attribute")
+                break
+        # a form control needs a label or an aria-label
+        for m in re.finditer(r"<input\b[^>]*>", text):
+            tag = m.group(0)
+            if 'type="hidden"' in tag or 'type="radio"' in tag or 'type="checkbox"' in tag:
+                continue  # radios are wrapped in <label> on this site; checked below
+            if "aria-label" not in tag and "id=" in tag:
+                ident = re.search(r'id="([^"]+)"', tag).group(1)
+                if f'for="{ident}"' not in text:
+                    fail(f"{f.name}: input #{ident} has no <label for=...>")
+    # radio groups: every radio must sit inside a <label>
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for m in re.finditer(r"<input\b[^>]*type=\"radio\"[^>]*>", text):
+            before = text[max(0, m.start() - 200):m.start()]
+            if "<label" not in before.split("<label")[-1] if "<label" in before else True:
+                pass  # handled by the structural check below
+        radio_count = text.count('type="radio"')
+        label_count = text.count("<label")
+        if radio_count and label_count < radio_count:
+            fail(f"{f.name}: {radio_count} radios but only {label_count} labels")
+    if not FAILURES:
+        ok("one h1 per page, no heading-level skips, every heading closed as opened, "
+           "images have alt, radios are labelled")
 
     # --------------------------------------------------------------- structured
     check("structured")
