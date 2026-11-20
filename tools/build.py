@@ -1120,8 +1120,32 @@ def build_sitemap() -> None:
 
 
 def build_robots() -> None:
+    # One site to index. Legacy Pages serves the repo root, so working trees
+    # (data/, content/, tools/, …), the docs/ mirror, the preserved site/ build and
+    # the archive/ history are all fetchable on the live host. They are duplicates or
+    # source, never answers a buyer needs: keep crawlers on the publication itself.
+    # Canonicals on every published page are the primary control; this file is the
+    # crawl policy on top. (Session arena/4fef743e-prod2, task X-01.)
     (DOCS / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\nDisallow: /Prod2/archive/\n\n"
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /Prod2/archive/\n"
+        "Disallow: /Prod2/docs/\n"
+        "Disallow: /Prod2/site/\n"
+        "Disallow: /Prod2/content/\n"
+        "Disallow: /Prod2/data/\n"
+        "Disallow: /Prod2/tools/\n"
+        "Disallow: /Prod2/scripts/\n"
+        "Disallow: /Prod2/tests/\n"
+        "Disallow: /Prod2/var/\n"
+        "Disallow: /Prod2/npm/\n"
+        "Disallow: /Prod2/.arena-import/\n"
+        "Disallow: /*.md$\n"
+        "Disallow: /Prod2/server.mjs\n"
+        "Disallow: /Prod2/analytics-client.js\n"
+        "Disallow: /Prod2/package.json\n"
+        "Disallow: /Prod2/.gitignore\n"
+        "Disallow: /Prod2/.nojekyll\n\n"
         f"Sitemap: {BASE}/sitemap.xml\n", encoding="utf-8")
 
 
