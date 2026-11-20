@@ -20,7 +20,7 @@ sitemap gaps). Standard library only — no dependencies.
 
 ```bash
 python3 tools/build.py      # render the publication: data/p2/*.json + content/pages/* -> docs/ -> repo root
-python3 tools/checks.py     # release gate: 11 sections, exits non-zero on any violation
+python3 tools/checks.py     # release gate: 14 sections, exits non-zero on any violation
 npm test                    # the gate, plus the self-hosted endpoint tests
 ```
 
@@ -86,7 +86,7 @@ mistaken for the target product (F-P17).
 | `shop.html` | The whole catalogue, filterable by format and category, plus the three-question chooser |
 | `compare.html` | One sourced comparison table, the counter-space analysis, and how to read both |
 | `products.html` | Full listed specification per product, with the product-intent record kept separate |
-| `guides.html` + 9 guide pages | One buyer question per page, in clusters with pillar pages, on a 14-day cadence |
+| `guides.html` + 10 guide pages | One buyer question per page, in clusters with pillar pages, on a 14-day cadence |
 | `category-air-fryers.html`, `category-thermometers.html` | The two format shelves |
 | `buying-guide.html` | The long-form decision path: format, then capacity, then counter, then cleanup |
 | `about.html` | Authorship, the four editorial rules, what we cannot tell you, imagery policy |
@@ -142,7 +142,7 @@ See `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, and the **About** page for sources a
 | Search Console | Not verified; token slot ready in `data/p2/settings.json` (Q-P08) |
 | Analytics endpoint | `server.mjs` works and is tested; not hosted (Q-23) |
 | Campaign ledger | Empty by rule; accepts only authorized first-party rows |
-| Release gate | 11 sections, green |
+| Release gate | 14 sections, green |
 | Open flags | 20 open, 8 resolved, 4 standing — all on the Flagged for review page |
 
 Everything in the bottom half of that table is an owner action, not an engineering gap. The

@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "description": "Second live re-check of the five owner-submitted link.amazon short links and the /dp/ listings, performed 2026-11-20 by arena/d5157db6-prod2 with the fetch tool. Values are recorded as observed and are not written into data/p2/products.json or data/p2/intent-links.json. Differences from the earlier check are logged as flag changes (F-P24), not as edits to intended fields.",
+    "date_utc": "2026-11-20",
+    "session": "arena/d5157db6-prod2",
+    "tracking_id": "shopnow047c-20",
+    "method": "fetch_page on each submitted link.amazon URL (redirects followed by the tool), and fetch_page on https://www.amazon.com/dp/B0CDY277D3 for the P1 listing title. The tool is the only verification route available in this sandbox: outbound HTTP to amazon.com and link.amazon is not on the allowlist for curl.",
+    "compared_with": "data/p2/live-check-2026-11-20-722181aa.json (earlier the same day)"
+  },
+  "short_links": [
+    {"product_id": "P1", "submitted_url": "https://link.amazon/B04G1MEwY", "register_asin": "B0CDY277D3", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "result": "resolved to the Amazon homepage, not the product listing (same as the earlier check today)"},
+    {"product_id": "P2", "submitted_url": "https://link.amazon/B02NbDxp3", "register_asin": "B09B7SB46R", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "result": "resolved to the Amazon homepage, not the product listing (same as the earlier check today)"},
+    {"product_id": "P3", "submitted_url": "https://link.amazon/B00hJ57DV", "register_asin": "B08DKYBTPH", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "result": "resolved to the Amazon homepage, not the product listing (same as the earlier check today)"},
+    {"product_id": "P4", "submitted_url": "https://link.amazon/B0c8moW59", "register_asin": "B0DHZTCNR5", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "result": "resolved to the Amazon homepage, not the product listing (same as the earlier check today)"},
+    {"product_id": "P5", "submitted_url": "https://link.amazon/B0f3GKalj", "register_asin": "B0DZFD6R9Z", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "result": "CHANGED: the earlier check today recorded HTTP 500; this read resolved to the Amazon homepage. Not a product listing."}
+  ],
+  "direct_asin_pages": [
+    {"product_id": "P1", "asin": "B0CDY277D3", "page_title_observed": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen", "title_matches_register": true, "url_observed": "https://www.amazon.com/dp/B0CDY277D3?lv=shuf&channelId=500&plpRedirect=mhFallback", "note": "Only P1 was re-read in this session. P2-P5 listing titles were re-read earlier today (live-check-2026-11-20-722181aa.json); they are not re-read here."}
+  ],
+  "values_not_recorded": "No price, rating, review count or commission value is recorded here. The listing pages show prices for other products in their recommendation widgets, which are not attributable to the product and are not published (F-02).",
+  "conclusion": "The short-link discrepancy (F-P24) is still unresolved and is now observed twice today, with one change between the two reads. The intended ASIN for each product is unchanged. The site never publishes a short link as a buy path, so no reader-facing link is affected."
+}
