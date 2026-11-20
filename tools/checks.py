@@ -622,7 +622,12 @@ def main() -> int:
             linked.add(rel)
         for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             linked.add(rel)
-    css_files = sorted(DOCS / rel for rel in linked if rel.endswith((".css", ".js")) and (DOCS / rel).exists())
+    # A ?v= cache-buster (required by the one-site gate) is a query parameter,
+    # not part of the filename: resolve the path without it.
+    def _asset_path(rel: str) -> pathlib.Path:
+        return DOCS / rel.split("?", 1)[0]
+    css_files = sorted(_asset_path(rel) for rel in linked
+                       if rel.split("?", 1)[0].endswith((".css", ".js")) and _asset_path(rel).exists())
     if not css_files:
         fail("no stylesheet or script linked by a built page exists in docs/ — nothing styles the site")
     for f in css_files:
