@@ -6,7 +6,7 @@
   "why_this_exists": "The owner asked for 'a clear list of questions, informations and answers that need to be addressed before any decision can be reasonably made based on the information that we already have and do not have', plus 'suggestions to discover missing information'. The Q-register answers what is unknown; the SG-register answers what to build. Neither answers 'what do I decide, in what order, and what is the cheapest way to find out'. That is this file.",
   "ordering_rule": "Ordered by irreversibility, not by impact. A brief that can be undone in one commit ranks below a brief that costs an account.",
   "read_dates": "All source reads cited here are dated in data/p2/verification-2026-11-20.json (three passes, 2026-11-14 to 2026-11-20).",
-  "cross_branch_note": "Two open PRs on other branches add rows this register does not have: F-P26 (a price column in the repository executive summary), F-P27 (two same-day short-link reads disagreeing), F-P28 (products.json vs the 2026-11-20 reads), and Q-P18 (the logged-out browser check). They are NOT cited here, because a brief must only point at rows a reader can open on the site as published. This session's own third read (data/p2/verification-2026-11-20.json -> third_pass_2026_11_20_arena_15730819) is the evidence cited for the same finding, and it is on this branch. When those PRs merge, the briefs should be re-pointed at their rows."
+  "cross_branch_note": "F-P26, F-P27, F-P28 and Q-P18 were added to main by PR #43 while this file was being written, and this branch has merged that work. The briefs now cite those rows directly; the earlier version of this file had to point at this session's own third read because the rows did not exist on the branch yet. Both citations are kept where they add evidence, and no finding is duplicated."
  },
  "briefs": [
   {
@@ -29,7 +29,7 @@
     },
     {
      "fact": "The supplied short links resolved to their intended ASINs on every read from 2026-11-14 to 2026-11-19, and to the Amazon homepage on three reads on 2026-11-20.",
-     "cited_by": "F-P24 · F-P24 · third_pass_2026_11_20_arena_15730819"
+     "cited_by": "F-P24 · F-P27 · third_pass_2026_11_20_arena_15730819"
     },
     {
      "fact": "Amazon's Operating Agreement states Special Links must use the Associates ID Amazon assigned, with the tag as a parameter in the URL.",
@@ -66,11 +66,14 @@
     "F-58",
     "F-P24",
     "F-P24",
-    "F-P24"
+    "F-P24",
+    "F-P27",
+    "F-P28"
    ],
    "questions": [
     "Q-01",
-    "Q-01"
+    "Q-01",
+    "Q-P18"
    ]
   },
   {
@@ -177,7 +180,8 @@
    "flags": [
     "F-02",
     "F-P17",
-    "F-02"
+    "F-02",
+    "F-P26"
    ],
    "questions": [
     "Q-27"

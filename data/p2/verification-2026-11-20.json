@@ -241,7 +241,170 @@
    "All five document titles match the register's name_listing values verbatim — no title drift observed on this pass.",
    "Both category breadcrumbs confirmed: Air Fryers (P1-P3) and Thermometers & Timers › Meat (P4-P5).",
    "Prices and ratings were visible on the listing pages and are withheld from publication (F-02). An 'In Stock' line was observed on P4 — availability policy now tracked as Q-P11 / SG-42.",
-   "The short links (S-L1..S-L5) were not re-resolved this pass; their last dated redirect observation is 2026-11-19 (F-P07 covers the two-links-per-pass pattern)."
+   "The short links (S-L1..S-L5) were not re-resolved this pass; their last dated redirect observation is 2026-11-19 (F-P07 covers the two-links-per-pass pattern).",
+   "Correction, 2026-11-20 (arena/37b265a4-prod2, R-01): the short-link sentence above is superseded. The short links were read again on this date; see r01_reread_2026_11_20 in this file."
+  ]
+ },
+ "r01_reread_2026_11_20": {
+  "_meta": {
+   "session": "arena/37b265a4-prod2",
+   "task": "R-01 (COORDINATION.md): same-day independent re-read of the five short links, the five /dp/ listings, the Associates policy pages and the live host.",
+   "method": "fetch_page tool, 2026-11-20 UTC. The fetch tool is not a logged-in browser and does not attest to what a buyer sees. Titles are compared after removing the \"Amazon.com: \" prefix and \" : Home & Kitchen\" suffix that the tool adds; the comparison is exact string equality against data/p2/products.json name_listing.",
+   "scope_note": "Adds dated observations only. No existing intended_asin, official_listing_url, price or rating field was changed.",
+   "correction_2026_11_20": "Attempt records for B00hJ57DV and B0f3GKalj corrected to one read each (homepage). A first draft recorded HTTP 500 for these links; that was wrong for the R-01 read and has been removed."
+  },
+  "listings": [
+   {
+    "id": "P1",
+    "asin": "B0CDY277D3",
+    "url": "https://www.amazon.com/dp/B0CDY277D3",
+    "read_utc": "2026-11-20",
+    "title_observed": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+    "title_match_register_name_listing": true
+   },
+   {
+    "id": "P2",
+    "asin": "B09B7SB46R",
+    "url": "https://www.amazon.com/dp/B09B7SB46R",
+    "read_utc": "2026-11-20",
+    "title_observed": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+    "title_match_register_name_listing": true
+   },
+   {
+    "id": "P3",
+    "asin": "B08DKYBTPH",
+    "url": "https://www.amazon.com/dp/B08DKYBTPH",
+    "read_utc": "2026-11-20",
+    "title_observed": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+    "title_match_register_name_listing": true
+   },
+   {
+    "id": "P4",
+    "asin": "B0DHZTCNR5",
+    "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+    "read_utc": "2026-11-20",
+    "title_observed": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
+    "title_match_register_name_listing": true
+   },
+   {
+    "id": "P5",
+    "asin": "B0DZFD6R9Z",
+    "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+    "read_utc": "2026-11-20",
+    "title_observed": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+    "title_match_register_name_listing": true
+   }
+  ],
+  "short_links": [
+   {
+    "id": "P1",
+    "short_link": "https://link.amazon/B04G1MEwY",
+    "intended_asin": "B0CDY277D3",
+    "read_utc": "2026-11-20",
+    "attempts": [
+     {
+      "attempt": "attempt 1",
+      "observed": "final URL https://www.amazon.com/ (Amazon homepage; no /dp/ path)"
+     },
+     {
+      "attempt": "attempt 2",
+      "observed": "final URL https://www.amazon.com/ (Amazon homepage; no /dp/ path)"
+     }
+    ],
+    "resolved_to_intended_asin": false
+   },
+   {
+    "id": "P2",
+    "short_link": "https://link.amazon/B02NbDxp3",
+    "intended_asin": "B09B7SB46R",
+    "read_utc": "2026-11-20",
+    "attempts": [
+     {
+      "attempt": "attempt 1",
+      "observed": "final URL https://www.amazon.com/dp/B09B7SB46R (intended ASIN; title matches register)"
+     }
+    ],
+    "resolved_to_intended_asin": true
+   },
+   {
+    "id": "P3",
+    "short_link": "https://link.amazon/B00hJ57DV",
+    "intended_asin": "B08DKYBTPH",
+    "read_utc": "2026-11-20",
+    "attempts": [
+     {
+      "attempt": "single read (R-01 pass)",
+      "observed": "final URL https://www.amazon.com/ (Amazon homepage; no /dp/ path)"
+     }
+    ],
+    "resolved_to_intended_asin": false,
+    "unreproduced_earlier_note": "An earlier same-day note of HTTP 500 for this link was not reproduced in the R-01 read and is not relied on."
+   },
+   {
+    "id": "P4",
+    "short_link": "https://link.amazon/B0c8moW59",
+    "intended_asin": "B0DHZTCNR5",
+    "read_utc": "2026-11-20",
+    "attempts": [
+     {
+      "attempt": "attempt 1",
+      "observed": "final URL https://www.amazon.com/ (Amazon homepage; no /dp/ path)"
+     },
+     {
+      "attempt": "attempt 2",
+      "observed": "final URL https://www.amazon.com/ (Amazon homepage; no /dp/ path)"
+     }
+    ],
+    "resolved_to_intended_asin": false
+   },
+   {
+    "id": "P5",
+    "short_link": "https://link.amazon/B0f3GKalj",
+    "intended_asin": "B0DZFD6R9Z",
+    "read_utc": "2026-11-20",
+    "attempts": [
+     {
+      "attempt": "single read (R-01 pass)",
+      "observed": "final URL https://www.amazon.com/ (Amazon homepage; no /dp/ path)"
+     }
+    ],
+    "resolved_to_intended_asin": false,
+    "unreproduced_earlier_note": "An earlier same-day note of HTTP 500 for this link was not reproduced in the R-01 read and is not relied on."
+   }
+  ],
+  "short_link_summary": "Only link.amazon/B02NbDxp3 reached its intended ASIN in this read. link.amazon/B04G1MEwY and link.amazon/B0c8moW59 reached the Amazon homepage on both attempts. link.amazon/B00hJ57DV and link.amazon/B0f3GKalj each reached the Amazon homepage on one read. An earlier same-day note of HTTP 500 for two of these links was not reproduced and is not relied on. Another session read the same URLs the same day and reports different results for B02NbDxp3 and B0f3GKalj (F-P24, F-P27). This contradicts the earlier statement that all five tokens resolve to their listings. Cause not established (F-P24, F-P27, F-P28, Q-P18).",
+  "policy_reads": [
+   {
+    "source": "S-POL",
+    "url": "https://affiliate-program.amazon.com/help/operating/policies",
+    "page_updated_as_shown": "April 14, 2026",
+    "observed": "Section 2(b) General Requirements: a Special Link must include the Associates tag as a URL parameter. Product prices and availability may be shown only if (a) Amazon serves the link that displays them, or (b) the data come through Creators API or PA API under the License.",
+    "observed_2": "Section 6(t): customer reviews or star ratings may be displayed only if obtained through Creators API or PA API and used in compliance with those requirements.",
+    "observed_3": "Section 6(w): \"You will not use a link shortening service, button, hyperlink or other ad placement in a manner that makes it unclear that you are linking to an Amazon Site.\"",
+    "read_utc": "2026-11-20"
+   },
+   {
+    "source": "S-OA",
+    "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+    "page_updated_as_shown": "October 15, 2025",
+    "observed": "Page header and Section 1 read; Section 5 (disclosure wording) was not re-read in this pass.",
+    "read_utc": "2026-11-20"
+   }
+  ],
+  "live_host": {
+   "url": "https://wingbangboozle1-lang.github.io/Prod2/",
+   "title_observed": "Air fryers and thermometers by format | The Crisp Counter",
+   "matches_docs_index_title": true,
+   "public_source_file_check": {
+    "url": "https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json",
+    "result": "HTTP 200 through the fetch tool; the repository source file is served publicly (exposure already flagged as F-P19/F-P20).",
+    "inconsistency": "The served copy shows brand.name \"Prod2\" and a last_change from the shop-front pass, while the local data/p2/settings.json and the live index show \"The Crisp Counter\". The cause is not established (fetch-tool cache or a stale copy). Not treated as conclusive; recorded on F-P20."
+   }
+  },
+  "not_done": [
+   "No logged-in Associates Central check; Store ID registration and one-link-per-product attribution remain unverified (F-57, F-58, Q-01).",
+   "No browser-based short-link test; the fetch tool result is not evidence of what a buyer sees (Q-P18).",
+   "Section 2(b)-(c) and Section 6 were read only in the pages returned; Amazon Conditions of Use and the FTC pages were not re-read in this pass."
   ]
  },
  "third_pass_2026_11_20_arena_15730819": {
