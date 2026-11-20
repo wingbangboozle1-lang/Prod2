@@ -94,6 +94,10 @@ PAGES = [
      f"Questions to ask before buying multi-function gear | {BRAND}",
      "Air fry, bake, dehydrate, rotisserie: which functions will you actually use? The questions that separate a worktop workhorse from a cupboard-filler.",
      "guides"),
+    ("article-air-fryer-doneness", "article-air-fryer-doneness.html",
+     f"Did the air fryer work? One number decides | {BRAND}",
+     "Capacity, drawers and wattage do not tell you whether dinner is safe. USDA and extension guidance on the one number that does, applied to the three air fryers we track.",
+     "guides"),
     ("article-thermometer-placement", "article-thermometer-placement.html",
      f"Where to put the probe: placement beats precision | {BRAND}",
      "USDA guidance on where a thermometer probe actually belongs, set against the two thermometers we follow. What the official pages say, and what they do not.",
@@ -1075,7 +1079,7 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
 
 def build_feed() -> None:
     items = []
-    for gid in GUIDE_IDS + ["buying-guide", "article-thermometer-placement"]:
+    for gid in GUIDE_IDS + ["buying-guide", "article-thermometer-placement", "article-air-fryer-doneness"]:
         p = next(x for x in PAGES if x[0] == gid)
         items.append(f"""    <item>
       <title>{esc(p[2].split(' | ')[0])}</title>

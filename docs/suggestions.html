@@ -658,6 +658,51 @@
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the first measured-iteration item; do nothing until the gate opens.</p>
 </article>
+<article class="card s-card" id="SG-45">
+  <header><h3><code>SG-45</code> Publish long-form argument pieces, not only checklists</h3>
+  <span class="status status-shipped">shipped</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The ten guides are 430-800 words and each one ends by restating the same method rule. A reader who wants to know what actually decides a purchase has nowhere to read an argument, and a search engine has ten thin pages competing with each other on near-identical framing.</dd>
+    <dt>Proposal</dt><dd>Ship one long read (1,200-1,400 words) per buying decision, built on an official guidance source the listings do not carry — USDA FSIS placement and temperature guidance, land-grant extension food-safety guidance. Each long read states a position, cites every figure, and carries the site&#x27;s standing &#x27;what we could not verify&#x27; block.</dd>
+    <dt>Evidence</dt><dd>Two shipped 2026-11-20: article-thermometer-placement.html (1,295 words) and article-air-fryer-doneness.html (1,212 words), both sourced to pages read that day (S-FSIS-THERMO, S-FSIS-CHART, S-UNL-AIRFRYER).</dd>
+    <dt>Expected impact</dt><dd>High — depth is the only durable difference between this site and an affiliate listing scrape; it also gives guides something to link to instead of to each other.</dd>
+    <dt>Effort</dt><dd>One long read per cadence cycle (currently 14 days).</dd>
+    <dt>Risk</dt><dd>Slower cadence than short guides; mitigated by keeping one short guide per cycle alive.</dd>
+    <dt>Progress</dt><dd>Shipped 2026-11-20 (arena/644d217b-prod2): two long reads live and wired into the sitemap, feed, JSON-LD and both category pillars.</dd>
+    <dt>Depends on</dt><dd>SG-34</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Keep doing it. Next candidates, in order: counter depth vs door swing (needs a tape-measure verification by the owner), then a gift piece rewritten for January returns season.</p>
+</article>
+<article class="card s-card" id="SG-46">
+  <header><h3><code>SG-46</code> Move to one deployable artifact and retire the repo-root mirror</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>GitHub Pages serves this repository&#x27;s ROOT in legacy mode, so every reader-facing page is committed twice (docs/ and the root mirror) and 196 source files sit at fetchable paths. The mitigation in place (canaries, a mirror script, an exposition gate, flags F-P19/F-P20) makes the exposure visible; it does not remove it.</dd>
+    <dt>Proposal</dt><dd>Owner flips Settings -&gt; Pages -&gt; Source to GitHub Actions. That is one dropdown. ./github/workflows/pages.yml already builds docs/ and uploads it as an artifact, so the workflow needs no change; the root mirror and both canary files can then be deleted.</dd>
+    <dt>Evidence</dt><dd>Measured 2026-11-20: Pages API returns build_type &#x27;legacy&#x27;, source main /; a token-scoped PUT to build_type=workflow returned 403. The workflow that would publish docs/ only already exists and is green.</dd>
+    <dt>Expected impact</dt><dd>High — halves the file count in the repo, removes the double-commit in every pass, and closes the largest open compliance item.</dd>
+    <dt>Effort</dt><dd>About two minutes of owner time; one follow-up commit here to delete the mirror.</dd>
+    <dt>Risk</dt><dd>A brief window where the site serves the workflow artifact instead of the root. Revert is the same dropdown.</dd>
+    
+    <dt>Depends on</dt><dd>F-P19, F-P20</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Do this first. It is the cheapest item on the board with the largest structural payoff, and unlike every other item it needs no editorial judgement.</p>
+</article>
+<article class="card s-card" id="SG-47">
+  <header><h3><code>SG-47</code> Get one authoritative gallery image per product through the official channel, or keep drawings</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Every product card carries an illustration rather than a photo, because copying a listing image is restricted by Amazon&#x27;s IP License. Illustrations are honest but they are also the single biggest reason the shelf does not look like a shop.</dd>
+    <dt>Proposal</dt><dd>Either (a) enrol in the Amazon Associates product-advertising/PA-API route and pull the official image with the licensed link, which is the only compliant way to show real photography, or (b) commission a consistent illustration set so at least the drawings look deliberate rather than placeholder.</dd>
+    <dt>Evidence</dt><dd>Operating Agreement Section 1 / IP License and Usage Requirements, read 2026-11-20; the site&#x27;s own note under every card reads &#x27;Illustration, not the product photo&#x27;.</dd>
+    <dt>Expected impact</dt><dd>High for click-through; zero for compliance.</dd>
+    <dt>Effort</dt><dd>(a) needs API access; (b) is a design pass.</dd>
+    <dt>Risk</dt><dd>(a) is blocked on API approval, which is outside this project&#x27;s control. (b) is safe and reversible.</dd>
+    
+    <dt>Depends on</dt><dd>Q-P05</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Run (b) now; switch to (a) only if API access is granted.</p>
+</article>
 
 <div class="callout callout-sage">
   <h3>What changed in this pass</h3>
