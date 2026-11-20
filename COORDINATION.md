@@ -272,6 +272,18 @@ Post-merge gates on the 40-page tree: `tools/checks.py` **ALL CHECKS PASSED** (1
 incl. `one-site` "robots scoped" with the union list), `scripts/verify_site.py` **VERIFY OK**,
 `npm test` **10/10**, `tools/audit_publication.py` **no violations** (40/40 pages).
 
+### PR / merge / deploy record — arena/4fef743e-prod2 (X-01..X-05 closed)
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/73 |
+| Merge result | **Merged 2026-11-20 07:29:21 UTC**, merge commit `b9122e9603c7096d13bbf3e77ee51cd6f9704330` (`gh pr merge 73 --merge`) |
+| Pre-merge syncs | `origin/main` merged into this branch three times (PRs #43–#72 → `34994f4`; #45/#61/#68/#74/#75 → `b0df15d`; #76+ → `dac7dd0`). Conflicts and union resolutions logged above; nothing discarded. |
+| Workflows on `b9122e9` | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Live check (fetch tool, 2026-11-20) | `…/Prod2/robots.txt` serves the union crawl policy; `…/Prod2/index.html` serves the shop-style front page (tagged `(paid link)` product links, per-figure source lines, disclosure strip). |
+| Status | X-01..X-05 **done**. Claim released. |
+| Owner action still open | Settings → Pages → Source: **GitHub Actions** (API 403 from every sandbox — F-P19/F-P20/SG-46); Search Console claim (SG-29/F-P13); the one-link-per-product Associates test (F-57/F-58) — all recorded with exact steps in `REVIEW-2026-11-20-4fef743e.md`. |
+
 **Overlap notes (recorded for rebase reconciliation, per protocol):**
 1. `tools/build.py` is touched by open PRs #35, #41, #49. X-01 needs one function only:
    `build_robots()` (~line 1122, near `build_sitemap()`). The change is a larger `Disallow:` list.
