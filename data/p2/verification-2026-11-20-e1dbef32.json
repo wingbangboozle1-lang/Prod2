@@ -118,7 +118,7 @@
    ],
    "used_on": [
     "DESIGN_PROMPT.md",
-    "decisions log D-P24",
+    "decisions log D-P26",
     "flag F-P32"
    ]
   },
@@ -131,8 +131,8 @@
    "not_observed": "The gallery describes Product as 'Information about a product, including price, availability, and review ratings' — fields this site does not publish (F-02). This site's Product node therefore carries none of them; whether to keep the node at all is a decision, not a fact.",
    "used_on": [
     "flag F-P34",
-    "decision D-P25",
-    "question Q-P22 context"
+    "decision D-P27",
+    "question Q-P43 context"
    ]
   },
   {
@@ -144,7 +144,7 @@
    "not_observed": "Secondary coverage dates the end of FAQ rich results to 2026-05-07 and describes Search Console and API support dropping in June and August 2026. Those specific dates were NOT confirmed against an official Google page in this sandbox and are not published on the site.",
    "used_on": [
     "flag F-P32",
-    "decision D-P24"
+    "decision D-P26"
    ]
   }
  ],
@@ -167,12 +167,12 @@
   {
    "id": "V-04",
    "check": "Archived builds in the published tree",
-   "result": "git ls-files site → 25 files; site/index.html title 'Countercraft — Kitchen gear worth the counter space.'; a recursive grep for a currency-then-digits pattern in site/ returned no matches, so no price is exposed there. robots.txt now disallows /Prod2/site/ in addition to /Prod2/archive/. Recorded as F-P33 and Q-P22."
+   "result": "git ls-files site → 25 files; site/index.html title 'Countercraft — Kitchen gear worth the counter space.'; a recursive grep for a currency-then-digits pattern in site/ returned no matches, so no price is exposed there. robots.txt now disallows /Prod2/site/ in addition to /Prod2/archive/. Recorded as F-P33 and Q-P43."
   },
   {
    "id": "V-05",
    "check": "Structured-data placeholder sweep",
-   "result": "Before the fix, the Product node hard-coded gtin13 null and a brand fallback string 'unknown'; all five products do carry a read brand today (Chefman, Emeril, Chefman, ThermoMaven, CHEF iQ), so nothing wrong was published. The fallback is removed (F-P34, D-P25)."
+   "result": "Before the fix, the Product node hard-coded gtin13 null and a brand fallback string 'unknown'; all five products do carry a read brand today (Chefman, Emeril, Chefman, ThermoMaven, CHEF iQ), so nothing wrong was published. The fallback is removed (F-P34, D-P27)."
   },
   {
    "id": "V-06",

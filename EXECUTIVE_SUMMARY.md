@@ -182,25 +182,25 @@ Twelve guide pages and three long reads now publish; the front page's count row 
 
 **Machinery.** `tools/build.py` derives `FAQPage` JSON-LD from the *visible* Q&A blocks on a page, and `tools/checks.py` fails
 the build when markup and content disagree, when an answer is shorter than 60 characters, or when markup exists with nothing
-behind it. Product nodes no longer carry a null `gtin13` or a placeholder brand string (D-P25, F-P34): an unread field is
+behind it. Product nodes no longer carry a null `gtin13` or a placeholder brand string (D-P27, F-P34): an unread field is
 omitted, exactly as it is on the page. Paragraph balance is now a gate rule — it caught a real defect the same day
 (F-P30: the guides hub had shipped half its lede outside the paragraph). And a new `cadence` section enforces the editorial
 calendar: an overdue queue slot, a cluster pointing at a page that is not built, a long-read word count that no longer
-matches the built page, or a publish that fails to advance `next_due_utc` each fail the build (F-P35, D-P27). The
+matches the built page, or a publish that fails to advance `next_due_utc` each fail the build (F-P35, D-P29). The
 measurement/`npm test` suite is unchanged and green.
 
 **Decision support.** `suggestions.html` gained a generated **decision-readiness table** (`{{readiness}}`): every live
 proposal, the open question that blocks it, who can answer it, and the cheapest route to the answer — computed from
 `data/p2/suggestions.json` × `data/p2/questions.json`, so the review surface cannot fall behind the registers it
 summarises. It also states, with numbers, how much is decidable today: **11 of the live proposals need no new information at
-all**; 20 wait on an answer this repository cannot produce. Seven proposals were added (SG-49…SG-55) covering the FAQ
+all**; 20 wait on an answer this repository cannot produce. Seven proposals were added (SG-52…SG-58) covering the FAQ
 rollout, first-screen answers, cadence resourcing, the manuals that unblock four topics, the archived-build exposure,
-job-led shelf merchandising and a named byline. Four open questions were added (Q-P19…Q-P22).
+job-led shelf merchandising and a named byline. Four open questions were added (Q-P40…Q-P43).
 
 **What this pass did not do, deliberately.** It did not re-read the five listings a third time on 2026-11-20 — two parallel
 sessions had already done so and their records stand (F-P24). It did not publish a price, a rating, a popularity claim or a
 revenue figure; it did not invent a cook time, a holding temperature or an author; and it did not treat FAQ markup as a
-search ranking tactic (D-P24).
+search ranking tactic (D-P26).
 
 
 ---

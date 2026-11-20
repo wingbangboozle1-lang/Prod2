@@ -508,7 +508,7 @@ def main() -> int:
             fail(f"{f.name}: FAQPage markup present with {blocks} visible entries — "
                  f"markup must describe content a reader can actually see")
     ok(f"{faq_pages} pages carry FAQ blocks with matching FAQPage markup "
-       "(descriptive markup only: no rich-result claim, see D-P24 / S-GFAQ)")
+       "(descriptive markup only: no rich-result claim, see D-P26 / S-GFAQ)")
 
     # ----------------------------------------------------------- publication
     check("publication")

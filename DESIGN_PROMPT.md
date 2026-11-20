@@ -126,9 +126,9 @@ rich results: Google narrowed FAQ rich results to well-known authoritative
 government and health websites on 2023-08-08, its changelog records "Removing
 documentation for the FAQ rich result feature" in June 2026, and its
 supported-features gallery as read 2026-11-20 does not list FAQ. FAQPage here is
-reader structure and machine readability, not a SERP tactic (D-P24, F-P32).
+reader structure and machine readability, not a SERP tactic (D-P26, F-P32).
 Product nodes carry only fields the register actually holds — no null
-identifiers, no placeholder brand (D-P25, F-P34), because this site publishes no
+identifiers, no placeholder brand (D-P27, F-P34), because this site publishes no
 price, availability or rating (F-02).
 
 ## Queued inputs (2026-11-19)
@@ -161,30 +161,30 @@ reviewable on `suggestions.html` (the page now opens with a generated
 decision-readiness table so a reviewer can see what a choice costs before
 making it):
 
-- **SG-49** — retro-fit visible Q&A blocks to the ten guides that lack them,
+- **SG-52** — retro-fit visible Q&A blocks to the ten guides that lack them,
   using the mechanism shipped with the two new guides (gated pairing, so an FAQ
   can never be a claim about content that is not there).
-- **SG-50** — a first-screen "short answer" callout on every reader page, with
+- **SG-53** — a first-screen "short answer" callout on every reader page, with
   at least one inline source marker inside it, so an answer never outruns its
   receipt. Pattern in use on `guide-safe-temp-chart.html`,
   `guide-leftovers.html` and the front-page long-read cards.
-- **SG-51** — resource the 14-day cadence or delete the promise; the cadence
+- **SG-54** — resource the 14-day cadence or delete the promise; the cadence
   gate now makes an unreconciled slot a build failure, so the copy has to match
-  the machinery (F-P35, Q-P20).
-- **SG-52** — obtain the three operator's manuals from the manufacturers'
+  the machinery (F-P35, Q-P41).
+- **SG-55** — obtain the three operator's manuals from the manufacturers'
   official pages: four how-to topics, including the hot-holding question that
-  decides holiday hosting, cannot be designed or written without them (Q-P19).
-- **SG-53** — decide what the published branch may contain: the Pages source
+  decides holiday hosting, cannot be designed or written without them (Q-P40).
+- **SG-56** — decide what the published branch may contain: the Pages source
   change removes the archived builds' exposure, or the exposure becomes a
-  recorded choice (F-P33, Q-P22).
-- **SG-54** — merchandise the shelf by cooking job (rails generated from the
+  recorded choice (F-P33, Q-P43).
+- **SG-57** — merchandise the shelf by cooking job (rails generated from the
   listed format and best-for fields), which is the marketing-side change with
   the most reach and the least new claim.
-- **SG-55** — a named human in the byline, or an explicit decision to stay
+- **SG-58** — a named human in the byline, or an explicit decision to stay
   organizational; the byline currently reads as an organization in the copy and
   in the Article author node.
 
 Editorial direction added with this pass: new topics come from official
 guidance the listings do not carry (USDA FSIS, peer-reviewed extension
 guidance), not from re-wording listing copy. Three pages shipped on that rule
-and the sourcing standard is recorded in the decisions log (D-P26).
+and the sourcing standard is recorded in the decisions log (D-P28).

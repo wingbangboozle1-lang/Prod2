@@ -1295,7 +1295,7 @@ def hook_queue(_="") -> str:
     rows = []
     for q in CALENDAR["queue"]:
         # A slot can be scheduled, shipped or blocked — never silently unanswerable.
-        # Slot 1 asks a how-to-use question the listings cannot answer (Q-P19), and it is
+        # Slot 1 asks a how-to-use question the listings cannot answer (Q-P40), and it is
         # published as blocked rather than left to age as if it were merely not yet due.
         state = esc(q.get("status") or "scheduled")
         if q.get("blocked_by"):
@@ -1514,7 +1514,7 @@ def jsonld_for(page_id: str, title: str, description: str, path: str,
             # A value the register does not hold is omitted, not filled: null gtin13 is
             # noise, and a brand literally named "unknown" would be an invented fact
             # inside machine-readable data — the same rule the page copy follows (F-02,
-            # D-P25). This site publishes no price, availability or rating either.
+            # D-P27). This site publishes no price, availability or rating either.
             if p.get("brand"):
                 node["brand"] = {"@type": "Brand", "name": p["brand"]}
             items.append({
@@ -1676,7 +1676,7 @@ def build_robots() -> None:
         # /Prod2/site/ is the other archived build: 25 tracked files under the old brand,
         # with their own <title> and no canonical, still reachable while Pages serves the
         # repository root. guard_archive() noindexes archive/ and not site/, so a robots
-        # request is the whole of what the build can do about it (F-P33, Q-P22).
+        # request is the whole of what the build can do about it (F-P33, Q-P43).
         "Disallow: /Prod2/archive/\n"
         "Disallow: /Prod2/site/\n"
         "Disallow: /Prod2/data/\n"
