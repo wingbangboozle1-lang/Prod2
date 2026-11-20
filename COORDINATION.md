@@ -2476,7 +2476,16 @@ new pages. `git pull --rebase` run before every push; no conflicts encountered.
 
 ### PR and deployment result
 
-(PR #65: https://github.com/wingbangboozle1-lang/Prod2/pull/65 — merge and Pages result recorded in the follow-up record PR immediately after deployment verification, per the record-PR precedent other sessions used)
+### PR and deployment result (recorded 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| PR | [#65](https://github.com/wingbangboozle1-lang/Prod2/pull/65) — "Final integration: repaired stylesheet, reconciled registers, PR #41's reader pages, PR #43's price correction" |
+| Merge result | **Merged** 2026-11-20 07:29:10 UTC, merge commit `e8b0d62`. Four merge-race syncs were needed first (PRs #47, #54, #58–#63, #69–#72, #74, #77–#79 merged by parallel sessions while this branch was being verified); every sync was resolved without discarding the other sessions' work and re-gated green before pushing. |
+| Checks on merge | `verify-site` ✓ (run 44695302746), `Self-hosted analytics tests` ✓ (run 44695302711). |
+| Pages deploy | The deploy run for this merge was **superseded** by the immediately following PR #73 merge (parallel session); the subsequent `Deploy to GitHub Pages` run (44695326524) and `pages-build-deployment` (44695325398) both completed **success** and serve a build that contains this merge. |
+| Live check | Fetched live 2026-11-20 (fetch tool): the merged build serves — the stylesheet carries **no conflict markers** and both font stacks; the front page serves the shop shelf with five tagged Special Links (`?tag=shopnow047c-20`, "(paid link)" labels) and the glance table with blank thermometer cells; `guide-dual-vs-single.html` and `analysis.html` serve with the corrected short-link finding ("Two of five short links verified; three did not", citing F-P24/F-P27/F-P28, F-03, Q-P18); `design-prompt.html` serves the eight guardrails + eight prompts. The site is live with the reconciled registers (36 questions, 51 suggestions, 43 flags, 36 decisions). |
+| Status | **X-01–X-06 done.** Claim closed. Flagged irregularities remain on the Flagged for Review page, non-blocking per the brief. |
 
 ---
 
