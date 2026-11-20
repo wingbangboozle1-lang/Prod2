@@ -703,3 +703,35 @@ disallows `/Prod2/archive/` so only one site is indexable.
 - Register numbering is now dense-and-stable: flags F-01..F-P14, questions Q-01..Q-P09 (plus
   Q-19/23/27/31/47 carried), suggestions SG-01..SG-17 + SG-27..SG-37. New rows should continue from
   F-P15 / Q-P10 / SG-38.
+
+---
+
+# SESSION CLAIM — `arena/dd4bae8a-prod2` (2026-11-20, publication + verification pass)
+
+**Protocol note (branch):** Arena permits exactly one branch per session, so this session works
+on `arena/dd4bae8a-prod2`, branched from `f6e772f` (main at PR #28). Following the convention
+already recorded on this board (`arena/<id>-prod2`), this session is **both the working and the
+final integration session** on its own branch and merges to `main` by pull request at the end.
+
+| Task | Status | Session | Scope (files) | Notes |
+| --- | --- | --- | --- | --- |
+| V-01 Live re-verification of the 5 submitted links + listings **today (2026-11-20)** | in progress | arena/dd4bae8a-prod2 | `data/p2/verification-2026-11-20.json`, `data/p2/sources.json`, `data/p2/products.json` | First session with live outbound read access to amazon.com and link.amazon (see note) |
+| V-02 Resolve RR-1 / RR-2 (price + rating display) against the official Program Policies text | in progress | arena/dd4bae8a-prod2 | `data/p2/decisions.json`, `data/p2/flags.json`, `data/p2/sources.json` | §2(b) price rule; §6(t) rating rule re-read 2026-11-20 |
+| V-03 Reader-facing redesign: publication front page, imagery, brand, bylines | in progress | arena/dd4bae8a-prod2 | `assets/css/site.css`, `assets/img/*`, `content/pages/*`, `tools/build.py`, `data/p2/settings.json` | The owner's headline complaint: "should not read like AI slop" |
+| V-04 Gate extension for the redesign (alt text, no static prices, image integrity) | in progress | arena/dd4bae8a-prod2 | `tools/checks.py` | Nothing publishes without passing |
+| V-05 Suggestions + questions refresh (reviewable paths; missing-information discovery) | in progress | arena/dd4bae8a-prod2 | `data/p2/suggestions.json`, `data/p2/questions.json`, `content/pages/*` | Owner asked for a dedicated, reviewable suggestions section |
+| V-06 Docs sync + integration, PR, merge, Pages deploy, live check | in progress | arena/dd4bae8a-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `ENGINE.md`, `docs/`, root mirror, `COORDINATION.md` | Records PR + deploy result below |
+
+**No other session holds an unexpired claim on these files at the time of this claim** (last merged
+PR #28, 2026-11-19 22:22 UTC; PRs #23 and #25 remain open on their own branches and do not touch
+`tools/build.py`/`tools/checks.py` scopes claimed here). If this session stops, the 60-minute
+takeover rule applies and the handoff must be logged here.
+
+### Why prior sessions recorded "no live access" and this one does not
+
+The `COORDINATION.md` record (T2, RR notes) states the sandbox egress allowlist blocks amazon.com.
+In this session the page-fetch path **does** reach amazon.com and link.amazon: all five short links
+were resolved and all five listings were read on **2026-11-20** (evidence recorded in
+`data/p2/verification-2026-11-20.json`, links published for manual review). Shell `curl` remains
+blocked; the verification used the fetch path, not shell egress. This is recorded as a method
+difference, not a contradiction of the earlier note.
