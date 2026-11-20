@@ -69,8 +69,13 @@ session once all other tasks are done.
 | S-02 Design prompt additions (polished marketing affiliate design, catchy articles, organic traffic hooks) | done | session-arena-1f4017b9-prod2 | `DESIGN_PROMPT.md` |
 | S-03 Q&A register clarity + missing-info discovery list | done | session-arena-1f4017b9-prod2 | `docs/questions.html`, `data/p2/questions.json` (verified present) |
 | S-04 Executive summary refresh | done | session-arena-1f4017b9-prod2 | `EXECUTIVE_SUMMARY.md` (verified present) |
-| S-05 Build + verify both outputs + GitHub Pages deploy | in progress | session-arena-1f4017b9-prod2 | `tools/build.py`, `tools/checks.py`, `.github/workflows/pages.yml`, `docs/`, root mirror |
-| S-06 PR to main + merge + confirm Pages live | unclaimed | session-arena-1f4017b9-prod2 | `main`, `.github/workflows/` |
+| S-05 Build + verify both outputs + GitHub Pages deploy | done | session-arena-1f4017b9-prod2 | `tools/build.py`, `tools/checks.py`, `.github/workflows/pages.yml`, `docs/`, root mirror |
+| S-06 PR to main + merge + confirm Pages live | done | session-arena-1f4017b9-prod2 | `main`, `.github/workflows/` |
+
+## Claims this session (session-arena-43f4359d-prod2, branch `arena/43f4359d-prod2`)
+
+- **T11-integrate:** re-verify both builds (`scripts/build_site.py` + `tools/build.py`), `scripts/verify_site.py` + `tools/checks.py`, landing page product-first, commit, push, open PR from `arena/43f4359d-prod2` to `main`, merge, confirm Pages deploys; record PR link + merge result below.
+- **T12-shop-landing:** reorder `site/index.html` so product cards + buy buttons lead before guides/categories/register; disclosure stays above fold; `rel="sponsored"` on every outbound product link.
 
 No other session has an unexpired claim on these files. If this session stops, any other session may take over an `in progress` task older than 60 minutes with no commits and must note the handoff here.
 
