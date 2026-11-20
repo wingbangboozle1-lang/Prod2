@@ -21,6 +21,8 @@ Sections:
   chrome       one nav group ("The work behind it") + footer directory present
   seo          canonical/og:image/JSON-LD parse; sitemap covers every page;
                robots.txt points at the sitemap; feed items resolve
+  shop         one shelf page with all five cards, buy buttons, imagery that
+               exists, an About page, and no hands-on-testing claim
   publication  guides reach compare + buying guide + their cluster pillars (S-24);
                feed covers every guide; reader-capture gate consistent with
                settings; Search Console verification meta matches the token slot
@@ -38,7 +40,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 DATA = ROOT / "data" / "p2"
 
-DISCLOSURE = "As an Amazon Associate we earn from qualifying purchases."
+DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 TRACKING_TAG = "tag=shopnow047c-20"
 
 GOVERNANCE = {"executive-summary.html", "method.html", "flagged.html", "questions.html",
@@ -302,8 +304,27 @@ def main() -> int:
             fail(f"{f.name}: dashboard surfaces not reachable via nav group + footer")
         if "<footer" not in text:
             fail(f"{f.name}: no footer")
+        # D-06: dashboard surfaces belong in the footer directory, never the reader nav.
+        # The reader nav must stay short enough to read at a glance.
+        # The reader nav is an inline-flex row of bare <a> siblings followed by the
+        # single "The work behind it" <details> group. Slice to the details tag so
+        # the footer's links cannot be miscounted as nav links.
+        start = text.find('<nav class="nav"')
+        if start == -1:
+            fail(f"{f.name}: no reader nav")
+        else:
+            head = text[start:text.find("</nav>", start)]
+            reader_part = head.split('<details class="nav-work', 1)[0]
+            links = len(re.findall(r"<a\b", reader_part))
+            if links > 7:
+                fail(f"{f.name}: reader nav has {links} links (max 7; move dashboards to the footer)")
+            if links < 4:
+                fail(f"{f.name}: reader nav has only {links} links")
+        # the wordmark is the home link on every page
+        if 'class="wordmark"' not in text:
+            fail(f"{f.name}: no wordmark home link")
     if not FAILURES:
-        ok("nav group + footer directory on every page")
+        ok("nav group + footer directory on every page; reader nav within budget")
 
     # -------------------------------------------------------------------- seo
     check("seo")
@@ -394,6 +415,39 @@ def main() -> int:
             fail(f"{f.name}: verification meta present but settings token empty")
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
+
+    # ------------------------------------------------------------ shop surface
+    check("shop")
+    if not (DOCS / "shop.html").exists():
+        fail("shop.html missing: the site needs one shelf a reader can act on")
+    if not (DOCS / "about.html").exists():
+        fail("about.html missing: authorship and editorial standards need a home")
+    for name in ("index.html", "shop.html"):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        n_cards = text.count('class="card product-card"')
+        if n_cards < 5:
+            fail(f"{name}: {n_cards} product cards on the shop surface (want all 5)")
+        if text.count('btn-buy') < 5:
+            fail(f"{name}: fewer than 5 buy buttons on the shop surface")
+        if "assets/img/" not in text:
+            fail(f"{name}: no product or hero imagery")
+    # every referenced local image must exist in the build
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"]+)"', text):
+            if not (DOCS / rel).exists():
+                fail(f"{f.name}: image {rel} missing from docs/")
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+            if not (DOCS / rel).exists():
+                fail(f"{f.name}: stylesheet {rel} missing from docs/")
+    # the docs must not claim a hands-on test
+    for f in html_files:
+        text = f.read_text(encoding="utf-8").lower()
+        for phrase in ("we tested", "our testing", "hands-on review", "we cooked"):
+            if phrase in text:
+                fail(f"{f.name}: implies hands-on testing ({phrase!r}) — no unit was tested")
+    if not FAILURES:
+        ok("one shelf, full cards, real imagery, no hands-on claim")
 
     # -------------------------------------------------------------- freshness
     check("freshness")

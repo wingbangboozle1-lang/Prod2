@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/f55b5827-prod2): Q-P10 (working-brand ratification + clearance) and Q-P11 (availability-snapshot policy) added from the owner-directive pass."
+  "last_change": "2026-11-20 reconciliation: Q-P10 remapped to decision D-P15 / flag F-P21; Q-P11 answered by the D-P11 policy read (Program Policies 2(b)) — availability snapshots are out, same as prices."
  },
  "questions": [
   {
@@ -229,7 +229,7 @@
    "id": "Q-P10",
    "area": "Brand",
    "question": "Does the owner ratify the working brand “The Crisp Counter”, and will a formal trade-name clearance be run?",
-   "known": "Adopted 2026-11-20 as the working wordmark on the owner's standing anti-slop directive (decision D-P10). A preliminary web search on 2026-11-20 returned no conflicting kitchen-appliance brand in the first page of results; the name comes from the adopted design brief (DESIGN_PROMPT.md).",
+   "known": "Adopted 2026-11-20 as the working wordmark on the owner's standing anti-slop directive (decision D-P15). A preliminary web search on 2026-11-20 returned no conflicting kitchen-appliance brand in the first page of results; the name comes from the adopted design brief (DESIGN_PROMPT.md).",
    "unknown": "No formal trademark search has been performed (USPTO registry, state registries, common-law use, domain availability). The owner has not individually ratified the specific name.",
    "how_to_discover": "Run the USPTO trademark search (tmsearch.uspto.gov) for 'Crisp Counter' word marks in class 7/11/35; check state registries and live web/common-law use; check domain availability (Q-P06); then record ratify-or-revert in the decision log.",
    "answerable_by": "Owner (with counsel for the formal search)",
@@ -239,20 +239,18 @@
     "social/OG branding"
    ],
    "flags": [
-    "F-P15"
+    "F-P21"
    ]
   },
   {
    "id": "Q-P11",
    "area": "Content policy",
    "question": "May the site publish availability snapshots (“observed in stock on YYYY-MM-DD”) alongside its dated listing reads?",
-   "known": "The 2026-11-20 re-reads observed an 'In Stock' line on P4's official page (recorded in verification-2026-11-20.json). Availability is checkable on a dated read but goes stale fast; the site currently publishes nothing about it (consistent with the F-02 posture on prices/ratings).",
-   "unknown": "Owner policy: publish with a dated-read rule (SG-42) or omit entirely.",
-   "how_to_discover": "Owner decision, ideally taken together with Q-27 (dated-snapshot prices/ratings); if published, add an availability field to the register with read date + source link and refresh it on every verification pass.",
+   "known": "Answered 2026-11-20 by the policy read recorded in decision D-P11: Program Policies 2(b) (updated 2026-04-14, read 2026-11-20) permits prices and availability only when Amazon serves the link or the data comes via the Creators/PA API — a dated snapshot is neither. The site therefore publishes neither prices nor availability; both stay blank with a link to the live listing (F-02 posture).",
+   "unknown": "Nothing remains for this session to discover; the policy question is recorded. Revisit only if Amazon grants Creators/PA API access (then D-21 applies).",
+   "how_to_discover": "If PA API access is granted later, pull availability (and prices/ratings) through the API per the Operating Agreement; otherwise no discovery path exists inside policy.",
    "answerable_by": "Owner",
-   "blocks": [
-    "SG-42"
-   ],
+   "blocks": [],
    "flags": []
   }
  ]

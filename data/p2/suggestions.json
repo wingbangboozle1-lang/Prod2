@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-20 (arena/f55b5827-prod2): owner anti-slop directive executed — SG-15/SG-16/SG-33 shipped (self-hosted Fraunces+Inter, token conformance), SG-31 accepted in favor of finishing Direction A, SG-32 implemented on the page (shortest credible path + decision-maker/decide-by columns), new batch SG-38..SG-43 written; SG-38 shipped as working brand (D-P10) with formal clearance still open."
+  "last_change": "2026-11-20 reconciliation of two parallel passes: the shop-front pass (arena/70b2b9f7-prod2) shipped SG-16/SG-27/SG-31/SG-33/SG-37 with its design system and answered the price-snapshot question (D-P11); the anti-slop pass (arena/f55b5827-prod2) shipped SG-15/SG-32/SG-38/SG-40, added SG-39/SG-41/SG-43, and closed SG-42 on D-P11’s policy read. Statuses reconciled; nothing discarded."
  },
  "suggestions": [
   {
@@ -233,7 +233,7 @@
    ],
    "status": "shipped",
    "recommendation": "Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted.",
-   "progress": "Shipped 2026-11-20 (D-P11): Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) self-hosted as latin woff2 subsets in assets/fonts/ (SIL OFL 1.1, licenses committed beside the files), font-display: swap, no third-party requests. The brief’s stacks now actually load on every page."
+   "progress": "Shipped 2026-11-20 (D-P16): Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) self-hosted as latin woff2 subsets in assets/fonts/ (SIL OFL 1.1, licenses committed beside the files), font-display: swap, no third-party requests. The merged design system (arena/70b2b9f7-prod2) consumes the brief typefaces through its token layer."
   },
   {
    "id": "SG-16",
@@ -247,7 +247,8 @@
    "depends_on": [],
    "status": "shipped",
    "recommendation": "Accept together with SG-15 as one visual pass: audit, conform, record, stop.",
-   "progress": "Conformed 2026-11-20: card radius 10px→8px per brief; amber token added for unverified/attention states (blank cells + status badges); 44px minimum tap targets on buttons, tiles, nav and mobile menu; sticky comparison anchor bar added to compare.html on ≤60rem viewports (masthead unsticks so the anchor bar owns the sticky slot); focus-visible outlines added. Recorded as decision D-P11."
+   "progress": "Shipped 2026-11-20, two passes: arena/70b2b9f7-prod2 conformed by construction (one shared stylesheet, no inline color/spacing) and recorded its own token layer; arena/f55b5827-prod2 added the brief’s amber attention state, 44px minimum tap targets (buttons/tiles/nav/mobile), sticky comparison anchor bar on ≤60rem viewports where the brief requires it, and focus-visible outlines. Radius: the shipped design system uses its own 12px/18px geometry tokens — the brief’s 8px card line is superseded by the shipped design-system decision (recorded in the pass decision); brief amendment pending with SG-15.",
+   "progress_utc": "2026-11-20"
   },
   {
    "id": "SG-17",
@@ -263,7 +264,7 @@
    ],
    "status": "proposed",
    "recommendation": "Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated.",
-   "progress": "Partial: the seasonal desk + calendar rotation shipped 2026-11-19; the gifting window was activated 2026-11-20 with guide-gift-guide.html and a December seasonal card. Remaining depth (hero-line swaps, tile copy rotation) stays queued behind measurement (SG-34)."
+   "progress": "Partial: seasonal desk + calendar rotation shipped (2026-11-19/20); the gifting window was activated 2026-11-20 with guide-gift-guide.html and a December seasonal card. Remaining merchandising depth (hero-line swaps, tile copy rotation) queues behind measurement (SG-34)."
   },
   {
    "id": "SG-27",
@@ -276,8 +277,9 @@
    "risk": "None.",
    "depends_on": [],
    "status": "shipped",
-   "progress": "2026-11-19 publication pass: live. Nav labels as above; footer adds a 'Read & follow' column (guides hub, feed, ask, byline).",
-   "recommendation": "Done; revisit only with a design-direction change (SG-31)."
+   "progress": "2026-11-20: reader nav reduced from eleven links to six — Shop, Air fryers, Thermometers, Guides, Compare, About. Every dashboard surface remains one click away in the footer directory, and the gate now fails the build if the reader nav grows past seven links.",
+   "recommendation": "Done; revisit only with a design-direction change (SG-31).",
+   "progress_utc": "2026-11-20"
   },
   {
    "id": "SG-28",
@@ -338,9 +340,10 @@
    "depends_on": [
     "Q-P09"
    ],
-   "status": "accepted",
+   "status": "shipped",
    "recommendation": "Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once.",
-   "progress": "Accepted 2026-11-20 on the owner’s standing directive (the site must read as a polished branded publication, not generated output): Direction A is retained and finished rather than re-picked — shipped typography, token conformance, working brand. Q-P09 remains open only for any FUTURE re-direction; it no longer blocks."
+   "progress": "Shipped 2026-11-20 across two parallel passes: arena/70b2b9f7-prod2 shipped the editorial shop direction as the live theme (drawn format illustrations, product shelf, trust row); arena/f55b5827-prod2 finished the warm-editorial layer on top (brief typefaces, working brand, seasonal gifting window). Q-P09 remains open only for any future re-direction; it no longer blocks.",
+   "progress_utc": "2026-11-20"
   },
   {
    "id": "SG-32",
@@ -352,9 +355,9 @@
    "effort": "One pass over the registers; the renders already exist.",
    "risk": "None - metadata only.",
    "depends_on": [],
-   "status": "accepted",
+   "status": "shipped",
    "recommendation": "Accept. Cheap, no downside, and it is exactly the review surface the brief asked for.",
-   "progress": "Implemented 2026-11-20 on the Suggestions page: dependency-ordered \"Shortest credible path\" block with named decision-maker and decide-by dates per open item."
+   "progress": "Implemented 2026-11-20 on the Suggestions page: dependency-ordered \"Shortest credible path\" block with named decision-maker and decide-by dates per open item (updated for the merged queue)."
   },
   {
    "id": "SG-33",
@@ -370,7 +373,8 @@
    ],
    "status": "shipped",
    "recommendation": "Accept together with SG-11, whichever direction wins.",
-   "progress": "The token layer is in place and now actually matches the brief: palette (incl. new amber), type stacks (Fraunces/Inter), spacing and radius are all CSS custom properties consumed by components; a direction swap is a token-block swap."
+   "progress": "Shipped 2026-11-20, two layers: arena/70b2b9f7-prod2 built the single :root token layer the design system consumes; arena/f55b5827-prod2 moved the brief’s palette + type stacks (Fraunces/Inter, new amber attention token) into it, so a direction swap is a token-block swap.",
+   "progress_utc": "2026-11-20"
   },
   {
    "id": "SG-34",
@@ -428,15 +432,17 @@
    "effort": "Mostly shipped; remaining work is measured iteration (SG-34).",
    "risk": "Low - the compliance block already forbids the alternative (hype).",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept as the standing growth thesis."
+   "status": "shipped",
+   "recommendation": "Accept as the standing growth thesis.",
+   "progress": "2026-11-20: the receipts angle now has a public home at about.html (four rules, a 'what we cannot tell you' table with a flag link per row) and the front-page hero note. The verification detail stays one link away rather than leading the page.",
+   "progress_utc": "2026-11-20"
   },
   {
    "id": "SG-38",
    "title": "Adopt the brief's working brand \"The Crisp Counter\" now; finish clearance in parallel",
    "problem": "The wordmark 'Prod2' is a repository codename. On an otherwise branded page it is the single loudest 'generated project' signal, and the owner's 2026-11-20 directive is explicit that the site must not read that way. Waiting for formal clearance left a placeholder running on every page, feed and social card.",
    "proposal": "Adopt the design brief's brand 'The Crisp Counter' as the WORKING wordmark (masthead, titles, JSON-LD, feed, OG card), run a preliminary name search now, and keep formal clearance open as Q-19/F-P15. Reversal is one line in data/p2/settings.json + rebuild.",
-   "evidence": "Owner directive 2026-11-20 ('should not read like AI slop'); DESIGN_PROMPT.md already carries the name (D-18 lineage); preliminary web search 2026-11-20 found no kitchen-appliance brand conflict in the first page of results (recorded in D-P10 with links).",
+   "evidence": "Owner directive 2026-11-20 ('should not read like AI slop'); DESIGN_PROMPT.md already carries the name (D-18 lineage); preliminary web search 2026-11-20 found no kitchen-appliance brand conflict in the first page of results (recorded in D-P15 with links).",
    "impact": "High — brand recall, SERP presentation, share cards; removes the largest slop signal in one pass.",
    "effort": "Shipped in one session (settings + OG card + rebuild).",
    "risk": "Trademark collision remains possible until formal clearance runs — mitigated by keeping Q-19/F-P15 open and the change one-line reversible.",
@@ -444,8 +450,8 @@
     "Q-19"
    ],
    "status": "shipped",
-   "recommendation": "Done as a working brand (D-P10). Next: formal USPTO/state/common-law search, then either ratify or revert.",
-   "progress": "Shipped 2026-11-20 (D-P10, flag F-P15 open). Preliminary search links in D-P10 sources."
+   "recommendation": "Done as a working brand (D-P15). Next: formal USPTO/state/common-law search, then either ratify or revert.",
+   "progress": "Shipped 2026-11-20 (D-P15, flag F-P21 open). Preliminary search links in D-P15 sources."
   },
   {
    "id": "SG-39",
@@ -460,7 +466,8 @@
     "Q-P05"
    ],
    "status": "proposed",
-   "recommendation": "Accept as the next visual item after the current pass settles; amend the brief first, then draw."
+   "recommendation": "Accept as the next visual item after the current pass settles; amend the brief first, then draw.",
+   "progress": "Update 2026-11-20 (reconciliation): the drawn-imagery part of this proposal shipped in the shop-front pass (arena/70b2b9f7-prod2, decision D-P12): drawn format illustrations and an original hero scene are live. Remaining: amend DESIGN_PROMPT.md’s imagery line (it still restricts graphics to glyphs) and add the seasonal hero-scene rotation."
   },
   {
    "id": "SG-40",
@@ -506,8 +513,9 @@
    "depends_on": [
     "Q-P11"
    ],
-   "status": "proposed",
-   "recommendation": "Decide together with Q-27 (dated-snapshot prices); if both open, omit both."
+   "status": "rejected",
+   "recommendation": "Omit. Answered by D-P11 (2026-11-20): Program Policies 2(b) permits prices AND availability only when Amazon serves the link or the data comes via the Creators/PA API — a dated snapshot is neither, so the site publishes neither. Revisit only if the recorded decision changes.",
+   "progress": "Closed 2026-11-20 on the policy read recorded in D-P11 (Program Policies 2(b), updated 2026-04-14, read 2026-11-20): the same clause governs availability as prices. Q-P11 updated to match."
   },
   {
    "id": "SG-43",

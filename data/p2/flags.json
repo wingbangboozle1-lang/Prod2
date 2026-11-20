@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/f55b5827-prod2): F-P15 added (working brand adopted on owner directive; formal clearance open)."
+  "last_change": "2026-11-20 reconciliation: arena/70b2b9f7-prod2 added F-P15..F-P20 (disclosure wording, CTA mislabel, carousel figures, egress correction, archive + source exposure); arena/f55b5827-prod2 added the working-brand clearance flag, remapped F-P15 -> F-P21 to avoid the ID collision. Nothing discarded."
  },
  "flags": [
   {
@@ -259,6 +259,66 @@
   },
   {
    "id": "F-P15",
+   "status": "resolved",
+   "title": "Disclosure wording did not match Operating Agreement section 5",
+   "detail": "The site published 'As an Amazon Associate we earn from qualifying purchases.' Section 5 prescribes the first-person form, and section 6(a) makes a violation of section 5 a material breach of the Agreement.",
+   "evidence": "https://affiliate-program.amazon.com/help/operating/agreement",
+   "evidence_note": "Section 5, quoted verbatim in data/p2/verification-2026-11-20.json; page updated 2025-10-15; read 2026-11-20.",
+   "how_to_resolve": "Resolved 2026-11-20: settings.disclosure_sentence and the release gate now use the prescribed first-person sentence on every page. Note that section 5 permits 'any substantially similar statement previously allowed', so the previous wording was arguably compliant; the prescribed form removes the doubt.",
+   "resolved_utc": "2026-11-20"
+  },
+  {
+   "id": "F-P16",
+   "status": "resolved",
+   "title": "A paid call to action labelled 'Compare all five' linked to a single product listing",
+   "detail": "The front-page CTA 'Compare all five' was an Amazon Associates link to P1's listing. The label promised a comparison and delivered one product. Program Policies 2(b) prohibits misleading claims, and a button label that does not describe its destination is the mildest form of that.",
+   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
+   "evidence_note": "Program Policies, updated 2026-04-14, section 2(b) misleading-claims sentence; read 2026-11-20.",
+   "how_to_resolve": "Resolved 2026-11-20: the CTA now points at compare.html, and the gate's link check keeps sponsored links distinguishable from internal navigation.",
+   "resolved_utc": "2026-11-20"
+  },
+  {
+   "id": "F-P17",
+   "status": "standing",
+   "title": "Carousel prices and ratings on a listing belong to neighbouring ASINs, not the product",
+   "detail": "On the 2026-11-20 reads, the visible price or star figure in several listings belonged to a different ASIN shown in the 'Customers who viewed this item also viewed' carousel. P1's page carried a star rating and count belonging to B0B7C327LK; P3's carried a price belonging to B0CNY1YVDD; P5's carried a price belonging to B0FXBQ3KX1. None of these is the target product's own value.",
+   "evidence": "https://www.amazon.com/dp/B0CDY277D3",
+   "evidence_note": "Observed 2026-11-20 and recorded with the neighbouring ASIN identified in data/p2/verification-2026-11-20.json (finding V-03). The numeric values are held in that register only and are not republished on the site (F-02).",
+   "how_to_resolve": "Standing practice: any price or rating read from a listing must be tied to the ASIN in the canonical URL, never to a figure elsewhere on the page. This is one of the reasons the site publishes no prices or ratings at all.",
+   "resolved_utc": null
+  },
+  {
+   "id": "F-P18",
+   "status": "resolved",
+   "title": "Prior verification records stated the sandbox could not reach Amazon, so figures were carried forward",
+   "detail": "The 2026-11-19 records state that egress was limited to code-hosting hosts and that listing values were taken from earlier dated records rather than re-read. On 2026-11-20 the listings and official policy pages were retrieved and read directly.",
+   "evidence": "https://www.amazon.com/dp/B0DZFD6R9Z",
+   "evidence_note": "All five listings plus the Operating Agreement and Program Policies were fetched on 2026-11-20; each value is recorded with the chunk it came from in data/p2/verification-2026-11-20.json.",
+   "how_to_resolve": "Resolved 2026-11-20: the current pass is a direct read, not a carried-forward one. The carried-forward dates in data/p2/products.json remain accurate for the values they describe and are labelled as such.",
+   "resolved_utc": "2026-11-20"
+  },
+  {
+   "id": "F-P19",
+   "status": "open",
+   "title": "Archived builds are reachable on the live host and are only excluded by robots.txt",
+   "detail": "Pages serves the repository root, so /archive/** is publicly retrievable even though the site does not link to it. archive/ holds 54 HTML pages from five earlier generations of this project. robots.txt disallows /Prod2/archive/ and no indexed page links there, but a disallow is a crawl instruction, not an access control, and a page discovered by another route can still be returned to a reader.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/robots.txt",
+   "evidence_note": "robots.txt as generated by tools/build.py: 'Disallow: /Prod2/archive/'. Verified 2026-11-20 that all 27 live pages are the confirmed publication set and that no live page links into archive/.",
+   "how_to_resolve": "Options, in order of preference: (a) move archive/ out of the published root into a second repository or external storage, so those pages stop being servable; (b) add a noindex meta tag to every archived page and keep the robots disallow; (c) accept the current state, on the basis that nothing links there. This session did not implement (a) or (b) because the archive is other sessions' preserved work and the standing rule is that nothing is discarded.",
+   "resolved_utc": null
+  },
+  {
+   "id": "F-P20",
+   "status": "standing",
+   "title": "source/, data/ and content/ are servable as static files on the live host",
+   "detail": "Because Pages serves the repository root, the raw JSON registers, the page templates and the build scripts are retrievable by URL. This is not a security exposure for a static site with no secrets, but it means a reader can read the source register directly, and it gives a crawler a second copy of text that is also on an HTML page.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2",
+   "evidence_note": "The repository is public by design; no credential or personal datum is stored in data/. .gitignore covers var/, .env and node_modules.",
+   "how_to_resolve": "Inherent to legacy root serving, and resolved completely by switching Pages to Actions mode serving docs/ only (INT-07, blocked by a 403 on this token). Keep it visible rather than pretend otherwise; the data registers are already offered to reviewers on the Method page.",
+   "resolved_utc": null
+  },
+  {
+   "id": "F-P21",
    "title": "Working brand “The Crisp Counter” adopted on the owner's directive without formal trademark clearance",
    "detail": "The 2026-11-20 anti-slop pass replaced the repository codename 'Prod2' on reader-facing surfaces with the design brief's working brand (decision D-P10). A preliminary web search that day returned no conflicting kitchen-appliance brand in the first page of results, but no formal USPTO/state/common-law search has been run. Until clearance, the brand is provisional and one-line reversible (data/p2/settings.json).",
    "evidence": "https://tmsearch.uspto.gov/",

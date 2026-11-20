@@ -1,10 +1,71 @@
-<p class="eyebrow">The work behind it</p>
-<h1>Open questions and missing information</h1>
-<p class="lede">What we know, what we don't, and how to find out. Each card names what is missing and who can answer it — because decisions made without these answers are guesses.</p>
+<p class="eyebrow">Open questions</p>
+<h1>What we cannot answer yet, and who can.</h1>
+<p class="lede">Fifteen questions stand between this site and a decision that is not a guess. Each one names what is missing, how to find it out, and what it blocks. None of them can be answered by reading the site harder — that is the point of listing them.</p>
 
 <div class="callout callout-sage">
-  <h3>Why this page exists</h3>
-  <p>The brief asks for a clear list of the questions, information and answers that must be addressed before decisions can reasonably be made — and for suggestions that discover the missing information. This register is that list; the <a href="suggestions.html">suggestion queue</a> proposes the paths, and the <a href="decisions.html">decision log</a> records what was chosen.</p>
+  <h3>Why this page is public</h3>
+  <p>A register of unknowns is more useful than a confident page built on assumptions. Three of these are <strong>owner actions</strong> — no amount of agent work closes them: Associates enrollment (<a href="#Q-01">Q-01</a>), Search Console verification (<a href="#Q-P08">Q-P08</a>) and domain control (<a href="#Q-P06">Q-P06</a>). Nine are answerable from a source we can reach. Three need a decision rather than a source.</p>
+</div>
+
+<h2 id="discover">How we would find each answer</h2>
+<p>These are the discovery methods, ordered by how cheap they are to run. Each one names the questions it can close.</p>
+
+<div class="table-scroll"><table class="data">
+  <thead><tr><th>Method</th><th>What it involves</th><th>Closes</th><th>Cost</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Read the official page again, on a dated pass</strong></td>
+      <td>Re-fetch the listing or policy page and record the value with the date and the exact sentence it came from. This is how every published figure here was obtained.</td>
+      <td><a href="#Q-27">Q-27</a>, <a href="#Q-31">Q-31</a>, <a href="#Q-P03">Q-P03</a></td>
+      <td>Minutes. Free.</td>
+    </tr>
+    <tr>
+      <td><strong>Log in to Associates Central</strong></td>
+      <td>Confirm the Partner Tag, generate or validate one Special Link per product, run a single test click, and read it back in the tracking report. The protocol is on the <a href="measurement.html">measurement page</a>.</td>
+      <td><a href="#Q-01">Q-01</a>, <a href="#Q-P01">Q-P01</a></td>
+      <td>One owner session.</td>
+    </tr>
+    <tr>
+      <td><strong>Ask the platform, not the page</strong></td>
+      <td>Some facts live in an account console, not on a public page: enrollment, verification tokens, reporting access. The owner is the only person who can read them.</td>
+      <td><a href="#Q-P08">Q-P08</a>, <a href="#Q-P06">Q-P06</a>, <a href="#Q-23">Q-23</a></td>
+      <td>Owner action, minutes each.</td>
+    </tr>
+    <tr>
+      <td><strong>Run a small controlled test</strong></td>
+      <td>Change one thing, hold everything else, and compare over a defined window. For links: one product, one link, one report. For topics: fourteen days of search data before changing the calendar.</td>
+      <td><a href="#Q-P02">Q-P02</a>, <a href="#Q-P04">Q-P04</a>, <a href="#Q-P07">Q-P07</a></td>
+      <td>One to two weeks of elapsed time.</td>
+    </tr>
+    <tr>
+      <td><strong>Ask a lawyer or a trademark search</strong></td>
+      <td>Name clearance is a legal question. It is not answerable by checking whether a domain is free, and it is not something this project should guess at.</td>
+      <td><a href="#Q-19">Q-19</a></td>
+      <td>Owner decision, possibly paid.</td>
+    </tr>
+    <tr>
+      <td><strong>Read the licence before using the asset</strong></td>
+      <td>Product imagery and ratings are licensed through the Associates Program, not public. Reading the IP licence tells us what is permitted before a single image is used.</td>
+      <td><a href="#Q-P05">Q-P05</a>, <a href="#Q-27">Q-27</a></td>
+      <td>One reading pass.</td>
+    </tr>
+    <tr>
+      <td><strong>Ask the reader</strong></td>
+      <td>The question-capture form exists but ships disconnected until a consent basis is settled (<a href="#Q-47">Q-47</a>). It is the only route to knowing what readers actually want answered.</td>
+      <td><a href="#Q-47">Q-47</a>, then <a href="#Q-P02">Q-P02</a></td>
+      <td>Blocked on a privacy decision.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<div class="callout">
+  <h3>Four things we deliberately did not do</h3>
+  <ul>
+    <li><strong>We did not guess prices.</strong> Amazon permits published prices only when Amazon serves them or they arrive through the licensed APIs (<a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">S-POL</a>, read 2026-11-20). A scraped figure is neither, so no price appears on this site.</li>
+    <li><strong>We did not publish ratings.</strong> Same restriction, same silence. The blank is the honest answer (<a href="flagged.html#F-02">F-02</a>).</li>
+    <li><strong>We did not call the supplied short links invalid.</strong> Their exact status under the Participation Requirements is unresolved, not disproven (<a href="flagged.html#F-03">F-03</a>). The site uses tagged links built from the verified ASINs instead.</li>
+    <li><strong>We did not claim a result.</strong> Every conversion figure on this site is zero because the ledger starts empty and only accepts rows from an authorized report (<a href="measurement.html">Measurement</a>).</li>
+  </ul>
 </div>
 
 <h2>The list, at a glance</h2>
@@ -13,4 +74,4 @@
 <h2>The full register</h2>
 {{questions}}
 
-<p class="small-note">Machine-readable register: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/questions.json" rel="noopener" target="_blank">data/p2/questions.json</a>.</p>
+<p class="small-note">Machine-readable register: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/questions.json" rel="noopener" target="_blank">data/p2/questions.json</a>. Questions whose answer is a choice rather than a fact are also listed as decision paths on the <a href="suggestions.html">suggestions page</a>.</p>

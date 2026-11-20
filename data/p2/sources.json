@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Source register. Every published fact row points at one of these sources. Official sites only. Read dates are the dates the source was actually read for this project (prior dated sessions and the 2026-11-19 session).",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/f55b5827-prod2): S-P1..S-P5 re-read records added for 2026-11-20 (listing titles + breadcrumbs)."
+  "last_change": "2026-11-20 (arena/70b2b9f7-prod2): USDA FoodSafety.gov temperature and storage charts added (S-USDA-COOK, S-USDA-COLD, S-USDA-OUTAGE); all product listings, the Operating Agreement and the Program Policies re-read live on 2026-11-20 and their read dates appended."
  },
  "sources": [
   {
@@ -143,7 +143,8 @@
    "url": "https://affiliate-program.amazon.com/help/operating/agreement",
    "kind": "Official policy",
    "read": [
-    "2026-11-17"
+    "2026-11-17",
+    "2026-11-20"
    ]
   },
   {
@@ -152,7 +153,8 @@
    "url": "https://affiliate-program.amazon.com/help/operating/policies",
    "kind": "Official policy",
    "read": [
-    "2026-11-17"
+    "2026-11-17",
+    "2026-11-20"
    ]
   },
   {
@@ -280,6 +282,33 @@
    "kind": "Prior verification record (this project's own history)",
    "read": [
     "2026-11-19"
+   ]
+  },
+  {
+   "id": "S-USDA-COOK",
+   "title": "USDA / FoodSafety.gov — Cook to a Safe Minimum Internal Temperature (last reviewed 2024-11-21)",
+   "url": "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+   "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
+   ]
+  },
+  {
+   "id": "S-USDA-COLD",
+   "title": "USDA / FoodSafety.gov — Cold Food Storage Chart (last reviewed 2023-09-19)",
+   "url": "https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts",
+   "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
+   ]
+  },
+  {
+   "id": "S-USDA-OUTAGE",
+   "title": "USDA / FoodSafety.gov — Food Safety During Power Outage (last reviewed 2024-08-08)",
+   "url": "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage",
+   "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
    ]
   }
  ]

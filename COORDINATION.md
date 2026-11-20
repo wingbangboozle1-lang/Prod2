@@ -2,78 +2,49 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current sessions: **session-arena-f55b5827** (branch `arena/f55b5827-prod2`, anti-slop design + brand + seasonal-guide pass — active claim below) · session-arena-9f84489c (branch `arena/9f84489c-prod2`, publication polish pass — PR #28 merged 2026-11-19, complete) · session-arena-8ff10f50-prod2 (branch `arena/8ff10f50-prod2`, PRs #19/#21 merged)
+Current sessions (2026-11-20, reconciled on this branch): **session arena/f55b5827-prod2** (branch `arena/f55b5827-prod2`, anti-slop design + working-brand + gifting-guide pass — claim below) · **session arena/70b2b9f7-prod2** (branch `arena/70b2b9f7-prod2`, shop-front design rebuild + live re-verification — claim below, merged via PR #31 and integrated here).
+
+Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward polish, PR #30 merged into main 2026-11-20 06:09) · arena/43f4359d-prod2 (product-first landing page, PR #29 merged 2026-11-20 06:06) · arena/9f84489c-prod2 (publication polish, PRs #27/#28) · arena-8ff10f50-prod2 (PRs #19/#21) · arena-3f1d9d65-prod2 (analytics endpoint) · arena/b650562d-prod2 (PR #25, open) · arena/5e692632-prod2 (PR #23, open) · f2613c86, 599eec57, 44093825, 30a7028a, d12d2304.
+
+> **Reconciliation (2026-11-20):** this branch merged `origin/main` (PRs #29–#31, including the
+> shop-front design rebuild of arena/70b2b9f7-prod2) and reconciled both passes: the shipped design
+> system, drawn illustrations, shop/about pages, first-person disclosure (D-P13) and price-policy
+> answer (D-P11) from main; the shipped brief typography, working brand (D-P15), gifting guide and
+> the SG-38..SG-43/Q-P10..Q-P11 register additions from this branch. Register IDs that collided were
+> remapped (decisions D-P10..D-P12 → D-P15..D-P17; flag F-P15 → F-P21) and the remap is recorded in
+> each register's meta. Nothing from either session was discarded.
+
+> **Two sessions landed work on `main` after this session branched** (PRs #29 and #30, both 2026-11-20
+> before 06:10 UTC). That work is integrated here, not discarded: their `DESIGN_PROMPT.md` additions,
+> their `scripts/build_site.py` shelf work and their `tools/build.py` "Best for" intent are all
+> preserved. Where the two builds disagreed on the same reader-facing surface, the newer design
+> system in this branch wins and the reasoning is recorded in the resolution note below.
 
 ---
 
-## ACTIVE CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
-
-Owner directive 2026-11-20 (verbatim intent): the site must not read like "AI slop"; it should look like a polished
-marketing affiliate publication with catchy, timely articles that can earn organic traffic; suggestions and
-decision/question registers stay the review surfaces; no owner input available — work to completion, verify
-everything, PR, merge, confirm Pages.
+## ACTIVE CLAIM — session arena/70b2b9f7-prod2 (2026-11-20, shop-first design rebuild + live verification)
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
-| V-01 Ship the adopted brief's typography (self-hosted Fraunces + Inter, OFL) + design-token conformance pass | done | arena/f55b5827-prod2 | `assets/fonts/*`, `assets/css/site.css`, `DESIGN_PROMPT.md` |
-| V-02 Working-brand adoption on the owner directive ("The Crisp Counter") + preliminary name search; formal clearance stays open (Q-19) | done | arena/f55b5827-prod2 | `data/p2/settings.json`, `tools/make_og.py`, `assets/img/og-card.png`, `data/p2/flags.json` |
-| V-03 Catchy seasonal guide (December gifting window) + calendar queue extension (hypotheses only, D-19) | done | arena/f55b5827-prod2 | `content/pages/guide-gift-guide.html`, `data/p2/calendar.json`, `tools/build.py` |
-| V-04 Decision-making improvements + suggestion-batch SG-38..SG-43 | done | arena/f55b5827-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
-| V-05 Questions / missing-information register additions (Q-P10, Q-P11) | done | arena/f55b5827-prod2 | `data/p2/questions.json` |
-| V-06 Register + docs sync (decisions D-P10..D-P12, flag F-P15, README, EXECUTIVE_SUMMARY, DECISIONS, VOICE) | done | arena/f55b5827-prod2 | `data/p2/decisions.json`, `*.md`, `tools/build.py` (BUILD_DATE) |
-| V-07 Integration: rebuild both outputs, gate, line-by-line re-verify, PR to main, merge, Pages live check | done | arena/f55b5827-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+| D-01 Live re-verification of all five listings + policy sources (2026-11-20) | done | arena/70b2b9f7-prod2 | `data/p2/verification-2026-11-20.json`, `data/p2/sources.json`, `data/p2/flags.json` |
+| D-02 Design system rebuild (publication/shop visual language) | done | arena/70b2b9f7-prod2 | `assets/css/site.css`, `assets/js/site.js` |
+| D-03 Front page rebuilt as a shop front page (products lead) | done | arena/70b2b9f7-prod2 | `content/pages/index.html` |
+| D-04 New `/shop.html` shelf with category + format filters | done | arena/70b2b9f7-prod2 | `content/pages/shop.html`, `tools/build.py` |
+| D-05 New `/about.html` authorship + editorial standards (E-E-A-T) | done | arena/70b2b9f7-prod2 | `content/pages/about.html`, `tools/build.py` |
+| D-06 Navigation simplification (single reader nav; dashboards in footer) | done | arena/70b2b9f7-prod2 | `tools/build.py` |
+| D-07 Product-card + comparison component upgrade | done | arena/70b2b9f7-prod2 | `tools/build.py` |
+| D-08 Suggestions section: review-and-choose decision surface | done | arena/70b2b9f7-prod2 | `content/pages/suggestions.html`, `data/p2/suggestions.json` |
+| D-09 Questions register: missing-information discovery paths | done | arena/70b2b9f7-prod2 | `content/pages/questions.html`, `data/p2/questions.json` |
+| D-10 Gate extension + full build/verify | done | arena/70b2b9f7-prod2 | `tools/checks.py`, `docs/`, root mirror |
+| D-11 Integration: PR, merge, Pages deploy confirmed, docs sync | in progress | arena/70b2b9f7-prod2 | `README.md`, `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, `docs/` |
 
 Protocol notes for this claim:
-- Branch `arena/f55b5827-prod2` from `f6e772f` (main at PR #28). Arena allows one branch per session; this session
-  is both the working and the integration session on this branch (same standing note as the arena/9f84489c claim).
-- The brand adoption is recorded as a **working brand** decision (D-P10) driven by the owner's 2026-11-20 directive;
-  formal trademark clearance has NOT been performed by this session — preliminary search only (see D-P10 and flag
-  F-P15 for the evidence links). Reversing it is a one-line change in `data/p2/settings.json` + rebuild.
-- The canonical deployed publication remains `docs/` (built by `tools/build.py`, gated by `tools/checks.py`),
-  mirrored to the repo root for legacy Pages serving (INT-07). The preserved Countercraft build (`site/`,
-  `scripts/build_site.py`) is intentionally untouched by this pass.
-- Results, sources, verification performed, and irregularities for this claim: see "Claim results" near the PR
-  record below.
+- Branch `arena/70b2b9f7-prod2`, branched from `f6e772f` (main at PR #28). Arena allows one branch per session; this session is both working and integration session on it.
+- **No other session's claim is live.** Every previous claim is at merged/closed PR state. Scope above touches only the canonical `docs/` publication build (`tools/build.py`, `content/pages/*`, `assets/*`, `data/p2/*`) plus its root mirror. The preserved Countercraft build (`scripts/build_site.py` → `site/`) is **not** edited; it is rebuilt and gated unchanged by CI.
+- **Pages serving mode (INT-07) re-confirmed 2026-11-20:** `GET /repos/.../pages` returns `build_type: legacy`, `source: main /`. `PUT` to `build_type: workflow` returns **403 Resource not accessible by integration**. So the live site is still the **repo root**, and the root mirror written by `tools/build.py` is what readers see. The root mirror is therefore mandatory, not optional, this pass.
+- **New capability this pass:** outbound HTTP from this sandbox reaches `www.amazon.com` and official policy sites through the fetch tool, so all five listings were **re-fetched live today** rather than carried forward. Prior sessions recorded the opposite (no egress); that boundary is now corrected in the verification record.
 
 ---
-
-
-Claim results (2026-11-20):
-
-- **V-01 (typography + tokens):** Fraunces (600 normal, 400 italic) + Inter (400/500/600/700) shipped as latin
-  woff2 subsets in `assets/fonts/`, licenses (SIL OFL 1.1) committed beside the files, `font-display: swap`,
-  zero third-party requests. Source of files: @fontsource/fraunces@5.3.0 and @fontsource/inter@5.3.0 from
-  registry.npmjs.org (OF-licensed upstreams: github.com/undercasetype/Fraunces, github.com/rsms/inter —
-  linked in D-P11). Conformance: card radius 10→8px, amber token for unverified states, 44px tap targets
-  (buttons/tiles/nav/mobile menu), sticky anchor bar on compare.html ≤60rem, focus-visible outlines.
-- **V-02 (working brand):** "The Crisp Counter" on every reader-facing surface (settings.json → masthead,
-  titles, JSON-LD, feed, footer; OG card regenerated). Preliminary name search 2026-11-20 (web search; first
-  page of results — no kitchen-appliance conflict; formal clearance NOT performed): links in D-P10 sources
-  (tmsearch.uspto.gov is the resolver). Flag F-P15 records the open clearance. Six page titles shortened to
-  keep the 70-char gate green with the longer brand.
-- **V-03 (seasonal guide):** `guide-gift-guide.html` shipped (December gifting window; seasonal card in
-  `data/p2/calendar.json`; queue slots 6-9 added). Every fact in it traces to the register; carries the
-  mandatory "What we could not verify" block; D-19 respected (no popularity claims).
-- **V-04 (suggestions):** SG-15/16/31/32/33/38/40 statused (shipped/accepted with progress notes); SG-39,
-  SG-41, SG-42, SG-43 added as proposed. Suggestions page "shortest credible path" rewritten with
-  decision-maker + decide-by per step (SG-32 implemented).
-- **V-05 (questions):** Q-P10 (brand ratification + clearance) and Q-P11 (availability snapshot policy)
-  added with known/unknown/discovery/owner fields.
-- **V-06 (registers + docs):** decisions D-P10..D-P12; flag F-P15; README/EXECUTIVE_SUMMARY/DECISIONS synced.
-- **Re-verification of the five listings (2026-11-20):** each official listing URL
-  (amazon.com/dp/{ASIN}) fetched; document title (verbatim listing title) + category breadcrumb read and
-  matched against the register — no drift; record in `data/p2/verification-2026-11-20.json`; S-P1..S-P5
-  read dates updated. Prices/ratings visible on the listings remain unpublished (F-02). An "In Stock" line
-  observed on P4 → new policy question Q-P11 / SG-42. Short links NOT re-resolved this pass (last dated
-  redirect observation remains 2026-11-19; F-P07 pattern noted in the record's findings).
-- **V-07 (integration):** `python3 tools/build.py && python3 tools/checks.py` → ALL CHECKS PASSED (26 pages);
-  `python3 scripts/build_site.py && python3 scripts/verify_site.py` → VERIFY OK (Countercraft build intact);
-  `npm test` → 2/2 endpoint tests pass. PR to main follows this commit; merge + Pages check recorded below.
-
-Irregularities to publish (already on the site): F-P15 (brand clearance open), plus the standing open flags
-the Flagged page already carries. No new build defects.
-
-## Completed claim — session arena/9f84489c-prod2 (2026-11-19, publication polish pass; PR #28 merged)
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
@@ -92,6 +63,85 @@ Protocol notes for this claim:
 - Branch `arena/9f84489c-prod2` from `da11cd4` (main at PR #15). Arena allows one branch per session; this session is both working and integration session on this branch (same standing note as the arena/44093825 claim below).
 - **PR #16 handoff (arena/30a7028a-prod2, "Countertop Dispatch"):** its claim has been inactive >60 minutes with no commits since 14:17 UTC and its merge plan never ran. Per the handoff rule this session takes over integration of that branch: its full build will be preserved as `archive/countertop-dispatch/` (nothing discarded), and one deployed site stays canonical per the standing one-site rule (INT-06).
 - The canonical deployed publication remains `docs/` (built by `tools/build.py`, gated by `tools/checks.py`, mirrored to the repo root for legacy Pages serving).
+
+## PARALLEL CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
+
+Ran in parallel with the shop-front pass above (both branched from f6e772f, both touched
+`tools/build.py`, the registers and the front page). **Reconciled by this session's merge of
+origin/main (PRs #29–#31): nothing from either pass was discarded** — see the reconciliation note
+in the claim results.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| V-01 Ship the adopted brief's typography (self-hosted Fraunces + Inter, OFL) + design-token conformance | done | arena/f55b5827-prod2 | `assets/fonts/*`, `assets/css/site.css` |
+| V-02 Working-brand adoption on the owner directive ("The Crisp Counter") + preliminary name search; formal clearance stays open (Q-19) | done | arena/f55b5827-prod2 | `data/p2/settings.json`, `tools/make_og.py`, `assets/img/og-card.png`, `data/p2/flags.json` (as F-P21) |
+| V-03 Catchy seasonal guide (December gifting window) + calendar queue extension (hypotheses only, D-19) | done | arena/f55b5827-prod2 | `content/pages/guide-gift-guide.html`, `data/p2/calendar.json`, `tools/build.py` |
+| V-04 Decision-making improvements + suggestion batch SG-38..SG-43 | done | arena/f55b5827-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| V-05 Questions / missing-information register additions (Q-P10, Q-P11) | done | arena/f55b5827-prod2 | `data/p2/questions.json` |
+| V-06 Register + docs sync (decisions D-P15..D-P17 after remap, README, EXECUTIVE_SUMMARY, DECISIONS) | done | arena/f55b5827-prod2 | `data/p2/decisions.json`, `*.md`, `tools/build.py` (BUILD_DATE) |
+| V-07 Integration: reconcile both passes, rebuild both outputs, gate, line-by-line re-verify, PR to main, merge, Pages live check | done | arena/f55b5827-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+### Claim results (V-01..V-07, 2026-11-20)
+
+- **V-01 (typography + tokens):** Fraunces (600 normal, 400 italic) + Inter (400/500/600/700) shipped as latin
+  woff2 subsets in `assets/fonts/`, SIL OFL 1.1 license files committed beside them, `font-display: swap`,
+  zero third-party requests. Files via @fontsource/fraunces@5.3.0 and @fontsource/inter@5.3.0
+  (registry.npmjs.org; upstreams github.com/undercasetype/Fraunces, github.com/rsms/inter — linked in D-P16).
+  The merged design system consumes them through its token layer.
+- **V-02 (working brand):** "The Crisp Counter" on every reader-facing surface (masthead, titles, JSON-LD,
+  feed, footer, OG card). Preliminary name search 2026-11-20 (web search, first page of results — no
+  kitchen-appliance conflict; formal clearance NOT performed): recorded in D-P15 sources
+  (tmsearch.uspto.gov is the resolver). Clearance flag remapped **F-P15 → F-P21** to avoid the ID collision
+  with the shop-front pass's flag batch. Six page titles shortened to keep the 70-char gate green.
+- **V-03 (seasonal guide):** `guide-gift-guide.html` shipped (December gifting window; seasonal card in
+  `data/p2/calendar.json`; queue slots 6-9). Every fact traces to the register; carries the mandatory
+  "What we could not verify" block; D-19 respected.
+- **V-04 (suggestions):** SG-15/16/31/32/33/38/40 statused; SG-39/SG-41/SG-43 added; **SG-42 closed as
+  rejected on the shop-front pass's policy read (D-P11: Program Policies 2(b) governs availability like
+  prices)** — the two passes' registers reconciled with cross-references. Suggestions page carries the
+  shop-front pass's three-path chooser PLUS the decision-maker/decide-by path block (SG-32).
+- **V-05 (questions):** Q-P10 (brand ratification + clearance) and Q-P11 (availability snapshot policy —
+  answered by D-P11) added; both reconciled to the remapped IDs.
+- **V-06 (registers + docs):** decisions recorded as **D-P15 (working brand), D-P16 (typography + token
+  conformance), D-P17 (gifting window + queue)** — remapped from a first-pass D-P10..D-P12 numbering that
+  collided with the shop-front pass's D-P10..D-P14; the collision is documented in the decision log's meta.
+  README/EXECUTIVE_SUMMARY/DECISIONS synced.
+- **Second verification pass (2026-11-20):** all five official listing URLs re-fetched; document titles
+  (verbatim listing titles) + breadcrumbs matched the register — **agrees with the shop-front pass's deep
+  read recorded in `data/p2/verification-2026-11-20.json`**, which is the primary record for this date.
+- **V-07 (integration):** `tools/build.py` + `tools/checks.py` → ALL CHECKS PASSED; `scripts/build_site.py`
+  + `scripts/verify_site.py` → VERIFY OK; `npm test` → 2/2. PR to main follows; merge + Pages check recorded
+  in the PR record below.
+
+### Verification performed this pass (D-01)
+
+Every value below was read on **2026-11-20** from the page named, and each is recorded with the
+observed string in `data/p2/verification-2026-11-20.json`.
+
+| Source | URL | Result |
+| --- | --- | --- |
+| Listing P1 | https://www.amazon.com/dp/B0CDY277D3 | Title matched the register; breadcrumb Air Fryers; buy box present |
+| Listing P2 | https://www.amazon.com/dp/B09B7SB46R | Title matched; 24 presets stated in the title (Q-31 still open on body copy) |
+| Listing P3 | https://www.amazon.com/dp/B08DKYBTPH | Title matched; 8 Qt, 450°F Hi-Fry, 4-in-1 |
+| Listing P4 | https://www.amazon.com/dp/B0DHZTCNR5 | Title matched; ±0.5℉ NIST/NSF, IP67, 1 Sec |
+| Listing P5 | https://www.amazon.com/dp/B0DZFD6R9Z | Title matched; 3 probes, 1000°F, WiFi unlimited range |
+| Operating Agreement | https://affiliate-program.amazon.com/help/operating/agreement | Updated 2025-10-15; §5 disclosure sentence quoted; §6(a) breach |
+| Program Policies | https://affiliate-program.amazon.com/help/operating/policies | Updated 2026-04-14; §2(b) price rule and misleading-claims rule quoted |
+| USDA cook temps | https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures | Last reviewed 2024-11-21; table quoted |
+| USDA cold storage | https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts | Last reviewed 2023-09-19 |
+| USDA power outage | https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage | Last reviewed 2024-08-08 |
+
+**Irregularities found and published** (all on the Flagged for review page with these links):
+F-P15 (disclosure wording vs §5 — corrected), F-P16 ("Compare all five" was a paid link to one
+product — corrected), F-P17 (carousel prices and ratings belong to neighbouring ASINs), F-P18
+(prior records claimed no egress to Amazon; corrected), F-P19 (archive servable, robots-only
+exclusion), F-P20 (raw registers servable in root-serving mode).
+
+**Not verified, and left alone:** the Associates enrollment status (Q-01), Search Console
+(Q-P08), domain control (Q-P06) and the analytics endpoint host (Q-23) are owner-side facts.
+No claim is made about any of them.
+
+---
 
 ---
 
@@ -127,6 +177,22 @@ session once all other tasks are done.
 - **T11 (integration, PR, merge, Pages deploy):** claim the full scope. Re-verify both builds line by line, make the landing page product-forward (lead with products), confirm `pages.yml` deploys a working artifact, commit, push, open a PR from `arena/8ff10f50-prod2` to `main`, merge it, and confirm GitHub Pages deploys. Record the PR link and merge result below.
 - **T12 (shop-like landing page):** reorder the front page so products lead (featured products + buy buttons above the register), keep guides + category tiles, and keep the disclosure strip above the fold.
 - **T13 (decision-input questions):** the open-questions register and the suggestions/decision portal already exist; verified present and linked from the nav/footer.
+
+## Claims this turn (session-arena-1f4017b9-prod2 — shop-forward polish + integration)
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| S-01 Shop-forward landing page rewrite (products above register, buy buttons prominent, publication feel) | done | session-arena-1f4017b9-prod2 | `content/pages/index.html`, `tools/build.py` |
+| S-02 Design prompt additions (polished marketing affiliate design, catchy articles, organic traffic hooks) | done | session-arena-1f4017b9-prod2 | `DESIGN_PROMPT.md` |
+| S-03 Q&A register clarity + missing-info discovery list | done | session-arena-1f4017b9-prod2 | `docs/questions.html`, `data/p2/questions.json` (verified present) |
+| S-04 Executive summary refresh | done | session-arena-1f4017b9-prod2 | `EXECUTIVE_SUMMARY.md` (verified present) |
+| S-05 Build + verify both outputs + GitHub Pages deploy | done | session-arena-1f4017b9-prod2 | `tools/build.py`, `tools/checks.py`, `.github/workflows/pages.yml`, `docs/`, root mirror |
+| S-06 PR to main + merge + confirm Pages live | done | session-arena-1f4017b9-prod2 | `main`, `.github/workflows/` |
+
+## Claims this session (session-arena-43f4359d-prod2, branch `arena/43f4359d-prod2`)
+
+- **T11-integrate:** re-verify both builds (`scripts/build_site.py` + `tools/build.py`), `scripts/verify_site.py` + `tools/checks.py`, landing page product-first, commit, push, open PR from `arena/43f4359d-prod2` to `main`, merge, confirm Pages deploys; record PR link + merge result below.
+- **T12-shop-landing:** reorder `site/index.html` so product cards + buy buttons lead before guides/categories/register; disclosure stays above fold; `rel="sponsored"` on every outbound product link.
 
 No other session has an unexpired claim on these files. If this session stops, any other session may take over an `in progress` task older than 60 minutes with no commits and must note the handoff here.
 

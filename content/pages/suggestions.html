@@ -1,24 +1,77 @@
-<p class="eyebrow">The work behind it</p>
-<h1>Suggestion queue: choose the path before we build</h1>
-<p class="lede">Every proposed improvement, with its evidence, expected impact, effort and risk. This page is the review surface the brief asked for: a place to compare paths and pick one before anything changes.</p>
+<p class="eyebrow">Decisions</p>
+<h1>Pick a path before we build it.</h1>
+<p class="lede">Everything proposed for this site lands here first, with its evidence, its cost and what it blocks. Nothing below is implemented until a path is chosen — so this page is a review surface, not a changelog.</p>
+
+<h2 id="paths">Three paths, one choice</h2>
+<p>The thirty-four items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
+
+<div class="path-grid">
+  <article class="path-card recommended">
+    <p class="kicker">Our recommendation · start here</p>
+    <h3>Path A — Prove the traffic first</h3>
+    <p>Ship nothing new to readers until we can see what readers do. This is the shortest route to a decision the owner can make on evidence rather than instinct.</p>
+    <ul>
+      <li><a href="#SG-06">SG-06</a> — deploy the analytics endpoint</li>
+      <li><a href="#SG-29">SG-29</a> — verify Search Console, submit the sitemap</li>
+      <li><a href="#SG-34">SG-34</a> — choose topics from measured queries</li>
+      <li><a href="#SG-14">SG-14</a> — hold all paid promotion until one clean attribution test exists</li>
+    </ul>
+    <p class="meta"><b>Cost:</b> one owner action (Search Console) plus endpoint hosting. <b>Unlocks:</b> every later decision becomes measurable. <b>Blocks on:</b> <a href="questions.html#Q-01">Q-01</a>, <a href="questions.html#Q-23">Q-23</a>, <a href="questions.html#Q-P08">Q-P08</a>.</p>
+  </article>
+
+  <article class="path-card">
+    <p class="kicker">Alternative</p>
+    <h3>Path B — Consolidate the shop</h3>
+    <p>Turn five products and ten guides into one dense, linkable cluster: one buyer section per product, one hub per format, and the counter-depth spec as the signature comparison.</p>
+    <ul>
+      <li><a href="#SG-12">SG-12</a> — a buyer-first section for every product</li>
+      <li><a href="#SG-13">SG-13</a> — one cluster per format, linked into a hub</li>
+      <li><a href="#SG-02">SG-02</a> — publish counter depth as the lead spec</li>
+      <li><a href="#SG-17">SG-17</a> — seasonal merchandising tied to the calendar</li>
+    </ul>
+    <p class="meta"><b>Cost:</b> editorial hours, no owner action. <b>Risk:</b> without Path A we cannot tell whether it worked. <b>Best when:</b> the site is staying at five products.</p>
+  </article>
+
+  <article class="path-card">
+    <p class="kicker">Hold · one step already taken</p>
+    <h3>Path C — Rebrand and expand</h3>
+    <p>Clear a consumer-facing name, buy a domain, and grow past five products. Highest ceiling, highest cost, and it cannot start until two answers arrive. <strong>2026-11-20 update:</strong> the working brand "The Crisp Counter" already ships (<a href="#SG-38">SG-38</a>, decision D-P15) on the owner's standing anti-slop directive — what still holds is the formal clearance and everything that follows from it.</p>
+    <ul>
+      <li><a href="#SG-01">SG-01</a> — ratify the working brand and run formal clearance</li>
+      <li><a href="#SG-33">SG-33</a> — design-token layer so the rename is reversible</li>
+      <li><a href="#SG-10">SG-10</a> — a second format page</li>
+      <li><a href="#SG-07">SG-07</a> — a real "what it is like to live with" layer, once real use exists</li>
+    </ul>
+    <p class="meta"><b>Cost:</b> trademark clearance, domain, and a full rename pass. <b>Blocks on:</b> <a href="questions.html#Q-19">Q-19</a> (clearance) and <a href="questions.html#Q-P06">Q-P06</a> (domain control). <b>Do not start:</b> before Path A has 14 days of data.</p>
+  </article>
+</div>
 
 <div class="callout">
-  <h3>How to use this queue</h3>
-  <p>Each card ends with our recommendation and the dependencies that gate it. To proceed: pick <strong>accept</strong>, <strong>amend</strong>, or <strong>reject</strong> per item (a comment in the repo's <code>COORDINATION.md</code>, or an instruction in the brief, is enough). Accepted items move to the <a href="decisions.html">decision log</a> with their date, then to the build. Items the standing brief has already mandated show <span class="status status-accepted">accepted</span> or <span class="status status-shipped">shipped</span> with a progress note instead of waiting for a second nod.</p>
-  <p><strong>The shortest credible path</strong> — the smallest sequence of decisions that unblocks the most work, with the named decision-maker and a decide-by line (<a href="suggestions.html#SG-32">SG-32</a> makes this standing; updated 2026-11-20 — the visual direction is kept and the working brand shipped, so measurement now leads the path):</p>
+  <h3>The shortest credible path — who decides what, by when</h3>
+  <p>The smallest sequence of decisions that unblocks the most work (<a href="#SG-32">SG-32</a> makes this standing; updated 2026-11-20 — the visual direction is kept, the typography ships and the working brand is adopted, so measurement now leads):</p>
   <ol>
-    <li><strong><a href="#SG-06">SG-06</a> + <a href="#SG-41">SG-41</a></strong> — verify Search Console (<a href="questions.html#Q-P08">Q-P08</a>, owner action: paste the HTML-tag token into settings and rebuild) and host the analytics endpoint (<a href="questions.html#Q-23">Q-23</a>). Decide-by: before the next cadence cycle — nothing measures or compounds until this lands.</li>
-    <li><strong><a href="#SG-38">SG-38</a> / <a href="questions.html#Q-P10">Q-P10</a></strong> — ratify the working brand and run the formal clearance search (owner, with counsel). Decide-by: before any domain purchase or social/print use of the name.</li>
-    <li><strong><a href="questions.html#Q-47">Q-47</a></strong> — settle the consent basis for reader capture (owner), which opens <a href="#SG-36">SG-36</a> + <a href="#SG-04">SG-04</a>.</li>
-    <li><strong><a href="questions.html#Q-27">Q-27</a> + <a href="questions.html#Q-P11">Q-P11</a></strong> — decide the dated-snapshot policies for prices/ratings and availability (owner). Unblocks <a href="#SG-05">SG-05</a> and <a href="#SG-42">SG-42</a>.</li>
-    <li><strong><a href="#SG-34">SG-34</a></strong> — once 14 days of measured data exist, switch topic selection to measured queries (agent, monthly review). This is the payoff step for item 1.</li>
-    <li><strong><a href="#SG-39">SG-39</a></strong> — amend the brief's imagery line and commission the drawn hero set (owner + designer) once the current pass has settled (<a href="questions.html#Q-P05">Q-P05</a>).</li>
+    <li><strong><a href="#SG-06">SG-06</a> + <a href="#SG-41">SG-41</a></strong> — verify Search Console (<a href="questions.html#Q-P08">Q-P08</a>, owner: paste the HTML-tag token into settings and rebuild) and host the analytics endpoint (<a href="questions.html#Q-23">Q-23</a>). <em>Decide-by: before the next cadence cycle — nothing measures until this lands.</em></li>
+    <li><strong><a href="#SG-38">SG-38</a> / <a href="questions.html#Q-P10">Q-P10</a></strong> — ratify the working brand and run the formal clearance search (owner, with counsel). <em>Decide-by: before any domain purchase or social/print use of the name.</em></li>
+    <li><strong><a href="questions.html#Q-47">Q-47</a></strong> — settle the consent basis for reader capture (owner); opens <a href="#SG-36">SG-36</a> + <a href="#SG-04">SG-04</a>.</li>
+    <li><strong><a href="#SG-34">SG-34</a></strong> — once 14 days of measured data exist, switch topic selection to measured queries (agent, monthly review). This is Path A's payoff step.</li>
+    <li><strong><a href="#SG-39">SG-39</a></strong> — amend the brief's imagery line and extend the drawn-art set per season (owner + designer) once this pass has settled (<a href="questions.html#Q-P05">Q-P05</a>).</li>
   </ol>
 </div>
 
-<h2>Design suggestions (the feed into the design prompt)</h2>
-<p class="lede">Written to be pasted into <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md" rel="noopener" target="_blank">DESIGN_PROMPT.md</a> whichever way the decision goes. All three keep the non-negotiable compliance block: disclosure above the fold, no prices or ratings, tagged sponsored links only, drawn-not-copied imagery.</p>
+<div class="callout callout-warm">
+  <h3>How to run the walkthrough</h3>
+  <p>Four steps, about a quarter of an hour: <strong>(1)</strong> read the three cards above and name the path. <strong>(2)</strong> open the decision rows in that path and strike anything you disagree with. <strong>(3)</strong> for each surviving row, answer the <em>question it blocks on</em> from the <a href="questions.html">open questions register</a> — those are the only answers that actually change the outcome. <strong>(4)</strong> record the choice against the item's ID; the <a href="decisions.html">decision log</a> takes it from there with a date. Anything you do not touch stays <span class="status status-proposed">proposed</span> and is not built.</p>
+</div>
+
+<h2 id="queue">The full queue</h2>
+<p>Every item, with the evidence for it, what it costs, and our recommendation. Status is one of <span class="status status-shipped">shipped</span>, <span class="status status-accepted">accepted</span> (mandated by the standing brief) or <span class="status status-proposed">proposed</span> (waiting on a choice).</p>
 
 {{suggestions}}
 
-<p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>.</p>
+<div class="callout callout-sage">
+  <h3>What changed in this pass</h3>
+  <p>The shop rebuild you are reading was proposed here before it was built: <a href="#SG-31">SG-31</a> (pick a visual direction), <a href="#SG-33">SG-33</a> (reversible tokens), <a href="#SG-27">SG-27</a> (shop-first navigation), <a href="#SG-28">SG-28</a> (the shipped feed) and <a href="#SG-35">SG-35</a> (a standing seasonal desk). The brief mandated a polished, shop-like front end, so those rows moved from <em>proposed</em> to <em>shipped</em> with the work recorded rather than waiting for a second nod. Everything they depend on — clearance, domain, measured data — still waits for the owner.</p>
+  <p><strong>2026-11-20 anti-slop pass (arena/f55b5827-prod2):</strong> <a href="#SG-15">SG-15</a> (the brief's Fraunces + Inter shipped self-hosted), <a href="#SG-38">SG-38</a> (the working brand "The Crisp Counter", D-P15, clearance still open as <a href="flagged.html#F-P21">F-P21</a>), <a href="#SG-40">SG-40</a> (seasonal title calendar; the December gifting guide is live) and <a href="#SG-32">SG-32</a> (the decision-maker path above). <a href="#SG-42">SG-42</a> (availability snapshots) was closed as rejected on the policy read in decision D-P11 — the same Program Policies clause governs availability as prices.</p>
+</div>
+
+<p class="small-note">Machine-readable queue: <a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">data/p2/suggestions.json</a>. Every row keeps its dependency IDs, which resolve on the <a href="questions.html">open questions</a> page.</p>

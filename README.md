@@ -1,8 +1,15 @@
-# Prod2 — The Crisp Counter
+# Prod2 — The Crisp Counter (editorial Amazon affiliate shop)
 
-An editorial Amazon affiliate shop built from a verified product register. Tracking ID
-`shopnow047c-20`. The reader-facing publication ships under the working brand **The Crisp Counter**
-(decision D-P10, 2026-11-20; formal name clearance open as Q-19/F-P15).
+Five kitchen tools (three air fryers in three formats, two meat thermometers), written up as a
+buying guide and sold through Amazon Associates. Tracking ID `shopnow047c-20`. The reader-facing
+publication ships under the working brand **The Crisp Counter** (decision D-P15, 2026-11-20, on the
+owner's anti-slop directive; formal name clearance open as Q-19/F-P21).
+
+**Live site:** https://wingbangboozle1-lang.github.io/Prod2/
+
+**Read this first if you are picking the project up:** the reader-facing site is the editorial
+shop build described below. The `Countercraft` `site/` build further down is a preserved earlier
+generation, kept deployable and gated, but it is **not** what readers see.
 
 The site is **data-driven**: every page is generated from the verified data in `data/*.json` by
 `scripts/build_site.py`, and `scripts/verify_site.py` is a release gate that fails the build on
@@ -12,26 +19,32 @@ sitemap gaps). Standard library only — no dependencies.
 ## Quick start
 
 ```bash
-python3 scripts/build_site.py     # render site/ from data/*.json
-python3 scripts/verify_site.py    # release gate (exits non-zero on any violation)
+python3 tools/build.py      # render the publication: data/p2/*.json + content/pages/* -> docs/ -> repo root
+python3 tools/checks.py     # release gate: 11 sections, exits non-zero on any violation
+npm test                    # the gate, plus the self-hosted endpoint tests
 ```
+
+`tools/build.py` writes `docs/` and then mirrors it to the repository root, because GitHub Pages
+serves this repository in legacy "main /" mode. That is not a preference: the Pages API reports
+`build_type: legacy` and returns **403** to the session token on any attempt to switch to Actions
+mode, so the root mirror is what readers actually get (INT-07, re-confirmed 2026-11-20).
 
 ## Layout
 
 ```
-data/            verified product data, source register, suggestions, ledger, articles
-scripts/         build_site.py (generator), verify_site.py (release gate)
-site/            generated static site (served by GitHub Pages)
-server.mjs       optional self-hosted aggregate-only event endpoint (serves site/; not deployed publicly)
-tests/           Node integration tests for the endpoint (npm test)
-.github/workflows/pages.yml   deploy to GitHub Pages on push to main
-.github/workflows/verify.yml  build + release gate + reproducibility check on every push/PR
-archive/counter-notes-v1/     the root-level site from PR #1 (kept unchanged; not published)
-archive/counter-notes-docs/   the generated "Counter Notes" site from PRs #2-#5 (archived at consolidation; not published)
-archive/counter-edit-build/   a parallel "The Counter Edit" build from session sess-prod2-a1 (archived at consolidation; not published)
-COORDINATION.md  shared task board
-EXECUTIVE_SUMMARY.md  executive summary
-DECISIONS.md     decision log (taken + open)
+data/p2/          the registers the site renders: products, sources, flags, questions,
+                  suggestions, decisions, intent-links, events, ledger, calendar, settings,
+                  and the dated verification records
+content/pages/    one file per page, with {{placeholders}} for data-rendered blocks
+assets/           the design system (css/site.css), interactions (js/site.js), measurement
+                  (js/measure.js) and six drawn illustrations
+tools/            build.py (generator), checks.py (release gate), make_og.py (social card)
+docs/             generated output -> published (also mirrored to the repo root)
+server.mjs        optional self-hosted aggregate-only event endpoint (not deployed publicly)
+scripts/ + site/  the preserved Countercraft build (earlier generation, still gated in CI)
+archive/          every previous build, kept and excluded from indexing by robots.txt
+COORDINATION.md   shared task board
+EXECUTIVE_SUMMARY.md, DECISIONS.md   reviewer-facing records
 ```
 
 **Root mirror (INT-07):** GitHub Pages for this repo is in legacy "serve the repository root"
@@ -48,40 +61,89 @@ form; the page tracker transmits nothing unless an endpoint is explicitly config
 
 ## The products
 
-Five submitted `link.amazon` short links, each resolved against its official Amazon listing.
+Five owner-supplied `link.amazon` short links, each resolved against its official Amazon listing.
 All five tokens are 9-character short-link tokens, not 10-character ASINs; they resolve to real
-listings. See `data/p2/products.json` and the **Research Desk** page.
+listings. See `data/p2/products.json`.
+
+| # | Product | Format | ASIN |
+| --- | --- | --- | --- |
+| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 |
+| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R |
+| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH |
+| P4 | ThermoMaven 1-second digital meat thermometer | Instant-read | B0DHZTCNR5 |
+| P5 | CHEF iQ Sense Gen3 wireless meat thermometer | Wireless leave-in | B0DZFD6R9Z |
+
+All five were **re-fetched live on 2026-11-20**; every observed string is recorded in
+`data/p2/verification-2026-11-20.json`, including the values that were *not* observed. Three of the
+five listings show a neighbouring product's price or rating in the visible page; none of those were
+mistaken for the target product (F-P17).
+
+## The site, by page
+
+| Page | Job |
+| --- | --- |
+| `index.html` | Shop front page: illustrated hero, the shelf of five, question-led guide entry points, seasonal desk |
+| `shop.html` | The whole catalogue, filterable by format and category, plus the three-question chooser |
+| `compare.html` | One sourced comparison table, the counter-space analysis, and how to read both |
+| `products.html` | Full listed specification per product, with the product-intent record kept separate |
+| `guides.html` + 9 guide pages | One buyer question per page, in clusters with pillar pages, on a 14-day cadence |
+| `category-air-fryers.html`, `category-thermometers.html` | The two format shelves |
+| `buying-guide.html` | The long-form decision path: format, then capacity, then counter, then cleanup |
+| `about.html` | Authorship, the four editorial rules, what we cannot tell you, imagery policy |
+| `flagged.html` | Every irregularity, with an evidence link and a resolution route |
+| `questions.html` | 15 open questions, each with a discovery method and what it blocks |
+| `suggestions.html` | 28 proposals in three decision paths, with a review walkthrough |
+| `measurement.html`, `compliance.html`, `privacy.html`, `method.html`, `decisions.html`, `executive-summary.html` | The governance surfaces, all reachable from the footer |
 
 ## Compliance
 
-- Disclosure strip under the masthead on every page, repeated in the footer.
-- Every outbound Amazon product link is `rel="sponsored"`.
-- Product-intent record keeps intended vs. observed in separate fields.
-- Privacy-preserving click counter (no cookies); five events; self-hosted `/collect` endpoint.
-- Irregularities and unverified values are published blank + flagged on the **Flagged for
+- Disclosure under the masthead on every page, repeated in the footer, using the first-person
+  sentence prescribed by Operating Agreement §5 (corrected 2026-11-20; see F-P15).
+- Every outbound Amazon product link is `rel="sponsored"` and carries `tag=shopnow047c-20`.
+- **No published prices and no published star ratings.** This is now a policy requirement, not a
+  stylistic choice: Program Policies §2(b) permits prices only when Amazon serves them or they come
+  through the Creators/PA API (D-P11, closes Q-27).
+- Product-intent record keeps intended vs. observed in separate fields, never merged.
+- Privacy-preserving click counter (no cookies, no identifiers); five events; nothing is
+  transmitted until an endpoint is configured.
+- Irregularities and unverified values are published blank and flagged on the **Flagged for
   Review** page with source links — never inferred.
+- No hands-on-testing claim anywhere; the gate fails the build if one appears.
+
+## Imagery
+
+Six illustrations were drawn for this site, generic to the product *format* rather than any
+specific model, and each card is captioned "illustration, not the product photo". Amazon listing
+photography is Program Content and its use is conditioned on the IP Licence, which has not been
+reviewed (D-P12, Q-P05).
 
 ## Self-hosted analytics endpoint
 
-The privacy-preserving click counter (`site/assets/analytics.js`) records the five defined
-events and POSTs them to a `/collect` endpoint. GitHub Pages is static, so the endpoint is
+The privacy-preserving click counter (`assets/js/measure.js`) records the five defined events —
+`page_view`, `outbound_click`, `guide_read_75`, `category_click`, `feed_click` — and posts them
+to a configured endpoint. GitHub Pages is static, so the endpoint is
 self-hosted: `server.mjs` (a small Node collector with five-event aggregation) runs locally or
 on any Node host. Run `npm start` to serve it, `npm test` to run the endpoint tests together
 with the release gate. See `ANALYTICS-ENDPOINT.md`.
 
+While no endpoint is configured the counter writes to the reader's own `localStorage` and transmits
+nothing — that is the shipped state, and the release gate asserts it against
+`data/p2/settings.json`.
+
 See `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, and the **About** page for sources and methodology.
 
-## Live site — Prod2 publication (`docs/`)
+## Status at a glance
 
-GitHub Pages serves the `docs/` folder of `main`, so this publication **is the live site**
-(generated by `tools/build.py`, gated by `tools/checks.py` — 9 sections). It carries the deeper review registers
-(`data/p2-*.json` + `data/{intent-links,flags,questions,decisions,events,settings}.json`):
-intent records with dated redirect histories, flags split open/resolved/standing, question
-and suggestion registers with recommendations, and the five-event campaign ledger with the
-official attribution windows. The 2026-11-19 publication pass (D-P07) rebuilt the reader-facing
-site as a shop-first publication: product cards before data on the front page, a guides hub with
-two clusters and a seasonal desk (`data/p2/calendar.json`), eight question-shaped guides on a
-14-day cadence, RSS subscribe affordances, Search Console readiness (token slot in `settings.json`),
-and a consent-gated question form that ships dark until its privacy basis exists (F-P07).
-The Countercraft `site/` build is preserved and deployable via the Actions workflow. See the
-integration addendum in `COORDINATION.md`.
+| Area | State |
+| --- | --- |
+| Product verification | All five ASINs live-read 2026-11-20; titles matched |
+| Prices / ratings | Not published — required by Program Policies §2(b) |
+| Associates tracking | Links tagged `shopnow047c-20`; enrollment itself is unverified (Q-01) |
+| Search Console | Not verified; token slot ready in `data/p2/settings.json` (Q-P08) |
+| Analytics endpoint | `server.mjs` works and is tested; not hosted (Q-23) |
+| Campaign ledger | Empty by rule; accepts only authorized first-party rows |
+| Release gate | 11 sections, green |
+| Open flags | 20 open, 8 resolved, 4 standing — all on the Flagged for review page |
+
+Everything in the bottom half of that table is an owner action, not an engineering gap. The
+**Open questions** page lists the discovery route for each one.

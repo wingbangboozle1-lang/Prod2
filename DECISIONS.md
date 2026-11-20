@@ -1,70 +1,81 @@
 # DECISIONS.md — Decision Log
 
-Tracking ID: `shopnow047c-20`. This log records the decisions taken for the Countercraft build and
-the decisions that are still open. "Open" items are published on the **Suggestions** page with a
-recommended path; none are decided without the information listed.
+Tracking ID: `shopnow047c-20`. Domain: `https://wingbangboozle1-lang.github.io/Prod2`.
 
-## Taken
+This file mirrors `data/p2/decisions.json`, which is what the site renders on the
+**Decisions** page. The register is authoritative; this file is the reviewer's summary.
+
+> **Corrected 2026-11-20 (D-P15):** this file previously carried a decision table that no
+> longer described the shipped site — it named the brand **Countercraft**, said prices were
+> published "as listed with a date", and said ratings were shown where captured. None of
+> those is true of the live publication, which publishes no prices and no ratings and uses
+> the `Prod2` wordmark. The table below was rebuilt from `data/p2/decisions.json` on
+> 2026-11-20. The stale table was wrong, not the site.
+
+## Taken — foundational
 
 | ID | Decision | Rationale | Source |
 | --- | --- | --- | --- |
-| D-01 | Brand name: **Countercraft** | Reads like a shop and a publication; ties to the kitchen-counter theme. | S-15 |
-| D-02 | Lead with products, data below the fold | Front page is a publication front page; the register sits after the shop content. | "Lead with the products" |
-| D-03 | Single navigation group; all dashboard surfaces in the footer | Every page (Research Desk, Suggestions, Flagged, About) reachable from one nav and the footer. | "keep every dashboard surface reachable" |
-| D-04 | Disclosure strip under the masthead on every page + footer | Above-the-fold disclosure on every page, including the front page. | FTC S07/S24; Operating Agreement |
-| D-05 | Every outbound product link `rel="sponsored"` | Paid/commission links must be marked. Enforced by build + gate. | Google S11 |
-| D-06 | Ratings shown only where captured; uncaptured left blank + flagged | Never infer a value. 4 of 5 ratings not captured from the listing extraction. | "never infer or fill in values" |
-| D-07 | Prices shown "as listed" with a date and a live link; no cross-retailer price comparison | Program Policies 2(b): prices only via Amazon-served link or Creators/PA API. | Program Policies 2(b) |
-| D-08 | Product-intent record keeps intended vs. observed in separate fields | Intent and observation are different facts; never merged. | "Build a product-intent confirmation record" |
-| D-09 | Submitted short links published as the source, compliance status flagged unresolved | Not declared invalid; 6(w) status unresolved. Recommend Special Links before scaling. | Program Policies 6(w) |
-| D-10 | Eight question-shaped guides, one page per question | Publish the questions buyers type; internally link to comparison + categories. | S-07, S-13 |
-| D-11 | Counter-space analysis published with the formula; depth figures flagged | Capacity per unit of counter depth; depth inputs must come from official listings, not guessed. | S-23 |
-| D-12 | Privacy-preserving click counter, no cookies, five events | Automate measurement without third-party tracking. | "Turn on click and conversion measurement" |
-| D-13 | Campaign ledger starts empty and well-defined | No conversion score or forecast without an authorized first-party report. | Priority 4 |
-| D-14 | Compliance gate in the publishing workflow | Checklist before publish: disclosure, rel=sponsored, price label, no inferred values. | Priority 5 |
-| D-15 | Sitemap, RSS, robots, unique meta, structured data, OG/Twitter cards | One site for engines to index, with a reason to rank it. | S-04, S-09 |
-| D-16 | Text-led imagery; no generated or copied product photography | Operating Agreement §1 treats images as Program Content; S-18 needs a decision first. | Operating Agreement; S-18 |
+| D-01 | Five supplied short links resolved to five official listings, which are the products covered | Owner-supplied catalogue | `data/p2/intent-links.json` |
+| D-05 | Every outbound product link is a tagged Special Link with `rel="sponsored"` | Program Policies §2(b); Google outbound-link guidance | S-POL, S-GOUT |
+| D-06 | No hands-on testing is claimed; the site is an edited buying guide | Nothing was purchased or tested | Brief |
+| D-12 | Privacy-preserving click counter: no cookies, five defined events | Measurement without third-party tracking | Brief |
+| D-14 | Compliance checks are automated in the release gate, not remembered | A rule that is not enforced is a rule that lapses | Brief |
+| D-17 | One canonical published site; parallel builds are archived | Avoid duplicate content | INT-06 |
+| D-18 | Keep the `Prod2` wordmark until name clearance is settled | Naming is a legal question (Q-19) | Q-19 |
+| D-19 | No popularity, sales-volume or ranking claim without a dated official snapshot | Google spam policies; Program Policies | S-GSPAM |
+| D-21 | No published star ratings | Ratings require the licensed API | S-POL |
+| D-22 | Campaign ledger starts empty; only authorized first-party rows | No forecast without a report | Brief |
+| D-23 | Three-question chooser routes to a format, never to a checkout | Uses published listed values only | Brief |
+| D-26 | Counter-space analysis is published as a formula, not a score | A ratio a reader can check | Brief |
+| D-27 | Guides are question-shaped, one question per page | Search intent | S-GHELP |
 
-## Open (need information before deciding)
+## Taken — publication and design passes
 
-| ID | Question | What's missing | Recommended path |
-| --- | --- | --- | --- |
-| D-20 | Replace short links with tagged Special Links? | Enrolled Associates account + ability to generate Special Links for the five ASINs. | Generate Special Links, test one per product, confirm destination + tracking report. |
-| D-21 | Pull ratings via Creators/PA API? | API access status. | If granted, pull ratings through the API; otherwise keep blank + flagged. |
-| D-22 | Where does the `/collect` analytics endpoint run? | Hosting choice for the self-hosted endpoint. | Serverless function at `/collect` alongside the static site. |
-| D-23 | Which imagery channel is permitted? | Confirmation of which imagery is allowed under the Agreement. | Stay text-led until confirmed; then use only permitted imagery. |
-| D-24 | Publishing cadence and topic order? | Measured query data (analytics + Search Console). | Weekly cadence; reorder next topics from measured queries. |
-
-## Publication pass — 2026-11-20 (arena/f55b5827-prod2)
-
-Recorded in full in `data/p2/decisions.json` (D-P10…D-P12); summary here.
-
-| ID | Decision | Rationale / missing evidence |
+| ID | Date | Decision |
 | --- | --- | --- |
-| D-P10 | Working brand **The Crisp Counter** on all reader-facing surfaces | Owner's 2026-11-20 anti-slop directive; the adopted design brief carries the name. Preliminary name search clean; formal clearance open (Q-19/Q-P10, flag F-P15). |
-| D-P11 | Ship the brief's typography (self-hosted Fraunces + Inter, OFL) + token conformance | Closes SG-15/SG-16/SG-33: 8px radius, amber unverified states, 44px tap targets, sticky mobile anchors, focus-visible outlines. No third-party font requests. |
-| D-P12 | December gifting window: gift guide + 4 new hypothesis queue slots | Built from the verified register (re-read 2026-11-20). Editorial hypotheses only (D-19); measured queries take over at the SG-06 gate (SG-34). |
+| D-P07 | 2026-11-19 | Publication pass: shop-first front page, guides hub, eight-topic calendar, seasonal desks, clusters, RSS, Search Console readiness, consent-gated capture form |
+| D-P08 | 2026-11-19 | Reader-capture form ships disconnected: nothing is transmitted until a consent basis exists |
+| D-P09 | 2026-11-19 | Root mirror retained because Pages serves the repository root in legacy mode |
+| D-P10 | 2026-11-20 | **Shop-first design rebuild.** New design system, drawn format illustrations, front page led by products, new `shop.html` shelf with filters and chooser, new `about.html` with authorship and four rules, reader nav cut from 11 links to 6, gate extended to protect all of it |
+| D-P11 | 2026-11-20 | **The dated-snapshot price policy (SG-05) is refused by the policy text.** Program Policies §2(b) permits published prices only when Amazon serves them or they arrive via the Creators/PA API. Dated snapshots are neither, so prices stay unpublished. Closes Q-27 |
+| D-P12 | 2026-11-20 | No Amazon listing photography. Illustrations are drawn for the site, generic to the product format, and captioned as such |
+| D-P13 | 2026-11-20 | Disclosure adopts the prescribed first-person sentence from Operating Agreement §5 |
+| D-P14 | 2026-11-20 | The thermometer guide publishes USDA/FoodSafety.gov safe-temperature, storage and power-outage data, quoted with last-reviewed dates |
+| D-P15 | 2026-11-20 | **Working brand "The Crisp Counter"** on all reader-facing surfaces (anti-slop pass, arena/f55b5827-prod2). Owner's standing directive; preliminary name search clean; formal clearance open (Q-19/Q-P10, flag F-P21). One-line reversible in settings.json |
+| D-P16 | 2026-11-20 | **The design brief's typography ships**: self-hosted Fraunces + Inter (SIL OFL 1.1) consumed by the shop design system's token layer; plus the brief's mobile conformance (amber attention states, 44px tap targets, sticky comparison anchor bar, focus-visible outlines) |
+| D-P17 | 2026-11-20 | **December gifting window opened**: guide-gift-guide.html from the verified register; gifting seasonal card; queue slots 6-9 as editorial hypotheses (D-19); measured queries take over at the SG-06 gate |
+| docs-hygiene | 2026-11-20 | This file rebuilt from the register after drifting from the shipped site (bookkeeping row — not a register decision ID; the register's D-P15 is the working-brand decision below) |
 
-## Publication pass — 2026-11-19 (arena/9f84489c-prod2)
+## Open — a choice is waiting
 
-Recorded in full in `data/p2/decisions.json` (D-P07…D-P09); summary here.
-
-| ID | Decision | Rationale | Source |
+| ID | Question | What is missing | Recommended path |
 | --- | --- | --- | --- |
-| D-P07 | The owner brief is the decision for the publication pass: shop-first front page, guides hub, eight question-shaped guides on a 14-day cadence, seasonal desks + clusters, reader nav labels, RSS subscribe affordances, Search Console readiness, consent-gated question form. Dashboards stay in the footer + one nav group; every compliance rule unchanged. | "Make it read like a shop, not an audit… read like a publication" | Owner brief 2026-11-19 |
-| D-P08 | Reader-capture form ships **dark**: it sends nothing until the consent basis (Q-47) is settled and a capture endpoint is configured. | Gate what cannot be automated; FTC consent standard | FTC S07; Q-47; F-P07 |
-| D-P09 | Search Console: readiness ships now (sitemap, robots, feed, canonicals, verification-token slot); verification itself remains an owner action. | Verification requires the property owner's Google account | Google Search Central; Q-P05; F-P06 |
+| Q-01 | Is the Associates account enrolled under `shopnow047c-20`, and has each link been validated in it? | Access to Associates Central | Owner: generate one Special Link, test one click, read the report |
+| Q-19 | Is the site's trade name cleared, and does it contain an Amazon Mark? | Trademark search | Clear a name before renaming (SG-01) |
+| Q-P10 | Does the owner ratify the working brand "The Crisp Counter", and will formal clearance run? | USPTO/state/common-law search (preliminary web search clean, D-P15) | Owner + counsel; revert is one line if not ratified |
+| Q-P11 | May the site publish availability snapshots? | — | **Answered: no.** The same clause as prices (Program Policies §2(b), D-P11) |
+| Q-23 | Where can the self-hosted analytics endpoint run? | Hosting choice | Any Node host; GitHub Pages cannot run it |
+| Q-27 | May the site publish prices under a dated-snapshot rule? | — | **Answered: no.** See D-P11 |
+| Q-31 | Is P2's preset count 24 or 25? | The listing body copy | The title states 24; the body was not captured in enough detail to settle it |
+| Q-47 | May the site collect an email address, and on what consent text? | A privacy decision | Settle before enabling the capture form |
+| Q-P02 | Which question-shaped guide comes next, chosen on evidence? | 14 days of search data | Search Console first (SG-29) |
+| Q-P05 | Is any product imagery usable, and through which official channel? | The IP Licence read for imagery | Stay with drawn illustrations until read |
+| Q-P06 | Does the owner control a domain? | Owner answer | Needed for Search Console and the endpoint |
+| Q-P08 | Who verifies the site in Search Console, and when? | Owner action | Owner adds the token to `settings.json`; the build emits the meta tag |
+| Q-P09 | Which design direction ships? | — | **Answered: the editorial shop direction.** See D-P10 |
 
-## Notes on the reference items (S-04 … S-25)
+## Standing rules (not up for a vote)
 
-The source brief lists items S-04 through S-25 with priorities and implementation statuses. This
-build implements the reader-facing and machinery items directly (unique meta S-04, rel=sponsored
-S-05, question-shaped guides S-07, structured data + social preview S-09, docs-in-line S-10,
-review-page split S-11, voice/rewrite S-12, topic calendar S-13, design brief S-14, brand S-15,
-evidence rule for "trending" S-16, editorial homepage S-17, chooser S-19, counter-space S-23,
-internal linking S-24). S-06 (original "live with" reviews) and S-18 (real product photography)
-are **not adopted / need a decision** and are recorded here and on the Suggestions page rather
-than implemented, because they require first-person experience or permitted imagery that we do
-not have. S-20 (mobile-first pass) is implemented in the CSS. S-25 (organic traffic on the
-verification angle) is addressed by the question-shaped guides + sitemap + RSS + analytics, with
-topics chosen from measured queries once analytics are live.
+1. Disclosure under the masthead on every page, repeated in the footer.
+2. Every outbound product link carries `rel="sponsored"` and the Associates tag.
+3. No published price or star rating.
+4. No value is inferred. A blank plus a flag beats a guess.
+5. A build that fails the gate does not deploy.
+
+## See also
+
+- `data/p2/decisions.json` — the register the site renders.
+- `data/p2/flags.json` — every irregularity, with an evidence link.
+- `data/p2/verification-2026-11-20.json` — the live re-verification records.
+- The **Flagged for review**, **Open questions** and **Suggestions** pages on the site.
