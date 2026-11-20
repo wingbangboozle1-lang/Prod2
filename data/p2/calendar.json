@@ -3,13 +3,13 @@
   "description": "Editorial calendar: publishing cadence, seasonal desks and content clusters. Consumed by tools/build.py. The topic queue is carried from data/calendar.json (arena/cd3cddd6-prod2, 2026-11-19); slot 1 shipped early in the 2026-11-19 publication pass (guide-two-baskets-or-one.html).",
   "updated_utc": "2026-11-20",
   "evidence_rule": "No season or topic is justified by a search-volume or trend figure (D-19 / F-15). Each exists because it answers a question a buyer of the verified five products can actually ask, answerable from the verified register. Seasons follow the US calendar because the marketplace is amazon.com (settings.marketplace).",
-  "last_change": "2026-11-20 (arena/644d217b-prod2): two long-form pieces registered in the thermometer and air-fryer clusters; they carry an argument rather than a checklist and are tracked as SG-45."
+  "last_change": "2026-11-20 (arena/3e4c3d2a-prod2): cadence slot 1 shipped as guide-preheat-shake.html (rituals: preheat, mid-cook shake, no-overfill, probe), added to the air-fryer cluster, and the next due date moved to slot 2's 2026-12-17. Earlier the same day (arena/644d217b-prod2): two long-form pieces registered in the thermometer and air-fryer clusters; they carry an argument rather than a checklist and are tracked as SG-45."
  },
  "cadence": {
   "unit": "one new question-shaped guide",
   "interval_days": 14,
   "first_publish_utc": "2026-11-19",
-  "next_due_utc": "2026-12-03",
+  "next_due_utc": "2026-12-17",
   "rule": "Each new guide is added to data registers, to the sitemap and to the RSS feed by the same build. A guide publishes only with its sourced facts and its 'what we could not verify' block. The next topic is chosen from measured queries only after the SG-06 gate (Search Console + hosted endpoint + 14 days of events); until then the queue order is editorial."
  },
  "seasons": [
@@ -66,6 +66,7 @@
     "guide-two-baskets-or-one.html",
     "guide-holiday-hosting.html",
     "guide-gift-guide.html",
+    "guide-preheat-shake.html",
     "article-air-fryer-doneness.html"
    ]
   },
@@ -88,7 +89,8 @@
    "slot": 1,
    "due_utc": "2026-12-03",
    "title": "Preheat, shake, or don't: which air fryer rituals change your food?",
-   "answers_with": "Manual-ritual features verified on the three listings (shake reminder on P3, sync finish on P1)"
+   "answers_with": "Manual-ritual features verified on the three listings (shake reminder on P3, sync finish on P1)",
+   "status": "shipped 2026-11-20 as guide-preheat-shake.html, ahead of its 2026-12-03 date, under the same rule the December gifting slot and slot 1 of the original queue used: sourced facts plus a 'what we could not verify' block, and no cooking time or preheat claim the listings do not carry. The Nebraska Extension air-fryer guidance supplies the mid-cook shake step, the no-overfill rule and the thermometer rule; the listings supply the shake reminder on P3 and the absence of any preheat statement on all three."
   },
   {
    "slot": 2,
@@ -139,7 +141,7 @@
    "answers_with": "Listed specs on P4/P5 (accuracy claims, waterproofing, probe range) with the F-26-style discrepancy check"
   }
  ],
- "queue_note": "Slot 1 of the original queue ('Dual-basket vs single-basket: when are two drawers actually better than one?') shipped 2026-11-19 as guide-two-baskets-or-one.html, ahead of its 2026-12-03 date. The December gifting slot shipped 2026-11-20 as guide-gift-guide.html under the seasonal-desk activation, with the same rule: sourced facts + 'what we could not verify' block required before publish. Slots 6-9 are hypotheses awaiting either their due date or measured-query demand (SG-34).",
+ "queue_note": "Slot 1 of the original queue ('Dual-basket vs single-basket: when are two drawers actually better than one?') shipped 2026-11-19 as guide-two-baskets-or-one.html, ahead of its 2026-12-03 date. The December gifting slot shipped 2026-11-20 as guide-gift-guide.html under the seasonal-desk activation, with the same rule: sourced facts + 'what we could not verify' block required before publish. The ritual slot shipped 2026-11-20 as guide-preheat-shake.html, also ahead of its 2026-12-03 date, so the next due date is slot 2's 2026-12-17. Slots 6-9 are hypotheses awaiting either their due date or measured-query demand (SG-34).",
  "longreads": {
   "description": "Long-form pieces: one buying decision argued from an official guidance source the listings do not carry. Same rules apply: every figure sourced, mandatory 'what we could not verify' block.",
   "items": [

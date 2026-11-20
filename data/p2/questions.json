@@ -313,6 +313,24 @@
    "flags": [
     "F-19"
    ]
+  },
+  {
+   "id": "Q-P18",
+   "area": "Commercial",
+   "question": "What category and rate does this Associates account actually earn on each of the five ASINs?",
+   "known": "Amazon's Standard Commission Income Statement Table 1 (read 2026-11-20) prices the 'Kitchen' product category at 4.50%, and all five listings read under the Home & Kitchen > Kitchen & Dining department, so the published table shows one sourced Standard rate for all five. The category derivation and its limit are recorded in data/p2/commission.json.",
+   "unknown": "Whether this account is on the Standard table at all or on a contract schedule; what Amazon assigns as the commission category for each ASIN in this account; and whether enrollment is complete and the tracking tag attributes (F-57, F-58). No earnings figure of any kind exists in the project.",
+   "how_to_discover": "Owner opens Associates Central -> Reports -> Commission Income Statement after enrollment and reads one row: product, category, rate. One row settles the mapping for all five because they share a department. Record it in data/p2/commission.json under actual_rate_percent / actual_rate_source.",
+   "answerable_by": "The owner, inside Associates Central.",
+   "blocks": [
+    "F-01",
+    "Any earnings figure on the site",
+    "SG-05 (dated price policy depends on the same re-read cycle)"
+   ],
+   "flags": [
+    "F-01",
+    "F-P25"
+   ]
   }
  ]
 }

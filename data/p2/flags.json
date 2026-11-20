@@ -8,11 +8,11 @@
   {
    "id": "F-01",
    "status": "open",
-   "title": "Product-level commission rate is unverified",
-   "detail": "The official Standard Commission Income Statement Table 1 lists Kitchen at 4.50% and Home at 3.00%. No official source reviewed maps these ASINs to a commission category, so every product-level rate is published blank. Do not infer a rate from the category band.",
+   "title": "This account's own commission rate per ASIN is still unverified",
+   "detail": "Partly resolved on 2026-11-20: the Amazon product category for all five ASINs is now sourced. Each listing's own department path reads Home & Kitchen > Kitchen & Dining > ..., and the Standard Commission Income Statement's row for that category is Kitchen at 4.50% (S-COMM, read 2026-11-20), so the published table shows one sourced Standard rate for all five. What is still blank is THIS ACCOUNT's rate: the project has no Associates Central report, so the per-ASIN 'this account's rate' column publishes as — unverified. No rate is inferred from the category band, and no earnings, order or click figure exists anywhere in the project.",
    "evidence": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
-   "evidence_note": "S-COMM, read 2026-11-14/2026-11-17",
-   "how_to_resolve": "Read the product-level rate from an Associates Central report after enrollment (owner action)."
+   "evidence_note": "S-COMM, read 2026-11-14/2026-11-17/2026-11-20; the five listing department paths read 2026-11-20 (data/p2/commission.json and data/p2/live-check-2026-11-20-3e4c3d2a.json)",
+   "how_to_resolve": "Read the product-level rate from an Associates Central report after enrollment (owner action) and record it in data/p2/commission.json under actual_rate_percent / actual_rate_source. The category mapping limit is carried separately as F-P25."
   },
   {
    "id": "F-02",
@@ -353,6 +353,15 @@
    "evidence": "https://www.amazon.com/dp/B0CDY277D3",
    "evidence_note": "Live /dp/ listing for P1 (title matches register). Short-link observations and the four other ASIN pages are in data/p2/live-check-2026-11-20-722181aa.json.",
    "how_to_resolve": "Owner (or any reviewer with a normal browser) opens each of the five link.amazon URLs and records the final URL and ASIN in a dated redirect observation in data/p2/intent-links.json. If the short links no longer resolve to the registered ASINs, the intended_asin values stay as the /dp/ pages show and the mismatch is escalated under F-03 / F-57.",
+   "status": "open"
+  },
+  {
+   "id": "F-P25",
+   "title": "The Commission Income Statement prices categories, not browse nodes",
+   "detail": "Amazon's Standard Commission Income Statement Table 1 is keyed by commission category (Kitchen 4.50%, Home 3.00%, All Other Categories 4.00% and the rest). It publishes no map from a listing's browse node to a category. The site therefore derives the category from each listing's own department path, which is official and dated, and records the derivation and its limits in data/p2/commission.json. All five ASINs read under Home & Kitchen > Kitchen & Dining, so one row applies to all five. Amazon's own category assignment for this account is not public, so the published figure is the Standard table rate and is labelled as such; the per-account column stays blank.",
+   "evidence": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+   "evidence_note": "S-COMM read 2026-11-20; the five listing department paths read 2026-11-20 and recorded in data/p2/live-check-2026-11-20-3e4c3d2a.json.",
+   "how_to_resolve": "Owner opens Associates Central -> Reports -> Commission Income Statement after enrollment and reads one row: product, category and rate. One row confirms or corrects the mapping for all five ASINs, because they share a department. Record the result in data/p2/commission.json under actual_rate_percent and actual_rate_source.",
    "status": "open"
   }
  ]

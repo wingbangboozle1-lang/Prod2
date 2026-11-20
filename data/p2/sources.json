@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Source register. Every published fact row points at one of these sources. Official sites only. Read dates are the dates the source was actually read for this project (prior dated sessions and the 2026-11-19 session).",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/644d217b-prod2): S-FSIS-CHART, S-FSIS-THERMO and S-UNL-AIRFRYER added after each page was read live on 2026-11-20 for the two new long-form articles."
+  "last_change": "2026-11-20 (arena/3e4c3d2a-prod2): S-COMM re-read at source (Associates Program Standard Commission Income Statement, Table 1) so the commission category and rate could be published from an official row instead of a null. Earlier the same day (arena/644d217b-prod2): S-FSIS-CHART, S-FSIS-THERMO and S-UNL-AIRFRYER added after each page was read live on 2026-11-20 for the two new long-form articles."
  },
  "sources": [
   {
@@ -164,7 +164,8 @@
    "kind": "Official policy",
    "read": [
     "2026-11-14",
-    "2026-11-17"
+    "2026-11-17",
+    "2026-11-20"
    ]
   },
   {

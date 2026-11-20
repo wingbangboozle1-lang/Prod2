@@ -1,0 +1,132 @@
+{
+ "_meta": {
+  "description": "Commission potential, computed only from Amazon's own published Standard Commission Income Statement and the listing department path of each registered ASIN. This register replaces the earlier position that no official source mapped these ASINs to a commission category (F-01): the rate table has now been read at source (S-COMM, read 2026-11-20), and every ASIN's listing department was re-read the same day.",
+  "date_utc": "2026-11-20",
+  "session": "arena/3e4c3d2a-prod2",
+  "what_this_is": "The published Standard Commission Income rate for the Amazon product category each ASIN sits in. It is a rate, not a forecast. No revenue, order volume, click volume, conversion rate or earnings estimate is stored or published anywhere in this project.",
+  "what_this_is_not": [
+   "Not this account's negotiated or actual rate. A contract-specific rate, if one exists, appears only on the owner's own Commission Income Statement inside Associates Central.",
+   "Not an assertion that any commission has been or will be earned. Commission requires a qualifying purchase in a session that begins with a click through a valid Special Link (Commission Income Statement, Section 1).",
+   "Not a comparison of products by earning power. Rate is identical across all five ASINs because they share one category; product value in this catalogue is decided by how often the page is read, not by the rate.",
+   "Not a popularity, price or ranking claim, and it is not reader-facing marketing copy."
+  ],
+  "evidence_rule": "The rate row is quoted from the official table with its row text, and the category assignment is derived from the listing's own department path with the derivation shown in 'mapping_basis'. A value with no official row behind it is not published.",
+  "mapping_limit": "The Commission Income Statement names Amazon's commission categories; it does not publish a browse-node-to-category map. The mapping below therefore rests on the listing's own department path, which is official and dated. The exact commission category Amazon assigns this account for each ASIN is confirmable only from the account's own report — that residual gap is carried as flag F-P25 and question Q-P18.",
+  "not_verified": [
+   "Associates enrollment status of this account and whether tag=shopnow047c-20 attributes (F-57, F-58).",
+   "Whether the account is on the Standard rate table at all, or on a contract-specific schedule.",
+   "Any actual or forecast commission income (F-19: the project has no first-party click or order data)."
+  ]
+ },
+ "rate_table": {
+  "source_id": "S-COMM",
+  "source_title": "Associates Program Standard Commission Income Statement — Table 1, fixed Standard Commission Income rates by product category",
+  "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+  "read_utc": "2026-11-20",
+  "tool": "fetch_page",
+  "rows_used": [
+   {
+    "category": "Kitchen",
+    "rate_percent": 4.5,
+    "row_text": "Physical Books, Kitchen, Automotive | 4.50%",
+    "why_it_could_apply": "The listing department of every ASIN in this catalogue is 'Home & Kitchen > Kitchen & Dining > ...'. 'Kitchen' is the row that covers that department."
+   },
+   {
+    "category": "Home",
+    "rate_percent": 3.0,
+    "row_text": "Toys, Furniture, Home, Home Improvement, Lawn & Garden, Pets Products, Headphones, Beauty, Musical Instruments, Business & Industrial Supplies, Outdoors, Tools, Sports, Baby Products, Amazon Coins | 3.00%",
+    "why_it_could_apply": "Not to these five: none of them is listed under the Home department. Recorded here so the neighbouring, lower rate is visible and the choice is auditable rather than silent."
+   },
+   {
+    "category": "All Other Categories",
+    "rate_percent": 4.0,
+    "row_text": "All Other Categories | 4.00%",
+    "why_it_could_apply": "The residual row. It does not apply here, because a specific category does. Recorded so the reader of this file can see that the specific row was chosen over the fallback."
+   }
+  ]
+ },
+ "products": [
+  {
+   "product_id": "P1",
+   "asin": "B0CDY277D3",
+   "listing_department_path": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+   "listing_department_source": "S-P1",
+   "listing_department_read": "2026-11-20",
+   "commission_category": "Kitchen",
+   "standard_rate_percent": 4.5,
+   "rate_source": "S-COMM",
+   "rate_read": "2026-11-20",
+   "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining; the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%. 'Home' (3.00%) covers the Home department and 'All Other Categories' (4.00%) is the residual row, so neither is a candidate.",
+   "actual_rate_percent": null,
+   "actual_rate_source": null,
+   "actual_rate_note": "Null by rule: this account's own Commission Income Statement is the only authority for its contract rate, and the project does not have it (F-P25)."
+  },
+  {
+   "product_id": "P2",
+   "asin": "B09B7SB46R",
+   "listing_department_path": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+   "listing_department_source": "S-P2",
+   "listing_department_read": "2026-11-20",
+   "commission_category": "Kitchen",
+   "standard_rate_percent": 4.5,
+   "rate_source": "S-COMM",
+   "rate_read": "2026-11-20",
+   "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining; the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%.",
+   "actual_rate_percent": null,
+   "actual_rate_source": null,
+   "actual_rate_note": "Null by rule (F-P25)."
+  },
+  {
+   "product_id": "P3",
+   "asin": "B08DKYBTPH",
+   "listing_department_path": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+   "listing_department_source": "S-P3",
+   "listing_department_read": "2026-11-20",
+   "commission_category": "Kitchen",
+   "standard_rate_percent": 4.5,
+   "rate_source": "S-COMM",
+   "rate_read": "2026-11-20",
+   "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining; the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%.",
+   "actual_rate_percent": null,
+   "actual_rate_source": null,
+   "actual_rate_note": "Null by rule (F-P25)."
+  },
+  {
+   "product_id": "P4",
+   "asin": "B0DHZTCNR5",
+   "listing_department_path": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+   "listing_department_source": "S-P4",
+   "listing_department_read": "2026-11-20",
+   "commission_category": "Kitchen",
+   "standard_rate_percent": 4.5,
+   "rate_source": "S-COMM",
+   "rate_read": "2026-11-20",
+   "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining (Kitchen Utensils & Gadgets > Thermometers & Timers > Meat); the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%. Note this ASIN is not an air fryer and is not in the Fryers browse node, but it shares the department, and the rate table is keyed by category, not by browse node.",
+   "actual_rate_percent": null,
+   "actual_rate_source": null,
+   "actual_rate_note": "Null by rule (F-P25)."
+  },
+  {
+   "product_id": "P5",
+   "asin": "B0DZFD6R9Z",
+   "listing_department_path": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+   "listing_department_source": "S-P5",
+   "listing_department_read": "2026-11-20",
+   "commission_category": "Kitchen",
+   "standard_rate_percent": 4.5,
+   "rate_source": "S-COMM",
+   "rate_read": "2026-11-20",
+   "mapping_basis": "Listing department path read 2026-11-20 places this ASIN in Kitchen & Dining (Kitchen Utensils & Gadgets > Thermometers & Timers > Meat); the Commission Income Statement's category row for that department is 'Kitchen' at 4.50%.",
+   "actual_rate_percent": null,
+   "actual_rate_source": null,
+   "actual_rate_note": "Null by rule (F-P25)."
+  }
+ ],
+ "catalogue_summary": {
+  "products_count": 5,
+  "distinct_commission_categories": ["Kitchen"],
+  "standard_rate_percent": 4.5,
+  "consequence": "All five products carry the same Standard rate. The rate therefore cannot rank them, cannot decide what to write about next, and cannot substitute for traffic. It is a planning input only: an equal rate means the page's argument, not the product, is what moves a click.",
+  "owner_action": "Read the account's own Commission Income Statement in Associates Central and record the per-ASIN category and rate in 'actual_rate_percent' / 'actual_rate_source' above. Until that is done, every actual-rate field stays null and the site publishes the Standard table rate only."
+ }
+}

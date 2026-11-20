@@ -40,6 +40,7 @@ DECISIONS = load("decisions.json")["decisions"]
 LEDGER = load("ledger.json")
 EVENTS = load("events.json")
 CALENDAR = load("calendar.json")
+COMMISSION = load("commission.json")
 
 BRAND = SETTINGS["brand"]["name"]
 DESCRIPTOR = SETTINGS["brand"]["descriptor"]
@@ -126,6 +127,10 @@ PAGES = [
      f"Gift guide: which of the five fits which cook? | {BRAND}",
      "Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.",
      "guides"),
+    ("guide-preheat-shake", "guide-preheat-shake.html",
+     f"Preheat, shake, or don’t: which rituals matter | {BRAND}",
+     "Which air-fryer steps are worth learning, from the listings we track and extension guidance: preheat, the mid-cook shake, the no-overfill rule, the probe.",
+     "guides"),
     ("guides", "guides.html",
      f"Guides: one buyer question per page | {BRAND}",
      "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
@@ -179,7 +184,7 @@ PAGES = [
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
              "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
-             "guide-gift-guide"]
+             "guide-gift-guide", "guide-preheat-shake"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -494,6 +499,54 @@ def hook_sources_table(_="") -> str:
             + "".join(rows) + '</tbody></table></div>')
 
 
+def hook_commission_table(_="") -> str:
+    """Commission potential, from Amazon's own Standard Commission Income
+    Statement only. A rate, never a forecast: no order count, no click count,
+    no revenue estimate, and no claim that any commission was earned."""
+    tbl = COMMISSION["rate_table"]
+    rows = []
+    for c in COMMISSION["products"]:
+        p = PROD_BY_ID[c["product_id"]]
+        actual = c.get("actual_rate_percent")
+        actual_cell = (f'{actual}%' if actual is not None
+                       else '<span class="muted">— unverified</span>')
+        rows.append(
+            f'<tr id="comm-{esc(c["product_id"])}"><td><strong>{esc(c["product_id"])}</strong></td>'
+            f'<td><code>{esc(c["asin"])}</code></td>'
+            f'<td>{esc(p["name_short"])}</td>'
+            f'<td>{esc(c["listing_department_path"])}<br>'
+            f'<span class="muted">{src_link(c["listing_department_source"])}, read {esc(c["listing_department_read"])}</span></td>'
+            f'<td>{esc(c["commission_category"])}</td>'
+            f'<td>{c["standard_rate_percent"]:.2f}%</td>'
+            f'<td>{actual_cell}</td>'
+            f'<td>{src_link(c["rate_source"])}</td></tr>')
+    head = ('<div class="table-scroll"><table class="data"><thead><tr><th>ID</th><th>ASIN</th>'
+            '<th>Product</th><th>Listing department (read from the listing)</th>'
+            '<th>Commission category</th><th>Standard rate</th>'
+            '<th>This account\'s rate</th><th>Rate source</th></tr></thead><tbody>'
+            + "".join(rows) + '</tbody></table></div>')
+    rows_tbl = []
+    for r in tbl["rows_used"]:
+        rows_tbl.append(
+            f'<tr><td>{esc(r["category"])}</td><td><strong>{r["rate_percent"]:.2f}%</strong></td>'
+            f'<td><code>{esc(r["row_text"])}</code></td>'
+            f'<td>{esc(r["why_it_could_apply"])}</td></tr>')
+    rate_tbl = ('<div class="table-scroll"><table class="data"><thead><tr><th>Category</th>'
+                '<th>Standard rate</th><th>Row as published</th><th>Why it is or is not a candidate here</th>'
+                '</tr></thead><tbody>' + "".join(rows_tbl) + '</tbody></table></div>')
+    meta = COMMISSION["_meta"]
+    return (
+        f'<p class="callout"><strong>What this table is.</strong> {esc(meta["what_this_is"])} '
+        f'Rate source: {src_link(tbl["source_id"])} — {esc(tbl["source_title"])}, read {esc(tbl["read_utc"])}. '
+        f'Nothing here is a revenue figure.</p>'
+        + head
+        + '<h3>The rows this site read, and why</h3>' + rate_tbl
+        + '<div class="callout"><h3>What we could not verify</h3><ul>'
+        + "".join(f'<li>{esc(x)}</li>' for x in meta["not_verified"])
+        + f'</ul><p>{esc(COMMISSION["catalogue_summary"]["owner_action"])}</p></div>'
+    )
+
+
 def _flag_row(f: dict) -> str:
     # A resolved flag must SHOW its resolution on the page, not only in the JSON.
     # Fixed 2026-11-20: F-P23 read as open on the Flagged page while the register
@@ -685,6 +738,7 @@ GUIDE_BLURBS = {
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
     "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
+    "guide-preheat-shake": "Which air-fryer steps are worth learning, and which the machine does for you.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -697,6 +751,7 @@ GUIDE_TAGS = {
     "guide-holiday-hosting": "Seasonal",
     "guide-instant-vs-leave-in": "Thermometers",
     "guide-gift-guide": "Seasonal",
+    "guide-preheat-shake": "Using it",
 }
 
 
@@ -876,6 +931,7 @@ HOOKS = {
     "counter_space": hook_counter_space,
     "chooser": hook_chooser,
     "intent_table": hook_intent_table,
+    "commission_table": hook_commission_table,
     "sources_table": hook_sources_table,
     "flags_open": lambda _: hook_flags("open"),
     "flags_resolved": lambda _: hook_flags("resolved"),

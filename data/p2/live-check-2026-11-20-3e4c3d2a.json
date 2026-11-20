@@ -1,0 +1,173 @@
+{
+ "_meta": {
+  "description": "Second same-day live re-read of the five official listings, the five owner short links and the three Associates policy pages, performed 2026-11-20 by arena/3e4c3d2a-prod2 with the fetch tool. This file records OBSERVATIONS only. It never overwrites data/p2/products.json, data/p2/intent-links.json or data/p2/sources.json; where an observation changes or confirms a register row, the change is made in the register itself and this file is the evidence for it.",
+  "date_utc": "2026-11-20",
+  "session": "arena/3e4c3d2a-prod2",
+  "branch": "arena/3e4c3d2a-prod2",
+  "tracking_id": "shopnow047c-20",
+  "method": "fetch_page on https://www.amazon.com/dp/{ASIN} for each of the five registered ASINs; fetch_page on each of the five owner-submitted https://link.amazon/ URLs with redirects followed; fetch_page on the three Associates policy pages. The sandbox's own curl cannot reach www.amazon.com or affiliate-program.amazon.com (http 000), so every read below came through the fetch tool, and every row names the tool that produced it.",
+  "prior_read_same_day": "data/p2/live-check-2026-11-20-722181aa.json (session arena/722181aa-prod2). Two independent sessions, two independent reads, same day.",
+  "price_policy": "F-02 stands: no price, rating or review count is published anywhere on the site and none is stored in this file. What is recorded is only WHETHER a price block attributable to the product's own page was present in the retrieved variant — that is the fact the owner's dated-snapshot question (SG-05 / Q-27) actually needs.",
+  "not_verified_here": [
+   "Associates enrollment status of this account, tag attribution and commission income (F-57, F-58).",
+   "Whether the short-link redirect behaviour is an artefact of the fetch tool or of the short-link service (F-P24).",
+   "Any price value; the presence flag is recorded, the number is not."
+  ]
+ },
+ "official_listings": [
+  {
+   "product_id": "P1",
+   "asin": "B0CDY277D3",
+   "url_read": "https://www.amazon.com/dp/B0CDY277D3",
+   "tool": "fetch_page",
+   "read_utc": "2026-11-20",
+   "page_title_observed": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+   "title_matches_register": true,
+   "title_note": "Character-for-character identical to data/p2/products.json P1.name_listing (register read 2026-11-19).",
+   "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+   "breadcrumb_matches_register": true,
+   "price_block_on_product_page": "not_observed_in_retrieved_variant",
+   "price_note": "The only $ figures in the retrieved variant sat inside 'Customers who viewed this item also viewed' (ASINs B0B7C327LK, B0CNSB81V6, B0BYKGN61Q) and a protection-plan block — other ASINs' prices, not this product's (F-17 attribution trap).",
+   "result": "no change to the register"
+  },
+  {
+   "product_id": "P2",
+   "asin": "B09B7SB46R",
+   "url_read": "https://www.amazon.com/dp/B09B7SB46R",
+   "tool": "fetch_page",
+   "read_utc": "2026-11-20",
+   "page_title_observed": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+   "title_matches_register": true,
+   "title_note": "Character-for-character identical to data/p2/products.json P2.name_listing (register read 2026-11-19).",
+   "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+   "breadcrumb_matches_register": true,
+   "breadcrumb_note": "The 2026-11-20 pass by session arena/644d217b-prod2 did not see P2's breadcrumb in its retrieved variant and left the field null (W-06). This read DID return it, so P2.category_path is now confirmed from the live listing on two independent reads.",
+   "price_block_on_product_page": "not_observed_in_retrieved_variant",
+   "price_note": "Only carousel prices for B0BZ52FLKC, B0FM5KF34G, B0F92GL7JH and a protection-plan price appeared.",
+   "result": "P2.category_path confirmed from the live listing; no other change to the register"
+  },
+  {
+   "product_id": "P3",
+   "asin": "B08DKYBTPH",
+   "url_read": "https://www.amazon.com/dp/B08DKYBTPH",
+   "tool": "fetch_page",
+   "read_utc": "2026-11-20",
+   "page_title_observed": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+   "title_matches_register": true,
+   "title_note": "Character-for-character identical to data/p2/products.json P3.name_listing (register read 2026-11-19).",
+   "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+   "breadcrumb_matches_register": true,
+   "price_block_on_product_page": "not_observed_in_retrieved_variant",
+   "price_note": "Only carousel prices for B0CNY1YVDD, B09MR7QWKZ, B0C33CHG99 and a protection-plan price appeared.",
+   "result": "no change to the register"
+  },
+  {
+   "product_id": "P4",
+   "asin": "B0DHZTCNR5",
+   "url_read": "https://www.amazon.com/dp/B0DHZTCNR5",
+   "tool": "fetch_page",
+   "read_utc": "2026-11-20",
+   "page_title_observed": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+   "title_matches_register": true,
+   "title_note": "Character-for-character identical to data/p2/products.json P4.name_listing, including the ±0.5℉ glyph (register read 2026-11-19). F-P01's second-segment discrepancy is not visible in this variant of the title, so the register's primary name_listing stands.",
+   "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+   "breadcrumb_matches_register": true,
+   "price_block_on_product_page": "observed",
+   "price_note": "The product's OWN buy block was present in this variant (price, 'In Stock', a quantity selector and a delivery estimate). The value is deliberately not stored (F-02); only its presence is recorded, because this is the fact SG-05 / Q-27 needs to decide whether a dated price column is even possible.",
+   "result": "no change to the register; new evidence for the dated-price question"
+  },
+  {
+   "product_id": "P5",
+   "asin": "B0DZFD6R9Z",
+   "url_read": "https://www.amazon.com/dp/B0DZFD6R9Z",
+   "tool": "fetch_page",
+   "read_utc": "2026-11-20",
+   "page_title_observed": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3 : Home & Kitchen",
+   "title_matches_register": true,
+   "title_note": "Character-for-character identical to data/p2/products.json P5.name_listing, including '3 Ultra-Thin Probes' (register read 2026-11-19). The carousel in this variant carried a 2-probe variant (B0FXBQ3KX1); the page title itself is the 3-probe configuration the register records (F-P05).",
+   "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+   "breadcrumb_matches_register": true,
+   "price_block_on_product_page": "not_observed_in_retrieved_variant",
+   "price_note": "Only carousel prices for B0FXBQ3KX1, B0D1TMFTPN, B0H2JP9YDM and a protection-plan price appeared.",
+   "result": "no change to the register"
+  }
+ ],
+ "short_links": [
+  {
+   "product_id": "P1",
+   "submitted_url": "https://link.amazon/B04G1MEwY",
+   "register_asin": "B0CDY277D3",
+   "observed_final_url": "https://www.amazon.com/",
+   "observed_title": "Amazon.com. Spend less. Smile more.",
+   "result": "resolved to the Amazon homepage, not the product listing"
+  },
+  {
+   "product_id": "P2",
+   "submitted_url": "https://link.amazon/B02NbDxp3",
+   "register_asin": "B09B7SB46R",
+   "observed_final_url": "https://www.amazon.com/",
+   "observed_title": "Amazon.com. Spend less. Smile more.",
+   "result": "resolved to the Amazon homepage, not the product listing"
+  },
+  {
+   "product_id": "P3",
+   "submitted_url": "https://link.amazon/B00hJ57DV",
+   "register_asin": "B08DKYBTPH",
+   "observed_final_url": "https://www.amazon.com/",
+   "observed_title": "Amazon.com. Spend less. Smile more.",
+   "result": "resolved to the Amazon homepage, not the product listing"
+  },
+  {
+   "product_id": "P4",
+   "submitted_url": "https://link.amazon/B0c8moW59",
+   "register_asin": "B0DHZTCNR5",
+   "observed_final_url": "https://www.amazon.com/",
+   "observed_title": "Amazon.com. Spend less. Smile more.",
+   "result": "resolved to the Amazon homepage, not the product listing"
+  },
+  {
+   "product_id": "P5",
+   "submitted_url": "https://link.amazon/B0f3GKalj",
+   "register_asin": "B0DZFD6R9Z",
+   "observed_final_url": "https://www.amazon.com/",
+   "observed_title": "Amazon.com. Spend less. Smile more.",
+   "result": "resolved to the Amazon homepage, not the product listing",
+   "difference_from_earlier_read": "The 06:38 UTC read by session arena/722181aa-prod2 got an HTTP 500 for this code and no destination; this read resolved it to the Amazon homepage like the other four. The difference between '500' and 'homepage' for the same code inside one hour is itself the evidence that the behaviour is not a stable property of the link."
+  }
+ ],
+ "short_link_conclusion": {
+  "finding": "All five owner-submitted short links resolved to the Amazon.com homepage in this read, and four of five did so in the independent read by session arena/722181aa-prod2 twenty minutes earlier. F-P24 reproduces. The register's intended-ASIN fields are untouched: an observed redirect target is an observation, not an intent (intent-links.json keeps them in separate fields, F-67).",
+  "cause": "not determinable from outside the account — a fetch-tool artefact (bot handling of link.amazon) and a short-link service change are both consistent with the evidence. A browser check by the owner is the test that settles it.",
+  "reader_facing_impact": "none. The site never publishes a short link as a buy path; tools/build.py renders any link.amazon anchor as inert quoted text and the release gate fails the build if a clickable one returns."
+ },
+ "associates_policy_pages_read": [
+  {
+   "source_id": "S-OA",
+   "url_read": "https://affiliate-program.amazon.com/help/operating/agreement",
+   "tool": "fetch_page",
+   "read_utc": "2026-11-20",
+   "page_states_updated": "October 15, 2025",
+   "notable_text_read": "Section 1: 'we may make available to you data, images, text, link formats, widgets, links, marketing content, and other linking tools ... (\"Program Content\")'. Section 5: 'You must clearly and prominently state the following ... on your Site ... \"As an Amazon Associate I earn from qualifying purchases.\"' Section 12: Program Policies are incorporated by reference and the Agreement controls on conflict.",
+   "result": "S-OA read date 2026-11-20 already present in the register; the disclosure sentence the site publishes matches Section 5 verbatim."
+  },
+  {
+   "source_id": "S-POL",
+   "url_read": "https://affiliate-program.amazon.com/help/operating/policies",
+   "tool": "fetch_page",
+   "read_utc": "2026-11-20",
+   "page_states_updated": "April 14, 2026",
+   "notable_text_read": "Program Policies page header states 'Updated: April 14, 2026'. Its first section is the Associates Program Commission Income Statement, with the fixed rate table for product categories (see S-COMM).",
+   "result": "register read date 2026-11-20 already present."
+  },
+  {
+   "source_id": "S-COMM",
+   "url_read": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+   "tool": "fetch_page",
+   "read_utc": "2026-11-20",
+   "page_title_observed": "Amazon.com Associates Central — Associates Program Standard Commission Income Statement",
+   "notable_text_read": "Table 1 rows that bear on this catalogue: 'Physical Books, Kitchen, Automotive | 4.50%'; 'Toys, Furniture, Home, Home Improvement, Lawn & Garden, Pets Products, Headphones, Beauty, Musical Instruments, Business & Industrial Supplies, Outdoors, Tools, Sports, Baby Products, Amazon Coins | 3.00%'; 'All Other Categories | 4.00%'.",
+   "result": "S-COMM gains a 2026-11-20 read date. The rate table is now usable for the first time: the register previously carried no commission field because no official source had been read that mapped the ASINs to a category (F-01). data/p2/commission.json is the result."
+  }
+ ],
+ "conclusion": "Five of five listings: title and listing department path verified character-for-character on 2026-11-20, second independent same-day confirmation for four of them. Five of five short links: homepage redirect reproduced. Three of three Associates policy pages: read, with the Commission's own 'Updated' dates recorded. Two register rows change as a result (P2.category_path confirmed; S-COMM gains a read date); no product fact changes."
+}

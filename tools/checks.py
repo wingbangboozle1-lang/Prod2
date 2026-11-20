@@ -578,6 +578,77 @@ def main() -> int:
     else:
         ok("depth event covers both guide-* and article-* pages")
 
+    # --------------------------------------------------------------- commission
+    check("commission")
+    # A rate may only be published when the official row behind it is present in
+    # the register and the category named by the site's derivation appears in
+    # that row's published text. A rate with no official row is a failure, and
+    # an account-specific rate with no source is a failure. No earnings,
+    # order or click figure may appear anywhere.
+    comm_path = DATA / "commission.json"
+    entries: dict[str, dict] = {}
+    if not comm_path.exists():
+        fail("data/p2/commission.json missing: the commission register is required")
+    else:
+        comm = json.loads(comm_path.read_text(encoding="utf-8"))
+        tbl = comm.get("rate_table") or {}
+        rows = tbl.get("rows_used") or []
+        if not rows:
+            fail("commission.json: rate_table.rows_used is empty — a rate needs an official row")
+        if not tbl.get("source_id") or not tbl.get("read_utc"):
+            fail("commission.json: rate_table has no source id or read date")
+        source_ids = {s["id"] for s in json.loads((DATA / "sources.json").read_text(encoding="utf-8"))["sources"]}
+        if tbl.get("source_id") and tbl["source_id"] not in source_ids:
+            fail(f"commission.json: rate source {tbl['source_id']} is not in the source register")
+        entries = {c["product_id"]: c for c in comm.get("products") or []}
+        for p in products:
+            c = entries.get(p["id"])
+            if not c:
+                fail(f"{p['id']}: no commission mapping in data/p2/commission.json")
+                continue
+            for field in ("listing_department_path", "listing_department_source",
+                          "listing_department_read", "commission_category",
+                          "standard_rate_percent", "rate_source", "rate_read"):
+                if not c.get(field):
+                    fail(f"{p['id']}: commission entry missing {field}")
+            if c.get("asin") != p["asin"]:
+                fail(f"{p['id']}: commission ASIN {c.get('asin')} does not match the product register")
+            if c.get("rate_source") not in source_ids:
+                fail(f"{p['id']}: commission rate source {c.get('rate_source')} is not in the source register")
+            # the published rate must equal a row of the official table
+            match = [r for r in rows
+                     if r.get("category") == c.get("commission_category")
+                     and r.get("rate_percent") == c.get("standard_rate_percent")]
+            if not match:
+                fail(f"{p['id']}: rate {c.get('standard_rate_percent')}% for category "
+                     f"'{c.get('commission_category')}' is not a row of the official table")
+            else:
+                row_text = match[0].get("row_text", "")
+                if f"{c.get('standard_rate_percent'):.2f}%" not in row_text:
+                    fail(f"{p['id']}: rate {c.get('standard_rate_percent'):.2f}% not found in the "
+                         f"published row text '{row_text}'")
+            # an account-specific rate is only publishable with its own source
+            if c.get("actual_rate_percent") is not None and not c.get("actual_rate_source"):
+                fail(f"{p['id']}: actual_rate_percent is set but actual_rate_source is empty")
+            # the category derivation must come from the listing's own department path
+            if c.get("listing_department_path") and \
+                    not p.get("category_path", "").startswith(c["listing_department_path"]):
+                fail(f"{p['id']}: commission department path disagrees with the product register")
+        # the rendered page must carry the table and every ASIN
+        prod_html = (DOCS / "products.html").read_text(encoding="utf-8")
+        if "commission-table" not in prod_html and "comm-P1" not in prod_html:
+            fail("products.html: the commission table is not published")
+        for p in products:
+            if f'comm-{p["id"]}' not in prod_html:
+                fail(f"products.html: no commission row for {p['id']}")
+        # no money figure may appear in the commission section
+        m = re.search(r'id="commission".*?(?=<h2 id="intent-record"|$)', prod_html, re.S)
+        if m and PRICE_RE.search(m.group(0)):
+            fail("products.html: the commission section publishes a currency figure (no revenue, ever)")
+    if not FAILURES:
+        ok(f"commission rates trace to the official table; "
+           f"{len(entries)} products mapped; no earnings figure published")
+
     # -------------------------------------------------------------- freshness
     check("freshness")
     with tempfile.TemporaryDirectory() as td:
