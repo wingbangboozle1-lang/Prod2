@@ -121,7 +121,7 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 Rows labeled SW- to avoid the X- prefix already used by arena/3936beb1-prod2's read-only audit above.
 Branched from `f6e772f` (main at PR #28); ran alongside the passes above and re-read the board as
 `origin/main` advanced through PR #53. **Superseded work was dropped in favor of merged work; unique
-work was re-applied on the merged tip; nothing from any other session was discarded.** Three collisions
+work was re-applied on the merged tip; nothing from any other session was discarded.** Four collisions
 occurred and both were resolved by renumbering/union — log below.
 
 | Task | Status | Session | Scope (files) |
@@ -129,9 +129,9 @@ occurred and both were resolved by renumbering/union — log below.
 | SW-01 Typography conformance (self-host Fraunces + Inter) | superseded by V-01 | arena/2adc150a-prod2 | merged equivalent landed (D-P19) — not re-applied |
 | SW-02 Design-token conformance | superseded by V-01 | arena/2adc150a-prod2 | merged equivalent landed (D-P19) — not re-applied |
 | SW-03 Favicon (drawn glyph) + F-P12 reconciliation | done / superseded | arena/2adc150a-prod2 | `assets/img/favicon.svg` + `tools/build.py` head link shipped; F-P12 was already resolved upstream |
-| SW-04 Seasonal sale-week guide (holiday-desk lane; cadence queue untouched) | done | arena/2adc150a-prod2 | `content/pages/guide-sale-week.html`, `tools/build.py` (PAGES/GUIDE_IDS/BLURBS/TAGS/GUIDE_LINKS), `data/p2/calendar.json`, `data/p2/decisions.json` (D-P24) |
+| SW-04 Seasonal sale-week guide (holiday-desk lane; cadence queue untouched) | done | arena/2adc150a-prod2 | `content/pages/guide-sale-week.html`, `tools/build.py` (PAGES/GUIDE_IDS/BLURBS/TAGS/GUIDE_LINKS), `data/p2/calendar.json`, `data/p2/decisions.json` (D-P25) |
 | SW-05 Gate extension: `assets` (asset/favicon/font resolution, font-display, font licenses) + `calendar` (register coherence) | done | arena/2adc150a-prod2 | `tools/checks.py` (13 → 15 sections) |
-| SW-06 Registers + docs sync | done (re-scoped) | arena/2adc150a-prod2 | `data/p2/decisions.json` (D-P24 only), `content/pages/privacy.html` (self-hosted-fonts note) |
+| SW-06 Registers + docs sync | done (re-scoped) | arena/2adc150a-prod2 | `data/p2/decisions.json` (D-P25 only), `content/pages/privacy.html` (self-hosted-fonts note) |
 | SW-07 Integration: rebuild, gates, tests, PR to main, merge, Pages check, board record | done | arena/2adc150a-prod2 | `docs/`, root mirror, `COORDINATION.md` |
 
 ### Collision log (protocol: conflicts resolved without discarding other sessions' work)
@@ -158,12 +158,21 @@ occurred and both were resolved by renumbering/union — log below.
    regenerated from source.
 4. **Third rebase conflict** (onto `6a94506`, PRs #47/#56 + the A-01..A-06 pass): session 20f83238 took
    **D-P22** (queue reviewer pass, Path A) and **D-P23** (promotion hold). Resolution by renumbering,
-   again: this session's decision is final as **D-P24** (draft D-P11 → D-P22 → D-P24), and its text now
+   again: this session's decision renumbered (draft D-P11 → D-P22 → D-P24), and its text now
    records the timing tension with D-P22's Path A honestly: the guide was authored before that reviewer
    pass landed, is read as inside the published calendar's seasonal lane (the D-P20 precedent), and is
    one-line retractable if the reviewer reads Path A differently. Generated conflicts resolved to the
    merged side and regenerated from source.
-5. **Line-by-line re-check of the re-applied guide against the merged registers.** Cited figures were
+5. **Fourth rebase conflict** (onto `20e2cb2`, PRs #54–#70): session 770ebcc2 took **D-P24**
+   (dedicated product pages) and session 44af3083 shipped two more guides (guide-preheat-shake,
+   guide-turkey-done) into the same registry this session edits. Resolution by union + renumber,
+   fourth time: this session's decision is final as **D-P25** (draft D-P11 → D-P22 → D-P24 → D-P25);
+   the PAGES/GUIDE_IDS/BLURBS/TAGS/GUIDE_LINKS registries and the calendar clusters keep all three
+   guides; the suggestion page's heading fix was replaced by their better `p.eyebrow` version; and
+   their cleaner query-stripping regex was adopted for the `assets` gate where both sides had fixed
+   the same cache-buster defect. `tools/checks.py` gate section from this session renamed `fonts`
+   (their `assets` gate covers stylesheet structure).
+6. **Line-by-line re-check of the re-applied guide against the merged registers.** Cited figures were
    checked against `data/p2/products.json` and the 2026-11-20 live re-check
    (`data/p2/live-check-2026-11-20-722181aa.json`): "six included cooking accessories" (P2) and
    "dishwasher-safe basket" (P3) are re-observed in the listing titles read 2026-11-20 and cite that
@@ -381,6 +390,60 @@ rebased on this merge and its content reconciled by hand, because this branch ha
 registers underneath it. If it is still stale and conflicting **60 minutes after its last commit**
 (07:27 UTC), any session may take it over under the handoff rule and should treat this record as the
 current state of `main`.
+
+---
+
+
+### PR / MERGE / DEPLOY RECORD — session arena/0a9f19fe-prod2 (final, 2026-11-20)
+
+| PR | What | Result |
+| --- | --- | --- |
+| [#56](https://github.com/wingbangboozle1-lang/Prod2/pull/56) | Stylesheet conflict-marker repair + `tools/design_qa.py` gate + `shop.html` buyer verdict + `before-you-decide.html` + `derived` gate + `F-P29` | **Merged** `d1e6eb8` at 07:03:36Z. `verify-site` pass · `test` pass · `Deploy to GitHub Pages` **success** (run 44692170456) |
+| [#60](https://github.com/wingbangboozle1-lang/Prod2/pull/60) | The merged page shipped its frontmatter as visible text; guard added and proven against the defect | **Merged** `551c633` at 07:07:18Z. `verify-site` pass · `test` pass. **Deploy failed — see below.** |
+| [#62](https://github.com/wingbangboozle1-lang/Prod2/pull/62) | **Fixed `main`'s red deploy**: heading-level skip on `suggestions.html`, unversioned `decide.js`, and a query-string bug in a check that could not resolve versioned assets | **Merged** `935101e`. `verify-site` pass · `test` pass · `Deploy to GitHub Pages` **success** (run 44693342142) |
+
+**Deploy was red on `main` from PR #58 to PR #62** (runs 44692497340, 44692527366, 44692629076 all
+failed at `Release gate — publication`; the deploy job was skipped each time, so the live site served
+an older build than the repo). Two rules added by parallel sessions' merges had caught two real
+defects: an `h1 → h3` skip on `suggestions.html`, and `decide.js` emitted without the `?v=` cache
+buster every other asset gets. A third problem was in the checker itself — its asset-URL regex
+captured the query string, so once the versioning worked the check could not resolve the real file.
+All three fixed in #62. **A parallel session (PR #63) reached the same diagnosis independently and
+landed the source-level fixes first**; #62 was rebased onto them, kept main's better solution (the
+reviewer note became a `p.eyebrow`, which cannot create a heading skip at all), and promoted my
+`h2` callout accordingly. Nothing was discarded from either side.
+
+**Live verification after the green deploy (fetched, not inferred):**
+`/Prod2/before-you-decide.html` renders with no frontmatter text and the eleven-row table intact;
+`/Prod2/assets/css/site.css` serves the repaired file — nine `@font-face` blocks, no conflict markers,
+tokens intact. Recorded with the page-fetch tool because `curl` cannot reach `*.github.io` here.
+
+### What this session shipped, in one list
+
+1. **P0**: the stylesheet every page loads no longer contains a merge conflict, and a browser-free
+   gate (`tools/design_qa.py`, 9 sections) now fails the build on that class of defect, proven
+   against three real failure modes.
+2. **`derived` gate** in `tools/checks.py`, written after this session published a "smallest
+   footprint" claim its own arithmetic contradicted.
+3. **`shop.html` buyer verdict** — job-matched picks, the reason each alternative loses, the USDA
+   placement rule, and an explicit list of what the recommendation cannot tell you.
+4. **`before-you-decide.html`** — eleven owner decisions, each with known / missing / how it is
+   discovered / what changes. Cross-linked with the parallel `briefs.html`; neither deleted.
+5. **`F-P29`** publishing the stylesheet defect, its root cause and the gate.
+6. **A frontmatter guard** in `tools/checks.py` after the merged page shipped its own header as text.
+
+### Honest limits of this record
+
+- **No screenshot was ever produced.** No session in this repo has rendered a page; this one measured
+  that the browser binaries do not download. `design_qa.py` closes the mechanical gap (does the
+  stylesheet parse, resolve and reach the markup) and cannot close the aesthetic one.
+- **No external source was fetched this session.** Product values come from the dated register reads;
+  the only external quotation used (USDA FSIS on probe placement) is from the register entry read
+  2026-11-20 by the previous pass.
+- **Two defects in this session's own output escaped its gates and were caught only by reading the
+  live page** (the frontmatter, and the `h3` under an `h1`). Both are now gated. That is the pattern
+  worth carrying forward: the gates catch what can be expressed as a rule; a human looking at the
+  site still catches the rest.
 
 ---
 
@@ -772,6 +835,23 @@ recoverable from git reflog; its unique content is preserved in `archive/counter
 | sess-prod2-a1 | `arena/9386098f-prod2` | 2026-11-19 12:40 | active — final integration |
 
 ## Conflict log
+
+- 2026-11-20 (arena/44af3083-prod2, second union): the integration merge of `origin/main` (PRs #43–#53,
+  sessions arena/37b265a4 / 644d217b / 3936beb1 / d5157db6 / e292fb4d) conflicted in 19 files.
+  Resolved as unions, nothing discarded: the four register files merged **by row id** (this pass's
+  Q-P15 browser-check folded into the parallel pass's Q-P18 with its evidence kept; this pass's
+  Q-P16/Q-P17 published as Q-P19/Q-P20; SG-45..SG-47 renumbered SG-49..SG-51; the parallel pass's
+  F-P24 third-read note kept verbatim and this pass's fourth-read note appended), `calendar.json`
+  gained both passes' cluster/season wiring, `content/pages/index.html` kept both the long-read
+  module and the turkey card, and every generated artifact was regenerated from the merged sources
+  rather than hand-merged. Cross-references renumbered in EXECUTIVE_SUMMARY.md, DESIGN_PROMPT.md,
+  REPO_AUDIT.md and this board.
+
+- 2026-11-20 (arena/44af3083-prod2): the claim commit hit a rebase conflict in `COORDINATION.md`
+  against arena/722181aa-prod2's appended L-01..L-03 record (PRs #39–#42 landed after this
+  branch was cut). Resolved as a **union merge** — their record kept verbatim, this claim kept
+  and revised (F-P24 was taken by their session; this session's new ids re-checked at write
+  time). Nothing discarded.
 
 - Two `git pull --rebase` operations collided with concurrent merges to `main` (PR #5→#6→#7 landed
   during this session's work). First rebase resolved by union-merging boards; second collision was
@@ -1359,6 +1439,83 @@ rather than rebase.
   class of drift `main` had before this pass. It does not affect `main` or the deploy; its own session
   owns the fix.
 
+---
+
+## ACTIVE CLAIM — session arena/770ebcc2-prod2 (2026-11-20, dedicated product pages + independent same-day live re-read)
+
+Branched from `d7f58d1` (main at PR #44); merged `origin/main` (`0a4b573`, PR #46) before claiming.
+This session is both the working session and its own integration session on this branch.
+
+**Why this pass.** `SG-12` (proposed, 2026-11-19): "Give every product its own buyer-first section" —
+the site publishes a comparison table and a shelf, but no dedicated, indexable page per product.
+For a small affiliate publication that is the largest remaining organic-traffic gap: product-name
+queries ("Chefman dual basket air fryer specs") have nowhere to land, and every guide funnels readers
+to an anchor on a 47 KB table page. This pass builds five product pages **strictly from the verified
+register** (no new claims, no prices, no ratings), wires them into shelf cards, pillars and the
+sitemap, and adds a gate section so they cannot silently drift.
+
+**Open-PR interaction (protocol: logged, not edited).** PR #41, #43, #45, #47 were all active within
+minutes of this claim (updates 06:48–06:53 UTC). None of them creates `content/pages/product-*.html`;
+this session touches shared files **append-only** where unavoidable (COORDINATION.md, registers,
+build.py, checks.py, card/footnote wiring) and will resolve any merge conflict keeping both sides.
+This session does NOT touch `data/p2/verification-2026-11-20.json` (owned by #43/#41) — its own live
+read is stored in a new session-scoped file.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Independent same-day live re-read: 5 official listings + 5 submitted short links, stored verbatim | done | arena/770ebcc2-prod2 | `data/p2/live-check-2026-11-20-770ebcc2.json` (new), `data/p2/flags.json` (F-P24 reread note, append-only) |
+| X-02 Five dedicated product pages from the register only; card + pillar + footer wiring; JSON-LD Product node per page | done | arena/770ebcc2-prod2 | `content/pages/product-*.html` (new), `tools/build.py`, `content/pages/{index,shop,products,category-air-fryers,category-thermometers}.html` (append-only link edits) |
+| X-03 Gate: `productpages` section (one page per product, buy URL, unverified block, reachability, sitemap) | done | arena/770ebcc2-prod2 | `tools/checks.py` |
+| X-04 Registers + docs: SG-12 → shipped, D-P23 recorded, exec-summary + front-page counts updated | done | arena/770ebcc2-prod2 | `data/p2/suggestions.json`, `data/p2/decisions.json`, `content/pages/executive-summary.html`, `EXECUTIVE_SUMMARY.md` |
+| X-05 Rebuild, full gate (14 sections), legacy verify, npm test, root mirror byte-match | done | arena/770ebcc2-prod2 | `docs/`, root mirror |
+| X-06 PR to main, merge, Pages deploy check, record here; claim released | in progress | arena/770ebcc2-prod2 | `COORDINATION.md`, `PULL_REQUEST*.md` |
+
+Verification-boundary note (same as the passes above it): outbound HTTP from this sandbox reaches
+`www.amazon.com` through the fetch tool only (curl is blocked); values observed are stored verbatim
+with the read time; nothing is inferred, and no price/rating is published (F-02 stands).
+
+### Claim results (X-01..X-05, 2026-11-20, session arena/770ebcc2-prod2)
+
+- **X-01 (live re-read, done).** All five `/dp/` listings fetched ~06:55–07:00Z: every document title
+  equals the register character-for-character after stripping Amazon's title decoration (the P5 listing
+  appends `: Home & Kitchen` without a separating space — an observation quirk, not a register drift),
+  and all five breadcrumbs match the register category paths. The P4 fetch showed a buy-box block
+  (`$16.99`, `In Stock`) — recorded as an observation in the dated file, **not published** (F-02
+  withholding stands; F-P17 is exactly this attribution trap). All five `link.amazon` short links again
+  failed through the sandbox's only network reader (fetch-tool page errors; `curl` blocked at TLS), so
+  F-P24 carries a third consecutive same-day non-confirmation and stays open. No register value changed.
+  Record: `data/p2/live-check-2026-11-20-770ebcc2.json`.
+- **X-02 (product pages, done).** Five dedicated pages: `product-chefman-dual-basket.html` (P1),
+  `product-emeril-french-door.html` (P2), `product-chefman-turbofry.html` (P3),
+  `product-thermomaven-instant-read.html` (P4), `product-chefiq-sense-wireless.html` (P5). Every value
+  comes from the verified register via the existing `{{facts:Px}}` / `{{buy:Px}}` hooks; the surrounding
+  copy is hand-written per product (no shared template prose), states who each tool suits and who it
+  does not, shows every derived number with its formula, and ends with the product's own
+  "what we could not verify" block. Two arithmetic claims were corrected during review (P2 depth
+  delta 16.9−12.75 = 4.15″; P1 zone-vs-oven capacity share) and one unregistered descriptor
+  ("folding") was removed — the pages ship with nothing the register cannot back. JSON-LD gains a
+  `Product` node per page with **no `offers` and no `aggregateRating`**, deliberately.
+- **X-03 (gate, done).** `tools/checks.py` section `productpages`: registry↔disk orphan check (a sixth
+  product without a page fails the build), buy URL present and tagged, `rel="sponsored"` on the page,
+  unverified block present, ASIN on its own page, reachable from index + shop + products + its pillar,
+  in the sitemap. `publication`/`seo`/`facts` sections unchanged. Header now lists 14 sections.
+- **X-04 (registers + docs, done).** `SG-12` progress extended; `D-P24` records the
+  content policy (register-only claims); `F-P24` carries the third read; the executive summary (page +
+  root doc) gained "The 2026-11-20 reader pass" and a corrected re-check line; the front-page trust row
+  gains "5 product pages". No changes to `products.json` (values unchanged), `verification-2026-11-20.json`
+  or `questions.json` (untouched by this pass).
+- **X-05 (build/gate, done).** `tools/build.py` → 35 pages; `tools/checks.py` → **ALL CHECKS PASSED**
+  (14 sections); `scripts/build_site.py` + `scripts/verify_site.py` → **VERIFY OK, 18 pages**;
+  `npm test` → 3 pass / 0 fail; root mirror re-synced by the build.
+ **Line-by-line review notes for the record:** (a) the
+  `links` gate initially caught this session's own decision-entry source list linking into `data/`
+  relatively — corrected to repo blob URLs, and the gate proved itself; (b) `title` uniqueness and the
+  `≤70`/`50–170` meta bounds passed for all five new pages; (c) **mid-pass ID collision, resolved:** this
+  session recorded its content policy as D-P23 while main advanced through PRs #47–#60; main took D-P23
+  for the paid-placement hold decision, so this pass re-numbered to **D-P24** and appended to SG-12's and
+  F-P24's merged entries instead of overwriting them (nothing from #47–#60 was discarded; the merge keeps
+  both). The session also inherits main's newer surfaces (decide.html, glance table, landing FAQ, a11y,
+  structured, assets, briefs, one-site, integrity gates) — all pass with the new pages included.
 ## ACTIVE CLAIM — session arena/3936beb1-prod2 (2026-11-20, status re-verification + coordination record)
 
 Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Single-branch rule followed; no other branch was created, switched to or pushed.
@@ -1817,3 +1974,106 @@ changes, with no manual input from the owner. This session filled that slot:
 | PR | https://github.com/wingbangboozle1-lang/Prod2/pull/47 (`arena/20f83238-prod2` → `main`) |
 | Merge result | (recorded after merge) |
 | Pages | (recorded after deploy verification) |
+
+---
+
+## PR / MERGE / DEPLOY RECORD — session arena/15730819-prod2 (2026-11-20)
+
+| PR | Title | Result |
+| --- | --- | --- |
+| [#57](https://github.com/wingbangboozle1-lang/Prod2/pull/57) | Verified decision layer + repair of the live stylesheet and indexable archive | **Merged** 2026-11-20 07:00:32 UTC, merge commit `756f102`. Checks: verify ✓, test ✓ |
+| [#59](https://github.com/wingbangboozle1-lang/Prod2/pull/59) | Post-deploy fix: the fixed stylesheet never reached readers (CDN) + de-duplicated brief links | **Merged**, merge commit `f44117e`. First CI run failed on my own `_asset_version()` hashing mtimes (broke byte-reproducibility); fixed to hash bytes only, then green |
+| [#63](https://github.com/wingbangboozle1-lang/Prod2/pull/63) | Unbreak main: fix the two gates PR #58/#60 turned red, at their source | **Merged**, merge commit `bf657ae`. Checks: verify ✓, test ✓ |
+
+### Final state of `main` — verified live, not assumed
+
+All four workflows **success** on `bf657ae`: `verify-site`, `Self-hosted analytics tests`,
+`Deploy to GitHub Pages`, `pages build and deployment`.
+
+**The post-deploy read that this session exists to insist on:**
+
+| What was read live | Result |
+| --- | --- |
+| `https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css` | **Line 1 is now a CSS comment**, not `<<<<<<< HEAD`. Both font stacks present (six static latin subsets + three variable faces), nine `@font-face`, `:root` with all 32 tokens. The stylesheet readers get is valid. |
+| `https://wingbangboozle1-lang.github.io/Prod2/` | Shelf of five first, all five `?tag=shopnow047c-20` paid links, `(paid link)` labels, disclosure strip, one trust line, the four-question matcher, the five-row glance table, then the long reads. |
+| `.../Prod2/briefs.html` | Six briefs render; the duplicated `F-P24`/`Q-01`/`F-02` links are gone. |
+| `main` @ `bf657ae` | clean clone → `tools/build.py` → `tools/checks.py` **ALL CHECKS PASSED**, `tools/design_qa.py` **PASSED**, `npm test` **10/10**, `git diff --exit-code -- docs/` clean. |
+
+### What this session changed, in one place
+
+1. **A broken stylesheet was live and is now correct.** Conflict markers at lines 1/48/75 of
+   `assets/css/site.css`, copied into `docs/assets/css/` by the build. Fixed twice — once by this
+   session (#57), once better by a parallel session (#60, which kept both font stacks). Both repairs
+   reconciled in #59/#63; `integrity` and `design_qa.py` now gate it.
+2. **The fix then did not reach readers**, because Pages serves assets through a CDN and no page
+   versioned its asset URLs. Every css/js URL now carries `?v=<content hash>`. This is the single most
+   useful finding of the session: a green deploy is not the same as a correct site.
+3. **82 archived files stopped being indexable.** Four previous builds were fetchable at the live host
+   with only a robots.txt line guarding them. The build now writes `noindex` into every archived
+   `.html`/`.xml` on each pass, and robots.txt is scoped away from source directories.
+4. **A decision layer was published** (`briefs.html`, six briefs) because the brief asked for the
+   questions that must be answered before a decision, and neither the flags register nor the
+   suggestions queue answered "what do I decide first, and what is the cheapest way to find out".
+5. **The landing page stopped repeating itself**: 24 cards → 12, four above-fold trust blocks → one,
+   the long reads moved directly under the shelf.
+6. **The official commission table was read for the first time** in this project (S-COMM, Table 1).
+   Recorded as a category-level fact with its citation. **No per-product rate is asserted**, because
+   no official source maps these ASINs to a programme category — F-01 stays open.
+7. **Three gates a parallel session added were repaired at source** when they went red on `main`
+   (#63): a heading skip on `suggestions.html`, an unversioned `PAGE_SCRIPTS` tag, and two checks that
+   compared versioned URLs against bare filenames.
+
+### Open items this session did NOT resolve (owner actions, all published)
+
+The six briefs on `briefs.html` are the list. The two that block everything else: **B-01** (one tagged
+click read in Associates Central) and **B-04** (an endpoint for the counter). Nothing in this session
+claims the account is enrolled, that any click is attributed, or that the site has measured traffic.
+It has not.
+
+# Session arena/44af3083-prod2 — claim (2026-11-20)
+
+Branch `arena/44af3083-prod2`, base `4398598` (`main`, merge of PR #33); rebased onto `main`
+at `1ee7576` (PRs #38–#42) at claim time — conflict with arena/722181aa-prod2's appended record
+resolved as a union merge (nothing discarded; see the conflict log). Single Arena session:
+it works its scope and is also the final integration pass for that scope. Claim written and
+pushed **before** any task work started. At the rebase, arena/722181aa-prod2's L-01..L-03 were
+already at **done/merged** (PR #39/#42), so no live claim overlaps this one's file scope.
+**Register ids re-checked after the rebase** (arena/722181aa-prod2 took F-P24): new rows here
+continue from whatever `data/p2/*.json` shows free at write time — recorded in the results below.
+
+| Task | Status | Session | Scope (files) | Notes |
+| --- | --- | --- | --- | --- |
+| R-01 Live re-verification pass (2026-11-20, independent second read): all five listings + Operating Agreement + Program Policies + USDA/FoodSafety charts; observed strings recorded with read timestamps; short-link resolution observed again (F-P24) | done | arena/44af3083-prod2 | `data/p2/verification-2026-11-20.json` (addendum section only) | Cross-checked against BOTH prior 2026-11-20 reads (arena/70b2b9f7's `verification-2026-11-20.json` and arena/722181aa's `live-check-2026-11-20-722181aa.json`); agreement or disagreement stated explicitly. No register value changes unless a listing read changes it. |
+| R-02 Publish calendar queue slot 1 early ("Preheat, shake, or don't") — question-shaped, listing-facts-only, sourced; auto-flows to sitemap + feed | done | arena/44af3083-prod2 | `content/pages/guide-preheat-shake.html` (new), `tools/build.py` (PAGES/GUIDE_IDS/GUIDE_LINKS/hooks), `data/p2/calendar.json` (slot 1 marked shipped) | Same early-publish precedent as slots 1/3 of the previous queue. Honors D-19 (no popularity claims) and F-02 (no prices/ratings). |
+| R-03 Timely Thanksgiving-week thermometer guide ("How do you know the turkey is done?") — USDA cook-temps sourced, thermometer workflow framing from P4/P5 listings | done | arena/44af3083-prod2 | `content/pages/guide-turkey-done.html` (new), `tools/build.py`, `data/p2/calendar.json` (holiday-hosting season wiring) | Seasonal desk item for the 2026-11-26 US Thanksgiving window; hypothesis only (D-19). |
+| R-04 Decision-support additions: suggestions SG-49..SG-51 (design/marketing inputs feeding DESIGN_PROMPT.md + next-pass chooser paths) + questions Q-P19/Q-P20 (missing-information discovery) | done | arena/44af3083-prod2 | `data/p2/suggestions.json`, `data/p2/questions.json`, `DESIGN_PROMPT.md` (append-only) | Proposals only; nothing implemented without a reviewer choice. |
+| R-05 Front-page shop polish + executive summary refresh | done | arena/44af3083-prod2 | `content/pages/index.html` (copy only), `EXECUTIVE_SUMMARY.md` | Copy-level; no register/price/rating changes. |
+| R-06 Rebuild + gates (`tools/build.py` + `tools/checks.py`, `scripts/verify_site.py`, `npm test`), PR to `main`, merge, Pages live check, record here | in progress | arena/44af3083-prod2 | `docs/`, root mirror, `COORDINATION.md` | Runs last. PR + merge without waiting for approval per the brief; deploy must be green before the record is written. |
+
+Parallel-session protocol: `git pull --rebase` before every push; a request to change another
+session's file is logged here, never edited directly. Flagged irregularities do not block the
+merge; they publish on the Flagged for Review page.
+
+## Results — arena/44af3083-prod2 (R-01..R-05 complete, 2026-11-20)
+
+| Task | Status | Sources | Verification performed | Irregularities |
+| --- | --- | --- | --- | --- |
+| R-01 Third live verification pass | done | `https://www.amazon.com/dp/{B0CDY277D3,B09B7SB46R,B08DKYBTPH,B0DHZTCNR5,B0DZFD6R9Z}` (read 2026-11-20) · `https://affiliate-program.amazon.com/help/operating/agreement` (Updated: October 15, 2025) · `https://affiliate-program.amazon.com/help/operating/policies` (Updated: April 14, 2026) · `https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures` (last reviewed November 21, 2024) · `…/cold-food-storage-charts` (September 19, 2023) · `…/food-safety-during-power-outage` (August 8, 2024) | 5/5 listing document titles match the register character-for-character (wrapper stripped); breadcrumbs match; policy + chart dates match. Recorded verbatim in `data/p2/verification-2026-11-20.json` → `third_pass_arena_44af3083` (V3-01..V3-04). Zero register drift. | F-P24 reproduced independently: `https://link.amazon/B04G1MEwY` and `https://link.amazon/B0c8moW59` both resolved to `https://www.amazon.com/` instead of their listings. Evidence appended to F-P24; intended-ASIN fields untouched. |
+| R-02 guide-preheat-shake.html | done | P1/P2/P3 listing facts (S-P1..S-P3, read 2026-11-19; feature tables 2026-11-14) | Every fact traced to the register; "What we could not verify" block included; S-24 pillar links present; flows to sitemap + feed by build. | none |
+| R-03 guide-turkey-done.html | done | S-USDA-COOK (165°F (74°C) poultry row, read 2026-11-20) + P4/P5 listing facts (S-P4/S-P5) | USDA figure quoted with its last-reviewed date; P4/P5 workflows from listing facts only; no hands-on claims (D-06). | none |
+| R-04 Registers + design inputs | done | Program Policies 2(b) (S-POL) · VOICE.md · D-19 | SG-49..SG-51 (proposals only) and Q-P19/Q-P20 recorded; this pass's Q-P15 browser-check row merged into the parallel pass's **Q-P18** (content kept, nothing discarded); F-P24 detail extended; `DESIGN_PROMPT.md` marketing-inputs section appended. Gate re-run after each register change. | Gate caught a `link.amazon` string on questions.html without inert-code rendering — fixed at the register (wording), gate left strict. Register ids collided with the parallel long-read pass (it took Q-P15..Q-P17, SG-45..SG-47, F-P25..F-P28, D-P21 on main); this pass renumbered around it and updated every cross-reference. |
+| R-05 Front page + exec summary | done | built pages | Trust-row guide count corrected 10 → 12; timely turkey question card; exec summary second-wave section; counts re-counted from the registers. | Front-page trust row had gone stale (10 vs 12 guides) — corrected. |
+
+**Builds at the end of the pass:** `python3 tools/build.py` → 30 pages → `python3 tools/checks.py` → **ALL CHECKS PASSED** (12 sections) · `python3 scripts/verify_site.py` → **VERIFY OK** (18 pages) · `npm test` → **2/2 pass**.
+
+**Register id usage this pass (final, after the parallel-pass collision):** flags — none new (F-P24 extended in place with the fourth-read note); questions — **Q-P19, Q-P20** (+ content merged into Q-P18); suggestions — **SG-49, SG-50, SG-51** (twice renumbered around parallel passes); decisions — none new. Next free ids: F-P30, Q-P21, SG-52, D-P24.
+
+## PR / merge / deploy record — arena/44af3083-prod2
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/54 (`arena/44af3083-prod2` → `main`) |
+| Merge result | (recorded after merge) |
+| Pages | (recorded after deploy check) |
+| Checks on PR | tools/checks.py ALL CHECKS PASSED · scripts/verify_site.py VERIFY OK · npm test 2/2 |
+

@@ -1,0 +1,104 @@
+{
+ "_meta": {
+  "session": "arena/770ebcc2-prod2",
+  "record": "further independent same-day live re-read of the five official listings and the five submitted short links (other dated reads today: 722181aa, d5157db6, e292fb4d, 1930d8a3 \u2014 none overwritten)",
+  "read_utc_window": "2026-11-20T06:54Z to 2026-11-20T07:00Z",
+  "method_note": "fetch_page tool only; curl to link.amazon fails at TLS (sandbox egress allowlist), so short-link status is recorded as tool-observed, not network-adjudicated",
+  "relation": "independent corroboration of data/p2/verification-2026-11-20.json and the other live-check-2026-11-20-*.json files; nothing here overwrites them"
+ },
+ "listings": [
+  {
+   "id": "P1",
+   "asin": "B0CDY277D3",
+   "url": "https://www.amazon.com/dp/B0CDY277D3",
+   "read_utc": "2026-11-20T06:55Z",
+   "method": "fetch tool (sandbox curl is blocked for www.amazon.com; this boundary is documented in prior verification records)",
+   "observed_document_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+   "observed_title_vs_register": "verbatim match",
+   "observed_breadcrumb": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+   "breadcrumb_vs_register_category_path": "match",
+   "price_published": false,
+   "price_note": "P4 fetch surfaced a buy-box block reading $16.99 with 'In Stock'; not published and not attributed to the register (F-02 withholding stands; F-P17 shows buy-box/carousel prices can belong to neighbouring ASINs in the fetched variant). Other pages' $ figures appeared only in 'Customers who viewed this item also viewed' carousels for other ASINs."
+  },
+  {
+   "id": "P2",
+   "asin": "B09B7SB46R",
+   "url": "https://www.amazon.com/dp/B09B7SB46R",
+   "read_utc": "2026-11-20T06:55Z",
+   "method": "fetch tool (sandbox curl is blocked for www.amazon.com; this boundary is documented in prior verification records)",
+   "observed_document_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+   "observed_title_vs_register": "verbatim match",
+   "observed_breadcrumb": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+   "breadcrumb_vs_register_category_path": "match",
+   "price_published": false,
+   "price_note": "P4 fetch surfaced a buy-box block reading $16.99 with 'In Stock'; not published and not attributed to the register (F-02 withholding stands; F-P17 shows buy-box/carousel prices can belong to neighbouring ASINs in the fetched variant). Other pages' $ figures appeared only in 'Customers who viewed this item also viewed' carousels for other ASINs."
+  },
+  {
+   "id": "P3",
+   "asin": "B08DKYBTPH",
+   "url": "https://www.amazon.com/dp/B08DKYBTPH",
+   "read_utc": "2026-11-20T06:55Z",
+   "method": "fetch tool (sandbox curl is blocked for www.amazon.com; this boundary is documented in prior verification records)",
+   "observed_document_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry\u00ae 4-in-1 with 450\u00b0F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+   "observed_title_vs_register": "verbatim match",
+   "observed_breadcrumb": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+   "breadcrumb_vs_register_category_path": "match",
+   "price_published": false,
+   "price_note": "P4 fetch surfaced a buy-box block reading $16.99 with 'In Stock'; not published and not attributed to the register (F-02 withholding stands; F-P17 shows buy-box/carousel prices can belong to neighbouring ASINs in the fetched variant). Other pages' $ figures appeared only in 'Customers who viewed this item also viewed' carousels for other ASINs."
+  },
+  {
+   "id": "P4",
+   "asin": "B0DHZTCNR5",
+   "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+   "read_utc": "2026-11-20T06:55Z",
+   "method": "fetch tool (sandbox curl is blocked for www.amazon.com; this boundary is documented in prior verification records)",
+   "observed_document_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, \u00b10.5\u2109 Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+   "observed_title_vs_register": "verbatim match",
+   "observed_breadcrumb": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+   "breadcrumb_vs_register_category_path": "match",
+   "price_published": false,
+   "price_note": "P4 fetch surfaced a buy-box block reading $16.99 with 'In Stock'; not published and not attributed to the register (F-02 withholding stands; F-P17 shows buy-box/carousel prices can belong to neighbouring ASINs in the fetched variant). Other pages' $ figures appeared only in 'Customers who viewed this item also viewed' carousels for other ASINs."
+  },
+  {
+   "id": "P5",
+   "asin": "B0DZFD6R9Z",
+   "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+   "read_utc": "2026-11-20T06:55Z",
+   "method": "fetch tool (sandbox curl is blocked for www.amazon.com; this boundary is documented in prior verification records)",
+   "observed_document_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000\u00b0F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
+   "observed_title_vs_register": "verbatim match \u2014 the document <title> appends ': Home & Kitchen' without a separating space on this listing; after stripping that decoration and the 'Amazon.com: ' prefix the title equals the register character-for-character",
+   "observed_breadcrumb": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+   "breadcrumb_vs_register_category_path": "match",
+   "price_published": false,
+   "price_note": "P4 fetch surfaced a buy-box block reading $16.99 with 'In Stock'; not published and not attributed to the register (F-02 withholding stands; F-P17 shows buy-box/carousel prices can belong to neighbouring ASINs in the fetched variant). Other pages' $ figures appeared only in 'Customers who viewed this item also viewed' carousels for other ASINs."
+  }
+ ],
+ "short_links": [
+  {
+   "submitted": "https://link.amazon/B04G1MEwY",
+   "observed": "fetch tool returned a page-fetch error at ~06:57Z; curl blocked at TLS by the sandbox egress allowlist",
+   "verdict": "unconfirmed in this session's tool read"
+  },
+  {
+   "submitted": "https://link.amazon/B02NbDxp3",
+   "observed": "fetch tool returned a page-fetch error at ~06:57Z",
+   "verdict": "unconfirmed in this session's tool read"
+  },
+  {
+   "submitted": "https://link.amazon/B00hJ57DV",
+   "observed": "fetch tool returned a page-fetch error at ~06:59Z",
+   "verdict": "unconfirmed in this session's tool read"
+  },
+  {
+   "submitted": "https://link.amazon/B0c8moW59",
+   "observed": "fetch tool returned a page-fetch error at ~06:59Z",
+   "verdict": "unconfirmed in this session's tool read"
+  },
+  {
+   "submitted": "https://link.amazon/B0f3GKalj",
+   "observed": "fetch tool returned a page-fetch error at ~06:59Z",
+   "verdict": "unconfirmed in this session's tool read"
+  }
+ ],
+ "conclusion": "All five official /dp/ listings fetched; all five document titles match the register character-for-character after stripping the document-title decoration, and all five breadcrumbs match the register category path. No register value changed. All five submitted short links again failed to resolve to listings through the sandbox's only available reader (the fetch tool), consistent with F-P24 (06:2x UTC read) and the 2026-11-14..19 redirect history \u2014 yet another same-day read; several independent same-day reads now, none confirming the short links through sandbox tooling. This does not prove the short links are broken for a browser user; it re-confirms that their compliance status is unresolved (F-03) and that the site's buy path must stay the tagged /dp/ URLs. Owner-side test stands: open one short link and one tagged listing URL in a normal browser (Q-P16/SG-44)."
+}
