@@ -312,6 +312,18 @@
    "opened_utc": "2026-11-20",
    "closed_utc": "2026-11-20",
    "opened_by": "arena/dd4bae8a-prod2"
+  },
+  {
+   "id": "F-P20",
+   "status": "resolved",
+   "title": "Preserved site/ build was claiming the live pages' canonical URLs",
+   "detail": "The repo publishes a legacy static build under /site/ (reachable on the live host during the legacy root deploy) whose pages carried canonical URLs pointing at the publication's root pages, and whose robots.txt allowed crawling. A crawler could therefore index a second set of pages whose canonical pointed at different content - a duplicate-signal problem of the site's own making, and a direct conflict with the 'one site to index' requirement. Found on the 2026-11-20 pass by reading site/index.html.",
+   "evidence": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+   "evidence_note": "Google Search Central guidance on canonical URLs and duplicate pages: a canonical should point at the preferred version of the same content.",
+   "how_to_resolve": "Fixed at source in scripts/build_site.py: every preserved page now carries <meta name='robots' content='noindex,follow'> and canonicals to its own /site/ URL, and site/robots.txt disallows /Prod2/site/. tools/checks.py section 'one site' fails the build if either regresses.",
+   "opened_utc": "2026-11-20",
+   "closed_utc": "2026-11-20",
+   "opened_by": "arena/dd4bae8a-prod2"
   }
  ]
 }

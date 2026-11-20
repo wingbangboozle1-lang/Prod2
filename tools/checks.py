@@ -461,6 +461,36 @@ def main() -> int:
     if not FAILURES:
         ok("every guide carries its own diagram + byline; front page carries the shelf")
 
+    # ------------------------------------------------------- one indexable site
+    check("one site")
+    # Pages serves the repo root in legacy mode, so docs/ is mirrored there. The
+    # preserved site/ build is also publicly reachable under /site/. Only ONE site
+    # may be indexable: the publication. Every page of the preserved build must
+    # carry noindex and must not canonicalise to the live pages.
+    preserved = sorted((ROOT / "site").glob("*.html"))
+    if preserved:
+        for f in preserved:
+            text = f.read_text(encoding="utf-8")
+            if "noindex" not in text:
+                fail(f"site/{f.name}: preserved build is indexable (no noindex)")
+            if "<link rel='canonical' href='https://wingbangboozle1-lang.github.io/Prod2/" in text \
+                    and "/site/" not in text.split("<link rel='canonical'")[1][:120]:
+                fail(f"site/{f.name}: canonical claims a live URL (duplicate signal)")
+        if "Disallow: /Prod2/site/" not in (ROOT / "site" / "robots.txt").read_text(encoding="utf-8"):
+            fail("site/robots.txt does not disallow the preserved build")
+    archive = ROOT / "archive"
+    if archive.is_dir() and "Disallow: /Prod2/archive/" not in (DOCS / "robots.txt").read_text(encoding="utf-8"):
+        fail("robots.txt does not disallow /Prod2/archive/")
+    # the root mirror must be byte-identical to docs/, because the root is what serves
+    for f in html_files:
+        root_copy = ROOT / f.name
+        if not root_copy.exists():
+            fail(f"root mirror missing {f.name} (Pages serves the repo root)")
+        elif root_copy.read_bytes() != f.read_bytes():
+            fail(f"root mirror differs from docs/{f.name} (the live page would be stale)")
+    if not FAILURES:
+        ok("one indexable site: publication at root; preserved build noindexed")
+
     # -------------------------------------------------------------- freshness
     check("freshness")
     with tempfile.TemporaryDirectory() as td:

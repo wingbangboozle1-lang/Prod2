@@ -331,12 +331,19 @@ def layout(active, title, description, body, extra_head="", breadcrumbs=None):
         "Outbound product links are affiliate links marked as sponsored.</p>"
         "</div></footer>"
     ) % (footer_disc, esc(BRAND), esc(BRAND), esc(TAGLINE), footer_nav, esc(DISCLOSURE), "shopnow047c-20", VERIFY_DATE)
-    canon = "https://wingbangboozle1-lang.github.io/Prod2/" + (active or "index.html").lstrip("/")  # INT-06: fixed missing slash (was Prod2index.html)
+    # This build is PRESERVED, not published: Pages serves the docs/ publication at the
+    # site root. The legacy build must therefore (a) canonicalise to itself, never to the
+    # live root, so it cannot claim the live pages' identity, and (b) tell crawlers not to
+    # index it. Before 2026-11-20 these pages carried canonical URLs pointing at the live
+    # root pages, which is a duplicate-signal defect (see COORDINATION.md, session
+    # arena/dd4bae8a-prod2, flag F-P20).
+    canon = "https://wingbangboozle1-lang.github.io/Prod2/site/" + (active or "index.html").lstrip("/")
     doc = (
         "<!doctype html><html lang='en'><head><meta charset='utf-8'>"
         "<meta name='viewport' content='width=device-width,initial-scale=1'>"
         "<title>%s</title>"
         "<meta name='description' content='%s'>"
+        "<meta name='robots' content='noindex,follow'>"
         "<link rel='canonical' href='%s'>"
         "<link rel='alternate' type='application/rss+xml' title='%s' href='rss.xml'>"
         "<link rel='sitemap' type='application/xml' href='sitemap.xml'>"
@@ -779,8 +786,11 @@ def build_seo(products, sources, articles):
     ) % (esc(BRAND), base, esc(TAGLINE), base, "\n".join(rss_items))
     write("rss.xml", rss)
 
+    # noindex every preserved page rather than relying on robots.txt alone, which
+    # crawlers may ignore for pages already discovered. The archive build keeps its
+    # own sitemap for the record but does not advertise it as the site's sitemap.
     robots = (
-        "User-agent: *\nAllow: /\n"
+        "User-agent: *\nDisallow: /Prod2/site/\n"
         "Sitemap: %s/sitemap.xml\n" % base
     )
     write("robots.txt", robots)
