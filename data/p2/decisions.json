@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded. | 2026-11-20 (arena/20f83238-prod2): D-P22 (queue reviewer pass — Path A chosen) and D-P23 (promotion hold) added. | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at D-P24, D-P26, D-P25, D-P27 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P21, SG-48..SG-54, D-P23..D-P26. | 2026-11-20 (arena/e1dbef32-prod2): D-P28 (single-source structured data) and D-P29 (fix main's own gate failures before merging, without touching other sessions' content) appended. D-P22 and D-P23 on main are other sessions' rows and were left alone."
+  "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded. | 2026-11-20 (arena/20f83238-prod2): D-P22 (queue reviewer pass — Path A chosen) and D-P23 (promotion hold) added. | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at D-P26, D-P28, D-P27, D-P29 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P42, SG-48..SG-57, D-P23..D-P28. | 2026-11-20 (arena/e1dbef32-prod2): D-P30 (single-source structured data) and D-P31 (fix main's own gate failures before merging, without touching other sessions' content) appended. D-P22 and D-P23 on main are other sessions' rows and were left alone."
  },
  "decisions": [
   {
@@ -333,7 +333,7 @@
    ]
   },
   {
-   "id": "D-P24",
+   "id": "D-P26",
    "question": "Should the site emit FAQPage structured data, and what is it allowed to claim?",
    "status": "Recorded 2026-11-20",
    "recorded_choice": "Emit it, but only where a page shows the questions to a reader, and never describe it as a search tactic. tools/build.py now derives a FAQPage node from the visible .faq-item blocks on the rendered page; tools/checks.py fails when the visible count and the markup count differ, when an answer is shorter than 60 characters, or when markup exists with no content behind it. DESIGN_PROMPT.md's 'FAQPage + Article' line was rewritten to say the same thing.",
@@ -345,12 +345,12 @@
    ],
    "affects": [
     "F-P32",
-    "Q-P21",
-    "SG-49"
+    "Q-P42",
+    "SG-52"
    ]
   },
   {
-   "id": "D-P26",
+   "id": "D-P28",
    "question": "Where does new editorial come from when the listings are already mined out?",
    "status": "Recorded 2026-11-20",
    "recorded_choice": "From the official guidance the listings do not carry. Three pages shipped today — the temperature-chart reference (guide-safe-temp-chart), the leftovers guide (guide-leftovers) and the Danger Zone long read (article-danger-zone) — each built from USDA FSIS factsheets and the peer-reviewed Nebraska Extension handout read the same day, with the product angle limited to values already in the register. The chart page becomes this site's canonical target for doneness questions; the older pages keep their own framing and link to it instead of repeating it.",
@@ -363,12 +363,12 @@
    ],
    "affects": [
     "SG-45",
-    "Q-P19",
+    "Q-P40",
     "F-P31"
    ]
   },
   {
-   "id": "D-P25",
+   "id": "D-P27",
    "question": "What does the evidence rule mean for machine-readable data?",
    "status": "Recorded 2026-11-20",
    "recorded_choice": "The same thing it means on the page: a field the register does not hold is omitted from the JSON-LD, never written as null and never filled with a placeholder. The Product node dropped its hard-coded \"gtin13\": null and its 'unknown' brand fallback; brand now appears only when a brand was actually read.",
@@ -383,10 +383,10 @@
    ]
   },
   {
-   "id": "D-P27",
+   "id": "D-P29",
    "question": "How is the publishing promise kept honest now that the calendar is public?",
    "status": "Recorded 2026-11-20",
-   "recorded_choice": "By gate, not by intention. tools/checks.py gained a 'cadence' section: a queue slot past its due date with no shipped or deferred entry fails the build; a cluster or season pointing at a page that is not built fails it; a long read whose recorded word count no longer matches the built page fails it (20% slack); and a publish that does not advance next_due_utc fails it. next_due_utc moved to 2026-12-04 under that last rule, and queue slot 1 now carries blocked_by: Q-P19 with a status the guides hub renders, so a topic that cannot be answered from the register is visibly blocked rather than quietly overdue.",
+   "recorded_choice": "By gate, not by intention. tools/checks.py gained a 'cadence' section: a queue slot past its due date with no shipped or deferred entry fails the build; a cluster or season pointing at a page that is not built fails it; a long read whose recorded word count no longer matches the built page fails it (20% slack); and a publish that does not advance next_due_utc fails it. next_due_utc moved to 2026-12-04 under that last rule, and queue slot 1 now carries blocked_by: Q-P40 with a status the guides hub renders, so a topic that cannot be answered from the register is visibly blocked rather than quietly overdue.",
    "rationale": "The alternative to enforcement is drift the reader can see. Six pages shipped out of queue order in two days with nothing tying the schedule to the publishes (F-P35), and slot 1's stated source — the listings — cannot answer a rituals question. Marking it blocked keeps the calendar truthful without inventing content to meet a date, which is the failure mode this project has been built to refuse.",
    "sources": [
     "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
@@ -394,13 +394,13 @@
    ],
    "affects": [
     "F-P35",
-    "Q-P19",
-    "Q-P20",
-    "SG-51"
+    "Q-P40",
+    "Q-P41",
+    "SG-54"
    ]
   },
   {
-   "id": "D-P28",
+   "id": "D-P30",
    "question": "Where is structured data generated from?",
    "status": "Recorded 2026-11-20",
    "recorded_choice": "From the rendered page, once. A page's FAQ content lives in one list; hook_decide_faq/hook_landing_faq render the reader's component from it and jsonld_for derives the FAQPage node from the same rendered HTML (faq_pairs), never from a second literal. Fields the register does not hold are omitted rather than filled (no null gtin13, no placeholder brand).",
@@ -413,11 +413,11 @@
     "F-P32",
     "F-P36",
     "F-P29",
-    "SG-54"
+    "SG-57"
    ]
   },
   {
-   "id": "D-P29",
+   "id": "D-P31",
    "question": "Does a merge into main require the gate to be green, and what happens when main itself is red?",
    "status": "Recorded 2026-11-20",
    "recorded_choice": "Green first, then merge — including for work that is not the merger's own. This branch fast-forwards onto main, and where main's own tip failed two of its own gate sections (F-P37), the integration fixed those two rather than merging around them, because the site publishes from docs/ and a red gate means readers ship with the defect. No foreign file was restructured, and no other session's register row was renumbered or dropped: this pass's rows were moved to fresh ids so both sets survive the union.",

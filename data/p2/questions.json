@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Open-questions register: what is known, what is not, and how to discover the missing information — before decisions are made on the items below. Q-01…Q-50 numbering is carried from the prior register (S-PRIOR4) where the question predates this project; Q-Pxx are new here.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 reconciliation: three passes share the register. Event-vocabulary pass added Q-P14; anti-slop pass added Q-P10 (working-brand ratification, decision D-P18, flag F-P21) and Q-P11 (availability snapshots — answered no by the D-P11 policy read). | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at Q-P22, Q-P21, Q-P19, Q-P20 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P21, SG-48..SG-54, D-P23..D-P26."
+  "last_change": "2026-11-20 reconciliation: three passes share the register. Event-vocabulary pass added Q-P14; anti-slop pass added Q-P10 (working-brand ratification, decision D-P18, flag F-P21) and Q-P11 (availability snapshots — answered no by the D-P11 policy read). | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at Q-P43, Q-P42, Q-P40, Q-P41 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P42, SG-48..SG-57, D-P23..D-P28."
  },
  "questions": [
   {
@@ -330,7 +330,7 @@
    ]
   },
   {
-   "id": "Q-P22",
+   "id": "Q-P43",
    "area": "Exposure",
    "question": "Do the archived builds stay in the published branch, or does the Pages source change make the question moot?",
    "known": "site/ (25 files) and archive/countertop-dispatch/ are tracked at the repository root; while the Pages source is the root (F-P19) they are reachable by URL, with their own titles and no canonical pointing at the live site. The generated robots.txt now asks crawlers to stay out of both, which is a request, not a control.",
@@ -340,14 +340,14 @@
    "blocks": [
     "F-P33",
     "SG-46",
-    "SG-53"
+    "SG-56"
    ],
    "flags": [
     "F-P33"
    ]
   },
   {
-   "id": "Q-P21",
+   "id": "Q-P42",
    "area": "Findability",
    "question": "Now that FAQ blocks exist mechanically, should they be retro-fitted to the other guides — and does the site describe them as a search tactic or as reader structure?",
    "known": "Two new guides carry visible question-and-answer blocks, and the build derives matching FAQPage markup only from those blocks; the gate fails if the two lists diverge. Google's own guidance as read 2026-11-20 says the FAQ rich result was narrowed to well-known authoritative government and health sites in August 2023, that its changelog records removal of the FAQ rich-result documentation in June 2026, and that its supported-features gallery no longer lists FAQ.",
@@ -355,7 +355,7 @@
    "how_to_discover": "Decide the framing first (reader structure, not SERP trick); then, if yes, add a genuine Q&A pair per existing guide from material already on the page — the gate then enforces the pairing, so no page can claim an FAQ it does not show.",
    "answerable_by": "Owner, with an editorial pass.",
    "blocks": [
-    "SG-49",
+    "SG-52",
     "Any claim that this site optimises for FAQ rich results"
    ],
    "flags": [
@@ -363,7 +363,7 @@
    ]
   },
   {
-   "id": "Q-P19",
+   "id": "Q-P40",
    "area": "Editorial evidence",
    "question": "Is there an official, quotable source for how these specific machines behave — holding temperature, reheat settings, preheat, clearance — or does the site stop at the specification sheet?",
    "known": "The three air-fryer listings read by this site state capacity, dimensions, controls and feature sets. None of the reads on record states a keep-warm holding temperature, a reheat instruction or a preheat requirement. The USDA FSIS hot-holding list names chafing dishes, steam tables, warming trays and slow cookers — not air fryers — and the peer-reviewed extension handout tells readers to 'check out the operator's manual to learn more about how the air fryer works' rather than answering it itself.",
@@ -373,23 +373,23 @@
    "blocks": [
     "Queue slots 1 and 3 (preheat rituals, second functions)",
     "Any how-to-use claim on the shop pages",
-    "SG-52"
+    "SG-55"
    ],
    "flags": [
     "F-P35"
    ]
   },
   {
-   "id": "Q-P20",
+   "id": "Q-P41",
    "area": "Decision readiness",
    "question": "Is a 14-day publishing rhythm resourced — and what happens to the slots that are not answerable yet?",
-   "known": "The register declares a 14-day cadence and the nine queued slots are spaced exactly 14 days apart (measured 2026-11-20), so the schedule is internally consistent. The gate now keeps it honest: shipping without advancing next_due_utc fails the build (F-P35, resolved), which is why next_due reads 2026-12-04 after today's three pages. Slot 1 is marked blocked, not overdue, because its stated source cannot answer its question (Q-P19).",
+   "known": "The register declares a 14-day cadence and the nine queued slots are spaced exactly 14 days apart (measured 2026-11-20), so the schedule is internally consistent. The gate now keeps it honest: shipping without advancing next_due_utc fails the build (F-P35, resolved), which is why next_due reads 2026-12-04 after today's three pages. Slot 1 is marked blocked, not overdue, because its stated source cannot answer its question (Q-P40).",
    "unknown": "Who writes, at what rate, with what review. Nothing in this repository records the owner's available time or an author, and no assumption about either has been invented here. Also unknown: whether the owner wants blocked slots re-ordered ahead of scheduled ones when a manual arrives.",
    "how_to_discover": "One line from the owner: a number and a source of authors. If the answer is 'no reliable rhythm', delete the fortnightly promise from index.html and guides.html and set the cadence line to what is true — the gate will enforce whatever is written, and stays silent if the promise is removed.",
    "answerable_by": "Owner.",
    "blocks": [
     "F-P35's successor: any public cadence claim",
-    "SG-51",
+    "SG-54",
     "The order of the queue"
    ],
    "flags": [

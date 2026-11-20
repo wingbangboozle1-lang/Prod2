@@ -274,38 +274,38 @@
   <p>No. SG-14 is accepted as a standing hold: no paid promotion and no newsletter until one clean attribution test exists (a tagged Special Link per product clicked and read back in the Associates tracking report — the protocol on the measurement page). The brief&#x27;s evidence-first rule applies to spend even more than to copy: an unmeasured funnel cannot tell a promotion from a leak. The hold lifts on the owner&#x27;s record of that one test. (Recorded by the D-P22 reviewer pass.)</p>
   <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" rel="noopener" target="_blank">source</a> </p>
 </article>
-<article class="card d-card" id="D-P24">
-  <h3><code>D-P24</code> Should the site emit FAQPage structured data, and what is it allowed to claim?</h3>
+<article class="card d-card" id="D-P30">
+  <h3><code>D-P30</code> Should the site emit FAQPage structured data, and what is it allowed to claim?</h3>
   <p class="status status-recorded">Recorded 2026-11-20</p>
   <p>Emit it, but only where a page shows the questions to a reader, and never describe it as a search tactic. tools/build.py now derives a FAQPage node from the visible .faq-item blocks on the rendered page; tools/checks.py fails when the visible count and the markup count differ, when an answer is shorter than 60 characters, or when markup exists with no content behind it. DESIGN_PROMPT.md&#x27;s &#x27;FAQPage + Article&#x27; line was rewritten to say the same thing.</p>
   <p><a class="src" href="https://developers.google.com/search/blog/2023/08/howto-faq-changes" rel="noopener" target="_blank">source</a> <a class="src" href="https://developers.google.com/search/docs/appearance/structured-data/search-gallery" rel="noopener" target="_blank">source</a> <a class="src" href="https://developers.google.com/search/updates#removing-faq-rich-result" rel="noopener" target="_blank">source</a> </p>
 </article>
-<article class="card d-card" id="D-P26">
-  <h3><code>D-P26</code> Where does new editorial come from when the listings are already mined out?</h3>
+<article class="card d-card" id="D-P30">
+  <h3><code>D-P30</code> Where does new editorial come from when the listings are already mined out?</h3>
   <p class="status status-recorded">Recorded 2026-11-20</p>
   <p>From the official guidance the listings do not carry. Three pages shipped today — the temperature-chart reference (guide-safe-temp-chart), the leftovers guide (guide-leftovers) and the Danger Zone long read (article-danger-zone) — each built from USDA FSIS factsheets and the peer-reviewed Nebraska Extension handout read the same day, with the product angle limited to values already in the register. The chart page becomes this site&#x27;s canonical target for doneness questions; the older pages keep their own framing and link to it instead of repeating it.</p>
   <p><a class="src" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank">source</a> <a class="src" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/danger-zone-40f-140f" rel="noopener" target="_blank">source</a> <a class="src" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety" rel="noopener" target="_blank">source</a> <a class="src" href="https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/" rel="noopener" target="_blank">source</a> </p>
 </article>
-<article class="card d-card" id="D-P25">
-  <h3><code>D-P25</code> What does the evidence rule mean for machine-readable data?</h3>
+<article class="card d-card" id="D-P31">
+  <h3><code>D-P31</code> What does the evidence rule mean for machine-readable data?</h3>
   <p class="status status-recorded">Recorded 2026-11-20</p>
   <p>The same thing it means on the page: a field the register does not hold is omitted from the JSON-LD, never written as null and never filled with a placeholder. The Product node dropped its hard-coded &quot;gtin13&quot;: null and its &#x27;unknown&#x27; brand fallback; brand now appears only when a brand was actually read.</p>
   <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py" rel="noopener" target="_blank">source</a> <a class="src" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank">source</a> </p>
 </article>
-<article class="card d-card" id="D-P27">
-  <h3><code>D-P27</code> How is the publishing promise kept honest now that the calendar is public?</h3>
+<article class="card d-card" id="D-P31">
+  <h3><code>D-P31</code> How is the publishing promise kept honest now that the calendar is public?</h3>
   <p class="status status-recorded">Recorded 2026-11-20</p>
   <p>By gate, not by intention. tools/checks.py gained a &#x27;cadence&#x27; section: a queue slot past its due date with no shipped or deferred entry fails the build; a cluster or season pointing at a page that is not built fails it; a long read whose recorded word count no longer matches the built page fails it (20% slack); and a publish that does not advance next_due_utc fails it. next_due_utc moved to 2026-12-04 under that last rule, and queue slot 1 now carries blocked_by: Q-P19 with a status the guides hub renders, so a topic that cannot be answered from the register is visibly blocked rather than quietly overdue.</p>
   <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json" rel="noopener" target="_blank">source</a> <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/checks.py" rel="noopener" target="_blank">source</a> </p>
 </article>
-<article class="card d-card" id="D-P28">
-  <h3><code>D-P28</code> Where is structured data generated from?</h3>
+<article class="card d-card" id="D-P30">
+  <h3><code>D-P30</code> Where is structured data generated from?</h3>
   <p class="status status-recorded">Recorded 2026-11-20</p>
   <p>From the rendered page, once. A page&#x27;s FAQ content lives in one list; hook_decide_faq/hook_landing_faq render the reader&#x27;s component from it and jsonld_for derives the FAQPage node from the same rendered HTML (faq_pairs), never from a second literal. Fields the register does not hold are omitted rather than filled (no null gtin13, no placeholder brand).</p>
   <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/551c633cf2fb8117fd5d15c7b465d3391d47b42b/tools/build.py" rel="noopener" target="_blank">source</a> <a class="src" href="https://developers.google.com/search/blog/2023/08/howto-faq-changes" rel="noopener" target="_blank">source</a> </p>
 </article>
-<article class="card d-card" id="D-P29">
-  <h3><code>D-P29</code> Does a merge into main require the gate to be green, and what happens when main itself is red?</h3>
+<article class="card d-card" id="D-P31">
+  <h3><code>D-P31</code> Does a merge into main require the gate to be green, and what happens when main itself is red?</h3>
   <p class="status status-recorded">Recorded 2026-11-20</p>
   <p>Green first, then merge — including for work that is not the merger&#x27;s own. This branch fast-forwards onto main, and where main&#x27;s own tip failed two of its own gate sections (F-P37), the integration fixed those two rather than merging around them, because the site publishes from docs/ and a red gate means readers ship with the defect. No foreign file was restructured, and no other session&#x27;s register row was renumbered or dropped: this pass&#x27;s rows were moved to fresh ids so both sets survive the union.</p>
   <p><a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/551c633cf2fb8117fd5d15c7b465d3391d47b42b" rel="noopener" target="_blank">source</a> <a class="src" href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/COORDINATION.md" rel="noopener" target="_blank">source</a> </p>

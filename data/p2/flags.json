@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/0a9f19fe-prod2): F-P29 added and marked resolved - the conflict-marker / unclosed-block stylesheet defect and the new browser-free stylesheet gate. | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at F-P35, F-P33, F-P31, F-P32, F-P34, F-P30 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P21, SG-48..SG-54, D-P23..D-P26. | 2026-11-20 (arena/e1dbef32-prod2, integration): F-P36..F-P39 appended — three defects that shipped on main's merged tip (FAQ markup that did not match its page, two gate failures main passed through, a gate section that parsed nothing because of a query string) and one documentation count that lagged the code. All four are fixed on this branch and each carries a reproduction command. Append-only; no earlier row edited."
+  "last_change": "2026-11-20 (arena/0a9f19fe-prod2): F-P29 added and marked resolved - the conflict-marker / unclosed-block stylesheet defect and the new browser-free stylesheet gate. | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at F-P35, F-P33, F-P31, F-P32, F-P34, F-P30 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P42, SG-48..SG-57, D-P23..D-P28. | 2026-11-20 (arena/e1dbef32-prod2, integration): F-P36..F-P39 appended — three defects that shipped on main's merged tip (FAQ markup that did not match its page, two gate failures main passed through, a gate section that parsed nothing because of a query string) and one documentation count that lagged the code. All four are fixed on this branch and each carries a reproduction command. Append-only; no earlier row edited."
  },
  "flags": [
   {
@@ -405,11 +405,11 @@
    "id": "F-P35",
    "status": "resolved",
    "title": "The publishing cadence could not be audited: nothing linked a publish to the schedule",
-   "detail": "data/p2/calendar.json declares 'one new question-shaped guide' every 14 days, and the nine queue slots are spaced exactly 14 days apart (measured: the only distinct gap between consecutive slots is 14 days; first_publish 2026-11-19 + 14 = next_due 2026-12-03). What did not exist was any machine-checkable link between a page that actually shipped and that schedule. Six reader pages published 2026-11-19 and 2026-11-20 — including today's two guides and one long read — left next_due_utc untouched at 2026-12-03, so the front page could keep saying 'a new guide every two weeks' whether or not the register kept score. A second inconsistency came with it: queue slot 1 promises to answer 'Preheat, shake, or don't' from 'manual-ritual features verified on the three listings', but a listing states a feature, not a ritual — that slot is now marked blocked on Q-P19 instead of scheduled.",
+   "detail": "data/p2/calendar.json declares 'one new question-shaped guide' every 14 days, and the nine queue slots are spaced exactly 14 days apart (measured: the only distinct gap between consecutive slots is 14 days; first_publish 2026-11-19 + 14 = next_due 2026-12-03). What did not exist was any machine-checkable link between a page that actually shipped and that schedule. Six reader pages published 2026-11-19 and 2026-11-20 — including today's two guides and one long read — left next_due_utc untouched at 2026-12-03, so the front page could keep saying 'a new guide every two weeks' whether or not the register kept score. A second inconsistency came with it: queue slot 1 promises to answer 'Preheat, shake, or don't' from 'manual-ritual features verified on the three listings', but a listing states a feature, not a ritual — that slot is now marked blocked on Q-P40 instead of scheduled.",
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
    "evidence_note": "Gaps and dates computed from data/p2/calendar.json on 2026-11-20 by tools/checks.py's cadence section, not typed in by hand.",
-   "how_to_resolve": "Closed by the gate rule; the remaining decision — whether a 14-day rhythm is actually resourced — is Q-P20.",
-   "resolution": "Fixed 2026-11-20 with a rule rather than a cleanup: the publish gate (tools/checks.py, section 'cadence') now fails the build when the newest recorded publish + the declared interval falls after next_due_utc, so shipping silently without advancing the schedule is impossible. next_due_utc advanced to 2026-12-04, publishes are dated in calendar.published_early, and slot 1 carries blocked_by: Q-P19 with a status the guides hub renders.",
+   "how_to_resolve": "Closed by the gate rule; the remaining decision — whether a 14-day rhythm is actually resourced — is Q-P41.",
+   "resolution": "Fixed 2026-11-20 with a rule rather than a cleanup: the publish gate (tools/checks.py, section 'cadence') now fails the build when the newest recorded publish + the declared interval falls after next_due_utc, so shipping silently without advancing the schedule is impossible. next_due_utc advanced to 2026-12-04, publishes are dated in calendar.published_early, and slot 1 carries blocked_by: Q-P40 with a status the guides hub renders.",
    "resolved_utc": "2026-11-20"
   },
   {
@@ -471,7 +471,7 @@
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/551c633cf2fb8117fd5d15c7b465d3391d47b42b/tools/build.py",
    "evidence_note": "jsonld_for() on main: the index and decide branches each restate the FAQ by hand; hook_landing_faq() renders six. Reproduce with `git worktree add /tmp/m origin/main && cd /tmp/m && python3 tools/build.py && grep -c faq-item docs/decide.html` (returns 0).",
    "how_to_resolve": "Make the structured data impossible to write twice.",
-   "resolution": "Fixed 2026-11-20 in the generator rather than in the copy: both pages' FAQ blocks now render from one list (LANDING_FAQ, DECIDE_FAQ) and the FAQPage node is derived from the rendered content by faq_pairs(), with tags stripped so the machine answer is the reader's answer word for word. decide.html gained a visible four-question block; index.html's node now covers all six. tools/checks.py's faq section enforces the pairing on every page, so a markup-only FAQ fails the build (D-P26).",
+   "resolution": "Fixed 2026-11-20 in the generator rather than in the copy: both pages' FAQ blocks now render from one list (LANDING_FAQ, DECIDE_FAQ) and the FAQPage node is derived from the rendered content by faq_pairs(), with tags stripped so the machine answer is the reader's answer word for word. decide.html gained a visible four-question block; index.html's node now covers all six. tools/checks.py's faq section enforces the pairing on every page, so a markup-only FAQ fails the build (D-P28).",
    "resolved_utc": "2026-11-20"
   },
   {
@@ -504,7 +504,7 @@
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/551c633cf2fb8117fd5d15c7b465d3391d47b42b/README.md",
    "evidence_note": "grep -n 'sections' README.md on main; count with `grep -cE '^\\s+check\\(\"' tools/checks.py`.",
    "how_to_resolve": "State the count once, or do not state it at all.",
-   "resolution": "README and ENGINE now read 23 (21 + this pass's faq and cadence), and the section table lists each one. A future-proof alternative — generating the sentence from checks.py — is recorded as SG-50 territory rather than done here, since the copy lives in two documents.",
+   "resolution": "README and ENGINE now read 23 (21 + this pass's faq and cadence), and the section table lists each one. A future-proof alternative — generating the sentence from checks.py — is recorded as SG-53 territory rather than done here, since the copy lives in two documents.",
    "resolved_utc": "2026-11-20"
   }
  ]
