@@ -16,17 +16,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Build the site
-        run: python3 scripts/build_site.py
-      - name: Verify the built site
-        run: python3 scripts/verify_site.py
-      - name: Build is reproducible (committed site/ and root mirror match the build)
-        run: |
-          git diff --exit-code -- site/
-          git diff --exit-code -- '*.html' 'assets' 'guides' 'rss.xml' 'sitemap.xml' 'robots.txt' '.nojekyll'
-      - name: Build the preserved publication (docs/)
+
+      # The PUBLICATION is what GitHub Pages serves (repo root, mirrored from docs/).
+      # It is gated by tools/checks.py in 12 sections.
+      - name: Build the publication (docs/)
         run: python3 tools/build.py
-      - name: Verify the preserved publication
+      - name: Gate the publication
         run: python3 tools/checks.py
-      - name: Publication build is reproducible (committed docs/ matches the build)
-        run: git diff --exit-code -- docs/
+      - name: Publication is reproducible (docs/ and the root mirror match the build)
+        run: |
+          git diff --exit-code -- docs/
+          git diff --exit-code -- '*.html' 'assets' 'sitemap.xml' 'feed.xml' 'robots.txt' '.nojekyll'
+
+      # The PRESERVED build is kept, non-indexable, as a reference. It must still
+      # build and pass its own gate, and its committed output must stay in sync.
+      - name: Build the preserved build (site/)
+        run: python3 scripts/build_site.py
+      - name: Verify the preserved build
+        run: python3 scripts/verify_site.py
+      - name: Preserved build is reproducible (committed site/ matches the build)
+        run: git diff --exit-code -- site/
+
+      - name: One site rule holds (preserved build noindexed, self-canonical)
+        run: |
+          grep -q "noindex" site/index.html
+          grep -q "Disallow: /Prod2/site/" site/robots.txt
