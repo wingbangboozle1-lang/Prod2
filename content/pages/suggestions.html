@@ -2,6 +2,55 @@
 <h1>Pick a path before we build it.</h1>
 <p class="lede">Everything proposed for this site lands here first, with its evidence, its cost and what it blocks. Nothing below is implemented until a path is chosen — so this page is a review surface, not a changelog.</p>
 
+<h2 id="ranked">Do these five things, in this order</h2>
+<p>Thirty-eight items propose work. Only a handful of them change what happens next, and most cost you minutes rather than days. This is the short list, ranked by how much it unblocks per hour of your time. Everything below it is optional.</p>
+<table class="data">
+  <thead><tr><th>#</th><th>Item</th><th>What it changes</th><th>Cost to you</th><th>Reversible?</th><th>Your action</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href="#SG-46">SG-46</a></td>
+      <td>Publishes only the built site and stops serving <code>data/</code>, <code>content/</code> and <code>tools/</code> at public URLs. Also removes the second copy of every page in the repo.</td>
+      <td>~2 minutes</td>
+      <td>Yes — same dropdown</td>
+      <td>Settings → Pages → Source: <strong>GitHub Actions</strong>. Say so and the mirror files get deleted here.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href="#SG-06">SG-06</a> + <a href="#SG-29">SG-29</a></td>
+      <td>Turns on real analytics: a hosted endpoint plus Search Console. Until both exist, every topic choice on this site is a guess (<a href="questions.html#Q-P08">Q-P08</a>).</td>
+      <td>One hosting decision + one verification token</td>
+      <td>Yes</td>
+      <td>Paste the Search Console token into settings, and name a host for the endpoint in this repo.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href="#SG-38">SG-38</a></td>
+      <td>Formal clearance for the name "The Crisp Counter". It ships today on a preliminary search only (<a href="flagged.html#F-P21">F-P21</a>); the risk grows with traffic, not with time.</td>
+      <td>Counsel or a trademark search</td>
+      <td>Cheap now, expensive later</td>
+      <td>Approve a search, or name a replacement and the rename is one setting.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href="questions.html#Q-47">Q-47</a></td>
+      <td>Settles whether the "ask a question" form may store an email. It is deliberately disconnected until then.</td>
+      <td>A privacy decision</td>
+      <td>Yes</td>
+      <td>Choose: email collection with a stated basis, or questions only. Second option ships immediately.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href="#SG-34">SG-34</a></td>
+      <td>Switches topic selection from editorial instinct to measured queries — but only once item 2 has 14 days of data.</td>
+      <td>None; it is the payoff step</td>
+      <td>Yes</td>
+      <td>Nothing yet. It unblocks itself.</td>
+    </tr>
+  </tbody>
+</table>
+<p class="small-note">Ranking rationale: items 1–2 are the only ones that make anything <em>measurable</em>; item 3 is the only one whose cost rises over time; item 4 unblocks a feature that is already built and tested. Items 5 and everything below wait on those. Nothing on this page has been implemented except where a row is marked <span class="status status-shipped">shipped</span>.</p>
+
 <h2 id="paths">Three paths, one choice</h2>
 <p>The thirty-four items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
 
