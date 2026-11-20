@@ -150,6 +150,10 @@ PAGES = [
      f"Flagged for review | {BRAND}",
      "Open, resolved and standing items with evidence links: the irregularities and unverified values a reviewer should see.",
      "work"),
+    ("before-you-decide", "before-you-decide.html",
+     f"Before you decide anything: the eleven open calls | {BRAND}",
+     "Eleven decisions waiting on facts only the owner can obtain: what is known, what is missing, how it gets found, and what changes when it lands.",
+     "work"),
     ("questions", "questions.html",
      f"Open questions and missing information | {BRAND}",
      "What we know, what we don't, and how to find out — the register that must be answered before certain decisions can be made.",
@@ -231,6 +235,7 @@ NAV_READER = [
 ]
 # Everything an owner, reviewer or search engine needs, reachable from every page.
 NAV_WORK = [
+    ("before-you-decide.html", "Before you decide"),
     ("about.html", "About &amp; standards"),
     ("executive-summary.html", "Executive summary"),
     ("method.html", "Method &amp; sources"),
