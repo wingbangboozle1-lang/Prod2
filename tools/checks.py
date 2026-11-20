@@ -276,11 +276,18 @@ def main() -> int:
         "D": {x["id"] for x in json.loads((DATA / "decisions.json").read_text(encoding="utf-8"))["decisions"]},
     }
     ref_re = re.compile(r"\b(F|Q|SG|D)-(?:P)?\d+\b")
+    # "Renumbered from X during the 2026-11-20 integration" is provenance text,
+    # not a live citation: the id it names is the row's FORMER id, kept visible
+    # so a reviewer can follow the trail. Strip those sentences before scanning,
+    # exactly as the fragment/anchor pass above treats nothing it finds inside
+    # <code> history notes.
+    provenance_re = re.compile(r"[Rr]enumbered from (?:F|Q|SG|D)-(?:P)?\d+[^.<]{0,80}")
     for f in html_files:
         if f.name == "flagged.html":
             continue  # may name out-of-register ids when that is the irregularity
         text = f.read_text(encoding="utf-8")
-        for m in ref_re.finditer(text):
+        scan = provenance_re.sub("", text)
+        for m in ref_re.finditer(scan):
             rid = m.group(0)
             if rid not in registers[m.group(1)]:
                 fail(f"{f.name}: cites {rid} which is not in the register")
@@ -370,13 +377,27 @@ def main() -> int:
     ]
     PROCESS_OPEN = ("we read", "every figure", "every row sourced", "our register",
                     "we verified", "we checked", "sourced to the official listing")
+    # Pages whose job is to *state* the voice rules quote the forbidden phrasing in order
+    # to forbid it; a scan that failed on them would push the brief toward vagueness.
+    # This exemption is for the rule documents only, and the quote-stripping above keeps
+    # inline examples elsewhere from tripping the list.
+    VOICE_EXEMPT = {"design-prompt.html"}
     for f in html_files:
-        if f.name in GOVERNANCE:
+        if f.name in GOVERNANCE or f.name in VOICE_EXEMPT:
             continue  # the governance pages are allowed to talk about the process
         raw = f.read_text(encoding="utf-8")
         body = re.sub(r"<(table|nav|footer|script|style|aside)\b.*?</\1>", " ", raw, flags=re.S)
         text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body))
-        low = text.lower()
+        # A page may *name* a banned phrase to forbid it: the design brief and the voice
+        # rules quote the filler they exclude. Quoted spans and code are therefore not
+        # scanned — the blacklist applies to unquoted prose, which is what a reader
+        # actually receives as padding.
+        prose = re.sub(r"(&#x27;|&#39;|&lsquo;|&rsquo;|&#8216;|&#8217;|&ldquo;|&rdquo;|"
+                       r"&#8220;|&#8221;|\"|‘|’|“|”)[^<]{1,300}?"
+                       r"(&#x27;|&#39;|&lsquo;|&rsquo;|&#8216;|&#8217;|&ldquo;|&rdquo;|"
+                       r"&#8220;|&#8221;|\"|‘|’|“|”)", " ", text)
+        prose = re.sub(r"<code>.*?</code>|<blockquote>.*?</blockquote>", " ", prose, flags=re.S)
+        low = prose.lower()
         for phrase in FILLER:
             if phrase in low:
                 fail(f"{f.name}: filler phrase {phrase!r} on a reader-facing page "
@@ -954,6 +975,55 @@ def main() -> int:
         ok("one shelf, full cards, real imagery, no hands-on claim")
 
     # ------------------------------------------------------------ exposition
+    # -------------------------------------------------------------- conflicts
+    check("conflicts")
+    # An unresolved merge marker shipped once already: assets/css/site.css on
+    # main carried literal "<<<<<<< HEAD" / "=======" / ">>>>>>> origin/main"
+    # lines at its top and was being served to every reader, because the CSS
+    # parser skips the malformed first rule and the file was one brace short.
+    # Nothing in the build noticed. This section fails the build on any
+    # conflict marker in a published artifact or in a source file the build
+    # copies from, so that class of defect cannot reach a reader again.
+    MARKERS = ("<<<<<<<", ">>>>>>>", "\n=======\n")
+    TEXT_ARTIFACTS = (".html", ".css", ".js", ".xml", ".txt", ".json", ".md")
+    scan_targets: list[pathlib.Path] = []
+    scan_targets += [f for f in html_files]
+    for sub in ("assets",):
+        d = DOCS / sub
+        if d.exists():
+            scan_targets += [f for f in d.rglob("*") if f.is_file() and f.suffix in TEXT_ARTIFACTS]
+    for extra in ("feed.xml", "sitemap.xml", "robots.txt"):
+        pth = DOCS / extra
+        if pth.exists():
+            scan_targets.append(pth)
+    # source-of-truth files the build copies verbatim into the artifact
+    for src in (ROOT / "assets" / "css", ROOT / "assets" / "js"):
+        if src.exists():
+            scan_targets += [f for f in src.rglob("*") if f.is_file() and f.suffix in TEXT_ARTIFACTS]
+    seen: set[str] = set()
+    for f in scan_targets:
+        if f in seen:
+            continue
+        seen.add(f)
+        try:
+            text = f.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        for marker in MARKERS:
+            if marker in text:
+                rel = f.relative_to(ROOT) if ROOT in f.parents else f
+                fail(f"{rel}: contains an unresolved merge marker ({marker.strip()!r})")
+                break
+    # A stylesheet that is short a brace is broken even when it parses as text.
+    for css in [f for f in seen if f.suffix == ".css"]:
+        text = css.read_text(encoding="utf-8")
+        code = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+        if code.count("{") != code.count("}"):
+            rel = css.relative_to(ROOT) if ROOT in css.parents else css
+            fail(f"{rel}: unbalanced braces ({code.count('{')} open, {code.count('}')} close)")
+    if not FAILURES:
+        ok(f"no merge markers or unbalanced braces in {len(seen)} published text artifacts")
+
     check("exposition")
     # The deploy artifact is docs/ alone. Nothing a reader can fetch may expose
     # the registers, the page sources or the generator (flags F-P19/F-P20).
@@ -1236,6 +1306,12 @@ def main() -> int:
     range_re = re.compile(r"\b[A-Z]{1,2}(?:-P)?\d{1,3}\s*[.–-]{1,2}\s*[A-Z]{1,2}(?:-P)?\d{1,3}\b")
     for name in registers:
         text = range_re.sub(" ", (DATA / name).read_text(encoding="utf-8"))
+        # Renumber provenance sentences exist to name a row's FORMER ids ("renumbered
+        # from Q-P24 during the integration", "D-P10 -> D-P16 -> D-P24 (main consumed
+        # each ID)"). They are history, not live references: strip every sentence that
+        # contains "renumber" before collecting ids, exactly as the page-level scan
+        # above treats provenance. A live citation never lives inside such a sentence.
+        text = re.sub(r"[^.]*[Rr]enumbered?[^.]*\.?", " ", text)
         for rid in set(id_re.findall(text)):
             # a register may cite a neighbouring register's id; only flag ids that
             # exist in NO register at all, which is the real dangling-reference case.

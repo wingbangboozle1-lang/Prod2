@@ -42,7 +42,15 @@
         "why": "the card paired our format word with a monitoring promise no recorded string carries"
       }
     ],
-    "retired_phrase_hits": [],
+    "retired_phrase_hits": [
+      {
+        "page": "guide-probe-in-air-fryer.html",
+        "phrase": "in the basket lids",
+        "product": "P1",
+        "instead": "Easy-view windows, dual-zone features, and a mute",
+        "why": "the title says 'Easy View Windows'; where the window sits is not recorded"
+      }
+    ],
     "evidence_files": [
       "data/p2/verification-2026-11-20.json",
       "data/p2/products.json"

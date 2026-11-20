@@ -26,7 +26,7 @@ wrote. Two controls now sit between the checkout and the reader:
 The canaries below stay as tripwires: if a future configuration change makes a source
 directory servable again, the file that appears is this one, and it names the flags.
 The real fix remains one repository setting (Settings → Pages → Source: GitHub Actions),
-which is why F-P29 stays open until that flip happens.
+which is why F-P31 stays open until that flip happens.
 
     python3 tools/root_mirror.py            # write the mirror + deny files
     python3 tools/root_mirror.py --report   # print what is exposed, change nothing
@@ -60,7 +60,7 @@ without the exclusion list in its `_config.yml` taking effect: GitHub Pages is i
 legacy mode with the source set to `main /`, and a root `.nojekyll` file (or a stale
 `_config.yml`) means Jekyll copied the whole checkout instead of only the publication.
 
-Flags F-P19, F-P20 and F-P29 track this. Two checks keep it shut: the gate section
+Flags F-P19, F-P20 and F-P31 track this (F-P29 is the published-CSS conflict-marker defect, a different surface problem). Two checks keep it shut: the gate section
 "exposition" in tools/checks.py refuses a root .nojekyll and refuses a config that
 misses a top-level path, and tools/publish_surface.py --check says the same thing on
 its own. The permanent fix is one repository setting: Settings -> Pages -> Source:
@@ -99,7 +99,7 @@ def main() -> int:
               + ("   <-- Jekyll is disabled: everything at the root would be served"
                  if (ROOT / ".nojekyll").exists() else ""))
         rc = subprocess.call([sys.executable, str(ROOT / "tools" / "publish_surface.py"), "--check"])
-        print("\nReal fix: Settings -> Pages -> Source: GitHub Actions (owner action, F-P29).")
+        print("\nReal fix: Settings -> Pages -> Source: GitHub Actions (owner action; closes F-P31 and SG-46).")
         return rc
 
     written = 0

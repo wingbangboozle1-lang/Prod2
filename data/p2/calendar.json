@@ -3,7 +3,7 @@
     "description": "Editorial calendar: publishing cadence, seasonal desks and content clusters. Consumed by tools/build.py. The topic queue is carried from data/calendar.json (arena/cd3cddd6-prod2, 2026-11-19); slot 1 shipped early in the 2026-11-19 publication pass (guide-two-baskets-or-one.html).",
     "updated_utc": "2026-11-20",
     "evidence_rule": "No season or topic is justified by a search-volume or trend figure (D-19 / F-15). Each exists because it answers a question a buyer of the verified five products can actually ask, answerable from the verified register. Seasons follow the US calendar because the marketplace is amazon.com (settings.marketplace).",
-    "last_change": "2026-11-20 (arena/644d217b-prod2): two long-form pieces registered in the thermometer and air-fryer clusters; they carry an argument rather than a checklist and are tracked as SG-45. 2026-11-20 (arena/44af3083-prod2): queue slot 1 shipped early as guide-preheat-shake.html (moved to `shipped`); guide-turkey-done.html added to the holiday-hosting desk and the thermometers cluster for the 2026-11-26 US Thanksgiving window (seasonal framing only, D-19). 2026-11-20 (arena/2adc150a-prod2): sale-week insert guide-sale-week.html published in the holiday-hosting season lane and added to both clusters (decision D-P25 — same ahead-of-cadence precedent as the gifting guide, D-P20); queue untouched. 2026-11-20 (arena/b3089214-prod2): third long read registered (article-leftovers-reheat.html) from the FSIS leftovers factsheet read the same day; slot 1 of the queue is filled on main, so this one is an addition, not a slot claim."
+    "last_change": "guide-dual-vs-single added to the air-fryers cluster (capacity pillar) and guide-probe-in-air-fryer to the thermometers cluster, 2026-11-20 (arena/7cec0d73-prod2, PR #41's ported guides), so the calendar gate's every-guide-needs-a-pillar rule holds. 2026-11-20 (arena/b3089214-prod2): third long read registered (article-leftovers-reheat.html), from the FSIS leftovers factsheet read the same day."
   },
   "cadence": {
     "unit": "one new question-shaped guide",
@@ -65,6 +65,7 @@
         "guide-cleanup-counter-space.html",
         "guide-multifunction.html",
         "guide-how-many-quarts.html",
+        "guide-dual-vs-single.html",
         "guide-two-baskets-or-one.html",
         "guide-holiday-hosting.html",
         "guide-gift-guide.html",
@@ -86,7 +87,8 @@
         "guide-gift-guide.html",
         "guide-sale-week.html",
         "article-thermometer-placement.html",
-        "guide-turkey-done.html"
+        "guide-turkey-done.html",
+        "guide-probe-in-air-fryer.html"
       ]
     }
   ],

@@ -1,0 +1,82 @@
+{
+  "_meta": {
+    "description": "Live re-read of the five official listings plus the two disclosure-compliance anchors, performed by session arena/4fef743e-prod2 (tasks X-02/X-04) on 2026-11-20. Tool: the session fetch tool (curl to amazon.com is blocked in the sandbox; the fetch tool reads the live pages). Recorded verbatim; prices and star ratings are NOT recorded because the fetched variant interleaves other ASINs' carousel prices with the page's own widgets (F-P17) — no $ figure is attributable with confidence, so none is written anywhere.",
+    "session": "arena/4fef743e-prod2",
+    "date_utc": "2026-11-20",
+    "register_changes": "none — every value observed matches data/p2/products.json as recorded; no value was added, removed, or altered"
+  },
+  "listings": [
+    {
+      "product_id": "P1",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "http_status": "success (fetch tool)",
+      "title_observed": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+      "title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+      "breadcrumb_matches_register": true,
+      "prices_or_ratings_recorded": "none — carousel $ figures belong to other ASINs (B0B7C327LK, B0CNSB81V6, B0BYKGN61Q) and the summary-variant price link is ambiguous (F-P17)"
+    },
+    {
+      "product_id": "P2",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "http_status": "success (fetch tool)",
+      "title_observed": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+      "title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+      "breadcrumb_matches_register": true,
+      "breadcrumb_note": "The chain was absent in the 2026-11-20 W-06 fetch variant and present in this one; products.json already carried it (category_read 2026-11-19), so no register change was needed. Prior null observations remain recorded in data/p2/verification-2026-11-20.json.",
+      "prices_or_ratings_recorded": "none — carousel $ figures belong to other ASINs (B0BZ52FLKC, B0FM5KF34G, B0F92GL7JH) (F-P17)"
+    },
+    {
+      "product_id": "P3",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "http_status": "success (fetch tool)",
+      "title_observed": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+      "title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+      "breadcrumb_matches_register": true,
+      "prices_or_ratings_recorded": "none — carousel $ figures belong to other ASINs (B0CNY1YVDD, B09MR7QWKZ, B0C33CHG99) (F-P17)"
+    },
+    {
+      "product_id": "P4",
+      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "http_status": "success (fetch tool)",
+      "title_observed": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen",
+      "title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+      "breadcrumb_matches_register": true,
+      "prices_or_ratings_recorded": "none — this variant shows a $16.99 string for the page and for carousel item B0GL7Z4KP4; identical figures appear for two different ASINs, so attribution is not safe (F-P17). Unpublished (F-02)."
+    },
+    {
+      "product_id": "P5",
+      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "http_status": "success (fetch tool)",
+      "title_observed": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3 : Home & Kitchen",
+      "title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+      "breadcrumb_matches_register": true,
+      "prices_or_ratings_recorded": "none — carousel $ figures belong to other ASINs (B0FXBQ3KX1, B0D1TMFTPN, B0H2JP9YDM) (F-P17)"
+    }
+  ],
+  "compliance_anchors": [
+    {
+      "id": "S-FTC1",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "read": "2026-11-20 (fetch tool)",
+      "key_text_observed": "Place it so it's hard to miss. The disclosure should be placed with the endorsement message itself. Disclosures are likely to be missed if they appear only on an ABOUT ME or profile page, at the end of posts or videos, or anywhere that requires a person to click MORE. Use simple and clear language ... terms like 'advertisement,' 'ad,' and 'sponsored.'",
+      "site_conformance": "The site carries the disclosure strip under the masthead on every page (before <main>), repeats the Associate statement in every footer, and marks each buy link '(paid link)' beside the link. Verified programmatically by tools/audit_publication.py rules A/B on 2026-11-20 (30/30 pages)."
+    },
+    {
+      "id": "S-HELP",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE",
+      "read": "2026-11-20 (fetch tool)",
+      "key_text_observed": "you must (1) include a legally compliant disclosure with your links and (2) identify yourself on your Site as an Amazon Associate with the language required by the Operating Agreement ... A clear disclosure could be as simple as '(paid link)', '#ad', or '#CommissionsEarned' ... the Operating Agreement requires that the following statement clearly and conspicuously appears on your Site: 'As an Amazon Associate I earn from qualifying purchases.'",
+      "site_conformance": "The exact required sentence appears in the masthead strip and footer of every page; '(paid link)' — the help page's own example language — appears beside each buy link. "
+    }
+  ],
+  "not_rechecked_here": [
+    "Amazon Associates Operating Agreement (S-OA) and Program Policies (S-POL) full text: last read 2026-11-20 by session arena/644d217b-prod2 and recorded in data/p2/sources.json; not re-fetched in this pass to keep the fetch budget on the five listings.",
+    "Short links (link.amazon/…): not re-resolved in this pass. Their status stays unresolved (FLG-003 / F-P24); this pass makes no claim about their validity. Prior observations live in data/p2/intent-links.json (observed_redirect_history) and data/p2/live-check-2026-11-20-722181aa.json.",
+    "Associates Central reporting and the one-link-per-product Special Link test: owner-account actions (F-57/F-58); not performable from any sandbox."
+  ]
+}

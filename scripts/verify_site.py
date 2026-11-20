@@ -121,6 +121,30 @@ def main():
     else:
         errors.append("sitemap.xml is missing.")
 
+    # 6. publication audit (root mirror = what legacy Pages serves) + docs/ mirror.
+    #    Rules: disclosure above the fold and in the footer, the product-link
+    #    contract (rel="sponsored" + enrolled tag on /dp/ links, no tag= on
+    #    citations), canonical self-links, resolvable internal links, JSON-LD,
+    #    robots policy and sitemap purity. Run by tools/audit_publication.py.
+    #    Added by session arena/4fef743e-prod2 (tasks X-01/X-02).
+    import subprocess
+    auditor = os.path.join(ROOT, "tools", "audit_publication.py")
+    for tree, label in ((ROOT, "root mirror"), (os.path.join(ROOT, "docs"), "docs/")):
+        if not os.path.isdir(tree):
+            errors.append("publication tree missing: %s" % tree)
+            continue
+        res = subprocess.run([sys.executable, auditor, "--root", tree],
+                             capture_output=True, text=True)
+        if res.returncode != 0:
+            errors.append("publication audit failed for %s:\n%s" % (label, res.stdout))
+    root_robots = os.path.join(ROOT, "robots.txt")
+    docs_robots = os.path.join(ROOT, "docs", "robots.txt")
+    if os.path.exists(root_robots) and os.path.exists(docs_robots):
+        if read(root_robots) != read(docs_robots):
+            errors.append("robots.txt at the root mirror and in docs/ disagree.")
+    else:
+        errors.append("robots.txt missing at the root mirror or in docs/.")
+
     # summary
     for w in warnings:
         print("WARN:", w)

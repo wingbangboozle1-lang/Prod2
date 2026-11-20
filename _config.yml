@@ -42,6 +42,7 @@ exclude:
   - PULL_REQUEST_W08.md
   - README.md
   - REPO_AUDIT.md
+  - REVIEW-2026-11-20-4fef743e.md
   - SESSION_SUMMARY.md
   - VOICE.md
   - analytics-client.js

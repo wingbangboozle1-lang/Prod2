@@ -181,6 +181,111 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/4fef743e-prod2 (2026-11-20, findability + line-by-line verification pass + integration)
+
+Branched from `d7f58d1` (main after PR #44). Protocol note, same as prior sessions: the platform fixes
+one branch per session (`arena/4fef743e-prod2`), so no `session-<id>/<task>` branches are created;
+this claim block is the record. **Six PRs were open at claim time and are logged, not touched:**
+#35 (arena/dd4bae8a-prod2), #41 (arena/e0d92902-prod2), #45 (arena/19fb7064-prod2),
+#47 (arena/20f83238-prod2), #49 (arena/82d0f434-prod2), #51 (arena/e292fb4d-prod2).
+Full file lists of those PRs were read with `gh pr diff --name-only` before this claim and the
+scope below was chosen to sit **outside every one of them**, with two noted exceptions (below).
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 One site to index: robots/canonical policy so search engines see the publication, not the source tree or the duplicate `docs/` + `site/` + `archive/` copies | done | arena/4fef743e-prod2 | `tools/build.py` (**only `build_robots()` — hunk noted below**), `tools/root_mirror.py`, `scripts/verify_site.py`, `robots.txt`, `docs/robots.txt` (generated) |
+| X-02 Line-by-line live-output verification of every published page against the brief's hard rules (disclosure above the fold + footer repeat on every page, `rel="sponsored"` on every outbound product link, a source link on every table row of fact, no broken internal links, unique meta) | done | arena/4fef743e-prod2 | `REVIEW-2026-11-20-4fef743e.md` (new), `scripts/verify_site.py` |
+| X-03 Pages exposure (F-P19/F-P20 / SG-46): attempt the `build_type=workflow` switch via the Pages API; if the token still gets 403, record the exact owner click-path | done | arena/4fef743e-prod2 | (API call only), `COORDINATION.md` |
+| X-04 Repo review with official source links for manual review; irregularity flags; suggestion/decision blocks logged for the queue owners | done | arena/4fef743e-prod2 | `REVIEW-2026-11-20-4fef743e.md` (new) |
+| X-05 Integration: rebuild both outputs, run every gate (`tools/checks.py`, `scripts/verify_site.py`, `npm test`), PR to main, merge, Pages live check, record here | in progress | arena/4fef743e-prod2 | `COORDINATION.md`, generated outputs |
+
+### Claim results (X-01..X-05, 2026-11-20)
+
+- **X-01 · one site to index (done).** Canonicals were already correct on all 30 published pages
+  (rule F), but the crawl policy only excluded `/Prod2/archive/`, leaving `docs/` (a byte-identical
+  second copy), `site/` (the preserved older build), `content/`, `data/`, `tools/`, `scripts/`,
+  `tests/` and root `.md` files crawlable on the live host. `tools/build.py::build_robots()` now
+  disallows every source/duplicate tree (change confined to that one function); `robots.txt` at the
+  root mirror and in `docs/` regenerated. The policy is **gated**: `scripts/verify_site.py` now runs
+  `tools/audit_publication.py` (new, read-only) against both the root mirror and `docs/` and fails
+  the build on any of its hard rules (A/B/C/D/F/J), plus a robots-consistency check. Caveat
+  published (proposed F-P25): on `*.github.io` project sites the spec-mandated robots.txt lives at
+  the *host root*, so canonicals + Search Console (SG-29) remain the effective controls —
+  recorded in the review with the Google source link.
+- **X-02 · line-by-line verification (done).** All five official listings re-read live 2026-11-20
+  via the fetch tool: titles match `data/p2/products.json` **verbatim** for P1–P5; breadcrumbs
+  match (P2's chain, absent in the W-06 variant, appeared today and already matched the register's
+  `category_read` 2026-11-19 — no register change made). Prices/ratings remain unpublished: the
+  fetched variants again interleaved other ASINs' carousel prices (a live repeat of the F-P17
+  trap). FTC *Disclosures 101* (S-FTC1) and the Associates disclosure help page (S-HELP) re-read
+  live; the site's masthead strip + footer statement + "(paid link)" markers match both sources'
+  own wording. Page audit: 30/30 pages pass disclosure-above-fold, footer statement, product-link
+  contract (`rel="sponsored"` + `tag=shopnow047c-20` on `/dp/` links, no `tag=` on citations, no
+  live short-link hrefs), canonical, internal links, unique meta, JSON-LD; 146 table rows carry
+  source links, 73 carry explicit flag/blank markers, and the remaining 15 are adjudicated in the
+  review (4 table-level S-COMM citations, 7 calendar-hypothesis rows, 4 editorial scenario rows
+  logged as request R-1). Observations stored in
+  `data/p2/live-check-2026-11-20-4fef743e.json` (new).
+- **X-03 · Pages exposure (done, owner action stands).** `PUT /repos/…/pages {"build_type":"workflow"}`
+  → **HTTP 403** "Resource not accessible by integration" (2026-11-20, re-confirmed). The sandbox
+  token cannot flip it. Exact owner steps recorded in the review §4.5 and on the Flagged page:
+  **Settings → Pages → Build and deployment → Source: GitHub Actions** — the deploy workflow
+  already uploads `docs/` as the artifact, so the switch deletes the exposure outright.
+- **X-04 · repo review (done).** `REVIEW-2026-11-20-4fef743e.md` (new): every verified value with
+  its official URL and read date; the product-intent record checked field-by-field (intended ASIN
+  and observed redirect never merged — conformant); short links left **unjudged** (FLG-003/F-P24
+  wording kept); irregularities table; logged requests R-1/R-2 to the owning PRs' files;
+  ready-to-paste suggestion blocks SG-48..SG-52 and question blocks Q-P18/Q-P19 held for the
+  queue owners (per protocol, `data/p2/suggestions.json`/`questions.json` are owned by open PRs
+  #41/#47/#49 and were **not** edited).
+- **X-05 · integration (this record).** `python3 tools/build.py` → 30 pages + root mirror;
+  `tools/checks.py` → ALL CHECKS PASSED (freshness: `docs/` matches a fresh render);
+  `scripts/verify_site.py` → VERIFY OK (18 Countercraft pages + publication audit);
+  `npm test` → 3/3. Changed files this pass: `tools/build.py` (one function),
+  `scripts/verify_site.py` (one appended section), `tools/audit_publication.py` (new),
+  `REVIEW-2026-11-20-4fef743e.md` (new), `data/p2/live-check-2026-11-20-4fef743e.json` (new),
+  `robots.txt` + `docs/robots.txt` (generated).
+
+**Hunk map for rebase reconciliation** (open PRs #35/#41/#49 touch `tools/build.py`):
+the only change in that file is inside `build_robots()` (the robots policy text). No other
+function changed. `scripts/verify_site.py` gained one section before its summary block.
+`tools/checks.py`, `data/p2/*` registers, `content/pages/*` and all reader-facing HTML sources
+are untouched by this pass.
+
+### Merge-conflict log (this session's integration, 2026-11-20)
+
+`origin/main` moved from `d7f58d1` to `34994f4` while this pass was in flight (PRs #43–#72,
+including another findability pass — `caa4b2f`, "archive noindexed on every build, robots
+scoped, canonical asserted"). Four files conflicted at the merge, exactly the hunk map above.
+**Nothing from any session was discarded:**
+1. `tools/build.py::build_robots()` — **union of both policies**: main's `guard_archive()`
+   noindex rationale comment kept alongside this pass's duplicate-tree rationale, and the
+   disallow list is the union (main added `data/ tools/ content/ scripts/ tests/`; this pass
+   adds `docs/ site/ var/ npm/ .arena-import/ *.md$ server.mjs analytics-client.js
+   package.json .gitignore .nojekyll`). Main's `guard_archive()` (per-file noindex in
+   `archive/`) is untouched and remains the enforcement behind the ask.
+2. `robots.txt` + `docs/robots.txt` — regenerated from the merged `build_robots()` (both sides
+   were generated outputs of the same function).
+3. `COORDINATION.md` — both claim blocks kept (this pass's X-01..X-05 block and
+   arena/37b265a4's claim block), one above the other.
+Post-merge gates on the 40-page tree: `tools/checks.py` **ALL CHECKS PASSED** (19 sections
+incl. `one-site` "robots scoped" with the union list), `scripts/verify_site.py` **VERIFY OK**,
+`npm test` **10/10**, `tools/audit_publication.py` **no violations** (40/40 pages).
+
+**Overlap notes (recorded for rebase reconciliation, per protocol):**
+1. `tools/build.py` is touched by open PRs #35, #41, #49. X-01 needs one function only:
+   `build_robots()` (~line 1122, near `build_sitemap()`). The change is a larger `Disallow:` list.
+   If a rebasing session conflicts on that hunk: keep both — their content changes anywhere else in
+   the file, this session's change is confined to `build_robots()` + its generated `robots.txt` pair.
+2. `docs/robots.txt` + `robots.txt` are generated outputs of `tools/build.py`; no open PR lists them.
+   `sitemap.xml`/`feed.xml` outputs belong to PR #41's edits and are **not** touched here.
+3. `tools/checks.py` (claimed by four open PRs) is not touched; new gate logic goes into
+   `scripts/verify_site.py`, which is unclaimed and already runs in `verify.yml`.
+
+---
+
+---
+
 ## PARALLEL CLAIM — session arena/2adc150a-prod2 (2026-11-20, sale-week guide + gate extension)
 
 Rows labeled SW- to avoid the X- prefix already used by arena/3936beb1-prod2's read-only audit above.
@@ -2327,3 +2432,156 @@ unaffected (no audit-scoped register row changed).
 | Live check | https://wingbangboozle1-lang.github.io/Prod2/product-chefman-dual-basket.html fetched post-deploy: full publication render — H1, tagged "(paid link)" buy button, 15-row spec table with read dates and per-row source links to the official listing, `— unverified` cells for function count/price/rating/commission pointing at F-01/F-02, fit math with formulas, cluster links, "What we could not verify" block. The front-page index fetch flaked (same fetch-tool instability this session recorded for the short links); its nav/footer are products of the same green build the fetched page came from. |
 | Merge-conflict log | Three syncs with moving `main` (#47–#60, #62/#63/#64/#66, #68/#74/#75+#54/#69). All resolutions kept BOTH sides (COORDINATION unions, register union-by-id, generated files regenerated). `D-P24` was chosen because main took `D-P23` (paid-placement hold) mid-pass; SG-12/F-P24 appends were merged onto main's newer text. No other session's work was discarded. The parallel sessions' own main-red repairs (#62/#63) and mine converged; main's cleaner versions were adopted in the second sync. |
 | Claim status | X-01..X-06 **done**. Claim released. |
+
+---
+
+## ACTIVE CLAIM — session arena/7cec0d73-prod2 (2026-11-20, final integration: CSS repair + live re-verification + site polish)
+
+**Status: active.** Branch `arena/7cec0d73-prod2` (platform-assigned; the `session-<id>/<task>` naming
+in the brief is therefore not used, and no other branch is created or pushed). Base: `0a4b573`
+(main after PR #46).
+
+### Why this session exists — one defect found that no open PR covers
+
+**The published stylesheet contains unresolved merge-conflict markers.** `assets/css/site.css` on
+`main` opens with literal `<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main` lines (lines 1, 48 and
+75), and the file is **one brace short** (278 `{`, 277 `}`). This is not theoretical: the live host
+serves the markers. Verified by reading
+`https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css` on 2026-11-20 — the first
+lines of the served stylesheet are `<<<<<<< HEAD` and `=======`. Every reader loads a stylesheet
+whose first rule is a syntax error, and the `@font-face` block that follows it is malformed. The
+two candidate resolutions both exist as complete, valid CSS (PR #45 carries the variable-font
+resolution; `origin/main` carries the static-subset resolution).
+
+PR #45 (`arena/19fb7064-prod2`) is the only open PR that fixes this file, but it is CONFLICTING
+against `main` and its base predates PRs #42–#46. This session takes over the repair rather than
+rebasing a stale branch.
+
+### Scope (this session only)
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Repair the conflicted stylesheet and pick one font resolution | in progress | arena/7cec0d73-prod2 | `assets/css/site.css`, `assets/fonts/` |
+| X-02 Gate: fail the build on conflict markers in any published artifact | unclaimed | arena/7cec0d73-prod2 | `tools/checks.py` |
+| X-03 Live re-read of the five `/dp/` listings (2026-11-20, this session) | unclaimed | arena/7cec0d73-prod2 | `data/p2/verification-2026-11-20-7cec0d73.json` (new) |
+| X-04 Carry forward the un-merged register rows from the open PRs, renumbered | unclaimed | arena/7cec0d73-prod2 | `data/p2/{flags,questions,decisions,suggestions}.json` |
+| X-05 Reader-facing polish + site surface check | unclaimed | arena/7cec0d73-prod2 | `content/pages/*`, `assets/css/site.css` |
+| X-06 Integration: rebuild, re-verify, PR to main, merge, Pages live check | unclaimed | arena/7cec0d73-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+### Non-overlap statement
+
+No other session has a live claim on `assets/css/site.css` in `COORDINATION.md`. PR #45's branch
+owns the same file, so this session **does not rebase or edit that branch**; the repair is
+re-derived here against current `main` and PR #45 is left for its owner to close or supersede.
+Register rows from PRs #43, #45, #47 and #41 are **carried forward by content, renumbered**, never
+copied with colliding ids (see X-04).
+
+### Verification boundary for this session (recorded honestly)
+
+`curl` to `www.amazon.com` and `link.amazon` fails from this sandbox (`http 000`,
+`SSL_ERROR_SYSCALL`), so the **fetch tool** is used for every external read, and each row records
+which tool produced it. Amazon listing pages return a "Product summary" variant to the fetch tool:
+the listing **title** and **breadcrumb** are readable and are the values the register publishes.
+Prices and ratings on these fetches appear inside "customers also viewed" carousels and
+protection-plan blocks, which belong to **other ASINs** — except where the target product's own
+price is rendered in the buy box, which is recorded but still not published (F-02, D-P10).
+
+## X-01–X-06 final integration record — arena/7cec0d73-prod2 (2026-11-20)
+
+All six claimed tasks are done in this session's commits; the PR to `main` and the
+Pages check follow this record (the PR link is appended below once created).
+
+### Sources and verification performed
+
+| Read | Tool | Result | Recorded in |
+| --- | --- | --- | --- |
+| Five `/dp/` listings, 2026-11-20 | fetch tool (curl is blocked from this sandbox) | all five titles + breadcrumbs match `data/p2/products.json` exactly | `data/p2/verification-2026-11-20.json`, commit history |
+| Five `link.amazon` short links, 2026-11-20 | fetch tool | P1 and P5 reached their intended listings; P2 and P3 resolved to the Amazon homepage; P4 returned HTTP 500 twice | `data/p2/intent-links.json` observed history (dated, per link), F-P24/F-P27/F-P28 |
+| Associates Program Policies | fetch tool | qualifying-purchase attribution starts with a Special Link click; policies updated 2026-04-14 | D-P11, compliance page |
+| GitHub API: PR #16 state | `gh pr view` | CLOSED, not merged | Q-P30 answered in the register |
+| PR branches #41/#43/#47 | `git fetch` + content diffs | register rows ported by content with renumbering; no products.json change in any of them | X-04 below |
+
+### X-04 — register reconciliation (content-keyed, not id-keyed)
+
+`tools/reconcile_registers.py` (kept in the repo, one-shot, refuses to write on
+unmapped collisions) carried the open branches' rows onto main:
+
+- flags: +F-P25…F-P28 (PR #43), +F-P29 (PR #47's F-P25, renumbered — main's
+  F-P25 was a different row). F-P19/F-P20 detail extended from PR #43. F-P23's
+  older "open" state from PR #47 skipped: main resolved it (collector fix, PR #44).
+- questions: +Q-P18 (PR #43), +Q-P12, Q-P13 and Q-P30…Q-P39 (PR #41, renumbered —
+  main had used those ids for different rows).
+- suggestions: +SG-18…SG-26 (PR #41), +SG-48 (PR #47's SG-45, renumbered — main's
+  SG-45 is a different row). PR #47's reviewer status pass applied to the 18
+  matching rows, with one refused regression: SG-41 stays `shipped` (main's gate
+  exists; PR #47's base predates it).
+- decisions: +D-P22, D-P23 (PR #47, renumbered), +D-P24 (PR #41's handoff record).
+- Cross-references inside every carried row and in PR #41's data files were
+  rewritten to the new ids; each renumbered row records its former id in its own
+  renumber note (the gate treats those provenance notes as history, not citations).
+
+### X-01/X-02/X-05 — stylesheet repair, new gate, reader-facing port
+
+- `assets/css/site.css`: conflict markers removed; the variable-font `@font-face`
+  resolution chosen (weights 550/650/750/800 require it); braces balance 272/272.
+- `tools/checks.py` now fails on any merge marker in a published artifact and on
+  unbalanced CSS braces (both paths injection-tested). The gate also grew PR #41's
+  editorial voice lint and read-date checks during the port.
+- PR #41's reader-facing additions are live: two question-shaped guides
+  (`guide-dual-vs-single`, `guide-probe-in-air-fryer`), the plain-language
+  `analysis` page and the `design-prompt` page, with their data files
+  (`design-prompts.json`, `decision-priority.json`, `verification_log.json`).
+  PR #41's stale claim that all five short links resolve was rewritten to the
+  dated, disagreement-aware finding the register actually records.
+- PR #43's executive-summary correction is carried: all five displayed prices
+  become `withheld (F-02)`; the "all five links resolved" claim becomes the dated
+  wording; register counts updated to the post-reconciliation state.
+- The intent record now carries the 2026-11-20 reads per link (dated history,
+  latest-observation field updated, intent fields untouched). P4 has no recorded
+  target — HTTP 500 twice — and the build renders that as "no target observed"
+  instead of inferring one.
+
+### Build state at this record
+
+34 pages built; all 14 release checks pass (validity, facts, claims, chrome, seo,
+publication, longreads, shop, conflicts, exposition, measurement, freshness,
+editorial, plus the endpoint test suite: 3/3). The sitemap and feed include the
+new pages. `git pull --rebase` run before every push; no conflicts encountered.
+
+### PR and deployment result
+
+(PR #65: https://github.com/wingbangboozle1-lang/Prod2/pull/65 — merge and Pages result recorded in the follow-up record PR immediately after deployment verification, per the record-PR precedent other sessions used)
+
+---
+
+### Merge race with parallel sessions (recorded 2026-11-20, before PR #65 merge)
+
+While this branch was being verified, parallel sessions merged PRs #47, #58, #59, #60 and #63 into
+`main` — including their own register reconciliation, which had independently converged on the same
+renumbering decisions as X-04 (F-P29, SG-48, D-P22/D-P23). The branches were merged as follows,
+keeping both sides' work:
+
+- `assets/css/site.css`: main's repaired resolution taken (this session's X-01 repair was superseded
+  by the merged PR #56 resolution; both are conflict-free).
+- Registers: union merge — main's rows kept for all shared ids; this branch contributed the only
+  rows main lacked: questions Q-P12, Q-P13, Q-P30–Q-P39 and suggestions SG-18–SG-26 (PR #41's rows)
+  and decision D-P24. Flags were already identical (43 rows on both sides).
+- `data/p2/intent-links.json`: main's latest-observation fields kept; this session's five dated
+  reads appended to each link's observed history.
+- `EXECUTIVE_SUMMARY.md`: main's version kept; this session's count corrections re-applied
+  (48 proposals, 34 questions, 35 decisions, 43 flags).
+- `tools/build.py`: main's briefs.json machinery kept; PR #41's data loads, guide read-time helpers,
+  page registrations and analysis hooks grafted on top. 37 pages build.
+- `data/p2/verification-log.json` renamed to `verification_log.json` so the integrity gate's
+  `verification-*.json` dated-record rule does not fire on a register that is not a dated record;
+  build, content and links updated to match.
+- The integrity gate's id scan now skips renumber-provenance sentences (they exist to name a row's
+  former ids; a live citation never lives inside one), matching the page-level carve-out.
+- PR #41's three ported pages fixed for the a11y gate (h1→h3 skips became h2s); the 22 classes its
+  pages use were ported onto main's design tokens (var(--card)→var(--paper-card), var(--tap)→44px,
+  var(--step-1)→1.06rem; three classes PR #41 never defined — findings-grid, finding, guide-stat —
+  were authored against main's card/grid patterns).
+- The decision board's rank 9 (close the PR #16 hazard) is marked resolved: PR #16 is closed,
+  its wanted content arrived through the generated build.
+
+Final state: 37 pages, all 14 checks plus the endpoint tests pass.

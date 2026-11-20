@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/0a9f19fe-prod2): F-P29 added and marked resolved - the conflict-marker / unclosed-block stylesheet defect and the new browser-free stylesheet gate. 2026-11-20 (arena/b3089214-prod2): F-P19/F-P20 carry the repo-side surface fix and the cache-correction; F-P26/F-P28 evidence repointed from served-host paths to repository blobs (they 404 on the host now); F-P31 opened (published surface depends on a generated config until the Pages source flips) and F-P30 opened (claim audit: 6 unevidenced phrases retired, 4 dated reads). Numbering shifted after the merge with main took F-P29 for the CSS conflict-marker defect — mine is F-P31. F-P32 opened for the source-liveness gap and the egress limit that shapes how it gets closed."
+    "last_change": "Second union with origin/main (PRs #54/#69/#70/#71/#72 merged by parallel sessions): flag sets identical, main's rows kept. 2026-11-20 (arena/b3089214-prod2): F-P30/F-P31/F-P32 registered; F-P19/F-P20 carry the before/after probes, the dated cache correction, and evidence repointed from served-host paths to repository blobs (the root config change 404s those host paths on purpose)."
   },
   "flags": [
     {
@@ -369,7 +369,7 @@
       "title": "The repository executive summary published a listed-price column, which the site withholds",
       "detail": "EXECUTIVE_SUMMARY.md (served publicly at the live host because Pages is in legacy root mode) carried a “Price (as listed)” column with five dollar figures from the 2026-11-19 pass. The register withholds prices (F-02; D-P11; Program Policies §2(b), read 2026-11-20). Earlier records (F-P17; data/p2/verification-2026-11-20.json V-03) state that carousel prices on these listings belong to neighbouring ASINs. This session did not re-read the carousels, so whether any of the five figures came from a neighbouring product is not verified here. The column has been replaced with “withheld”. No figure was corrected, because no price is published.",
       "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/EXECUTIVE_SUMMARY.md",
-      "evidence_note": "https://wingbangboozle1-lang.github.io/Prod2/EXECUTIVE_SUMMARY.md as served 2026-11-20 is where the column was readable; the file is now excluded from the Pages build, so the repository blob is the citable copy. Neighbouring-price mechanism: F-P17; carousel observations in data/p2/verification-2026-11-19.json and data/p2/verification-2026-11-20.json. Policy: S-POL §2(b), read 2026-11-20.",
+      "evidence_note": "Live file as served 2026-11-20 (fetch tool). Neighbouring-price mechanism: F-P17; carousel observations in data/p2/verification-2026-11-19.json and data/p2/verification-2026-11-20.json. Policy: S-POL §2(b), read 2026-11-20.",
       "how_to_resolve": "Owner decides whether any price policy changes (suggestion SG-05 covers a dated-snapshot option). Until then the column stays withheld. Owner also decides whether the root-mode exposure of EXECUTIVE_SUMMARY.md and other repository files is fixed (F-P19, F-P20).",
       "status": "open"
     },
@@ -388,7 +388,7 @@
       "title": "products.json and the intent record describe the short links as resolving to their listings; the 2026-11-20 reads do not confirm this for every link",
       "detail": "products.json (short_link field on each product) and data/p2/intent-links.json (intent record and the 2026-11-19 redirect history) still describe the owner short links as resolving to the registered ASINs, and no status for the 2026-11-20 reads has been added to products.json. The 2026-11-20 reads (F-P24, F-P27) confirmed one of five links at its intended ASIN in the R-01 read. Intent fields (intended_asin, official_listing_url) and observed redirect targets are kept in separate fields and are not merged. The 2026-11-20 observations are dated history beside the 2026-11-19 record. Nothing in those files is overwritten by this flag, and no intent field is changed.",
       "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/intent-links.json",
-      "evidence_note": "data/p2/products.json short_link fields; data/p2/intent-links.json observed_redirect_history (2026-11-19 and 2026-11-20 entries); data/p2/verification-2026-11-20.json r01_reread_2026_11_20. Cited as a repository blob: the served-host copy of that JSON was only reachable because of F-P20 and is no longer published.",
+      "evidence_note": "data/p2/products.json short_link fields; data/p2/intent-links.json observed_redirect_history (2026-11-19 and 2026-11-20 entries); data/p2/verification-2026-11-20.json r01_reread_2026_11_20.",
       "how_to_resolve": "Owner completes the logged-out browser check (Q-P18). After that the owner decides whether products.json keeps the short_link field as recorded, and whether intent-links.json gets a dated status note. No intent field is changed until then.",
       "resolved_utc": null
     },
@@ -402,16 +402,6 @@
       "status": "resolved"
     },
     {
-      "id": "F-P31",
-      "status": "open",
-      "title": "The published surface depends on a generated config file until the Pages source setting changes",
-      "detail": "With Pages' source still set to `main /`, what an anonymous reader can fetch is decided by two repository files: the absence of a root .nojekyll and the exclude list in the root _config.yml (generated by tools/publish_surface.py, asserted by the exposition gate). That closes the exposure recorded in F-P19/F-P20 as far as a build can, but it is a control held in the tree, not at the host: restoring .nojekyll, or adding a top-level directory without rebuilding, would make files servable again — the gate fails on both, which is why the fix is not simply 'done'. Moving the Pages source to the GitHub Actions artifact (which already uploads docs/ only) removes the dependency entirely, and would let the root mirror and the config go away (SG-46, SG-52).",
-      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/_config.yml",
-      "evidence_note": "GitHub Docs, 'About GitHub Pages and Jekyll' (read 2026-11-20): Jekyll does not build paths named in `exclude`; Pages cannot disable its default plugin list. Pages API build_type=legacy read 2026-11-20; PUT build_type=workflow returns 403 for this token.",
-      "how_to_resolve": "Owner flips Settings → Pages → Source to GitHub Actions, then a later pass deletes the root mirror, the root _config.yml and the mirror step in tools/build.py. A reviewer can also confirm the interim control by fetching /Prod2/data/p2/settings.json: it must 404.",
-      "resolved_utc": null
-    },
-    {
       "id": "F-P30",
       "status": "open",
       "title": "Ten published product details rest on dated reads the site cannot re-retrieve, and six were retired this pass",
@@ -419,6 +409,16 @@
       "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/claim-audit-2026-11-20.json",
       "evidence_note": "Rule: a published claim word must appear in a recorded verbatim evidence string for that ASIN (stem-folded, units and stop-words dropped, >=4 chars). Reproduce with `python3 tools/claims_audit.py --report`. The fabricated-claim negative test ('Whisper-quiet turbine with self-cleaning diamond coat') was run on 2026-11-20 and the gate failed as intended; the first version of the audit passed that test, because a claim could cite its own register field as evidence — the pool is now restricted to listing-text fields.",
       "how_to_resolve": "Owner or a later pass closes the four dated-read rows and restores any retired detail it can evidence, by either (a) reading the listing's 'About this item' block in a browser and recording the string verbatim with a date, or (b) a Creators/PA-API response, which returns item highlights as data the Operating Agreement lets us quote (SG-53). Until then the cards stay narrower than the listing, which is the safe direction for an affiliate page.",
+      "resolved_utc": null
+    },
+    {
+      "id": "F-P31",
+      "status": "open",
+      "title": "The published surface depends on a generated config file until the Pages source setting changes",
+      "detail": "With Pages' source still set to `main /`, what an anonymous reader can fetch is decided by two repository files: the absence of a root .nojekyll and the exclude list in the root _config.yml (generated by tools/publish_surface.py, asserted by the exposition gate). That closes the exposure recorded in F-P19/F-P20 as far as a build can, but it is a control held in the tree, not at the host: restoring .nojekyll, or adding a top-level directory without rebuilding, would make files servable again — the gate fails on both, which is why the fix is not simply 'done'. Moving the Pages source to the GitHub Actions artifact (which already uploads docs/ only) removes the dependency entirely, and would let the root mirror and the config go away (SG-46, SG-52).",
+      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/_config.yml",
+      "evidence_note": "GitHub Docs, 'About GitHub Pages and Jekyll' (read 2026-11-20): Jekyll does not build paths named in `exclude`; Pages cannot disable its default plugin list. Pages API build_type=legacy read 2026-11-20; PUT build_type=workflow returns 403 for this token.",
+      "how_to_resolve": "Owner flips Settings → Pages → Source to GitHub Actions, then a later pass deletes the root mirror, the root _config.yml and the mirror step in tools/build.py. A reviewer can also confirm the interim control by fetching /Prod2/data/p2/settings.json: it must 404.",
       "resolved_utc": null
     },
     {
