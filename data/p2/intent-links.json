@@ -3,9 +3,10 @@
     "description": "Product-intent confirmation record. For each submitted link: the intended ASIN and the official listing URL the site publishes, the date and source of that confirmation, and the observed redirect target kept in its own separate field. The two fields are never merged. Amazon defines the ASIN as the checkable product identifier (S-ASIN); the short-link path code is not an ASIN (F-67).",
     "tracking_id": "shopnow047c-20",
     "tracking_id_source": "Supplied by the owner in the brief (2026-11-19) and the preceding brief (2026-11-17). Format check: Amazon's help page (S-TAG, read 2026-11-17) states Amazon's software adds '-20' to Store IDs and a US Store ID ends in -20. Registration and activity of this ID are confirmable only inside Associates Central (F-57).",
-    "updated_utc": "2026-11-19",
+    "updated_utc": "2026-11-20",
     "method": "Each owner-submitted short link was fetched with redirects followed; the final listing URL and page title were read; the intended ASIN is the ASIN of that official listing. Observed redirects are stored as dated raw observations in observed_redirect_history and are never copied into intended_asin fields without a listing read. Not verified anywhere: Associates reporting, commission categories, tag attribution (F-57, F-58).",
-    "short_link_status_note": "The supplied short links are recorded verbatim and are not judged valid or invalid — their compliance status is unresolved (Zone3 FLG-003). The site publishes the tagged Special Links below as its outbound product hrefs (decisions D-01/D-14, carried; D-P06), per Participation Requirements 2(b) and 6(v)-(w): final destination URL with the tag as a parameter, no shortener."
+    "short_link_status_note": "The supplied short links are recorded verbatim and are not judged valid or invalid — their compliance status is unresolved (Zone3 FLG-003). The site publishes the tagged Special Links below as its outbound product hrefs (decisions D-01/D-14, carried; D-P06), per Participation Requirements 2(b) and 6(v)-(w): final destination URL with the tag as a parameter, no shortener.",
+    "last_change": " | 2026-11-20 (~06:10 UTC, arena/e0d92902-prod2): morning observations appended — all five links resolved to their register ASINs, no tag=; intent fields untouched."
   },
   "links": [
     {
@@ -62,6 +63,12 @@
           "final_url_without_query": "https://www.amazon.com/",
           "note": "R-01 re-read: landed on the Amazon homepage, not the listing; fetch tool, attempt 2. Does not match intended ASIN; see F-P24.",
           "record": "data/p2/verification-2026-11-20.json#r01_reread_2026_11_20"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
+          "note": "~06:10 UTC (e0d92902): resolved to the register ASIN; Amazon product-summary landing (lv=shuf); no tag= — a successful resolution same morning later passes saw homepage outcomes (F-P24/F-P27).",
+          "record": "data/p2/verification-2026-11-20.json (sessions.e0d92902)"
         }
       ]
     },
@@ -107,6 +114,12 @@
           "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R",
           "note": "R-01 re-read: resolved to the intended ASIN; fetch tool, attempt 1.",
           "record": "data/p2/verification-2026-11-20.json#r01_reread_2026_11_20"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R",
+          "note": "~06:10 UTC (e0d92902): resolved to the register ASIN; title identical to the 2026-11-19 observed string (register name still differs — F-44/F-66); no tag= (F-P24/F-P27 context).",
+          "record": "data/p2/verification-2026-11-20.json (sessions.e0d92902)"
         }
       ]
     },
@@ -152,6 +165,12 @@
           "final_url_without_query": "https://www.amazon.com/",
           "note": "R-01 re-read (single read): landed on the Amazon homepage, not the listing. Does not match intended ASIN; see F-P24, F-P27. An earlier same-day note of HTTP 500 for this link was not reproduced in the R-01 read and is not relied on.",
           "record": "data/p2/verification-2026-11-20.json#r01_reread_2026_11_20"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH",
+          "note": "~06:10 UTC (e0d92902): resolved to the register ASIN; title matches register; no tag= (F-P24/F-P27 context).",
+          "record": "data/p2/verification-2026-11-20.json (sessions.e0d92902)"
         }
       ]
     },
@@ -191,6 +210,12 @@
           "final_url_without_query": "https://www.amazon.com/",
           "note": "R-01 re-read: landed on the Amazon homepage, not the listing; fetch tool, attempt 2. Does not match intended ASIN; see F-P24.",
           "record": "data/p2/verification-2026-11-20.json#r01_reread_2026_11_20"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B0DHZTCNR5",
+          "note": "~06:10 UTC (e0d92902): resolved to the register ASIN; title matches register; no tag= (F-P24/F-P27 context).",
+          "record": "data/p2/verification-2026-11-20.json (sessions.e0d92902)"
         }
       ]
     },
@@ -224,6 +249,12 @@
           "final_url_without_query": "https://www.amazon.com/",
           "note": "R-01 re-read (single read): landed on the Amazon homepage, not the listing. Does not match intended ASIN; see F-P24, F-P27. An earlier same-day note of HTTP 500 for this link was not reproduced in the R-01 read and is not relied on.",
           "record": "data/p2/verification-2026-11-20.json#r01_reread_2026_11_20"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B0DZFD6R9Z",
+          "note": "~06:10 UTC (e0d92902): resolved to the register ASIN; title matches register (3-probe Gen3); no tag= (F-P24/F-P27 context).",
+          "record": "data/p2/verification-2026-11-20.json (sessions.e0d92902)"
         }
       ]
     }

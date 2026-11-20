@@ -1527,4 +1527,21 @@ VERIFY OK 18 pages · `npm test` 3/3 · `git status --porcelain` empty.
   committed source, not built output). Until then the gate runs in the deploy workflow
   (`.github/workflows/pages.yml`, uncontested) and in `npm test`, so it is enforced on every push to
   `main` — it is only *not* enforced on a branch push or a PR without #35's change.
+# Session record — arena/e0d92902-prod2 (2026-11-20 handoff takeover + redirect/compliance re-verification)
 
+| Item | Value |
+| --- | --- |
+| Branch | `arena/e0d92902-prod2`, initially from `f6e772f`, re-based (reset + re-apply) onto consolidated `1e1e77e` (PRs #29–#36) |
+| Takeover | PR #23 (arena/5e692632-prod2, last commit 2026-11-19 21:51 UTC) and PR #25 (arena/b650562d-prod2, last commit 2026-11-19 22:11 UTC) — both stale >8 h; per the >60-minute handoff rule this session integrated them |
+| First-of-project event | Same-day live fetch of amazon.com / affiliate-program.amazon.com / sell.amazon.com / ftc.gov (prior sessions' sandboxes could not reach these; F-P18 recorded the same resolution from the listing-content side) |
+| Verification evidence | `data/p2/verification-2026-11-20.json` → `sessions.e0d92902` (redirect observations for all five links: resolved ASINs, page titles verbatim, no `tag=` on any resolved URL — F-03 stands; compliance re-reads with quoted strings); dated 2026-11-20 rows in `data/p2/intent-links.json` observed_redirect_history; S-ASIN/S-HELP/S-FTC2 read dates in `data/p2/sources.json` |
+| Adopted from PR #23 | The Start-here path concept — **superseded, not applied**: main's newer index already ships "Start with the question you have" (PR #29/#34), the same idea in a newer implementation. The `.start-here`/`.steps` css from #23 is therefore not carried; nothing else in #23 was unique (its SG-27..30 rows landed via PR #27; its suggestions were fully subsumed) |
+| Adopted from PR #25 | Three guides (guide-dual-vs-single, guide-probe-in-air-fryer, guide-air-fryer-gift — clustered in calendar.json, sitemap + feed), analysis.html + design-prompt.html decision surfaces, registers decision-priority/design-prompts/verification-log, Q-P10..Q-P13 + Q-P15..Q-P21 + Q-P22 (renumbered) and SG-18..SG-26 rows, the editorial voice-lint gate, settings-derived disclosure in checks.py, read-date chips + "See it on Amazon" wording in the products table, guide read-time stats, extended hook_questions fields |
+| Not adopted (queued, review-gated) | PR #25's mobile compare bar (SG-23 stays proposed; powering site.js delta stays on its branch), its portal-v2 board hooks for questions/suggestions, its replacement titles for guide-how-many-quarts / guide-two-baskets-or-one (main keeps both; dual-vs-single is differentiated by its capacity-math angle) |
+| Conflicts resolved at source | analysis.html "no popularity badges" rewording (banned-claim quote, main's stricter claims gate); Q-P20 default reworded to satisfy the shop gate's no-hands-on-claim rule (D-06); Q-P14→Q-P22, D-P10→D-P16 renumbering; verification-2026-11-20.json unioned (session sections, original content unchanged); F-P07 resolved with the redirect evidence |
+| Register rename | The handoff ledger `verification-log.json` was renamed `verification_log.json` (underscore): PRs #55/#57 added an integrity gate that treats `verification-*.json` as dated verification records requiring a date in the filename; this ledger is a standing log, not a dated record. `tools/build.py` load + the analysis page link updated |
+| Gates at record time | `tools/build.py` 32 pages · `tools/checks.py` ALL CHECKS PASSED (14 sections incl. new `editorial`) · `scripts/verify_site.py` VERIFY OK · `npm test` 2/2 |
+| Docs synced | README.md, ENGINE.md, DECISIONS.md, EXECUTIVE_SUMMARY.md, `data/p2/decisions.json` (D-P16) |
+| PR | (recorded after opening) |
+| Merge result | (recorded after merge) |
+| Pages deploy | (recorded after deploy check) |

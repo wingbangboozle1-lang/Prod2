@@ -1,318 +1,331 @@
 {
- "_meta": {
-  "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
-  "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded."
- },
- "decisions": [
-  {
-   "id": "D-01",
-   "question": "Regenerate the product links under tracking ID shopnow047c-20 as tagged Special Links?",
-   "status": "Recorded (carried 2026-11-17)",
-   "recorded_choice": "Option A with the verification gate kept: outbound product links are published as tagged Special Links https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20 — final destination URL, tag as parameter, no shortener. Attribution stays 'pending confirmation' until the Associates Central one-link-per-product test passes (F-57/F-58). The supplied short links stay recorded and unjudged (FLG-003 unresolved).",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/agreement"
-   ]
+  "_meta": {
+    "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
+    "updated_utc": "2026-11-20",
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): D-P22 row corrected for the collision renumbering (its range reference covered rows that landed renumbered) and marked executed by PR #41; the duplicate integration decision drafted by this session was dropped in favour of D-P22."
   },
-  {
-   "id": "D-05",
-   "question": "Should product links carry rel=\"sponsored\"?",
-   "status": "Recorded (carried 2026-11-16)",
-   "recorded_choice": "Yes. Every paid link carries rel=\"sponsored\" (plus nofollow noopener) without replacing the required disclosure sentence, per Google's outbound-link guidance.",
-   "sources": [
-    "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
-   ]
-  },
-  {
-   "id": "D-06",
-   "question": "Will any product be hands-on tested, or is this a specification publication?",
-   "status": "Recorded (carried 2026-11-16) — not adopted as hands-on",
-   "recorded_choice": "Specification publication until real usage exists (see suggestion SG-07). The site states what listings say and what they do not say; it never simulates experience.",
-   "sources": [
-    "https://developers.google.com/search/docs/essentials/spam-policies"
-   ]
-  },
-  {
-   "id": "D-12",
-   "question": "Should the copy take positions or stay strictly descriptive?",
-   "status": "Recorded (carried 2026-11-16)",
-   "recorded_choice": "Option A: the copy may conclude, rank within verified facts and address the reader directly, while every factual claim resolves to a sourced fact row. This voice pass follows that rule.",
-   "sources": [
-    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-   ]
-  },
-  {
-   "id": "D-14",
-   "question": "Which marketplace and tracking ID receive purchases?",
-   "status": "Recorded (carried 2026-11-17)",
-   "recorded_choice": "US storefront (www.amazon.com, where all canonical listings resolve) and tracking ID shopnow047c-20 (owner-supplied; ends in -20 as US Store IDs do). Registration and report attribution confirmed only inside Associates Central; until then the site publishes the links but claims no attributed click or order.",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/policies"
-   ]
-  },
-  {
-   "id": "D-17",
-   "question": "Which topics does the content program publish first?",
-   "status": "Recorded (carried 2026-11-16)",
-   "recorded_choice": "Format-first question guides: basket vs oven style; capacity checklist; cleanup and counter-space trade-offs; questions before buying a multi-function appliance. These are working titles, not claims about popularity or product superiority.",
-   "sources": [
-    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-   ]
-  },
-  {
-   "id": "D-18",
-   "question": "Which visual direction and brand name should the site adopt?",
-   "status": "Recorded (carried 2026-11-16)",
-   "recorded_choice": "Option A: warm editorial (kitchen-magazine: serif display, warm palette, story-led hero). Brand: the project's established name, no new trade name while name clearance (Q-19) is open. Ported to this project as D-P03.",
-   "sources": [
-    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
-    "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
-   ]
-  },
-  {
-   "id": "D-19",
-   "question": "What evidence rule governs 'trending' and popularity claims?",
-   "status": "Recorded (carried 2026-11-16)",
-   "recorded_choice": "Option A: a popularity claim is allowed only as a dated snapshot of an official page; otherwise evergreen or calendar-based framing. Written into the copy rules and enforced by checks.",
-   "sources": [
-    "https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011"
-   ]
-  },
-  {
-   "id": "D-21",
-   "question": "Keep the editorial front page or revert to dashboard styling?",
-   "status": "Recorded (carried 2026-11-16)",
-   "recorded_choice": "Editorial front page: hero, featured guides, category tiles, then the data. Every dashboard surface stays reachable from the footer and one navigation group.",
-   "sources": [
-    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-   ]
-  },
-  {
-   "id": "D-22",
-   "question": "Where will product photography come from?",
-   "status": "Open (carried 2026-11-16) — needs owner answer",
-   "recorded_choice": "Not yet decided. Options carried from the source register: (A) photograph the actual units, (B) use images served through approved Amazon tools once the account is confirmed, (C) stay text-first. Interim posture on this build: text-first — no product photography is published (illustrations only), because generated or copied photography of a specific product would be a fabricated claim about that product.",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/agreement",
-    "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
-   ]
-  },
-  {
-   "id": "D-23",
-   "question": "Build the three-question 'which one is for you' chooser?",
-   "status": "Recorded (carried 2026-11-16)",
-   "recorded_choice": "Option A: built from published listed values only (capacity, dimensions, format), with the reasoning shown and sources linked.",
-   "sources": [
-    "https://www.amazon.com/dp/B0CDY277D3"
-   ]
-  },
-  {
-   "id": "D-26",
-   "question": "Publish the counter-space analysis (capacity per unit of counter depth)?",
-   "status": "Recorded (carried 2026-11-16)",
-   "recorded_choice": "Yes — published with the formula shown and each input linked to its listing row.",
-   "sources": [
-    "https://www.amazon.com/dp/B0CDY277D3"
-   ]
-  },
-  {
-   "id": "D-27",
-   "question": "Standing internal-linking rule on every article?",
-   "status": "Recorded (carried 2026-11-16)",
-   "recorded_choice": "Yes: every article reaches the comparison, the buying guide and its category pillar. Links must not obscure where they go (Participation Requirements 6(v)/(w)).",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/policies"
-   ]
-  },
-  {
-   "id": "D-P01",
-   "question": "Should the two newly resolved thermometer products join the air-fryer catalog on this site?",
-   "status": "Recorded 2026-11-19",
-   "recorded_choice": "Yes. The owner's brief lists all five links as products to market; P4/P5 resolved to meat thermometers on 2026-11-19. The publication organizes by format under one kitchen theme — countertop cooking and doneness tools — with the thermometers in their own category so nobody lands on the wrong shelf.",
-   "sources": [
-    "https://www.amazon.com/dp/B0DHZTCNR5",
-    "https://www.amazon.com/dp/B0DZFD6R9Z"
-   ]
-  },
-  {
-   "id": "D-P02",
-   "question": "Does the 2026-11-19 verification resolve F-55 (two unverified candidate links)?",
-   "status": "Recorded 2026-11-19",
-   "recorded_choice": "Yes, with the caveat that 'resolved' means destination-verified and listing-read — it does not mean tag-attributed (F-57/F-58 remain open) and it does not judge the supplied short links (FLG-003 unresolved).",
-   "sources": [
-    "https://www.amazon.com/dp/B0DHZTCNR5",
-    "https://www.amazon.com/dp/B0DZFD6R9Z"
-   ]
-  },
-  {
-   "id": "D-P03",
-   "question": "What wordmark ships on this build?",
-   "status": "Recorded 2026-11-19",
-   "recorded_choice": "'Prod2' with the descriptor 'Kitchen notes & buying guides' — the project's established name, mirroring the carried D-18 rationale (no new trade name while Q-19 is open). A consumer-facing rename is queued as SG-01.",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/policies"
-   ]
-  },
-  {
-   "id": "D-P04",
-   "question": "How is the site built and gated?",
-   "status": "Recorded 2026-11-19",
-   "recorded_choice": "Static site under docs/ rendered by tools/build.py from data/*.json and content/ fragments; tools/checks.py is the publish gate (disclosure, sponsored links, unique titles/meta, sourced facts, no broken links, sitemap/feed integrity) and runs from a clean checkout with stdlib Python only.",
-   "sources": []
-  },
-  {
-   "id": "D-P05",
-   "question": "Which events does measurement record?",
-   "status": "Recorded 2026-11-19",
-   "recorded_choice": "Two defined sets, never mixed: (1) the campaign ledger's five events — impression, click, session, order, refund — with the Commission Income Statement attribution windows, filled only from authorized first-party reports; (2) the site endpoint's five local events — page_view, outbound_click, guide_read_75, category_click, feed_click — counts only, no visitor data. No conversion score or revenue forecast is published anywhere.",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
-   ]
-  },
-  {
-   "id": "D-P06",
-   "question": "What is the outbound link form for the two newly verified products (P4/P5)?",
-   "status": "Recorded 2026-11-19",
-   "recorded_choice": "Same form as P1-P3: tagged Special Link https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20 with rel=\"sponsored\" and the (paid link) label, destination-verified 2026-11-19; attribution pending F-57/F-58.",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/policies"
-   ]
-  },
-  {
-   "id": "D-P07",
-   "question": "What does the 2026-11-19 publication pass ('read like a shop, not an audit; read like a publication') ship?",
-   "status": "Recorded 2026-11-19",
-   "recorded_choice": "The owner brief is the decision. Ship: a shop-first front page (product cards before the data), a guides hub, three new question-shaped guides completing the eight-topic calendar, seasonal desks and content clusters with a 14-day cadence, cleaner reader nav labels, RSS subscribe affordances, Search Console readiness, and a consent-gated reader-question form. Dashboards stay reachable from the footer and the single 'The work behind it' nav group. Every governance surface, gate and compliance rule is unchanged: disclosure above the fold, rel=sponsored tagged Special Links, no prices or ratings, sourced facts only.",
-   "sources": [
-    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
-    "https://affiliate-program.amazon.com/help/operating/policies"
-   ]
-  },
-  {
-   "id": "D-P08",
-   "question": "Does the reader-capture form collect anything now?",
-   "status": "Recorded 2026-11-19",
-   "recorded_choice": "No. The form ships but sends nothing: the consent basis for collecting an email (Q-47) is unsettled and no endpoint is configured. A typed question stays in the visitor's own browser. The form activates only after the owner settles the consent text and sets settings.reader_capture.endpoint (F-P07).",
-   "sources": [
-    "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
-   ]
-  },
-  {
-   "id": "D-P09",
-   "question": "Is Google Search Console verified for this property?",
-   "status": "Recorded 2026-11-19",
-   "recorded_choice": "Not yet - verification needs the owner's Google account (Q-P05). The readiness work ships now: sitemap, robots.txt Sitemap line, RSS feed, canonical URLs, unique titles and meta descriptions, and a verification-token slot in settings.json. Owner checklist on the measurement page (F-P06).",
-   "sources": [
-    "https://developers.google.com/search/docs/appearance/google-search-console"
-   ]
-  },
-  {
-   "id": "D-P10",
-   "question": "How should the 2026-11-20 design pass rebuild the reader-facing site so it reads like a shop rather than an audit?",
-   "status": "Recorded 2026-11-20",
-   "recorded_choice": "The owner brief is the decision. Ship: a new editorial shop design system (warm paper, product photography replaced by drawn format illustrations, a shelf of product cards with a best-for line and a buy button), a front page that leads with the products and only then the method, a new shop.html shelf with format and category filters plus a three-question chooser, a new about.html carrying authorship and the four editorial rules, a reader nav cut from eleven links to six with every dashboard surface moved to the footer directory, and a release gate extended to fail the build if the shelf, the imagery, the About page or the nav budget regresses. Unchanged: disclosure above the fold, rel=sponsored tagged Special Links, no published prices or ratings, sourced facts only.",
-   "sources": [
-    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
-    "https://affiliate-program.amazon.com/help/operating/agreement",
-    "https://affiliate-program.amazon.com/help/operating/policies"
-   ]
-  },
-  {
-   "id": "D-P11",
-   "question": "Does the Program Policies text permit the dated-snapshot price policy proposed in SG-05?",
-   "status": "Recorded 2026-11-20",
-   "recorded_choice": "No. Program Policies 2(b) (updated 2026-04-14, read 2026-11-20) permits a site to show prices and availability only if (a) Amazon serves the link in which that data is displayed, or (b) the data comes through the Creators API or PA API under the License. A dated snapshot recorded by the site is neither, so prices stay unpublished and SG-05 is answered in the negative. This converts a previously cautious choice into a policy-required one. Q-27 is closed by the same reading.",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/policies"
-   ]
-  },
-  {
-   "id": "D-P12",
-   "question": "Should product imagery be copied from the Amazon listings?",
-   "status": "Recorded 2026-11-20",
-   "recorded_choice": "No. The site uses illustrations drawn for it, generic to the format rather than the specific model, each captioned 'illustration, not the product photo'. Rationale: Amazon product imagery is Program Content under the Agreement and its use is conditioned on the IP Licence; no licence review has been completed (Q-P05). Drawn illustrations carry no such condition and are honest about what they show. If the licence review later permits listing imagery, that is a separate decision with the licence cited.",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/agreement",
-    "https://affiliate-program.amazon.com/help/operating/policies"
-   ]
-  },
-  {
-   "id": "D-P13",
-   "question": "Which disclosure sentence should the site publish, given section 5 of the Operating Agreement?",
-   "status": "Recorded 2026-11-20",
-   "recorded_choice": "Adopt the prescribed first-person form, 'As an Amazon Associate I earn from qualifying purchases.' Section 5 (page updated 2025-10-15, read 2026-11-20) prescribes that sentence and permits 'any substantially similar statement previously allowed', so the earlier 'we earn' wording was arguably compliant; the prescribed form removes the doubt, and section 6(a) makes a violation of section 5 a material breach. The sentence appears under the masthead on every page and repeats in the footer.",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/agreement"
-   ]
-  },
-  {
-   "id": "D-P14",
-   "question": "Should the safe-temperature guidance in the thermometer guide come from USDA or from the listings?",
-   "status": "Recorded 2026-11-20",
-   "recorded_choice": "USDA and FoodSafety.gov. The listings state instrument accuracy; they do not state what a cook is aiming for. The guide now publishes the official safe minimum internal temperatures with rest times, plus the cold-storage and power-outage limits, each sourced to the government page and its stated last-reviewed date. Values are quoted, never reinterpreted. This gives a reader an independent reason to care about accuracy rather than a restatement of a marketing claim.",
-   "sources": [
-    "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
-    "https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts",
-    "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage"
-   ]
-  },
-  {
-   "id": "D-P15",
-   "question": "Should this pass fix the site/endpoint event-vocabulary mismatch, or publish it?",
-   "status": "Recorded 2026-11-20",
-   "recorded_choice": "Publish it. F-P23 and Q-P14 record the mismatch and the recommended fix (extend server.mjs), but no event names were changed in this pass. Choosing the vocabulary changes what the site is allowed to claim about its own measurement, and that is an owner decision even though the code change is small.",
-   "rationale": "The endpoint is not hosted, so nothing is being mis-measured today. Silently aligning the lists would have made two independently-written components look like they had always agreed — and the brief asks for irregularities to be surfaced, not smoothed.",
-   "sources": [
-    "https://affiliate-program.amazon.com/help/operating/policies"
-   ]
-  },
-  {
-   "id": "D-P18",
-   "question": "What consumer-facing brand ships on the reader-facing site while formal clearance (Q-19) is open?",
-   "status": "Recorded 2026-11-20 (owner standing directive)",
-   "recorded_choice": "Adopt the design brief's brand “The Crisp Counter” as the WORKING wordmark — masthead, page titles, JSON-LD, feed, OG card — replacing the repository codename 'Prod2' on reader-facing surfaces. Basis: the owner's 2026-11-20 directive that the site read as a polished branded publication rather than generated output, and the adopted warm-editorial brief which already carried this name. A preliminary name search (2026-11-20) found no conflicting kitchen-appliance brand in the first page of results; a formal trademark clearance has NOT been performed and stays open as Q-19 with flag F-P15. Reversal is one line in data/p2/settings.json plus a rebuild.",
-   "sources": [
-    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md",
-    "https://tmsearch.uspto.gov/"
-   ]
-  },
-  {
-   "id": "D-P19",
-   "question": "Do the design brief's typefaces ship, and by what mechanism? (implements SG-15/SG-16/SG-33)",
-   "status": "Recorded 2026-11-20",
-   "recorded_choice": "Ship Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) as self-hosted latin-subset woff2 files in assets/fonts/ (SIL Open Font License 1.1; license files committed beside the fonts; font-display: swap; no third-party font requests, preserving the send-nothing privacy posture). Conform the theme tokens to the brief in the same pass: card radius 8px, amber token for unverified states, 44px minimum tap targets on mobile, sticky comparison anchor bar on ≤60rem viewports, focus-visible outlines.",
-   "sources": [
-    "https://fonts.google.com/specimen/Fraunces",
-    "https://fonts.google.com/specimen/Inter",
-    "https://github.com/undercasetype/Fraunces",
-    "https://github.com/rsms/inter",
-    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md"
-   ]
-  },
-  {
-   "id": "D-P20",
-   "question": "What publishes in the December gifting window, and on what evidence?",
-   "status": "Recorded 2026-11-20 (editorial hypothesis per D-19)",
-   "recorded_choice": "Open the gifting window with guide-gift-guide.html (“Gift guide: which of the five fits which cook?”) built only from the verified register's listed specs (re-read 2026-11-20), and extend the queue with four hypothesis slots (slots 6-9) tied to the calendar: party-day batch math, a 26-quart measuring walkthrough, basket materials for spring cleanup, and a thermometer-listing jargon decode. No popularity, search-volume or superiority claims anywhere — the claims gate enforces D-19. Measured queries take over selection once the SG-06 gate and 14 days of data exist (SG-34).",
-   "sources": [
-    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
-    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json"
-   ]
-  },
-  {
-   "id": "D-P21",
-   "question": "Which event vocabulary is authoritative when the site's client and the collector disagree?",
-   "status": "Recorded 2026-11-20",
-   "recorded_choice": "The site's five documented events (page_view, outbound_click, guide_read_75, category_click, feed_click) are authoritative, because they are the published contract in data/p2/events.json and the ones the reader-facing measurement page describes. The collector was changed to accept them, not the reverse: renaming the site's events to fit the endpoint would have made the published register wrong. The collector keeps its older Countercraft names as additional accepted values so no existing client breaks.",
-   "rationale": "Flags F-P23 and Q-P14 recorded a silent 400 on three of five events. Publishing a measurement page while the receiving endpoint drops the majority of events is a correctness defect, not a style choice, so it is fixed rather than merely disclosed.",
-   "sources": [
-    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs"
-   ],
-   "affects": [
-    "F-P23",
-    "Q-P14",
-    "SG-41"
-   ]
-  }
- ]
+  "decisions": [
+    {
+      "id": "D-01",
+      "question": "Regenerate the product links under tracking ID shopnow047c-20 as tagged Special Links?",
+      "status": "Recorded (carried 2026-11-17)",
+      "recorded_choice": "Option A with the verification gate kept: outbound product links are published as tagged Special Links https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20 — final destination URL, tag as parameter, no shortener. Attribution stays 'pending confirmation' until the Associates Central one-link-per-product test passes (F-57/F-58). The supplied short links stay recorded and unjudged (FLG-003 unresolved).",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/agreement"
+      ]
+    },
+    {
+      "id": "D-05",
+      "question": "Should product links carry rel=\"sponsored\"?",
+      "status": "Recorded (carried 2026-11-16)",
+      "recorded_choice": "Yes. Every paid link carries rel=\"sponsored\" (plus nofollow noopener) without replacing the required disclosure sentence, per Google's outbound-link guidance.",
+      "sources": [
+        "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+      ]
+    },
+    {
+      "id": "D-06",
+      "question": "Will any product be hands-on tested, or is this a specification publication?",
+      "status": "Recorded (carried 2026-11-16) — not adopted as hands-on",
+      "recorded_choice": "Specification publication until real usage exists (see suggestion SG-07). The site states what listings say and what they do not say; it never simulates experience.",
+      "sources": [
+        "https://developers.google.com/search/docs/essentials/spam-policies"
+      ]
+    },
+    {
+      "id": "D-12",
+      "question": "Should the copy take positions or stay strictly descriptive?",
+      "status": "Recorded (carried 2026-11-16)",
+      "recorded_choice": "Option A: the copy may conclude, rank within verified facts and address the reader directly, while every factual claim resolves to a sourced fact row. This voice pass follows that rule.",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      ]
+    },
+    {
+      "id": "D-14",
+      "question": "Which marketplace and tracking ID receive purchases?",
+      "status": "Recorded (carried 2026-11-17)",
+      "recorded_choice": "US storefront (www.amazon.com, where all canonical listings resolve) and tracking ID shopnow047c-20 (owner-supplied; ends in -20 as US Store IDs do). Registration and report attribution confirmed only inside Associates Central; until then the site publishes the links but claims no attributed click or order.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "D-17",
+      "question": "Which topics does the content program publish first?",
+      "status": "Recorded (carried 2026-11-16)",
+      "recorded_choice": "Format-first question guides: basket vs oven style; capacity checklist; cleanup and counter-space trade-offs; questions before buying a multi-function appliance. These are working titles, not claims about popularity or product superiority.",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      ]
+    },
+    {
+      "id": "D-18",
+      "question": "Which visual direction and brand name should the site adopt?",
+      "status": "Recorded (carried 2026-11-16)",
+      "recorded_choice": "Option A: warm editorial (kitchen-magazine: serif display, warm palette, story-led hero). Brand: the project's established name, no new trade name while name clearance (Q-19) is open. Ported to this project as D-P03.",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ]
+    },
+    {
+      "id": "D-19",
+      "question": "What evidence rule governs 'trending' and popularity claims?",
+      "status": "Recorded (carried 2026-11-16)",
+      "recorded_choice": "Option A: a popularity claim is allowed only as a dated snapshot of an official page; otherwise evergreen or calendar-based framing. Written into the copy rules and enforced by checks.",
+      "sources": [
+        "https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011"
+      ]
+    },
+    {
+      "id": "D-21",
+      "question": "Keep the editorial front page or revert to dashboard styling?",
+      "status": "Recorded (carried 2026-11-16)",
+      "recorded_choice": "Editorial front page: hero, featured guides, category tiles, then the data. Every dashboard surface stays reachable from the footer and one navigation group.",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      ]
+    },
+    {
+      "id": "D-22",
+      "question": "Where will product photography come from?",
+      "status": "Open (carried 2026-11-16) — needs owner answer",
+      "recorded_choice": "Not yet decided. Options carried from the source register: (A) photograph the actual units, (B) use images served through approved Amazon tools once the account is confirmed, (C) stay text-first. Interim posture on this build: text-first — no product photography is published (illustrations only), because generated or copied photography of a specific product would be a fabricated claim about that product.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/agreement",
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ]
+    },
+    {
+      "id": "D-23",
+      "question": "Build the three-question 'which one is for you' chooser?",
+      "status": "Recorded (carried 2026-11-16)",
+      "recorded_choice": "Option A: built from published listed values only (capacity, dimensions, format), with the reasoning shown and sources linked.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ]
+    },
+    {
+      "id": "D-26",
+      "question": "Publish the counter-space analysis (capacity per unit of counter depth)?",
+      "status": "Recorded (carried 2026-11-16)",
+      "recorded_choice": "Yes — published with the formula shown and each input linked to its listing row.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ]
+    },
+    {
+      "id": "D-27",
+      "question": "Standing internal-linking rule on every article?",
+      "status": "Recorded (carried 2026-11-16)",
+      "recorded_choice": "Yes: every article reaches the comparison, the buying guide and its category pillar. Links must not obscure where they go (Participation Requirements 6(v)/(w)).",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "D-P01",
+      "question": "Should the two newly resolved thermometer products join the air-fryer catalog on this site?",
+      "status": "Recorded 2026-11-19",
+      "recorded_choice": "Yes. The owner's brief lists all five links as products to market; P4/P5 resolved to meat thermometers on 2026-11-19. The publication organizes by format under one kitchen theme — countertop cooking and doneness tools — with the thermometers in their own category so nobody lands on the wrong shelf.",
+      "sources": [
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ]
+    },
+    {
+      "id": "D-P02",
+      "question": "Does the 2026-11-19 verification resolve F-55 (two unverified candidate links)?",
+      "status": "Recorded 2026-11-19",
+      "recorded_choice": "Yes, with the caveat that 'resolved' means destination-verified and listing-read — it does not mean tag-attributed (F-57/F-58 remain open) and it does not judge the supplied short links (FLG-003 unresolved).",
+      "sources": [
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ]
+    },
+    {
+      "id": "D-P03",
+      "question": "What wordmark ships on this build?",
+      "status": "Recorded 2026-11-19",
+      "recorded_choice": "'Prod2' with the descriptor 'Kitchen notes & buying guides' — the project's established name, mirroring the carried D-18 rationale (no new trade name while Q-19 is open). A consumer-facing rename is queued as SG-01.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "D-P04",
+      "question": "How is the site built and gated?",
+      "status": "Recorded 2026-11-19",
+      "recorded_choice": "Static site under docs/ rendered by tools/build.py from data/*.json and content/ fragments; tools/checks.py is the publish gate (disclosure, sponsored links, unique titles/meta, sourced facts, no broken links, sitemap/feed integrity) and runs from a clean checkout with stdlib Python only.",
+      "sources": []
+    },
+    {
+      "id": "D-P05",
+      "question": "Which events does measurement record?",
+      "status": "Recorded 2026-11-19",
+      "recorded_choice": "Two defined sets, never mixed: (1) the campaign ledger's five events — impression, click, session, order, refund — with the Commission Income Statement attribution windows, filled only from authorized first-party reports; (2) the site endpoint's five local events — page_view, outbound_click, guide_read_75, category_click, feed_click — counts only, no visitor data. No conversion score or revenue forecast is published anywhere.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+      ]
+    },
+    {
+      "id": "D-P06",
+      "question": "What is the outbound link form for the two newly verified products (P4/P5)?",
+      "status": "Recorded 2026-11-19",
+      "recorded_choice": "Same form as P1-P3: tagged Special Link https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20 with rel=\"sponsored\" and the (paid link) label, destination-verified 2026-11-19; attribution pending F-57/F-58.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "D-P07",
+      "question": "What does the 2026-11-19 publication pass ('read like a shop, not an audit; read like a publication') ship?",
+      "status": "Recorded 2026-11-19",
+      "recorded_choice": "The owner brief is the decision. Ship: a shop-first front page (product cards before the data), a guides hub, three new question-shaped guides completing the eight-topic calendar, seasonal desks and content clusters with a 14-day cadence, cleaner reader nav labels, RSS subscribe affordances, Search Console readiness, and a consent-gated reader-question form. Dashboards stay reachable from the footer and the single 'The work behind it' nav group. Every governance surface, gate and compliance rule is unchanged: disclosure above the fold, rel=sponsored tagged Special Links, no prices or ratings, sourced facts only.",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "D-P08",
+      "question": "Does the reader-capture form collect anything now?",
+      "status": "Recorded 2026-11-19",
+      "recorded_choice": "No. The form ships but sends nothing: the consent basis for collecting an email (Q-47) is unsettled and no endpoint is configured. A typed question stays in the visitor's own browser. The form activates only after the owner settles the consent text and sets settings.reader_capture.endpoint (F-P07).",
+      "sources": [
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ]
+    },
+    {
+      "id": "D-P09",
+      "question": "Is Google Search Console verified for this property?",
+      "status": "Recorded 2026-11-19",
+      "recorded_choice": "Not yet - verification needs the owner's Google account (Q-P05). The readiness work ships now: sitemap, robots.txt Sitemap line, RSS feed, canonical URLs, unique titles and meta descriptions, and a verification-token slot in settings.json. Owner checklist on the measurement page (F-P06).",
+      "sources": [
+        "https://developers.google.com/search/docs/appearance/google-search-console"
+      ]
+    },
+    {
+      "id": "D-P10",
+      "question": "How should the 2026-11-20 design pass rebuild the reader-facing site so it reads like a shop rather than an audit?",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "The owner brief is the decision. Ship: a new editorial shop design system (warm paper, product photography replaced by drawn format illustrations, a shelf of product cards with a best-for line and a buy button), a front page that leads with the products and only then the method, a new shop.html shelf with format and category filters plus a three-question chooser, a new about.html carrying authorship and the four editorial rules, a reader nav cut from eleven links to six with every dashboard surface moved to the footer directory, and a release gate extended to fail the build if the shelf, the imagery, the About page or the nav budget regresses. Unchanged: disclosure above the fold, rel=sponsored tagged Special Links, no published prices or ratings, sourced facts only.",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+        "https://affiliate-program.amazon.com/help/operating/agreement",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "D-P11",
+      "question": "Does the Program Policies text permit the dated-snapshot price policy proposed in SG-05?",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "No. Program Policies 2(b) (updated 2026-04-14, read 2026-11-20) permits a site to show prices and availability only if (a) Amazon serves the link in which that data is displayed, or (b) the data comes through the Creators API or PA API under the License. A dated snapshot recorded by the site is neither, so prices stay unpublished and SG-05 is answered in the negative. This converts a previously cautious choice into a policy-required one. Q-27 is closed by the same reading.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "D-P12",
+      "question": "Should product imagery be copied from the Amazon listings?",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "No. The site uses illustrations drawn for it, generic to the format rather than the specific model, each captioned 'illustration, not the product photo'. Rationale: Amazon product imagery is Program Content under the Agreement and its use is conditioned on the IP Licence; no licence review has been completed (Q-P05). Drawn illustrations carry no such condition and are honest about what they show. If the licence review later permits listing imagery, that is a separate decision with the licence cited.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/agreement",
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "D-P13",
+      "question": "Which disclosure sentence should the site publish, given section 5 of the Operating Agreement?",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "Adopt the prescribed first-person form, 'As an Amazon Associate I earn from qualifying purchases.' Section 5 (page updated 2025-10-15, read 2026-11-20) prescribes that sentence and permits 'any substantially similar statement previously allowed', so the earlier 'we earn' wording was arguably compliant; the prescribed form removes the doubt, and section 6(a) makes a violation of section 5 a material breach. The sentence appears under the masthead on every page and repeats in the footer.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/agreement"
+      ]
+    },
+    {
+      "id": "D-P14",
+      "question": "Should the safe-temperature guidance in the thermometer guide come from USDA or from the listings?",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "USDA and FoodSafety.gov. The listings state instrument accuracy; they do not state what a cook is aiming for. The guide now publishes the official safe minimum internal temperatures with rest times, plus the cold-storage and power-outage limits, each sourced to the government page and its stated last-reviewed date. Values are quoted, never reinterpreted. This gives a reader an independent reason to care about accuracy rather than a restatement of a marketing claim.",
+      "sources": [
+        "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+        "https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts",
+        "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage"
+      ]
+    },
+    {
+      "id": "D-P15",
+      "question": "Should this pass fix the site/endpoint event-vocabulary mismatch, or publish it?",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "Publish it. F-P23 and Q-P14 record the mismatch and the recommended fix (extend server.mjs), but no event names were changed in this pass. Choosing the vocabulary changes what the site is allowed to claim about its own measurement, and that is an owner decision even though the code change is small.",
+      "rationale": "The endpoint is not hosted, so nothing is being mis-measured today. Silently aligning the lists would have made two independently-written components look like they had always agreed — and the brief asks for irregularities to be surfaced, not smoothed.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "D-P18",
+      "question": "What consumer-facing brand ships on the reader-facing site while formal clearance (Q-19) is open?",
+      "status": "Recorded 2026-11-20 (owner standing directive)",
+      "recorded_choice": "Adopt the design brief's brand “The Crisp Counter” as the WORKING wordmark — masthead, page titles, JSON-LD, feed, OG card — replacing the repository codename 'Prod2' on reader-facing surfaces. Basis: the owner's 2026-11-20 directive that the site read as a polished branded publication rather than generated output, and the adopted warm-editorial brief which already carried this name. A preliminary name search (2026-11-20) found no conflicting kitchen-appliance brand in the first page of results; a formal trademark clearance has NOT been performed and stays open as Q-19 with flag F-P15. Reversal is one line in data/p2/settings.json plus a rebuild.",
+      "sources": [
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md",
+        "https://tmsearch.uspto.gov/"
+      ]
+    },
+    {
+      "id": "D-P19",
+      "question": "Do the design brief's typefaces ship, and by what mechanism? (implements SG-15/SG-16/SG-33)",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "Ship Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) as self-hosted latin-subset woff2 files in assets/fonts/ (SIL Open Font License 1.1; license files committed beside the fonts; font-display: swap; no third-party font requests, preserving the send-nothing privacy posture). Conform the theme tokens to the brief in the same pass: card radius 8px, amber token for unverified states, 44px minimum tap targets on mobile, sticky comparison anchor bar on ≤60rem viewports, focus-visible outlines.",
+      "sources": [
+        "https://fonts.google.com/specimen/Fraunces",
+        "https://fonts.google.com/specimen/Inter",
+        "https://github.com/undercasetype/Fraunces",
+        "https://github.com/rsms/inter",
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/DESIGN_PROMPT.md"
+      ]
+    },
+    {
+      "id": "D-P20",
+      "question": "What publishes in the December gifting window, and on what evidence?",
+      "status": "Recorded 2026-11-20 (editorial hypothesis per D-19)",
+      "recorded_choice": "Open the gifting window with guide-gift-guide.html (“Gift guide: which of the five fits which cook?”) built only from the verified register's listed specs (re-read 2026-11-20), and extend the queue with four hypothesis slots (slots 6-9) tied to the calendar: party-day batch math, a 26-quart measuring walkthrough, basket materials for spring cleanup, and a thermometer-listing jargon decode. No popularity, search-volume or superiority claims anywhere — the claims gate enforces D-19. Measured queries take over selection once the SG-06 gate and 14 days of data exist (SG-34).",
+      "sources": [
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json"
+      ]
+    },
+    {
+      "id": "D-P21",
+      "question": "Which event vocabulary is authoritative when the site's client and the collector disagree?",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "The site's five documented events (page_view, outbound_click, guide_read_75, category_click, feed_click) are authoritative, because they are the published contract in data/p2/events.json and the ones the reader-facing measurement page describes. The collector was changed to accept them, not the reverse: renaming the site's events to fit the endpoint would have made the published register wrong. The collector keeps its older Countercraft names as additional accepted values so no existing client breaks.",
+      "rationale": "Flags F-P23 and Q-P14 recorded a silent 400 on three of five events. Publishing a measurement page while the receiving endpoint drops the majority of events is a correctness defect, not a style choice, so it is fixed rather than merely disclosed.",
+      "sources": [
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs"
+      ],
+      "affects": [
+        "F-P23",
+        "Q-P14",
+        "SG-41"
+      ]
+    },
+    {
+      "id": "D-P22",
+      "question": "How is the 2026-11-20 pass (handoff takeover of stale PRs #23/#25 + first same-day live verification) recorded as decisions?",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "Adopted: (a) same-day live verification of all five submitted short links plus compliance pages, recorded in data/p2/verification-2026-11-20.json with dated observations appended to the intent register; (b) PR #25 content union — guides guide-dual-vs-single, guide-probe-in-air-fryer, guide-air-fryer-gift (clustered in calendar.json), analysis.html and design-prompt.html decision surfaces, registers decision-priority/design-prompts/verification-log, question rows (rows 10..21 of the pre-merge register — landed as Q-P12..Q-P13 plus renumbered Q-P22..Q-P32 after ID collisions) and suggestion rows SG-18..SG-26 verbatim, the editorial voice-lint gate, and the settings-derived disclosure sentence in checks.py; (c) PR #23 content union — the Start here path on the front page. Not adopted (queued, review-gated): PR #25 mobile compare bar (SG-23 remains proposed; the site.js delta that powers it stays on that branch), its portal-v2 board hooks for questions/suggestions (main keeps the PR #27 status tables), and its replacement of guide titles for guide-how-many-quarts/guide-two-baskets-or-one (main keeps both; guide-dual-vs-single is differentiated by its capacity-math angle). Conflicts resolved at source without discarding the other sessions' work; their branches remain on the remote.",
+      "sources": [
+        "https://github.com/wingbangboozle1-lang/Prod2/pull/23",
+        "https://github.com/wingbangboozle1-lang/Prod2/pull/25",
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json"
+      ],
+      "renumber_note": "Recorded during the 2026-11-20 merge race (PR #43) for the same handoff integration this session executed (PR #41). The ID this row now carries had been consumed twice earlier that day; the pre-merge chain is visible in the branch history of arena/e0d92902-prod2 and arena/37b265a4-prod2.",
+      "execution_note": "Executed 2026-11-20 by arena/e0d92902-prod2 (PR #41): the pages, guides, registers, question rows and gates described here ship in that merge; the morning redirect observations are in data/p2/verification-2026-11-20.json (sessions.e0d92902) and data/p2/intent-links.json."
+    }
+  ]
 }

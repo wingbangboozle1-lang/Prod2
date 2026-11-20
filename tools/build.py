@@ -40,6 +40,33 @@ DECISIONS = load("decisions.json")["decisions"]
 LEDGER = load("ledger.json")
 EVENTS = load("events.json")
 CALENDAR = load("calendar.json")
+DESIGN = load("design-prompts.json")
+PRIORITY = load("decision-priority.json")
+VERLOG = load("verification_log.json")["entries"]
+
+# How long a guide takes to read, computed from the fragment that is actually published
+# (tags and build hooks stripped). Same input -> same number, so the build stays deterministic.
+WORDS_PER_MINUTE = 225
+
+
+def guide_body(page_id: str) -> str:
+    raw = (CONTENT / "pages" / f"{page_id}.html").read_text(encoding="utf-8")
+    raw = re.sub(r"\{\{[^}]+\}\}", " ", raw)
+    raw = re.sub(r"<[^>]+>", " ", raw)
+    return re.sub(r"\s+", " ", raw).strip()
+
+
+def guide_minutes(page_id: str) -> int:
+    words = len(guide_body(page_id).split())
+    return max(1, round(words / WORDS_PER_MINUTE))
+
+
+def guide_stat(page_id: str) -> str:
+    """'3 min read · 5 sections' — counted from the page, nothing claimed about its audience."""
+    raw = (CONTENT / "pages" / f"{page_id}.html").read_text(encoding="utf-8")
+    h2 = len(re.findall(r"<h2\b", raw))
+    return f"{guide_minutes(page_id)} min read · {h2} section{'s' if h2 != 1 else ''}"
+
 BRIEFS = load("briefs.json")["briefs"]
 
 BRAND = SETTINGS["brand"]["name"]
@@ -119,6 +146,17 @@ PAGES = [
      f"Holiday hosting: which format earns the counter? | {BRAND}",
      "Big meals, borrowed counter space, eat-in waves. Which air-fryer format and which thermometer workflow fit holiday hosting, from listed specs only.",
      "guides"),
+    ("guide-dual-vs-single", "guide-dual-vs-single.html",
+     f"Dual-basket or single-basket air fryer: which? | {BRAND}",
+     "Two 3 qt baskets or one 8 qt basket? What the listed capacity, depth and shake-reminder features actually decide, with every figure read from the listings.",
+     "guides"),
+    ("guide-probe-in-air-fryer", "guide-probe-in-air-fryer.html",
+     f"Can you leave a meat thermometer in an air fryer? | {BRAND}",
+     "Probe heat ratings, basket depth and what leave-in monitoring means in a small cavity — read from the two listings and the air fryers here, with the gaps left blank.",
+     "guides"),
+    # ("guide-air-fryer-gift", ...) superseded by guide-gift-guide (D-P20) at the 2026-11-20
+    # handoff integration — same reader intent, main's gift guide already registered. The
+    # PR #25 page stays preserved on branch arena/b650562d-prod2 (recorded in COORDINATION.md).
     ("guide-instant-vs-leave-in", "guide-instant-vs-leave-in.html",
      f"Instant-read vs leave-in: which one fits you | {BRAND}",
      "Spot-check in a second, or watch a long cook from your phone? How an instant-read and a wireless leave-in thermometer differ by workflow, with listed specs.",
@@ -183,12 +221,20 @@ PAGES = [
      f"Privacy | {BRAND}",
      "What this site collects (almost nothing), what the click counter does, and what the self-hosted analytics endpoint stores.",
      "work"),
+    ("analysis", "analysis.html",
+     f"Analysis: what the verified data supports | {BRAND}",
+     "The findings this register can carry: coverage, the capacity-to-footprint ranking, the funnel in three stages and the verification ledger.",
+     "work"),
+    ("design-prompt", "design-prompt.html",
+     f"Design prompt pack for this publication | {BRAND}",
+     "Copy-ready design briefs and the guardrails that survive any redesign: compliance constraints first, so a restyle cannot undo the disclosure.",
+     "work"),
 ]
 
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
              "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
-             "guide-gift-guide"]
+             "guide-gift-guide", "guide-dual-vs-single", "guide-probe-in-air-fryer"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -243,6 +289,8 @@ NAV_WORK = [
     ("about.html", "About &amp; standards"),
     ("executive-summary.html", "Executive summary"),
     ("method.html", "Method &amp; sources"),
+    ("analysis.html", "Analysis &amp; findings"),
+    ("design-prompt.html", "Design prompt pack"),
     ("flagged.html", "Flagged for review"),
     ("questions.html", "Open questions"),
     ("briefs.html", "Decision briefs"),
@@ -264,6 +312,8 @@ GUIDE_LINKS = [
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
     ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
     ("guide-gift-guide.html", "The gift guide"),
+    ("guide-dual-vs-single.html", "Dual basket or one big basket?"),
+    ("guide-probe-in-air-fryer.html", "A leave-in probe in an air fryer?"),
     ("guides.html", "All guides"),
 ]
 
@@ -359,9 +409,19 @@ def spec_rows(p: dict) -> str:
 
 
 def hook_products_table(_="") -> str:
-    head = ("<thead><tr><th>Product</th><th>Format</th><th>Capacity</th>"
-            "<th>Dimensions (D×W×H)</th><th>Counter depth</th><th>Capacity / depth</th>"
-            "<th>Why it exists</th><th>Source</th><th></th></tr></thead>")
+    head = ("<thead><tr><th>Product</th><th>Format</th><th>Capacity as listed</th>"
+            "<th>Dimensions (D×W×H) as listed</th><th>Counter depth</th><th>Capacity per inch of depth</th>"
+            "<th>What it is for</th><th>Source</th><th>Where to look</th></tr></thead>")
+
+    def _read_label(p_: dict, key: str) -> str:
+        """'read YYYY-MM-DD' beside a published figure, or '' when there is no figure to date.
+        A date is never printed for a value that was not read, and never estimated."""
+        d_ = p_.get(key)
+        return f"read {d_}" if d_ else ""
+
+    def _chip(p_: dict, key: str) -> str:
+        label = _read_label(p_, key)
+        return f'<br><span class="chip-read">{label}</span>' if label else ""
     rows = []
     for p in PRODUCTS:
         depth = None
@@ -376,10 +436,12 @@ def hook_products_table(_="") -> str:
         rows.append(
             f'<tr id="row-{p["id"]}"><td><strong>{esc(p["name_short"])}</strong><br>'
             f'<span class="muted">{esc(p["asin"])}</span></td>'
-            f'<td>{esc(p["format"])}</td><td>{esc(p["capacity"] or "—")}</td>'
-            f'<td>{esc(p["dimensions"] or "—")}</td><td>{esc(str(depth) + chr(34) if depth else "—")}</td>'
+            f'<td>{esc(p["format"])}</td>'
+            f'<td>{esc(p["capacity"] or "—")}{_chip(p, "capacity_read")}</td>'
+            f'<td>{esc(p["dimensions"] or "—")}{_chip(p, "dimensions_read")}</td>'
+            f'<td>{esc(str(depth) + chr(34) if depth else "—")}</td>'
             f'<td>{ratio}</td><td>{esc(why)}</td><td>{listing_link(p)}</td>'
-            f'<td>{buy_link(p, "See price")}</td></tr>')
+            f'<td>{buy_link(p, "See it on Amazon")}</td></tr>')
     return (f'<div class="table-scroll"><table class="data products-table">{head}'
             f'<tbody>{"".join(rows)}</tbody></table></div>'
             f'<p class="table-note">Capacity / depth = listed qt capacity ÷ listed counter depth (inches), '
@@ -394,7 +456,7 @@ def hook_air_fryer_table(_="") -> str:
         rows.append(f'<tr><td><strong>{esc(p["name_short"])}</strong></td><td>{esc(p["format"])}</td>'
                     f'<td>{esc(p["capacity"])}</td><td>{esc(p["dimensions"])}</td>'
                     f'<td>{esc(p["special_feature"])}</td><td>{listing_link(p)}</td>'
-                    f'<td>{buy_link(p, "See price")}</td></tr>')
+                    f'<td>{buy_link(p, "See it on Amazon")}</td></tr>')
     return ('<div class="table-scroll"><table class="data"><thead><tr><th>Product</th><th>Format</th>'
             '<th>Capacity</th><th>Dimensions (D×W×H)</th><th>Listed special features</th>'
             '<th>Source</th><th></th></tr></thead><tbody>' + "".join(rows) + '</tbody></table></div>')
@@ -405,7 +467,7 @@ def hook_thermo_table(_="") -> str:
     for p in PRODUCTS[3:]:
         rows.append(f'<tr><td><strong>{esc(p["name_short"])}</strong></td><td>{esc(p["format"])}</td>'
                     f'<td>{esc(p["special_feature"])}</td><td>{listing_link(p)}</td>'
-                    f'<td>{buy_link(p, "See price")}</td></tr>')
+                    f'<td>{buy_link(p, "See it on Amazon")}</td></tr>')
     return ('<div class="table-scroll"><table class="data"><thead><tr><th>Product</th><th>Format</th>'
             '<th>Listed features</th><th>Source</th><th></th></tr></thead><tbody>'
             + "".join(rows) + '</tbody></table></div>')
@@ -531,6 +593,12 @@ def hook_questions(_="") -> str:
     for q in QUESTIONS:
         flags = " ".join(f'<a href="flagged.html#{esc(x)}">{esc(x)}</a>' for x in q.get("flags", []))
         blocks = esc(", ".join(q.get("blocks", [])) or "—")
+        stake = (f"<dt>What it decides</dt><dd>{esc(q['decision_at_stake'])}</dd>" if q.get("decision_at_stake") else "")
+        check = (f"<dt>Check</dt><dd>{esc(q['check'])}</dd>" if q.get("check") else "")
+        default = (f"<dt>Default while unanswered</dt><dd>{esc(q['default_if_unanswered'])}</dd>"
+                   if q.get("default_if_unanswered") else "")
+        progress = (f"<dt>Progress</dt><dd>{esc(q['progress_note'])}</dd>" if q.get("progress_note") else "")
+        renum = (f"<dt>Renumbered</dt><dd>{esc(q['renumber_note'])}</dd>" if q.get("renumber_note") else "")
         out.append(f"""
 <article class="card q-card" id="{esc(q['id'])}">
   <h3><code>{esc(q['id'])}</code> {esc(q['question'])}</h3>
@@ -539,8 +607,10 @@ def hook_questions(_="") -> str:
     <dt>What is missing</dt><dd>{esc(q['unknown'])}</dd>
     <dt>How to discover it</dt><dd>{esc(q['how_to_discover'])}</dd>
     <dt>Answerable by</dt><dd>{esc(q['answerable_by'])}</dd>
+    {stake}{check}{default}
     <dt>Blocks</dt><dd>{blocks}</dd>
     <dt>Flags</dt><dd>{flags or '—'}</dd>
+    {renum}{progress}
   </dl>
 </article>""")
     return "".join(out)
@@ -782,6 +852,8 @@ GUIDE_BLURBS = {
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
     "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
+    "guide-dual-vs-single": "Two 3 qt baskets or one 8 qt basket? The capacity math, done once, from the listings.",
+    "guide-probe-in-air-fryer": "Leaving a probe in a 400°F cavity: what the listings say about heat ratings and depth.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -794,6 +866,8 @@ GUIDE_TAGS = {
     "guide-holiday-hosting": "Seasonal",
     "guide-instant-vs-leave-in": "Thermometers",
     "guide-gift-guide": "Seasonal",
+    "guide-dual-vs-single": "Capacity",
+    "guide-probe-in-air-fryer": "Thermometers",
 }
 
 
@@ -804,6 +878,7 @@ def _guide_card(gid: str) -> str:
     <span class="tag">{esc(GUIDE_TAGS.get(gid, "Guide"))}</span>
     <h3><a href="{gid}.html">{esc(title)}</a></h3>
     <p>{esc(GUIDE_BLURBS.get(gid, ""))}</p>
+    <p class="muted guide-stat">{guide_stat(gid)}</p>
     <a class="more" href="{gid}.html">Read the guide</a>
   </article>"""
 
@@ -984,6 +1059,264 @@ def hook_compare_table(_="") -> str:
     return hook_products_table("")
 
 
+def _qn(nm: float) -> str:
+    return f"{nm:.2f}".rstrip("0").rstrip(".")
+
+
+DIMS_RE = re.compile(r'(\d+(?:\.\d+)?)\s*"D\s*x\s*(\d+(?:\.\d+)?)\s*"W\s*x\s*(\d+(?:\.\d+)?)\s*"H')
+
+
+def parse_dims(s):
+    """Return (depth, width, height) inches from a listing string like 13.38"D x 11.81"W x 10.63"H."""
+    m = DIMS_RE.search(s or "")
+    if not m:
+        return None, None, None
+    return (float(m.group(1)), float(m.group(2)), float(m.group(3)))
+
+
+def _analysis_products():
+    """(product, capacity qt, qt per inch of depth, box volume cu in, depth in) for products with both figures."""
+    out = []
+    for p in PRODUCTS:
+        cap = re.match(r"([\d.]+)", p.get("capacity") or "")
+        d, w, h = parse_dims(p.get("dimensions"))
+        if cap and d and w and h:
+            c = float(cap.group(1))
+            out.append((p, c, c / d, c * w * h, d))
+    out.sort(key=lambda r: -r[2])
+    return out
+
+
+def hook_href_for(page_id: str) -> str:
+    """The href a fragment would use to link to a page, for counting internal coverage."""
+    return page_id + ".html"
+
+
+def hook_capacity_ranking(_="") -> str:
+    """Computed from listed capacity and listed dimensions - arithmetic, not a score."""
+    rows = []
+    for (p, c, v, vol, d) in _analysis_products():
+        rows.append(
+            f'<tr><td><a href="products.html#{p["id"]}">{esc(p["name_short"])}</a></td>'
+            f'<td>{esc(p["format"])}</td><td>{_qn(c)} qt</td>'
+            f'<td>{_qn(d)}&quot;</td><td>{_qn(v)} qt per inch</td><td>{_qn(vol)} cu in</td>'
+            f'<td class="muted">{esc(p.get("capacity_read") or "—")} / {esc(p.get("dimensions_read") or "—")}</td></tr>')
+    lead = max(_analysis_products(), key=lambda r: r[3])
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>Product</th><th>Format</th>'
+            '<th>Listed capacity</th><th>Listed depth</th><th>Capacity per inch of depth</th>'
+            '<th>Listed box as a volume</th><th>Read (capacity / dimensions)</th></tr></thead><tbody>'
+            + "".join(rows) + '</tbody></table></div>'
+            '<p class="findings"><strong>Findings.</strong> The ratios differ by more than three to one, which is '
+            'the whole argument for comparing on more than quarts: a basket that stacks two zones and an oven with '
+            'a rack are not the same unit of cooking. '
+            f'The largest listed cavity here ({esc(lead[0]["name_short"])}, {_qn(lead[3])} cu in treated as a box) is '
+            f'also the deepest machine at {_qn(lead[4])} inches - that is the trade the format makes, not a flaw in it. '
+            'Usable cavity is smaller than either number and no listing here states it, so the figure stays blank '
+            'rather than estimated.</p>')
+
+
+def hook_coverage_matrix(_="") -> str:
+    """Which published pages actually link to each product, counted from the fragments."""
+    def cell(gids):
+        if not gids:
+            return "—"
+        return " ".join('<a href="%s.html">%s</a>' % (g, g.replace("guide-", "").replace("-", " "))
+                        for g in gids)
+    def refs(pid):
+        prod = PROD_BY_ID[pid]
+        hits = []
+        for gid in GUIDE_IDS + ["compare", "buying-guide", "index", "category-air-fryers",
+                                "category-thermometers"]:
+            f = CONTENT / "pages" / f"{gid}.html"
+            if not f.exists():
+                continue
+            txt = f.read_text(encoding="utf-8")
+            if prod["asin"] in txt or pid in txt or hook_href_for(gid) in txt:
+                hits.append(gid)
+        return hits
+    rows = []
+    for p in PRODUCTS:
+        g = refs(p["id"])
+        rows.append(f'<tr id="cov-{esc(p["id"])}"><td><a href="products.html#{esc(p["id"])}">{esc(p["name_short"])}</a></td>'
+                    f'<td>{esc(p["format"])}</td><td>{len(g)}</td><td>{cell(g)}</td></tr>')
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>Product</th><th>Format</th>'
+            f'<th>Pages referencing it (of {len(GUIDE_IDS) + 4})</th><th>Which</th></tr></thead>'
+            '<tbody>' + "".join(rows) + '</tbody></table></div>'
+            '<p class="table-note">Counted from the published page bodies at build time. A short row is not a '
+            'ranking problem - it is a shelf gap, and the fix is the kind of page named in the '
+            '<a href="suggestions.html">queue</a>.</p>')
+
+
+def hook_decision_board(_="") -> str:
+    """The ranked 'answer this first' list, built from the open questions."""
+    qs = sorted([q for q in QUESTIONS if q.get("blocking")], key=lambda q: (q.get("rank", 99), q["id"]))
+    rows = []
+    for i, q in enumerate(qs, 1):
+        answer = q.get("owner_answer")
+        status = (f'<span class="status status-resolved">answered {esc(q.get("owner_answer_date", ""))}</span>'
+                  if answer else '<span class="status status-open">unanswered</span>')
+        checks = " ".join(
+            f'<a class="src" href="{esc(c["url"])}" rel="noopener" target="_blank">{esc(c["label"])}</a>'
+            for c in q.get("checks", [])) or '<span class="muted">—</span>'
+        rows.append(f'<tr><td>{i}</td><td><a href="questions.html#{esc(q["id"])}"><code>{esc(q["id"])}</code></a></td>'
+                    f'<td><strong>{esc(q["question"])}</strong></td>'
+                    f'<td>{esc(q.get("decision_at_stake") or "—")}</td>'
+                    f'<td>{esc(q.get("answerable_by", ""))}<br>{checks}</td>'
+                    f'<td>{status}</td></tr>')
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>#</th><th>ID</th><th>Question</th>'
+            '<th>What it gates</th><th>Who answers, and where to check</th><th>Status</th></tr></thead><tbody>'
+            + "".join(rows) + '</tbody></table></div>'
+            f'<p class="table-note">{len(qs)} of {len(QUESTIONS)} open questions gate a decision. None blocks '
+            'publication: the site stays live and correct while every one of them stays open, because the '
+            'default for an unanswered question is the conservative behaviour already shipped.</p>')
+
+
+def hook_flag_stats(_="") -> str:
+    open_f = [f for f in FLAGS if f.get("status") == "open"]
+    stand = [f for f in FLAGS if f.get("status") == "standing"]
+    res = [f for f in FLAGS if f.get("status") == "resolved"]
+    accepted = sum(1 for s in SUGGESTIONS if s.get("owner_decision"))
+    return (f'<div class="stat-grid">'
+            f'<div class="stat"><b>{len(open_f)}</b><span>open flags, each with an evidence link</span></div>'
+            f'<div class="stat"><b>{len(stand)}</b><span>standing rules the site publishes to</span></div>'
+            f'<div class="stat"><b>{len(res)}</b><span>resolved with a dated answer</span></div>'
+            f'<div class="stat"><b>{len(SUGGESTIONS)}</b><span>suggestions queued, {accepted} with a recorded decision</span></div>'
+            f'<div class="stat"><b>{len(PRODUCTS)}</b><span>products tracked, all five link-verified today</span></div>'
+            f'</div>')
+
+
+def hook_funnel(_="") -> str:
+    return ("""<div class="table-scroll"><table class="data"><thead><tr><th>Stage</th><th>What exists now</th>
+<th>What does not exist</th><th>How it becomes measurable</th></tr></thead><tbody>
+<tr><td><strong>Arrive</strong></td><td>Twenty-plus published pages, a sitemap, an RSS feed, unique titles and
+meta descriptions enforced by the gate, JSON-LD on every page</td><td>No Search Console property, so no
+impressions, queries or positions — the reason no page here claims to be popular</td>
+<td>Verify a property and submit the sitemap (<a href="questions.html#Q-P06">Q-P06</a>), then read two weeks
+before reordering anything</td></tr>
+<tr><td><strong>Click out</strong></td><td>Every product link is a tagged Special Link with the sponsored
+attributes, and the click handler counts five local events</td><td>No collector receives them; the endpoint is
+empty by design, so no click count exists</td><td>Host the existing collector (SG-06); counts then become
+readable per page and per ASIN</td></tr>
+<tr><td><strong>Convert</strong></td><td>Commission rates read from the official table with dates, and the
+attribution windows on the measurement page</td><td>No earnings report, no order counts, no revenue figure —
+none is published and none is estimated</td><td>The campaign ledger fills only from an authorized export; rows
+are never modelled (SG-14)</td></tr></tbody></table></div>
+<p class="findings"><strong>Finding.</strong> The middle stage is the cheap one: the client-side counting exists,
+and the receiving end is one small service away. Until then every design argument on this repository is taste
+against taste, which is exactly how a generated site gets generated.</p>""")
+
+
+def hook_priority_board(_="") -> str:
+    """The owner's board: the ranked decisions this project is waiting on, each with what it is
+    waiting for and what moves once it is answered. Ranking is judgement, recorded as such —
+    there is no traffic or revenue data here to rank against (Q-P14)."""
+    out = []
+    for d in PRIORITY["ordering"]:
+        unblocks = " ".join(_ref_link(u) for u in d.get("unblocks", [])) or '<span class="muted">—</span>'
+        out.append(
+            f'<li class="prio"><span class="prio-num">{d["rank"]}</span>'
+            f'<p class="prio-item">{esc(d["decision"])}</p>'
+            f'<p class="muted">{_refs(d["item"])}</p>'
+            f'<p>{esc(d["why"])}</p>'
+            f'<p class="prio-wait"><strong>Waiting on:</strong> {esc(d["waiting_on"])} '
+            f'<span class="badge">effort: {esc(d["effort"])}</span></p>'
+            f'<p class="prio-unblocks"><strong>Then moves:</strong> {unblocks}</p></li>')
+    return ('<ol class="prio-list">' + "".join(out) + "</ol>"
+            f'<p class="table-note">{len(PRIORITY["ordering"])} ranked items, from '
+            '<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/decision-priority.json" '
+            'rel="noopener" target="_blank">data/p2/decision-priority.json</a>. Answering one is usually a '
+            'sentence; each answer becomes a dated entry in the '
+            '<a href="decisions.html">decision log</a> and moves the queue under it.</p>')
+
+
+def hook_verification_ledger(_="") -> str:
+    rows = "".join(
+        f'<tr><td>{esc(v["checked_utc"])}</td><td><code>{esc(v["by"])}</code></td>'
+        f'<td>{_src_cell(v["target"])}</td>'
+        f'<td>{esc(v["result"])}</td></tr>' for v in VERLOG)
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>Checked</th><th>Session</th>'
+            '<th>Source read</th><th>What it showed</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
+            f'<p class="table-note">{len(VERLOG)} dated checks on the register. The five product links were each '
+            'resolved to their listing on 2026-11-19 and the listing title compared with the stored string; '
+            'titles drift between reads on one listing, which is why the date is part of the figure '
+            '(<a href="flagged.html#F-44">F-44</a>).</p>')
+
+
+def hook_design_pack(_="") -> str:
+    import json as _json
+    blocks = []
+    for i, b in enumerate(DESIGN["blocks"], 1):
+        acc = "".join(f"<li>{esc(x)}</li>" for x in b.get("acceptance", []))
+        avo = "".join(f"<li>{esc(x)}</li>" for x in b.get("avoid", []))
+        ev = " ".join(f'<a class="src" href="{esc(e["url"])}" rel="noopener" target="_blank">{esc(e["label"])}</a>'
+                      for e in b.get("evidence", []))
+        rel = " ".join(f'<a href="suggestions.html#{esc(s)}"><code>{esc(s)}</code></a>' for s in b.get("related", []))
+        blocks.append(
+            f'<article class="card dp-card" id="{esc(b["id"])}">'
+            f'<header><p class="eyebrow">Prompt {i} of {len(DESIGN["blocks"])} · {esc(b["id"])}</p>'
+            f'<h3>{esc(b["title"])}</h3><p class="muted">{esc(b["goal"])}</p></header>'
+            f'<div class="dp-prompt"><pre><code>{esc(b["paste_prompt"])}</code></pre></div>'
+            f'<details class="dp-meta"><summary>Acceptance criteria, avoid list, sources, linked suggestions</summary>'
+            f'<div class="dp-cols"><div><h4>Done means</h4><ul>{acc}</ul></div>'
+            f'<div><h4>Do not</h4><ul>{avo}</ul></div></div>'
+            f'<p class="small-note">Evidence: {ev or "—"}<br>Queue items this depends on: {rel or "—"}</p>'
+            f'</details></article>')
+    rails = "".join(
+        f'<tr id="rail-{esc(g["id"])}"><td><code>{esc(g["id"])}</code></td>'
+        f'<td><strong>{esc(g["rule"])}</strong></td><td>{esc(g["why"])}</td>'
+        f'<td>{esc(g["design_consequence"])}</td>'
+        f'<td><a class="src" href="{esc(g["source"])}" rel="noopener" target="_blank">official source</a></td></tr>'
+        for g in DESIGN["guardrails"])
+    seq = "".join(f"<li>{esc(s)}</li>" for s in DESIGN["sequence"])
+    return (f'<p class="lede">{esc(DESIGN["_meta"]["description"])}</p>'
+            '<div class="callout callout-sage"><h3>Read the guardrails before the prompts</h3>'
+            f'<p>{esc(DESIGN["_meta"]["how_it_relates_to_the_queue"])}</p></div>'
+            '<h2 id="guardrails">The eight guardrails</h2>'
+            '<div class="table-scroll"><table class="data"><thead><tr><th>#</th><th>Constraint</th>'
+            '<th>Why it is fixed</th><th>What that means for a design</th><th>Source</th></tr></thead>'
+            f'<tbody>{rails}</tbody></table></div>'
+            '<h2 id="prompts">The eight prompts</h2>' + "".join(blocks) +
+            '<h2 id="sequence">Suggested order of work</h2><ol>' + seq + '</ol>')
+
+
+def _ref_link(ref: str) -> str:
+    """Link an SG-/Q-/F-/D- id to the page that carries it, so a ranked decision is a table of
+    jump-offs rather than a list of acronyms."""
+    ref = ref.strip().rstrip(",")
+    if not ref:
+        return ""
+    if not re.fullmatch(r"(?:SG|Q|F|D|DP|G)-P?\d+", ref):
+        # a phrase, not an id - 'every growth item below it' stays plain text rather than
+        # becoming a link to an anchor that cannot exist.
+        return esc(ref)
+    if ref.startswith("SG-"):
+        page = "suggestions.html"
+    elif ref.startswith("Q-"):
+        page = "questions.html"
+    elif ref.startswith("F-"):
+        page = "flagged.html"
+    elif ref.startswith("D-"):
+        page = "decisions.html"
+    elif ref.startswith("DP-") or ref.startswith("G"):
+        page = "design-prompt.html"
+    else:
+        return f"<code>{esc(ref)}</code>"
+    return f'<a href="{page}#{esc(ref)}">{esc(ref)}</a>'
+
+
+def _refs(text: str) -> str:
+    """Turn ids inside a sentence into links, leaving the sentence itself untouched."""
+    return re.sub(r"\b((?:SG|Q|F|D|DP|G)-P?\d[\w-]*)\b", lambda m: _ref_link(m.group(1)), esc(text))
+
+
+def _src_cell(target: str) -> str:
+    """Render a ledger 'source read' cell: a link when it is a URL, plain code when it is a
+    command or a repo path - a build-time query is not something a reader can click."""
+    if str(target).startswith("http"):
+        return f'<a href="{esc(str(target))}" rel="noopener" target="_blank">{esc(str(target))}</a>'
+    return f"<code>{esc(str(target))}</code>"
+
+
 HOOKS = {
     "products_table": hook_products_table,
     "air_fryer_table": hook_air_fryer_table,
@@ -1018,6 +1351,14 @@ HOOKS = {
     "guides_index": hook_guides_index,
     "shop_grid": hook_shop_grid,
     "compare_table": hook_compare_table,
+    "capacity_ranking": hook_capacity_ranking,
+    "coverage_matrix": hook_coverage_matrix,
+    "funnel": hook_funnel,
+    "decision_board": hook_decision_board,
+    "priority_board": hook_priority_board,
+    "verification_ledger": hook_verification_ledger,
+    "flag_stats": hook_flag_stats,
+    "design_pack": hook_design_pack,
 }
 
 
