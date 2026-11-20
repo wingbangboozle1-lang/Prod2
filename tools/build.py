@@ -487,6 +487,24 @@ def _source_url_cell(url: str) -> str:
             f'{esc(url)[:64]}</a>')
 
 
+def hook_trust_row(_="") -> str:
+    """The front-page trust row. Every number is derived from the registers at
+    build time, so it cannot drift when a guide is added (the counts were
+    hardcoded and went stale twice before this hook existed)."""
+    formats = {p["format"] for p in PRODUCTS if "thermometer" not in p["format"].lower()}
+    reads = len([p for p in PAGES if p[0].startswith("article-")])
+    pieces = len(GUIDE_IDS) + reads
+    cells = [
+        (len(PRODUCTS), "tools followed"),
+        (len(formats), "air fryer formats"),
+        (pieces, "buyer guides &amp; reads"),
+        (0, "made-up specs"),
+    ]
+    return ('<div class="trust-row">'
+            + "".join(f'<div><b>{n}</b><span>{label}</span></div>' for n, label in cells)
+            + '</div>')
+
+
 def hook_sources_table(_="") -> str:
     rows = []
     for s in SOURCES:
@@ -932,6 +950,7 @@ HOOKS = {
     "chooser": hook_chooser,
     "intent_table": hook_intent_table,
     "commission_table": hook_commission_table,
+    "trust_row": hook_trust_row,
     "sources_table": hook_sources_table,
     "flags_open": lambda _: hook_flags("open"),
     "flags_resolved": lambda _: hook_flags("resolved"),
