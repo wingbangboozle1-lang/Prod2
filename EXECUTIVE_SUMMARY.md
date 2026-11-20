@@ -72,7 +72,7 @@ Two defects this session found were not cosmetic: the live host was serving the 
 registers, and ten of the fifteen product bullets on the shelf rested on text the site could not
 re-produce from its evidence.
 
-- **The published surface is now controlled in the repository (D-P25).** Pages publishes this repo's
+- **The published surface is now controlled in the repository (D-P26).** Pages publishes this repo's
   root in legacy mode, the source setting is not changeable with the token available (`PUT
   build_type=workflow` → 403, re-confirmed), and a cache-busted read of
   `/Prod2/data/p2/settings.json` returned the live register. Root `.nojekyll` is deleted and

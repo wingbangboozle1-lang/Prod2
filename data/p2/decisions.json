@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/770ebcc2-prod2): D-P24 added — dedicated product pages, register-only content (D-P23 kept as merged for the paid-placement hold). 2026-11-20 (arena/b3089214-prod2): D-P25 (control the published surface in the repository) and D-P26 (product copy may not be wider than the evidence) added. Numbered D-P25/D-P26: the first draft took D-P24, which main had already used for the product pages, and a second renumbering slip briefly put both rows on D-P26 — corrected here, and the cross-reference validator in tools/checks.py is what caught it."
+    "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded. | 2026-11-20 (arena/20f83238-prod2): D-P22 (queue reviewer pass — Path A chosen) and D-P23 (promotion hold) added. | 2026-11-20 (arena/770ebcc2-prod2): D-P24 added — dedicated product pages, register-only content (D-P23 kept as merged for the paid-placement hold). | 2026-11-20 (arena/2adc150a-prod2): D-P25 (sale-week window) added — this row collided three times and was renumbered each time (draft D-P11 → D-P22 → D-P24 → D-P25); see the COORDINATION.md collision log. 2026-11-20 (arena/b3089214-prod2): D-P26 (control the published surface in the repository) and D-P27 (product copy may not be wider than the evidence). Renumbered twice — D-P24 then D-P25 were taken by main while this was in review; the cross-reference validator in tools/checks.py is what catches a slip like that."
   },
   "decisions": [
     {
@@ -346,6 +346,16 @@
     },
     {
       "id": "D-P25",
+      "question": "What publishes in the late-November sale window, and on what evidence?",
+      "status": "Recorded 2026-11-20 (editorial hypothesis per D-19)",
+      "recorded_choice": "Publish guide-sale-week.html (\"Four questions a sale week can't answer\") in the holiday-hosting season lane — the same ahead-of-cadence seasonal-desk precedent as the gifting guide (D-P20) and slot 1. The guide asks the four questions a discount cannot answer (format, capacity, listing-versus-discount, workflow) and is built only from the verified register: cited listing facts carry dated reads (2026-11-20 title re-check), the depth figure defers to the counter-space analysis (F-P08 keeps dimensions pending re-read), and no price, rating, deal-quality or popularity claim appears anywhere (F-02, D-19; the claims gate enforces). The cadence queue is untouched. Timing note: this guide was authored before D-P22 (Path A) landed; it is read as inside the published calendar's seasonal lane, not as new scope beyond it — if the reviewer reads Path A differently, retracting this publish is one line in tools/build.py + data/p2/calendar.json. Measured queries take over topic selection once the SG-06 gate and 14 days of data exist (SG-34). (Recorded by arena/2adc150a-prod2; id renumbered three times to avoid collisions — see COORDINATION.md.)",
+      "sources": [
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/live-check-2026-11-20-722181aa.json"
+      ]
+    },
+    {
+      "id": "D-P26",
       "date": "2026-11-20",
       "question": "Pages serves the repository root and the setting is not ours to change — what decides what a reader can fetch?",
       "recorded_choice": "Control it in the repository: delete the root .nojekyll and generate a root _config.yml whose exclude list is derived from the tree (tools/publish_surface.py), so the legacy Jekyll build copies only the publication. Chosen over waiting on the owner dropdown because the exposure was live and measurable — a cache-busted read of /Prod2/data/p2/settings.json returned the current register, and /Prod2/docs/robots.txt served a duplicate copy of the whole site — and over moving files around, which changes nothing while the root is the source. Three documented facts make it a rule rather than a guess: GitHub's Pages+Jekyll page lists `exclude` among what Jekyll does not build; Jekyll's front-matter page says only files with a front-matter block are processed, and its static-files page defines a no-front-matter file as static, so generated HTML is copied verbatim; and Pages' default plugin list cannot be disabled, which is why the .md records are excluded by name and by pattern instead of trusting jekyll-readme-index to behave. The gate now refuses a root .nojekyll, refuses a config that misses any top-level path, and refuses a page link into an excluded path — the last rule caught three evidence links on the governance pages that pointed at served register copies, now repointed to repository blobs. Consequence: the root can keep the whole working repository while the reader gets only the publication; the docs/ duplicate stops being served; and the control is only as good as the config staying correct, which is why F-P31 stays open until the source setting changes and why the live 404 probes are recorded in COORDINATION.md rather than assumed.",
@@ -360,7 +370,7 @@
       "status": "adopted"
     },
     {
-      "id": "D-P26",
+      "id": "D-P27",
       "date": "2026-11-20",
       "question": "A card bullet says more than any recorded listing string supports — publish it, blank it, or rewrite it?",
       "recorded_choice": "Rewrite to the evidence and gate the difference. The claim audit found six published phrases ('magnetic back', 'rinse-clean', 'Smart Hub', 'rack cooking', 'in the basket lids', 'leave-in wireless probes') with no verbatim string behind them, and four more bullets resting on a dated read this environment cannot re-retrieve. Blanking them would have thrown away real buyer information; leaving them would have made the site's central promise softer than its wording. So the affected card bullets, the compare table's 'why' column and three guide sentences were rewritten to the listing's own words, the six phrases became a deny-list the build enforces, and F-P30 + Q-P21 record exactly what a browser paste or a PA-API read can restore. Nothing was unpublished for being false — only for being unevidenced. Consequence: cards are shorter and more concrete; 'Best for' lines are labelled as our framing; guide prose may interpret but may not attribute a spec to a listing that does not record it.",
