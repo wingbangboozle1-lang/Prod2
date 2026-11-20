@@ -118,6 +118,14 @@ PAGES = [
      f"Gift guide: which of the five fits which cook? | {BRAND}",
      "Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.",
      "guides"),
+    ("guide-preheat-shake", "guide-preheat-shake.html",
+     f"Preheat, shake, or don't: rituals, checked | {BRAND}",
+     "Preheat or don't? Shake or leave it? What the listed features of these three air fryers actually prompt you to do — and which rituals no listing answers.",
+     "guides"),
+    ("guide-turkey-done", "guide-turkey-done.html",
+     f"How do you know the turkey is done? | {BRAND}",
+     "USDA says poultry is done at 165°F (74°C). How a one-second instant-read and a wireless leave-in probe each answer the question on the big day, from listed specs.",
+     "guides"),
     ("guides", "guides.html",
      f"Guides: one buyer question per page | {BRAND}",
      "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
@@ -171,7 +179,7 @@ PAGES = [
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
              "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
-             "guide-gift-guide"]
+             "guide-gift-guide", "guide-preheat-shake", "guide-turkey-done"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -245,6 +253,8 @@ GUIDE_LINKS = [
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
     ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
     ("guide-gift-guide.html", "The gift guide"),
+    ("guide-preheat-shake.html", "Preheat, shake, or don't?"),
+    ("guide-turkey-done.html", "Is the turkey done?"),
     ("guides.html", "All guides"),
 ]
 
@@ -671,6 +681,8 @@ GUIDE_BLURBS = {
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
     "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
+    "guide-preheat-shake": "Preheat, shake, or don't: which habits the listed features actually prompt.",
+    "guide-turkey-done": "165°F is the USDA answer; the question is how you will check it on the day.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -683,6 +695,8 @@ GUIDE_TAGS = {
     "guide-holiday-hosting": "Seasonal",
     "guide-instant-vs-leave-in": "Thermometers",
     "guide-gift-guide": "Seasonal",
+    "guide-preheat-shake": "Rituals",
+    "guide-turkey-done": "Seasonal",
 }
 
 
