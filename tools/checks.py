@@ -502,6 +502,55 @@ def main() -> int:
         ok("one shelf, full cards, real imagery, no hands-on claim")
 
     # ------------------------------------------------------------ exposition
+    # -------------------------------------------------------------- conflicts
+    check("conflicts")
+    # An unresolved merge marker shipped once already: assets/css/site.css on
+    # main carried literal "<<<<<<< HEAD" / "=======" / ">>>>>>> origin/main"
+    # lines at its top and was being served to every reader, because the CSS
+    # parser skips the malformed first rule and the file was one brace short.
+    # Nothing in the build noticed. This section fails the build on any
+    # conflict marker in a published artifact or in a source file the build
+    # copies from, so that class of defect cannot reach a reader again.
+    MARKERS = ("<<<<<<<", ">>>>>>>", "\n=======\n")
+    TEXT_ARTIFACTS = (".html", ".css", ".js", ".xml", ".txt", ".json", ".md")
+    scan_targets: list[pathlib.Path] = []
+    scan_targets += [f for f in html_files]
+    for sub in ("assets",):
+        d = DOCS / sub
+        if d.exists():
+            scan_targets += [f for f in d.rglob("*") if f.is_file() and f.suffix in TEXT_ARTIFACTS]
+    for extra in ("feed.xml", "sitemap.xml", "robots.txt"):
+        pth = DOCS / extra
+        if pth.exists():
+            scan_targets.append(pth)
+    # source-of-truth files the build copies verbatim into the artifact
+    for src in (ROOT / "assets" / "css", ROOT / "assets" / "js"):
+        if src.exists():
+            scan_targets += [f for f in src.rglob("*") if f.is_file() and f.suffix in TEXT_ARTIFACTS]
+    seen: set[str] = set()
+    for f in scan_targets:
+        if f in seen:
+            continue
+        seen.add(f)
+        try:
+            text = f.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        for marker in MARKERS:
+            if marker in text:
+                rel = f.relative_to(ROOT) if ROOT in f.parents else f
+                fail(f"{rel}: contains an unresolved merge marker ({marker.strip()!r})")
+                break
+    # A stylesheet that is short a brace is broken even when it parses as text.
+    for css in [f for f in seen if f.suffix == ".css"]:
+        text = css.read_text(encoding="utf-8")
+        code = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+        if code.count("{") != code.count("}"):
+            rel = css.relative_to(ROOT) if ROOT in css.parents else css
+            fail(f"{rel}: unbalanced braces ({code.count('{')} open, {code.count('}')} close)")
+    if not FAILURES:
+        ok(f"no merge markers or unbalanced braces in {len(seen)} published text artifacts")
+
     check("exposition")
     # The deploy artifact is docs/ alone. Nothing a reader can fetch may expose
     # the registers, the page sources or the generator (flags F-P19/F-P20).
