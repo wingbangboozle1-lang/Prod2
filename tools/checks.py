@@ -541,6 +541,17 @@ def main() -> int:
 
     # ------------------------------------------------------------ exposition
     check("exposition")
+    # A previous integration left Git conflict markers inside site.css. Catch
+    # them in source and generated artifacts so a successful build cannot ship
+    # raw conflict text (or silently drop the intended font declarations).
+    conflict_marker = re.compile(r"^(?:<<<<<<< |=======\s*$|>>>>>>> )", re.M)
+    css_source = ROOT / "assets" / "css" / "site.css"
+    if css_source.exists() and conflict_marker.search(css_source.read_text(encoding="utf-8")):
+        fail("assets/css/site.css contains unresolved merge-conflict markers")
+    for artifact in DOCS.rglob("*"):
+        if artifact.is_file() and artifact.suffix.lower() in {".html", ".css", ".js", ".xml", ".txt"}:
+            if conflict_marker.search(artifact.read_text(encoding="utf-8", errors="replace")):
+                fail(f"docs/{artifact.relative_to(DOCS)} contains merge-conflict markers")
     # The deploy artifact is docs/ alone. Nothing a reader can fetch may expose
     # the registers, the page sources or the generator (flags F-P19/F-P20).
     for stray in ("data", "content", "tools", "scripts", "tests"):

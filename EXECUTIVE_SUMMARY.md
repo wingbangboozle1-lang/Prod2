@@ -1,18 +1,17 @@
-# Executive summary — The Crisp Counter (Prod2 affiliate publication)
+# Executive summary — The Crisp Counter
 
 **What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
 
-## The five products (tracking ID `shopnow047c-20`)
+---
 
-| # | Product | Format | ASIN | Submitted short link | Status |
-|---|---|---|---|---|---|
-| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 | link.amazon/B04G1MEwY | Live re-read 2026-11-20 (title matched) |
-| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R | link.amazon/B02NbDxp3 | Live re-read 2026-11-20 (title matched; preset count still open, Q-31) |
-| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH | link.amazon/B00hJ57DV | Live re-read 2026-11-20 (title matched) |
-| P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | Live re-read 2026-11-20 (title, ±0.5℉/NIST, IP67 matched) |
-| P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | Live re-read 2026-11-20 (title, 3 probes, 1000°F matched) |
+**Purpose:** a buyer-first Amazon Associates publication for five owner-submitted kitchen products, using sourced listing facts and question-shaped buying guides. Tracking ID: `shopnow047c-20`.
+
+**Published scope:** static editorial site and build-time quality gates. It does **not** currently run an AI agent, discover trending/high-converting products, publish autonomously, query Associates Central, or optimize from conversion data. Those are future possibilities, not capabilities to advertise today.
+
+**Reader site:** https://wingbangboozle1-lang.github.io/Prod2/
+**Primary project pages:** [Products](https://wingbangboozle1-lang.github.io/Prod2/products.html) · [Comparison](https://wingbangboozle1-lang.github.io/Prod2/compare.html) · [Guides](https://wingbangboozle1-lang.github.io/Prod2/guides.html) · [Flagged for Review](https://wingbangboozle1-lang.github.io/Prod2/flagged.html) · [Questions](https://wingbangboozle1-lang.github.io/Prod2/questions.html) · [Suggestions](https://wingbangboozle1-lang.github.io/Prod2/suggestions.html)
 
 - On 2026-11-19 all five short links resolved to the ASINs above **with no `tag=` parameter** (F-03). On 2026-11-20 a same-day re-read confirmed one of five at its intended ASIN, and a second same-day read disagrees on two links (F-P24, F-P27, F-P28; Q-P18). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
 - **Every listing was re-fetched live on 2026-11-20** and each observed string is recorded in `data/p2/verification-2026-11-20.json`. Prior records stated this environment could not reach Amazon; that was wrong (F-P18).
@@ -24,14 +23,21 @@
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
 - **No revenue is claimed.** Tag registration and click attribution are confirmable only inside Associates Central (F-57, F-58) — the one-link-per-product test is the owner's next step.
 
-## What is deliberately absent
+---
 
-- **Prices and star ratings** (F-02) — now a policy requirement, not a preference: Program Policies §2(b) (updated 2026-04-14, read 2026-11-20) permits published prices only when Amazon serves them or they arrive via the Creators/PA API. Dated snapshots are neither (D-P11).
-- **Product-level commission figures** (F-01) — the official rate table's category bands (Kitchen 4.50%, Home 3.00%) don't map to these ASINs; product rates stay blank.
-- **Hands-on testing** (D-06) — a specification publication until real usage exists (queued as suggestion SG-07).
-- **Forecasts** — no conversion score or revenue forecast anywhere; the campaign ledger starts empty by rule and fills only from authorized first-party reports.
+## Product register snapshot
 
-## The site
+The source register records intended ASIN, official listing URL, confirmation date/source, and observed redirect separately. The five listing records show a re-read date of 2026-11-20; listing contents can change after that date. Follow the source ID to the current official listing.
+
+| Product | Intended ASIN | Official listing source | Recorded read date |
+|---|---|---|---|
+| Chefman dual-basket air fryer (P1) | B0CDY277D3 | [S-P1 — Amazon listing](https://www.amazon.com/dp/B0CDY277D3) | 2026-11-20 |
+| Emeril Lagasse French-door air-fryer oven (P2) | B09B7SB46R | [S-P2 — Amazon listing](https://www.amazon.com/dp/B09B7SB46R) | 2026-11-20 |
+| Chefman single-basket air fryer (P3) | B08DKYBTPH | [S-P3 — Amazon listing](https://www.amazon.com/dp/B08DKYBTPH) | 2026-11-20 |
+| ThermoMaven instant-read thermometer (P4) | B0DHZTCNR5 | [S-P4 — Amazon listing](https://www.amazon.com/dp/B0DHZTCNR5) | 2026-11-20 |
+| CHEF iQ Sense Gen3 wireless thermometer (P5) | B0DZFD6R9Z | [S-P5 — Amazon listing](https://www.amazon.com/dp/B0DZFD6R9Z) | 2026-11-20 |
+
+The public product pages show the recorded features and their source links. Values that were not confirmed remain blank and flagged. The supplied `link.amazon` URLs are preserved as owner-submitted evidence, not called invalid; their compliance status remains unresolved (F-03). A 2026-11-20 live re-check observed them resolving to the Amazon homepage or an error instead of the listings (F-P24) — cause unexplained, not treated as proof the links are invalid.
 
 - **Front page rebuilt 2026-11-20 as a shop front** (D-P10): illustrated hero, the full shelf of five cards with best-for lines and buy buttons, then question-led guide entry points, the seasonal desk and clusters. The method moved into a short byline strip near the foot of the page.
 - **New `shop.html`**: the whole catalogue in one filterable shelf (format and category), the three-question chooser, and a shortlist comparison.
@@ -95,13 +101,24 @@ whether it worked.
 - **Flagged for review** (`flagged.html`): 38 items, open/resolved/standing, each with an evidence link. Four added 2026-11-20: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary).
 - **Decision log** (`decisions.html`): 31 recorded decisions including D-P10…D-P15 from the 2026-11-20 pass.
 
-## Measurement (machinery shipped, not yet on)
+---
 
-- Privacy-preserving outbound-click counter (`assets/js/measure.js`): five local events, no cookies/identifiers, ASIN + host only; **transmits nothing until an endpoint is configured**.
-- Self-hosted endpoint (`server.mjs`): counts only, no IP/UA/referrer/logs. Deployable — not hosted (F-19).
-- Campaign ledger (`data/p2/ledger.json`): the five defined events (impression, click, session, order, refund) with the official attribution windows; empty until an authorized report exists.
+## Trust and compliance posture
 
-## Verification & governance trail
+- A disclosure strip appears under the masthead on every generated page and repeats in the footer: “As an Amazon Associate I earn from qualifying purchases.”
+- Every product buy link uses an Amazon `/dp/` URL, the selected tag, and `rel="sponsored"`.
+- Prices, availability, ratings, review counts, commission estimates and revenue forecasts are not published. Product-level commissions are unverified; the campaign ledger remains empty until authorized first-party reporting exists.
+- The site does not claim hands-on testing, product superiority, popularity or search demand. Article titles are editorial hypotheses.
+- One Special Link per product still needs a destination and tracking-report check in Associates Central (F-57/F-58).
+- The official Associates Program Policies source (S-POL), FTC references, and policy decisions are linked in the source register and Compliance page.
+
+## Site and automation
+
+The front page leads with the product shelf and useful questions, followed by guide clusters and seasonal editorial planning. Product comparison and category pages are available alongside the footer-linked governance pages: source method, open questions, suggestions, decisions, measurement, compliance, privacy and flagged items. Sitemap, RSS, canonical metadata and JSON-LD are generated by the build.
+
+`python3 tools/build.py` renders `docs/`; `python3 tools/checks.py` validates the generated publication. The build gate checks disclosures, outbound link attributes, sourced product values, missing-value markers, page navigation, internal references, sitemap/feed coverage, publication cadence and other known policy rules. This is deterministic site automation, not an AI research or revenue-optimization engine.
+
+The browser counter defines five events and stores locally; it sends nothing until an endpoint is configured. `server.mjs` is a tested, self-hostable aggregate endpoint but is not deployed. Three event names used by the site are not accepted by the endpoint, so the two must not be connected until the mismatch is resolved (F-P23/Q-P14/SG-41). Search Console is not verified and no query dataset is available; SG-44 documents the proposed path from verification to measured topic selection.
 
 - 2026-11-20 session records: `data/p2/verification-2026-11-20.json` — every observed string, every non-observation, five findings (V-01…V-05), a second title/breadcrumb pass, and the third independent pass (arena/44af3083-prod2, V3-01…V3-04: 5/5 titles match, policy/chart dates confirmed, F-P24 reproduced, zero register drift); plus `data/p2/live-check-2026-11-20-722181aa.json` (short-link discrepancy, F-P24).
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
@@ -150,29 +167,20 @@ CSS, not an observation of a rendered page.
 - Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, **derived**, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. `derived` is new this pass: it recomputes every published footprint and capacity density from the register, fails on any mismatch, and refuses a named "smallest footprint" winner it cannot attribute.
 - Stylesheet gate: `python3 tools/design_qa.py` — **9 sections** (markers, parse, fonts, units, tokens, cascade, coverage, contrast), green, wired into `npm test` and into the deploy workflow. It exists because of the defect recorded below.
 
-## The publication passes (2026-11-20 — three sessions, reconciled)
+---
 
-Three parallel sessions executed the owner's standing directive — the site must read as a polished,
-branded publication with timely articles, not generated output — and this merge reconciles all three:
+## Highest-priority deployment irregularity
 
-- **Shop-front design rebuild** (arena/70b2b9f7-prod2, D-P10…D-P14): shipped design system (drawn
-  format illustrations, product shelf, `shop.html`, `about.html`, reader nav cut to six links), all
-  five listings re-read live with verbatim records, disclosure corrected to the Operating Agreement
-  §5 first-person sentence (D-P13), dated-snapshot price policy refused on the Program Policies
-  §2(b) read (D-P11, closes Q-27), drawn-only imagery (D-P12), USDA/FoodSafety.gov temperature
-  guidance in the thermometer guide (D-P14).
-- **Anti-slop brand + typography + seasonal pass** (arena/f55b5827-prod2, D-P18…D-P20): the working
-  brand **"The Crisp Counter"** on every reader-facing surface (preliminary name search clean;
-  formal clearance open as Q-19/Q-P10, flag F-P21), the design brief's Fraunces + Inter shipped
-  self-hosted (SIL OFL 1.1, no third-party font requests) with mobile token conformance (44px tap
-  targets, sticky comparison anchors, amber unverified states), and the December gifting window
-  opened with `guide-gift-guide.html` plus four new hypothesis queue slots.
-- **Event-vocabulary pass** (arena/86206fb3-prod2, D-P15, F-P22/F-P23, Q-P14, SG-41): measured the
-  root-mode Pages exposure, rewrote F-P19/F-P20 with evidence, added root-mirror canaries, and
-  published (rather than silently fixed) the site/endpoint event-vocabulary mismatch.
-- **Register ID collisions were remapped and documented**: the anti-slop pass's rows now live at
-  D-P18…D-P20 (twice remapped; see the decision log meta) and its runbook suggestion at SG-44;
-  nothing from any session was discarded.
+GitHub Pages is currently configured as `build_type=legacy`, source `main /` (checked via the Pages API on 2026-11-20). This means the repository root, including source registers and archived files, is publicly fetchable by URL. `robots.txt` is not access control. A workflow builds `docs/`, but the active Pages source setting remains root mode. An API attempt to switch the setting returned HTTP 403, so this session cannot change it. **F-P19/F-P20 remain open.** The repository administrator must select **Settings → Pages → Source: GitHub Actions**, then verify that `/data/p2/settings.json` and `/tools/build.py` return 404 before closing the flags.
+
+## Decision path
+
+1. Fix the Pages source mode; verify source-file URLs no longer resolve (F-P19/F-P20).
+2. Test one affiliate link per product in Associates Central and document observed destination/report results (F-57/F-58).
+3. Decide the event vocabulary and gate the site/endpoint lists before hosting analytics (F-P23/Q-P14/SG-41).
+4. Verify Search Console and submit the sitemap. Choose future article topics from reported queries, not assumed trends (Q-P08/SG-44).
+5. Keep commercial performance fields empty until authorized reports provide values and provenance.
+6. Resolve formal brand clearance and other open questions through the discovery methods on the Questions and Flagged for Review pages.
 
 ## The second wave (2026-11-20, arena/44af3083-prod2)
 
@@ -444,3 +452,12 @@ so nothing is known about whether clicks track. Search Console is unverified (Q-
 selection has no data behind it. The analytics endpoint has no host (Q-23), so the five event
 counters stay in the reader's browser. All three are owner actions, listed on the **Open questions**
 page with the discovery route for each.
+
+---
+
+## Verification references
+
+- Product/source data: `data/p2/products.json`, `data/p2/sources.json`, `data/p2/intent-links.json`, `data/p2/verification-2026-11-20.json`.
+- Site audit and its limits: [`REPO_AUDIT.md`](REPO_AUDIT.md).
+- Workflow coordination and dated results: [`COORDINATION.md`](COORDINATION.md).
+- Rebuild and run checks: `python3 tools/build.py && python3 tools/checks.py && npm test`.

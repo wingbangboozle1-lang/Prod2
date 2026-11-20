@@ -1,5 +1,17 @@
 # COORDINATION.md — Shared Task Board
 
+## ACTIVE CLAIM — session arena/19fb7064-prod2 (2026-11-20, integration review and release-gate repair)
+
+| Task | Status | Session | Scope (files) |
+|---|---|---|---|
+| R-01 Inspect current publication for integration defects; remove unresolved CSS conflict text and gate against recurrence | in progress | arena/19fb7064-prod2 | `assets/css/site.css`, `tools/checks.py`, generated `docs/assets/css/site.css` |
+| R-02 Reconcile reviewer-facing summary, engine guide and README with current implementation and documented open risks | in progress | arena/19fb7064-prod2 | `content/pages/executive-summary.html`, `docs/executive-summary.html`, `EXECUTIVE_SUMMARY.md`, `ENGINE.md`, `README.md` |
+| R-03 Rebuild, run all project gates, record findings and attempt requested Pages/PR integration on the current branch | in progress | arena/19fb7064-prod2 | `docs/`, root generated mirror, `COORDINATION.md` |
+
+**Review basis and limits:** checked the current checkout at base commit `4398598` line-by-line for the touched CSS, gate, generated-summary source, Engine guide and README; inspected existing product/source registers and the prior dated verification record without claiming a fresh Amazon re-read. `gh api repos/wingbangboozle1-lang/Prod2/pages` confirmed `build_type=legacy`, `source=main /`, and the attempted authorized `PUT .../pages` returned HTTP 403 Resource not accessible by integration. These are GitHub API observations, not proof that owner-controlled Pages settings have changed. The unresolved event vocabulary remains in F-P23/Q-P14. Nothing in this claim changes product facts or closes an existing flag.
+
+---
+
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
 Current sessions (2026-11-20, three parallel passes reconciled on this branch): **session arena/f55b5827-prod2** (branch `arena/f55b5827-prod2`, anti-slop design + working-brand + gifting-guide pass — claim below) · arena/70b2b9f7-prod2 (shop-front design rebuild + live re-verification, PR #31) · arena/86206fb3-prod2 (exposure canaries + F-P19/F-P20 rewrites + event-vocabulary publication, PRs #37/#38). This branch merges both and reconciles all three registers.

@@ -1,83 +1,78 @@
-# Prod2 — The Crisp Counter (editorial Amazon affiliate shop)
+# The Crisp Counter — editorial Amazon affiliate shop
 
-Five kitchen tools (three air fryers in three formats, two meat thermometers), written up as a
-buying guide and sold through Amazon Associates. Tracking ID `shopnow047c-20`. The reader-facing
-publication ships under the working brand **The Crisp Counter** (decision D-P18, 2026-11-20, on the
-owner's anti-slop directive; formal name clearance open as Q-19/F-P21).
+A buyer-first static publication about five owner-submitted kitchen products. Tracking ID: `shopnow047c-20`.
 
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/
+**Executive summary:** [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md) · **Repository review:** [REPO_AUDIT.md](REPO_AUDIT.md) · **Coordination log:** [COORDINATION.md](COORDINATION.md)
 
-**Read this first if you are picking the project up:** the reader-facing site is the editorial
-shop build described below. The `Countercraft` `site/` build further down is a preserved earlier
-generation, kept deployable and gated, but it is **not** what readers see.
+## What this project does — and does not do
 
-The site is **data-driven**: every page is generated from the verified data in `data/*.json` by
-`scripts/build_site.py`, and `scripts/verify_site.py` is a release gate that fails the build on
-any violation (missing disclosure, missing `rel="sponsored"`, duplicate meta, broken links,
-sitemap gaps). Standard library only — no dependencies.
+The site organizes sourced product specifications into a shop front, comparison, category pages, buying guides and question-shaped articles. It publishes disclosures, sponsored affiliate links, a source register, missing-information questions, suggestions and flagged irregularities.
 
-## Quick start
+The current repository is **not** an AI-powered product-discovery or conversion-optimization service. It does not identify trending/high-converting products, use search-volume data, query Amazon Associates Central, publish automatically, or forecast revenue. Build automation creates and checks static pages; its analytics collector is not hosted, and Search Console is not verified. Do not claim those capabilities until they exist and have evidence.
+
+## Five recorded product listings
+
+Each product's intended ASIN and official listing URL are stored separately from the submitted short link and observed redirect record. Listing records were re-read on 2026-11-20 (records: `data/p2/verification-2026-11-20.json` and `data/p2/live-check-2026-11-20-722181aa.json` — all five `/dp/` listing titles matched the register); these are dated observations, not guarantees that a listing has not changed.
+
+| ID | Product format | ASIN | Official listing source |
+|---|---|---|---|
+| P1 | Chefman dual-basket air fryer | B0CDY277D3 | [Amazon listing](https://www.amazon.com/dp/B0CDY277D3) · S-P1 |
+| P2 | Emeril Lagasse French-door air-fryer oven | B09B7SB46R | [Amazon listing](https://www.amazon.com/dp/B09B7SB46R) · S-P2 |
+| P3 | Chefman single-basket air fryer | B08DKYBTPH | [Amazon listing](https://www.amazon.com/dp/B08DKYBTPH) · S-P3 |
+| P4 | ThermoMaven instant-read thermometer | B0DHZTCNR5 | [Amazon listing](https://www.amazon.com/dp/B0DHZTCNR5) · S-P4 |
+| P5 | CHEF iQ Sense Gen3 wireless thermometer | B0DZFD6R9Z | [Amazon listing](https://www.amazon.com/dp/B0DZFD6R9Z) · S-P5 |
+
+Unconfirmed values remain blank and are flagged. The owner-supplied `link.amazon` short-link compliance status remains unresolved (F-03); this project does not call those links invalid. A live re-check on 2026-11-20 observed those short links resolving to the Amazon homepage or an error rather than to the listings (F-P24); the cause is unexplained, so published buy paths use the site's own tagged `/dp/` Special Links.
+
+## Build and verification
+
+Standard-library Python generates the publication from `data/p2/*.json`, `content/pages/*.html` and `assets/`:
 
 ```bash
 python3 tools/build.py      # render the publication: data/p2/*.json + content/pages/* -> docs/ -> repo root
 python3 tools/checks.py     # release gate: 14 sections, exits non-zero on any violation
 npm test                    # the gate, plus the self-hosted endpoint tests
+
+---
+
+python3 tools/build.py
+python3 tools/checks.py
+npm test
 ```
 
-`tools/build.py` writes `docs/` and then mirrors it to the repository root, because GitHub Pages
-serves this repository in legacy "main /" mode. That is not a preference: the Pages API reports
-`build_type: legacy` and returns **403** to the session token on any attempt to switch to Actions
-mode, so the root mirror is what readers actually get (INT-07, re-confirmed 2026-11-20).
+`tools/build.py` writes the intended publication to `docs/` and currently also mirrors generated pages to the repository root for legacy Pages compatibility. `tools/checks.py` is the build gate; `npm test` additionally tests the optional Node analytics endpoint. CI runs site build and verification workflows in `.github/workflows/`.
 
-## Layout
+## Important live-host warning — flagged, not concealed
 
-```
-data/p2/          the registers the site renders: products, sources, flags, questions,
-                  suggestions, decisions, intent-links, events, ledger, calendar, settings,
-                  and the dated verification records
-content/pages/    one file per page, with {{placeholders}} for data-rendered blocks
-assets/           the design system (css/site.css), interactions (js/site.js), measurement
-                  (js/measure.js) and six drawn illustrations
-tools/            build.py (generator), checks.py (release gate), make_og.py (social card)
-docs/             generated output -> published (also mirrored to the repo root)
-server.mjs        optional self-hosted aggregate-only event endpoint (not deployed publicly)
-scripts/ + site/  the preserved Countercraft build (earlier generation, still gated in CI)
-archive/          every previous build, kept and excluded from indexing by robots.txt
-COORDINATION.md   shared task board
-EXECUTIVE_SUMMARY.md, DECISIONS.md   reviewer-facing records
-```
+As checked on 2026-11-20, GitHub Pages reports `build_type=legacy`, source `main /`. Therefore GitHub Pages serves the **repository root**, and source files, data registers and archives are accessible by URL. `robots.txt` cannot prevent direct access. The Pages workflow builds `docs/` but does not change the active source setting. An API attempt to switch to workflow publishing returned HTTP 403.
 
-**Root mirror (INT-07):** GitHub Pages for this repo is in legacy "serve the repository root"
-mode, which only a repository admin can switch to Actions mode (the REST API returns 403 to the
-session token — recorded three times). The generator therefore mirrors the deterministic `site/`
-output to the repository root, so the live site is correct in both Pages modes. One source of truth
-(`data/*.json`), two deterministic outputs. When an admin flips Pages to Actions mode, delete the
-root mirror in a single commit.
+**Required administrator action:** GitHub repository Settings → Pages → Source → **GitHub Actions**. Then verify `https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json` and `/tools/build.py` return 404. Until that verification, flags F-P19 and F-P20 stay open. Do not treat a green workflow as proof this repository exposure is fixed.
 
-**One site rule (INT-06, 2026-11-19):** four independent session builds existed at peak. The
-consolidated, canonical site is the data-driven `site/` build. Everything else lives in `archive/`.
-The optional `server.mjs` endpoint serves `site/` and accepts all event families in aggregate-only
-form; the page tracker transmits nothing unless an endpoint is explicitly configured.
+## Main site pages
 
-## The products
+- `index.html`, `shop.html`, `products.html`, `compare.html`
+- `guides.html`, `buying-guide.html`, question-shaped guide pages
+- `category-air-fryers.html`, `category-thermometers.html`
+- `about.html`, `method.html`, `flagged.html`, `questions.html`, `suggestions.html`, `decisions.html`
+- `measurement.html`, `compliance.html`, `privacy.html`, `executive-summary.html`
 
 Five owner-supplied `link.amazon` short links, each resolved against its official Amazon listing.
 All five tokens are 9-character short-link tokens, not 10-character ASINs. On 2026-11-19 they
 resolved to real listings. On 2026-11-20 a same-day re-read confirmed one of
 five links, and a second same-day read disagrees on two links, so the outcome is undecided until a browser check (F-P24, F-P27, F-P28). See `data/p2/products.json`.
 
-| # | Product | Format | ASIN |
-| --- | --- | --- | --- |
-| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 |
-| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R |
-| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH |
-| P4 | ThermoMaven 1-second digital meat thermometer | Instant-read | B0DHZTCNR5 |
-| P5 | CHEF iQ Sense Gen3 wireless meat thermometer | Wireless leave-in | B0DZFD6R9Z |
+---
 
-All five were **re-fetched live on 2026-11-20**; every observed string is recorded in
-`data/p2/verification-2026-11-20.json`, including the values that were *not* observed. Three of the
-five listings show a neighbouring product's price or rating in the visible page; none of those were
-mistaken for the target product (F-P17).
+The dashboard/research pages remain reachable in the “The work behind it” navigation group and the footer. Disclosure appears immediately below the masthead and repeats in the footer. Product links are tagged and use `rel="sponsored"`.
+
+## Key registers and implementation
+
+- `data/p2/products.json`, `sources.json`, `intent-links.json`: item facts, source provenance and distinct intended/observed link records.
+- `flags.json`, `questions.json`, `suggestions.json`, `decisions.json`: irregularities, missing information, proposals and recorded decisions.
+- `calendar.json`, `events.json`, `ledger.json`: editorial hypotheses, measurement event definitions and the intentionally empty campaign ledger.
+- `assets/css/site.css`, `assets/js/measure.js`, `tools/build.py`, `tools/checks.py`, `server.mjs`.
+- `docs/`: generated deploy artifact. `archive/` and `site/` contain prior builds and are not canonical reader content.
 
 ## The site, by page
 
@@ -148,3 +143,7 @@ See `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, and the **About** page for sources a
 
 Everything in the bottom half of that table is an owner action, not an engineering gap. The
 **Open questions** page lists the discovery route for each one.
+
+---
+
+The site withholds prices, availability, ratings, review counts, product commission estimates and forecasts. It does not claim hands-on testing or popularity. See the [Compliance](https://wingbangboozle1-lang.github.io/Prod2/compliance.html), [Measurement](https://wingbangboozle1-lang.github.io/Prod2/measurement.html) and [Flagged for Review](https://wingbangboozle1-lang.github.io/Prod2/flagged.html) pages for source links and outstanding actions.
