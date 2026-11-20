@@ -1,3 +1,59 @@
+/* Typefaces (2026-11-20 conflict repair, session arena/0a9f19fe-prod2).
+   The merge that produced this build left raw conflict markers at the top of this
+   file; every rule below them was dead in strict parsers. Both branches offered a
+   valid font stack, so BOTH are kept: the six static latin subsets (HEAD) plus the
+   three variable faces (origin/main). Declared in that order so a browser that
+   supports only one of the two formats still resolves a usable face.
+   SIL OFL 1.1; license files in assets/fonts/. font-display: swap; no third-party
+   font requests. */
+/* ----------
+   Self-hosted typefaces (D-P19, 2026-11-20): Fraunces + Inter, latin subsets,
+   SIL Open Font License 1.1 — license files in assets/fonts/. font-display:
+   swap; no third-party font requests.
+   ---------- */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/inter-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/inter-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/inter-latin-700-normal.woff2") format("woff2");
+}
+
 /* Self-hosted type (2026-11-20). No font CDN: the privacy statement promises no
    third-party requests, and a CDN would leak every reader's IP to one.
    Fraunces = display, Inter = UI/body. Both SIL OFL 1.1; see assets/fonts/LICENSE.txt. */
@@ -526,6 +582,7 @@ a.src:hover { color: var(--ink); }
 .status-shipped { background: var(--sage-deep, #44543E); color: #fff; }
 .status-recorded { background: var(--sage-wash); color: var(--sage-deep); display: inline-block; border-color: #DDE4D8; }
 .status-rejected { background: var(--paper-deep); color: var(--muted); text-decoration: line-through; }
+.status-deferred { background: #FBF4DE; color: var(--gold); border-color: var(--gold); }
 .reco {
   background: var(--paper-deep); border-radius: var(--radius-sm);
   padding: .8rem 1rem; font-size: .9rem; margin: 0;
@@ -665,4 +722,268 @@ a.src:hover { color: var(--ink); }
   .masthead, .footer, .cta-row, .filter-bar { display: none; }
   body { background: #fff; color: #000; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .75em; }
+}
+
+/* ==========================================================================
+   Decision briefs (2026-11-20, X-04)
+   A brief is a two-column argument: verified on the left, missing on the right,
+   with the cheapest test immediately under it. Tokens are the same ones the
+   rest of the sheet uses, so this adds no new palette.
+   ========================================================================== */
+.brief-card { margin: 2rem 0; padding: 1.6rem 1.7rem; }
+.brief-card .brief-head h2 { margin: .2rem 0 .5rem; font-size: 1.5rem; }
+.brief-card .brief-head .lede { margin: 0 0 1.1rem; font-size: 1rem; }
+.brief-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  margin: 1rem 0;
+}
+.brief-col {
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+}
+.brief-col h3, .brief-test h3 {
+  margin: 0 0 .6rem;
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.brief-col ul { margin: 0; padding-left: 1.1rem; }
+.brief-col li { margin-bottom: .55rem; font-size: .93rem; line-height: 1.5; }
+.brief-known { background: var(--sage-wash, #eef2e8); }
+.brief-unknown { background: var(--clay-wash, #fbeee4); }
+.brief-cite { display: block; margin-top: .2rem; font-size: .78rem; color: var(--ink-soft); }
+.brief-cite a { text-decoration: none; }
+.brief-test {
+  border-left: 3px solid var(--terracotta, #b4552d);
+  background: var(--paper);
+  padding: .9rem 1.1rem;
+  margin: 1rem 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.brief-test p { margin: .3rem 0; }
+.brief-who { font-size: .9rem; color: var(--ink-soft); }
+.brief-refs, .brief-links {
+  font-size: .84rem;
+  color: var(--ink-soft);
+  margin: .5rem 0 0;
+  padding-top: .7rem;
+  border-top: 1px solid var(--rule);
+}
+.brief-refs code, .brief-links code { font-size: .8rem; }
+h2#B-01, h2#B-02, h2#B-03, h2#B-04, h2#B-05, h2#B-06 { scroll-margin-top: 4rem; }
+@media (max-width: 44rem) {
+  .brief-two { grid-template-columns: 1fr; }
+  .brief-card { padding: 1.1rem 1rem; }
+}
+
+/* ---------- front-page question chooser (2026-11-20) ----------
+   Four links, not four more cards: a reader with a question in mind needs a
+   signpost, not a second copy of the guides hub. One row on desktop, a stack
+   with 44px targets on a phone. */
+.chooser-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .7rem;
+  margin: 1rem 0 1.6rem;
+}
+.chooser {
+  display: block;
+  padding: .95rem 1.1rem;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 1.35;
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.chooser span {
+  display: block;
+  margin-bottom: .25rem;
+  font-family: var(--sans);
+  font-size: .7rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+.chooser:hover, .chooser:focus-visible {
+  border-color: var(--terracotta);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+@media (min-width: 48rem) {
+  .chooser-row { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 44rem) {
+  .chooser-row { grid-template-columns: 1fr; }
+  .chooser { min-height: 44px; }
+}
+
+/* ==========================================================================
+   2026-11-20 (session arena/1930d8a3-prod2) — buyer decision layer
+   Appended, never interleaved: the section above is owned by other sessions.
+   Contains (a) two classes a built page uses but the sheet never defined, and
+   (b) the "help me choose" surface, built from the same tokens.
+   ========================================================================== */
+
+/* (a) decided-card rows on the decision log and the guide list on category pages.
+   .card already supplies the surface; these refinements make the rows scannable. */
+.d-card { margin: 0 0 1rem; }
+.d-card h3 { display: flex; gap: .6rem; align-items: baseline; flex-wrap: wrap; }
+.d-card .d-id {
+  font-family: var(--sans); font-size: .72rem; font-weight: 750; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--terracotta-deep);
+  background: var(--terracotta-wash); border-radius: 999px; padding: .18rem .6rem;
+}
+.guide-links {
+  list-style: none; padding: 0; margin: 1.1rem 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .35rem 1.2rem;
+}
+.guide-links li { margin: 0; font-size: .93rem; }
+.guide-links a { text-decoration: none; border-bottom: 1px solid transparent; }
+.guide-links a:hover { border-bottom-color: var(--terracotta); }
+
+/* (b) the decision engine. A reader answers two to four questions and gets a
+   recommendation that names the listed fact it rests on plus what would change
+   the answer. No scores, no prices, no ratings: the register forbids all three. */
+.decide {
+  display: grid; grid-template-columns: 1.05fr .95fr; gap: 2rem; align-items: start;
+  margin: 1.6rem 0 1rem;
+}
+.decide-form { display: flex; flex-direction: column; gap: 1.35rem; }
+.decide-q {
+  border: 1px solid var(--rule); border-radius: var(--radius); background: var(--paper-card);
+  padding: 1.05rem 1.15rem 1.15rem; margin: 0; box-shadow: var(--shadow-sm);
+}
+.decide-q legend, .decide-q .q-label {
+  font-weight: 700; font-size: .95rem; color: var(--ink); padding: 0; margin-bottom: .1rem;
+}
+.decide-q .q-help { font-size: .82rem; color: var(--muted); margin: 0 0 .7rem; }
+.decide-q .opts { display: grid; gap: .4rem; }
+.decide-q label {
+  display: flex; gap: .6rem; align-items: flex-start; cursor: pointer;
+  border: 1px solid var(--rule); border-radius: var(--radius-sm);
+  padding: .62rem .75rem; background: var(--paper); font-size: .92rem; line-height: 1.4;
+  transition: border-color .14s, background .14s;
+  min-height: 44px; /* tap target (DESIGN_PROMPT mobile-first rule) */
+}
+.decide-q label:hover { border-color: var(--rule-strong); background: var(--paper-deep); }
+.decide-q label:has(input:checked) {
+  border-color: var(--terracotta); background: var(--terracotta-wash);
+}
+.decide-q input[type="radio"] { margin: .22rem 0 0; accent-color: var(--terracotta); flex: 0 0 auto; }
+.decide-q label span b { display: block; font-weight: 650; }
+.decide-q label span em { font-style: normal; color: var(--muted); font-size: .86em; display: block; }
+.decide-actions { display: flex; gap: .7rem; align-items: center; flex-wrap: wrap; }
+
+.decide-out {
+  position: sticky; top: 6.5rem;
+  border: 1px solid var(--rule); border-radius: var(--radius-lg);
+  background: var(--paper-card); box-shadow: var(--shadow);
+  padding: 1.4rem 1.5rem; min-height: 15rem;
+}
+.decide-out.is-empty { background: var(--paper-deep); box-shadow: none; color: var(--muted); }
+.decide-out .out-kicker {
+  font-size: .7rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--sage-deep); margin: 0 0 .5rem;
+}
+.decide-out h3 { margin: 0 0 .35rem; font-size: 1.45rem; line-height: 1.2; }
+.decide-out .out-format {
+  display: inline-block; font-size: .72rem; font-weight: 750; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--terracotta-deep);
+  background: var(--terracotta-wash); border-radius: 999px; padding: .2rem .65rem; margin-bottom: .8rem;
+}
+.decide-out .out-reason { font-size: .96rem; line-height: 1.55; margin: 0 0 .85rem; }
+.decide-out .out-fact {
+  border-left: 3px solid var(--sage); background: var(--sage-wash);
+  padding: .7rem .85rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: .88rem; line-height: 1.5; margin: 0 0 .85rem;
+}
+.decide-out .out-fact b { color: var(--sage-deep); }
+.decide-out .out-buy { margin: 0 0 .55rem; }
+.decide-out .out-alt { font-size: .86rem; color: var(--ink-soft); margin: 0 0 .7rem; }
+.decide-out .out-alt b { color: var(--ink); }
+.decide-out .out-caveat { font-size: .8rem; color: var(--muted); margin: 0; line-height: 1.45; }
+.decide-out .out-caveat a { color: var(--muted); }
+.decide-progress { display: flex; gap: .35rem; margin: 0 0 1rem; }
+.decide-progress span {
+  flex: 1 1 0; height: 4px; border-radius: 999px; background: var(--rule);
+}
+.decide-progress span.on { background: var(--terracotta); }
+
+/* tiles: three-quarter-width rows on the landing page */
+.decide-teaser {
+  display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center;
+  background: var(--ink); color: var(--paper); border-radius: var(--radius-lg);
+  padding: 1.6rem 1.8rem; margin: 2.2rem 0 1rem;
+}
+.decide-teaser h2 { color: var(--paper); margin: 0 0 .35rem; }
+.decide-teaser p { color: #E8DED2; margin: 0; max-width: 38rem; font-size: .96rem; }
+.decide-teaser .btn { background: var(--terracotta); border-color: var(--terracotta); white-space: nowrap; }
+.decide-teaser .btn:hover { background: #A9451F; border-color: #A9451F; }
+
+@media (max-width: 60rem) {
+  .decide { grid-template-columns: 1fr; }
+  .decide-out { position: static; }
+  .decide-teaser { grid-template-columns: 1fr; }
+}
+
+/* a hero without the illustration column: the decision engine needs the fold
+   for its first question, not for a picture */
+.hero-compact { padding-bottom: .5rem; }
+.hero-compact h1 { max-width: 24ch; }
+.hero-compact .lede { max-width: 44rem; }
+
+/* ---------- landing: glance table + reader FAQ ---------- */
+.glance-table td:first-child { min-width: 15rem; }
+.glance-table .btn { padding: .5rem .9rem; font-size: .85rem; white-space: nowrap; }
+.glance-table .paid { display: none; } /* the buy button carries the label; the note below carries the disclosure */
+
+.faq { display: grid; gap: .6rem; margin: 1.3rem 0 2rem; max-width: 54rem; }
+.faq-item {
+  background: var(--paper-card); border: 1px solid var(--rule); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.faq-item summary {
+  cursor: pointer; list-style: none; padding: 1rem 1.2rem;
+  font-family: var(--serif); font-size: 1.08rem; font-weight: 600; line-height: 1.3;
+  display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+  min-height: 44px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+"; font-family: var(--sans); font-size: 1.25rem; font-weight: 400;
+  color: var(--terracotta); flex: 0 0 auto; line-height: 1;
+}
+.faq-item[open] summary::after { content: "–"; }
+.faq-item[open] summary { border-bottom: 1px solid var(--rule); background: var(--paper-deep); }
+.faq-body { padding: .95rem 1.2rem 1.05rem; }
+.faq-body p { margin: 0; font-size: .95rem; line-height: 1.6; color: var(--ink-soft); max-width: 46rem; }
+
+/* product-card headings: keep the serif lift but allow a long model name to wrap
+   without orphan words on a narrow card */
+.product-card h3.card-title { text-wrap: balance; }
+
+/* numbered step lists (before-you-decide.html): a real ordered list, styled so the
+   numeral reads as a step marker rather than as body text */
+ol.numbered { list-style: none; counter-reset: step; padding: 0; margin: 1.3rem 0; max-width: 52rem; }
+ol.numbered > li {
+  counter-increment: step; position: relative; padding: .15rem 0 .15rem 2.6rem; margin: 0 0 .9rem;
+  font-size: .96rem; line-height: 1.55;
+}
+ol.numbered > li::before {
+  content: counter(step); position: absolute; left: 0; top: 0;
+  width: 1.75rem; height: 1.75rem; border-radius: 50%;
+  background: var(--terracotta-wash); color: var(--terracotta-deep);
+  border: 1px solid rgba(194, 85, 47, .22);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-size: .8rem; font-weight: 750;
 }

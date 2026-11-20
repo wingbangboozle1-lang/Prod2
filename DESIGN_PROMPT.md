@@ -141,20 +141,20 @@ is built):
 
 ## Marketing inputs — session arena/44af3083-prod2 (2026-11-20)
 
-Proposals only. Each is queued on the Suggestions page (SG-48, SG-49, SG-50); pick a path
+Proposals only. Each is queued on the Suggestions page (SG-49, SG-50, SG-51); pick a path
 there before anything in this section is built.
 
-1. **"The newest question" slot (SG-48).** One module above the shelf on the front page:
+1. **"The newest question" slot (SG-49).** One module above the shelf on the front page:
    the latest published guide's question headline, its one-sentence answer, one link.
    Rotates from the build's guide order — no new data, no publish-time editorial work. It
    gives the front page the pulse of a publication with a cadence instead of a fixed catalogue.
-2. **CTA language for the no-price world (SG-50).** With prices and ratings withheld (F-02),
+2. **CTA language for the no-price world (SG-51).** With prices and ratings withheld (F-02),
    the buy button copy is the entire conversion layer. Specify three compliant label variants
    ("See today's price on Amazon" is truthful under Program Policies 2(b) — Amazon shows the
    price), keep the paid-link label attached, and rotate behind the outbound_click event once
    the measurement gate (SG-06) opens. No variant may imply a price, rating or availability
    the site cannot see.
-3. **Re-verification as a trust signal (SG-49).** The dated-read discipline is the site's
+3. **Re-verification as a trust signal (SG-50).** The dated-read discipline is the site's
    stated differentiator (SG-37). The design should surface it: a "last checked" date on
    product cards is already rendered (`last_live_read`) — keep it prominent in any card
    redesign, and give the verification record a visible home on the Method page.

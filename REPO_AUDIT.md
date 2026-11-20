@@ -99,7 +99,7 @@ a reader-content pass. Findings (all published, none blocking):
 | The front page's trust row claimed 10 buyer guides after the calendar had grown | `content/pages/index.html` | Corrected to 12 with the two new guides |
 
 Published this pass: `guide-preheat-shake.html`, `guide-turkey-done.html` (Thanksgiving window,
-USDA-sourced), register rows Q-P19/Q-P20 and SG-48..SG-50 (proposals only; this pass's Q-P15 browser-check row merged into the parallel pass's Q-P18), and a marketing-inputs
+USDA-sourced), register rows Q-P19/Q-P20 and SG-49..SG-51 (proposals only; this pass's Q-P15 browser-check row merged into the parallel pass's Q-P18), and a marketing-inputs
 section in `DESIGN_PROMPT.md`. Gate: `tools/checks.py` ALL CHECKS PASSED (30 pages, 12 sections);
 `scripts/verify_site.py` VERIFY OK; `npm test` 2/2.
 

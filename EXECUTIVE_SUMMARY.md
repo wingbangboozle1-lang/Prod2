@@ -1,8 +1,36 @@
 # Executive summary — The Crisp Counter (Prod2 affiliate publication)
 
-**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
+**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it. As of the 15730819 pass the landing page leads with the shelf and the two long reads, carries one trust line instead of four, and prints 12 cards instead of 24.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
+
+## Two things a reviewer should know before reading any of this
+
+1. **The published stylesheet was broken, and it is fixed.** `assets/css/site.css` was committed
+   with raw merge-conflict markers on 2026-11-20 (`<<<<<<< HEAD` at line 1, `>>>>>>> origin/main`
+   at line 75), and the build copies `assets/` verbatim into `docs/`. Every reader saw a stylesheet
+   that was not valid CSS. No existing gate section read the static assets, which is why it shipped
+   green. Fixed at source, and a new `integrity` section now fails the build on any conflict marker
+   and on a stylesheet that has lost its braces, design tokens or font-faces.
+2. **There is now a decision page, not just a flag list.** `briefs.html` holds six briefs — one per
+   decision the owner actually has to make — ordered by irreversibility, each stating what is known
+   *with the register row that proves it*, what is missing, the exact question, who can answer it,
+   and the cheapest test that closes it. See **The decisions** below.
+
+## The decisions (new 2026-11-20)
+
+| # | Decision | Who answers | Why it is first |
+|---|---|---|---|
+| B-01 | Is the Associates account enrolled, and does `shopnow047c-20` attribute? | Owner, in Associates Central | Every revenue statement on this project depends on it |
+| B-02 | Can the site legally publish under its current name? | Owner, with a trademark search | A rename touches every page and the feed URL at once |
+| B-03 | May the site publish a price at all? | Owner (API enrolment), then a licence read | A price is the biggest trust signal and the easiest breach |
+| B-04 | Where does the click counter send its numbers? | Owner | Until it does, no topic choice can be measured |
+| B-05 | Should the whole repository stop being readable on the live host? | Repository admin | Pages is in legacy root mode; everything committed is fetchable |
+| B-06 | Is there a legal way to show the actual product? | Owner (SiteStripe) | Separates a publication from a set of diagrams |
+
+Each brief carries the evidence links to the official page that decides it. Nothing on that page
+asserts a conclusion the registers do not already support, and the gate fails the build if a brief
+cites a row that does not exist or publishes an empty "not known" list.
 
 ## The five products (tracking ID `shopnow047c-20`)
 
@@ -129,8 +157,8 @@ everything from official sources, and put every judgement in front of a reviewer
   and `guide-turkey-done.html` ("How do you know the turkey is done?" — USDA 165°F guidance plus the
   instant-read vs leave-in trade-off). Both auto-flowed into the sitemap and RSS feed; the calendar
   clusters and the holiday desk were wired in the same build.
-- **Decision-support additions, proposals only:** SG-48 (front-page "newest question" slot),
-  SG-49 (90-day listing re-verification SLA), SG-50 (CTA language for the no-price world);
+- **Decision-support additions, proposals only:** SG-49 (front-page "newest question" slot),
+  SG-50 (90-day listing re-verification SLA), SG-51 (CTA language for the no-price world);
   Q-P19 (demand evidence for the new guides), Q-P20 (can the re-verification run in CI). The
   short-link browser-check question merged into the parallel pass's **Q-P18** (its content kept,
   nothing discarded). `DESIGN_PROMPT.md` gained a marketing-inputs section feeding the next
@@ -289,7 +317,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 
 # Executive summary — Prod2 affiliate publication
 
-**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it.
+**What this is:** a small Amazon-affiliate publication (working brand: **The Crisp Counter — Kitchen notes & buying guides**; formal clearance still open, F-P21/Q-P10) built around five owner-supplied products. Since the 2026-11-20 pass it reads as a shop first: a product shelf, drawn illustrations, buy buttons and question-shaped guides, with the verification machinery one click behind it rather than in front of it. As of the 15730819 pass the landing page leads with the shelf and the two long reads, carries one trust line instead of four, and prints 12 cards instead of 24.
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/ (GitHub Pages, this repository's `docs/`).
 **Source of truth:** `data/*.json` + `content/pages/*.html` → `docs/` via `tools/build.py`; gated by `tools/checks.py`. See `ENGINE.md`.
 

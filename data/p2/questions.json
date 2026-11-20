@@ -350,7 +350,7 @@
    "how_to_discover": "Prototype a workflow that fetches the five /dp/ URLs from a GitHub-hosted runner and diffs the document titles against data/p2/products.json. Record whether runner egress allows it; if blocked, record the limit and keep the manual cadence.",
    "answerable_by": "Owner",
    "blocks": [
-    "SG-49"
+    "SG-50"
    ],
    "flags": []
   }
