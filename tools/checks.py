@@ -33,6 +33,16 @@ Sections:
                link.amazon short links are quoted evidence, never clickable
   measurement  the site's event list vs the endpoint's accepted names; any
                divergence FAILS the build (F-P23 fixed 2026-11-20, D-P21)
+  one-site     one canonical base across every page; sitemap complete and free of
+               duplicates; every archived build carries noindex; robots.txt scoped
+               away from source and archive
+  briefs       the decision layer: every declared brief rendered, every cited
+               register id resolves, no brief with an empty "not known" list, and
+               the page is in the sitemap and the footer directory (X-04)
+  integrity    no raw merge-conflict marker in any shipped file (a marker shipped
+               in assets/css/site.css on 2026-11-20 and broke the live stylesheet);
+               the stylesheet still defines its tokens and font-faces; register
+               ids cited from a register exist somewhere (X-01/X-05, 2026-11-20)
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
 """
 from __future__ import annotations
@@ -577,6 +587,164 @@ def main() -> int:
         fail("measure.js: guide_read_75 does not cover article-* pages, so long reads are unmeasured")
     else:
         ok("depth event covers both guide-* and article-* pages")
+
+    # ----------------------------------------------------------------- briefs
+    check("briefs")
+    # X-04: the decision layer. A brief is only useful if every fact in it points
+    # at a row a reader can open, and only honest if it names what is missing. So
+    # the gate asserts: the page exists and is reachable; every declared brief is
+    # rendered with an anchor; every cited register id exists in that register;
+    # and no brief is published with an empty "not known" list, which would mean
+    # a decision dressed up as a conclusion.
+    briefs_doc = DOCS / "briefs.html"
+    if not briefs_doc.exists():
+        fail("docs/briefs.html is missing but briefs are declared in data/p2/briefs.json")
+    else:
+        btext = briefs_doc.read_text(encoding="utf-8")
+        bjson = json.loads((DATA / "briefs.json").read_text(encoding="utf-8"))["briefs"]
+        flag_ids = {x["id"] for x in json.loads((DATA / "flags.json").read_text(encoding="utf-8"))["flags"]}
+        q_ids = {x["id"] for x in json.loads((DATA / "questions.json").read_text(encoding="utf-8"))["questions"]}
+        sg_ids = {x["id"] for x in json.loads((DATA / "suggestions.json").read_text(encoding="utf-8"))["suggestions"]}
+        d_ids = {x["id"] for x in json.loads((DATA / "decisions.json").read_text(encoding="utf-8"))["decisions"]}
+        reg = {"F": flag_ids, "Q": q_ids, "SG": sg_ids, "D": d_ids}
+        for b in bjson:
+            if f'id="{b["id"]}"' not in btext:
+                fail(f"briefs.html: brief {b['id']} is declared but not rendered")
+            if not b.get("not_known"):
+                fail(f"data/p2/briefs.json: {b['id']} lists nothing as unknown — "
+                     "a decision with no open question is a conclusion, not a brief")
+            if not b.get("known"):
+                fail(f"data/p2/briefs.json: {b['id']} cites no evidence")
+            for ref in b.get("flags", []) + b.get("questions", []):
+                ns = ref.split("-")[0]
+                if ns not in reg or ref not in reg[ns]:
+                    fail(f"data/p2/briefs.json: {b['id']} cites {ref}, which is not in its register")
+        # every id cited inside a known[]/cheapest-test string must resolve too
+        idscan = re.compile(r"\b(F-P?\d{1,3}|Q-P?\d{1,3}|SG-\d{1,3}|D-P?\d{1,3})\b")
+        for b in bjson:
+            blob = json.dumps({k: b[k] for k in ("known", "not_known", "cheapest_first_test",
+                                                  "what_it_blocks", "what_it_does_not_block")})
+            for rid in set(idscan.findall(blob)):
+                ns = rid.split("-")[0]
+                if ns in reg and rid not in reg[ns]:
+                    fail(f"data/p2/briefs.json: {b['id']} text cites {rid}, missing from that register")
+        # findable: the briefs page must be in the sitemap and reachable from the footer
+        smap = (DOCS / "sitemap.xml").read_text(encoding="utf-8")
+        if "briefs.html" not in smap:
+            fail("sitemap.xml does not list briefs.html")
+        if 'href="briefs.html"' not in (DOCS / "index.html").read_text(encoding="utf-8"):
+            fail("index.html does not link briefs.html (the footer directory must carry it)")
+    if not FAILURES:
+        ok(f"{'briefs' and len(bjson)} briefs rendered; every citation resolves; page in sitemap + footer")
+
+    # --------------------------------------------------------- one-site/noindex
+    check("one-site")
+    # "Make it findable" means one site, not four. Every archived build is still
+    # fetchable at the live host; left unmarked it competes with the canonical page
+    # it duplicates. guard_archive() writes a noindex into each one on every build,
+    # and this section is what stops that from silently regressing.
+    arch = ROOT / "archive"
+    if arch.is_dir():
+        unmarked = []
+        for f in arch.rglob("*"):
+            if f.is_file() and f.suffix in (".html", ".xml"):
+                if "noindex" not in f.read_text(encoding="utf-8", errors="replace"):
+                    unmarked.append(f.relative_to(arch).as_posix())
+        if unmarked:
+            fail(f"{len(unmarked)} archived pages ship without noindex, so duplicate copies of "
+                 f"the site stay indexable (first: {unmarked[0]}) — rerun tools/build.py")
+    robots = (DOCS / "robots.txt").read_text(encoding="utf-8")
+    for required in ("Disallow: /Prod2/archive/", "Disallow: /Prod2/data/", "Sitemap: "):
+        if required not in robots:
+            fail(f"robots.txt: missing '{required}'")
+    # exactly one canonical home: every page points at the same base, and the
+    # sitemap holds no duplicates and no unbuilt URL.
+    cands = set()
+    for f in html_files:
+        m = re.search(r'<link rel="canonical" href="([^"]+)"', f.read_text(encoding="utf-8"))
+        if not m:
+            fail(f"{f.name}: no canonical link (search engines must be told which URL is the page)")
+        else:
+            cands.add(m.group(1).rsplit("/", 1)[0])
+    if len(cands) > 1:
+        fail(f"pages declare {len(cands)} different canonical bases: {sorted(cands)}")
+    smap = (DOCS / "sitemap.xml").read_text(encoding="utf-8")
+    locs = re.findall(r"<loc>([^<]+)</loc>", smap)
+    if len(locs) != len(set(locs)):
+        fail("sitemap.xml contains duplicate <loc> entries")
+    built_names = {f.name for f in html_files}
+    missing_from_sitemap = sorted(n for n in built_names if f"/{n}<" not in smap)
+    if missing_from_sitemap:
+        fail(f"{len(missing_from_sitemap)} built pages absent from sitemap.xml: {missing_from_sitemap[:4]}")
+    if not FAILURES:
+        ok(f"one canonical base; {len(locs)} sitemap URLs, no duplicates; archive noindexed; robots scoped")
+
+    # --------------------------------------------------------------- integrity
+    check("integrity")
+    # A raw merge-conflict marker shipped in assets/css/site.css on 2026-11-20 and
+    # build.py copied it verbatim into docs/assets/css/, so the published stylesheet
+    # was invalid for every reader while every other section stayed green: no section
+    # read the static assets. Two fixes: resolve the file (done), and gate it here.
+    CONFLICT_RE = re.compile(r"^(<<<<<<<|>>>>>>>|\|\|\|\|\|\|\|)( |$)|^=======$", re.M)
+    static_exts = {".css", ".js", ".svg", ".html", ".xml", ".json", ".txt"}
+    for root_dir, label in ((DOCS, "docs/"), (ROOT / "assets", "assets/")):
+        for f in root_dir.rglob("*"):
+            if not f.is_file() or f.suffix not in static_exts:
+                continue
+            if "archive" in f.parts:
+                continue
+            try:
+                text = f.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                continue
+            if CONFLICT_RE.search(text):
+                fail(f"{label}{f.relative_to(root_dir).as_posix()}: raw merge-conflict marker shipped")
+    # The stylesheet must actually parse far enough to define the token block the
+    # pages depend on: a truncated or marker-broken file loses :root and the site
+    # renders unstyled. Assert the tokens and the two families the build preloads.
+    css = DOCS / "assets" / "css" / "site.css"
+    if not css.exists():
+        fail("docs/assets/css/site.css is missing")
+    else:
+        c = css.read_text(encoding="utf-8")
+        if c.count("{") != c.count("}"):
+            fail(f"site.css: unbalanced braces ({c.count('{')} open / {c.count('}')} close)")
+        for token in ("--paper:", "--ink:", "--serif:", "--sans:"):
+            if token not in c:
+                fail(f"site.css: design token {token} missing (stylesheet truncated?)")
+        for face in ("fraunces-var.woff2", "inter-var.woff2"):
+            if face not in c:
+                fail(f"site.css: @font-face for {face} missing but the build preloads it")
+    # Every register id referenced from a page or another register must exist.
+    registers = {}
+    for name, key in (("flags.json", "flags"), ("questions.json", "questions"),
+                      ("suggestions.json", "suggestions"), ("decisions.json", "decisions")):
+        p = DATA / name
+        if p.exists():
+            registers[name] = {x["id"] for x in json.loads(p.read_text(encoding="utf-8"))[key]}
+    all_ids = set().union(*registers.values()) if registers else set()
+    id_re = re.compile(r"\b(F-P?\d{1,3}|Q(?:-P)?\d{1,3}|SG-\d{1,3}|D(?:-P)?\d{1,3})\b")
+    # A range such as "D-P10..D-P17" names an ID space, not a reference to a row,
+    # so drop range expressions before collecting ids to check.
+    range_re = re.compile(r"\b[A-Z]{1,2}(?:-P)?\d{1,3}\s*[.–-]{1,2}\s*[A-Z]{1,2}(?:-P)?\d{1,3}\b")
+    for name in registers:
+        text = range_re.sub(" ", (DATA / name).read_text(encoding="utf-8"))
+        for rid in set(id_re.findall(text)):
+            # a register may cite a neighbouring register's id; only flag ids that
+            # exist in NO register at all, which is the real dangling-reference case.
+            if rid not in all_ids:
+                fail(f"data/p2/{name}: cites {rid}, which exists in no register")
+    # every dated verification record must name a date and the tool that read it
+    for p in DATA.glob("verification-*.json"):
+        try:
+            blob = json.loads(p.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            fail(f"data/p2/{p.name}: not valid JSON ({exc})")
+            continue
+        if not re.search(r"\d{4}-\d{2}-\d{2}", p.name):
+            fail(f"data/p2/{p.name}: verification record filename carries no date")
+    if not FAILURES:
+        ok("no conflict markers shipped; stylesheet tokens intact; register ids resolve")
 
     # -------------------------------------------------------------- freshness
     check("freshness")
