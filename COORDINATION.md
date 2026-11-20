@@ -1106,3 +1106,33 @@ rather than rebase.
   at the **"Build is reproducible (committed site/ and root mirror match the build)"** step — the same
   class of drift `main` had before this pass. It does not affect `main` or the deploy; its own session
   owns the fix.
+
+## ACTIVE CLAIM — session arena/3936beb1-prod2 (2026-11-20, status re-verification + coordination record)
+
+Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Single-branch rule followed; no other branch was created, switched to or pushed.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Re-run the release gates on the branch (`tools/build.py`, `tools/checks.py`, `scripts/verify_site.py`, `node --test tests/server.test.mjs`) | done | arena/3936beb1-prod2 | none (read-only) |
+| X-02 Independent spot check of the live site and of one Amazon listing (P4, `B0DHZTCNR5`) | done | arena/3936beb1-prod2 | none (read-only) |
+| X-03 Record open-PR state and owner-side blockers here | done | arena/3936beb1-prod2 | `COORDINATION.md` |
+
+### Results (2026-11-20)
+
+- **X-01 gates:** `tools/build.py` → 30 pages; `tools/checks.py` → ALL CHECKS PASSED (13 sections, 5 declared site events, freshness match); `scripts/verify_site.py` → VERIFY OK (18 pages); `node --test tests/server.test.mjs` → 3/3 pass. Every outbound product `href` in `docs/` carries `tag=shopnow047c-20` and every outbound product link carries `rel="sponsored nofollow noopener"` (25 on `shop.html`).
+- **X-02 live site:** `https://wingbangboozle1-lang.github.io/Prod2/` served by the fetch tool (title "Air fryers and thermometers by format | The Crisp Counter"). Pages API: `build_type: legacy`, `source: main /`, status `built`. The sandbox `curl` to the Pages host fails (`http 000`), so the fetch tool is the only live read.
+- **X-02 listing:** `https://www.amazon.com/dp/B0DHZTCNR5` (P4) read through the fetch tool. Listing title matches `data/p2/products.json` P4 `name_listing`. The page also shows prices and ratings for other ASINs in the "Customers who viewed" carousel (the F-P17 attribution trap). Those values stay unpublished (F-02). The product's own price was **not** taken from this read.
+- **X-03 open PRs (not touched by this session):** #35 (`arena/dd4bae8a-prod2`), #41 (`arena/e0d92902-prod2`), #43 (`arena/37b265a4-prod2`), #45 (`arena/19fb7064-prod2`), #46 (`arena/644d217b-prod2`). All five are OPEN and overlap the same reader-facing files (`tools/build.py`, `docs/`, `COORDINATION.md`, `data/p2/*`). Merging any of them is an integration decision for the owner, and each must be rebased on the merged state first. This session did not merge them.
+
+### Owner-side blockers (cannot be done from the sandbox)
+
+1. **Pages source** (F-P19 / F-P20): still `main /`. Owner action: Settings → Pages → Source → GitHub Actions. The repo root therefore still exposes `data/`, `content/`, `tools/`.
+2. **One-link-per-product Associates Central test** (F-57 / F-58): tracking ID registration, activity and the attribution of each tagged Special Link can only be confirmed inside Associates Central. No value was inferred.
+3. **Short-link resolution** (F-P24): the five `link.amazon` short links did not resolve to their listings on 2026-11-20 (see L-01 above). Their compliance status stays unresolved (FLG-003). They are not claimed valid or invalid.
+
+### Irregularities for manual review (non-blocking, already on the Flagged page)
+
+- F-P19 / F-P20: Pages source exposes non-publication files (see blocker 1).
+- F-P23 / Q-P14: event-vocabulary contract (resolved in code by the W-01 pass; the gate asserts the five names; whether a collector is deployed for live traffic was not checked this session).
+- F-P24: short-link discrepancy (blocker 3).
+- F-P17 / F-02: carousel prices and ratings belong to other ASINs; the site withholds prices and ratings.
