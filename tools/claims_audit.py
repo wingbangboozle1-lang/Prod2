@@ -281,6 +281,8 @@ RETIRED_PHRASES = [
     # "leave-in" is this site's own format label for P5 (products.json `format`), so the
     # words alone are not a claim about the listing; what was unevidenced is the
     # monitor-from-anywhere promise, so that is the string denied by name.
+    {"phrase": "cooks on a rack", "product": "P2", "instead": "a French-door oven cavity instead of a basket",
+     "why": "the listing describes French doors, 24 presets and six accessories; no recorded string says rack"},
     {"phrase": "monitor away from the heat", "product": "P5", "instead": "3 ultra-thin wireless probes, WiFi unlimited range",
      "why": "the card paired our format word with a monitoring promise no recorded string carries"},
 ]

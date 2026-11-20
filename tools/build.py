@@ -919,6 +919,22 @@ def hook_briefs_summary(_="") -> str:
             'cheapest test that would close it.</p>')
 
 
+def hook_editorial_count(_="") -> str:
+    """How many guide/long-read/buying-guide pages the build actually renders.
+
+    The front-page stat used to be typed, and it drifted twice: pages were added by
+    later passes and the number stayed behind. Counting PAGES at build time means the
+    hero claim is true on whatever this commit publishes, and `tools/checks.py`
+    re-derives the same number from the built files, so the two cannot disagree.
+    """
+    return str(len(editorial_pages()))
+
+
+def editorial_pages() -> list[str]:
+    return [p[1] for p in PAGES
+            if p[0].startswith(("guide-", "article-")) or p[0] == "buying-guide"]
+
+
 def hook_queue_stats(_="") -> str:
     """Counts of the suggestion register, computed at build time.
 
@@ -1603,6 +1619,7 @@ HOOKS = {
     "briefs_summary": hook_briefs_summary,
     "suggestions": hook_suggestions,
     "queue_stats": hook_queue_stats,
+    "editorial_count": hook_editorial_count,
     "decisions": hook_decisions,
     "ledger_events": hook_ledger_events,
     "ledger_table": hook_ledger_table,

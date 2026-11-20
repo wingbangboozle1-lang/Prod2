@@ -501,6 +501,17 @@ generated file staying correct, and until the Pages source moves to the workflow
   print: “No prices, no star ratings, and nothing here is a cooking claim — we have not cooked in any of
   these.” Both are voice-rule compliant (the `voice` section scans these pages).
 
+### Second follow-up — PR #86 (2026-11-20, after the live probe)
+
+The probe of the deployed page found two things the local gate had not: main's regenerated shelf had
+restored the `listing re-checked` footnote (fixed in #85), and the **shortlist prose on `shop.html`** —
+static copy, outside the audited fields — still asserted `the only one that cooks on a rack` and
+described the four dated-read bullets as `quoted from the official listing`. Both rewritten to what the
+listing records, `cooks on a rack` added to the deny-list, and F-P30 now states the audit's scope
+out loud: card bullets and the comparison table are word-matched; editorial prose is deny-listed. Also
+generated the front-page `guides & long reads` stat (`{{editorial_count}}`, now 19 where the typed number
+had drifted to 14) and taught `longreads` to fail if the two ever disagree.
+
 ### Queue state after this session (other sessions' work untouched)
 
 `D-P22` (Path A) stands as the recorded strategy; `D-P25` (sale-week window), `D-P24` (product pages) and
