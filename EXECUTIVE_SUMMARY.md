@@ -16,7 +16,7 @@
 
 - On 2026-11-19 all five short links resolved to the ASINs above **with no `tag=` parameter** (F-03). On 2026-11-20 a same-day re-read confirmed one of five at its intended ASIN, and a second same-day read disagrees on two links (F-P24, F-P27, F-P28; Q-P18). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
 - **Every listing was re-fetched live on 2026-11-20** and each observed string is recorded in `data/p2/verification-2026-11-20.json`. Prior records stated this environment could not reach Amazon; that was wrong (F-P18).
-- The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
+- The site publishes 31 tagged pages; every outbound product link is a tagged Special Link `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
 - **No revenue is claimed.** Tag registration and click attribution are confirmable only inside Associates Central (F-57, F-58) — the one-link-per-product test is the owner's next step.
 
 ## What is deliberately absent
@@ -33,12 +33,59 @@
 - **New `about.html`**: who writes this, the four editorial rules, a "what we cannot tell you" table with a flag link on every row, and a plain statement of the commission relationship.
 - **Navigation cut from eleven links to six** (Shop · Air fryers · Thermometers · Guides · Compare · About). All dashboard surfaces remain in the footer directory, and the gate now fails if the reader nav exceeds seven links.
 - **Imagery**: six illustrations drawn for the site, generic to the format, captioned "illustration, not the product photo" (D-P12). No Amazon photography is copied.
-- Ten question-shaped guides on a fortnightly cadence, plus two long reads (see below), a buying guide, two category pages, and a sourced comparison table with the three-question chooser (D-23) and the counter-space analysis (D-26).
+- Ten question-shaped guides on a fortnightly cadence, plus three long reads (see below), a buying guide, two category pages, and a sourced comparison table with the three-question chooser (D-23) and the counter-space analysis (D-26).
 - The thermometer guide now leads with the **official USDA safe-minimum temperatures** and the cold-storage and power-outage limits, quoted with their last-reviewed dates (D-P14). This gives a reader an independent reason to care about accuracy instead of restating a marketing claim.
 - Disclosure strip under the masthead on **every** page + footer repeat; every product link marked sponsored.
 - Unique titles/meta, JSON-LD, sitemap.xml, robots.txt, RSS feed, typographic OG card (no product photography — S-18/D-22 still needs a decision).
 
-## Reader-facing work in the latest pass (2026-11-20, session arena/644d217b-prod2)
+## Evidence and exposure work in the latest pass (2026-11-20, session arena/b3089214-prod2)
+
+Two defects this session found were not cosmetic: the live host was serving the project's own
+registers, and ten of the fifteen product bullets on the shelf rested on text the site could not
+re-produce from its evidence.
+
+- **The published surface is now controlled in the repository (D-P24).** Pages publishes this repo's
+  root in legacy mode, the source setting is not changeable with the token available (`PUT
+  build_type=workflow` → 403, re-confirmed), and a cache-busted read of
+  `/Prod2/data/p2/settings.json` returned the live register. Root `.nojekyll` is deleted and
+  `tools/publish_surface.py` generates a root `_config.yml` whose `exclude` list is derived from the
+  tree, so the Jekyll build copies only the publication (GitHub's Pages+Jekyll page documents
+  `exclude`; Jekyll's front-matter and static-files pages document why the generated HTML is copied
+  verbatim rather than re-processed). The duplicate copy of the whole site under `/docs/` goes away
+  with it. The exposition gate refuses a root `.nojekyll`, refuses a config that misses any top-level
+  path, and refuses a page link into an excluded path — which caught three governance evidence links
+  that pointed at served register copies. **F-P19/F-P20 closed from this side; F-P29 stays open**
+  because the control now depends on a generated file, and F-P30 documents the rest.
+- **Every published product bullet is audited against its evidence (F-P30, SG-48).**
+  `python3 tools/claims_audit.py` matches each card bullet word by word against the verbatim strings
+  recorded for that ASIN, writes `data/p2/claim-audit-2026-11-20.json`, and the gate fails the build on
+  any unsupported row. Result: 11 of 15 bullets are verbatim in the listing title (re-read on every
+  dated pass), 4 come from a dated read of the spec table, 0 unsupported. **Six phrases with no
+  recorded evidence at all were retired** — "magnetic back", "rinse-clean", "Smart Hub", "rack cooking",
+  "in the basket lids", "leave-in wireless probes" — rewritten on the cards, the compare table, the
+  buying guide, the thermometer category page and two guides, and now denied by name in the gate. The
+  fabricated-claim negative test is what forced the fix: the first version of the audit let a claim cite
+  its own register field as its evidence.
+- **A third long read**: `article-leftovers-reheat.html` (~1,150 words) on the FSIS leftovers rules — the
+  two-hour window, the shallow-container rule, 3–4 days refrigerated / 3–4 months frozen, and the 165°F
+  reheat number — read live 2026-11-20 (new source `S-FSIS-LEFTOVERS`). It states explicitly that the
+  guidance names a saucepan, a microwave and an oven and **does not** name an air fryer, instead of
+  quietly stretching a federal sentence to fit the category.
+- **The voice rules are gated, not asked for (SG-50).** New `voice` section: a short filler blacklist on
+  reader-facing pages, a ≤4 em-dashes-per-paragraph budget, and a rule that a lede opens on the
+  reader's problem rather than on the verification process. Negative-tested by injecting slop into a
+  guide (three failures, then clean).
+- **The suggestion queue is ranked by what it unblocks, and the counts can no longer drift.**
+  `SG-49` (Creators/PA-API access) now leads: it is the single account step that unlocks prices,
+  ratings, licensed imagery, bullet-level re-verification and commission categories, and it is the same
+  workflow that settles the short-link question. `SG-46` (the Pages dropdown) was re-ranked below it —
+  it is tidiness now, not exposure. The queue line on `suggestions.html` is generated from the register
+  (`hook_queue_stats`) because typed counts went stale in every pass before this one.
+- **Card footnotes now say what was read when** ("listed specs read 2026-11-14; title and ASIN
+  re-read 2026-11-20") instead of the earlier "listing re-checked", which overstated a title re-read as
+  if every bullet had been re-confirmed.
+
+## Reader-facing work in the pass before (2026-11-20, session arena/644d217b-prod2)
 
 The prior passes made the site correct and made it look like a shop. This pass answered the harder
 question — *why would anyone read it?* — with depth, and fixed the machinery that would have hidden
@@ -69,10 +116,10 @@ whether it worked.
 
 ## Decision-support system (review surfaces)
 
-- **Suggestion queue** (`suggestions.html`): 38 proposals, opened by a ranked five-row short list of the only items that change what happens next, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
-- **Open questions** (`questions.html`): 22 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
-- **Flagged for review** (`flagged.html`): 42 items (27 open, 11 resolved, 4 standing), each with an evidence link. Four added 2026-11-20 by other sessions: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary). Added 2026-11-20 by arena/37b265a4-prod2: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24) and F-P28 (products.json and the intent record versus the 2026-11-20 reads).
-- **Decision log** (`decisions.html`): 32 recorded decisions, including D-P21 (which event vocabulary is authoritative) from the latest pass.
+- **Suggestion queue** (`suggestions.html`): 41 rows (19 proposed, 15 shipped, 6 accepted, 1 rejected), opened by a ranked six-row short list of the only items that change what happens next, now grouped into **three decision paths** (prove the traffic / consolidate the shop / rebrand and expand) with a four-step walkthrough, so a reviewer can choose a direction in one sitting. Recommended: **Path A**, starting with SG-06 (endpoint) and SG-29 (Search Console).
+- **Open questions** (`questions.html`): 23 items, now with a **discovery-method table** that names the cheapest route to each answer (re-read the official page · log in to Associates Central · run a controlled test · ask a lawyer · read the licence · ask the reader) and what it closes. Q-27 is newly answered by D-P11.
+- **Flagged for review** (`flagged.html`): 44 items, each with an evidence link. Four added 2026-11-20 by other sessions: F-P15 (disclosure wording), F-P16 (misleading CTA), F-P17 (neighbouring-ASIN prices), F-P18 (egress boundary). Added 2026-11-20 by arena/37b265a4-prod2: F-P25 (price-label copy), F-P26 (price column in the public summary), F-P27 (two same-day short-link reads disagree on two links; cross-references F-P24) and F-P28 (products.json and the intent record versus the 2026-11-20 reads).
+- **Decision log** (`decisions.html`): 34 recorded decisions, including D-P24 (control the published surface in the repository) and D-P25 (copy may not be wider than the evidence) from the latest pass.
 
 ## Measurement (machinery shipped, not yet on)
 
@@ -83,10 +130,11 @@ whether it worked.
 ## Verification & governance trail
 
 - 2026-11-20 session record: `data/p2/verification-2026-11-20.json` — every observed string, every non-observation, and five findings (V-01…V-05).
+- 2026-11-20 claim audit: `data/p2/claim-audit-2026-11-20.json` — the rule, the per-word evidence citations, and the retired-phrase deny-list. Reproduce with `python3 tools/claims_audit.py --report`.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **15 sections** (pages, disclosure, links, validity, facts, claims, voice, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. `facts` now also runs the claim audit (every card bullet against its evidence); `voice` fails the build on filler phrases and process-led ledes; `exposition` enforces the generated root `_config.yml`. The `shop` section fails if the shelf loses a card, it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## The publication passes (2026-11-20 — three sessions, reconciled)
 

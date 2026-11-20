@@ -16,6 +16,8 @@ Sections:
                F-/Q-/SG-/D- reference in a page exists in its register
   facts        each product's listed facts appear with a citation; null values
                are published blank + marked unverified, never filled in
+  voice        filler blacklist + em-dash budget + ledes open on the reader, not
+               on the verification process (D-12, VOICE.md)
   claims       banned popularity words on reader-facing pages; no published
                prices or star ratings anywhere
   chrome       one nav group ("The work behind it") + footer directory present
@@ -323,6 +325,52 @@ def main() -> int:
         ok(f"{len(rows)} published product claims audited: {counts.get('title-verbatim', 0)} "
            f"verbatim in today's title read, {counts.get('dated-read', 0)} from a dated listing "
            "read, 0 unsupported")
+
+    # -------------------------------------------------------------------- voice
+    check("voice")
+    # The brief's standing complaint is generated-sounding copy, so the voice rules in
+    # VOICE.md are measured here instead of asked for. Three checks, deliberately narrow:
+    # a short filler blacklist, an em-dash budget per paragraph (the tic that reads as
+    # machine-written at more than a couple per line), and a rule that a page's lede
+    # opens on the reader's problem rather than on our verification process (D-12).
+    FILLER = [
+        "in today's world", "in today’s world", "when it comes to", "look no further",
+        "game-changer", "game changer", "unlock the", "delve", "seamless", "effortless",
+        "elevate your", "revolutionize", "dive into", "you're in the right place",
+        "you’re in the right place", "whether you're a", "whether you’re a",
+        "at the end of the day", "it's important to note", "it is important to note",
+        "say goodbye to", "say hello to", "take your cooking to", "transform your kitchen",
+        "we've got you covered", "we’re got you covered", "the ultimate guide",
+        "must-have", "let's face it", "let’s face it", "in conclusion", "furthermore",
+        "a must-have", "upgrade your game",
+    ]
+    PROCESS_OPEN = ("we read", "every figure", "every row sourced", "our register",
+                    "we verified", "we checked", "sourced to the official listing")
+    for f in html_files:
+        if f.name in GOVERNANCE:
+            continue  # the governance pages are allowed to talk about the process
+        raw = f.read_text(encoding="utf-8")
+        body = re.sub(r"<(table|nav|footer|script|style|aside)\b.*?</\1>", " ", raw, flags=re.S)
+        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body))
+        low = text.lower()
+        for phrase in FILLER:
+            if phrase in low:
+                fail(f"{f.name}: filler phrase {phrase!r} on a reader-facing page "
+                     f"(VOICE.md: no padding, no hype)")
+        for para in re.findall(r"<p\b[^>]*>(.*?)</p>", body, flags=re.S):
+            dashes = para.count("—")
+            if dashes > 4:
+                fail(f"{f.name}: a paragraph carries {dashes} em-dashes — that is the "
+                     "generated-text tell the voice rules exist to stop")
+                break
+        lede = re.search(r'<p class="lede">(.*?)</p>', raw, flags=re.S)
+        if lede:
+            opener = re.sub(r"<[^>]+>", " ", lede.group(1)).strip().lower()[:60]
+            if any(opener.startswith(p0) for p0 in PROCESS_OPEN):
+                fail(f"{f.name}: the lede opens on the verification process, not on the "
+                     "reader's problem (D-12)")
+    if not FAILURES:
+        ok("no filler phrases, em-dash budget holds, ledes open on the reader")
 
     # ----------------------------------------------------------------- claims
     check("claims")

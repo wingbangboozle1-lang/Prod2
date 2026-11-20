@@ -20,7 +20,7 @@ sitemap gaps). Standard library only — no dependencies.
 
 ```bash
 python3 tools/build.py      # render the publication: data/p2/*.json + content/pages/* -> docs/ -> repo root
-python3 tools/checks.py     # release gate: 14 sections, exits non-zero on any violation
+python3 tools/checks.py     # release gate: 15 sections, exits non-zero on any violation
 npm test                    # the gate, plus the self-hosted endpoint tests
 ```
 
@@ -143,7 +143,7 @@ See `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, and the **About** page for sources a
 | Search Console | Not verified; token slot ready in `data/p2/settings.json` (Q-P08) |
 | Analytics endpoint | `server.mjs` works and is tested; not hosted (Q-23) |
 | Campaign ledger | Empty by rule; accepts only authorized first-party rows |
-| Release gate | 14 sections, green |
+| Release gate | 15 sections, green |
 | Open flags | 27 open, 11 resolved, 4 standing (42 flags; F-P25..F-P28 added 2026-11-20) — all on the Flagged for review page |
 
 Everything in the bottom half of that table is an owner action, not an engineering gap. The

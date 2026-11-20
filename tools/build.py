@@ -104,6 +104,10 @@ PAGES = [
      f"Did the air fryer work? One number decides | {BRAND}",
      "Capacity, drawers and wattage do not tell you whether dinner is safe. USDA and extension guidance on the one number that does, applied to the three air fryers we track.",
      "guides"),
+    ("article-leftovers-reheat", "article-leftovers-reheat.html",
+     f"Leftovers: the two-hour rule and the 165\u00b0F number | {BRAND}",
+     "USDA FSIS guidance on leftovers, refrigerated life and reheating, read line by line - and what it does not say about air fryers. Applied to the five tools we follow.",
+     "guides"),
     ("article-thermometer-placement", "article-thermometer-placement.html",
      f"Where to put the probe: placement beats precision | {BRAND}",
      "USDA guidance on where a thermometer probe actually belongs, set against the two thermometers we follow. What the official pages say, and what they do not.",
@@ -541,6 +545,24 @@ def hook_questions(_="") -> str:
     return "".join(out)
 
 
+def hook_queue_stats(_="") -> str:
+    """Counts of the suggestion register, computed at build time.
+
+    This line used to be typed into the page by hand, and every pass that added rows
+    left it lying by one or two (the same drift R-03 corrected in the documents). A
+    generated number cannot go stale, and the reader-facing sentence stays plain.
+    """
+    counts: dict[str, int] = {}
+    for s in SUGGESTIONS:
+        counts[s["status"]] = counts.get(s["status"], 0) + 1
+    order = ["proposed", "recommended", "accepted", "shipped", "rejected"]
+    bits = ", ".join(f"{counts[k]} {k}" for k in order if counts.get(k))
+    return (f'<p class="table-note">{len(SUGGESTIONS)} items in the queue — {bits}. '
+            'Every row carries its own evidence, cost and risk; the short list below is '
+            'ranked by what it unblocks per minute of owner time.</p>')
+
+
+
 def hook_suggestions(_="") -> str:
     out = []
     for s in SUGGESTIONS:
@@ -916,6 +938,7 @@ HOOKS = {
     "flags_standing": lambda _: hook_flags("standing"),
     "questions": hook_questions,
     "suggestions": hook_suggestions,
+    "queue_stats": hook_queue_stats,
     "decisions": hook_decisions,
     "ledger_events": hook_ledger_events,
     "ledger_table": hook_ledger_table,
@@ -1119,7 +1142,8 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
 
 def build_feed() -> None:
     items = []
-    for gid in GUIDE_IDS + ["buying-guide", "article-thermometer-placement", "article-air-fryer-doneness"]:
+    for gid in GUIDE_IDS + ["buying-guide", "article-thermometer-placement", "article-air-fryer-doneness",
+                          "article-leftovers-reheat"]:
         p = next(x for x in PAGES if x[0] == gid)
         items.append(f"""    <item>
       <title>{esc(p[2].split(' | ')[0])}</title>
