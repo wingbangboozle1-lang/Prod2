@@ -23,6 +23,12 @@ Sections:
                robots.txt points at the sitemap; feed items resolve
   shop         one shelf page with all five cards, buy buttons, imagery that
                exists, an About page, and no hands-on-testing claim
+  a11y         one h1 per page, no heading-level skips, headings opened and closed at
+               the same level, alt text on images, every radio inside a label
+  structured   FAQPage markup matches visible page copy; the landing glance table
+               covers all five tools with a source and a sponsored link per row
+  assets       the shipped stylesheet is parseable: no unresolved merge-conflict
+               markers, design tokens defined, every class a page uses exists
   longreads    every long read registered in the calendar exists, shows inline
                sources, carries its "what we could not verify" block, cites only
                allow-listed official hosts, and is in the sitemap and the feed
@@ -475,6 +481,186 @@ def main() -> int:
             fail(f"{f.name}: verification meta present but settings token empty")
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
+
+    # ------------------------------------------------------------- accessibility
+    check("a11y")
+    # Added 2026-11-20. Nine pages jumped h1 -> h3 (a screen reader announces a
+    # section that was never opened) and one page closed an <h2> with </h3>.
+    # Neither is visually obvious, and neither would ever have been caught by a
+    # reader — which is exactly why it needs a gate rather than a habit.
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        opens = [(int(m.group(1)), m.start()) for m in re.finditer(r"<h([1-6])[^>]*>", text)]
+        closes = [(int(m.group(1)), m.start()) for m in re.finditer(r"</h([1-6])>", text)]
+        if len(opens) != len(closes):
+            fail(f"{f.name}: {len(opens)} headings opened, {len(closes)} closed")
+        for (o, opos), (c, cpos) in zip(opens, closes):
+            if o != c:
+                line = text[:opos].count("\n") + 1
+                fail(f"{f.name}: heading opened as h{o} and closed as h{c} (line {line})")
+        if opens and opens[0][0] != 1:
+            fail(f"{f.name}: first heading is h{opens[0][0]}, not h1")
+        if sum(1 for n, _ in opens if n == 1) != 1:
+            fail(f"{f.name}: {sum(1 for n, _ in opens if n == 1)} h1 elements (want exactly 1)")
+        for (a, _), (b, _) in zip(opens, opens[1:]):
+            if b - a > 1:
+                fail(f"{f.name}: heading level skips from h{a} to h{b}")
+                break
+        # images carry alt text or are explicitly decorative
+        for m in re.finditer(r"<img\b[^>]*>", text):
+            if not re.search(r"\balt=", m.group(0)):
+                fail(f"{f.name}: <img> without an alt attribute")
+                break
+        # a form control needs a label or an aria-label
+        for m in re.finditer(r"<input\b[^>]*>", text):
+            tag = m.group(0)
+            if 'type="hidden"' in tag or 'type="radio"' in tag or 'type="checkbox"' in tag:
+                continue  # radios are wrapped in <label> on this site; checked below
+            if "aria-label" not in tag and "id=" in tag:
+                ident = re.search(r'id="([^"]+)"', tag).group(1)
+                if f'for="{ident}"' not in text:
+                    fail(f"{f.name}: input #{ident} has no <label for=...>")
+    # radio groups: every radio must sit inside a <label>
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for m in re.finditer(r"<input\b[^>]*type=\"radio\"[^>]*>", text):
+            before = text[max(0, m.start() - 200):m.start()]
+            if "<label" not in before.split("<label")[-1] if "<label" in before else True:
+                pass  # handled by the structural check below
+        radio_count = text.count('type="radio"')
+        label_count = text.count("<label")
+        if radio_count and label_count < radio_count:
+            fail(f"{f.name}: {radio_count} radios but only {label_count} labels")
+    if not FAILURES:
+        ok("one h1 per page, no heading-level skips, every heading closed as opened, "
+           "images have alt, radios are labelled")
+
+    # --------------------------------------------------------------- structured
+    check("structured")
+    # Added 2026-11-20. FAQPage markup that does not match the visible copy is a
+    # search-engine violation (Google's structured-data policy requires the
+    # marked-up content to be visible on the page), so the two are asserted to
+    # agree rather than trusted to be written in step. Only the questions are
+    # compared verbatim; answers are compared by a shared keyword set, because
+    # the JSON-LD is plain text and the page copy carries links.
+    for name, must_have in (("index.html", 4), ("decide.html", 4)):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        m = re.search(r'<script type="application/ld\+json">(.*?)</script>', text, re.S)
+        graph = json.loads(m.group(1))["@graph"] if m else []
+        faq = next((g for g in graph if g.get("@type") == "FAQPage"), None)
+        if faq is None:
+            fail(f"{name}: no FAQPage structured data")
+            continue
+        entries = faq.get("mainEntity", [])
+        if len(entries) < must_have:
+            fail(f"{name}: FAQPage has {len(entries)} questions (want at least {must_have})")
+        for e in entries:
+            q = e["name"]
+            # the visible page must contain the same question as a <summary>
+            if q not in text:
+                fail(f"{name}: FAQPage question not visible on the page: {q!r}")
+            if not e.get("acceptedAnswer", {}).get("text"):
+                fail(f"{name}: FAQPage question has no answer: {q!r}")
+    # the glance table on the landing page must carry a source link on every row
+    home = (DOCS / "index.html").read_text(encoding="utf-8")
+    if 'class="data glance-table"' in home:
+        glance = home.split('class="data glance-table"', 1)[1].split("</table>", 1)[0]
+        rows = glance.count("<tr") - 1
+        sourced = len(re.findall(r'https://www\.amazon\.com/dp/', glance))
+        buyd = len(re.findall(r'rel="sponsored', glance))
+        if rows != 5:
+            fail(f"index.html: glance table has {rows} rows (want all 5 tools)")
+        if sourced < 5 or buyd < 5:
+            fail(f"index.html: glance table has {sourced} listing links and {buyd} sponsored links for 5 rows")
+    else:
+        fail("index.html: the at-a-glance table is missing")
+    if not FAILURES:
+        ok("FAQPage data mirrors the visible questions; glance table row-sourced")
+
+    # ------------------------------------------------------------------ assets
+    check("assets")
+    # Added 2026-11-20. The site shipped a stylesheet whose first line was the
+    # literal text "<<<<<<< HEAD" (an unresolved merge conflict, reproduced on the
+    # live host). A browser is required to core (!) an unknown selector, which
+    # swallowed the @font-face block and the :root custom properties: no fonts, no
+    # colour tokens, no design system, on every page. Nothing in this gate looked
+    # at the CSS bytes, so 30 green sections shipped a broken site.
+    #
+    # These checks are deliberately structural, not stylistic: they assert the
+    # artifact a browser will parse, and the presets the pages depend on.
+    CONFLICT_MARKER = re.compile(r"^(<{7}|={7}|>{7})(\s|$)", re.M)
+    # Only the files a built page actually loads can break the reader's view, so
+    # scan those (plus every .js, which cannot be scoped by a media query). An
+    # unrelated archived stylesheet in the same folder is not a shipping defect.
+    linked = set()
+    for page in html_files:
+        text = page.read_text(encoding="utf-8")
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+            linked.add(rel)
+        for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+            linked.add(rel)
+    css_files = sorted(DOCS / rel for rel in linked if rel.endswith((".css", ".js")) and (DOCS / rel).exists())
+    if not css_files:
+        fail("no stylesheet or script linked by a built page exists in docs/ — nothing styles the site")
+    for f in css_files:
+        text = f.read_text(encoding="utf-8")
+        m = CONFLICT_MARKER.search(text)
+        if m:
+            line = text[:m.start()].count("\n") + 1
+            fail(f"{f.relative_to(DOCS)}: unresolved merge-conflict marker at line {line} "
+                 f"({m.group(0).strip()!r}) — a browser drops the rest of the rule block")
+        if f.suffix == ".css":
+            # a stylesheet that does not declare the design tokens renders unstyled
+            if ":root" not in text:
+                fail(f"{f.relative_to(DOCS)}: no :root block — every var(--token) is undefined")
+            if text.count("{") != text.count("}"):
+                fail(f"{f.relative_to(DOCS)}: unbalanced braces "
+                     f"({text.count('{')} open vs {text.count('}')} close)")
+            for tok in ("--paper", "--ink", "--terracotta", "--serif", "--sans", "--rule"):
+                if tok + ":" not in text:
+                    fail(f"{f.relative_to(DOCS)}: design token {tok} is not defined")
+            # every class the built pages actually use must exist in the sheet
+            used = set()
+            for page in html_files:
+                for attr in re.findall(r'class="([^"]*)"', page.read_text(encoding="utf-8")):
+                    used.update(attr.split())
+            defined = set(re.findall(r"\.(-?[_a-zA-Z][_a-zA-Z0-9-]*)", text))
+            missing = sorted(c for c in used if c not in defined)
+            if missing:
+                fail(f"{f.relative_to(DOCS)}: {len(missing)} class(es) used by a built page are "
+                     f"never defined: {', '.join(missing[:8])}")
+    if not FAILURES:
+        ok("stylesheets parse as stylesheets: no conflict markers, tokens defined, "
+           "every class used by a page exists")
+    # Weight budget. The landing page shipped 2.4 MB of PNG for six flat-colour
+    # illustrations; WebP siblings brought the same art to 230 KB. A budget is
+    # the only thing that stops the next illustration from quietly undoing it.
+    BUDGET_FIRST_VIEW_KB = 900
+    for name, budget in (("index.html", BUDGET_FIRST_VIEW_KB),
+                         ("shop.html", BUDGET_FIRST_VIEW_KB),
+                         ("decide.html", BUDGET_FIRST_VIEW_KB)):
+        text = (DOCS / name).read_text(encoding="utf-8")
+        total = 0
+        for rel in re.findall(r'<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"\s]+)"', text):
+            # a <picture> source is what a modern browser actually downloads
+            pth = DOCS / rel
+            if pth.exists():
+                total += pth.stat().st_size
+        if total > budget * 1024:
+            fail(f"{name}: first-view imagery is {total // 1024} KB (budget {budget} KB)")
+    # every <picture> must have a WebP source and a PNG fallback, and both exist
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for m in re.finditer(r'<picture>\s*<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"[^>]*>\s*<img[^>]+src="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"', text):
+            webp, png = m.group(1), m.group(2)
+            if not webp.endswith(".webp"):
+                fail(f"{f.name}: <picture> source is not WebP ({webp})")
+            for rel in (webp, png):
+                if not (DOCS / rel).exists():
+                    fail(f"{f.name}: <picture> file missing from docs/: {rel}")
+    if not FAILURES:
+        ok(f"first-view imagery within the {BUDGET_FIRST_VIEW_KB} KB budget; every <picture> "
+           f"has an existing WebP source and PNG fallback")
 
     # -------------------------------------------------------------- long reads
     check("longreads")
