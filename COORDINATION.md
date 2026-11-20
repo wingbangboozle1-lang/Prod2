@@ -34,8 +34,8 @@ Tracking ID: `shopnow047c-20`
 | Item | Value |
 | --- | --- |
 | PR | https://github.com/wingbangboozle1-lang/Prod2/pull/45 (rebased to `935101e`; scope reduced to this record after IR-01/IR-02 were superseded by merged work) |
-| Merge | (recorded in the follow-up note below once merged) |
-| Pages deploy | (recorded in the follow-up note below; main deploys were red from PR #58 until PR #62/#63 fixed them at `bf657ae`/`935101e`, verified green by this session before merging) |
+| Merge | **merged** — PR #45 at `5575bdb`, 2026-11-20T07:24:59Z (verify + analytics checks green on the merge; its Pages jobs were cancelled only because the next push superseded them) |
+| Pages deploy | **success** — `b0df15d` (main tip including this record's PR): `verify-site` success, `Deploy to GitHub Pages` success, `pages build and deployment` success at 2026-11-20T07:25Z. Live spot check by this session: `https://wingbangboozle1-lang.github.io/Prod2/` serves the current build (decide.html picker, shelf of five, sponsored `/dp/` links with `tag=shopnow047c-20`, sources + read dates). Main deploys had been red from PR #58 until PR #62/#63 (`bf657ae`/`935101e`); green continuously since. |
 
 ---
 
