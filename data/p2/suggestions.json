@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-20 (arena/644d217b-prod2): SG-45..SG-47 added — long-form argument pieces (shipped), the one-dropdown Pages fix ranked first by payoff, and the imagery question split into a safe path and a licensed path."
+  "last_change": "2026-11-20 (arena/644d217b-prod2): SG-45..SG-47 added — long-form argument pieces (shipped), the one-dropdown Pages fix ranked first by payoff, and the imagery question split into a safe path and a licensed path. | 2026-11-20 (arena/20f83238-prod2): reviewer pass — every open item decided (D-P22); SG-05 rejected per D-P11 (F-P29); SG-11/12/13/17/35 shipped to match the merged passes; SG-01/14/34/36/44 accepted with gates; SG-02/07/08/10/39/41/43 deferred with blockers; SG-48 added (owner digest). | 2026-11-20 (arena/44af3083-prod2): this pass's SG-48..SG-50 renumbered to SG-49..SG-51 (SG-48 was taken on main by the owner-digest suggestion); cross-references updated. Nothing implemented — all three remain proposed."
  },
  "suggestions": [
   {
@@ -24,8 +24,9 @@
    "depends_on": [
     "Q-19"
    ],
-   "status": "proposed",
-   "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items."
+   "status": "accepted",
+   "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted as the first item of Path C, gated where it always was — the working brand already ships (SG-38/D-P18) and this row now means 'ratify + formal clearance', owner action on Q-19/Q-P10. Nothing visual waits on it (the rename-back is one field)."
   },
   {
    "id": "SG-02",
@@ -37,8 +38,9 @@
    "effort": "Small (column reorder + one derived column in build).",
    "risk": "Low. Derived values must show the formula to stay within the evidence rule.",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept. Cheap, on-thesis."
+   "status": "deferred",
+   "recommendation": "Accept. Cheap, on-thesis.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred to Path B's editorial hours — a comparison-table reorder should ride one content pass (with the register re-reads), not land mid-measurement-setup. Carried as the first item of the next content pass; not dropped."
   },
   {
    "id": "SG-03",
@@ -84,8 +86,9 @@
    "depends_on": [
     "Q-27"
    ],
-   "status": "proposed",
-   "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand."
+   "status": "rejected",
+   "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand.",
+   "progress": "Rejected 2026-11-20 — decision D-P11 answered this in the negative on the Program Policies 2(b) read: a dated snapshot recorded by the site is not an Amazon-served value or a licensed API value, so it may not publish. The licensed-API route remains tracked in Q-27/Q-P05. (Status reconciled from 'proposed' — see F-P29.)"
   },
   {
    "id": "SG-06",
@@ -115,8 +118,9 @@
    "depends_on": [
     "Owner input"
    ],
-   "status": "proposed",
-   "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available."
+   "status": "deferred",
+   "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred — a 'lived with' layer needs real, attributable usage (D-06 stands: no hands-on testing exists). Revisit after Path A's measurement proves readers and one clean attribution test exists."
   },
   {
    "id": "SG-08",
@@ -128,8 +132,9 @@
    "effort": "One session (CSS/JS + checks update).",
    "risk": "Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept as a UX follow-up after the first traffic arrives."
+   "status": "deferred",
+   "recommendation": "Accept as a UX follow-up after the first traffic arrives.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred to the second design-token conformance pass (the first shipped under SG-16/D-P19). Mobile polish, not a path item."
   },
   {
    "id": "SG-09",
@@ -155,8 +160,9 @@
    "effort": "One session.",
    "risk": "Low.",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Defer until measured queries confirm demand (after SG-06)."
+   "status": "deferred",
+   "recommendation": "Defer until measured queries confirm demand (after SG-06).",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred with Path C's expansion work — the queue's own rule says do not start expansion before Path A has 14 days of data (SG-34 gate)."
   },
   {
    "id": "SG-11",
@@ -171,8 +177,9 @@
     "Q-P02",
     "SG-06"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06."
+   "status": "shipped",
+   "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06.",
+   "progress": "Shipped: the answer-first calendar has run since 2026-11-19 (14-day cadence, ten question-shaped guides published from it) and D-P20 extended it with hypothesis slots 6-9. Queue titles are labeled hypotheses, not popularity claims (D-19)."
   },
   {
    "id": "SG-12",
@@ -184,8 +191,9 @@
    "effort": "Small (copy in content/pages + one check that each block has both lines).",
    "risk": "Low. Must not claim testing that did not happen (D-06).",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept. It improves the shop feel without adding claims."
+   "status": "shipped",
+   "recommendation": "Accept. It improves the shop feel without adding claims.",
+   "progress": "Shipped by the shop-front passes: every product card on shop.html and the front page carries a best-for line, the listed features that matter and a tagged buy button; the products page carries the full sourced spec per product."
   },
   {
    "id": "SG-13",
@@ -199,9 +207,9 @@
    "depends_on": [
     "SG-09"
    ],
-   "status": "accepted",
+   "status": "shipped",
    "recommendation": "Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.",
-   "progress": "2026-11-19 publication pass: the clusters shipped - data/p2/calendar.json defines both clusters, guides.html is the hub, every guide links its pillar (gate-enforced). Adding more formats still waits."
+   "progress": "Shipped: two clusters with pillar pages and a guides hub; the S-24 pillar-link rule is gate-enforced (tools/checks.py publication section)."
   },
   {
    "id": "SG-14",
@@ -216,8 +224,9 @@
     "Q-01",
     "SG-06"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the sequencing rule for every growth decision."
+   "status": "accepted",
+   "recommendation": "Accept as the sequencing rule for every growth decision.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted as a standing hold, recorded as D-P23: no paid promotion and no newsletter until one clean attribution test exists (the measurement page carries the test protocol). This is the first item of the chosen Path A."
   },
   {
    "id": "SG-15",
@@ -262,9 +271,9 @@
    "depends_on": [
     "Q-P07"
    ],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated.",
-   "progress": "Cross-ref: the seasonal scaffolding partially shipped (data/p2/calendar.json + the front-page seasonal desk, SG-35); this row covers the remaining merchandising depth."
+   "progress": "Shipped: the seasonal desk is a standing front-page module fed by data/p2/calendar.json, the December gifting window is live with its gift guide (D-P20), and the grilling desk is staged for its window. Calendar-based framing only (D-19/F-15)."
   },
   {
    "id": "SG-27",
@@ -389,8 +398,9 @@
     "Q-P08",
     "Q-P02"
    ],
-   "status": "proposed",
-   "recommendation": "Accept. It is the payoff for SG-06 and requires no new machinery."
+   "status": "accepted",
+   "recommendation": "Accept. It is the payoff for SG-06 and requires no new machinery.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted as Path A's payoff step, gate unchanged: topic selection switches to measured queries only after Search Console + hosted endpoint + 14 days of events (SG-06). Until then the queue order stays editorial and says so."
   },
   {
    "id": "SG-35",
@@ -402,9 +412,9 @@
    "effort": "Half a session to make the front page date-aware (currently the season modules are static blocks).",
    "risk": "Low.",
    "depends_on": [],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Accept before the next season boundary (2026-12-31).",
-   "progress": "Seasonal desk + gifting window live 2026-11-20; front-page date-awareness (auto-retire on window end) remains queued before the 2026-12-31 boundary."
+   "progress": "Shipped: the seasonal desk rotation is a standing module (season hook from calendar.json), with the rotation register linked from the module."
   },
   {
    "id": "SG-36",
@@ -419,8 +429,9 @@
     "Q-47",
     "SG-04"
    ],
-   "status": "proposed",
-   "recommendation": "Accept in principle now; activate with the capture endpoint."
+   "status": "accepted",
+   "recommendation": "Accept in principle now; activate with the capture endpoint.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted, gated on Q-47 (consent basis for holding an email) and the capture endpoint — owner decisions first; the form ships dark meanwhile (F-P14)."
   },
   {
    "id": "SG-37",
@@ -440,7 +451,7 @@
   {
    "id": "SG-41",
    "title": "Gate the event vocabulary so the site and the endpoint cannot drift again",
-   "status": "shipped",
+   "status": "deferred",
    "evidence": "F-P23; allowedEvents in server.mjs vs the event list in data/p2/events.json",
    "proposal": "Add a check that parses the event names out of server.mjs's allowedEvents set and out of the event list the site ships, then fails the build when they differ. Ten lines; it turns a silent under-count into a red build.",
    "impact": "High — prevents a silent under-count once the endpoint is hosted.",
@@ -449,7 +460,7 @@
    "depends_on": "Q-P14 (the vocabulary choice)",
    "recommendation": "Adopt as soon as Q-P14 is answered — it is the cheapest possible insurance on a measurement surface.",
    "problem": "F-P23: three of the site's five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree.",
-   "progress": "Shipped 2026-11-20 (arena/644d217b-prod2): tools/checks.py section 'measurement' now fails the build when the shipped client can send an event the collector rejects, and tests/server.test.mjs reads the five names out of assets/js/measure.js so the two files cannot drift. See D-P21 / F-P23."
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred behind the owner's vocabulary choice (Q-P14): D-P15 decided to publish the site/endpoint mismatch rather than patch it, and the gate already surfaces it on every build. Whichever vocabulary the owner picks, this row becomes the enforcement."
   },
   {
    "id": "SG-38",
@@ -479,9 +490,9 @@
    "depends_on": [
     "Q-P05"
    ],
-   "status": "proposed",
+   "status": "deferred",
    "recommendation": "Accept as the next visual item after the current pass settles; amend the brief first, then draw.",
-   "progress": "Update 2026-11-20 (reconciliation): the drawn-imagery part of this proposal shipped in the shop-front pass (arena/70b2b9f7-prod2, decision D-P12): drawn format illustrations and an original hero scene are live. Remaining: amend DESIGN_PROMPT.md’s imagery line (it still restricts graphics to glyphs) and add the seasonal hero-scene rotation."
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred with the art budget — the drawn-art direction is set (D-P12) and this row extends it per season; it waits for Path A's data like every other non-measurement spend. Amending the brief stays owner-facing (Q-P05)."
   },
   {
    "id": "SG-40",
@@ -512,8 +523,9 @@
     "Q-P08",
     "SG-34"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the standing growth runbook; it is the shortest credible path to measured organic traffic."
+   "status": "accepted",
+   "recommendation": "Accept as the standing growth runbook; it is the shortest credible path to measured organic traffic.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted as Path A's documentation step: the runbook is the owner's checklist for Search Console first, then measured topics (SG-34). Its first step is the SG-06 owner action."
   },
   {
    "id": "SG-42",
@@ -544,8 +556,9 @@
     "SG-34",
     "Q-P02"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the first measured-iteration item; do nothing until the gate opens."
+   "status": "deferred",
+   "recommendation": "Accept as the first measured-iteration item; do nothing until the gate opens.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred to the measured copy pass: the row's own rule (titles measured, not instinct) needs Path A's Search Console data to run honestly."
   },
   {
    "id": "SG-45",
@@ -593,6 +606,66 @@
    ],
    "status": "proposed",
    "recommendation": "Run (b) now; switch to (a) only if API access is granted."
+  },
+  {
+   "id": "SG-48",
+   "title": "Monthly owner digest: turn the open-question register into a standing prompt",
+   "problem": "The questions register answers what is missing and how to find it per row, but the owner only sees it by browsing the page. Missing information tends to stay missing when nobody is prompted with the exact lookup.",
+   "proposal": "A one-page monthly digest generated from questions.json by the existing build: the owner-answerable questions first (each with its exact lookup steps and what it unblocks), then what changed since the last digest. Repo issue or one page in the work section; no reader-facing surface changes.",
+   "evidence": "The brief's requirement that suggestions exist to discover missing information; the questions register already carries how_to_discover per row and the discovery-methods table on the questions page.",
+   "impact": "Medium — converts the register from documentation into a decision pipeline; compounds the SG-06 measurement habit.",
+   "effort": "Small — one build hook and a calendar reminder, after Path A's first measured month.",
+   "risk": "Low; nothing reader-facing changes and nothing is collected.",
+   "depends_on": [
+    "SG-06"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept at Path A's first monthly review (D-P22). It is the cheapest way to keep the owner actions in Q-01/Q-23/Q-P06/Q-P08/Q-P10 from ageing silently."
+  },
+  {
+   "id": "SG-49",
+   "title": "Front-page 'the newest question' slot above the shelf",
+   "problem": "The front page's guide grid is complete but static: a returning reader cannot see what changed since the last visit, and the page can read as a fixed catalogue rather than a publication with a cadence.",
+   "proposal": "Add one module directly above the shelf, titled 'The newest question', carrying the latest published guide's question headline, its one-sentence answer and a single link. It rotates automatically from GUIDE_IDS order in tools/build.py — no new data and no editorial work at publish time. Specified in DESIGN_PROMPT.md as an input to the next visual pass (Q-P09 path).",
+   "evidence": "The publishing cadence (data/p2/calendar.json — one question-shaped guide per 14 days) is invisible on the front page. SG-35's seasonal desk is a slow rotation, not a newness signal.",
+   "impact": "Medium: gives the front page a publication pulse and a second entry point to each new guide; becomes measurable once SG-06 opens.",
+   "effort": "Small: one build hook plus one card component, reusing the existing guide-card styles.",
+   "risk": "Low. Claims-gate compliant: the slot states a publication date and a question, never popularity.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Accept for the next design pass; specify in DESIGN_PROMPT.md before building."
+  },
+  {
+   "id": "SG-50",
+   "title": "Quarterly listing re-verification SLA: fetch, diff, flag",
+   "problem": "The register's value is its dated reads, but nothing forces a re-read on a schedule. The 2026-11-20 passes found a real discrepancy (F-P24) precisely because someone re-fetched the sources.",
+   "proposal": "Adopt a 90-day re-read SLA for the five listing pages and the two Associates policy pages: fetch each, diff the document title and the 'Updated' line against the register, write a dated verification record, and open a flag on any mismatch. Automate the diff if CI egress allows (Q-P20); otherwise run the SLA as a session step at each cadence review.",
+   "evidence": "This session's third pass reproduced F-P24 and confirmed 5/5 title matches at zero register drift (data/p2/verification-2026-11-20.json, third_pass_arena_44af3083). The mechanism works and costs minutes.",
+   "impact": "High on trust — the site's stated differentiator (SG-37) — and it is the discovery path for Q-P03 and Q-P15.",
+   "effort": "Small if manual; medium if automated (depends on Q-P17).",
+   "risk": "Low: failures surface as flags, which are non-blocking by policy.",
+   "depends_on": [
+    "Q-P20",
+    "SG-37"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept. Start the manual cadence now; automate when Q-P20 answers."
+  },
+  {
+   "id": "SG-51",
+   "title": "Standing CTA language for the no-price world",
+   "problem": "The site cannot publish prices (F-02), so every conversion moment ends at a generic 'See it on Amazon' button. The CTA copy is the only conversion lever left and it is currently uniform and untested.",
+   "proposal": "Define three rule-compliant CTA label variants for the buy buttons (for example 'See today's price on Amazon', 'Check the listing', 'See the format on Amazon'), keep the paid-link label attached to each, and rotate them behind the measurement gate — the outbound_click event is already instrumented (data/p2/events.json). Nothing ships until the SG-06 gate opens; the variant list is specified in DESIGN_PROMPT.md now.",
+   "evidence": "Program Policies 2(b) (updated 2026-04-14, S-POL) requires prices to be shown by Amazon, not by us — which makes 'see today's price' a truthful, compliant promise. The outbound_click event is the measuring stick.",
+   "impact": "Medium on click-through once measurement exists; zero before it.",
+   "effort": "Small: label variants in settings plus one rotation rule in the build.",
+   "risk": "Low — provided no label implies a price, rating or availability the site cannot see (claims gate).",
+   "depends_on": [
+    "SG-06",
+    "SG-43"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept as a specified input to the next design pass; implement only after SG-06."
   }
  ]
 }

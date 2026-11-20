@@ -3,9 +3,9 @@ Allow: /
 Disallow: /Prod2/archive/
 Disallow: /Prod2/docs/
 Disallow: /Prod2/site/
-Disallow: /Prod2/content/
 Disallow: /Prod2/data/
 Disallow: /Prod2/tools/
+Disallow: /Prod2/content/
 Disallow: /Prod2/scripts/
 Disallow: /Prod2/tests/
 Disallow: /Prod2/var/
