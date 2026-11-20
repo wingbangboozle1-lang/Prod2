@@ -513,6 +513,17 @@ def hook_intent_table(_="") -> str:
     for l in INTENTS:
         p = PROD_BY_ID[l["product_id"]]
         obs = l["observed_redirect"]
+        # A read that never resolved (HTTP 500) has no target: publish the
+        # empty string rather than inferring one.
+        obs_target = str(obs.get("final_url_without_query") or "")
+        obs_note = str(obs.get("note") or "")
+        if not obs_target:
+            obs_cell = (f'<span class="muted">no target observed</span> '
+                        f'<span class="muted">(observed {esc(obs["date_utc"])})</span>'
+                        + (f'<br><span class="muted">{esc(obs_note[:160])}</span>' if obs_note else ''))
+        else:
+            obs_cell = (f'<code>{esc(obs_target)}</code> '
+                        f'<span class="muted">(observed {esc(obs["date_utc"])})</span>')
         rows.append(
             f'<tr><td>{esc(l["product_id"])} — {esc(p["name_short"])}</td>'
             f'<td><code>{esc(l["submitted_url"])}</code></td>'
@@ -521,7 +532,7 @@ def hook_intent_table(_="") -> str:
             f'<td><code>{esc(l["official_listing_url"])}</code><br>'
             f'<a class="src" href="{esc(l["official_listing_url"])}" rel="noopener" target="_blank">open</a></td>'
             f'<td>{esc(l["confirmation_date_utc"])}</td>'
-            f'<td><code>{esc(obs["final_url_without_query"])}</code> <span class="muted">(observed {esc(obs["date_utc"])})</span></td>'
+            f'<td>{obs_cell}</td>'
             f'<td>{esc("yes" if l["intent_match"] else "no")}</td></tr>')
     return ('<div class="table-scroll"><table class="data"><thead><tr>'
             '<th>Product</th><th>Submitted link (verbatim)</th><th>Path code<br><span class="muted">not an ASIN</span></th>'
