@@ -58,6 +58,38 @@ Branch `arena/37b265a4-prod2`, branched from `main` at `4398598` (PR #33 merge).
 - Pages source is still legacy `main /` (Pages API read 2026-11-20). Changing it needs repository admin (F-P19/F-P20).
 - Operating Agreement §5 and the FTC pages (S-FTC1/S-FTC2) were not re-read in this pass.
 
+## CLAIM — session arena/d5157db6-prod2 (2026-11-20, re-verification + drift fixes + integration)
+
+Protocol note: this session works only on its assigned branch `arena/d5157db6-prod2`. The `session-<id>/<task>` branch naming in the brief is not used; this claim is recorded here instead.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| R-01 Live re-check of the five `/dp/` listings (P1 re-read) and the five submitted short links | done | arena/d5157db6-prod2 | `data/p2/live-check-2026-11-20-d5157db6.json` (new) |
+| R-02 Record the second same-day short-link observation on F-P24 (the HTTP 500 link now resolves to the homepage) | done | arena/d5157db6-prod2 | `data/p2/flags.json` (F-P24 evidence note only; status stays open) |
+| R-03 Correct stale counts: gate sections (11/13/9 → 14), guide pages (9/eight → 10), built pages (24 → 30) | done | arena/d5157db6-prod2 | `README.md`, `ENGINE.md`, `EXECUTIVE_SUMMARY.md`, `content/pages/executive-summary.html`, `docs/`, root mirror |
+| R-04 Rebuild, gate, CI-equivalent checks, PR to main, merge, Pages check; record here | done (see record below) | arena/d5157db6-prod2 | `COORDINATION.md`, `docs/`, root mirror |
+
+### Results (2026-11-20)
+
+- **R-01 Listings.** `https://www.amazon.com/dp/B0CDY277D3` (P1) live; title matches `data/p2/products.json` (`name_listing`). P2–P5 were not re-read in this pass; they were read earlier today under 722181aa and are unchanged.
+- **R-01 Short links.** All five `https://link.amazon/{token}` URLs were read through the fetch tool. Four resolved to `https://www.amazon.com/`. The fifth (`B0f3GKalj`, P5) returned HTTP 500 in the earlier read today and resolved to the homepage in this read. None resolved to a product listing in this pass. Intended ASINs were not changed.
+- **R-02 Flag.** F-P24 is still **open**. Its evidence note now carries the second observation. No reader-facing link is affected: the site never publishes a short link as a buy path.
+- **R-03 Counts.** The gate runs 14 sections (`pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness`). The build produces 30 pages, 10 `guide-*` pages and 2 `article-*` long reads. Corrected in README, ENGINE.md, EXECUTIVE_SUMMARY.md and the reader page `executive-summary.html`.
+- **R-04 Checks.** `python3 tools/build.py` → 30 pages; `python3 tools/checks.py` → ALL CHECKS PASSED; `python3 scripts/build_site.py` + `python3 scripts/verify_site.py` → VERIFY OK; `node --test tests/server.test.mjs` → 3/3 pass.
+
+### Sources (official and fetched this session)
+
+- Amazon listing: https://www.amazon.com/dp/B0CDY277D3
+- Submitted short links (fetch tool, 2026-11-20): https://link.amazon/B04G1MEwY · https://link.amazon/B02NbDxp3 · https://link.amazon/B00hJ57DV · https://link.amazon/B0c8moW59 · https://link.amazon/B0f3GKalj
+- Amazon's ASIN definition and tag format: already recorded in `data/p2/sources.json` (S-ASIN, S-TAG); not re-read.
+
+### Irregularities for manual review (not blocking)
+
+1. F-P24 — short links still resolve to the Amazon homepage (2 reads today). Owner needs a normal browser check; see the flag's `how_to_resolve`.
+2. Associates Special Links: the Associates-workflow test of one link per product (confirming destination and tracking report) requires a logged-in Associates account. This sandbox has no such access, so it is **not done** and is an owner action (Q-01 / F-03).
+3. Pages source is still `main /` (F-P19 / F-P20). Owner action: Settings → Pages → Source: GitHub Actions.
+4. Analytics endpoint is deployable but not hosted (F-19 / Q-23). Search Console is not verified (Q-P08).
+
 ## ACTIVE CLAIM — session arena/644d217b-prod2 (2026-11-20, reader-first publication pass + integration)
 
 Branched from `4398598` (main after PR #33). This session is both the working session and the
@@ -1150,3 +1182,33 @@ rather than rebase.
   at the **"Build is reproducible (committed site/ and root mirror match the build)"** step — the same
   class of drift `main` had before this pass. It does not affect `main` or the deploy; its own session
   owns the fix.
+
+## ACTIVE CLAIM — session arena/3936beb1-prod2 (2026-11-20, status re-verification + coordination record)
+
+Branch `arena/3936beb1-prod2`, branched from `d7f58d1` (main after PR #44). Single-branch rule followed; no other branch was created, switched to or pushed.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Re-run the release gates on the branch (`tools/build.py`, `tools/checks.py`, `scripts/verify_site.py`, `node --test tests/server.test.mjs`) | done | arena/3936beb1-prod2 | none (read-only) |
+| X-02 Independent spot check of the live site and of one Amazon listing (P4, `B0DHZTCNR5`) | done | arena/3936beb1-prod2 | none (read-only) |
+| X-03 Record open-PR state and owner-side blockers here | done | arena/3936beb1-prod2 | `COORDINATION.md` |
+
+### Results (2026-11-20)
+
+- **X-01 gates:** `tools/build.py` → 30 pages; `tools/checks.py` → ALL CHECKS PASSED (13 sections, 5 declared site events, freshness match); `scripts/verify_site.py` → VERIFY OK (18 pages); `node --test tests/server.test.mjs` → 3/3 pass. Every outbound product `href` in `docs/` carries `tag=shopnow047c-20` and every outbound product link carries `rel="sponsored nofollow noopener"` (25 on `shop.html`).
+- **X-02 live site:** `https://wingbangboozle1-lang.github.io/Prod2/` served by the fetch tool (title "Air fryers and thermometers by format | The Crisp Counter"). Pages API: `build_type: legacy`, `source: main /`, status `built`. The sandbox `curl` to the Pages host fails (`http 000`), so the fetch tool is the only live read.
+- **X-02 listing:** `https://www.amazon.com/dp/B0DHZTCNR5` (P4) read through the fetch tool. Listing title matches `data/p2/products.json` P4 `name_listing`. The page also shows prices and ratings for other ASINs in the "Customers who viewed" carousel (the F-P17 attribution trap). Those values stay unpublished (F-02). The product's own price was **not** taken from this read.
+- **X-03 open PRs (not touched by this session):** #35 (`arena/dd4bae8a-prod2`), #41 (`arena/e0d92902-prod2`), #43 (`arena/37b265a4-prod2`), #45 (`arena/19fb7064-prod2`), #46 (`arena/644d217b-prod2`). All five are OPEN and overlap the same reader-facing files (`tools/build.py`, `docs/`, `COORDINATION.md`, `data/p2/*`). Merging any of them is an integration decision for the owner, and each must be rebased on the merged state first. This session did not merge them.
+
+### Owner-side blockers (cannot be done from the sandbox)
+
+1. **Pages source** (F-P19 / F-P20): still `main /`. Owner action: Settings → Pages → Source → GitHub Actions. The repo root therefore still exposes `data/`, `content/`, `tools/`.
+2. **One-link-per-product Associates Central test** (F-57 / F-58): tracking ID registration, activity and the attribution of each tagged Special Link can only be confirmed inside Associates Central. No value was inferred.
+3. **Short-link resolution** (F-P24): the five `link.amazon` short links did not resolve to their listings on 2026-11-20 (see L-01 above). Their compliance status stays unresolved (FLG-003). They are not claimed valid or invalid.
+
+### Irregularities for manual review (non-blocking, already on the Flagged page)
+
+- F-P19 / F-P20: Pages source exposes non-publication files (see blocker 1).
+- F-P23 / Q-P14: event-vocabulary contract (resolved in code by the W-01 pass; the gate asserts the five names; whether a collector is deployed for live traffic was not checked this session).
+- F-P24: short-link discrepancy (blocker 3).
+- F-P17 / F-02: carousel prices and ratings belong to other ASINs; the site withholds prices and ratings.
