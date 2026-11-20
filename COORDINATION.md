@@ -14,6 +14,40 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/b3089214-prod2 (2026-11-20, publication-surface lockdown + claim-level re-verification + decision queue)
+
+Protocol note: this session works only on its assigned branch `arena/b3089214-prod2` (the platform fixes
+one branch per session), so the `session-<id>/<task>` branch naming in the brief is not used; this claim
+block is the record, and it is committed and pushed before any content work starts. Board edits elsewhere
+are by other sessions and are unioned, never overwritten.
+
+**Baseline this session measured, on the live host (not from the API):** the fetch tool read
+`https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json` at 06:53 UTC and received the
+**settings register as JSON**, `tracking_id` included. `GET /Prod2/tools/index.html` and
+`/Prod2/data/index.html` return 404 (no directory listing), so direct file paths are the exposure path.
+`PUT /repos/…/pages {build_type: workflow}` returns **403 "Resource not accessible by integration"**, so
+the Pages *source setting* still cannot be flipped from this sandbox — that is why X-01 removes the
+exposure from the repository side instead of waiting on an owner click.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Lock down the published surface repo-side: Jekyll `exclude` at the root so the legacy root build serves only the publication; repoint the register path that is currently used as a reader-facing evidence link; gate the exclusion list against the actual repo tree | in progress | arena/b3089214-prod2 | `.nojekyll` (root), `_config.yml` (new), `tools/root_mirror.py`, `tools/checks.py` (exposition), `data/p2/flags.json` (F-P19/F-P20 wording), `docs/`, root mirror |
+| X-02 Claim-level re-verification: every reader-facing product claim (card highlights, compare rows) re-read against the live listing text for P1–P5, published as a dated claim→evidence register; unsupported values blanked, not reworded | in progress | arena/b3089214-prod2 | `data/p2/verification-2026-11-20-b3089214.json` (new), `data/p2/products.json` (only if a value is wrong), `data/p2/sources.json` (read dates) |
+| X-03 Governing-source liveness audit: the policy pages the site cites for its compliance statements re-read, each claim checked against the page, corrections logged | in progress | arena/b3089214-prod2 | `data/p2/sources.json`, `data/p2/flags.json`, `content/pages/compliance.html` (only if a statement is wrong) |
+| X-04 Decision-support polish: cliché/AI-slop copy pass measured against the voice register, the front-page "three questions" path made functional, reader trust blocks (quick answer, FAQ) added without inventing facts | in progress | arena/b3089214-prod2 | `content/pages/index.html`, `content/pages/guides.html`, `assets/js/site.js`, `assets/css/site.css`, `tools/build.py` |
+| X-05 Two new question-shaped long reads from official guidance sources (each with the mandatory "what we could not verify" block), registered in sitemap + feed + clusters | in progress | arena/b3089214-prod2 | `content/pages/article-*.html` (new), `data/p2/calendar.json`, `tools/build.py`, `data/p2/sources.json` |
+| X-06 Suggestion + question registers: new rows with cost/reversibility/owner-action and discovery paths, so the reviewer can choose a path before anything lands | in progress | arena/b3089214-prod2 | `data/p2/suggestions.json` (SG-48+), `data/p2/questions.json` (Q-P18+), `data/p2/decisions.json` (D-P24+), `content/pages/suggestions.html`, `content/pages/questions.html` |
+| X-07 Document drift check: README/ENGINE/DECISIONS/EXECUTIVE_SUMMARY counts re-read against the rendered build | in progress | arena/b3089214-prod2 | `README.md`, `ENGINE.md`, `DECISIONS.md`, `EXECUTIVE_SUMMARY.md`, `content/pages/executive-summary.html` |
+| X-08 Integration: rebuild, both gates, `npm test`, PR to main, merge, live before/after probes on the exposed paths, record here | in progress | arena/b3089214-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+Collision avoidance: `D-P22`/`D-P21` are used by open PR #47, so this session registers its decisions
+from **D-P24**; flags from **F-P25**; questions from **Q-P18**; suggestions from **SG-48**. Open PRs
+#35/#41/#43/#45/#47/#49/#51 are **not touched** — no file they own is edited by this session; where this
+pass changes a surface they also change (`_config.yml` is new, `tools/checks.py`, `data/p2/*`), the
+reconciliation note below is the record they should merge against.
+
+---
+
 ## CLAIM — session arena/d5157db6-prod2 (2026-11-20, re-verification + drift fixes + integration)
 
 Protocol note: this session works only on its assigned branch `arena/d5157db6-prod2`. The `session-<id>/<task>` branch naming in the brief is not used; this claim is recorded here instead.
