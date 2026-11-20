@@ -228,7 +228,7 @@
   {
    "id": "Q-P14",
    "question": "Which event vocabulary should the site and the endpoint share?",
-   "known": "server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. The site emits five: page_view, outbound_click, guide_read_75, category_click, feed_click.",
+   "known": "server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. The site emits five: page_view, outbound_click, guide_read_75, category_click, feed_click. Answered 2026-11-20 (arena/644d217b-prod2): the site's five documented events are the contract; the collector was extended to accept and correctly aggregate all five, and the gate now fails the build on any divergence. No event was invented or renamed to fit the collector.",
    "recommendation": "Extend server.mjs to accept the three site events and map target_host. It is additive, it touches no browser code, and it preserves the instrumentation that is already tested. Then add a gate that reads both files and fails if the lists ever diverge again.",
    "area": "Measurement",
    "unknown": "A decision on which side moves. Extending the server keeps the site's already-shipped instrumentation and costs twelve lines of Node; changing measure.js keeps the server untouched but means editing and re-testing the only code that touches a reader's browser.",
@@ -237,7 +237,9 @@
    "flags": [
     "F-P23"
    ],
-   "answerable_by": "owner decision, then any session"
+   "answerable_by": "owner decision, then any session",
+   "answer": "Published vocabulary = the five in data/p2/events.json. Collector updated to match, gate enforces the match, regression test pins it. See D-P21.",
+   "status": "answered"
   },
   {
    "id": "Q-P10",

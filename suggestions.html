@@ -555,7 +555,7 @@
 </article>
 <article class="card s-card" id="SG-41">
   <header><h3><code>SG-41</code> Gate the event vocabulary so the site and the endpoint cannot drift again</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>F-P23: three of the site&#x27;s five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree.</dd>
     <dt>Proposal</dt><dd>Add a check that parses the event names out of server.mjs&#x27;s allowedEvents set and out of the event list the site ships, then fails the build when they differ. Ten lines; it turns a silent under-count into a red build.</dd>
@@ -563,7 +563,7 @@
     <dt>Expected impact</dt><dd>High — prevents a silent under-count once the endpoint is hosted.</dd>
     <dt>Effort</dt><dd>Small (parse both lists in checks.py, compare, fail).</dd>
     <dt>Risk</dt><dd>Low. Pure test code; touches no runtime path.</dd>
-    
+    <dt>Progress</dt><dd>Shipped 2026-11-20 (arena/644d217b-prod2): tools/checks.py section &#x27;measurement&#x27; now fails the build when the shipped client can send an event the collector rejects, and tests/server.test.mjs reads the five names out of assets/js/measure.js so the two files cannot drift. See D-P21 / F-P23.</dd>
     <dt>Depends on</dt><dd>Q, -, P, 1, 4,  , (, t, h, e,  , v, o, c, a, b, u, l, a, r, y,  , c, h, o, i, c, e, )</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Adopt as soon as Q-P14 is answered — it is the cheapest possible insurance on a measurement surface.</p>

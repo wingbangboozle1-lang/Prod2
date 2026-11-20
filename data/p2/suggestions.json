@@ -440,7 +440,7 @@
   {
    "id": "SG-41",
    "title": "Gate the event vocabulary so the site and the endpoint cannot drift again",
-   "status": "proposed",
+   "status": "shipped",
    "evidence": "F-P23; allowedEvents in server.mjs vs the event list in data/p2/events.json",
    "proposal": "Add a check that parses the event names out of server.mjs's allowedEvents set and out of the event list the site ships, then fails the build when they differ. Ten lines; it turns a silent under-count into a red build.",
    "impact": "High — prevents a silent under-count once the endpoint is hosted.",
@@ -448,7 +448,8 @@
    "risk": "Low. Pure test code; touches no runtime path.",
    "depends_on": "Q-P14 (the vocabulary choice)",
    "recommendation": "Adopt as soon as Q-P14 is answered — it is the cheapest possible insurance on a measurement surface.",
-   "problem": "F-P23: three of the site's five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree."
+   "problem": "F-P23: three of the site's five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree.",
+   "progress": "Shipped 2026-11-20 (arena/644d217b-prod2): tools/checks.py section 'measurement' now fails the build when the shipped client can send an event the collector rejects, and tests/server.test.mjs reads the five names out of assets/js/measure.js so the two files cannot drift. See D-P21 / F-P23."
   },
   {
    "id": "SG-38",

@@ -501,16 +501,30 @@ def main() -> int:
     if server.exists() and site_js.exists():
         m = re.search(r"allowedEvents\s*=\s*new Set\(\[(.*?)\]\)", server.read_text(encoding="utf-8"), re.S)
         server_events = set(re.findall(r"'([a-z_0-9]+)'", m.group(1))) if m else set()
-        site_events = set(re.findall(r"name:\s*'([a-z_0-9]+)'", site_js.read_text(encoding="utf-8")))
-        if not site_events:
-            site_events = set(re.findall(r"'([a-z_0-9]+)'", site_js.read_text(encoding="utf-8")))
         events_doc = json.loads((ROOT / "data" / "p2" / "events.json").read_text(encoding="utf-8"))
         declared = {e["name"] for e in events_doc["events"]}
-        rejected = sorted(e for e in declared if server_events and e not in server_events)
-        if rejected:
-            note(f"endpoint would reject: {', '.join(rejected)} — F-P23 / Q-P14")
-        ok(f"{len(declared)} site events; endpoint accepts {len(server_events)} names"
-           + (f"; {len(rejected)} mismatched (published, not blocking)" if rejected else ""))
+        # Read the shipped client's own list too, not just the register: the client
+        # is what actually posts, and it is the file that drifted from the register
+        # in the first place. Any name it can send that the endpoint rejects is a
+        # silent 400 in production, so this is a hard failure now, not a note.
+        client_txt = (ROOT / "assets" / "js" / "measure.js").read_text(encoding="utf-8")
+        cm = re.search(r"var EVENTS = \[(.*?)\]", client_txt, re.S)
+        client_events = set(re.findall(r"\"([a-z_0-9]+)\"|'([a-z_0-9]+)'", cm.group(1))) if cm else set()
+        client_events = {a or b for a, b in client_events}
+        if not server_events:
+            fail("server.mjs: allowedEvents list could not be parsed")
+        elif not client_events:
+            fail("assets/js/measure.js: EVENTS list could not be parsed")
+        else:
+            rejected = sorted(e for e in declared | client_events if e not in server_events)
+            undocumented = sorted(e for e in client_events if e not in declared)
+            if rejected:
+                fail("the shipped client can send events the endpoint answers 400 to, "
+                     f"so those counts are lost silently: {', '.join(rejected)} (F-P23)")
+            if undocumented:
+                fail(f"the client sends events missing from data/p2/events.json: {', '.join(undocumented)}")
+            ok(f"{len(declared)} declared site events; {len(client_events)} sent by measure.js; "
+               f"endpoint accepts {len(server_events)} names; 0 unmatched")
     else:
         note("server.mjs or measure.js missing — vocabulary cross-check skipped")
 
