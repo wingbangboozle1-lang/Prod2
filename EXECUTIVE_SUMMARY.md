@@ -66,7 +66,7 @@ re-produce from its evidence.
   buying guide, the thermometer category page and two guides, and now denied by name in the gate. The
   fabricated-claim negative test is what forced the fix: the first version of the audit let a claim cite
   its own register field as its evidence.
-- **A third long read**: `article-leftovers-reheat.html` (~1,150 words) on the FSIS leftovers rules — the
+- **A third long read**: `article-leftovers-reheat.html` (1,333 words, counted the same way as the two before it) on the FSIS leftovers rules — the
   two-hour window, the shallow-container rule, 3–4 days refrigerated / 3–4 months frozen, and the 165°F
   reheat number — read live 2026-11-20 (new source `S-FSIS-LEFTOVERS`). It states explicitly that the
   guidance names a saucepan, a microwave and an oven and **does not** name an air fryer, instead of
