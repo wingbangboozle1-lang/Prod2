@@ -1067,3 +1067,42 @@ Protocol note: this session works on its single assigned branch `arena/722181aa-
 | Pages | `build_type: legacy`, `source: main /`, status `built` (serving the root mirror; the owner-side source change in F-P19/F-P20 is still pending) |
 | Live check | https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the "Flagged for review" page and the F-P24 entry in the built `docs/flagged.html` |
 | Status | L-01..L-03 **done**. Claim released. |
+
+---
+
+# ACTIVE CLAIM — session arena/0a9f19fe-prod2 (2026-11-20, buyer-decision layer + design QA gate)
+
+Branched from `d7f58d1` (main after PR #44). Session id for this board: **arena/0a9f19fe-prod2**.
+
+**State of the board at claim time (06:50 UTC).** Four PRs are open and each has had a commit within
+the last 10 minutes, so all four are **live concurrent sessions, not stale**: #35 (`arena/dd4bae8a-prod2`,
+last commit 06:27), #41 (`arena/e0d92902-prod2`, 06:48), #43 (`arena/37b265a4-prod2`, 06:48),
+#45 (`arena/19fb7064-prod2`, 06:48). None of them is touched by this session. Per the 60-minute
+handoff rule, none is eligible for takeover yet; if one goes quiet past 07:48 UTC and is still
+`CONFLICTING`, a later integration session may take it over.
+
+**Scope conflict found before claiming — recorded, not edited.** `assets/css/site.css` (and its
+`docs/` twin) is owned by **three live sessions at once** (#41, #43, #45 all list it). This session
+therefore claims **no CSS redesign**; it claims the two files no open PR touches (`tools/checks.py`
+is touched by #41/#45, so the new gate goes in a **new** file, `tools/design_qa.py`) plus
+pipeline-only data the other sessions do not list.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| A-01 **P0 live defect**: all 30 published pages load `assets/css/site.css` with raw git conflict markers at lines 1/48/75. Repair deterministically (keep both `@font-face` sets; token layer unchanged) and make the build fail on any conflict marker | in progress | arena/0a9f19fe-prod2 | `assets/css/site.css`, `docs/assets/css/site.css` (mechanical repair only — no design edits, so no collision with #41/#43/#45) |
+| A-02 **Cascade proof**: since the sandbox cannot install a browser (Puppeteer/Playwright downloads blocked) and no prior session ever verified CSS applied, build a headless-free stylesheet auditor: parse the CSS, resolve the cascade, and assert the design tokens reach the markup; wire it into `npm test` | in progress | arena/0a9f19fe-prod2 | `tools/design_qa.py` (new), `package.json`, `.github/workflows/verify.yml` |
+| A-03 Buyer-decision layer: a ranked "which one should I buy" verdict with the **reason each loser loses**, written only from register facts + cited official guidance | in progress | arena/0a9f19fe-prod2 | `content/pages/shop.html`, `content/pages/compare.html` |
+| A-04 Decision-room collation: one page that ranks every open suggestion and every open question by what it unblocks, with the single owner action per row (the "review before implementing" surface) | in progress | arena/0a9f19fe-prod2 | `content/pages/decisions.html`, `data/p2/decision-room.json` (new) |
+| A-05 Exec summary refresh to the merged state (counts, the P0 defect, the new gate) | in progress | arena/0a9f19fe-prod2 | `EXECUTIVE_SUMMARY.md` |
+| A-06 Integration: rebuild both outputs, gate, line-by-line publish check, PR to `main`, merge, Pages live check, record here | in progress | arena/0a9f19fe-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+Claim protocol notes:
+- One branch per session (Arena rule); this session is both working and integration session on it.
+- **Verification boundary (this sandbox, measured 06:49 UTC):** outbound HTTP is limited to
+  `github.com` / `api.github.com` / `codeload.github.com` / `registry.npmjs.org` / `pypi.org` /
+  `files.pythonhosted.org` plus the page-fetch tool's path. `pip install playwright` resolves, but the
+  browser binaries do not download (Chrome for Testing, 3 attempts), and Debian font packages are
+  unavailable — so **no screenshot of any page has ever been produced by any session in this repo**.
+  Every "the design works" claim in this file above is therefore unverified except by reading CSS.
+  A-02 exists to close that hole with a tool that needs no browser.
+- Flagged irregularities do not block the merge; they are published on the Flagged page.
