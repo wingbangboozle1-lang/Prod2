@@ -981,7 +981,7 @@ def hook_front_guides(_="") -> str:
     return ('<div class="card-grid">'
             + "".join(_guide_card(g) for g in FRONT_GUIDES)
             + '</div><p class="cta-row"><a class="btn btn-ghost" href="guides.html">'
-              'All twelve guides &amp; long reads &rarr;</a></p>')
+              'All fourteen guides &amp; long reads &rarr;</a></p>')
 
 
 def hook_guide_cards(_="") -> str:
