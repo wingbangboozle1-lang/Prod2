@@ -612,9 +612,12 @@ def main() -> int:
     linked = set()
     for page in html_files:
         text = page.read_text(encoding="utf-8")
-        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+        # Strip any ?v= cache-buster: the artifact on disk is site.css, the page
+        # requests site.css?v=<hash>. Comparing the raw string against the file
+        # list would fail for every page once assets are versioned.
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             linked.add(rel)
-        for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+        for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             linked.add(rel)
     css_files = sorted(DOCS / rel for rel in linked if rel.endswith((".css", ".js")) and (DOCS / rel).exists())
     if not css_files:
