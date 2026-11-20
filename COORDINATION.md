@@ -1067,3 +1067,38 @@ Protocol note: this session works on its single assigned branch `arena/722181aa-
 | Pages | `build_type: legacy`, `source: main /`, status `built` (serving the root mirror; the owner-side source change in F-P19/F-P20 is still pending) |
 | Live check | https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the "Flagged for review" page and the F-P24 entry in the built `docs/flagged.html` |
 | Status | L-01..L-03 **done**. Claim released. |
+
+---
+
+## ACTIVE CLAIM — session arena/15730819-prod2 (2026-11-20, verified decision layer + shipped-defect repair)
+
+Branched from `d7f58d1` (main after PR #44, 2026-11-20 06:46 UTC). This session is both the working
+session **and** the final integration session on this one branch, per the standing one-branch rule.
+
+**Claim filed 2026-11-20 06:52 UTC.** No other session claim is live on this branch. Three open PRs
+exist with no commit inside their 60-minute window on first inspection (#45 06:48, #43 06:50, #41
+06:50 — all three re-committed after this claim was drafted and are therefore **still inside their
+own claims**). They are **not touched** here; their scopes are logged at the end of this section.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 **Shipped-defect repair:** `assets/css/site.css` was committed with raw merge-conflict markers (`<<<<<<< HEAD` … `>>>>>>> origin/main`) at lines 1/48/75, and `tools/build.py` copies it verbatim into `docs/assets/css/`, so **the published stylesheet is broken for every reader right now**. Resolve to the variable-font side the build preloads; add a gate check so a marker can never ship again. | in progress | arena/15730819-prod2 | `assets/css/site.css`, `tools/checks.py` |
+| X-02 **Verified rate layer:** five ASINs today, added to the product register after a live read of Amazon's official standard commission table (S-COMM, Table 1): Physical Books/Kitchen/Automotive **4.50%**; Toys/Furniture/Home…**3.00%**; All Other **4.00%**. No per-ASIN category, so no per-product rate is asserted. | planned | arena/15730819-prod2 | `data/p2/products.json`, `data/p2/sources.json` |
+| X-03 **Short-link re-read (2026-11-20, this session):** all five `link.amazon` URLs fetched again. Result recorded as dated history; intended-ASIN fields untouched (F-P24/F-P27/F-P28 respected, not overwritten). | planned | arena/15730819-prod2 | `data/p2/verification-2026-11-20.json`, `data/p2/flags.json` |
+| X-04 **Missing-information register, decision-shaped:** a new "decision briefs" surface — for each of the six decisions the owner actually faces, what is known (with a link), what is *not* known, the exact question, who can answer it, and what it blocks. Extends Q-register rather than replacing it. | planned | arena/15730819-prod2 | `data/p2/briefs.json`, `content/pages/briefs.html`, `tools/build.py` |
+| X-05 **Data-integrity gate:** every products.json value must carry a `_source`/`_read` sibling or be null; every published figure must appear in a dated verification record; register cross-references (F-/Q-/SG-/D-) must resolve. | planned | arena/15730819-prod2 | `tools/checks.py` |
+| X-06 **Site rebuild + live verification:** rebuild, gate, PR, merge, confirm Pages deploy, record here. | planned | arena/15730819-prod2 | `docs/`, root mirror, `COORDINATION.md`, `EXECUTIVE_SUMMARY.md` |
+
+**Not touched by this claim (logged, not edited):** PR #45 (`arena/19fb7064-prod2`, CSS conflict
+residue + summaries — **superseded in part by X-01**, which fixes the same defect at source and adds a
+gate; its author should drop the CSS hunk on rebase), PR #43 (`arena/37b265a4-prod2`, short-link
+re-read; its F-P27/F-P28 findings are the reason X-03 records rather than overwrites), PR #41
+(`arena/e0d92902-prod2`, union integration — overlapping but not consumed, because consuming it would
+put two reg-built `docs/` trees into one commit without a line-by-line reconciliation this session
+cannot complete from another branch's data).
+
+**Verification boundary (unchanged, re-tested 2026-11-20 06:50 UTC):** `curl` to any host except the
+system allowlist fails; Amazon listings, the Associates policy pages and the commission statement are
+read with the **fetch tool**, and each is stamped with the date and the tool in the register. Pages
+cannot be switched to Actions mode from here (`PUT /pages` → **403**), so the root mirror is still the
+served artifact and F-P19/F-P20 stay open.
