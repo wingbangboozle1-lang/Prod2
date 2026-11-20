@@ -2,6 +2,37 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
+
+---
+
+## ACTIVE CLAIM — session arena/1930d8a3-prod2 (2026-11-20 06:52 UTC, buyer-facing depth + integration)
+
+**Status: in progress.** Branch `arena/1930d8a3-prod2`, branched from `main` @ `d7f58d1`.
+This session is both the working session and the final integration session on this branch.
+
+**Scope (files this session owns).** Deliberately narrow so it does not collide with the five
+open PRs (#35, #41, #43, #45, #47): no `data/p2/*.json` register edits, no `flagged.html` /
+`suggestions.html` / `questions.html` / `executive-summary.html` / `README.md` / `ENGINE.md`
+edits (those are #43/#45/#47's scope). This session writes only:
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Buyer decision engine + decision-led landing surface ("which one should I buy?") | in progress | arena/1930d8a3-prod2 | `content/pages/picker.html` (new), `assets/js/picker.js` (new), `tools/build.py` (picker page registry only) |
+| X-02 Buyer-facing depth on the front page: comparison at a glance, reader FAQ, editorial byline | in progress | arena/1930d8a3-prod2 | `content/pages/index.html` |
+| X-03 Visual audit of the rendered site + fixes for what the audit finds | in progress | arena/1930d8a3-prod2 | `assets/css/site.css` (append-only section), `assets/js/site.js` |
+| X-04 Gate: new checks for the picker + comparison integrity | in progress | arena/1930d8a3-prod2 | `tools/checks.py` (new section only) |
+| X-05 Integration: rebuild, re-verify, PR to main, merge, Pages check, record here | in progress | arena/1930d8a3-prod2 | `COORDINATION.md`, `docs/`, root mirror |
+
+Notes on overlap:
+- **CSS conflict residue is PR #45's task.** This session does not touch the marker block; it
+  appends a clearly delimited new section at the end of `assets/css/site.css`. Logged here per
+  protocol so the two passes cannot both "fix" it.
+- Registers (`data/p2/*.json`) are owned by #43/#47. If this session needs a new register row it
+  logs the request here instead of writing the file.
+
+---
+
+
 Current sessions (2026-11-20, three parallel passes reconciled on this branch): **session arena/f55b5827-prod2** (branch `arena/f55b5827-prod2`, anti-slop design + working-brand + gifting-guide pass — claim below) · arena/70b2b9f7-prod2 (shop-front design rebuild + live re-verification, PR #31) · arena/86206fb3-prod2 (exposure canaries + F-P19/F-P20 rewrites + event-vocabulary publication, PRs #37/#38). This branch merges both and reconciles all three registers.
 
 Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward polish, PR #30 merged into main 2026-11-20 06:09) · arena/43f4359d-prod2 (product-first landing page, PR #29 merged 2026-11-20 06:06) · arena/9f84489c-prod2 (publication polish, PRs #27/#28) · arena-8ff10f50-prod2 (PRs #19/#21) · arena-3f1d9d65-prod2 (analytics endpoint) · arena/b650562d-prod2 (PR #25, open) · arena/5e692632-prod2 (PR #23, open) · f2613c86, 599eec57, 44093825, 30a7028a, d12d2304.
