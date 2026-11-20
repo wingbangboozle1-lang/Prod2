@@ -5,14 +5,54 @@
   "tool": "fetch_page (fetch tool, redirects followed; sandbox cannot reach amazon.com via curl)",
   "scope_note": "Short links only. The five /dp/ listings were re-read earlier today by arena/722181aa-prod2 and arena/d5157db6-prod2 (data/p2/live-check-2026-11-20-722181aa.json, live-check-2026-11-20-d5157db6.json); not re-read in this pass.",
   "short_links": [
-    {"submitted_url": "https://link.amazon/B04G1MEwY", "intended_asin": "B0CDY277D3", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "observed_http": "200 (homepage)", "matches_intended_asin": false},
-    {"submitted_url": "https://link.amazon/B02NbDxp3", "intended_asin": "B09B7SB46R", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "observed_http": "200 (homepage)", "matches_intended_asin": false},
-    {"submitted_url": "https://link.amazon/B00hJ57DV", "intended_asin": "B08DKYBTPH", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "observed_http": "200 (homepage)", "matches_intended_asin": false},
-    {"submitted_url": "https://link.amazon/B0c8moW59", "intended_asin": "B0DHZTCNR5", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "observed_http": "200 (homepage)", "matches_intended_asin": false},
-    {"submitted_url": "https://link.amazon/B0f3GKalj", "intended_asin": "B0DZFD6R9Z", "observed_final_url": "https://www.amazon.com/", "observed_title": "Amazon.com. Spend less. Smile more.", "observed_http": "200 (homepage)", "matches_intended_asin": false}
+    {
+      "submitted_url": "https://link.amazon/B04G1MEwY",
+      "intended_asin": "B0CDY277D3",
+      "observed_final_url": "https://www.amazon.com/",
+      "observed_title": "Amazon.com. Spend less. Smile more.",
+      "observed_http": "200 (homepage)",
+      "matches_intended_asin": false
+    },
+    {
+      "submitted_url": "https://link.amazon/B02NbDxp3",
+      "intended_asin": "B09B7SB46R",
+      "observed_final_url": "https://www.amazon.com/",
+      "observed_title": "Amazon.com. Spend less. Smile more.",
+      "observed_http": "200 (homepage)",
+      "matches_intended_asin": false
+    },
+    {
+      "submitted_url": "https://link.amazon/B00hJ57DV",
+      "intended_asin": "B08DKYBTPH",
+      "observed_final_url": "https://www.amazon.com/",
+      "observed_title": "Amazon.com. Spend less. Smile more.",
+      "observed_http": "200 (homepage)",
+      "matches_intended_asin": false
+    },
+    {
+      "submitted_url": "https://link.amazon/B0c8moW59",
+      "intended_asin": "B0DHZTCNR5",
+      "observed_final_url": "https://www.amazon.com/",
+      "observed_title": "Amazon.com. Spend less. Smile more.",
+      "observed_http": "200 (homepage)",
+      "matches_intended_asin": false
+    },
+    {
+      "submitted_url": "https://link.amazon/B0f3GKalj",
+      "intended_asin": "B0DZFD6R9Z",
+      "observed_final_url": "https://www.amazon.com/",
+      "observed_title": "Amazon.com. Spend less. Smile more.",
+      "observed_http": "200 (homepage)",
+      "matches_intended_asin": false
+    }
   ],
-  "result": "All five submitted link.amazon URLs resolved to the Amazon homepage in this read. In the 06:5x UTC read by arena/722181aa-prod2 four went to the homepage and one returned HTTP 500; here the fifth (B0f3GKalj) returned the homepage. None resolved to a product listing. The change between reads is unexplained, which is consistent with F-P24 remaining open.",
-  "not_concluded": ["Whether the short links are invalid (not claimed; FLG-003 / F-03 keep this unresolved)", "Whether the fetch tool follows the same redirects a browser does", "Any price, rating or commission value (none read; F-02 unchanged)"],
+  "result": "All five submitted link.amazon URLs resolved to the Amazon homepage in this read. Other same-day reads disagree: arena/722181aa-prod2 recorded four homepage and one HTTP 500; arena/37b265a4-prod2 (R-01) recorded one of five reaching its intended ASIN (B02NbDxp3 -> B09B7SB46R) and the rest at the homepage. None of this session's reads reached a product page . The disagreement is tracked as F-P27 and F-P24; the cause is unknown and the browser check (Q-P18) decides.",
+  "not_concluded": [
+    "Whether the short links are invalid (not claimed; FLG-003 / F-03 keep this unresolved)",
+    "Whether the fetch tool follows the same redirects a browser does",
+    "Any price, rating or commission value (none read; F-02 unchanged)"
+  ],
   "intended_asin_fields_changed": false,
-  "owner_or_browser_check_needed": "Open each link.amazon URL in a normal browser and record the final URL in data/p2/intent-links.json as a dated redirect observation (F-P24 how_to_resolve)."
+  "owner_or_browser_check_needed": "Open each link.amazon URL in a normal browser and record the final URL in data/p2/intent-links.json as a dated redirect observation (F-P24 how_to_resolve).",
+  "same_day_disagreement": "F-P27 (arena/37b265a4-prod2): two same-day reads disagree on B02NbDxp3 and B0f3GKalj."
 }

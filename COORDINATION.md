@@ -1221,9 +1221,9 @@ Branched from `main` at `0a4b573` (PR #46 merged; fast-forwarded, no local commi
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
-| X-01 Stop serving the whole repository from the live host: switch the Pages source from `main /` (root mode, F-P19/F-P20) to the GitHub Actions artifact built from `docs/`, then prove the live host no longer serves `data/`, `tools/`, `archive/` | in progress | arena/e292fb4d-prod2 | repository Pages setting (API), `COORDINATION.md`, `data/p2/flags.json` (resolution only if proven) |
-| X-02 Re-read the five `link.amazon` short links and the five `/dp/` listings (2026-11-20) to re-test F-P24 | in progress | arena/e292fb4d-prod2 | `data/p2/live-check-2026-11-20-e292fb4d.json` (new), `COORDINATION.md` |
-| X-03 Rebuild, gate, PR to main, merge, Pages live check; record here | in progress | arena/e292fb4d-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+| X-01 Stop serving the whole repository from the live host: switch the Pages source from `main /` (root mode, F-P19/F-P20) to the GitHub Actions artifact built from `docs/`, then prove the live host no longer serves `data/`, `tools/`, `archive/` | blocked — owner action (403 on Pages write) | arena/e292fb4d-prod2 | repository Pages setting (API), `COORDINATION.md`, `data/p2/flags.json` (resolution only if proven) |
+| X-02 Re-read the five `link.amazon` short links and the five `/dp/` listings (2026-11-20) to re-test F-P24 | done | arena/e292fb4d-prod2 | `data/p2/live-check-2026-11-20-e292fb4d.json` (new), `COORDINATION.md` |
+| X-03 Rebuild, gate, PR to main, merge, Pages live check; record here | done (PR #51, `ad81b87`) | arena/e292fb4d-prod2 | `docs/`, root mirror, `COORDINATION.md` |
 
 ### Results — arena/e292fb4d-prod2 (2026-11-20), part 1 (X-02)
 
@@ -1238,3 +1238,27 @@ Branched from `main` at `0a4b573` (PR #46 merged; fast-forwarded, no local commi
   recorded here, not treated as a site defect.
 - **Pages settings (X-01).** Source is still `legacy`, `main /` (root mirror). Repository admin rights are present
   (`permissions.admin = true`). Change scheduled after this PR merges, so the deploy artifact is from final `main`.
+
+### Results — arena/e292fb4d-prod2 (2026-11-20), part 2 (X-01 blocked · X-03 done)
+
+- **X-01 · Pages source (BLOCKED — owner action).** `PUT /repos/{owner}/{repo}/pages` with `build_type=workflow`
+  (documented values `legacy` | `workflow`: https://docs.github.com/en/rest/pages/pages) returned **HTTP 403
+  "Resource not accessible by integration"**. The sandbox token can read Pages settings (`status: built`,
+  `source: main /`) but cannot change them. Not worked around (for example by editing Jekyll settings to hide files),
+  because that would change the live site in a way this pass could not verify. **Owner step:** repository
+  Settings → Pages → Build and deployment → Source: **GitHub Actions**. Then run the existing *Deploy to GitHub Pages*
+  workflow on `main`. **Baseline confirmed today:** the live host serves `data/p2/flags.json` and `COORDINATION.md`
+  as static files (fetch tool, 2026-11-20), so F-P19/F-P20 exposure is real until the source changes.
+- **X-03 · integration (done).** PR **#51** (`arena/e292fb4d-prod2` → `main`) merged with a merge commit at
+  **2026-11-20 06:54:51 UTC** → `ad81b87`. Main had moved twice during the PR (PRs #43, #50), so the branch was
+  merged with `origin/main` (not rebased, no history rewritten after the claim); conflicts were in the generated
+  `docs/flagged.html` / `flagged.html` (regenerated from the register) and in the F-P24 detail (kept, one sentence added).
+  Checks on PR #51: `test` ✓ · `verify` ✓. Workflows on `ad81b87`: verify-site ✓ · Self-hosted analytics tests ✓ ·
+  Deploy to GitHub Pages ✓ · pages build and deployment ✓ (Pages build `built`, commit `ad81b87`).
+  Live check: https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the Flagged page.
+- **Correction to Part 1 above.** Part 1 said the only difference from `722181aa` was the fifth link. That
+  was incomplete: `37b265a4` (R-01, same day) recorded B02NbDxp3 reaching its ASIN. The disagreement is F-P27 and is
+  now stated in `data/p2/live-check-2026-11-20-e292fb4d.json`. No intended-ASIN field changed.
+- **Claim status:** X-02 done · X-03 done · X-01 **blocked on owner action (403)**; stays open with the steps above.
+- **ID note.** Task IDs `X-01..X-03` were also used by the merged session `arena/3936beb1-prod2` (lines above). The
+  three rows in this section are this session's X-01..X-03; no earlier row was edited to fit.
