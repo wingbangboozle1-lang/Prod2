@@ -33,6 +33,21 @@ python3 analytics-endpoint/server.py --port 8787
 # then set analytics_endpoint in data/p2/settings.json and rebuild
 ```
 
+## Artwork (tools/make_art.py)
+
+The site ships twelve images and every one is generated, not photographed:
+
+```bash
+pip install pillow          # only needed to regenerate art, never to build the site
+python3 tools/make_art.py   # writes assets/img/*.png deterministically
+```
+
+`assets/img/mark.png` (site icon, masthead, JSON-LD logo), `hero-shelf.png` (front page and buying
+guide), `g-*.png` (one diagram per guide), `social.png` + `og-card.png` (1200×630). Re-run and commit
+when a guide is added or the palette changes; the build copies `assets/` into `docs/`. No product
+photography is used anywhere — see `DESIGN_PROMPT.md` for why, and `flags.json` SG-40 for the
+lawful routes if that changes.
+
 ## What the gate checks (tools/checks.py)
 
 | Section | Enforced |
@@ -66,9 +81,19 @@ python3 analytics-endpoint/server.py --port 8787
 3. Run the two commands above. The sitemap, feed (for guides), nav and footer pick it up
    automatically or fail the gate.
 
+## Gate sections (12)
+
+`pages` · `disclosure` · `links` · `validity` · `facts` · `claims` · `chrome` · `seo` ·
+`publication` · `imagery` · `one site` · `freshness`
+
+Two of these exist because of defects found on 2026-11-20: **imagery** (every image must have alt
+text, explicit dimensions, a local host and a file in the build) and **one site** (the preserved
+`site/` build must stay `noindex` and self-canonical, and the repo-root mirror must be byte-identical
+to `docs/`, because the root is what Pages actually serves).
+
 ## Test count
 
-`tools/checks.py` runs **9 check sections** covering 70+ individual assertions across
-24 pages (20 core + guides hub + 3 question-shaped guides added in the 2026-11-19
-publication pass). The engine has no other entry points; everything the site publishes flows
+`tools/checks.py` runs **12 check sections** covering 100+ individual assertions across
+25 pages (front page, guides hub, nine question-shaped guides, two category pages, buying
+guide, and nine register pages). The engine has no other entry points; everything the site publishes flows
 through the build and the gate.
