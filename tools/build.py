@@ -1094,6 +1094,10 @@ def main() -> None:
     DOCS.mkdir(exist_ok=True)
     (DOCS / "assets").mkdir(exist_ok=True)
     if ASSETS_SRC.exists():
+        # Mirror, do not overlay: an asset deleted or replaced in assets/ must
+        # disappear from docs/assets/ too, or the freshness check fails forever.
+        if (DOCS / "assets").exists():
+            shutil.rmtree(DOCS / "assets")
         shutil.copytree(ASSETS_SRC, DOCS / "assets", dirs_exist_ok=True)
     for page_id, path, title, desc, section in PAGES:
         build_page(page_id, path, title, desc, section)

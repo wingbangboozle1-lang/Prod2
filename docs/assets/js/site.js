@@ -38,7 +38,7 @@
     var activeFormat = null;
     var activeKind = null;
 
-    function apply() {
+    function apply(logTarget) {
       var shown = 0;
       cards.forEach(function (card) {
         var ok =
@@ -65,6 +65,8 @@
       status.textContent = shown === cards.length
         ? "Showing all " + cards.length + " tools."
         : "Showing " + shown + " of " + cards.length + " tools.";
+      /* one of the five defined events: a filter choice is a category selection */
+      if (logTarget && window.prod2Record) window.prod2Record("category_click", { target: logTarget });
     }
 
     formatButtons.forEach(function (btn) {
@@ -86,7 +88,7 @@
         e.preventDefault();
         activeFormat = null;
         activeKind = null;
-        apply();
+        apply("all");
       });
     }
     apply();

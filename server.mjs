@@ -96,6 +96,8 @@ async function handler(req, res) {
       // INT-06: canonical site (Countercraft) opts in via window.COUNTERCRAFT_ENDPOINT;
       // legacy Counter Notes pages opted in via the body attribute. Support both.
       html=html.replace('data-analytics-endpoint=""','data-analytics-endpoint="/api/events"');
+      /* 2026-11-20 chrome: tools/build.py emits the endpoint on <html data-endpoint=""> */
+      html=html.replace('data-endpoint=""','data-endpoint="/api/events"');
       html=html.replace('</head>','<script>window.COUNTERCRAFT_ENDPOINT="/api/events";</script></head>');
       html=html.replace('</body>','<script src="/api/client.js" defer></script></body>');
       content=Buffer.from(html);
