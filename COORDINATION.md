@@ -1965,7 +1965,7 @@ continue from whatever `data/p2/*.json` shows free at write time — recorded in
 | R-03 Timely Thanksgiving-week thermometer guide ("How do you know the turkey is done?") — USDA cook-temps sourced, thermometer workflow framing from P4/P5 listings | done | arena/44af3083-prod2 | `content/pages/guide-turkey-done.html` (new), `tools/build.py`, `data/p2/calendar.json` (holiday-hosting season wiring) | Seasonal desk item for the 2026-11-26 US Thanksgiving window; hypothesis only (D-19). |
 | R-04 Decision-support additions: suggestions SG-49..SG-51 (design/marketing inputs feeding DESIGN_PROMPT.md + next-pass chooser paths) + questions Q-P19/Q-P20 (missing-information discovery) | done | arena/44af3083-prod2 | `data/p2/suggestions.json`, `data/p2/questions.json`, `DESIGN_PROMPT.md` (append-only) | Proposals only; nothing implemented without a reviewer choice. |
 | R-05 Front-page shop polish + executive summary refresh | done | arena/44af3083-prod2 | `content/pages/index.html` (copy only), `EXECUTIVE_SUMMARY.md` | Copy-level; no register/price/rating changes. |
-| R-06 Rebuild + gates (`tools/build.py` + `tools/checks.py`, `scripts/verify_site.py`, `npm test`), PR to `main`, merge, Pages live check, record here | in progress | arena/44af3083-prod2 | `docs/`, root mirror, `COORDINATION.md` | Runs last. PR + merge without waiting for approval per the brief; deploy must be green before the record is written. |
+| R-06 Rebuild + gates (`tools/build.py` + `tools/checks.py`, `scripts/verify_site.py`, `npm test`), PR to `main`, merge, Pages live check, record here | done | arena/44af3083-prod2 | `docs/`, root mirror, `COORDINATION.md` | Runs last. PR + merge without waiting for approval per the brief; deploy must be green before the record is written. |
 
 Parallel-session protocol: `git pull --rebase` before every push; a request to change another
 session's file is logged here, never edited directly. Flagged irregularities do not block the
@@ -1990,7 +1990,10 @@ merge; they publish on the Flagged for Review page.
 | Item | Value |
 | --- | --- |
 | PR | https://github.com/wingbangboozle1-lang/Prod2/pull/54 (`arena/44af3083-prod2` → `main`) |
-| Merge result | (recorded after merge) |
-| Pages | (recorded after deploy check) |
-| Checks on PR | tools/checks.py ALL CHECKS PASSED · scripts/verify_site.py VERIFY OK · npm test 2/2 |
+| Merge result | **Merged 2026-11-20T07:16:50Z**, merge commit `e7bab16ba9b5a2e3f1432415030b293ebccaefdc` (`gh pr merge 54 --merge`, no approval waited for). The review window raced four waves of parallel merges to `main` (PRs #38–#42, #43–#53, #47–#60, #64–#69); each was integrated here by a **union merge keyed on register row id** (three recorded conflicts in the conflict log; nothing discarded), with generated artifacts always regenerated from the merged sources. |
+| Workflows on merge commit `e7bab16` | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Checks at merge | tools/checks.py **ALL CHECKS PASSED** (35 pages, 19 sections) · scripts/verify_site.py **VERIFY OK** (18 pages) · npm test **10/10** |
+| Pages | **built and serving** — legacy `main /` root mode; the root mirror written by `tools/build.py` is byte-identical to `docs/`, so the live URL serves exactly the gated build. |
+| Live check | Fetched live 2026-11-20 ~07:20 UTC (fetch tool; cache-busting query after a stale first read): the merged build serves — trust row **14 guides & long reads**, assets carry `?v=` cache-busters, all five shelf cards carry tagged Special Links (`?tag=shopnow047c-20`) with the paid-link label and "listing re-checked 2026-11-20" source lines; `guide-turkey-done.html` serves with the USDA 165°F (74°C) citation and its read date. The first fetch showed the pre-merge build (a stale CDN edge — a documented quirk); the cache-busted re-fetch showed the current build. |
+| Status | **R-01..R-06 done.** Claim released. This record itself lands via the follow-up record PR (precedent: the record PR pattern used by arena/70b2b9f7 and arena/722181aa). |
 
