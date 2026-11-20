@@ -68,7 +68,6 @@ python3 server.mjs --port 8787
 
 ## Test count
 
-`tools/checks.py` runs **9 check sections** covering 70+ individual assertions across
-24 pages (20 core + guides hub + 3 question-shaped guides added in the 2026-11-19
-publication pass). The engine has no other entry points; everything the site publishes flows
+`tools/checks.py` runs **14 check sections** covering 70+ individual assertions across
+30 built pages (the core pages, the guides hub, 10 guide pages and 2 long reads). The engine has no other entry points; everything the site publishes flows
 through the build and the gate.
