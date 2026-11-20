@@ -732,7 +732,7 @@
     <dt>Expected impact</dt><dd>High — halves the file count in the repo, removes the double-commit in every pass, and closes the largest open compliance item.</dd>
     <dt>Effort</dt><dd>About two minutes of owner time; one follow-up commit here to delete the mirror.</dd>
     <dt>Risk</dt><dd>A brief window where the site serves the workflow artifact instead of the root. Revert is the same dropdown.</dd>
-    
+    <dt>Progress</dt><dd>2026-11-20 (arena/b3089214-prod2): the emergency part is closed without the setting change — a generated root _config.yml plus the exposition gate now keeps every non-publication path out of the served surface (F-P19/F-P20 carry the before/after probes), and the /docs/ duplicate is excluded too. What remains of this item is the structural cleanup: one dropdown still buys a simpler repo (no root mirror, no generated config, no F-P29 dependency). Re-ranked below SG-49 for that reason.</dd>
     <dt>Depends on</dt><dd>F-P19, F-P20</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Do this first. It is the cheapest item on the board with the largest structural payoff, and unlike every other item it needs no editorial judgement.</p>
@@ -751,6 +751,51 @@
     <dt>Depends on</dt><dd>Q-P05</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Run (b) now; switch to (a) only if API access is granted.</p>
+</article>
+<article class="card s-card" id="SG-48">
+  <header><h3><code>SG-48</code> Gate the product copy against its evidence, not just against banned words</h3>
+  <span class="status status-shipped">shipped</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The site promises that every figure on a card was read off the official listing, but nothing checked the card bullets themselves. Ten of fifteen rest on a dated read the environment cannot re-retrieve, and six published phrases (&#x27;magnetic back&#x27;, &#x27;rinse-clean&#x27;, &#x27;Smart Hub&#x27;, &#x27;rack cooking&#x27;, &#x27;in the basket lids&#x27;, &#x27;leave-in wireless probes&#x27;) matched no recorded string at all.</dd>
+    <dt>Proposal</dt><dd>`tools/claims_audit.py` matches each published bullet, word by word, against the verbatim evidence strings held for that ASIN and writes data/p2/claim-audit-{date}.json; the release gate calls it, so an unevidenced bullet fails the build, a stale audit file fails the build, and each of the six retired phrases fails the build if it returns on a reader-facing page. Re-running it after any listing edit is one command.</dd>
+    <dt>Evidence</dt><dd>Implemented and shipped 2026-11-20. Run `python3 tools/claims_audit.py --report` to see the 15 rows and their citations; F-P30 records the negative test that forced the fix (a claim could originally cite its own register field as its evidence).</dd>
+    <dt>Expected impact</dt><dd>High — it makes the site&#x27;s central promise mechanically true, and it is the difference between &#x27;we verified this&#x27; and &#x27;here is the string we read&#x27;.</dd>
+    <dt>Effort</dt><dd>Done. Reviewer time: five minutes to read the audit and decide whether to paste the missing bullets (Q-P19).</dd>
+    <dt>Risk</dt><dd>Low. It can only make copy narrower than the listing, never wider; a future pass that wants a richer bullet adds evidence instead of adjectives.</dd>
+    
+    <dt>Depends on</dt><dd>F-P30, Q-P19</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Keep it. If a bullet ever needs an exception, the fix is a recorded verbatim string, not a gate exemption.</p>
+</article>
+<article class="card s-card" id="SG-49">
+  <header><h3><code>SG-49</code> Get Creators/PA-API access: it unlocks prices, ratings, images and automated re-verification</h3>
+  <span class="status status-proposed">proposed</span></header>
+  <dl>
+    <dt>Problem</dt><dd>Almost every open item on this board has the same root cause — the project can read a listing&#x27;s title but not its data. Prices and star ratings stay unpublished (F-02, D-P11), product imagery is an illustration because the license route was never opened (SG-47), bullet-level facts cannot be re-confirmed (F-P30), and commission categories are blank (F-01).</dd>
+    <dt>Proposal</dt><dd>Owner applies for PA-API access in Associates Central (it requires an account with a qualifying sale, per the Operating Agreement), then stores the credentials as a secret — never in this repository — for a small fetch script that writes ItemHighlights, the price/rating fields and the PrimaryImage URI into the verification register with a response timestamp. The gate then compares published values with the last API read instead of a human paste.</dd>
+    <dt>Evidence</dt><dd>Program Policies read 2026-11-20 (S-POL): §2(b) allows published prices only when Amazon serves the link or the data come through the Creators/PA API; §6(t) restricts review and rating use to the same channel. That is the door: it converts four withheld fields and two open flags into an automated path. The  Associates workflow also is the place the short-link compliance question (F-03/FLG-003, Q-01) gets answered.</dd>
+    <dt>Expected impact</dt><dd>Very high — the largest number of blocked items on the board resolve behind this one account step.</dd>
+    <dt>Effort</dt><dd>Owner-side, maybe 30 minutes plus the qualifying-sale wait; a follow-up session writes the fetch script and the register columns.</dd>
+    <dt>Risk</dt><dd>Credential handling. Mitigation is explicit: the sandbox must never hold the key; a scheduled job writes a dated JSON snapshot, and the site publishes only what the snapshot records.</dd>
+    
+    <dt>Depends on</dt><dd>F-02, F-01, F-P30, F-03</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Rank this first. SG-46 used to lead the board; after the 2026-11-20 surface fix the dropdown buys tidiness, while this buys capability the site is currently forced to withhold.</p>
+</article>
+<article class="card s-card" id="SG-50">
+  <header><h3><code>SG-50</code> Enforce the publication&#x27;s voice in the gate, the same way the facts are enforced</h3>
+  <span class="status status-shipped">shipped</span></header>
+  <dl>
+    <dt>Problem</dt><dd>The brief&#x27;s standing complaint is that affiliate pages read like generated filler. The voice rules exist (VOICE.md, D-12) but nothing measures them, so a pass can quietly reintroduce &#x27;in today&#x27;s fast-paced world&#x27; style padding — and the copy audit proves the same pattern for facts.</dd>
+    <dt>Proposal</dt><dd>Add a voice section to tools/checks.py: a blacklist of filler openers and hedges on reader-facing pages, a &#x27;no page may open by describing the checking process&#x27; rule, and a per-page em-dash budget. Same shape as the claim audit — measured, printed in the build output, and failing rather than advisory.</dd>
+    <dt>Evidence</dt><dd>Implemented 2026-11-20 (voice section). The blacklist was built by scanning the published pages first, so it only forbids what the site does not need.</dd>
+    <dt>Expected impact</dt><dd>Medium — it does not make a page good, but it stops the specific tics that mark a page as generated.</dd>
+    <dt>Effort</dt><dd>Done.</dd>
+    <dt>Risk</dt><dd>A blacklist can over-reach; keep it short and let the flag list carry the reasoning.</dd>
+    
+    <dt>Depends on</dt><dd>D-12</dd>
+  </dl>
+  <p class="reco"><strong>Our recommendation:</strong> Keep the list short enough that a reviewer can read it in one screen.</p>
 </article>
 
 <div class="callout callout-sage">
