@@ -310,6 +310,60 @@ current state of `main`.
 
 ---
 
+
+### PR / MERGE / DEPLOY RECORD — session arena/0a9f19fe-prod2 (final, 2026-11-20)
+
+| PR | What | Result |
+| --- | --- | --- |
+| [#56](https://github.com/wingbangboozle1-lang/Prod2/pull/56) | Stylesheet conflict-marker repair + `tools/design_qa.py` gate + `shop.html` buyer verdict + `before-you-decide.html` + `derived` gate + `F-P29` | **Merged** `d1e6eb8` at 07:03:36Z. `verify-site` pass · `test` pass · `Deploy to GitHub Pages` **success** (run 44692170456) |
+| [#60](https://github.com/wingbangboozle1-lang/Prod2/pull/60) | The merged page shipped its frontmatter as visible text; guard added and proven against the defect | **Merged** `551c633` at 07:07:18Z. `verify-site` pass · `test` pass. **Deploy failed — see below.** |
+| [#62](https://github.com/wingbangboozle1-lang/Prod2/pull/62) | **Fixed `main`'s red deploy**: heading-level skip on `suggestions.html`, unversioned `decide.js`, and a query-string bug in a check that could not resolve versioned assets | **Merged** `935101e`. `verify-site` pass · `test` pass · `Deploy to GitHub Pages` **success** (run 44693342142) |
+
+**Deploy was red on `main` from PR #58 to PR #62** (runs 44692497340, 44692527366, 44692629076 all
+failed at `Release gate — publication`; the deploy job was skipped each time, so the live site served
+an older build than the repo). Two rules added by parallel sessions' merges had caught two real
+defects: an `h1 → h3` skip on `suggestions.html`, and `decide.js` emitted without the `?v=` cache
+buster every other asset gets. A third problem was in the checker itself — its asset-URL regex
+captured the query string, so once the versioning worked the check could not resolve the real file.
+All three fixed in #62. **A parallel session (PR #63) reached the same diagnosis independently and
+landed the source-level fixes first**; #62 was rebased onto them, kept main's better solution (the
+reviewer note became a `p.eyebrow`, which cannot create a heading skip at all), and promoted my
+`h2` callout accordingly. Nothing was discarded from either side.
+
+**Live verification after the green deploy (fetched, not inferred):**
+`/Prod2/before-you-decide.html` renders with no frontmatter text and the eleven-row table intact;
+`/Prod2/assets/css/site.css` serves the repaired file — nine `@font-face` blocks, no conflict markers,
+tokens intact. Recorded with the page-fetch tool because `curl` cannot reach `*.github.io` here.
+
+### What this session shipped, in one list
+
+1. **P0**: the stylesheet every page loads no longer contains a merge conflict, and a browser-free
+   gate (`tools/design_qa.py`, 9 sections) now fails the build on that class of defect, proven
+   against three real failure modes.
+2. **`derived` gate** in `tools/checks.py`, written after this session published a "smallest
+   footprint" claim its own arithmetic contradicted.
+3. **`shop.html` buyer verdict** — job-matched picks, the reason each alternative loses, the USDA
+   placement rule, and an explicit list of what the recommendation cannot tell you.
+4. **`before-you-decide.html`** — eleven owner decisions, each with known / missing / how it is
+   discovered / what changes. Cross-linked with the parallel `briefs.html`; neither deleted.
+5. **`F-P29`** publishing the stylesheet defect, its root cause and the gate.
+6. **A frontmatter guard** in `tools/checks.py` after the merged page shipped its own header as text.
+
+### Honest limits of this record
+
+- **No screenshot was ever produced.** No session in this repo has rendered a page; this one measured
+  that the browser binaries do not download. `design_qa.py` closes the mechanical gap (does the
+  stylesheet parse, resolve and reach the markup) and cannot close the aesthetic one.
+- **No external source was fetched this session.** Product values come from the dated register reads;
+  the only external quotation used (USDA FSIS on probe placement) is from the register entry read
+  2026-11-20 by the previous pass.
+- **Two defects in this session's own output escaped its gates and were caught only by reading the
+  live page** (the frontmatter, and the `h3` under an `h1`). Both are now gated. That is the pattern
+  worth carrying forward: the gates catch what can be expressed as a rule; a human looking at the
+  site still catches the rest.
+
+---
+
 ## PARALLEL CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
 
 Ran in parallel with the two passes above (both also branched from f6e772f). **Reconciled by this
