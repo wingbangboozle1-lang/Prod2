@@ -15,13 +15,13 @@ everything, PR, merge, confirm Pages.
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
-| V-01 Ship the adopted brief's typography (self-hosted Fraunces + Inter, OFL) + design-token conformance pass | in progress | arena/f55b5827-prod2 | `assets/fonts/*`, `assets/css/site.css`, `DESIGN_PROMPT.md` |
-| V-02 Working-brand adoption on the owner directive ("The Crisp Counter") + preliminary name search; formal clearance stays open (Q-19) | in progress | arena/f55b5827-prod2 | `data/p2/settings.json`, `tools/make_og.py`, `assets/img/og-card.png`, `data/p2/flags.json` |
-| V-03 Catchy seasonal guide (December gifting window) + calendar queue extension (hypotheses only, D-19) | in progress | arena/f55b5827-prod2 | `content/pages/guide-gift-guide.html`, `data/p2/calendar.json`, `tools/build.py` |
-| V-04 Decision-making improvements + suggestion-batch SG-38..SG-43 | in progress | arena/f55b5827-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
-| V-05 Questions / missing-information register additions (Q-P10, Q-P11) | in progress | arena/f55b5827-prod2 | `data/p2/questions.json` |
-| V-06 Register + docs sync (decisions D-P10..D-P12, flag F-P15, README, EXECUTIVE_SUMMARY, DECISIONS, VOICE) | in progress | arena/f55b5827-prod2 | `data/p2/decisions.json`, `*.md`, `tools/build.py` (BUILD_DATE) |
-| V-07 Integration: rebuild both outputs, gate, line-by-line re-verify, PR to main, merge, Pages live check | in progress | arena/f55b5827-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+| V-01 Ship the adopted brief's typography (self-hosted Fraunces + Inter, OFL) + design-token conformance pass | done | arena/f55b5827-prod2 | `assets/fonts/*`, `assets/css/site.css`, `DESIGN_PROMPT.md` |
+| V-02 Working-brand adoption on the owner directive ("The Crisp Counter") + preliminary name search; formal clearance stays open (Q-19) | done | arena/f55b5827-prod2 | `data/p2/settings.json`, `tools/make_og.py`, `assets/img/og-card.png`, `data/p2/flags.json` |
+| V-03 Catchy seasonal guide (December gifting window) + calendar queue extension (hypotheses only, D-19) | done | arena/f55b5827-prod2 | `content/pages/guide-gift-guide.html`, `data/p2/calendar.json`, `tools/build.py` |
+| V-04 Decision-making improvements + suggestion-batch SG-38..SG-43 | done | arena/f55b5827-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| V-05 Questions / missing-information register additions (Q-P10, Q-P11) | done | arena/f55b5827-prod2 | `data/p2/questions.json` |
+| V-06 Register + docs sync (decisions D-P10..D-P12, flag F-P15, README, EXECUTIVE_SUMMARY, DECISIONS, VOICE) | done | arena/f55b5827-prod2 | `data/p2/decisions.json`, `*.md`, `tools/build.py` (BUILD_DATE) |
+| V-07 Integration: rebuild both outputs, gate, line-by-line re-verify, PR to main, merge, Pages live check | done | arena/f55b5827-prod2 | `docs/`, root mirror, `COORDINATION.md` |
 
 Protocol notes for this claim:
 - Branch `arena/f55b5827-prod2` from `f6e772f` (main at PR #28). Arena allows one branch per session; this session
@@ -36,6 +36,42 @@ Protocol notes for this claim:
   record below.
 
 ---
+
+
+Claim results (2026-11-20):
+
+- **V-01 (typography + tokens):** Fraunces (600 normal, 400 italic) + Inter (400/500/600/700) shipped as latin
+  woff2 subsets in `assets/fonts/`, licenses (SIL OFL 1.1) committed beside the files, `font-display: swap`,
+  zero third-party requests. Source of files: @fontsource/fraunces@5.3.0 and @fontsource/inter@5.3.0 from
+  registry.npmjs.org (OF-licensed upstreams: github.com/undercasetype/Fraunces, github.com/rsms/inter —
+  linked in D-P11). Conformance: card radius 10→8px, amber token for unverified states, 44px tap targets
+  (buttons/tiles/nav/mobile menu), sticky anchor bar on compare.html ≤60rem, focus-visible outlines.
+- **V-02 (working brand):** "The Crisp Counter" on every reader-facing surface (settings.json → masthead,
+  titles, JSON-LD, feed, footer; OG card regenerated). Preliminary name search 2026-11-20 (web search; first
+  page of results — no kitchen-appliance conflict; formal clearance NOT performed): links in D-P10 sources
+  (tmsearch.uspto.gov is the resolver). Flag F-P15 records the open clearance. Six page titles shortened to
+  keep the 70-char gate green with the longer brand.
+- **V-03 (seasonal guide):** `guide-gift-guide.html` shipped (December gifting window; seasonal card in
+  `data/p2/calendar.json`; queue slots 6-9 added). Every fact in it traces to the register; carries the
+  mandatory "What we could not verify" block; D-19 respected (no popularity claims).
+- **V-04 (suggestions):** SG-15/16/31/32/33/38/40 statused (shipped/accepted with progress notes); SG-39,
+  SG-41, SG-42, SG-43 added as proposed. Suggestions page "shortest credible path" rewritten with
+  decision-maker + decide-by per step (SG-32 implemented).
+- **V-05 (questions):** Q-P10 (brand ratification + clearance) and Q-P11 (availability snapshot policy)
+  added with known/unknown/discovery/owner fields.
+- **V-06 (registers + docs):** decisions D-P10..D-P12; flag F-P15; README/EXECUTIVE_SUMMARY/DECISIONS synced.
+- **Re-verification of the five listings (2026-11-20):** each official listing URL
+  (amazon.com/dp/{ASIN}) fetched; document title (verbatim listing title) + category breadcrumb read and
+  matched against the register — no drift; record in `data/p2/verification-2026-11-20.json`; S-P1..S-P5
+  read dates updated. Prices/ratings visible on the listings remain unpublished (F-02). An "In Stock" line
+  observed on P4 → new policy question Q-P11 / SG-42. Short links NOT re-resolved this pass (last dated
+  redirect observation remains 2026-11-19; F-P07 pattern noted in the record's findings).
+- **V-07 (integration):** `python3 tools/build.py && python3 tools/checks.py` → ALL CHECKS PASSED (26 pages);
+  `python3 scripts/build_site.py && python3 scripts/verify_site.py` → VERIFY OK (Countercraft build intact);
+  `npm test` → 2/2 endpoint tests pass. PR to main follows this commit; merge + Pages check recorded below.
+
+Irregularities to publish (already on the site): F-P15 (brand clearance open), plus the standing open flags
+the Flagged page already carries. No new build defects.
 
 ## Completed claim — session arena/9f84489c-prod2 (2026-11-19, publication polish pass; PR #28 merged)
 
