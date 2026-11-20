@@ -393,6 +393,15 @@
       "evidence_note": "data/p2/products.json short_link fields; data/p2/intent-links.json observed_redirect_history (2026-11-19 and 2026-11-20 entries); data/p2/verification-2026-11-20.json r01_reread_2026_11_20.",
       "how_to_resolve": "Owner completes the logged-out browser check (Q-P18). After that the owner decides whether products.json keeps the short_link field as recorded, and whether intent-links.json gets a dated status note. No intent field is changed until then.",
       "resolved_utc": null
+    },
+    {
+      "id": "F-P29",
+      "title": "All 30 published pages shipped a stylesheet containing git conflict markers (fixed and gated in this pass)",
+      "detail": "On 2026-11-20 the file every page loads, assets/css/site.css, began with '<<<<<<< HEAD', '=======' and '>>>>>>> origin/main' at lines 1, 48 and 75. Both sides of that merge had also lost a closing brace, so two @font-face blocks ran together and the HEAD block was missing its terminator. Every workflow was green, tools/checks.py reported ALL CHECKS PASSED, and the site deployed in that state. Root cause of the miss: no check read the stylesheet for structure, and no session in this repository has ever rendered a page - measured this pass, the Python and Node browser toolkits install but the Chrome-for-Testing binary and the Debian font packages do not download. A strict CSS parser discards an unclosed block, so the tail of the design system was at risk of silently not applying. Note the interaction with F-P25: the defect was first noticed through a conflict-marker check, but a marker check alone does not catch a silently unclosed block, which is why this row is separate. Verified after repair: 245 top-level rules parse with 0 errors (before the merge of the briefs pass), braces balance, and the final @media print rule is fully consumed. This branch keeps both complete font stacks (six static latin subsets plus three variable faces) rather than choosing between them, because each is a valid fallback for the other. The condition that caused the miss is now gated by tools/design_qa.py (/tools/design_qa.py in this repo), which fails the build on markers, on an unclosed block, on a dangling var() token, on a missing or invalid font file, and on a body that paints no background or text colour.",
+      "evidence": "https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css",
+      "evidence_note": "The stylesheet readers are served. Confirm line 1 is a comment rather than a conflict marker, then run python3 tools/design_qa.py in a checkout to reproduce the gate.",
+      "how_to_resolve": "No owner action required: repaired and gated in this pass. For review, open the live stylesheet and confirm line 1 is a comment, then run the gate.",
+      "status": "resolved"
     }
   ]
 }
