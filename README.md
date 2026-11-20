@@ -81,7 +81,7 @@ mistaken for the target product (F-P17).
 ## The 2026-11-20 handoff-integration pass (arena/e0d92902-prod2)
 
 Two parallel PRs (#23, #25) were stale for over eight hours; per the coordination protocol's
-handoff rule their unique content was union-merged into this tree (D-P16), conflicts resolved at
+handoff rule their unique content was union-merged into this tree (D-P22), conflicts resolved at
 source, nothing discarded:
 
 - **Redirect + compliance re-verification (same day):** all five short links re-fetched live and
@@ -93,8 +93,7 @@ source, nothing discarded:
 - **Two new decision surfaces:** `analysis.html` (capacity-to-depth ranking, coverage matrix,
   funnel, verification ledger) and `design-prompt.html` (the design brief pack), backed by three
   new registers (`decision-priority`, `design-prompts`, `verification-log`).
-- **Queues extended:** questions Q-P10..Q-P21 (its Q-P14 renumbered **Q-P22** after colliding with
-  PR #36's Q-P14) and suggestions SG-18..SG-26 — all review-gated, none implemented.
+- **Queues extended:** questions Q-P10..Q-P21 (its Q-P14/Q-P10/Q-P11/Q-P15/Q-P16/Q-P17 renumbered **Q-P22/Q-P23/Q-P24/Q-P26/Q-P27/Q-P28** after colliding with rows main consumed (PRs #36/#39/#40/#44)) and suggestions SG-18..SG-26 — all review-gated, none implemented.
 - **Gate hardening:** the new `editorial` section (voice lint + read-date presence), and the gate
   now reads the disclosure sentence from `settings.json` so mandated and enforced wording cannot
   drift. Register tables carry per-field `read YYYY-MM-DD` chips.

@@ -355,20 +355,21 @@ mechanically.
 
 Two parallel sessions (PRs #23 and #25) had been inactive for over eight hours; the coordination
 protocol's handoff rule let this session take their work over. Their unique content was
-union-merged into the consolidated tree (decision D-P16), conflicts resolved at source, nothing
+union-merged into the consolidated tree (decision D-P22), conflicts resolved at source, nothing
 discarded, both branches preserved on the remote:
 
 | Change | Why it exists | Decision / source |
 | --- | --- | --- |
 | Redirect-level re-verification of all five short links + same-day re-reads of the compliance pages | Their 2026-11-20 pass verified listing content; this pass verified the redirect chain and the policy pages, so every citation in the register now has a same-day read | `data/p2/verification-2026-11-20.json` (sessions section), F-P07 resolved |
-| Three question-shaped guides (dual-vs-single capacity math · leave-in probe in an air fryer · air-fryer gift checks) | More organic entry points, same evidence rules | PR #25 content, D-P16 |
-| Analysis page (capacity-to-depth ranking, coverage matrix, funnel, verification ledger) + Design prompt pack page | The brief's decision-support requirement: reviewers see what the data supports and the design briefs before choosing a path | PR #25 content, D-P16 |
-| Registers: decision-priority, design-prompts, verification-log; Q-P10..Q-P21 + SG-18..SG-26 rows | Review-gated queues grow; nothing in them is implemented | PR #25 registers, D-P16 |
-| Editorial voice-lint gate + settings-derived disclosure sentence in the gate + read-date chips in the register table | Voice rules decay unless enforced; mandated wording and enforced wording cannot drift | PR #25 gates, D-P16 |
+| Three question-shaped guides (dual-vs-single capacity math · leave-in probe in an air fryer · air-fryer gift checks) | More organic entry points, same evidence rules | PR #25 content, D-P22 |
+| Analysis page (capacity-to-depth ranking, coverage matrix, funnel, verification ledger) + Design prompt pack page | The brief's decision-support requirement: reviewers see what the data supports and the design briefs before choosing a path | PR #25 content, D-P22 |
+| Registers: decision-priority, design-prompts, verification-log; Q-P10..Q-P21 + SG-18..SG-26 rows | Review-gated queues grow; nothing in them is implemented | PR #25 registers, D-P22 |
+| Editorial voice-lint gate + settings-derived disclosure sentence in the gate + read-date chips in the register table | Voice rules decay unless enforced; mandated wording and enforced wording cannot drift | PR #25 gates, D-P22 |
 
-ID collisions were resolved by renumbering, not overwriting: PR #25's Q-P14 became **Q-P22**
-(main already carried a different Q-P14 from PR #36) and its D-P10 became **D-P16** (main
-consumed D-P10..D-P15). Still queued, not implemented: the mobile compare bar (SG-23) and the
+ID collisions were resolved by renumbering, not overwriting: PR #25's Q-P14/Q-P10/Q-P11/
+Q-P15/Q-P16/Q-P17 became **Q-P22/Q-P23/Q-P24/Q-P26/Q-P27/Q-P28** (main consumed those IDs for
+different questions in PRs #36/#39/#40/#44) and its integration decision D-P10 became **D-P22**
+(main consumed D-P10..D-P21 across the same PRs). The register rows carry their renumber notes. Still queued, not implemented: the mobile compare bar (SG-23) and the
 portal-v2 board hooks — both stay on the source branches pending an owner decision.
 
 **What is still missing before this can earn money.** The Associates account is unverified (Q-01),
