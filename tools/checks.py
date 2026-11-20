@@ -24,6 +24,9 @@ Sections:
   publication  guides reach compare + buying guide + their cluster pillars (S-24);
                feed covers every guide; reader-capture gate consistent with
                settings; Search Console verification meta matches the token slot
+  imagery      every <img> has alt text and dimensions, every referenced image
+               exists, and no image is hot-linked from a manufacturer or
+               marketplace host (Program Content / IP License risk)
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
 """
 from __future__ import annotations
@@ -394,6 +397,69 @@ def main() -> int:
             fail(f"{f.name}: verification meta present but settings token empty")
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
+
+    # ---------------------------------------------------------------- imagery
+    check("imagery")
+    img_re = re.compile(r"<img\b[^>]*>")
+    attr_re = re.compile(r'(\w[\w-]*)="([^"]*)"')
+    referenced: set[str] = set()
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for tag in img_re.findall(text):
+            attrs = dict(attr_re.findall(tag))
+            src = attrs.get("src", "")
+            if not src:
+                fail(f"{f.name}: <img> without src")
+                continue
+            if "alt=" not in tag:
+                fail(f"{f.name}: <img> without alt text: {src}")
+            if not attrs.get("width") or not attrs.get("height"):
+                fail(f"{f.name}: <img> without width/height (layout shift): {src}")
+            host = re.match(r"https?://([^/]+)", src)
+            if host and not host.group(1).endswith("wingbangboozle1-lang.github.io"):
+                fail(f"{f.name}: hot-linked image from an external host: {src}")
+            # resolve a site-absolute or relative image path against docs/
+            path = src
+            base = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))["base_url"].rstrip("/")
+            if path.startswith(base + "/"):
+                path = path[len(base) + 1:]
+            if path.startswith("http"):
+                continue
+            referenced.add(path.lstrip("/"))
+    for rel in sorted(referenced):
+        if not (DOCS / rel).exists():
+            fail(f"referenced image missing from the build: {rel}")
+    stylesheet = (DOCS / "assets" / "css" / "site.css").read_text(encoding="utf-8")
+    for url in re.findall(r"url\((['\"]?)(.*?)\1\)", stylesheet):
+        target = url[1]
+        if target.startswith("data:") or target.startswith("#"):
+            continue
+        if target.startswith("http"):
+            fail(f"stylesheet hot-links an external asset: {target}")
+            continue
+        resolved = (DOCS / "assets" / "css" / target).resolve()
+        if not resolved.exists():
+            fail(f"stylesheet references a missing file: {target}")
+    if not FAILURES:
+        ok(f"{len(referenced)} images: alt text, dimensions, local hosting, all present")
+
+    # -------------------------------------------------------- article images
+    check("article identity")
+    import build as b
+    for gid, stem in b.GUIDE_ART.items():
+        text = (DOCS / f"{gid}.html").read_text(encoding="utf-8")
+        if f"/assets/img/{stem}.png" not in text:
+            fail(f"{gid}.html: its own diagram ({stem}.png) is not on the page")
+        if 'class="byline"' not in text:
+            fail(f"{gid}.html: no byline block (articles must carry authorship)")
+        if 'rel="author"' in text and "no author page exists" in text:
+            fail(f"{gid}.html: author link points at a page that does not exist")
+    for page in ("index.html", "guides.html"):
+        text = (DOCS / page).read_text(encoding="utf-8")
+        if text.count("<img") < 5:
+            fail(f"{page}: fewer than five images (a shop front needs a shelf)")
+    if not FAILURES:
+        ok("every guide carries its own diagram + byline; front page carries the shelf")
 
     # -------------------------------------------------------------- freshness
     check("freshness")

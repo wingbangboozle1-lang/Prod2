@@ -197,12 +197,11 @@ def buy_link(p: dict, text: str | None = None) -> str:
 # Layout chrome
 # ---------------------------------------------------------------------------
 NAV_READER = [
-    ("compare.html", "Compare"),
-    ("products.html", "Products"),
-    ("guides.html", "Guides"),
-    ("buying-guide.html", "Buying guide"),
     ("category-air-fryers.html", "Air fryers"),
     ("category-thermometers.html", "Thermometers"),
+    ("compare.html", "Compare all"),
+    ("guides.html", "Guides"),
+    ("buying-guide.html", "Buying guide"),
 ]
 NAV_WORK = [
     ("executive-summary.html", "Executive summary"),
@@ -518,6 +517,31 @@ def hook_suggestions(_="") -> str:
     return "".join(out)
 
 
+def hook_suggestions_summary(_="") -> str:
+    """One scannable row per suggestion: what you would actually be deciding."""
+    rows = []
+    for sug in SUGGESTIONS:
+        status = sug.get("status", "proposed")
+        rows.append(
+            f'<tr data-status="{esc(status)}">'
+            f'<td><a href="#{esc(sug["id"])}"><code>{esc(sug["id"])}</code></a></td>'
+            f'<td>{esc(sug["title"])}</td>'
+            f'<td><span class="status status-{esc(status)}">{esc(status)}</span></td>'
+            f'<td>{esc(sug.get("cost", ""))}</td>'
+            f'<td>{esc(sug.get("reversibility", ""))}</td>'
+            f'<td>{esc(sug.get("your_action", ""))}</td></tr>')
+    waiting = sum(1 for x in SUGGESTIONS if x.get("status") == "proposed")
+    return (
+        f'<p class="lede"><strong>{waiting} items are waiting on a decision.</strong> '
+        'Everything already shipped or accepted is marked and needs no second nod. '
+        'Rows link to the detail card below.</p>'
+        '<div class="table-scroll"><table class="data products-table">'
+        '<caption>Suggestion queue — sorted by ID</caption>'
+        '<thead><tr><th>ID</th><th>What it would change</th><th>Status</th>'
+        '<th>Cost to you</th><th>Reversibility</th><th>Your action</th></tr></thead>'
+        f'<tbody>{"".join(rows)}</tbody></table></div>')
+
+
 def hook_decisions(_="") -> str:
     out = []
     for d in DECISIONS:
@@ -616,27 +640,58 @@ GUIDE_TAGS = {
 }
 
 
+GUIDE_ART = {
+    "guide-basket-vs-oven": "g-basket-vs-oven",
+    "guide-capacity": "g-capacity",
+    "guide-cleanup-counter-space": "g-counter-space",
+    "guide-multifunction": "g-multifunction",
+    "guide-thermometer-accuracy": "g-thermometer",
+    "guide-how-many-quarts": "g-quarts",
+    "guide-two-baskets-or-one": "g-two-baskets",
+    "guide-holiday-hosting": "g-holiday",
+    "guide-instant-vs-leave-in": "g-instant-vs-leavein",
+}
+
+
+def guide_art(gid: str, alt: str, cls: str = "") -> str:
+    """A guide's own diagram. All artwork is the site's own; see tools/make_art.py."""
+    stem = GUIDE_ART.get(gid)
+    if not stem:
+        return ""
+    cls_attr = f' class="{cls}"' if cls else ""
+    return (f'<img{cls_attr} src="{esc(BASE)}/assets/img/{stem}.png" width="800" height="500" '
+            f'loading="lazy" alt="{esc(alt)}">')
+
+
 def _guide_card(gid: str) -> str:
     title = GUIDE_TITLES[gid].split(" | ")[0]
+    art = guide_art(gid, f"Diagram for the guide: {title}")
     return f"""
-  <article class="card guide-card">
-    <span class="tag">{esc(GUIDE_TAGS.get(gid, "Guide"))}</span>
-    <h3><a href="{gid}.html">{esc(title)}</a></h3>
-    <p>{esc(GUIDE_BLURBS.get(gid, ""))}</p>
-    <a class="more" href="{gid}.html">Read the guide</a>
+  <article class="guide-card">
+    <a href="{gid}.html" tabindex="-1" aria-hidden="true">{art}</a>
+    <div class="guide-card-body">
+      <p class="card-kicker">{esc(GUIDE_TAGS.get(gid, "Guide"))}</p>
+      <h3><a href="{gid}.html">{esc(title)}</a></h3>
+      <p>{esc(GUIDE_BLURBS.get(gid, ""))}</p>
+      <a class="more" href="{gid}.html">Read the guide →</a>
+    </div>
   </article>"""
 
 
 def hook_guide_cards(_="") -> str:
-    return '<div class="card-grid">' + "".join(_guide_card(g) for g in GUIDE_IDS) + "</div>"
+    return '<div class="guide-grid">' + "".join(_guide_card(g) for g in GUIDE_IDS) + "</div>"
 
 
 def hook_subscribe(_="") -> str:
     return f"""
-<div class="card subscribe-card" id="subscribe">
-  <h3>Follow the feed</h3>
-  <p>Every new guide lands in <a href="feed.xml" data-feed="1">the RSS feed</a> the day it publishes. It is the reader channel on this site that collects nothing at all: no sign-up, no address, no tracking.</p>
-  <p class="muted">Feed address: <code>{esc(BASE)}/feed.xml</code> — paste it into any feed reader.</p>
+<div class="panel" id="subscribe">
+  <h3 style="margin-top:0">Follow the feed</h3>
+  <p>Every new guide lands in <a href="feed.xml" data-feed="1">the RSS feed</a> the day it
+  publishes. It is the one reader channel here that collects nothing: no sign-up, no address,
+  no tracking.</p>
+  <p class="small-note">Feed address: <code>{esc(BASE)}/feed.xml</code> — paste it into any feed reader.</p>
+  <p class="small-note">A new question-shaped guide every two weeks. Next due
+  {esc(CALENDAR["cadence"]["next_due_utc"])}.</p>
 </div>"""
 
 
@@ -665,12 +720,17 @@ def hook_reader_capture(_="") -> str:
 
 def hook_byline(_="") -> str:
     return f"""
-<div class="byline-strip" id="byline">
-  <div>
-    <h3>Who writes this</h3>
-    <p>{esc(BRAND)} is an edited buying guide, not a store and not a lab. The editing rule is short: every figure on this site was read from an official product listing or an official policy page on a dated pass, and the citation sits next to it. Nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>), so nothing pretends otherwise. The voice standard is published in the repo (<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/VOICE.md" rel="noopener" target="_blank">VOICE.md</a>), and the receipts stay visible on the <a href="method.html">method page</a>.</p>
+<div class="byline" id="byline">
+  <div class="byline-avatar" aria-hidden="true">P2</div>
+  <div class="byline-body">
+    <p class="byline-name">The {esc(BRAND)} desk</p>
+    <p class="byline-meta">Kitchen notes &amp; buying guides · updated {esc(BUILD_DATE)} · <a href="feed.xml" data-feed="1">RSS</a> · <a href="method.html">How we check</a></p>
+    <p>We are an edited desk, not a test kitchen. Every figure here was read off the official
+    listing on a dated pass and carries its link; where a number moves too fast to publish
+    honestly — prices, star ratings — we send you to the listing instead of freezing a guess.
+    Nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>), and the
+    writing says so. <a href="method.html">Read the method</a>.</p>
   </div>
-  <p class="byline-meta">Published {esc(BUILD_DATE)} · <a href="feed.xml" data-feed="1">RSS</a> · <a href="https://github.com/wingbangboozle1-lang/Prod2" rel="noopener" target="_blank">Source register on GitHub</a></p>
 </div>"""
 
 
@@ -761,6 +821,7 @@ HOOKS = {
     "flags_standing": lambda _: hook_flags("standing"),
     "questions": hook_questions,
     "suggestions": hook_suggestions,
+    "suggestions_summary": hook_suggestions_summary,
     "decisions": hook_decisions,
     "ledger_events": hook_ledger_events,
     "ledger_table": hook_ledger_table,
@@ -883,8 +944,9 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
             "@type": "Article", "headline": title.split(" | ")[0],
             "description": description, "url": BASE + "/" + path,
             "datePublished": BUILD_DATE, "dateModified": BUILD_DATE,
-            "author": {"@type": "Organization", "name": BRAND},
-            "publisher": {"@type": "Organization", "name": BRAND},
+            "author": {"@type": "Organization", "name": f"{BRAND} editorial desk"},
+            "publisher": {"@type": "Organization", "name": BRAND,
+                          "logo": {"@type": "ImageObject", "url": BASE + "/assets/img/mark.png"}},
             "mainEntityOfPage": {"@type": "WebPage", "@id": BASE + "/" + path},
         })
     return json.dumps({"@context": "https://schema.org", "@graph": graph},
@@ -901,14 +963,22 @@ LAYOUT = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
+<meta name="theme-color" content="#FBF7F1">
+<link rel="icon" type="image/png" href="{base}/assets/img/mark.png">
+<link rel="apple-touch-icon" href="{base}/assets/img/mark.png">
 <link rel="canonical" href="{canonical}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{og_type}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{base}/assets/img/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:site_name" content="{brand} — {descriptor}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{description}">
+<meta name="twitter:image" content="{base}/assets/img/og-card.png">
 {site_verification}<link rel="alternate" type="application/rss+xml" title="{brand} feed" href="{base}/feed.xml">
 <link rel="stylesheet" href="{base}/assets/css/site.css">
 <script type="application/ld+json">
@@ -919,13 +989,15 @@ LAYOUT = """<!DOCTYPE html>
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-row">
-    <a class="wordmark" href="{base}/index.html"><span class="wordmark-name">{brand}</span>
-      <span class="wordmark-desc">{descriptor}</span></a>
+    <a class="wordmark" href="{base}/index.html">
+      <img src="{base}/assets/img/mark.png" width="34" height="34" alt="">
+      <span><span class="wordmark-name">{brand}</span>
+      <span class="wordmark-desc">{descriptor}</span></span></a>
     {nav}
   </div>
-  {disclosure}
 </header>
-<main id="main" class="wrap">
+{disclosure}
+<main id="main" class="{main_class}">
 {content}
 </main>
 {footer}
@@ -935,7 +1007,6 @@ LAYOUT = """<!DOCTYPE html>
 </html>
 """
 
-
 def build_page(page_id: str, path: str, title: str, description: str, section: str) -> None:
     frag = (CONTENT / "pages" / f"{page_id}.html").read_text(encoding="utf-8")
     content = render_fragment(frag)
@@ -943,6 +1014,7 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
     token = (SETTINGS.get("search_console", {}) or {}).get("verification_token", "") or ""
     site_verification = (f'<meta name="google-site-verification" content="{esc(token)}">\n'
                          if token else "")
+    is_article = (page_id.startswith("guide") and page_id != "guides") or page_id == "buying-guide"
     out = LAYOUT.format(
         title=esc(title), description=esc(description), canonical=f"{BASE}/{path}",
         base=esc(BASE), brand=esc(BRAND), descriptor=esc(DESCRIPTOR),
@@ -951,6 +1023,8 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
         content=content, footer=build_footer(),
         endpoint=esc(SETTINGS.get("analytics_endpoint", "") or ""),
         site_verification=site_verification,
+        og_type="article" if is_article else "website",
+        main_class="wrap" if page_id not in ("guide", ) else "wrap",
     )
     (DOCS / path).write_text(out, encoding="utf-8")
 

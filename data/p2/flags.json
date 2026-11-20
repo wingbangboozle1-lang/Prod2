@@ -256,6 +256,62 @@
    "evidence": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
    "evidence_note": "FTC guidance cited for the disclosure/consent standard that the capture consent text must meet (S07).",
    "how_to_resolve": "Owner settles the consent text and the privacy-page wording (Q-47), then sets the capture endpoint URL in settings.json and rebuilds; the form activates with the consent checkbox required. Related: SG-30, SG-04."
+  },
+  {
+   "id": "F-P15",
+   "status": "open",
+   "title": "ASIN-definition citation now behind a sign-in wall",
+   "detail": "The definition source cited for the 10-character ASIN rule (data/p2/sources.json S08) returned Amazon's sign-in page on the 2026-11-20 read, so a logged-out reader cannot check the quoted definition there. The definition itself is not disputed and no value depends on it being re-quoted; what is affected is the checkability of one citation. A public, official replacement URL was searched for in this session and not found.",
+   "evidence": "https://www.amazon.com/ask/questions/TxJGX2UK4WITXE/",
+   "evidence_note": "Fetched 2026-11-20; the fetch reported the Amazon sign-in page as the landing page (title 'Sign in').",
+   "how_to_resolve": "Run the one-link-per-product test in Associates Central (F-57) and, while signed in, capture a dated screenshot of a public ASIN definition, or cite a different official page. Until then the sources page marks S08 as 'sign-in wall observed 2026-11-20' and the definition is presented as a definition, not as a quoted source.",
+   "opened_utc": "2026-11-20",
+   "opened_by": "arena/dd4bae8a-prod2"
+  },
+  {
+   "id": "F-P16",
+   "status": "open",
+   "title": "Live read on 2026-11-20 found no tag= on any resolved short link",
+   "detail": "All five owner-supplied link.amazon URLs resolved to the registered ASINs on 2026-11-20, and none carried a tag= parameter in the landing URL; Amazon served its own source tokens (btn_ref=srctok-...) instead. This does not make the short links invalid and no compliance conclusion is drawn (see FLG-003). It does confirm that the site must keep publishing its own tagged /dp/ Special Links, which it does.",
+   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
+   "evidence_note": "Program Policies section 2(b): the Associates ID or tag must appear as a parameter in the URL of each link placed on the site.",
+   "how_to_resolve": "Keep the current published link format. Resolve the underlying short-link question only through the enrolled Associates workflow (F-57/F-58); do not re-open it by inference.",
+   "opened_utc": "2026-11-20",
+   "opened_by": "arena/dd4bae8a-prod2"
+  },
+  {
+   "id": "F-P17",
+   "status": "open",
+   "title": "Two reader-facing rule violations found in the wording of the buy path",
+   "detail": "The 2026-11-20 read of the Program Policies found two requirements the published pages must not drift from: (1) section 2(b) permits prices only when Amazon serves the link displaying them or the value comes from Creators/PA API, so a price transcribed into data/p2/*.json and re-rendered is not permitted; (2) Participation Requirements 6(t) permits star ratings and customer reviews only when obtained through Creators API or PA API. The site withholds both, and a new gate check now fails the build if a price or rating string appears in published HTML. The violation risk is in future edits, not in the current output.",
+   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
+   "evidence_note": "Both rules re-read verbatim on 2026-11-20 (sections 2(b) and 6(t) of the Associates Program Participation Requirements).",
+   "how_to_resolve": "Keep the automated check. If the owner later wants prices or ratings on the page, obtain them through Creators API or PA API first; the check is the gate that stops an ad-hoc edit from shipping.",
+   "opened_utc": "2026-11-20",
+   "opened_by": "arena/dd4bae8a-prod2"
+  },
+  {
+   "id": "F-P18",
+   "status": "open",
+   "title": "No live analytics data exists, so every traffic claim is untested",
+   "detail": "Search Console is unverified (D-P09 / F-P06) and the self-hosted endpoint is not deployed (F-19). The site therefore has no measured impressions, clicks, or sessions of its own. Any statement about which guide 'works' would be an invention; the calendar and the season desks are editorial rotations only (F-15).",
+   "evidence": "https://developers.google.com/search/docs/appearance/google-search-console",
+   "evidence_note": "Google Search Console is the official surface for verified query and impression data; without verification the property has none.",
+   "how_to_resolve": "Owner completes the Search Console HTML-tag verification and pastes the token into data/p2/settings.json; the build already emits the meta tag when the slot is filled. Then record the first dated export in the campaign ledger.",
+   "opened_utc": "2026-11-20",
+   "opened_by": "arena/dd4bae8a-prod2"
+  },
+  {
+   "id": "F-P19",
+   "status": "resolved",
+   "title": "RR-1 / RR-2 answered: price and rating display rules confirmed from the official text",
+   "detail": "The carried review requests RR-1 (register showed prices 'as listed') and RR-2 (a 4.6-star rating with 3,499 reviews captured for one listing) asked whether those values may be displayed. The official Program Policies were re-read on 2026-11-20. Section 2(b): prices may be shown only when Amazon serves the link in which the price is displayed, or when obtained via Creators/PA API. Participation Requirements 6(t): star ratings and customer reviews may be shown only when obtained through Creators API or PA API. Neither condition held for a value transcribed into our own data file, so the values stay unpublished. The canonical publication already withholds them; a gate check now enforces it.",
+   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
+   "evidence_note": "Sections 2(b) and 6(t), re-read 2026-11-20. Decision recorded as D-P10.",
+   "how_to_resolve": "No further action for display as-is. Revisit only if Creators/PA API access is obtained.",
+   "opened_utc": "2026-11-20",
+   "closed_utc": "2026-11-20",
+   "opened_by": "arena/dd4bae8a-prod2"
   }
  ]
 }

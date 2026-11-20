@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-19 integration: SG-27..SG-37 carried from the publication pass (nav labels, RSS feed, Search Console, reader capture, design directions, decision-making, token layer, measured topics, seasonal rotation, question pipeline, verification-angle growth); SG-15..17 cross-referenced."
+  "last_change": "2026-11-20 (arena/dd4bae8a-prod2): review fields added to every row (cost, reversibility, recommended action, decision question); SG-38..SG-42 added for the five points the 2026-11-20 pass could not decide alone."
  },
  "suggestions": [
   {
@@ -25,7 +25,10 @@
     "Q-19"
    ],
    "status": "proposed",
-   "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items."
+   "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items.",
+   "cost": "Owner + clearance check",
+   "reversibility": "Hard once indexed",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-02",
@@ -38,7 +41,10 @@
    "risk": "Low. Derived values must show the formula to stay within the evidence rule.",
    "depends_on": [],
    "status": "proposed",
-   "recommendation": "Accept. Cheap, on-thesis."
+   "recommendation": "Accept. Cheap, on-thesis.",
+   "cost": "Design only",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-03",
@@ -54,7 +60,10 @@
    ],
    "status": "accepted",
    "recommendation": "Accept after Q-P04, timed to season.",
-   "progress": "2026-11-19: the approved thermometer guide shipped (guide-instant-vs-leave-in.html, PR #20) and the seasonal desks shipped in data/p2/calendar.json - Holiday hosting live with its own guide (guide-holiday-hosting.html), grilling season staged to open in May. The cluster pages are wired to their pillars."
+   "progress": "2026-11-19: the approved thermometer guide shipped (guide-instant-vs-leave-in.html, PR #20) and the seasonal desks shipped in data/p2/calendar.json - Holiday hosting live with its own guide (guide-holiday-hosting.html), grilling season staged to open in May. The cluster pages are wired to their pillars.",
+   "cost": "Shipped",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-04",
@@ -70,7 +79,10 @@
    ],
    "status": "accepted",
    "recommendation": "Defer until traffic exists; the compliance cost is paid before any benefit arrives.",
-   "progress": "2026-11-19 publication pass (brief mandated reader capture): the consent-gated \"What should we answer next?\" form ships on the front page and guides hub. It sends nothing until the consent basis (Q-47) is settled and a capture endpoint is configured (F-P14). Email capture itself remains gated. See SG-30."
+   "progress": "2026-11-19 publication pass (brief mandated reader capture): the consent-gated \"What should we answer next?\" form ships on the front page and guides hub. It sends nothing until the consent basis (Q-47) is settled and a capture endpoint is configured (F-P14). Email capture itself remains gated. See SG-30.",
+   "cost": "Endpoint + policy wording",
+   "reversibility": "Easy until emails exist",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-05",
@@ -85,7 +97,10 @@
     "Q-27"
    ],
    "status": "proposed",
-   "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand."
+   "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand.",
+   "cost": "Policy decision",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-06",
@@ -101,7 +116,10 @@
    ],
    "status": "accepted",
    "recommendation": "Accept as the top operational priority. Nothing else compounds without it.",
-   "progress": "2026-11-19 publication pass (brief mandated the Search Console row): readiness shipped - verification-token slot in settings.json, sitemap + robots + feed wired, checklist on the measurement page. Property verification and endpoint hosting are owner actions (F-P13, F-19, Q-P08). See SG-29."
+   "progress": "2026-11-19 publication pass (brief mandated the Search Console row): readiness shipped - verification-token slot in settings.json, sitemap + robots + feed wired, checklist on the measurement page. Property verification and endpoint hosting are owner actions (F-P13, F-19, Q-P08). See SG-29.",
+   "cost": "Owner account access",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-07",
@@ -116,7 +134,10 @@
     "Owner input"
    ],
    "status": "proposed",
-   "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available."
+   "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available.",
+   "cost": "Field research",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-08",
@@ -129,7 +150,10 @@
    "risk": "Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).",
    "depends_on": [],
    "status": "proposed",
-   "recommendation": "Accept as a UX follow-up after the first traffic arrives."
+   "recommendation": "Accept as a UX follow-up after the first traffic arrives.",
+   "cost": "Design + JS",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-09",
@@ -143,7 +167,10 @@
    "depends_on": [],
    "status": "shipped",
    "recommendation": "Accept. It is a gate, and gates are cheap once written.",
-   "progress": "2026-11-19: implemented in tools/checks.py (\"publication\" section) - every guide must reach the comparison, the buying guide and its category pillar; the feed must cover every guide."
+   "progress": "2026-11-19: implemented in tools/checks.py (\"publication\" section) - every guide must reach the comparison, the buying guide and its category pillar; the feed must cover every guide.",
+   "cost": "Shipped",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-10",
@@ -156,7 +183,10 @@
    "risk": "Low.",
    "depends_on": [],
    "status": "proposed",
-   "recommendation": "Defer until measured queries confirm demand (after SG-06)."
+   "recommendation": "Defer until measured queries confirm demand (after SG-06).",
+   "cost": "Editorial + verification",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-11",
@@ -172,7 +202,10 @@
     "SG-06"
    ],
    "status": "proposed",
-   "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06."
+   "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06.",
+   "cost": "Ongoing cadence",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-12",
@@ -185,7 +218,10 @@
    "risk": "Low. Must not claim testing that did not happen (D-06).",
    "depends_on": [],
    "status": "proposed",
-   "recommendation": "Accept. It improves the shop feel without adding claims."
+   "recommendation": "Accept. It improves the shop feel without adding claims.",
+   "cost": "Editorial",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-13",
@@ -201,7 +237,10 @@
    ],
    "status": "accepted",
    "recommendation": "Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.",
-   "progress": "2026-11-19 publication pass: the clusters shipped - data/p2/calendar.json defines both clusters, guides.html is the hub, every guide links its pillar (gate-enforced). Adding more formats still waits."
+   "progress": "2026-11-19 publication pass: the clusters shipped - data/p2/calendar.json defines both clusters, guides.html is the hub, every guide links its pillar (gate-enforced). Adding more formats still waits.",
+   "cost": "Editorial",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-14",
@@ -217,7 +256,10 @@
     "SG-06"
    ],
    "status": "proposed",
-   "recommendation": "Accept as the sequencing rule for every growth decision."
+   "recommendation": "Accept as the sequencing rule for every growth decision.",
+   "cost": "Waiting on measurement",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-15",
@@ -233,7 +275,10 @@
    ],
    "status": "proposed",
    "recommendation": "Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted.",
-   "progress": "Cross-ref: SG-31 (three fully specified directions) and SG-33 (token layer) cover the same ground from the publication pass; merge the two rows when the owner picks a direction (Q-P09)."
+   "progress": "Cross-ref: SG-31 (three fully specified directions) and SG-33 (token layer) cover the same ground from the publication pass; merge the two rows when the owner picks a direction (Q-P09).",
+   "cost": "Design only",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-16",
@@ -247,7 +292,10 @@
    "depends_on": [],
    "status": "proposed",
    "recommendation": "Accept together with SG-15 as one visual pass: audit, conform, record, stop.",
-   "progress": "Cross-ref: SG-33 (token layer) is the publication-pass sibling of this conformance pass; do both in one session."
+   "progress": "Cross-ref: SG-33 (token layer) is the publication-pass sibling of this conformance pass; do both in one session.",
+   "cost": "Design only",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-17",
@@ -263,7 +311,10 @@
    ],
    "status": "proposed",
    "recommendation": "Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated.",
-   "progress": "Cross-ref: the seasonal scaffolding partially shipped (data/p2/calendar.json + the front-page seasonal desk, SG-35); this row covers the remaining merchandising depth."
+   "progress": "Cross-ref: the seasonal scaffolding partially shipped (data/p2/calendar.json + the front-page seasonal desk, SG-35); this row covers the remaining merchandising depth.",
+   "cost": "Design only",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-27",
@@ -277,7 +328,10 @@
    "depends_on": [],
    "status": "shipped",
    "progress": "2026-11-19 publication pass: live. Nav labels as above; footer adds a 'Read & follow' column (guides hub, feed, ask, byline).",
-   "recommendation": "Done; revisit only with a design-direction change (SG-31)."
+   "recommendation": "Done; revisit only with a design-direction change (SG-31).",
+   "cost": "Shipped",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-28",
@@ -291,7 +345,10 @@
    "depends_on": [],
    "status": "shipped",
    "progress": "2026-11-19 publication pass: live. Subscribe module, byline + footer links, feed_click counter, and the publication gate fails if a guide is missing from feed.xml.",
-   "recommendation": "Done. Validate the feed in a feed reader when the owner reviews."
+   "recommendation": "Done. Validate the feed in a feed reader when the owner reviews.",
+   "cost": "Shipped",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-29",
@@ -308,7 +365,10 @@
    ],
    "status": "accepted",
    "progress": "2026-11-19 publication pass: readiness shipped (token slot + meta emission + checklist on the measurement page). Verification itself is an owner action (F-P13, Q-P08).",
-   "recommendation": "Owner runs the checklist on the measurement page this week; nothing compounds without it."
+   "recommendation": "Owner runs the checklist on the measurement page this week; nothing compounds without it.",
+   "cost": "Owner account access",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-30",
@@ -324,7 +384,10 @@
    ],
    "status": "accepted",
    "progress": "2026-11-19 publication pass: form ships disconnected by design (F-P14). It activates when settings.reader_capture.endpoint is set and the consent basis (Q-47) is settled.",
-   "recommendation": "Owner settles the consent wording (Q-47), then hosts the endpoint and flips the switch."
+   "recommendation": "Owner settles the consent wording (Q-47), then hosts the endpoint and flips the switch.",
+   "cost": "Owner policy decision",
+   "reversibility": "Hard once data is collected",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-31",
@@ -339,7 +402,10 @@
     "Q-P09"
    ],
    "status": "proposed",
-   "recommendation": "Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once."
+   "recommendation": "Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once.",
+   "cost": "Design only",
+   "reversibility": "Easy until published",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-32",
@@ -352,7 +418,10 @@
    "risk": "None - metadata only.",
    "depends_on": [],
    "status": "proposed",
-   "recommendation": "Accept. Cheap, no downside, and it is exactly the review surface the brief asked for."
+   "recommendation": "Accept. Cheap, no downside, and it is exactly the review surface the brief asked for.",
+   "cost": "Shipped (this page)",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-33",
@@ -367,7 +436,10 @@
     "Q-P09"
    ],
    "status": "proposed",
-   "recommendation": "Accept together with SG-11, whichever direction wins."
+   "recommendation": "Accept together with SG-11, whichever direction wins.",
+   "cost": "Design + script",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-34",
@@ -383,7 +455,10 @@
     "Q-P02"
    ],
    "status": "proposed",
-   "recommendation": "Accept. It is the payoff for SG-06 and requires no new machinery."
+   "recommendation": "Accept. It is the payoff for SG-06 and requires no new machinery.",
+   "cost": "Waiting on measurement",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-35",
@@ -396,7 +471,10 @@
    "risk": "Low.",
    "depends_on": [],
    "status": "proposed",
-   "recommendation": "Accept before the next season boundary (2026-12-31)."
+   "recommendation": "Accept before the next season boundary (2026-12-31).",
+   "cost": "Shipped",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-36",
@@ -412,7 +490,10 @@
     "SG-04"
    ],
    "status": "proposed",
-   "recommendation": "Accept in principle now; activate with the capture endpoint."
+   "recommendation": "Accept in principle now; activate with the capture endpoint.",
+   "cost": "Endpoint + policy",
+   "reversibility": "Hard once a question is accepted",
+   "your_action": "Approve, amend or reject"
   },
   {
    "id": "SG-37",
@@ -425,7 +506,109 @@
    "risk": "Low - the compliance block already forbids the alternative (hype).",
    "depends_on": [],
    "status": "proposed",
-   "recommendation": "Accept as the standing growth thesis."
+   "recommendation": "Accept as the standing growth thesis.",
+   "cost": "Shipped (partly)",
+   "reversibility": "Easy",
+   "your_action": "Approve, amend or reject"
+  },
+  {
+   "id": "SG-38",
+   "title": "Publish a dated price-snapshot policy, or keep prices off permanently",
+   "problem": "Buyers want a rough price before they click, and the owner asked for a shop-like page. Prices are currently withheld because Program Policies 2(b) allows display only when Amazon serves the link with the price, or when the value comes from Creators/PA API. That rule is verified (D-P10); what is missing is the owner's choice between the two lawful routes.",
+   "proposal": "Option A (shipped default): no prices anywhere; every card sends the buyer to the listing. Option B: apply for Creators API access and publish API-served prices with the required attribution. Option C: display Amazon's own link/widget where it serves price and availability. The site ships A today and can move to B or C without redesign.",
+   "evidence": "Program Policies, Associates Program Participation Requirements section 2(b), re-read 2026-11-20 (S02). Decision D-P10.",
+   "impact": "Affects how shop-like the page can honestly feel. A is compliant and stable; B is the only route to a price on our own card; C is the least work.",
+   "effort": "A: none (shipped). B: account application plus API integration. C: link-format integration.",
+   "risk": "B and C add a live dependency on Amazon data; if the API call fails, prices must disappear rather than fall back to a stale value.",
+   "recommendation": "Keep A until the site has measured traffic; then apply for Creators API (B) rather than scraping prices into the build.",
+   "depends_on": [
+    "D-P10",
+    "Q-P10"
+   ],
+   "status": "proposed",
+   "cost": "Policy decision",
+   "reversibility": "Easy",
+   "your_action": "Pick A, B or C",
+   "decision_question": "Do you want prices on the page enough to apply for Creators API access, or is 'read it on Amazon' good enough?"
+  },
+  {
+   "id": "SG-39",
+   "title": "Show Amazon's star rating, or keep the card rating-free",
+   "problem": "A rating under a product name is the single strongest trust cue in a shop layout. Participation Requirements 6(t) permits star ratings only when they come from Creators API or PA API, so the current cards carry none.",
+   "proposal": "Keep ratings off until API access exists (shipped). If access is granted, show the rating with its review count and a dated 'as of' line, and re-fetch on every build so it cannot go stale.",
+   "evidence": "Participation Requirements 6(t), re-read 2026-11-20 (S02). Decision D-P10.",
+   "impact": "Ratings off makes the cards quieter and slightly less shop-like; ratings on is only lawful via the API route, which SG-38 also unblocks.",
+   "effort": "None now; paired with SG-38 option B.",
+   "risk": "Publishing a rating seen on a page is a policy violation, not a style choice. The build now fails if one appears.",
+   "recommendation": "Keep off. Fold this into the same Creators API decision as SG-38 so the owner answers one question, not two.",
+   "depends_on": [
+    "SG-38",
+    "D-P10"
+   ],
+   "status": "proposed",
+   "cost": "Bundled with SG-38",
+   "reversibility": "Easy",
+   "your_action": "Decide with SG-38",
+   "decision_question": "Same decision as SG-38: is API access worth it for prices and ratings?"
+  },
+  {
+   "id": "SG-40",
+   "title": "Product photography: use Amazon-served images, or stay diagram-only",
+   "problem": "The site has no product images by design: Amazon's IP License restricts Program Content including images to uses we have not been granted, and a photograph we did not take would break the site's own evidence rule. That is honest but visually plain for a shop.",
+   "proposal": "Option A (shipped): own typographic and diagrammatic art only (tools/make_art.py). Option B: apply the Associates IP License properly and render Amazon-served product images through the approved link formats or API, never copied to our own server. Option C: original photography, which requires buying and handling the products.",
+   "evidence": "Amazon Associates Program IP License and Usage Requirements (S01/S02 bundle); the site's evidence rule (D-06).",
+   "impact": "B is the biggest visual upgrade available to an affiliate page and is lawful when done through the approved formats. A is honest and has zero dependency.",
+   "effort": "A: shipped. B: API or approved widget integration. C: purchase + photography time.",
+   "risk": "Copying a listing image to our own server is the common affiliate mistake and is exactly what the license restricts.",
+   "recommendation": "Move to B only together with SG-38's API decision. Do not scrape images in the meantime.",
+   "depends_on": [
+    "SG-38",
+    "D-P10"
+   ],
+   "status": "proposed",
+   "cost": "Bundled with SG-38",
+   "reversibility": "Easy",
+   "your_action": "Pick A, B or C",
+   "decision_question": "Do you want real product images enough to work within Amazon's image license?"
+  },
+  {
+   "id": "SG-41",
+   "title": "Decide whether this publication can say 'we tested it'",
+   "problem": "The strongest differentiator in this category is hands-on testing, and this site explicitly does not test (D-06). Some affiliate pages imply testing they did not do; that is a false claim and the site must not copy it. What is missing is a decision about whether real testing will ever happen.",
+   "proposal": "Option A (shipped): an edited, sourced desk that says plainly it has not cooked with the machines. Option B: buy the five products and publish dated, photographed test notes, which would let the site say 'we tested' truthfully and would justify the strongest content on the web for these products. Option C: commission a tester and cite them by name with their method.",
+   "evidence": "FTC Disclosures 101: 'You can't talk about your experience with a product you haven't tried' (S09). Decision D-06.",
+   "impact": "B or C would change the site's ceiling more than any design change on this list.",
+   "effort": "B: cost of five products plus time. C: commissioning cost.",
+   "risk": "None of these is a compliance risk if the claim matches the method; the risk is claiming experience the site does not have.",
+   "recommendation": "A now. B is the highest-value use of money on this list once any revenue exists.",
+   "depends_on": [
+    "D-06",
+    "Q-P10"
+   ],
+   "status": "proposed",
+   "cost": "Purchase cost",
+   "reversibility": "Easy",
+   "your_action": "Decide the long-term method",
+   "decision_question": "Will this ever be a tested publication, or permanently an edited one?"
+  },
+  {
+   "id": "SG-42",
+   "title": "Turn the suggestion queue into a counted vote, not a comment thread",
+   "problem": "The brief asks for a suggestions section someone can review and choose from. Reading 38 cards to pick a path is itself work. There is no way to see, at a glance, which items are waiting on the owner.",
+   "proposal": "This pass adds a filterable summary table at the top of the suggestions page (ID, title, status, cost, reversibility, the decision you would be making) plus a one-line 'owner decision needed' count. No new platform, no database: the table is generated from the same JSON.",
+   "evidence": "Owner brief: 'create a section dedicated for suggestions so someone can review suggestions and choose the best path before implementing any changes.'",
+   "impact": "Cuts the time to make a decision from reading everything to scanning one table.",
+   "effort": "Shipped in this pass.",
+   "risk": "None; it is a view over existing data.",
+   "recommendation": "Shipped. Keep the table first on the page and the detail cards below it.",
+   "depends_on": [
+    "SG-32"
+   ],
+   "status": "shipped",
+   "cost": "Shipped",
+   "reversibility": "Easy",
+   "your_action": "No action — use the table",
+   "decision_question": "—"
   }
  ]
 }

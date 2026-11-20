@@ -205,6 +205,30 @@
    "sources": [
     "https://developers.google.com/search/docs/appearance/google-search-console"
    ]
+  },
+  {
+   "id": "D-P10",
+   "question": "May the site publish the prices and star ratings it can observe on the official listings?",
+   "status": "Decided 2026-11-20 from the official text",
+   "recorded_choice": "No, not in the form observed. Price display is permitted only when Amazon serves the link in which the price is displayed, or when the value is obtained through Creators/PA API (Program Policies 2(b)). Star ratings and customer reviews are permitted only when obtained through Creators API or PA API (Participation Requirements 6(t)). A value seen on a page and retyped into our own data file satisfies neither, so prices and ratings stay unpublished; each product instead links to the live listing where the buyer reads them from the source. A build check now fails if a price or rating string reaches published HTML.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "resolves": [
+    "RR-1",
+    "RR-2"
+   ],
+   "read_utc": "2026-11-20"
+  },
+  {
+   "id": "D-P11",
+   "question": "Should the supplied short links be replaced by direct tagged /dp/ links on outbound product buttons?",
+   "status": "Confirmed 2026-11-20 by live read",
+   "recorded_choice": "Yes, and it already is the shipped behaviour. All five short links resolved on 2026-11-20 to the registered ASINs with no tag= parameter, only Amazon's own source tokens. Because the program requires the Associates tag as a parameter in each link placed on the site (2(b)), the site publishes https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20 with rel=\"sponsored\". The short links remain the owner's submitted record and stay in the intent register; they are not used as outbound links.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ],
+   "read_utc": "2026-11-20"
   }
  ]
 }

@@ -224,6 +224,36 @@
     "SG-33 token layer"
    ],
    "flags": []
+  },
+  {
+   "id": "Q-P10",
+   "area": "Commercial model",
+   "question": "Will this publication monetise only through Associates commission, or also through API-served data and eventual hands-on testing?",
+   "known": "The site's outbound links carry tracking ID shopnow047c-20 and no other monetisation exists: no ads, no sponsorships, no newsletter. Price and rating display are blocked by policy without Creators/PA API access (D-P10), and hands-on claims are blocked by the fact that no product has been handled (D-06).",
+   "unknown": "Whether the owner will apply for Creators API access (SG-38/SG-39), whether Amazon-served product images will be used (SG-40), and whether the five products will ever be bought and tested (SG-41).",
+   "how_to_discover": "Answer SG-38, SG-40 and SG-41 on the suggestions page. All three are one decision each, and together they set the ceiling for how shop-like this page can lawfully become.",
+   "answerable_by": "The site owner (spend and account decisions).",
+   "blocks": [
+    "Prices on the page",
+    "Star ratings",
+    "Product photography",
+    "Any 'we tested it' claim"
+   ],
+   "status": "open"
+  },
+  {
+   "id": "Q-P11",
+   "area": "Findability",
+   "question": "Which search queries does this site actually appear for, and which guide topics should follow from them?",
+   "known": "Nothing measured. Search Console is unverified (F-P06/D-P09), the analytics endpoint is not deployed (F-19), and the campaign ledger is empty by rule. The current nine guides and the season rotation are editorial hypotheses only (F-15).",
+   "unknown": "Impressions, queries, click-through, and any reader behaviour at all.",
+   "how_to_discover": "Owner completes Search Console HTML-tag verification, pastes the token into data/p2/settings.json, rebuilds, then exports the first 14 and 28-day query reports. After 14 days, topic choice moves to measured queries (SG-34).",
+   "answerable_by": "Search Console after verification; nothing else can answer it.",
+   "blocks": [
+    "Any claim that a topic 'works'",
+    "Choosing the next three guides on evidence"
+   ],
+   "status": "open"
   }
  ]
 }

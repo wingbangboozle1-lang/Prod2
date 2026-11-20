@@ -1,0 +1,125 @@
+{
+  "_meta": {
+    "description": "Live re-verification session, 2026-11-20 (UTC), by session arena/dd4bae8a-prod2. Every field below was read from the official Amazon page during this session; nothing is inferred, copied from an earlier session, or filled from memory. Where a value could not be read unambiguously it is recorded as null and listed in unread.",
+    "method": "Each submitted link.amazon short URL was fetched; the fetch reports the final URL it landed on, which yields the resolved ASIN. Each /dp/ASIN listing was then fetched and its page title and category breadcrumb were compared, character for character, with the register value in data/p2/products.json. Prices, ratings and review counts visible on the page were deliberately NOT transcribed into the register: Program Policies Participation Requirements 6(t) restricts star ratings to Creators/PA API values, and the price-display rule (Program Policies section 2(b)) requires Amazon-served or API values. See data/p2/decisions.json D-P10.",
+    "method_limit": "The fetch path returns rendered page text, not a full network trace; redirect chains are therefore recorded as 'landed_on' rather than as every hop. No claim is made about intermediate hops.",
+    "session_note": "Earlier sessions recorded that this sandbox could not reach amazon.com (egress allowlist). That was true of shell curl; it was not true of the page-fetch path used here. Recorded as a method difference, not a contradiction."
+  },
+  "verified_utc": "2026-11-20",
+  "products": [
+    {
+      "id": "P1",
+      "submitted_url": "https://link.amazon/B04G1MEwY",
+      "landed_on": "https://www.amazon.com/dp/B0CDY277D3",
+      "resolved_asin": "B0CDY277D3",
+      "registered_asin": "B0CDY277D3",
+      "asin_match": true,
+      "listing_title_observed": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+      "listing_title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+      "breadcrumb_node": "17659096011",
+      "breadcrumb_matches_register": true,
+      "tag_parameter_in_resolved_url": false,
+      "source_params_observed": "lv=shuf, btn_ref=srctok-6ac5c55694dd065d, channelId=704, plpRedirect=mhFallback (Amazon source tokens; no tag=)",
+      "notes": "Live title re-read 2026-11-20 matches the register string exactly. The apparent drift note above was rejected during this session and is retained only to show what was checked; the verified value is listing_title_observed. No register change made.",
+      "title_note": "Live title re-read 2026-11-20 is character-for-character the register string. The listing's own brand presentation lowercases 'CHEFMAN' in some modules; the register stores the title as the page <title> shows it."
+    },
+    {
+      "id": "P2",
+      "submitted_url": "https://link.amazon/B02NbDxp3",
+      "landed_on": "https://www.amazon.com/dp/B09B7SB46R",
+      "resolved_asin": "B09B7SB46R",
+      "registered_asin": "B09B7SB46R",
+      "asin_match": true,
+      "listing_title_observed": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+      "listing_title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+      "breadcrumb_node": "17659096011",
+      "breadcrumb_matches_register": true,
+      "tag_parameter_in_resolved_url": false,
+      "source_params_observed": "lv=shuf, btn_ref=srctok-039a25afc55ea595, channelId=704, plpRedirect=mhFallback (no tag=)",
+      "notes": "Title matches the 2026-11-19 register string exactly; the historical second-segment drift recorded on 2026-11-15/16 is not present today."
+    },
+    {
+      "id": "P3",
+      "submitted_url": "https://link.amazon/B00hJ57DV",
+      "landed_on": "https://www.amazon.com/dp/B08DKYBTPH",
+      "resolved_asin": "B08DKYBTPH",
+      "registered_asin": "B08DKYBTPH",
+      "asin_match": true,
+      "listing_title_observed": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+      "listing_title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+      "breadcrumb_node": "17659096011",
+      "breadcrumb_matches_register": true,
+      "tag_parameter_in_resolved_url": false,
+      "source_params_observed": "lv=shuf, btn_ref=srctok-5756d38428f77669, channelId=704, plpRedirect=mhFallback (no tag=)",
+      "notes": "Title matches the register string exactly."
+    },
+    {
+      "id": "P4",
+      "submitted_url": "https://link.amazon/B0c8moW59",
+      "landed_on": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "resolved_asin": "B0DHZTCNR5",
+      "registered_asin": "B0DHZTCNR5",
+      "asin_match": true,
+      "listing_title_observed": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
+      "listing_title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+      "breadcrumb_node": "289810",
+      "breadcrumb_matches_register": true,
+      "tag_parameter_in_resolved_url": false,
+      "source_params_observed": "lv=shuf, btn_ref=srctok-746a9d4ac23b0098, channelId=500, plpRedirect=mhFallback (no tag=)",
+      "notes": "Title matches the register string exactly. The listing now shows a 'Black' colour suffix and gift-oriented phrasing in the same title; the first segment is unchanged."
+    },
+    {
+      "id": "P5",
+      "submitted_url": "https://link.amazon/B0f3GKalj",
+      "landed_on": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "resolved_asin": "B0DZFD6R9Z",
+      "registered_asin": "B0DZFD6R9Z",
+      "asin_match": true,
+      "listing_title_observed": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+      "listing_title_matches_register": true,
+      "breadcrumb_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+      "breadcrumb_node": "289810",
+      "breadcrumb_matches_register": true,
+      "tag_parameter_in_resolved_url": false,
+      "source_params_observed": "lv=shuf, sbo=RZvfv..., btn_ref=srctok-5cc162659fe052bf, channelId=500, plpRedirect=mhFallback (no tag=)",
+      "notes": "Title matches the register string exactly. The listing page also carries a 'USA 250 Limited Edition' sibling variant (B0H2JP9YDM) in its related-items module; the resolved ASIN is unchanged and no variant substitution is implied."
+    }
+  ],
+  "unread": [
+    {
+      "field": "Buy-box price per product",
+      "reason": "Readable on the page but deliberately not transcribed into the register. Program Policies section 2(b) permits price display only when Amazon serves the link in which the price is displayed, or when the value comes from Creators/PA API. Transcribing a price into our own data file and re-rendering it is neither. Prices stay unpublished (flag F-02, decision D-P10).",
+      "official_source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "field": "Star rating and review count",
+      "reason": "Rendered as an image/link widget on the listing. Participation Requirements 6(t) permits star ratings and customer reviews on an affiliate site only when obtained through Creators API or PA API. Not obtained that way, therefore not published anywhere (flag F-02, decision D-P10).",
+      "official_source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "field": "Exact HTTP redirect chain for each short link",
+      "reason": "The fetch path reports the landing URL only. Intermediate hops are unobserved and no claim is made about them.",
+      "official_source": "n/a - method limit"
+    }
+  ],
+  "irregularities": [
+    {
+      "id": "IRR-2026-11-20-01",
+      "finding": "The ASIN definition URL cited in data/sources.json (S08, https://www.amazon.com/ask/questions/TxJGX2UK4WITXE/) no longer renders public content: the fetch landed on the Amazon sign-in page, so the definition cannot be quoted from it by a reader without signing in.",
+      "impact": "One published sourcing claim (the 10-character ASIN definition) is no longer checkable at the cited URL by a logged-out reader.",
+      "action": "Recorded as flag F-P15. The ASIN-definition point is retained as a definition but its citation is marked 'sign-in wall observed 2026-11-20' on the sources page; a public replacement source was not found in this session. No substitute was invented.",
+      "source": "https://www.amazon.com/ask/questions/TxJGX2UK4WITXE/"
+    },
+    {
+      "id": "IRR-2026-11-20-02",
+      "finding": "None of the five resolved URLs carries a tag= parameter. Amazon serves a source-token redirect (btn_ref=srctok-...) instead. The owner-supplied short links therefore do not themselves identify tracking ID shopnow047c-20.",
+      "impact": "Clicking a raw short link would not attribute to this Associates ID; only the site's own published Special Links (https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20) carry it. This confirms the standing decision to publish tagged /dp/ links instead of the short links, and it is why the site does not use the short links as outbound links.",
+      "action": "No change to the published link format. Flag F-03 remains open on the underlying question of the short links' own compliance status (not claimed invalid).",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+  ]
+}
