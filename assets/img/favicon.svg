@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Favicon — the drawn dual-basket glyph on paper, matching the site's
+       drawn-illustration rule (decision D-P12): no photography, no brand asset. -->
+  <rect width="48" height="48" rx="9" fill="#FBF7F1"/>
+  <g fill="none" stroke="#C4613C" stroke-width="3" stroke-linecap="round">
+    <rect x="7" y="17" width="14.5" height="20" rx="3"/>
+    <rect x="26.5" y="17" width="14.5" height="20" rx="3"/>
+    <path d="M11 13h6.5M30.5 13h6.5"/>
+    <path d="M10.5 32h7.5M30 32h7.5"/>
+  </g>
+</svg>

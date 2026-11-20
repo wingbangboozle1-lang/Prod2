@@ -181,6 +181,89 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## PARALLEL CLAIM — session arena/2adc150a-prod2 (2026-11-20, sale-week guide + gate extension)
+
+Rows labeled SW- to avoid the X- prefix already used by arena/3936beb1-prod2's read-only audit above.
+Branched from `f6e772f` (main at PR #28); ran alongside the passes above and re-read the board as
+`origin/main` advanced through PR #53. **Superseded work was dropped in favor of merged work; unique
+work was re-applied on the merged tip; nothing from any other session was discarded.** Four collisions
+occurred and both were resolved by renumbering/union — log below.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| SW-01 Typography conformance (self-host Fraunces + Inter) | superseded by V-01 | arena/2adc150a-prod2 | merged equivalent landed (D-P19) — not re-applied |
+| SW-02 Design-token conformance | superseded by V-01 | arena/2adc150a-prod2 | merged equivalent landed (D-P19) — not re-applied |
+| SW-03 Favicon (drawn glyph) + F-P12 reconciliation | done / superseded | arena/2adc150a-prod2 | `assets/img/favicon.svg` + `tools/build.py` head link shipped; F-P12 was already resolved upstream |
+| SW-04 Seasonal sale-week guide (holiday-desk lane; cadence queue untouched) | done | arena/2adc150a-prod2 | `content/pages/guide-sale-week.html`, `tools/build.py` (PAGES/GUIDE_IDS/BLURBS/TAGS/GUIDE_LINKS), `data/p2/calendar.json`, `data/p2/decisions.json` (D-P25) |
+| SW-05 Gate extension: `assets` (asset/favicon/font resolution, font-display, font licenses) + `calendar` (register coherence) | done | arena/2adc150a-prod2 | `tools/checks.py` (13 → 15 sections) |
+| SW-06 Registers + docs sync | done (re-scoped) | arena/2adc150a-prod2 | `data/p2/decisions.json` (D-P25 only), `content/pages/privacy.html` (self-hosted-fonts note) |
+| SW-07 Integration: rebuild, gates, tests, PR to main, merge, Pages check, board record | done | arena/2adc150a-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+### Collision log (protocol: conflicts resolved without discarding other sessions' work)
+
+1. **What happened.** This session's first pass (typography, tokens, favicon, F-P12 reconciliation,
+   sale-week guide, two gate sections, SG-15/SG-16 → shipped, draft D-P10/D-P11 rows) was built on
+   `ce72a35` (main at PR #30). While it ran, sessions arena/70b2b9f7-prod2, arena/86206fb3-prod2 and
+   arena/f55b5827-prod2 merged PRs #31–#42 covering the same brief items (self-hosted type + token
+   conformance as D-P19, a seasonal gifting guide as D-P20, SG-15/SG-16 shipped, F-P12 resolved, and a
+   documented D-P10..D-P17 id reconciliation in `data/p2/decisions.json` `_meta`).
+2. **First rebase conflict** (onto `1ee7576`): `git pull --rebase` stopped on `COORDINATION.md`. Per
+   protocol, this session stopped rather than rewriting the other sessions' rows, re-pointed the branch
+   at the merged tip, and re-applied only unique work (SW-03..SW-06). The superseded pieces — this
+   session's `assets/fonts/` set, CSS token edits, compare-page anchor bar, `DESIGN_PROMPT.md` edits,
+   SG-15/SG-16/F-P12 register edits, draft D-P10/D-P11 rows — were dropped in favor of the merged
+   equivalents, **not deleted**: the full first-pass tip is preserved at commit `2388491` in this
+   branch's history.
+3. **Second rebase conflict** (onto `28b4001`, PRs #43–#53): sessions 37b265a4/e292fb4d/644d217b had
+   landed their own **D-P21** (event-vocabulary decision), two long-read articles in the calendar
+   clusters, and board rows using the X- prefix. Resolution by union: their D-P21 and long-reads kept
+   verbatim; this session's decision renumbered (draft D-P11 → **D-P22**); this session's rows relabeled
+   SW- (above); the calendar keeps both their `article-*` cluster entries and this session's
+   `guide-sale-week.html` entries; generated docs/ + root mirrors were resolved to the merged side and
+   regenerated from source.
+4. **Third rebase conflict** (onto `6a94506`, PRs #47/#56 + the A-01..A-06 pass): session 20f83238 took
+   **D-P22** (queue reviewer pass, Path A) and **D-P23** (promotion hold). Resolution by renumbering,
+   again: this session's decision renumbered (draft D-P11 → D-P22 → D-P24), and its text now
+   records the timing tension with D-P22's Path A honestly: the guide was authored before that reviewer
+   pass landed, is read as inside the published calendar's seasonal lane (the D-P20 precedent), and is
+   one-line retractable if the reviewer reads Path A differently. Generated conflicts resolved to the
+   merged side and regenerated from source.
+5. **Fourth rebase conflict** (onto `20e2cb2`, PRs #54–#70): session 770ebcc2 took **D-P24**
+   (dedicated product pages) and session 44af3083 shipped two more guides (guide-preheat-shake,
+   guide-turkey-done) into the same registry this session edits. Resolution by union + renumber,
+   fourth time: this session's decision is final as **D-P25** (draft D-P11 → D-P22 → D-P24 → D-P25);
+   the PAGES/GUIDE_IDS/BLURBS/TAGS/GUIDE_LINKS registries and the calendar clusters keep all three
+   guides; the suggestion page's heading fix was replaced by their better `p.eyebrow` version; and
+   their cleaner query-stripping regex was adopted for the `assets` gate where both sides had fixed
+   the same cache-buster defect. `tools/checks.py` gate section from this session renamed `fonts`
+   (their `assets` gate covers stylesheet structure).
+6. **Line-by-line re-check of the re-applied guide against the merged registers.** Cited figures were
+   checked against `data/p2/products.json` and the 2026-11-20 live re-check
+   (`data/p2/live-check-2026-11-20-722181aa.json`): "six included cooking accessories" (P2) and
+   "dishwasher-safe basket" (P3) are re-observed in the listing titles read 2026-11-20 and cite that
+   date (matching the gift guide's house style); the 16.9-inch depth figure is not re-cited with a date
+   — it defers to the counter-space analysis because F-P08 keeps dimension values pending re-read.
+
+### Verification (arena/2adc150a-prod2, 2026-11-20)
+
+- `python3 tools/build.py && python3 tools/checks.py` — ALL CHECKS PASSED (31 pages, 15 sections,
+  including the new `assets` + `calendar` sections; the calendar gate accepts the long-read lane via the
+  page register). Negative-tested: removing the built favicon fails the gate; restored.
+- `python3 scripts/build_site.py && python3 scripts/verify_site.py` — VERIFY OK (18 pages). `npm test` — 2/2.
+- The new guide was checked line by line in the built output: unique title/description within limits
+  (escaped-title ≤70 respected — the apostrophe in "can't" is counted), Article JSON-LD, disclosure
+  strip + footer repeat, no broken internal links, feed + sitemap + guides hub + season desk + both
+  clusters wired, no prices/ratings/popularity claims (claims gate), no hands-on phrasing (shop gate),
+  S-24 pillar links present.
+
+### Irregularities this session (not blocking)
+
+None new. Standing open items unchanged and owned by the rows above: F-P19/F-P20 (Pages source, owner
+action), F-P23/Q-P14 (event vocabulary — see D-P21), F-P24 (short-link discrepancy), F-P21 (brand
+clearance).
+
+---
+
 ## ACTIVE CLAIM — session arena/37b265a4-prod2 (2026-11-20, same-day link + listing re-verification and integration)
 
 Branch `arena/37b265a4-prod2`, branched from `main` at `4398598` (PR #33 merge). No other claim is live: every earlier claim in this file is done or merged.

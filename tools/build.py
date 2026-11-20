@@ -187,6 +187,10 @@ PAGES = [
      f"Gift guide: which of the five fits which cook? | {BRAND}",
      "Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.",
      "guides"),
+    ("guide-sale-week", "guide-sale-week.html",
+     f"Four questions a sale week can't answer | {BRAND}",
+     "Sale week makes every machine look urgent. Four questions — format, capacity, counter fit, workflow — that settle the choice from listed specs, not the countdown.",
+     "guides"),
     ("guide-preheat-shake", "guide-preheat-shake.html",
      f"Preheat, shake, or don't: rituals, checked | {BRAND}",
      "Preheat or don't? Shake or leave it? What the listed features of these three air fryers actually prompt you to do — and which rituals no listing answers.",
@@ -261,7 +265,7 @@ PAGE_SCRIPTS = {"decide": ["decide.js"]}
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
              "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
-             "guide-gift-guide", "guide-preheat-shake", "guide-turkey-done"]
+             "guide-gift-guide", "guide-sale-week", "guide-preheat-shake", "guide-turkey-done"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -365,6 +369,7 @@ GUIDE_LINKS = [
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
     ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
     ("guide-gift-guide.html", "The gift guide"),
+    ("guide-sale-week.html", "Sale week questions"),
     ("guide-preheat-shake.html", "Preheat, shake, or don't?"),
     ("guide-turkey-done.html", "Is the turkey done?"),
     ("guides.html", "All guides"),
@@ -975,6 +980,7 @@ GUIDE_BLURBS = {
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
     "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
+    "guide-sale-week": "Four questions that outlast any discount timer: format, capacity, counter fit, workflow.",
     "guide-preheat-shake": "Preheat, shake, or don't: which habits the listed features actually prompt.",
     "guide-turkey-done": "165°F is the USDA answer; the question is how you will check it on the day.",
 }
@@ -989,6 +995,7 @@ GUIDE_TAGS = {
     "guide-holiday-hosting": "Seasonal",
     "guide-instant-vs-leave-in": "Thermometers",
     "guide-gift-guide": "Seasonal",
+    "guide-sale-week": "Seasonal",
     "guide-preheat-shake": "Rituals",
     "guide-turkey-done": "Seasonal",
 }
@@ -1412,6 +1419,7 @@ LAYOUT = """<!DOCTYPE html>
 <meta property="og:site_name" content="{brand} — {descriptor}">
 <meta name="twitter:card" content="summary_large_image">
 {site_verification}<link rel="alternate" type="application/rss+xml" title="{brand} feed" href="{base}/feed.xml">
+<link rel="icon" type="image/svg+xml" href="{base}/assets/img/favicon.svg?v={asset_v}">
 <link rel="preload" href="{base}/assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{base}/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{base}/assets/css/site.css?v={asset_v}">
