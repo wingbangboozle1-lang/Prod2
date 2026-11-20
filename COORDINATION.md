@@ -403,6 +403,12 @@ recoverable from git reflog; its unique content is preserved in `archive/counter
 
 ## Conflict log
 
+- 2026-11-20 (arena/44af3083-prod2): the claim commit hit a rebase conflict in `COORDINATION.md`
+  against arena/722181aa-prod2's appended L-01..L-03 record (PRs #39–#42 landed after this
+  branch was cut). Resolved as a **union merge** — their record kept verbatim, this claim kept
+  and revised (F-P24 was taken by their session; this session's new ids re-checked at write
+  time). Nothing discarded.
+
 - Two `git pull --rebase` operations collided with concurrent merges to `main` (PR #5→#6→#7 landed
   during this session's work). First rebase resolved by union-merging boards; second collision was
   resolved by resetting this branch onto consolidated `main` and re-applying the integration as new
@@ -949,3 +955,27 @@ Protocol note: this session works on its single assigned branch `arena/722181aa-
 | Pages | `build_type: legacy`, `source: main /`, status `built` (serving the root mirror; the owner-side source change in F-P19/F-P20 is still pending) |
 | Live check | https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the "Flagged for review" page and the F-P24 entry in the built `docs/flagged.html` |
 | Status | L-01..L-03 **done**. Claim released. |
+
+# Session arena/44af3083-prod2 — claim (2026-11-20)
+
+Branch `arena/44af3083-prod2`, base `4398598` (`main`, merge of PR #33); rebased onto `main`
+at `1ee7576` (PRs #38–#42) at claim time — conflict with arena/722181aa-prod2's appended record
+resolved as a union merge (nothing discarded; see the conflict log). Single Arena session:
+it works its scope and is also the final integration pass for that scope. Claim written and
+pushed **before** any task work started. At the rebase, arena/722181aa-prod2's L-01..L-03 were
+already at **done/merged** (PR #39/#42), so no live claim overlaps this one's file scope.
+**Register ids re-checked after the rebase** (arena/722181aa-prod2 took F-P24): new rows here
+continue from whatever `data/p2/*.json` shows free at write time — recorded in the results below.
+
+| Task | Status | Session | Scope (files) | Notes |
+| --- | --- | --- | --- | --- |
+| R-01 Live re-verification pass (2026-11-20, independent second read): all five listings + Operating Agreement + Program Policies + USDA/FoodSafety charts; observed strings recorded with read timestamps; short-link resolution observed again (F-P24) | in progress | arena/44af3083-prod2 | `data/p2/verification-2026-11-20.json` (addendum section only) | Cross-checked against BOTH prior 2026-11-20 reads (arena/70b2b9f7's `verification-2026-11-20.json` and arena/722181aa's `live-check-2026-11-20-722181aa.json`); agreement or disagreement stated explicitly. No register value changes unless a listing read changes it. |
+| R-02 Publish calendar queue slot 1 early ("Preheat, shake, or don't") — question-shaped, listing-facts-only, sourced; auto-flows to sitemap + feed | in progress | arena/44af3083-prod2 | `content/pages/guide-preheat-shake.html` (new), `tools/build.py` (PAGES/GUIDE_IDS/GUIDE_LINKS/hooks), `data/p2/calendar.json` (slot 1 marked shipped) | Same early-publish precedent as slots 1/3 of the previous queue. Honors D-19 (no popularity claims) and F-02 (no prices/ratings). |
+| R-03 Timely Thanksgiving-week thermometer guide ("How do you know the turkey is done?") — USDA cook-temps sourced, thermometer workflow framing from P4/P5 listings | in progress | arena/44af3083-prod2 | `content/pages/guide-turkey-done.html` (new), `tools/build.py`, `data/p2/calendar.json` (holiday-hosting season wiring) | Seasonal desk item for the 2026-11-26 US Thanksgiving window; hypothesis only (D-19). |
+| R-04 Decision-support additions: suggestions SG-45.. (design/marketing inputs feeding DESIGN_PROMPT.md + next-pass chooser paths) + questions Q-P15.. (missing-information discovery) | in progress | arena/44af3083-prod2 | `data/p2/suggestions.json`, `data/p2/questions.json`, `DESIGN_PROMPT.md` (append-only) | Proposals only; nothing implemented without a reviewer choice. |
+| R-05 Front-page shop polish + executive summary refresh | pending | arena/44af3083-prod2 | `content/pages/index.html` (copy only), `EXECUTIVE_SUMMARY.md` | Copy-level; no register/price/rating changes. |
+| R-06 Rebuild + gates (`tools/build.py` + `tools/checks.py`, `scripts/verify_site.py`, `npm test`), PR to `main`, merge, Pages live check, record here | pending | arena/44af3083-prod2 | `docs/`, root mirror, `COORDINATION.md` | Runs last. PR + merge without waiting for approval per the brief; deploy must be green before the record is written. |
+
+Parallel-session protocol: `git pull --rebase` before every push; a request to change another
+session's file is logged here, never edited directly. Flagged irregularities do not block the
+merge; they publish on the Flagged for Review page.
