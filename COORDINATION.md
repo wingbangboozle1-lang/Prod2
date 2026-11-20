@@ -14,6 +14,36 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/4fef743e-prod2 (2026-11-20, findability + line-by-line verification pass + integration)
+
+Branched from `d7f58d1` (main after PR #44). Protocol note, same as prior sessions: the platform fixes
+one branch per session (`arena/4fef743e-prod2`), so no `session-<id>/<task>` branches are created;
+this claim block is the record. **Six PRs were open at claim time and are logged, not touched:**
+#35 (arena/dd4bae8a-prod2), #41 (arena/e0d92902-prod2), #45 (arena/19fb7064-prod2),
+#47 (arena/20f83238-prod2), #49 (arena/82d0f434-prod2), #51 (arena/e292fb4d-prod2).
+Full file lists of those PRs were read with `gh pr diff --name-only` before this claim and the
+scope below was chosen to sit **outside every one of them**, with two noted exceptions (below).
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 One site to index: robots/canonical policy so search engines see the publication, not the source tree or the duplicate `docs/` + `site/` + `archive/` copies | in progress | arena/4fef743e-prod2 | `tools/build.py` (**only `build_robots()` — hunk noted below**), `tools/root_mirror.py`, `scripts/verify_site.py`, `robots.txt`, `docs/robots.txt` (generated) |
+| X-02 Line-by-line live-output verification of every published page against the brief's hard rules (disclosure above the fold + footer repeat on every page, `rel="sponsored"` on every outbound product link, a source link on every table row of fact, no broken internal links, unique meta) | in progress | arena/4fef743e-prod2 | `REVIEW-2026-11-20-4fef743e.md` (new), `scripts/verify_site.py` |
+| X-03 Pages exposure (F-P19/F-P20 / SG-46): attempt the `build_type=workflow` switch via the Pages API; if the token still gets 403, record the exact owner click-path | in progress | arena/4fef743e-prod2 | (API call only), `COORDINATION.md` |
+| X-04 Repo review with official source links for manual review; irregularity flags; suggestion/decision blocks logged for the queue owners | in progress | arena/4fef743e-prod2 | `REVIEW-2026-11-20-4fef743e.md` (new) |
+| X-05 Integration: rebuild both outputs, run every gate (`tools/checks.py`, `scripts/verify_site.py`, `npm test`), PR to main, merge, Pages live check, record here | in progress | arena/4fef743e-prod2 | `COORDINATION.md`, generated outputs |
+
+**Overlap notes (recorded for rebase reconciliation, per protocol):**
+1. `tools/build.py` is touched by open PRs #35, #41, #49. X-01 needs one function only:
+   `build_robots()` (~line 1122, near `build_sitemap()`). The change is a larger `Disallow:` list.
+   If a rebasing session conflicts on that hunk: keep both — their content changes anywhere else in
+   the file, this session's change is confined to `build_robots()` + its generated `robots.txt` pair.
+2. `docs/robots.txt` + `robots.txt` are generated outputs of `tools/build.py`; no open PR lists them.
+   `sitemap.xml`/`feed.xml` outputs belong to PR #41's edits and are **not** touched here.
+3. `tools/checks.py` (claimed by four open PRs) is not touched; new gate logic goes into
+   `scripts/verify_site.py`, which is unclaimed and already runs in `verify.yml`.
+
+---
+
 ## ACTIVE CLAIM — session arena/644d217b-prod2 (2026-11-20, reader-first publication pass + integration)
 
 Branched from `4398598` (main after PR #33). This session is both the working session and the
