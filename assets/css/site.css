@@ -1,4 +1,11 @@
-<<<<<<< HEAD
+/* Typefaces (2026-11-20 conflict repair, session arena/0a9f19fe-prod2).
+   The merge that produced this build left raw conflict markers at the top of this
+   file; every rule below them was dead in strict parsers. Both branches offered a
+   valid font stack, so BOTH are kept: the six static latin subsets (HEAD) plus the
+   three variable faces (origin/main). Declared in that order so a browser that
+   supports only one of the two formats still resolves a usable face.
+   SIL OFL 1.1; license files in assets/fonts/. font-display: swap; no third-party
+   font requests. */
 /* ----------
    Self-hosted typefaces (D-P19, 2026-11-20): Fraunces + Inter, latin subsets,
    SIL Open Font License 1.1 — license files in assets/fonts/. font-display:
@@ -45,7 +52,8 @@
   font-weight: 700;
   font-display: swap;
   src: url("../fonts/inter-latin-700-normal.woff2") format("woff2");
-=======
+}
+
 /* Self-hosted type (2026-11-20). No font CDN: the privacy statement promises no
    third-party requests, and a CDN would leak every reader's IP to one.
    Fraunces = display, Inter = UI/body. Both SIL OFL 1.1; see assets/fonts/LICENSE.txt. */
@@ -72,7 +80,6 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
->>>>>>> origin/main
 }
 
 /* ==========================================================================
