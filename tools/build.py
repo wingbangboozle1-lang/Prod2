@@ -63,6 +63,10 @@ PAGES = [
      f"Shop: the five kitchen tools we follow | {BRAND}",
      "One shelf: three air fryer formats and two thermometer workflows, filtered by what you cook and how much counter you can spare. Paid links, marked.",
      "shop"),
+    ("decide", "decide.html",
+     f"Which one should I buy? Four questions, one answer | {BRAND}",
+     "Answer four questions about how you cook and we name one of five tools, quote the listed fact the answer rests on, and say what would change it. No scores, no prices.",
+     "decide"),
     ("about", "about.html",
      f"About this site: who writes it, how we check | {BRAND}",
      "Who edits this site, the four rules every page follows, how figures are read and dated, and exactly what we cannot tell you yet.",
@@ -185,6 +189,11 @@ PAGES = [
      "work"),
 ]
 
+# Per-page script loading. Keeping decide.js off the other 29 pages is not a
+# micro-optimisation: a page that ships a form's controller everywhere is a page
+# whose JS can break something it does not own.
+PAGE_SCRIPTS = {"decide": ["decide.js"]}
+
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
              "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
@@ -232,6 +241,7 @@ def buy_link(p: dict, text: str | None = None, cls: str = "btn btn-buy") -> str:
 # which the gate still requires on every page.
 NAV_READER = [
     ("shop.html", "Shop"),
+    ("decide.html", "Find my match"),
     ("category-air-fryers.html", "Air fryers"),
     ("category-thermometers.html", "Thermometers"),
     ("guides.html", "Guides"),
@@ -291,7 +301,7 @@ def build_footer() -> str:
     def lis(items):
         return "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in items)
     guides = lis(GUIDE_LINKS)
-    shop = lis([("shop.html", "Shop the shelf"), ("compare.html", "Compare the five"),
+    shop = lis([("shop.html", "Shop the shelf"), ("decide.html", "Find my match"), ("compare.html", "Compare the five"),
                 ("products.html", "Products &amp; specs"), ("category-air-fryers.html", "Air fryers"),
                 ("category-thermometers.html", "Thermometers"), ("buying-guide.html", "Buying guide")])
     read = lis([("guides.html", "All guides"), ("buying-guide.html", "Buying guide"),
@@ -1122,6 +1132,30 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
             })
         graph.append({"@type": "ItemList", "name": "Products compared on " + BRAND,
                       "itemListElement": items})
+    if page_id == "decide":
+        # Mirrors the visible questions and answers on decide.html word for word
+        # where it states a fact; the answers route to a format, never a claim.
+        graph.append({
+            "@type": "FAQPage",
+            "mainEntity": [
+                {"@type": "Question",
+                 "name": "Basket or oven-style air fryer: what should I compare?",
+                 "acceptedAnswer": {"@type": "Answer",
+                   "text": "Compare counter depth first, then basket count, then listed capacity. On this shelf the oven format lists the deepest footprint at 16.9 inches, the dual-basket machine 13.38 inches and the single-basket machine 12.75 inches. A machine that does not fit your counter is a return whatever else it does well."}},
+                {"@type": "Question",
+                 "name": "How much counter depth does an air fryer need?",
+                 "acceptedAnswer": {"@type": "Answer",
+                   "text": "The listed depths of the three air fryers followed here are 12.75 inches (single basket, 8 qt), 13.38 inches (dual basket, 6 qt total) and 16.9 inches (French-door oven, 26 qt). Measure front to back and leave the clearance the manual asks for behind the machine."}},
+                {"@type": "Question",
+                 "name": "Do I need two air fryer baskets?",
+                 "acceptedAnswer": {"@type": "Answer",
+                   "text": "Two baskets answer one problem: two dishes that need to finish at the same minute. Each basket on the dual-basket machine is listed at 3 qt, so the 6 qt total is not available to a single batch at one temperature. If you cook one thing at a time, a single 8 qt basket gives a larger single zone."}},
+                {"@type": "Question",
+                 "name": "Instant-read or leave-in meat thermometer: which do I need?",
+                 "acceptedAnswer": {"@type": "Answer",
+                   "text": "An instant-read answers a question in about one second at the counter or grill. A wireless leave-in probe stays in the food and reports throughout a long cook, and the probes on the model followed here are listed as rated to 1000 degrees F, which is what makes them usable in an air fryer. The instant-read needs no charging and no app; the leave-in watches a cook you would rather not open."}}
+            ]
+        })
     if (page_id.startswith(("guide", "article")) and page_id != "guides") or page_id == "buying-guide":
         graph.append({
             "@type": "Article", "headline": title.split(" | ")[0],
@@ -1198,6 +1232,11 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
         endpoint=esc(SETTINGS.get("analytics_endpoint", "") or ""),
         site_verification=site_verification,
     )
+    extra = ""
+    if page_id in PAGE_SCRIPTS:
+        extra = "".join(f'<script src="{BASE}/assets/js/{src}" defer></script>\n'
+                        for src in PAGE_SCRIPTS[page_id])
+        out = out.replace("</body>", extra + "</body>")
     (DOCS / path).write_text(out, encoding="utf-8")
 
 

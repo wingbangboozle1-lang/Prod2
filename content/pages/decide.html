@@ -1,0 +1,115 @@
+<section class="hero hero-compact">
+  <p class="hero-kicker"><span>Two minutes</span> Four questions, one answer</p>
+  <h1>Tell us how you cook. We'll name the one to buy.</h1>
+  <p class="lede">No score, no star rating, no "top pick" badge. Answer what you actually do in the kitchen and we will name one of the five tools, show the listed fact the answer rests on, and tell you what would flip it to a different machine.</p>
+</section>
+
+<div class="callout">
+  <h3>How this answer is built</h3>
+  <p>Every question below maps to a value printed on an official Amazon listing — counter depth in inches, listed capacity in quarts, basket counts, probe count, heat rating. Nothing is inferred from a price, a rank or anyone's opinion. If a listing does not state a value, the question that relies on it is skipped rather than guessed, so a blank on the listing becomes a blank in the answer (<a href="flagged.html#F-02">F-02</a>).</p>
+</div>
+
+<div class="decide" id="decide">
+  <form class="decide-form" id="decide-form" novalidate>
+
+    <fieldset class="decide-q" data-q="job">
+      <legend>1. What do you actually want it for?</legend>
+      <p class="q-help">This decides whether we are routing to an air fryer or a thermometer.</p>
+      <div class="opts">
+        <label><input type="radio" name="job" value="fry" checked><span><b>Crispy food, fast</b><em>Frozen fries, wings, roast veg, reheating — the basket appliances.</em></span></label>
+        <label><input type="radio" name="job" value="temp"><span><b>I want to know when meat is done</b><em>A thermometer: a number instead of a guess.</em></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="decide-q" data-q="cook">
+      <legend>2. How do you usually cook?</legend>
+      <p class="q-help">Two different dishes on one plate, or one thing at a time?</p>
+      <div class="opts">
+        <label><input type="radio" name="cook" value="two"><span><b>Two things at once, finishing together</b><em>Fries and chicken, wings and veg — the same plate, the same minute.</em></span></label>
+        <label><input type="radio" name="cook" value="one"><span><b>One big batch</b><em>One basket, filled up, for one thing at a time.</em></span></label>
+        <label><input type="radio" name="cook" value="oven" checked><span><b>Sheet pans and racks</b><em>Toast, bake, roast, reheat — oven-style cooking without the big oven.</em></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="decide-q" data-q="counter">
+      <legend>3. How deep is the counter space you can give it?</legend>
+      <p class="q-help">Measure front-to-back, from the wall to the front edge, and leave the clearance the manual asks for behind it. Guesstimating here is the single most common way a purchase goes wrong.</p>
+      <div class="opts">
+        <label><input type="radio" name="counter" value="shallow"><span><b>Under 13 inches</b><em>Deep enough for a single-basket air fryer and not much more.</em></span></label>
+        <label><input type="radio" name="counter" value="medium" checked><span><b>13 to 16 inches</b><em>Enough for the dual-basket machine.</em></span></label>
+        <label><input type="radio" name="counter" value="deep"><span><b>More than 16 inches</b><em>Room for the French-door oven format.</em></span></label>
+        <label><input type="radio" name="counter" value="unknown"><span><b>I have not measured it</b><em>We will show you the depths and let you check before you buy.</em></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="decide-q" data-q="who" hidden>
+      <legend>4. How many people are you feeding?</legend>
+      <p class="q-help">Listed capacity is volume, not servings — but it is the only honest number on the page.</p>
+      <div class="opts">
+        <label><input type="radio" name="who" value="small" checked><span><b>One or two</b><em></em></span></label>
+        <label><input type="radio" name="who" value="family"><span><b>Three or four</b><em></em></span></label>
+        <label><input type="radio" name="who" value="crowd"><span><b>Five or more, or hosting</b><em></em></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="decide-q" data-q="check" hidden>
+      <legend>5. What are you cooking most often?</legend>
+      <p class="q-help">This decides whether you need a number in a second, or a probe you leave in for hours.</p>
+      <div class="opts">
+        <label><input type="radio" name="check" value="spot" checked><span><b>Quick checks at the counter</b><em>Steak, chicken breast, pork chops, fried food, a roast at the end.</em></span></label>
+        <label><input type="radio" name="check" value="long"><span><b>Long cooks I want to watch</b><em>Brisket, a Sunday roast, a smoker, an air-fryer cook I would rather not open.</em></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="decide-q" data-q="basket" hidden>
+      <legend>6. Where will it be used?</legend>
+      <p class="q-help">One of the two thermometers has probes rated for the air fryer; the other is a probe you hold.</p>
+      <div class="opts">
+        <label><input type="radio" name="basket" value="air" checked><span><b>In an air fryer, oven or smoker</b><em>Probes that stay in the appliance.</em></span></label>
+        <label><input type="radio" name="basket" value="hand"><span><b>In my hand, at the grill or pan</b><em>A folding probe I carry to the food.</em></span></label>
+      </div>
+    </fieldset>
+
+    <div class="decide-actions">
+      <button type="submit" class="btn" id="decide-run">Show me the one to buy</button>
+      <button type="reset" class="btn btn-ghost" id="decide-reset">Start over</button>
+    </div>
+  </form>
+
+  <div class="decide-out is-empty" id="decide-out" aria-live="polite">
+    <p class="decide-progress" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span></p>
+    <p class="out-kicker">Waiting on you</p>
+    <h3>The answer appears here</h3>
+    <p class="out-reason">Answer the questions on the left and we will name one machine, quote the listed fact the answer rests on, and say what would change it. The route is short: what you cook, how much counter you have, and whether you want a number in a second or a probe that stays in.</p>
+    <p class="out-caveat">Nothing on this page is a price, a rating or a rank. Those are commodities that change by the hour, and this register only publishes what it can source and date (<a href="flagged.html#F-02">F-02</a>).</p>
+  </div>
+</div>
+
+<h2>What the five tools are</h2>
+<p class="section-intro">The short version, in the order the chooser walks through them. All five links go to the official listing.</p>
+{{product_cards}}
+
+<h2>If you would rather check the answer yourself</h2>
+<div class="two-col">
+  <div class="card">
+    <p class="eyebrow">The numbers</p>
+    <h3>Every listed value, side by side</h3>
+    <p>Capacity, dimensions in inches, counter depth and the listed feature set in one table — a source link on every row and a blank wherever a value could not be confirmed.</p>
+    <p><a class="btn btn-sm btn-ghost" href="compare.html#table">Open the comparison</a></p>
+  </div>
+  <div class="card">
+    <p class="eyebrow">The argument</p>
+    <h3>Why the questions are in this order</h3>
+    <p>Format decides more than brand: an oven-style machine and a dual-basket machine are different tools, not two points on one scale. The buying guide walks the four decisions in the order that actually eliminates machines.</p>
+    <p><a class="btn btn-sm btn-ghost" href="buying-guide.html">Read the buying guide</a></p>
+  </div>
+</div>
+
+<div class="callout callout-sage">
+  <h3>What this page will not do</h3>
+  <p>It will not tell you a machine is "the best". It will not show a price, a star rating or how many people "bought this today" — the register forbids all three, and two of them are not ours to publish (<a href="flagged.html#F-02">F-02</a>, <a href="flagged.html#F-15">F-15</a>). It will not recommend something we have cooked with, because we have not cooked with any of them (<a href="about.html">about the site</a>). What it does is narrow five machines to one on the strength of facts you can open on the listing yourself in ten seconds.</p>
+</div>
+
+<h2>Keep reading</h2>
+{{guide_links}}
+<p class="cta-row"><a class="btn" href="shop.html">See the whole shelf</a> <a class="btn btn-ghost" href="compare.html">Compare all five</a></p>

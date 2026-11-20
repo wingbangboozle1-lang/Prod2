@@ -934,3 +934,9 @@ h2#B-01, h2#B-02, h2#B-03, h2#B-04, h2#B-05, h2#B-06 { scroll-margin-top: 4rem; 
   .decide-out { position: static; }
   .decide-teaser { grid-template-columns: 1fr; }
 }
+
+/* a hero without the illustration column: the decision engine needs the fold
+   for its first question, not for a picture */
+.hero-compact { padding-bottom: .5rem; }
+.hero-compact h1 { max-width: 24ch; }
+.hero-compact .lede { max-width: 44rem; }
