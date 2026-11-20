@@ -1385,3 +1385,146 @@ verification records.
 guard, robots, front guides) · `tools/checks.py` (`briefs`, `one-site`, `integrity` sections) ·
 `data/p2/{briefs.json (new), sources.json, verification-2026-11-20.json}` · `content/pages/{index,briefs}.html` ·
 `archive/**` (noindex written in place) · `docs/` + root mirror · `EXECUTIVE_SUMMARY.md` · `COORDINATION.md`.
+
+---
+
+# ACTIVE CLAIM — session arena/0a9f19fe-prod2 (2026-11-20, buyer-decision layer + design QA gate)
+
+Branched from `d7f58d1` (main after PR #44). Session id for this board: **arena/0a9f19fe-prod2**.
+
+**State of the board at claim time (06:50 UTC).** Four PRs are open and each has had a commit within
+the last 10 minutes, so all four are **live concurrent sessions, not stale**: #35 (`arena/dd4bae8a-prod2`,
+last commit 06:27), #41 (`arena/e0d92902-prod2`, 06:48), #43 (`arena/37b265a4-prod2`, 06:48),
+#45 (`arena/19fb7064-prod2`, 06:48). None of them is touched by this session. Per the 60-minute
+handoff rule, none is eligible for takeover yet; if one goes quiet past 07:48 UTC and is still
+`CONFLICTING`, a later integration session may take it over.
+
+**Scope conflict found before claiming — recorded, not edited.** `assets/css/site.css` (and its
+`docs/` twin) is owned by **three live sessions at once** (#41, #43, #45 all list it). This session
+therefore claims **no CSS redesign**; it claims the two files no open PR touches (`tools/checks.py`
+is touched by #41/#45, so the new gate goes in a **new** file, `tools/design_qa.py`) plus
+pipeline-only data the other sessions do not list.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| A-01 **P0 live defect**: all 30 published pages load `assets/css/site.css` with raw git conflict markers at lines 1/48/75. Repair deterministically (keep both `@font-face` sets; token layer unchanged) and make the build fail on any conflict marker | in progress | arena/0a9f19fe-prod2 | `assets/css/site.css`, `docs/assets/css/site.css` (mechanical repair only — no design edits, so no collision with #41/#43/#45) |
+| A-02 **Cascade proof**: since the sandbox cannot install a browser (Puppeteer/Playwright downloads blocked) and no prior session ever verified CSS applied, build a headless-free stylesheet auditor: parse the CSS, resolve the cascade, and assert the design tokens reach the markup; wire it into `npm test` | in progress | arena/0a9f19fe-prod2 | `tools/design_qa.py` (new), `package.json`, `.github/workflows/verify.yml` |
+| A-03 Buyer-decision layer: a ranked "which one should I buy" verdict with the **reason each loser loses**, written only from register facts + cited official guidance | in progress | arena/0a9f19fe-prod2 | `content/pages/shop.html`, `content/pages/compare.html` |
+| A-04 Decision-room collation: one page that ranks every open suggestion and every open question by what it unblocks, with the single owner action per row (the "review before implementing" surface) | in progress | arena/0a9f19fe-prod2 | `content/pages/decisions.html`, `data/p2/decision-room.json` (new) |
+| A-05 Exec summary refresh to the merged state (counts, the P0 defect, the new gate) | in progress | arena/0a9f19fe-prod2 | `EXECUTIVE_SUMMARY.md` |
+| A-06 Integration: rebuild both outputs, gate, line-by-line publish check, PR to `main`, merge, Pages live check, record here | in progress | arena/0a9f19fe-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+Claim protocol notes:
+- One branch per session (Arena rule); this session is both working and integration session on it.
+- **Verification boundary (this sandbox, measured 06:49 UTC):** outbound HTTP is limited to
+  `github.com` / `api.github.com` / `codeload.github.com` / `registry.npmjs.org` / `pypi.org` /
+  `files.pythonhosted.org` plus the page-fetch tool's path. `pip install playwright` resolves, but the
+  browser binaries do not download (Chrome for Testing, 3 attempts), and Debian font packages are
+  unavailable — so **no screenshot of any page has ever been produced by any session in this repo**.
+  Every "the design works" claim in this file above is therefore unverified except by reading CSS.
+  A-02 exists to close that hole with a tool that needs no browser.
+- Flagged irregularities do not block the merge; they are published on the Flagged page.
+
+### Claim results (A-01..A-06, 2026-11-20)
+
+- **A-01 · the P0 defect (done).** `assets/css/site.css` opened with three raw conflict markers at
+  lines 1/48/75 and, on both sides of that merge, a `@font-face` block had lost its closing brace —
+  HEAD's went unterminated and a stray `}` sat before the design system. All 30 pages load that file.
+  Repaired by keeping **both** complete font stacks (six static latin subsets + three variable faces),
+  which is one more fallback than either branch had alone. Verified: tinycss2 → 245 top-level rules,
+  **0 parse errors**, braces 278/278, final `@media print` rule fully consumed, in both `assets/` and
+  `docs/`. Exhaustive marker sweep of the shipped artifact: 0. **Note for integration:** PR #45
+  (`arena/19fb7064-prod2`) independently found and fixed the same defect, resolving it by keeping
+  only the three variable faces. The two fixes are functionally equivalent; this one keeps 2 extra
+  static faces. **When both merge, take this branch's file** (it is a superset) and keep PR #45's
+  `exposition` marker check, which duplicates the `markers` section of the new gate but costs nothing.
+- **A-02 · the gate (done).** `tools/design_qa.py`, 9 sections, no browser required: markers, parse
+  (unclosed-block detection), fonts (existence + real WOFF2 + `font-display`), units (silently dropped
+  unitless lengths), tokens (dangling `var()`), cascade (does the stylesheet reach the markup; does
+  `body` paint a background and a text colour), coverage, contrast (WCAG AA on the token pairs the
+  system actually combines). **Tested against three real failure modes, not just against today's
+  tree:** the exact shipped defect → 2 FAILs; a silent missing brace with no markers → unreachable
+  tail + 8 undefined tokens; an undefined token → 2 FAILs. Passes on the repaired tree. Wired into
+  `.github/workflows/pages.yml` before upload and into `npm test`.
+- **A-03 · the buyer decision (done).** `shop.html` gains a five-row verdict by job, a "why the other
+  one loses" table stating each trade-off in both directions, the USDA placement rule that outranks
+  product choice, and an explicit "what this cannot tell you" list. **While writing it I asserted the
+  8 qt basket had the smallest footprint; the register's arithmetic says the dual basket does
+  (158 in² vs 172).** Caught before publishing and converted into a gate: `tools/checks.py` gains a
+  `derived` section that recomputes every footprint and capacity density from the register and fails
+  on mismatch, plus a rule refusing a named "smallest" winner it cannot attribute. The new gate then
+  failed the page and forced the sentence to state all three numbers instead.
+- **A-04 · the pre-decision register (done).** `before-you-decide.html` (new, 31 pages total): eleven
+  decisions waiting on facts only the owner can obtain, each with what is known, what is missing, how
+  it is discovered, and what changes when it lands. Four are ranked as the only ones worth doing
+  first. States in the negative that it publishes no revenue estimate and ranks nothing by earnings.
+  First draft had four defects the gate caught: an invented anchor, a citation to a non-existent
+  `SG-58`, and a short link rendered as a live URL instead of inert code.
+- **A-05 · executive summary + flag (done).** `EXECUTIVE_SUMMARY.md` to rendered values: gate 13 → 14
+  sections, flags 37 → 39, event-vocabulary item marked resolved by PR #44. **`F-P25`** publishes the
+  stylesheet defect, its root cause and the new gate on the Flagged for review page, status
+  `resolved`.
+- **A-06 · verification (done).** `tools/build.py` 31 pages · `tools/checks.py` **ALL CHECKS PASSED**
+  (16 sections, 16 ok lines) · `tools/design_qa.py` **DESIGN QA PASSED** (9 sections) ·
+  `scripts/build_site.py` + `scripts/verify_site.py` **VERIFY OK, 18 pages** · `npm test` **3/3** ·
+  `git status` clean after a rebuild, so `docs/` is byte-reproducible. A live preview of the built
+  site is served from this session for human review.
+
+### What this session could NOT do, recorded so nobody assumes otherwise
+
+- **No browser, therefore no screenshot.** Playwright and Puppeteer both install; the
+  Chrome-for-Testing binary and the Debian font packages do not download. A-02 is the substitute and
+  is honest about the limit: it proves the cascade reaches the markup and that the tokens resolve —
+  it does not prove the result is attractive. Any claim in this repo that the design "works" is an
+  inference from CSS until a human looks at a rendered page.
+- **No external fetches in this session.** No Amazon listing, policy page or Google/FTC source was
+  re-read. Every product value used comes from the dated register reads
+  (`data/p2/verification-2026-11-20.json`, `2026-11-19`), and the only new external facts this pass
+  relies on are the USDA FSIS quotes already registered as `S-FSIS-THERMO` and read on 2026-11-20 by
+  the previous pass. No value was inferred to fill a cell.
+- **No CSS redesign.** Three live PRs own `assets/css/site.css`; this session repaired the file
+  mechanically and left the design system untouched.
+
+### Rebase reconciliation against main (PRs #52, #55, #57 landed while this session ran)
+
+`main` moved three times under this branch. Rebased at 07:0x UTC onto `756f102` (PR #57). Nothing
+from either side was discarded. **What changed in the reconciliation, recorded because two of these
+are ID and scope collisions that a later session must not re-litigate:**
+
+1. **`F-P25` collided.** Main's briefs pass had already taken `F-P25` for the "Check price on Amazon"
+   copy label. This pass's stylesheet defect was re-issued as **`F-P29`** (status `resolved`) rather
+   than overwriting main's row. Only one `F-P25` exists; there are no duplicate flag ids (checked
+   programmatically, 43 flags).
+2. **`briefs.html` overlaps `before-you-decide.html`.** Both landed the same day and both help the owner
+   decide. **Neither was deleted**: `briefs.html` is the six decisions that one five-minute browser
+   test settles; `before-you-decide.html` is the eleven calls including the five with no quick test.
+   The two pages now cross-link each other and each says plainly what the other adds. If a later pass
+   wants one page, that is an editorial decision to record — not something to delete quietly.
+3. **`assets/css/site.css` had already been repaired on main** (PR #55) with the same three-variable-face
+   fix. This branch's repair is a superset (nine `@font-face` blocks: six static latin subsets plus
+   three variable faces) and won the `docs/`/`assets/` conflict. Verified after rebase: 308/308 braces,
+   0 markers, 9 faces, both copies identical.
+4. **The overlap with PR #45** (`arena/19fb7064-prod2`, still open) is unaffected by the rebase: its
+   CSS fix is equivalent, its `exposition` marker check is compatible, and this branch's gate is the
+   broader one. Take both; the CSS file here is a superset.
+5. **The new gate caught a real defect in main's merged CSS** during the rebase: `.brief-unknown`
+   references `var(--clay-wash, #fbeee4)`. Because a **fallback is present**, the declaration paints
+   correctly, so this was a **false positive in my own gate, not a bug in main**. The gate was
+   corrected to separate "no definition and no fallback" (a failure) from "undefined but always used
+   with a literal fallback" (a note), re-tested against both, and now passes. Recorded because the
+   first version would have blocked a legitimate merge.
+
+**Post-rebase verification (all green, tree clean after rebuild):** `tools/build.py` 32 pages ·
+`tools/checks.py` ALL CHECKS PASSED · `tools/design_qa.py` DESIGN QA PASSED · `scripts/verify_site.py`
+VERIFY OK 18 pages · `npm test` 3/3 · `git status --porcelain` empty.
+
+### File-scope request (logged, not edited)
+
+- **`.github/workflows/verify.yml`** is owned by open PR #35 (`arena/dd4bae8a-prod2`), so this session
+  did **not** edit it. **Request to #35's session (or to the next integration session):** add
+  `- name: Release gate — stylesheet` / `run: python3 tools/design_qa.py` after the existing
+  `tools/checks.py` step, and add `git diff --exit-code -- tools/design_qa.py` is not needed (it is
+  committed source, not built output). Until then the gate runs in the deploy workflow
+  (`.github/workflows/pages.yml`, uncontested) and in `npm test`, so it is enforced on every push to
+  `main` — it is only *not* enforced on a branch push or a PR without #35's change.
+
