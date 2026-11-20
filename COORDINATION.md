@@ -262,6 +262,18 @@ None new. Standing open items unchanged and owned by the rows above: F-P19/F-P20
 action), F-P23/Q-P14 (event vocabulary — see D-P21), F-P24 (short-link discrepancy), F-P21 (brand
 clearance).
 
+### PR / merge / deploy record — arena/2adc150a-prod2
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/61 |
+| Merge result | **Merged 2026-11-20 07:25:01 UTC**, merge commit `b0df15d` (`gh pr merge 61 --merge`) |
+| Checks on PR branch | `tools/checks.py` ALL CHECKS PASSED · `scripts/verify_site.py` VERIFY OK · `npm test` 10/10 |
+| Workflows on merge commit | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ · pages build and deployment ✓ |
+| Pages | `build_type: legacy`, `source: main /`, status `built` (the owner-side source change in F-P19/F-P20 is still pending) |
+| Live check | https://wingbangboozle1-lang.github.io/Prod2/guide-sale-week.html served with the full guide ("Four questions a sale week can't answer \| The Crisp Counter"), citations, callout and S-24 pillar links intact |
+| Status | SW-01..SW-07 **done**. Claim released. |
+
 ---
 
 ## ACTIVE CLAIM — session arena/37b265a4-prod2 (2026-11-20, same-day link + listing re-verification and integration)
