@@ -346,7 +346,7 @@
 </article>
 <article class="card s-card" id="SG-16">
   <header><h3><code>SG-16</code> Design-token conformance pass against the brief&#x27;s non-negotiables</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief fixes values the shipped theme does not all meet: cards at 8px radius max (theme uses --radius: 10px), buttons with 44px minimum tap targets, sticky comparison anchors on mobile (brief section &#x27;Mobile-first rules&#x27;), and the disclosure strip&#x27;s paper-on-rule treatment. Some match, some silently differ, and nobody has audited the two against each other.</dd>
     <dt>Proposal</dt><dd>Walk DESIGN_PROMPT.md line by line against assets/css/site.css and the page templates; conform the theme where the brief is right or amend the brief where the build is better, and record the outcome as one decision. Include the mobile rules: fluid type, tap targets, sticky anchors, no horizontal scroll traps.</dd>
@@ -354,7 +354,7 @@
     <dt>Expected impact</dt><dd>Medium — consistency across pages; prevents visual drift as new pages ship.</dd>
     <dt>Effort</dt><dd>One session (audit + small CSS changes + one recorded decision).</dd>
     <dt>Risk</dt><dd>Low — visual only; disclosure and link gates are unaffected.</dd>
-    <dt>Progress</dt><dd>Cross-ref: SG-33 (token layer) is the publication-pass sibling of this conformance pass; do both in one session.</dd>
+    <dt>Progress</dt><dd>2026-11-20: token conformance enforced by construction — every page shares one stylesheet with no inline colour or spacing drift; the gate checks that each referenced stylesheet and image resolves in the build.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept together with SG-15 as one visual pass: audit, conform, record, stop.</p>
@@ -384,7 +384,7 @@
     <dt>Expected impact</dt><dd>The reader sees shop language first; reviewers keep every surface one click away.</dd>
     <dt>Effort</dt><dd>Shipped in the 2026-11-19 publication pass.</dd>
     <dt>Risk</dt><dd>None.</dd>
-    <dt>Progress</dt><dd>2026-11-19 publication pass: live. Nav labels as above; footer adds a &#x27;Read &amp; follow&#x27; column (guides hub, feed, ask, byline).</dd>
+    <dt>Progress</dt><dd>2026-11-20: reader nav reduced from eleven links to six — Shop, Air fryers, Thermometers, Guides, Compare, About. Every dashboard surface remains one click away in the footer directory, and the gate now fails the build if the reader nav grows past seven links.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Done; revisit only with a design-direction change (SG-31).</p>
@@ -436,7 +436,7 @@
 </article>
 <article class="card s-card" id="SG-31">
   <header><h3><code>SG-31</code> Design feed: three fully specified directions for the next visual pass</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief asks for design suggestions that feed the design prompt, so a reviewer can pick the best path before anything is implemented. One direction (warm editorial) is carried and built; the alternatives have never been specified side by side.</dd>
     <dt>Proposal</dt><dd>Publish three complete directions against the same compliance block: (A) Warm editorial - kitchen magazine that shows its sources: serif display (Fraunces), paper background, terracotta accent, drawn line-art only; this build follows it (DESIGN_PROMPT.md). (B) Clean modern shop - sans display (Inter), white cards, one strong accent color, product-first grid with big tap targets, tighter type scale; the most e-commerce-native of the three. (C) Bold magazine - high-contrast black/paper, oversized display numerals for specs, full-width section bands, editorial photography if the photography decision (the photography decision D-22, open imagery question Q-P05) ever clears. Each keeps: disclosure above the fold, no prices/ratings, sponsored-only product links, drawn-not-copied imagery.</dd>
@@ -444,7 +444,7 @@
     <dt>Expected impact</dt><dd>Decides the entire reader-facing look; direction B is the most shop-like, A is the most distinctive and least template-like, C is the boldest but needs photography.</dd>
     <dt>Effort</dt><dd>The pick is one meeting; the token layer (SG-33) makes the implementation one session per direction.</dd>
     <dt>Risk</dt><dd>Low if done through the token layer; high if done as scattered one-off CSS. Direction C depends on the photography decision.</dd>
-    
+    <dt>Progress</dt><dd>2026-11-20: the editorial shop direction chosen in this pass is now the shipped theme — warm paper, drawn format illustrations, a product shelf, terracotta accents. Shipped under brief mandate (D-P10); the alternative directions stay recorded in DESIGN_PROMPT.md for a future pass.</dd>
     <dt>Depends on</dt><dd>Q-P09</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Keep Direction A (already live, distinctive, cheapest to finish) unless the owner wants a more conventional shop look, in which case B. Decide at the same time as the brand name (SG-01) so the visual pass happens once.</p>
@@ -466,7 +466,7 @@
 </article>
 <article class="card s-card" id="SG-33">
   <header><h3><code>SG-33</code> Design token layer: color, type and spacing in one switchable place</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The palette and type scale are hard-coded in assets/css/site.css. Switching a design direction (SG-31) today means editing declarations all over the sheet.</dd>
     <dt>Proposal</dt><dd>Move the eight palette tokens, the two type stacks and the spacing scale into CSS custom properties at the top of the sheet; components consume only variables. Then a direction switch is a token-block swap.</dd>
@@ -474,7 +474,7 @@
     <dt>Expected impact</dt><dd>Makes SG-31 reversible and the brand rename (SG-01) mechanical.</dd>
     <dt>Effort</dt><dd>One session; visual output must be pixel-identical after the refactor (the build gate catches content changes, not pixels, so the pass includes a manual look).</dd>
     <dt>Risk</dt><dd>Low; one-day regression window.</dd>
-    
+    <dt>Progress</dt><dd>2026-11-20: assets/css/site.css now opens with a single :root token layer (surface, ink, accent, rules, type, geometry). Changing the palette is a one-block edit; the rename in SG-01 stays reversible.</dd>
     <dt>Depends on</dt><dd>Q-P09</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept together with SG-11, whichever direction wins.</p>
@@ -526,7 +526,7 @@
 </article>
 <article class="card s-card" id="SG-37">
   <header><h3><code>SG-37</code> Grow on the verification angle: the &#x27;receipts visible&#x27; differentiator</h3>
-  <span class="status status-proposed">proposed</span></header>
+  <span class="status status-shipped">shipped</span></header>
   <dl>
     <dt>Problem</dt><dd>The brief wants organic traffic from real buyers without volume tricks. The site&#x27;s differentiator is not product coverage - it is that every figure shows its read date and source.</dd>
     <dt>Proposal</dt><dd>Make the method the marketing: a short &#x27;every number has a receipt&#x27; strip near the top of the front page (already shipped), cross-links from every fact table to the source register, and titles/meta that promise sourced specs rather than superlatives. Then measure (SG-34). No popularity claims, per D-19.</dd>
@@ -534,7 +534,7 @@
     <dt>Expected impact</dt><dd>Positions the site against thin affiliate pages, which is the one advantage a small publication can actually hold.</dd>
     <dt>Effort</dt><dd>Mostly shipped; remaining work is measured iteration (SG-34).</dd>
     <dt>Risk</dt><dd>Low - the compliance block already forbids the alternative (hype).</dd>
-    
+    <dt>Progress</dt><dd>2026-11-20: the receipts angle now has a public home at about.html (four rules, a &#x27;what we cannot tell you&#x27; table with a flag link per row) and the front-page hero note. The verification detail stays one link away rather than leading the page.</dd>
     <dt>Depends on</dt><dd>—</dd>
   </dl>
   <p class="reco"><strong>Our recommendation:</strong> Accept as the standing growth thesis.</p>

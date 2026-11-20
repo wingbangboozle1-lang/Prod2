@@ -1,8 +1,8 @@
 {
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
-  "updated_utc": "2026-11-19",
-  "last_change": "2026-11-19 integration: D-P07..D-P09 (publication pass scope, capture gate, Search Console readiness) appended."
+  "updated_utc": "2026-11-20",
+  "last_change": "2026-11-20 (arena/70b2b9f7-prod2): D-P10..D-P14 recorded (shop-first rebuild, price policy answered by 2(b), imagery, disclosure wording, USDA temperature data)."
  },
  "decisions": [
   {
@@ -204,6 +204,56 @@
    "recorded_choice": "Not yet - verification needs the owner's Google account (Q-P05). The readiness work ships now: sitemap, robots.txt Sitemap line, RSS feed, canonical URLs, unique titles and meta descriptions, and a verification-token slot in settings.json. Owner checklist on the measurement page (F-P06).",
    "sources": [
     "https://developers.google.com/search/docs/appearance/google-search-console"
+   ]
+  },
+  {
+   "id": "D-P10",
+   "question": "How should the 2026-11-20 design pass rebuild the reader-facing site so it reads like a shop rather than an audit?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "The owner brief is the decision. Ship: a new editorial shop design system (warm paper, product photography replaced by drawn format illustrations, a shelf of product cards with a best-for line and a buy button), a front page that leads with the products and only then the method, a new shop.html shelf with format and category filters plus a three-question chooser, a new about.html carrying authorship and the four editorial rules, a reader nav cut from eleven links to six with every dashboard surface moved to the footer directory, and a release gate extended to fail the build if the shelf, the imagery, the About page or the nav budget regresses. Unchanged: disclosure above the fold, rel=sponsored tagged Special Links, no published prices or ratings, sourced facts only.",
+   "sources": [
+    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+    "https://affiliate-program.amazon.com/help/operating/agreement",
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ]
+  },
+  {
+   "id": "D-P11",
+   "question": "Does the Program Policies text permit the dated-snapshot price policy proposed in SG-05?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "No. Program Policies 2(b) (updated 2026-04-14, read 2026-11-20) permits a site to show prices and availability only if (a) Amazon serves the link in which that data is displayed, or (b) the data comes through the Creators API or PA API under the License. A dated snapshot recorded by the site is neither, so prices stay unpublished and SG-05 is answered in the negative. This converts a previously cautious choice into a policy-required one. Q-27 is closed by the same reading.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ]
+  },
+  {
+   "id": "D-P12",
+   "question": "Should product imagery be copied from the Amazon listings?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "No. The site uses illustrations drawn for it, generic to the format rather than the specific model, each captioned 'illustration, not the product photo'. Rationale: Amazon product imagery is Program Content under the Agreement and its use is conditioned on the IP Licence; no licence review has been completed (Q-P05). Drawn illustrations carry no such condition and are honest about what they show. If the licence review later permits listing imagery, that is a separate decision with the licence cited.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/agreement",
+    "https://affiliate-program.amazon.com/help/operating/policies"
+   ]
+  },
+  {
+   "id": "D-P13",
+   "question": "Which disclosure sentence should the site publish, given section 5 of the Operating Agreement?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "Adopt the prescribed first-person form, 'As an Amazon Associate I earn from qualifying purchases.' Section 5 (page updated 2025-10-15, read 2026-11-20) prescribes that sentence and permits 'any substantially similar statement previously allowed', so the earlier 'we earn' wording was arguably compliant; the prescribed form removes the doubt, and section 6(a) makes a violation of section 5 a material breach. The sentence appears under the masthead on every page and repeats in the footer.",
+   "sources": [
+    "https://affiliate-program.amazon.com/help/operating/agreement"
+   ]
+  },
+  {
+   "id": "D-P14",
+   "question": "Should the safe-temperature guidance in the thermometer guide come from USDA or from the listings?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "USDA and FoodSafety.gov. The listings state instrument accuracy; they do not state what a cook is aiming for. The guide now publishes the official safe minimum internal temperatures with rest times, plus the cold-storage and power-outage limits, each sourced to the government page and its stated last-reviewed date. Values are quoted, never reinterpreted. This gives a reader an independent reason to care about accuracy rather than a restatement of a marketing claim.",
+   "sources": [
+    "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+    "https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts",
+    "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage"
    ]
   }
  ]
