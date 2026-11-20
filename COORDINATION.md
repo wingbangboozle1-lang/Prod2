@@ -1106,3 +1106,56 @@ rather than rebase.
   at the **"Build is reproducible (committed site/ and root mirror match the build)"** step — the same
   class of drift `main` had before this pass. It does not affect `main` or the deploy; its own session
   owns the fix.
+
+---
+
+## ACTIVE CLAIM — session arena/7cec0d73-prod2 (2026-11-20, final integration: CSS repair + live re-verification + site polish)
+
+**Status: active.** Branch `arena/7cec0d73-prod2` (platform-assigned; the `session-<id>/<task>` naming
+in the brief is therefore not used, and no other branch is created or pushed). Base: `0a4b573`
+(main after PR #46).
+
+### Why this session exists — one defect found that no open PR covers
+
+**The published stylesheet contains unresolved merge-conflict markers.** `assets/css/site.css` on
+`main` opens with literal `<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main` lines (lines 1, 48 and
+75), and the file is **one brace short** (278 `{`, 277 `}`). This is not theoretical: the live host
+serves the markers. Verified by reading
+`https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css` on 2026-11-20 — the first
+lines of the served stylesheet are `<<<<<<< HEAD` and `=======`. Every reader loads a stylesheet
+whose first rule is a syntax error, and the `@font-face` block that follows it is malformed. The
+two candidate resolutions both exist as complete, valid CSS (PR #45 carries the variable-font
+resolution; `origin/main` carries the static-subset resolution).
+
+PR #45 (`arena/19fb7064-prod2`) is the only open PR that fixes this file, but it is CONFLICTING
+against `main` and its base predates PRs #42–#46. This session takes over the repair rather than
+rebasing a stale branch.
+
+### Scope (this session only)
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| X-01 Repair the conflicted stylesheet and pick one font resolution | in progress | arena/7cec0d73-prod2 | `assets/css/site.css`, `assets/fonts/` |
+| X-02 Gate: fail the build on conflict markers in any published artifact | unclaimed | arena/7cec0d73-prod2 | `tools/checks.py` |
+| X-03 Live re-read of the five `/dp/` listings (2026-11-20, this session) | unclaimed | arena/7cec0d73-prod2 | `data/p2/verification-2026-11-20-7cec0d73.json` (new) |
+| X-04 Carry forward the un-merged register rows from the open PRs, renumbered | unclaimed | arena/7cec0d73-prod2 | `data/p2/{flags,questions,decisions,suggestions}.json` |
+| X-05 Reader-facing polish + site surface check | unclaimed | arena/7cec0d73-prod2 | `content/pages/*`, `assets/css/site.css` |
+| X-06 Integration: rebuild, re-verify, PR to main, merge, Pages live check | unclaimed | arena/7cec0d73-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+### Non-overlap statement
+
+No other session has a live claim on `assets/css/site.css` in `COORDINATION.md`. PR #45's branch
+owns the same file, so this session **does not rebase or edit that branch**; the repair is
+re-derived here against current `main` and PR #45 is left for its owner to close or supersede.
+Register rows from PRs #43, #45, #47 and #41 are **carried forward by content, renumbered**, never
+copied with colliding ids (see X-04).
+
+### Verification boundary for this session (recorded honestly)
+
+`curl` to `www.amazon.com` and `link.amazon` fails from this sandbox (`http 000`,
+`SSL_ERROR_SYSCALL`), so the **fetch tool** is used for every external read, and each row records
+which tool produced it. Amazon listing pages return a "Product summary" variant to the fetch tool:
+the listing **title** and **breadcrumb** are readable and are the values the register publishes.
+Prices and ratings on these fetches appear inside "customers also viewed" carousels and
+protection-plan blocks, which belong to **other ASINs** — except where the target product's own
+price is rendered in the buy box, which is recorded but still not published (F-02, D-P10).
