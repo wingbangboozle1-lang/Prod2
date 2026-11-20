@@ -3,7 +3,8 @@
 <p class="lede">Everything proposed for this site lands here first, with its evidence, its cost and what it blocks. Nothing below is implemented until a path is chosen — so this page is a review surface, not a changelog.</p>
 
 <h2 id="ranked">Do these five things, in this order</h2>
-<p>Thirty-eight items propose work. Only a handful of them change what happens next, and most cost you minutes rather than days. This is the short list, ranked by how much it unblocks per hour of your time. Everything below it is optional.</p>
+<p>{{queue_stats}}</p>
+<p>Only a handful of items change what happens next, and most cost you minutes rather than days. This is the short list, ranked by how much it unblocks per hour of your time. Everything below it is optional.</p>
 <table class="data">
   <thead><tr><th>#</th><th>Item</th><th>What it changes</th><th>Cost to you</th><th>Reversible?</th><th>Your action</th></tr></thead>
   <tbody>
@@ -52,7 +53,7 @@
 <p class="small-note">Ranking rationale: items 1–2 are the only ones that make anything <em>measurable</em>; item 3 is the only one whose cost rises over time; item 4 unblocks a feature that is already built and tested. Items 5 and everything below wait on those. Nothing on this page has been implemented except where a row is marked <span class="status status-shipped">shipped</span>.</p>
 
 <h2 id="paths">Three paths, one choice</h2>
-<p>The thirty-four items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
+<p>The items in the queue group into three coherent strategies. They are not mutually exclusive, but they compete for the same hours, so picking one first is what actually unblocks work. Everything in a path keeps the non-negotiables: disclosure above the fold, no invented values, sponsored links marked, imagery drawn rather than copied.</p>
 
 <div class="path-grid">
   <article class="path-card recommended">
@@ -111,6 +112,10 @@
   <h3>How to run the walkthrough</h3>
   <p>Four steps, about a quarter of an hour: <strong>(1)</strong> read the three cards above and name the path. <strong>(2)</strong> open the decision rows in that path and strike anything you disagree with. <strong>(3)</strong> for each surviving row, answer the <em>question it blocks on</em> from the <a href="questions.html">open questions register</a> — those are the only answers that actually change the outcome. <strong>(4)</strong> record the choice against the item's ID; the <a href="decisions.html">decision log</a> takes it from there with a date. Anything you do not touch stays <span class="status status-proposed">proposed</span> and is not built.</p>
 </div>
+
+<h2 id="readiness">What has to be true first</h2>
+<p>A decision is only reasonable when you know what you know and what you do not. This table is the answer to that: every live suggestion, the question it is waiting on, who can answer it, and the cheapest way to get the answer. It is generated from the two registers on every build, so it cannot quietly fall behind the queue it is supposed to organise.</p>
+{{readiness}}
 
 <h2 id="queue">The full queue</h2>
 <p>Every item, with the evidence for it, what it costs, and our recommendation. Status is one of <span class="status status-shipped">shipped</span>, <span class="status status-accepted">accepted</span> (mandated by the standing brief) or <span class="status status-proposed">proposed</span> (waiting on a choice).</p>

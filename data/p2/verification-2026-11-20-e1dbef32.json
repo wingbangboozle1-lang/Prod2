@@ -1,0 +1,188 @@
+{
+ "_meta": {
+  "session": "arena/e1dbef32-prod2",
+  "branch": "arena/e1dbef32-prod2",
+  "date_utc": "2026-11-20",
+  "scope": "Line-by-line verification of the sources the 2026-11-20 editorial pass depends on, plus the policy and search-guidance reads behind two register decisions. Product listings were NOT re-read by this session: two parallel sessions re-read all five the same day and their records are the live evidence (data/p2/live-check-2026-11-20-722181aa.json, data/p2/live-check-2026-11-20-d5157db6.json). This session did not duplicate that read and does not claim it.",
+  "method": "Every page below was fetched with the sandbox's page-fetch tool (curl egress is restricted to github.com, api.github.com, registry.npmjs.org, pypi.org and files.pythonhosted.org). Quoted strings are transcribed from the fetched text; nothing was paraphrased into a quotation. Where a figure could not be read, the entry says so instead of leaving an implied value.",
+  "reproduce": "Fetch each URL and compare the marked passages; then run python3 tools/build.py && python3 tools/checks.py."
+ },
+ "official_reads": [
+  {
+   "id": "V-READ-1",
+   "source_id": "S-FSIS-DANGER",
+   "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/danger-zone-40f-140f",
+   "page_dated": "Last Updated: Jun 28, 2023",
+   "read_utc": "2026-11-20",
+   "observed": [
+    "Title: \"\\u201cDanger Zone\\u201d (40°F - 140°F) | Food Safety and Inspection Service",
+    "\"Bacteria grow most rapidly in the range of temperatures between 40 °F and 140 °F, doubling in number in as little as 20 minutes. This range of temperatures is often called the \\u201cDanger Zone.\\u201d\"",
+    "\"Never leave food out of refrigeration over 2 hours. If the temperature is above 90 °F, food should not be left out more than 1 hour.\"",
+    "\"Keep hot food hot—at or above 140 °F. Place cooked food in chafing dishes, preheated steam tables, warming trays, and/or slow cookers.\"",
+    "\"Keep cold food cold—at or below 40 °F. Place food in containers on ice.\"",
+    "\"When roasting meat and poultry, use an oven temperature no lower than 325 °F.\"",
+    "\"For this reason leftovers must be put in shallow containers for quick cooling and refrigerated at 40 °F or below within two hours.\"",
+    "\"Foods should be reheated thoroughly to an internal temperature of 165 °F or until hot and steaming. In the microwave oven, cover food and rotate so it heats evenly.\""
+   ],
+   "not_observed": "No mention of air fryers anywhere on the page; no holding-temperature guidance for any countertop appliance.",
+   "used_on": [
+    "article-danger-zone.html",
+    "guide-leftovers.html"
+   ]
+  },
+  {
+   "id": "V-READ-2",
+   "source_id": "S-FSIS-LEFTOVERS",
+   "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety",
+   "page_dated": "Last Updated: Jul 31, 2020",
+   "read_utc": "2026-11-20",
+   "observed": [
+    "\"Not cooking food to a safe temperature and leaving food out at an unsafe temperature are the two main causes of foodborne illness.\"",
+    "\"Within 2 hours of cooking food or after it is removed from an appliance keeping it warm, leftovers must be refrigerated.\"",
+    "\"Throw away all perishable foods that have been left in room temperature for more than 2 hours (1 hour if the temperature is over 90° F, such as at an outdoor picnic during summer).\"",
+    "\"Leftovers can be kept in the refrigerator for 3 to 4 days or frozen for 3 to 4 months. Although safe indefinitely, frozen leftovers can lose moisture and flavor when stored for longer times in the freezer.\"",
+    "\"Hot food can be placed directly in the refrigerator or be rapidly chilled in an ice or cold water bath before refrigerating.\"",
+    "\"When reheating leftovers, be sure they reach 165° F as measured with a food thermometer. Reheat sauces, soups and gravies by bringing them to a rolling boil. Cover leftovers to reheat.\"",
+    "\"It is safe to reheat frozen leftovers without thawing, either in a saucepan or microwave (in the case of a soup or stew) or in the oven or microwave (for example, casseroles and combination meals).\"",
+    "\"It is safe to refreeze any food remaining after reheating previously frozen leftovers to the safe temperature of 165° F as measured with a food thermometer.\"",
+    "\"When thawing leftovers in a microwave, continue to heat it until it reaches 165° F as measured with a food thermometer.\"",
+    "Red meats 145°F with a three-minute rest; ground meats 160°F; poultry 165°F, in the page's own 'Cook Food Safely at Home' section."
+   ],
+   "not_observed": "The word 'air fryer' does not appear on the page; no appliance-specific reheat temperature or time is published for any countertop fryer.",
+   "used_on": [
+    "guide-leftovers.html",
+    "article-danger-zone.html"
+   ]
+  },
+  {
+   "id": "V-READ-3",
+   "source_id": "S-FSIS-CHART",
+   "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart",
+   "page_dated": "Last Updated: Apr 14, 2025",
+   "read_utc": "2026-11-20",
+   "observed_table": {
+    "Beef, Pork, Veal and Lamb Steaks, Chops and Roasts": "145 degrees F (62.8 degrees C) and allow to rest for at least 3 minutes",
+    "Ground Meats": "160 degrees F (71.1 degrees C)",
+    "Ground Poultry": "165 degrees F",
+    "Ham, Fresh or Smoked (Uncooked)": "145 degrees F (62.8 degrees C) and allow to rest for at least 3 minutes",
+    "Fully Cooked Ham (to Reheat)": "Reheat cooked hams packaged in USDA-inspected plants to 140 degrees F (60 degrees C) and all others to 165 degrees F (73.9 degrees C).",
+    "All Poultry (Breasts, Whole Bird, Legs, Thighs, Wings, Ground Poultry, Giblets and Stuffing)": "165 degrees F (73.9 degrees C)",
+    "Eggs": "160 degrees F (71.1 degrees C)",
+    "Fish & Shellfish": "145 degrees F (62.8 degrees C)",
+    "Leftovers": "165 degrees F (73.9 degrees C)",
+    "Casseroles": "165 degrees F (73.9 degrees C)"
+   },
+   "observed": [
+    "\"You can't see, smell or taste harmful bacteria that may cause illness.\"",
+    "Four standing guidelines, as listed: Clean, Separate, Cook, Chill.",
+    "\"For reasons of personal preference, consumers may choose to cook food to higher temperatures.\""
+   ],
+   "not_observed": "The 'Ground Poultry' row is printed with a Fahrenheit figure only — no Celsius conversion — so guide-safe-temp-chart.html says so rather than supplying one.",
+   "used_on": [
+    "guide-safe-temp-chart.html"
+   ]
+  },
+  {
+   "id": "V-READ-4",
+   "source_id": "S-UNL-AIRFRYER",
+   "url": "https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/",
+   "page_dated": "“This newsletter was written by Brenda Aufdenkamp and has been peer-reviewed. It was updated in 2025.”",
+   "read_utc": "2026-11-20",
+   "observed": [
+    "\"Air fryers cook by circulating extremely hot air around the food (also known as convection cooking).\"",
+    "\"Caution should be used to not overfill the basket or tray as foods will not cook evenly or reach the proper temperature. Overfilling the air fryer will interfere with the browning process.\"",
+    "\"Using a food thermometer is the only way to ensure safety of meat, poultry, and egg products when air frying. Place the food thermometer in the thickest part of the food, making sure not to touch bone, fat, or gristle.\"",
+    "\"It is important to properly clean your air fryer basket/tray after each use.\"",
+    "\"Check out the operator’s manual to learn more about how the air fryer works.\"",
+    "Recipe instruction: \"Store leftovers in a sealed container in the refrigerator for up to four days.\"",
+    "Its temperature table lists \"Eggs | 160°F (73.9°C)\" and has no 'Leftovers' row."
+   ],
+   "observed_discrepancy": "160°F is 71.1°C, not 73.9°C (73.9°C is 165°F), and the Celsius figure the same table prints for the 165°F rows is 73.9°C. Recorded as F-P26; only the Fahrenheit figure both sources share is published.",
+   "not_observed": "No preheat instruction, no holding temperature, no reheating time or setting, no clearance requirement.",
+   "used_on": [
+    "guide-safe-temp-chart.html",
+    "guide-leftovers.html",
+    "article-danger-zone.html"
+   ]
+  },
+  {
+   "id": "V-READ-5",
+   "source_id": "S-GFAQ",
+   "url": "https://developers.google.com/search/blog/2023/08/howto-faq-changes",
+   "page_dated": "Tuesday, August 8, 2023",
+   "read_utc": "2026-11-20",
+   "observed": [
+    "\"Going forward, FAQ (from FAQPage structured data) rich results will only be shown for well-known, authoritative government and health websites. For all other sites, this rich result will no longer be shown regularly.\"",
+    "\"While you can drop this structured data from your site, there's no need to proactively remove it. Structured data that's not being used does not cause problems for Search, but also has no visible effects in Google Search.\"",
+    "\"This should not be considered a ranking change and won't be listed in the Search status dashboard.\""
+   ],
+   "used_on": [
+    "DESIGN_PROMPT.md",
+    "decisions log D-P23",
+    "flag F-P27"
+   ]
+  },
+  {
+   "id": "V-READ-6",
+   "source_id": "S-GGALLERY",
+   "url": "https://developers.google.com/search/docs/appearance/structured-data/search-gallery",
+   "read_utc": "2026-11-20",
+   "observed": "The supported-features table lists Article, Breadcrumb, Carousel, Course list, Dataset, Discussion forum, Education Q&A, Employer aggregate rating, Event, Image metadata, Job posting, Local business, Math solver, Movie, Organization, Product, Profile page, Q&A, Recipe, Review snippet, Software app, Speakable, Subscription and paywalled content, Vacation rental and Video. FAQ is not listed.",
+   "not_observed": "The gallery describes Product as 'Information about a product, including price, availability, and review ratings' — fields this site does not publish (F-02). This site's Product node therefore carries none of them; whether to keep the node at all is a decision, not a fact.",
+   "used_on": [
+    "flag F-P29",
+    "decision D-P24",
+    "question Q-P21 context"
+   ]
+  },
+  {
+   "id": "V-READ-7",
+   "source_id": "S-GUPD",
+   "url": "https://developers.google.com/search/updates#removing-faq-rich-result",
+   "read_utc": "2026-11-20",
+   "observed": "The changelog lists, under June 2026, the entry 'Removing documentation for the FAQ rich result feature'. Requesting the former documentation path https://developers.google.com/search/docs/appearance/structured-data/faqpage returned this changelog page instead of a FAQ guide (a redirect observed, not inferred).",
+   "not_observed": "Secondary coverage dates the end of FAQ rich results to 2026-05-07 and describes Search Console and API support dropping in June and August 2026. Those specific dates were NOT confirmed against an official Google page in this sandbox and are not published on the site.",
+   "used_on": [
+    "flag F-P27",
+    "decision D-P23"
+   ]
+  }
+ ],
+ "repository_checks": [
+  {
+   "id": "V-01",
+   "check": "Paragraph balance on every built page",
+   "result": "33 pages, 0 mismatches after the guides.html repair; the defect reproduced before the fix (guides hub: 4 <p> opened, 5 </p> closed). Recorded as F-P25."
+  },
+  {
+   "id": "V-02",
+   "check": "FAQPage markup must match the visible Q&A blocks",
+   "result": "2 pages carry blocks; both emit 4 and 5 questions respectively, every question string appears in the visible text and every answer exceeds 60 characters."
+  },
+  {
+   "id": "V-03",
+   "check": "Cadence arithmetic",
+   "result": "Declared interval 14 days; the nine queue slots are spaced exactly 14 days apart (only distinct gap measured: 14); first_publish 2026-11-19 + 14 = 2026-12-03, which next_due_utc read while six pages had already shipped on 2026-11-19 and 2026-11-20. next_due_utc advanced to 2026-12-04 under the new rule and the mismatch is recorded as F-P30."
+  },
+  {
+   "id": "V-04",
+   "check": "Archived builds in the published tree",
+   "result": "git ls-files site → 25 files; site/index.html title 'Countercraft — Kitchen gear worth the counter space.'; a recursive grep for a currency-then-digits pattern in site/ returned no matches, so no price is exposed there. robots.txt now disallows /Prod2/site/ in addition to /Prod2/archive/. Recorded as F-P28 and Q-P21."
+  },
+  {
+   "id": "V-05",
+   "check": "Structured-data placeholder sweep",
+   "result": "Before the fix, the Product node hard-coded gtin13 null and a brand fallback string 'unknown'; all five products do carry a read brand today (Chefman, Emeril, Chefman, ThermoMaven, CHEF iQ), so nothing wrong was published. The fallback is removed (F-P29, D-P24)."
+  },
+  {
+   "id": "V-06",
+   "check": "Product listing re-verification",
+   "result": "NOT performed by this session. Two parallel sessions re-read all five /dp/ pages on 2026-11-20 and found the titles matching the register; the five submitted link.amazon short links again resolved to the Amazon homepage rather than to listings (F-P24). This session relies on those records and adds nothing to them."
+  }
+ ],
+ "files_written_from_these_reads": [
+  "content/pages/guide-safe-temp-chart.html",
+  "content/pages/guide-leftovers.html",
+  "content/pages/article-danger-zone.html"
+ ]
+}

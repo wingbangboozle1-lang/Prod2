@@ -21,6 +21,11 @@ Sections:
   chrome       one nav group ("The work behind it") + footer directory present
   seo          canonical/og:image/JSON-LD parse; sitemap covers every page;
                robots.txt points at the sitemap; feed items resolve
+  faq          FAQPage markup exists exactly where a visible Q&A block exists, with
+               the same questions, non-empty answers and no markup-only FAQ pages
+  cadence      the editorial calendar is enforced, not decorated: no overdue queue
+               slot, no dangling cluster/season reference, long-read word counts
+               re-measured against the built page, cadence gap reconciled
   shop         one shelf page with all five cards, buy buttons, imagery that
                exists, an About page, and no hands-on-testing claim
   longreads    every long read registered in the calendar exists, shows inline
@@ -239,6 +244,17 @@ def main() -> int:
                     fail(f"{f.name}: fragment {target}#{frag} has no matching id")
             elif target == f.name and frag not in page_ids[f.name]:
                 fail(f"{f.name}: fragment #{frag} has no matching id")
+    # unbalanced paragraph tags: a stray "</p>" or an unclosed "<p>" is the class of
+    # defect that produced F-P09..F-P11 — the source fragment looks fine to a human
+    # and renders wrong for a reader. Counted per page (2026-11-20, E-02 pass): the
+    # guides hub had orphaned half of its own lede outside the paragraph.
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        opens = len(re.findall(r"<p\b", text))
+        closes = len(re.findall(r"</p>", text))
+        if opens != closes:
+            fail(f"{f.name}: {opens} <p> opened but {closes} </p> closed — "
+                 f"an orphaned text node or a stray end tag (fix the fragment, not the count)")
     # register cross-references: every F-/Q-/SG-/D- id cited on a page exists
     registers = {
         "F": {x["id"] for x in json.loads((DATA / "flags.json").read_text(encoding="utf-8"))["flags"]},
@@ -377,6 +393,50 @@ def main() -> int:
     if not FAILURES:
         ok("meta/JSON-LD/sitemap/robots/feed consistent")
 
+    # -------------------------------------------------------------------- faq
+    check("faq")
+    # FAQPage markup is emitted by tools/build.py ONLY where the page shows a real
+    # question-and-answer block, derived from the rendered fragment. Two failure
+    # modes matter: markup with nothing visible behind it (a claim), and a visible
+    # FAQ with no markup (the drift the brief's own design document promised).
+    faq_pages = 0
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        blocks = len(re.findall(r'<div class="faq-item">', text))
+        m = re.search(r'<script type="application/ld\+json">(.*?)</script>', text, re.S)
+        nodes = []
+        if m:
+            try:
+                nodes = [n for n in json.loads(m.group(1)).get("@graph", [])
+                         if n.get("@type") == "FAQPage"]
+            except Exception:  # noqa: BLE001 - the seo section parses this properly
+                nodes = []
+        visible = re.sub(r"<[^>]+>", " ", text)
+        if blocks >= 2:
+            faq_pages += 1
+            if not nodes:
+                fail(f"{f.name}: {blocks} visible FAQ entries but no FAQPage markup")
+            else:
+                items = nodes[0].get("mainEntity") or []
+                if len(items) != blocks:
+                    fail(f"{f.name}: FAQPage markup has {len(items)} questions but the page "
+                         f"shows {blocks} — markup and content must be the same list")
+                for it in items:
+                    q = (it.get("name") or "").strip()
+                    a = ((it.get("acceptedAnswer") or {}).get("text") or "").strip()
+                    if not q or not a:
+                        fail(f"{f.name}: FAQPage question or answer is empty")
+                    if q and q not in visible:
+                        fail(f"{f.name}: FAQPage asks something the page does not say: {q[:60]!r}")
+                    if len(a) < 60:
+                        fail(f"{f.name}: FAQPage answer for {q[:40]!r} is {len(a)} chars — "
+                             f"an answer thin enough to need no markup should not carry markup")
+        elif nodes:
+            fail(f"{f.name}: FAQPage markup present with {blocks} visible entries — "
+                 f"markup must describe content a reader can actually see")
+    ok(f"{faq_pages} pages carry FAQ blocks with matching FAQPage markup "
+       "(descriptive markup only: no rich-result claim, see D-P23 / S-GFAQ)")
+
     # ----------------------------------------------------------- publication
     check("publication")
     cal = json.loads((DATA / "calendar.json").read_text(encoding="utf-8"))
@@ -467,6 +527,73 @@ def main() -> int:
             fail(f"{name}: long read is not in the feed")
     if not FAILURES:
         ok(f"{len(longreads)} long reads: sourced, verified-block present, in sitemap and feed")
+
+    # ------------------------------------------------------------- cadence
+    check("cadence")
+    # An editorial promise that nobody enforces is a defect waiting to rot. This
+    # section reads data/p2/calendar.json against the built site (2026-11-20, E-04).
+    import datetime as _dt
+    def _d(s):
+        return _dt.date.fromisoformat(s)
+    today = _d(build.BUILD_DATE)
+    cal = json.loads((DATA / "calendar.json").read_text(encoding="utf-8"))
+    # 1. a queued topic whose due date has passed must be shipped or deferred, on record
+    overdue = []
+    for q in cal.get("queue") or []:
+        due = q.get("due_utc")
+        if not due:
+            fail(f"cadence: queue slot {q.get('slot')} has no due date")
+            continue
+        if _d(due) <= today and not (q.get("shipped_utc") or q.get("deferred_until")):
+            overdue.append(f"slot {q.get('slot')} ({due}) — {q.get('title')!r}")
+    if overdue:
+        fail("editorial cadence is overdue and unreconciled — ship it, defer it with a date, "
+             f"or retire the slot: {'; '.join(overdue)}")
+    # 2. every guide a cluster or season points at must exist as a built page
+    dangling = []
+    for group in list(cal.get("clusters") or []) + list(cal.get("seasons") or []):
+        for g in group.get("guides") or []:
+            if not (DOCS / g).exists():
+                dangling.append(f"{group.get('id')}: {g}")
+    if dangling:
+        fail("calendar points at pages that are not built: " + "; ".join(dangling))
+    # 3. the long-read register's word count must still describe the page
+    for item in (cal.get("longreads") or {}).get("items") or []:
+        f = DOCS / item["path"]
+        if not f.exists():
+            continue  # covered by the longreads section
+        main = re.search(r"<main[^>]*>(.*?)</main>", f.read_text(encoding="utf-8"), re.S)
+        body = re.sub(r"<script.*?</script>", " ", main.group(1) if main else "", flags=re.S)
+        words = len(re.sub(r"<[^>]+>", " ", body).split())
+        recorded = item.get("words_checked") or 0
+        # measured on the fragment at authoring time, so the built page (which adds
+        # the chrome-wrapped links) reads slightly longer; 20% is the slack that
+        # allows for editing, anything bigger means the register stopped matching.
+        if recorded and abs(words - recorded) / max(words, 1) > 0.20:
+            fail(f"{item['path']}: register says {recorded} words, the built page has {words} — "
+                 f"the long read changed without the register being re-measured")
+    # 4. shipping must advance the schedule. The register promises an interval; if the
+    #    newest recorded publish plus that interval lands after next_due_utc, the
+    #    calendar was left behind by a build. This is the rule F-P30 asked for: the
+    #    cadence line stops being prose the moment the schedule can drift from it.
+    cad = cal.get("cadence") or {}
+    nxt, interval = cad.get("next_due_utc"), cad.get("interval_days")
+    pubs = [x.get("shipped_utc") for x in (cal.get("queue") or []) if x.get("shipped_utc")]
+    pubs += [x.get("published_utc") for x in (cal.get("published_early") or []) if x.get("published_utc")]
+    pubs += [x.get("published_utc") for x in (cal.get("longreads") or {}).get("items") or [] if x.get("published_utc")]
+    if nxt and interval and pubs:
+        required = max(_d(x) for x in pubs) + _dt.timedelta(days=interval)
+        if _d(nxt) < required:
+            fail(f"cadence: the newest publish is {max(pubs)} and the declared interval is "
+                 f"{interval} days, so next_due_utc cannot be earlier than {required} (it reads {nxt})")
+    # 5. a slot is either scheduled, shipped or blocked — never silently unanswerable
+    blocked = [x for x in (cal.get("queue") or []) if x.get("blocked_by")]
+    for x in blocked:
+        if not x.get("status"):
+            fail(f"cadence: queue slot {x.get('slot')} is blocked on {x['blocked_by']} but says so nowhere")
+    if not FAILURES:
+        ok(f"cadence held: {len(cal.get('queue') or [])} queued slots (none overdue, {len(blocked)} blocked on record), "
+           f"{len((cal.get('longreads') or {}).get('items') or [])} long reads measured, next due {nxt}")
 
     # ------------------------------------------------------------ shop surface
     check("shop")

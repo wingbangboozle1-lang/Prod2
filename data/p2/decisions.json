@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded."
+  "last_change": "2026-11-20 (arena/e1dbef32-prod2): D-P23..D-P26 appended — the FAQPage decision with the Google reads behind it, the evidence rule extended to structured data, the sourcing rule for new editorial, and the cadence gate. Note for integration: open PR #47 reuses D-P21 (already the event-vocabulary decision on main) and claims D-P22; that row must be remapped by its own session. Append-only."
  },
  "decisions": [
   {
@@ -312,6 +312,73 @@
     "F-P23",
     "Q-P14",
     "SG-41"
+   ]
+  },
+  {
+   "id": "D-P23",
+   "question": "Should the site emit FAQPage structured data, and what is it allowed to claim?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "Emit it, but only where a page shows the questions to a reader, and never describe it as a search tactic. tools/build.py now derives a FAQPage node from the visible .faq-item blocks on the rendered page; tools/checks.py fails when the visible count and the markup count differ, when an answer is shorter than 60 characters, or when markup exists with no content behind it. DESIGN_PROMPT.md's 'FAQPage + Article' line was rewritten to say the same thing.",
+   "rationale": "The brief promised markup the generator never emitted (F-P27). Before adding it, the search value was checked at the source: Google narrowed FAQ rich results to well-known authoritative government and health websites on 2023-08-08 ('For all other sites, this rich result will no longer be shown regularly'), its changelog records 'Removing documentation for the FAQ rich result feature' in June 2026, and its supported-features gallery as read 2026-11-20 does not list FAQ among what it supports. So the honest benefit is machine-readable structure and clean extraction — not a SERP treatment — and the site says that rather than selling the owner a tactic that no longer exists.",
+   "sources": [
+    "https://developers.google.com/search/blog/2023/08/howto-faq-changes",
+    "https://developers.google.com/search/docs/appearance/structured-data/search-gallery",
+    "https://developers.google.com/search/updates#removing-faq-rich-result"
+   ],
+   "affects": [
+    "F-P27",
+    "Q-P20",
+    "SG-48"
+   ]
+  },
+  {
+   "id": "D-P24",
+   "question": "What does the evidence rule mean for machine-readable data?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "The same thing it means on the page: a field the register does not hold is omitted from the JSON-LD, never written as null and never filled with a placeholder. The Product node dropped its hard-coded \"gtin13\": null and its 'unknown' brand fallback; brand now appears only when a brand was actually read.",
+   "rationale": "A page can hold the line on blanks while the structured data next to it invents a value, and a crawler reads both. All five products do have a listed brand today, so nothing wrong was published — but the fallback would have fired the first time a read came back empty, and the fix belongs in the generator rather than in a reviewer's memory.",
+   "sources": [
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py",
+    "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart"
+   ],
+   "affects": [
+    "F-P29",
+    "F-02"
+   ]
+  },
+  {
+   "id": "D-P25",
+   "question": "Where does new editorial come from when the listings are already mined out?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "From the official guidance the listings do not carry. Three pages shipped today — the temperature-chart reference (guide-safe-temp-chart), the leftovers guide (guide-leftovers) and the Danger Zone long read (article-danger-zone) — each built from USDA FSIS factsheets and the peer-reviewed Nebraska Extension handout read the same day, with the product angle limited to values already in the register. The chart page becomes this site's canonical target for doneness questions; the older pages keep their own framing and link to it instead of repeating it.",
+   "rationale": "The site's differentiation is receipts, and receipts need a source that is not the marketing. A buyer deciding between a 6 qt dual-basket machine and a 26 qt oven is also deciding how to cook safely in it, and no listing answers that. The temperature-chart page also fixes a duplication risk: two existing pages already cite the same FSIS table, and a third page pointing at the same source needs to be the reference, not another paraphrase.",
+   "sources": [
+    "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart",
+    "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/danger-zone-40f-140f",
+    "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety",
+    "https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/"
+   ],
+   "affects": [
+    "SG-45",
+    "Q-P18",
+    "F-P26"
+   ]
+  },
+  {
+   "id": "D-P26",
+   "question": "How is the publishing promise kept honest now that the calendar is public?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "By gate, not by intention. tools/checks.py gained a 'cadence' section: a queue slot past its due date with no shipped or deferred entry fails the build; a cluster or season pointing at a page that is not built fails it; a long read whose recorded word count no longer matches the built page fails it (20% slack); and a publish that does not advance next_due_utc fails it. next_due_utc moved to 2026-12-04 under that last rule, and queue slot 1 now carries blocked_by: Q-P18 with a status the guides hub renders, so a topic that cannot be answered from the register is visibly blocked rather than quietly overdue.",
+   "rationale": "The alternative to enforcement is drift the reader can see. Six pages shipped out of queue order in two days with nothing tying the schedule to the publishes (F-P30), and slot 1's stated source — the listings — cannot answer a rituals question. Marking it blocked keeps the calendar truthful without inventing content to meet a date, which is the failure mode this project has been built to refuse.",
+   "sources": [
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/checks.py"
+   ],
+   "affects": [
+    "F-P30",
+    "Q-P18",
+    "Q-P19",
+    "SG-50"
    ]
   }
  ]

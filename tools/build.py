@@ -126,6 +126,18 @@ PAGES = [
      f"Gift guide: which of the five fits which cook? | {BRAND}",
      "Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.",
      "guides"),
+    ("guide-safe-temp-chart", "guide-safe-temp-chart.html",
+     f"What temperature counts as done? | {BRAND}",
+     "The USDA FSIS minimum internal temperature chart, food by food, with the rest-time detail listings leave out — and which thermometer clears which number.",
+     "guides"),
+    ("guide-leftovers", "guide-leftovers.html",
+     f"Leftovers: how long are they safe? | {BRAND}",
+     "Three to four days, four months frozen, reheat to 165°F: the USDA leftovers rules, plus what an air fryer can and cannot be claimed to do with them.",
+     "guides"),
+    ("article-danger-zone", "article-danger-zone.html",
+     f"The two-hour clock and the Danger Zone | {BRAND}",
+     "What the 40–140°F rule actually asks of a counter-top cook: hot holding, rapid cooling, the 165°F reheat, and where the official guidance goes quiet on air fryers.",
+     "guides"),
     ("guides", "guides.html",
      f"Guides: one buyer question per page | {BRAND}",
      "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
@@ -179,8 +191,9 @@ PAGES = [
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
              "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
-             "guide-gift-guide"]
-GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
+             "guide-gift-guide", "guide-safe-temp-chart", "guide-leftovers"]
+PAGE_TITLES = {p[0]: p[2] for p in PAGES}
+GUIDE_TITLES = {g: PAGE_TITLES[g] for g in GUIDE_IDS}
 
 
 # ---------------------------------------------------------------------------
@@ -253,6 +266,8 @@ GUIDE_LINKS = [
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
     ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
     ("guide-gift-guide.html", "The gift guide"),
+    ("guide-safe-temp-chart.html", "What temperature is done?"),
+    ("guide-leftovers.html", "Leftovers: the storage clock"),
     ("guides.html", "All guides"),
 ]
 
@@ -685,6 +700,11 @@ GUIDE_BLURBS = {
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
     "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
+    "guide-safe-temp-chart": "The chart that decides whether dinner worked, read food by food, with its rest times.",
+    "guide-leftovers": "The 3-4 day clock, the 165°F reheat, and where the guidance stops talking about air fryers.",
+    "article-thermometer-placement": "Why the USDA spends more words on where the probe goes than on how precise it is.",
+    "article-air-fryer-doneness": "Internal temperature, not capacity or wattage: the number that decides whether the batch worked.",
+    "article-danger-zone": "The 40-140°F clock, the holding list that does not include an air fryer, and the 165°F reheat.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -697,11 +717,16 @@ GUIDE_TAGS = {
     "guide-holiday-hosting": "Seasonal",
     "guide-instant-vs-leave-in": "Thermometers",
     "guide-gift-guide": "Seasonal",
+    "guide-safe-temp-chart": "Doneness",
+    "guide-leftovers": "Leftovers",
+    "article-thermometer-placement": "Long read",
+    "article-air-fryer-doneness": "Long read",
+    "article-danger-zone": "Long read",
 }
 
 
 def _guide_card(gid: str) -> str:
-    title = GUIDE_TITLES[gid].split(" | ")[0]
+    title = PAGE_TITLES[gid].split(" | ")[0]
     return f"""
   <article class="card guide-card">
     <span class="tag">{esc(GUIDE_TAGS.get(gid, "Guide"))}</span>
@@ -709,6 +734,25 @@ def _guide_card(gid: str) -> str:
     <p>{esc(GUIDE_BLURBS.get(gid, ""))}</p>
     <a class="more" href="{gid}.html">Read the guide</a>
   </article>"""
+
+
+def hook_trust_row(_="") -> str:
+    """The hero's count row, computed from the registers instead of typed by hand.
+
+    Added 2026-11-20 after the pass that tripled the long reads left a hand-written
+    "12 guides & reads" on the front page — a number that can only drift. It is a
+    count of what this site publishes, not a claim about anyone else's traffic.
+    """
+    longreads = len((CALENDAR.get("longreads") or {}).get("items") or [])
+    formats = len({p["format"] for p in PRODUCTS if "thermometer" not in p["format"].lower()})
+    numbers = [
+        (len(PRODUCTS), "tools followed"),
+        (formats, "air fryer formats"),
+        (len(GUIDE_IDS) + longreads, "buyer guides &amp; long reads"),
+        (0, "made-up specs"),
+    ]
+    cells = "".join(f"<div><b>{n}</b><span>{label}</span></div>" for n, label in numbers)
+    return f'<div class="trust-row">{cells}</div>'
 
 
 def hook_guide_cards(_="") -> str:
@@ -762,7 +806,7 @@ def hook_season_desk(_="") -> str:
     blocks = []
     for s in CALENDAR["seasons"]:
         links = "".join(
-            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
+            f'<li><a href="{esc(g)}">{esc(PAGE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
             for g in s["guides"])
         blocks.append(f"""
   <div class="card season-card">
@@ -782,7 +826,7 @@ def hook_clusters(_="") -> str:
     blocks = []
     for c in CALENDAR["clusters"]:
         links = "".join(
-            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
+            f'<li><a href="{esc(g)}">{esc(PAGE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
             for g in c["guides"])
         blocks.append(f"""
   <div class="card cluster-card">
@@ -795,13 +839,99 @@ def hook_clusters(_="") -> str:
     return '<div class="card-grid cluster-grid">' + "".join(blocks) + "</div>"
 
 
+def _queue_stats() -> dict:
+    q_by = {q["id"]: q for q in QUESTIONS}
+    open_q = {q["id"] for q in QUESTIONS if q.get("status") != "answered"}
+    counts = {"proposed": 0, "accepted": 0, "shipped": 0, "rejected": 0}
+    blocked = ready = 0
+    for s in SUGGESTIONS:
+        counts[s["status"]] = counts.get(s["status"], 0) + 1
+        if s["status"] in ("proposed", "accepted"):
+            deps = [x for x in s.get("depends_on", []) if x in q_by]
+            waiting = [x for x in deps if x in open_q]
+            if waiting:
+                blocked += 1
+            else:
+                ready += 1
+    return {"total": len(SUGGESTIONS), "open_questions": len(open_q), "blocked": blocked,
+            "ready": ready, **counts}
+
+
+def hook_queue_stats(_="") -> str:
+    """The queue's own counts, computed from the register on every build.
+
+    Added 2026-11-20: this page opened with a typed 'Thirty-eight items' sentence,
+    which was wrong the moment a row was appended (it read thirty-eight against a
+    register of thirty-eight, then forty-five). A review surface that miscounts its
+    own queue cannot be trusted to rank it.
+    """
+    c = _queue_stats()
+    return (f'<strong>{c["total"]} items</strong> in this queue: {c["proposed"]} still proposed, '
+            f'{c["accepted"]} accepted, {c["shipped"]} shipped, {c["rejected"]} rejected. '
+            f'{c["blocked"]} of the live items wait on an answer this repository cannot produce '
+            f'({c["open_questions"]} open questions); {c["ready"]} can be approved and built with '
+            f'no new information at all.')
+
+
+def hook_readiness(_="") -> str:
+    """What must be true before each live suggestion can be decided.
+
+    Derived mechanically: a suggestion's depends_on names the questions it waits on,
+    and each question carries who can answer it and the cheapest route to the answer.
+    Nothing in this table is authored here — it is the two registers shown against
+    each other, so it cannot drift from them (the class of defect F-P27 was).
+    """
+    q_by = {q["id"]: q for q in QUESTIONS}
+    open_q = {q["id"] for q in QUESTIONS if q.get("status") != "answered"}
+    rows, ready_rows = [], []
+    for s in SUGGESTIONS:
+        if s["status"] not in ("proposed", "accepted"):
+            continue
+        deps = [q_by[x] for x in s.get("depends_on", []) if x in q_by]
+        waiting = [q for q in deps if q["id"] in open_q]
+        if not waiting:
+            ready_rows.append(s["id"])
+            wait = '<span class="status status-shipped">nothing blocks it</span>'
+            who, route = "\u2014", "Approve it and it builds in one pass."
+        else:
+            wait = " ".join(f'<a href="questions.html#{esc(q["id"])}"><code>{esc(q["id"])}</code></a>'
+                            for q in waiting)
+            who = "; ".join(sorted({q["answerable_by"] for q in waiting}))
+            first = waiting[0]["how_to_discover"]
+            route = (first if len(first) <= 200 else first[:197].rstrip() + "\u2026")
+        rows.append(
+            f'<tr id="ready-{esc(s["id"])}"><td><a href="#{esc(s["id"])}"><code>{esc(s["id"])}</code></a> '
+            f'{esc(s["title"])}</td>'
+            f'<td><span class="status status-{esc(s["status"])}">{esc(s["status"])}</span></td>'
+            f'<td>{wait}</td><td>{esc(who)}</td><td>{esc(route)}</td></tr>')
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>Live suggestion</th>'
+            '<th>Status</th><th>Waits on</th><th>Who can answer</th><th>Cheapest route to the answer</th>'
+            '</tr></thead><tbody>' + "".join(rows) + '</tbody></table></div>'
+            f'<p class="table-note"><strong>{len(ready_rows)} of these need no new information at all</strong> '
+            f'and can be approved today: ' +
+            ", ".join(f'<a href="#{esc(x)}"><code>{esc(x)}</code></a>' for x in ready_rows[:12]) +
+            (f" and {len(ready_rows) - 12} more" if len(ready_rows) > 12 else "") +
+            '. The rest are blocked by an open question, not by work: the table is generated from '
+            '<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" '
+            'rel="noopener" target="_blank">data/p2/suggestions.json</a> and '
+            '<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/questions.json" '
+            'rel="noopener" target="_blank">data/p2/questions.json</a> on every build, so it cannot '
+            'flatter the queue or hide a row from it.</p>')
+
+
 def hook_queue(_="") -> str:
-    rows = "".join(
-        f'<tr><td>{esc(q["due_utc"])}</td><td>{esc(q["title"])}</td><td>{esc(q["answers_with"])}</td></tr>'
-        for q in CALENDAR["queue"])
+    rows = []
+    for q in CALENDAR["queue"]:
+        status = q.get("status") or "scheduled"
+        blocked = q.get("blocked_by")
+        state = f'<span class="status status-unverified">{esc(status)}</span>'
+        if blocked:
+            state += f'<br><a class="src" href="questions.html#{esc(blocked)}">{esc(blocked)}</a>'
+        rows.append(f'<tr><td>{esc(q["due_utc"])}</td><td>{esc(q["title"])}</td>'
+                    f'<td>{esc(q["answers_with"])}</td><td>{state}</td></tr>')
     return (f'<div class="table-scroll"><table class="data"><thead><tr><th>Due (UTC)</th>'
             f"<th>Working title — a hypothesis, not a popularity claim</th>"
-            f"<th>Answerable from</th></tr></thead><tbody>{rows}</tbody></table></div>"
+            f"<th>Answerable from</th><th>Status</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>"
             f'<p class="table-note">Cadence: {esc(CALENDAR["cadence"]["unit"])}, every '
             f'{esc(str(CALENDAR["cadence"]["interval_days"]))} days; next due '
             f'{esc(CALENDAR["cadence"]["next_due_utc"])}. {esc(CALENDAR["cadence"]["rule"])}</p>')
@@ -824,7 +954,7 @@ def hook_questions_summary(_="") -> str:
 def hook_guides_index(_="") -> str:
     out = []
     for c in CALENDAR["clusters"]:
-        items = "".join(_guide_card(g[:-5]) for g in c["guides"] if g[:-5] in GUIDE_TITLES)
+        items = "".join(_guide_card(g[:-5]) for g in c["guides"] if g[:-5] in PAGE_TITLES)
         out.append(f'<h2 class="cluster-head">Cluster: {esc(c["name"])}</h2>'
                    f'<p class="lede">{esc(c["line"])} Start at the '
                    f'<a href="{esc(c["pillar"])}">{esc(c["name"].lower())} pillar</a> or pick a question.</p>'
@@ -890,6 +1020,7 @@ HOOKS = {
     "guide_links": hook_guide_links,
     "comparison_cta": hook_comparison_cta,
     "guide_cards": hook_guide_cards,
+    "trust_row": hook_trust_row,
     "subscribe": hook_subscribe,
     "reader_capture": hook_reader_capture,
     "byline": hook_byline,
@@ -897,6 +1028,8 @@ HOOKS = {
     "clusters": hook_clusters,
     "queue": hook_queue,
     "questions_summary": hook_questions_summary,
+    "queue_stats": hook_queue_stats,
+    "readiness": hook_readiness,
     "guides_index": hook_guides_index,
     "shop_grid": hook_shop_grid,
     "compare_table": hook_compare_table,
@@ -973,7 +1106,26 @@ def render_fragment(text: str) -> str:
 # ---------------------------------------------------------------------------
 # JSON-LD
 # ---------------------------------------------------------------------------
-def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
+FAQ_ITEM = re.compile(
+    r'<div class="faq-item">\s*<h3>(.*?)</h3>\s*<p>(.*?)</p>', re.S)
+TAG_STRIP = re.compile(r"<[^>]+>")
+
+
+def faq_pairs(fragment: str) -> list[tuple[str, str]]:
+    """Questions and answers published visibly on the page, in order.
+
+    FAQPage markup is derived from the rendered content, never from a separate
+    list, so structured data cannot drift from what the reader can see (the
+    failure mode F-P09..F-P11 were: machine said one thing, page said another).
+    """
+    out = []
+    for q, a in FAQ_ITEM.findall(fragment):
+        clean = lambda s: html.unescape(TAG_STRIP.sub("", s)).strip()
+        out.append((clean(q), clean(a)))
+    return out
+
+
+def jsonld_for(page_id: str, title: str, description: str, path: str, content: str = "") -> str:
     graph = [{
         "@type": "WebSite", "name": f"{BRAND} — {DESCRIPTOR}", "url": BASE + "/",
         "description": TAGLINE,
@@ -987,20 +1139,25 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
     if page_id in ("index", "compare", "products"):
         items = []
         for i, p in enumerate(PRODUCTS, 1):
+            node = {
+                "@type": "Product",
+                "name": p["name_listing"],
+                "sku": p["asin"],
+                "category": p.get("category_path"),
+                "url": "https://www.amazon.com/dp/" + p["asin"],
+                "description": p.get("special_feature"),
+            }
+            # A value we could not read is omitted, never written as null or filled
+            # with a placeholder: "brand": {"name": "unknown"} would be an invented
+            # fact inside machine-readable data, which is exactly what the evidence
+            # rule forbids on the page itself (F-02 lineage, D-P24).
+            if p.get("brand"):
+                node["brand"] = {"@type": "Brand", "name": p["brand"]}
             items.append({
                 "@type": "ListItem", "position": i,
                 "url": BASE + "/products.html#" + p["id"],
                 "name": p["name_short"],
-                "item": {
-                    "@type": "Product",
-                    "name": p["name_listing"],
-                    "sku": p["asin"],
-                    "gtin13": None,
-                    "brand": {"@type": "Brand", "name": p.get("brand") or "unknown"},
-                    "category": p.get("category_path"),
-                    "url": "https://www.amazon.com/dp/" + p["asin"],
-                    "description": p.get("special_feature"),
-                },
+                "item": node,
             })
         graph.append({"@type": "ItemList", "name": "Products compared on " + BRAND,
                       "itemListElement": items})
@@ -1012,6 +1169,19 @@ def jsonld_for(page_id: str, title: str, description: str, path: str) -> str:
             "author": {"@type": "Organization", "name": BRAND},
             "publisher": {"@type": "Organization", "name": BRAND},
             "mainEntityOfPage": {"@type": "WebPage", "@id": BASE + "/" + path},
+        })
+    # FAQPage markup ships ONLY where the page actually shows a question-and-answer
+    # block. Recorded deliberately: Google's supported-features gallery (read
+    # 2026-11-20) does not list FAQ among the rich results it supports, so this is
+    # machine-readability, not a rich-results play (D-P23, F-P27).
+    faq = faq_pairs(content)
+    if len(faq) >= 2:
+        graph.append({
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question", "name": q,
+                "acceptedAnswer": {"@type": "Answer", "text": a},
+            } for q, a in faq],
         })
     return json.dumps({"@context": "https://schema.org", "@graph": graph},
                       ensure_ascii=False, indent=1)
@@ -1074,7 +1244,7 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
     out = LAYOUT.format(
         title=esc(title), description=esc(description), canonical=f"{BASE}/{path}",
         base=esc(BASE), brand=esc(BRAND), descriptor=esc(DESCRIPTOR),
-        jsonld=jsonld_for(page_id, title, description, path),
+        jsonld=jsonld_for(page_id, title, description, path, content),
         page_id=esc(page_id), nav=nav, disclosure=DISCLOSURE_STRIP,
         content=content, footer=build_footer(),
         endpoint=esc(SETTINGS.get("analytics_endpoint", "") or ""),
@@ -1085,7 +1255,8 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
 
 def build_feed() -> None:
     items = []
-    for gid in GUIDE_IDS + ["buying-guide", "article-thermometer-placement", "article-air-fryer-doneness"]:
+    longreads = [i["path"][:-5] for i in (CALENDAR.get("longreads") or {}).get("items") or []]
+    for gid in GUIDE_IDS + ["buying-guide"] + [g for g in longreads if g not in GUIDE_IDS]:
         p = next(x for x in PAGES if x[0] == gid)
         items.append(f"""    <item>
       <title>{esc(p[2].split(' | ')[0])}</title>
@@ -1121,7 +1292,12 @@ def build_sitemap() -> None:
 
 def build_robots() -> None:
     (DOCS / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\nDisallow: /Prod2/archive/\n\n"
+        "User-agent: *\nAllow: /\n"
+        # Two archived builds are still in the tree and, while Pages serves the repo
+        # root (F-P19), still reachable by path. They are not the site: no canonical,
+        # a second brand, a second copy of every guide. Kept out of the index rather
+        # than duplicated into it (F-P28, one-site rule INT-06).
+        "Disallow: /Prod2/archive/\nDisallow: /Prod2/site/\n\n"
         f"Sitemap: {BASE}/sitemap.xml\n", encoding="utf-8")
 
 

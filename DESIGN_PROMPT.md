@@ -109,14 +109,27 @@ question, not a claim about search volume or product superiority:
 - "Holiday hosting: which format earns the counter?" (big meals, borrowed
   counter space, eat-in waves)
 
-## Organic traffic hooks
+## Organic traffic hooks (corrected 2026-11-20 against what the build ships)
 
 Every guide page is built for search: unique `<title>` + meta description,
-FAQPage + Article structured data, canonical URL, and inclusion in both
-`sitemap.xml` and `feed.xml` by the same build. Search Console verification
-meta is emitted when the owner supplies the token (settings.json). The feed
-covers every guide so subscribers get each new question-shaped article the
-day it publishes.
+canonical URL, and inclusion in both `sitemap.xml` and `feed.xml` by the same
+build. Search Console verification meta is emitted when the owner supplies the
+token (settings.json). The feed is generated from the calendar register, so a
+new guide or long read is in the feed the day it publishes — no hand-maintained
+list to fall behind.
+
+**Structured data, stated honestly.** The build emits WebSite, BreadcrumbList,
+an ItemList of Product nodes, Article, and FAQPage **only on pages that show a
+visible question-and-answer block**; the markup is derived from that block, and
+`tools/checks.py` fails when the two lists disagree. Do not design around FAQ
+rich results: Google narrowed FAQ rich results to well-known authoritative
+government and health websites on 2023-08-08, its changelog records "Removing
+documentation for the FAQ rich result feature" in June 2026, and its
+supported-features gallery as read 2026-11-20 does not list FAQ. FAQPage here is
+reader structure and machine readability, not a SERP tactic (D-P23, F-P27).
+Product nodes carry only fields the register actually holds — no null
+identifiers, no placeholder brand (D-P24, F-P29), because this site publishes no
+price, availability or rating (F-02).
 
 ## Queued inputs (2026-11-19)
 
@@ -138,3 +151,40 @@ is built):
 - **SG-17** — seasonal front-page merchandising scaffolding (grilling,
   gifting), gated on the seasonal-window question Q-P07; calendar-based
   framing only, per the evidence rule D-19.
+
+## Queued inputs (2026-11-20, this pass — design and content directions)
+
+The owner's standing brief is that the site reads as a polished shop that earns
+organic traffic, never as generated filler. These are the rows in the suggestion
+queue that carry that brief into design; each is proposed, not built, and each is
+reviewable on `suggestions.html` (the page now opens with a generated
+decision-readiness table so a reviewer can see what a choice costs before
+making it):
+
+- **SG-48** — retro-fit visible Q&A blocks to the ten guides that lack them,
+  using the mechanism shipped with the two new guides (gated pairing, so an FAQ
+  can never be a claim about content that is not there).
+- **SG-49** — a first-screen "short answer" callout on every reader page, with
+  at least one inline source marker inside it, so an answer never outruns its
+  receipt. Pattern in use on `guide-safe-temp-chart.html`,
+  `guide-leftovers.html` and the front-page long-read cards.
+- **SG-50** — resource the 14-day cadence or delete the promise; the cadence
+  gate now makes an unreconciled slot a build failure, so the copy has to match
+  the machinery (F-P30, Q-P19).
+- **SG-51** — obtain the three operator's manuals from the manufacturers'
+  official pages: four how-to topics, including the hot-holding question that
+  decides holiday hosting, cannot be designed or written without them (Q-P18).
+- **SG-52** — decide what the published branch may contain: the Pages source
+  change removes the archived builds' exposure, or the exposure becomes a
+  recorded choice (F-P28, Q-P21).
+- **SG-53** — merchandise the shelf by cooking job (rails generated from the
+  listed format and best-for fields), which is the marketing-side change with
+  the most reach and the least new claim.
+- **SG-54** — a named human in the byline, or an explicit decision to stay
+  organizational; the byline currently reads as an organization in the copy and
+  in the Article author node.
+
+Editorial direction added with this pass: new topics come from official
+guidance the listings do not carry (USDA FSIS, peer-reviewed extension
+guidance), not from re-wording listing copy. Three pages shipped on that rule
+and the sourcing standard is recorded in the decisions log (D-P25).

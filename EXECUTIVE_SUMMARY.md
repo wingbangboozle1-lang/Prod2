@@ -138,6 +138,42 @@ and the questions register gained a scannable status table plus Q-P05/Q-P06.
 7. Product photography decision (S-18/D-22/Q-P05): still awaiting the IP-licence read; drawn illustrations are the shipped interim (D-P12), with seasonal hero-art extension queued (SG-39).
 
 
+## The 2026-11-20 editorial and governance pass (session arena/e1dbef32-prod2)
+
+**Reader-facing.** Three new pages, each built from an official source the listings do not carry, read the same day and recorded
+line by line in `data/p2/verification-2026-11-20-e1dbef32.json`:
+
+| Page | Question it answers | Primary source (read 2026-11-20) |
+| --- | --- | --- |
+| `guide-safe-temp-chart.html` | What temperature counts as done, food by food | [USDA FSIS Safe Minimum Internal Temperature Chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) (page dated Apr 14, 2025) |
+| `guide-leftovers.html` | How long leftovers are safe, and what reheating requires | [USDA FSIS Leftovers and Food Safety](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety) (page dated Jul 31, 2020) |
+| `article-danger-zone.html` | What the 40–140°F clock asks of a counter-top cook | [USDA FSIS "Danger Zone"](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/danger-zone-40f-140f) (Jun 28, 2023) + [Nebraska Extension air-fryer guidance](https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/) (peer-reviewed, 2025) |
+
+Twelve guide pages and three long reads now publish; the front page's count row is generated from the registers (12 guides +
+3 reads + 5 products) instead of typed, because the typed version had already gone stale once.
+
+**Machinery.** `tools/build.py` derives `FAQPage` JSON-LD from the *visible* Q&A blocks on a page, and `tools/checks.py` fails
+the build when markup and content disagree, when an answer is shorter than 60 characters, or when markup exists with nothing
+behind it. Product nodes no longer carry a null `gtin13` or a placeholder brand string (D-P24, F-P29): an unread field is
+omitted, exactly as it is on the page. Paragraph balance is now a gate rule — it caught a real defect the same day
+(F-P25: the guides hub had shipped half its lede outside the paragraph). And a new `cadence` section enforces the editorial
+calendar: an overdue queue slot, a cluster pointing at a page that is not built, a long-read word count that no longer
+matches the built page, or a publish that fails to advance `next_due_utc` each fail the build (F-P30, D-P26). The
+measurement/`npm test` suite is unchanged and green.
+
+**Decision support.** `suggestions.html` gained a generated **decision-readiness table** (`{{readiness}}`): every live
+proposal, the open question that blocks it, who can answer it, and the cheapest route to the answer — computed from
+`data/p2/suggestions.json` × `data/p2/questions.json`, so the review surface cannot fall behind the registers it
+summarises. It also states, with numbers, how much is decidable today: **11 of the live proposals need no new information at
+all**; 20 wait on an answer this repository cannot produce. Seven proposals were added (SG-48…SG-54) covering the FAQ
+rollout, first-screen answers, cadence resourcing, the manuals that unblock four topics, the archived-build exposure,
+job-led shelf merchandising and a named byline. Four open questions were added (Q-P18…Q-P21).
+
+**What this pass did not do, deliberately.** It did not re-read the five listings a third time on 2026-11-20 — two parallel
+sessions had already done so and their records stand (F-P24). It did not publish a price, a rating, a popularity claim or a
+revenue figure; it did not invent a cook time, a holding temperature or an author; and it did not treat FAQ markup as a
+search ranking tactic (D-P23).
+
 
 ---
 

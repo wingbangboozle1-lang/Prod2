@@ -44,6 +44,8 @@ python3 server.mjs --port 8787
 | `claims` | no price patterns (`$…`) and no star-rating patterns anywhere (F-02); no banned popularity words ("trending", "best-selling", …) on reader-facing pages (D-19) |
 | `chrome` | the single navigation group ("The work behind it") and the footer directory appear on every page |
 | `seo` | canonical + og:image + parseable JSON-LD per page; sitemap covers exactly the built pages; robots.txt points at the sitemap; feed items resolve |
+| `faq` | FAQPage markup exists exactly where the page shows a visible Q&A block: same count, same question strings, no answer under 60 characters, and no markup with nothing behind it (D-P23) |
+| `cadence` | the editorial calendar is enforced: no queue slot past due without a shipped or deferred entry, no cluster or season pointing at a page that is not built, long-read word counts re-measured against the built page, and a publish that fails to advance `next_due_utc` (F-P30) |
 | `publication` | every guide reaches the comparison, the buying guide and its cluster pillars (S-24 rule, automated); the feed covers every guide; the reader-capture form's consent checkbox and gate state match `settings.json`; the Search Console verification meta appears only while a token is configured |
 | `freshness` | `docs/` byte-matches a fresh render from `data/` + `content/` — no stale output can ship |
 
@@ -68,6 +70,6 @@ python3 server.mjs --port 8787
 
 ## Test count
 
-`tools/checks.py` runs **14 check sections** covering 70+ individual assertions across
-30 built pages (the core pages, the guides hub, 10 guide pages and 2 long reads). The engine has no other entry points; everything the site publishes flows
+`tools/checks.py` runs **16 check sections** covering 70+ individual assertions across
+33 built pages (the core pages, the guides hub, 12 guide pages and 3 long reads). The engine has no other entry points; everything the site publishes flows
 through the build and the gate.

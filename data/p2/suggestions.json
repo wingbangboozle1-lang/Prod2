@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-20 (arena/644d217b-prod2): SG-45..SG-47 added — long-form argument pieces (shipped), the one-dropdown Pages fix ranked first by payoff, and the imagery question split into a safe path and a licensed path."
+  "last_change": "2026-11-20 (arena/e1dbef32-prod2): SG-48..SG-54 appended — the reader-facing polish the site can still take (Q&A blocks, first-screen answers, job-led merchandising, a named byline), the two owner inputs that unblock scheduled work (manuals, cadence), and the exposure decision. Append-only; no existing row edited."
  },
  "suggestions": [
   {
@@ -593,6 +593,105 @@
    ],
    "status": "proposed",
    "recommendation": "Run (b) now; switch to (a) only if API access is granted."
+  },
+  {
+   "id": "SG-48",
+   "title": "Retro-fit a visible Q&A block to the ten guides that do not have one",
+   "problem": "The two guides published 2026-11-20 answer their question in the first screen and then carry a four-to-five item Q&A list; the ten older guides answer well but bury the short version inside prose. The markup mechanism now exists in the build, so the gap is editorial, not technical.",
+   "proposal": "For each existing guide, write two to four questions that are genuinely on the page already (no new claims), wrap them in <section class=\"faq\"> with <div class=\"faq-item\"><h3>…</h3><p>…</p></div>, and rebuild. tools/build.py derives matching FAQPage markup from those blocks and tools/checks.py fails if the visible list and the markup list ever differ, so the work cannot rot into a claim.",
+   "evidence": "The mechanism shipped with guide-safe-temp-chart.html and guide-leftovers.html in this pass; the pairing rule is in tools/checks.py section 'faq'. Google's own framing supports doing it for readers, not for the SERP: https://developers.google.com/search/blog/2023/08/howto-faq-changes",
+   "impact": "Medium — a reader arriving from a search result gets the answer in one screen, and the page's questions become machine-readable. No ranking claim is made or implied.",
+   "effort": "One editorial pass: 10 pages, roughly 3 questions each, sourced from text already on the page.",
+   "risk": "Low. The gate blocks a Q&A block that is thinner than the content it summarises (answers under 60 characters fail the build).",
+   "depends_on": [
+    "Q-P20"
+   ],
+   "status": "proposed",
+   "recommendation": "Do it after Q-P20 sets the framing, in one pass so the mechanism and the content arrive together."
+  },
+  {
+   "id": "SG-49",
+   "title": "Put a first-screen answer box on every reader page, and gate that it exists",
+   "problem": "The pattern that makes the new pages readable — a sage callout that states the answer, with the source inline, before any argument — exists on three pages out of fifteen. Buyers on a phone decide in a few seconds whether a page is going to help them.",
+   "proposal": "Standardise <div class=\"callout callout-sage\"><h3>The short answer</h3>[…]</div> as the first block of every guide and long read, then extend the gate: a reader page without a short-answer callout fails the build, and the callout must contain at least one inline source marker so an answer can never outrun its receipt.",
+   "evidence": "Used on guide-safe-temp-chart.html, guide-leftovers.html and the front-page cards; Google's guidance on people-first content is explicit that a page should make it clear what it offers up front: https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+   "impact": "Medium — the cheapest readability change available, and it makes every guide consistent with the two new ones.",
+   "effort": "One pass over 12 pages plus six lines in tools/checks.py.",
+   "risk": "Low; the only real failure mode is a summary that overstates the page, which the inline-source requirement is there to prevent.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Cheap and self-reinforcing; ship it with SG-48 so both editorial rules land in one rebuild."
+  },
+  {
+   "id": "SG-50",
+   "title": "Resource the publishing rhythm, or take the fortnight out of the copy",
+   "problem": "The register declares a 14-day cadence, the queue slots are spaced exactly 14 days apart, and three places tell readers 'a new guide every two weeks'. The schedule is now enforced by the build — shipping without advancing next_due_utc fails — but nothing records who writes the pages or whether the rhythm is keepable.",
+   "proposal": "Owner answers Q-P19 with a number and an author source. If the answer is not 'every 14 days', delete the promise from index.html and guides.html and set cadence.line to what is true ('a guide when a question is answerable from the register'). Do not leave a public promise the machinery cannot check.",
+   "evidence": "data/p2/calendar.json (interval_days 14, nine slots at a measured 14-day spacing, next_due 2026-12-04) and F-P30, which is the gate rule that keeps the schedule and the publishes tied together.",
+   "impact": "Medium — a promise kept is worth more than a promise that reads well, and an empty calendar is worse than an honest one.",
+   "effort": "One sentence of copy, or one line of scheduling.",
+   "risk": "Silently dropping the cadence line is the safe direction; silently missing it in public is not.",
+   "depends_on": [
+    "Q-P19"
+   ],
+   "status": "proposed",
+   "recommendation": "Answer Q-P19 before the next slot's due date (2026-12-04) so the choice is made while the schedule is still true."
+  },
+  {
+   "id": "SG-51",
+   "title": "Get the three operator's manuals into the source register",
+   "problem": "Four topics — preheat and shake rituals, second functions, coating care, and the holding question that decides holiday hosting — cannot be written from the listings, because a listing states a feature, not an instruction. Queue slot 1 is marked blocked on exactly this.",
+   "proposal": "Owner supplies the official manual PDF for P1 (Chefman dual-basket), P2 (Emeril Lagasse French-door) and P3 (Chefman TurboFry) from the manufacturer's own support page, or records that no manual states the figure. Each read lands in data/p2/sources.json with a date, then the blocked slot unblocks. Quoting policy is checked before anything is published, in the same place the OA reads are recorded.",
+   "evidence": "The peer-reviewed extension guidance tells readers to consult the operator's manual rather than answering it itself (https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/), and this site's register contains no manual read as of 2026-11-20.",
+   "impact": "High for the content plan — it is the only suggestion here that unlocks existing scheduled work rather than adding new work.",
+   "effort": "Owner: three downloads. Site: one dated read per manual, recorded like any other source.",
+   "risk": "Manuals are manufacturer documents, so claims drawn from them are attributed as manufacturer instructions, never as independent findings.",
+   "depends_on": [
+    "Q-P18"
+   ],
+   "status": "proposed",
+   "recommendation": "Do this before commissioning any new topic; it is cheaper than writing around the gap."
+  },
+  {
+   "id": "SG-52",
+   "title": "Decide what the published branch is allowed to contain",
+   "problem": "While the Pages source is the repository root (F-P19), the archived Countercraft build at site/ and the Countertop Dispatch snapshot under archive/ are reachable by URL with their own titles and no canonical pointing at the live site (F-P28). The only thing standing between a crawler and a second copy of the guide set is a robots.txt line, which is a request.",
+   "proposal": "Two acceptable outcomes, and both are the owner's: (a) set Settings → Pages → Source to 'GitHub Actions' so only the docs/ artifact is served, which removes the question entirely; or (b) record a decision that the archives stay reachable on purpose, publish that in about.html so it is not mistaken for an accident, and keep the robots disallow as the only control. What is not acceptable is leaving it unrecorded.",
+   "evidence": "git ls-files site → 25 tracked files read 2026-11-20; https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/site/index.html carries the title 'Countercraft — Kitchen gear worth the counter space.'",
+   "impact": "Medium — one site to index, one brand in the SERP, and one place for a reviewer to look.",
+   "effort": "Owner: one dropdown for (a), one sentence for (b).",
+   "risk": "Deleting the archives removes published receipts, which this project has deliberately preserved elsewhere; (b) is the lower-risk branch.",
+   "depends_on": [
+    "Q-P21"
+   ],
+   "status": "proposed",
+   "recommendation": "Pair it with the other owner-side Pages action (F-P19/F-P20): one settings change closes both."
+  },
+  {
+   "id": "SG-53",
+   "title": "Merchandise the shelf by cooking job, with the register as the only source",
+   "problem": "The shelf currently presents five cards in register order. A buyer does not think in formats; they think 'dinner for two', 'a crowd', 'a roast I cannot hover over'. The pages already contain the routing logic (best-for lines, the three-question chooser) but it sits below the cards rather than organising them.",
+   "proposal": "Group the shelf into three rails — 'Two people, one dish', 'Two dishes at once', 'Long cooks, watched from away' — each rail generated from the existing format and best-for fields, each header linking to the chooser rather than to a product. Every card keeps its own buy button; no rail implies a ranking, and the gate's claims section keeps prices, ratings and popularity words out.",
+   "evidence": "PRODUCT_BEST_FOR and the format fields in data/p2/products.json already carry every word the rail headers would use (https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py), so this is presentation, not new claims.",
+   "impact": "Medium to high for conversion — it shortens the path from 'I need something' to 'this one is for my kitchen' without inventing a reason to care.",
+   "effort": "One hook in tools/build.py plus a CSS rule for the rail header; the 'shop' gate section already checks card and button counts.",
+   "risk": "A rail header that reads like a verdict ('best for families') would be an unsupported claim. Keep the phrasing inside the listed facts, and let the gate's banned-word list stay where it is.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "The strongest un-built item on the marketing side of the queue; do it in the same pass as SG-49 so the shelf and the guides change once."
+  },
+  {
+   "id": "SG-54",
+   "title": "Decide whether a named human stands behind the byline",
+   "problem": "Every article's author is the organization 'The Crisp Counter' (the JSON-LD author node and the byline strip both say so), and the site is honest that nobody has cooked with the machines. That is defensible, but a publication with no named human is easier to skim past and harder to trust than one with a person who can be written to.",
+   "proposal": "Either add a named editor to settings.json (rendered in the byline, in the Article author node and on about.html, with a contact route), or record the choice to stay organizational in DECISIONS.md and say why on the About page. Both are publishable; the silence is the problem.",
+   "evidence": "data/p2/settings.json has no author field and jsonld_for emits author: {Organization} — verified against https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py; Google's people-first guidance asks that a site be clear about who is responsible for content: https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+   "impact": "Medium — trust is the only currency an affiliate page has when it declines to publish a rating.",
+   "effort": "One settings line plus three template touches, or one paragraph on about.html.",
+   "risk": "A name is an accountability promise. Do not invent one: an editorial pseudonym presented as a person is exactly the pattern this site exists to avoid.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Decide this before the first reader email arrives, not after; the capture form ships dark today (F-P14), so there is time but not indefinitely."
   }
  ]
 }

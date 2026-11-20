@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Source register. Every published fact row points at one of these sources. Official sites only. Read dates are the dates the source was actually read for this project (prior dated sessions and the 2026-11-19 session).",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/644d217b-prod2): S-FSIS-CHART, S-FSIS-THERMO and S-UNL-AIRFRYER added after each page was read live on 2026-11-20 for the two new long-form articles."
+  "last_change": "2026-11-20 (arena/e1dbef32-prod2): five sources appended for the organic-traffic pass — two USDA FSIS factsheets that the new leftovers guide and the Danger Zone long read are built from, and three Google pages read to check what structured data is actually still worth emitting. S-UNL-AIRFRYER, S-FSIS-CHART and S-FSIS-THERMO were re-read the same day and their read dates already carried 2026-11-20."
  },
  "sources": [
   {
@@ -337,6 +337,61 @@
    "read": [
     "2026-11-20"
    ]
+  },
+  {
+   "id": "S-FSIS-DANGER",
+   "title": "USDA FSIS — \"Danger Zone\" (40°F - 140°F) factsheet (page dated Last Updated: Jun 28, 2023)",
+   "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/danger-zone-40f-140f",
+   "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
+   ],
+   "used_for": "The 40–140°F band and 20-minute doubling sentence; the two-hour / one-hour-above-90°F rule; the hot-holding list (chafing dishes, steam tables, warming trays, slow cookers) at or above 140°F; cold at or below 40°F; the “no lower than 325°F” oven statement for roasting; reheat to 165°F or until hot and steaming.",
+   "read_by": "fetch tool, full page text, 2026-11-20 (arena/e1dbef32-prod2)"
+  },
+  {
+   "id": "S-FSIS-LEFTOVERS",
+   "title": "USDA FSIS — Leftovers and Food Safety factsheet (page dated Last Updated: Jul 31, 2020)",
+   "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety",
+   "kind": "official government guidance",
+   "read": [
+    "2026-11-20"
+   ],
+   "used_for": "The two named causes of foodborne illness; the two-hour refrigeration window; shallow-container cooling and “hot food can be placed directly in the refrigerator”; 3–4 days refrigerated / 3–4 months frozen; thawing methods; reheat to 165°F with rolling boil for liquids and cover-to-reheat; refreezing conditions.",
+   "read_by": "fetch tool, both chunks of the page, 2026-11-20 (arena/e1dbef32-prod2)"
+  },
+  {
+   "id": "S-GGALLERY",
+   "title": "Google Search Central — Structured data markup that Google Search supports (feature gallery)",
+   "url": "https://developers.google.com/search/docs/appearance/structured-data/search-gallery",
+   "kind": "Search guidance",
+   "read": [
+    "2026-11-20"
+   ],
+   "used_for": "The list of structured-data features Google documents as supported, read in full on 2026-11-20: Article, Breadcrumb, Carousel, Course list, Dataset, Discussion forum, Education Q&A, Employer aggregate rating, Event, Image metadata, Job posting, Local business, Math solver, Movie, Organization, Product, Profile page, Q&A, Recipe, Review snippet, Software app, Speakable, Subscription and paywalled content, Vacation rental, Video. FAQ is not in the list.",
+   "read_by": "fetch tool, chunks 0-1 of 3, 2026-11-20 (arena/e1dbef32-prod2)"
+  },
+  {
+   "id": "S-GFAQ",
+   "title": "Google Search Central Blog — Changes to HowTo and FAQ rich results (Tuesday, August 8, 2023)",
+   "url": "https://developers.google.com/search/blog/2023/08/howto-faq-changes",
+   "kind": "Search guidance (dated announcement)",
+   "read": [
+    "2026-11-20"
+   ],
+   "used_for": "“FAQ (from FAQPage structured data) rich results will only be shown for well-known, authoritative government and health websites. For all other sites, this rich result will no longer be shown regularly.” Also: “there's no need to proactively remove it… Structured data that's not being used does not cause problems for Search, but also has no visible effects in Google Search,” and “This should not be considered a ranking change.”",
+   "read_by": "fetch tool, full post text, 2026-11-20 (arena/e1dbef32-prod2)"
+  },
+  {
+   "id": "S-GUPD",
+   "title": "Google Search Central — What's new / documentation updates changelog (June 2026 entry: “Removing documentation for the FAQ rich result feature”)",
+   "url": "https://developers.google.com/search/updates#removing-faq-rich-result",
+   "kind": "Search guidance (changelog)",
+   "read": [
+    "2026-11-20"
+   ],
+   "used_for": "Confirmation that the FAQ rich-result documentation was removed, and that the former doc path /search/docs/appearance/structured-data/faqpage now redirects to this changelog page. Read live on 2026-11-20.",
+   "read_by": "fetch tool, changelog index + redirect observed, 2026-11-20 (arena/e1dbef32-prod2)"
   }
  ]
 }

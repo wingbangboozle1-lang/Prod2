@@ -84,3 +84,64 @@ npm test                   # endpoint tests
 - It does not claim prices or ratings. They are deliberately unpublished (**F-02**).
 - It does not claim the imagery is the product. It is illustration (**F-17** lineage).
 - It does not claim the short links are invalid. Their compliance status is unresolved (**F-03**).
+
+---
+
+# Addendum — session arena/e1dbef32-prod2 (2026-11-20, editorial sourcing + gate additions)
+
+Same rule as the audit above: everything checked, nothing inferred, and the
+reader-facing copy of every finding lives on `flagged.html`. Permalinks below are
+to `main` so a reviewer can click them after the merge.
+
+## 1. What was read, and what it produced
+
+| Official source (read 2026-11-20) | What was checked | Where it landed |
+| --- | --- | --- |
+| [USDA FSIS — Safe Minimum Internal Temperature Chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) (page dated Apr 14, 2025) | Every row of the table transcribed verbatim, including the "Ground Poultry 165 degrees F" row that carries no Celsius figure, and the four standing guidelines (Clean, Separate, Cook, Chill) | `guide-safe-temp-chart.html`, `S-FSIS-CHART`, `data/p2/verification-2026-11-20-e1dbef32.json` (V-READ-3) |
+| [USDA FSIS — Leftovers and Food Safety](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety) (page dated Jul 31, 2020) | Both chunks of the factsheet; the 3–4 day / 3–4 month storage figures, the two named causes of foodborne illness, cool-rapidly and refreezing conditions, the reheat-to-165°F instruction, and the fact that it names a saucepan, a microwave and an oven — and no air fryer | `guide-leftovers.html`, `article-danger-zone.html`, `S-FSIS-LEFTOVERS` (V-READ-2) |
+| [USDA FSIS — "Danger Zone" (40°F - 140°F)](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/danger-zone-40f-140f) (page dated Jun 28, 2023) | The 40–140°F band and the 20-minute doubling sentence, the 2-hour / 1-hour rule, the hot-holding device list, the 325°F oven statement, the 165°F reheat line | `article-danger-zone.html`, `S-FSIS-DANGER` (V-READ-1) |
+| [Nebraska Extension — Food Safety Tips for Air Fryers](https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/) (peer-reviewed, updated 2025) | Convection definition, overfill warning, thermometer-only sentence, placement sentence, cleaning sentence, the "check the operator's manual" instruction, its temperature table | three new pages, `S-UNL-AIRFRYER` (V-READ-4) |
+| [Google Search Central blog, 2023-08-08](https://developers.google.com/search/blog/2023/08/howto-faq-changes), [structured-data gallery](https://developers.google.com/search/docs/appearance/structured-data/search-gallery), [documentation changelog](https://developers.google.com/search/updates#removing-faq-rich-result) | Whether FAQ rich results are still a thing for a site like this, and what Google's own list of supported features says today | `D-P23`, `F-P27`, `Q-P20`, `SG-48`, corrected `DESIGN_PROMPT.md` |
+
+**Secondary-source material kept out of the site.** The May 7, 2026 date and the
+Search Console/API phase-out dates for FAQ rich results appear only in trade
+coverage; no official Google page in this sandbox states them, so nothing on the
+site asserts them. What the site asserts is what the three Google pages above
+actually say (V-READ-7 `not_observed`).
+
+## 2. Defects found in the repo this pass
+
+| ID | Finding | Status |
+| --- | --- | --- |
+| **F-P25** | `content/pages/guides.html` closed its lede and continued the sentence outside the paragraph with a stray `</p>`. No gate counted paragraph balance, so a broken first screen shipped unnoticed. | **Resolved** — fragment fixed, and `validity` now compares `<p>` openings with `</p>` closings on all 33 pages (the rule reproduced the defect before the fix) |
+| **F-P27** | `DESIGN_PROMPT.md` promised "FAQPage + Article structured data" on every guide. The generator emitted Article only, and nothing noticed — documentation asserting a shipped state the code does not have (the F-P12 class). | **Resolved** — markup now derived from visible blocks and gated against them; the brief rewritten to state what ships and what the search benefit is not |
+| **F-P29** | The Product node hard-coded `"gtin13": null` and filled a missing brand with the literal string `"unknown"`. An invented value inside machine-readable data. Latent today (all five brands were read), a defect the first time a read came back empty. | **Resolved** — unread fields are omitted; the evidence rule now covers JSON-LD (D-P24) |
+| **F-P28** | `site/` (25 tracked files, titled "Countercraft …") and `archive/countertop-dispatch/` remain reachable by URL while Pages serves the repository root, with no canonical pointing at this site. A recursive grep for a currency pattern found no prices there, so this is brand and index dilution, not a disclosure breach. | **Open** — mitigated by a `robots.txt` disallow for both prefixes; the real fix is the owner's Pages-source action (F-P19), or a recorded decision to keep them reachable (Q-P21, SG-52) |
+| **F-P30** | The 14-day cadence was unauditable: six reader pages shipped on 2026-11-19/20 while `next_due_utc` stayed at 2026-12-03, and queue slot 1 promised to answer a ritual question from a source (the listings) that states features, not rituals. | **Resolved as machinery** — a `cadence` gate section now fails an overdue slot, a dangling cluster reference, a stale long-read word count, or a publish that does not advance the schedule; slot 1 is marked blocked on Q-P18 instead of pretending to be on time |
+
+Cross-check that no prior claim was broken: `data/p2/products.json` was not edited;
+no price, rating or commission value was added anywhere; the five intent records
+keep intended-ASIN and observed-redirect fields separate; `link.amazon` strings are
+still rendered as inert `<code>` (the `exposition` section enforces it).
+
+## 3. Gates and commands a reviewer can run
+
+```bash
+python3 tools/build.py      # 33 pages -> docs/, mirrored to the root for legacy Pages mode
+python3 tools/checks.py     # 16 sections: pages, disclosure, links, validity, facts, claims,
+                            # chrome, seo, faq, publication, longreads, cadence, shop,
+                            # exposition, measurement, freshness
+python3 scripts/verify_site.py
+npm test                    # endpoint tests
+```
+
+## 4. What this addendum does **not** claim
+
+- It does not claim the five listings were re-read by this session; two parallel
+  sessions did that on 2026-11-20 and their records stand (F-P24).
+- It does not claim any traffic, click, order or commission: the endpoint is still
+  unhosted and Search Console is still unverified.
+- It does not claim the new pages make these products good — no unit has been used
+  (D-06), and the pages say so in their own text.
+- It does not claim the extension's Celsius figure is a typo; it claims only that
+  two official pages disagree and that this site publishes the figure they share.
