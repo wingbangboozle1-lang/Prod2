@@ -998,7 +998,7 @@ merge; they publish on the Flagged for Review page.
 
 | Item | Value |
 | --- | --- |
-| PR | (recorded after opening) |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/54 (`arena/44af3083-prod2` → `main`) |
 | Merge result | (recorded after merge) |
 | Pages | (recorded after deploy check) |
 | Checks on PR | tools/checks.py ALL CHECKS PASSED · scripts/verify_site.py VERIFY OK · npm test 2/2 |
