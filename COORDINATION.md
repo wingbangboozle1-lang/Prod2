@@ -1425,6 +1425,66 @@ Claim protocol notes:
   A-02 exists to close that hole with a tool that needs no browser.
 - Flagged irregularities do not block the merge; they are published on the Flagged page.
 
+### Claim results (A-01..A-06, 2026-11-20)
+
+- **A-01 · the P0 defect (done).** `assets/css/site.css` opened with three raw conflict markers at
+  lines 1/48/75 and, on both sides of that merge, a `@font-face` block had lost its closing brace —
+  HEAD's went unterminated and a stray `}` sat before the design system. All 30 pages load that file.
+  Repaired by keeping **both** complete font stacks (six static latin subsets + three variable faces),
+  which is one more fallback than either branch had alone. Verified: tinycss2 → 245 top-level rules,
+  **0 parse errors**, braces 278/278, final `@media print` rule fully consumed, in both `assets/` and
+  `docs/`. Exhaustive marker sweep of the shipped artifact: 0. **Note for integration:** PR #45
+  (`arena/19fb7064-prod2`) independently found and fixed the same defect, resolving it by keeping
+  only the three variable faces. The two fixes are functionally equivalent; this one keeps 2 extra
+  static faces. **When both merge, take this branch's file** (it is a superset) and keep PR #45's
+  `exposition` marker check, which duplicates the `markers` section of the new gate but costs nothing.
+- **A-02 · the gate (done).** `tools/design_qa.py`, 9 sections, no browser required: markers, parse
+  (unclosed-block detection), fonts (existence + real WOFF2 + `font-display`), units (silently dropped
+  unitless lengths), tokens (dangling `var()`), cascade (does the stylesheet reach the markup; does
+  `body` paint a background and a text colour), coverage, contrast (WCAG AA on the token pairs the
+  system actually combines). **Tested against three real failure modes, not just against today's
+  tree:** the exact shipped defect → 2 FAILs; a silent missing brace with no markers → unreachable
+  tail + 8 undefined tokens; an undefined token → 2 FAILs. Passes on the repaired tree. Wired into
+  `.github/workflows/pages.yml` before upload and into `npm test`.
+- **A-03 · the buyer decision (done).** `shop.html` gains a five-row verdict by job, a "why the other
+  one loses" table stating each trade-off in both directions, the USDA placement rule that outranks
+  product choice, and an explicit "what this cannot tell you" list. **While writing it I asserted the
+  8 qt basket had the smallest footprint; the register's arithmetic says the dual basket does
+  (158 in² vs 172).** Caught before publishing and converted into a gate: `tools/checks.py` gains a
+  `derived` section that recomputes every footprint and capacity density from the register and fails
+  on mismatch, plus a rule refusing a named "smallest" winner it cannot attribute. The new gate then
+  failed the page and forced the sentence to state all three numbers instead.
+- **A-04 · the pre-decision register (done).** `before-you-decide.html` (new, 31 pages total): eleven
+  decisions waiting on facts only the owner can obtain, each with what is known, what is missing, how
+  it is discovered, and what changes when it lands. Four are ranked as the only ones worth doing
+  first. States in the negative that it publishes no revenue estimate and ranks nothing by earnings.
+  First draft had four defects the gate caught: an invented anchor, a citation to a non-existent
+  `SG-58`, and a short link rendered as a live URL instead of inert code.
+- **A-05 · executive summary + flag (done).** `EXECUTIVE_SUMMARY.md` to rendered values: gate 13 → 14
+  sections, flags 37 → 39, event-vocabulary item marked resolved by PR #44. **`F-P25`** publishes the
+  stylesheet defect, its root cause and the new gate on the Flagged for review page, status
+  `resolved`.
+- **A-06 · verification (done).** `tools/build.py` 31 pages · `tools/checks.py` **ALL CHECKS PASSED**
+  (16 sections, 16 ok lines) · `tools/design_qa.py` **DESIGN QA PASSED** (9 sections) ·
+  `scripts/build_site.py` + `scripts/verify_site.py` **VERIFY OK, 18 pages** · `npm test` **3/3** ·
+  `git status` clean after a rebuild, so `docs/` is byte-reproducible. A live preview of the built
+  site is served from this session for human review.
+
+### What this session could NOT do, recorded so nobody assumes otherwise
+
+- **No browser, therefore no screenshot.** Playwright and Puppeteer both install; the
+  Chrome-for-Testing binary and the Debian font packages do not download. A-02 is the substitute and
+  is honest about the limit: it proves the cascade reaches the markup and that the tokens resolve —
+  it does not prove the result is attractive. Any claim in this repo that the design "works" is an
+  inference from CSS until a human looks at a rendered page.
+- **No external fetches in this session.** No Amazon listing, policy page or Google/FTC source was
+  re-read. Every product value used comes from the dated register reads
+  (`data/p2/verification-2026-11-20.json`, `2026-11-19`), and the only new external facts this pass
+  relies on are the USDA FSIS quotes already registered as `S-FSIS-THERMO` and read on 2026-11-20 by
+  the previous pass. No value was inferred to fill a cell.
+- **No CSS redesign.** Three live PRs own `assets/css/site.css`; this session repaired the file
+  mechanically and left the design system untouched.
+
 ### File-scope request (logged, not edited)
 
 - **`.github/workflows/verify.yml`** is owned by open PR #35 (`arena/dd4bae8a-prod2`), so this session
