@@ -1,0 +1,62 @@
+# _config.yml — GitHub Pages build settings for the REPOSITORY ROOT. Generated file:
+# do not hand-edit; regenerate with `python3 tools/build.py` (or
+# `python3 tools/publish_surface.py`). tools/checks.py fails the build if this file
+# disagrees with the tree, so a new directory cannot become public by accident.
+#
+# The publication is the root mirror of docs/ (index.html and the other generated
+# pages, plus assets/, feed.xml, sitemap.xml, robots.txt). Pages serves this
+# repository's ROOT in legacy mode, so every other path here is a file an anonymous
+# reader could fetch — which is why the list below is a deny-list of the working
+# source, not a theme configuration. Flags F-P19 / F-P20 carry the measurement;
+# decision D-P24 carries the reasoning. One caveat for anyone reading this file in
+# the repository: the root .nojekyll file must stay deleted, or Jekyll never runs
+# and this exclusion list is ignored. The docs/ artifact keeps its own .nojekyll
+# because an Actions upload must not be re-processed.
+
+# Jekyll's own defaults already keep these out of the build, so they are not named
+# below: any path starting with '_', '.' or '#', anything ending in '~', and the
+# node_modules/ and vendor/ directories (docs.github.com, 'About GitHub Pages and
+# Jekyll', read 2026-11-20). This file is called _config.yml, which is one reason
+# that rule is load-bearing rather than a convenience.
+
+# Paths excluded from the Pages build (derived from the repository tree):
+exclude:
+  - archive
+  - content
+  - data
+  - docs
+  - scripts
+  - site
+  - tests
+  - tools
+  - var
+  - "*.md"
+  - "**/*.md"
+  - ANALYTICS-ENDPOINT.md
+  - COORDINATION.md
+  - DECISIONS.md
+  - DESIGN_PROMPT.md
+  - ENGINE.md
+  - EXECUTIVE_SUMMARY.md
+  - PULL_REQUEST.md
+  - PULL_REQUEST_W08.md
+  - README.md
+  - REPO_AUDIT.md
+  - VOICE.md
+  - analytics-client.js
+  - package.json
+  - server.mjs
+
+# jekyll-readme-index and jekyll-default-layout are enabled by GitHub Pages and
+# cannot be switched off (see the GitHub Docs page quoted in the header), so the
+# exclusion above is what stops README.md or COORDINATION.md becoming a page.
+# This key is a second lock: if a README ever reached the build, it must not
+# replace the front page.
+readme_index:
+  enabled: false
+
+# No theme and no Markdown pipeline are configured on purpose: every published
+# file is already rendered HTML with no YAML front matter, so Jekyll copies it
+# as a static file instead of converting it (jekyllrb.com/docs/front-matter,
+# read 2026-11-20). Setting `markdown` or `highlighter` here could only drift
+# from the values Pages forces anyway, so they are left out.

@@ -29,8 +29,11 @@ Sections:
   publication  guides reach compare + buying guide + their cluster pillars (S-24);
                feed covers every guide; reader-capture gate consistent with
                settings; Search Console verification meta matches the token slot
-  exposition   the publish artifact is docs/ only; source is never servable;
-               link.amazon short links are quoted evidence, never clickable
+  exposition   the publish artifact is docs/ only; source is never servable (root
+               .nojekyll must be absent and _config.yml must exclude every
+               non-publication path — the served surface while Pages' source is the
+               repo root); no page may link into an excluded path; link.amazon short
+               links are quoted evidence, never clickable
   measurement  the site's event list vs the endpoint's accepted names; any
                divergence FAILS the build (F-P23 fixed 2026-11-20, D-P21)
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
@@ -532,6 +535,47 @@ def main() -> int:
             fail(f"{f.name}: short-link URL rendered twice in one cell")
     if not FAILURES:
         ok("artifact is docs/ only; short links are quoted, never clickable")
+    # The served surface, while Pages' source is the repository root (F-P19/F-P20).
+    # A legacy Pages build runs Jekyll unless .nojekyll is present, and Jekyll does
+    # not build any path named in `exclude` (docs.github.com, "About GitHub Pages and
+    # Jekyll", read 2026-11-20). So the root _config.yml IS the access control for as
+    # long as the source setting is `main /` — which makes it gate-worthy: a new
+    # directory must not become public simply because nobody thought about it.
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+    import publish_surface  # noqa: PLC0415
+
+    if (ROOT / ".nojekyll").exists():
+        fail("root .nojekyll exists — the legacy build would copy the whole checkout, "
+             "so every register and archived build at the root is servable (F-P19/F-P20)")
+    cfg = publish_surface.config_path()
+    if not cfg.exists():
+        fail("_config.yml is missing at the repo root — nothing excludes the source tree "
+             "from the Pages build")
+    else:
+        excludes = {e.rstrip("/") for e in publish_surface.read_excludes(cfg.read_text(encoding="utf-8"))}
+        required = set(publish_surface.excluded_top_level())
+        missing = sorted(required - excludes)
+        if missing:
+            fail(f"_config.yml does not exclude {', '.join(missing)} — regenerate with "
+                 "python3 tools/build.py")
+        published = set(publish_surface.published_names())
+        served_away = sorted(published & excludes)
+        if served_away:
+            fail(f"_config.yml excludes publication paths: {', '.join(served_away)}")
+        if not published:
+            fail("docs/ holds no publication — refusing to publish an empty served surface")
+        # An evidence link that points into an excluded path is a broken link by
+        # construction. Registers cite the repository blob instead of the served copy.
+        base = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))["base_url"].rstrip("/")
+        for f in html_files:
+            text = f.read_text(encoding="utf-8")
+            for href in re.findall(rf'href="{re.escape(base)}/([^"#?]*)"', text):
+                top = href.split("/")[0]
+                if top in excludes or (top.endswith(".md") or top.endswith(".json")):
+                    fail(f"{f.name}: links to {base}/{href}, a path the Pages build does "
+                         "not serve — cite the repository blob instead")
+        ok(f"root build serves {len(published)} paths, excludes {len(required)}; "
+           "no link points into an excluded path")
 
     # -------------------------------------------------------------- measurement
     check("measurement")
