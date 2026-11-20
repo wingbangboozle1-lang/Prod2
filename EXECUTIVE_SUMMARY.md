@@ -66,7 +66,54 @@ cites a row that does not exist or publishes an empty "not known" list.
 - Disclosure strip under the masthead on **every** page + footer repeat; every product link marked sponsored.
 - Unique titles/meta, JSON-LD, sitemap.xml, robots.txt, RSS feed, typographic OG card (no product photography — S-18/D-22 still needs a decision).
 
-## Reader-facing work in the latest pass (2026-11-20, session arena/644d217b-prod2)
+## Evidence and exposure work in the latest pass (2026-11-20, session arena/b3089214-prod2)
+
+Two defects this session found were not cosmetic: the live host was serving the project's own
+registers, and ten of the fifteen product bullets on the shelf rested on text the site could not
+re-produce from its evidence.
+
+- **The published surface is now controlled in the repository (D-P26).** Pages publishes this repo's
+  root in legacy mode, the source setting is not changeable with the token available (`PUT
+  build_type=workflow` → 403, re-confirmed), and a cache-busted read of
+  `/Prod2/data/p2/settings.json` returned the live register. Root `.nojekyll` is deleted and
+  `tools/publish_surface.py` generates a root `_config.yml` whose `exclude` list is derived from the
+  tree, so the Jekyll build copies only the publication (GitHub's Pages+Jekyll page documents
+  `exclude`; Jekyll's front-matter and static-files pages document why the generated HTML is copied
+  verbatim rather than re-processed). The duplicate copy of the whole site under `/docs/` goes away
+  with it. The exposition gate refuses a root `.nojekyll`, refuses a config that misses any top-level
+  path, and refuses a page link into an excluded path — which caught three governance evidence links
+  that pointed at served register copies. **F-P19/F-P20 closed from this side; F-P31 stays open**
+  because the control now depends on a generated file, and F-P30 documents the rest.
+- **Every published product bullet is audited against its evidence (F-P30, SG-52).**
+  `python3 tools/claims_audit.py` matches each card bullet word by word against the verbatim strings
+  recorded for that ASIN, writes `data/p2/claim-audit-2026-11-20.json`, and the gate fails the build on
+  any unsupported row. Result: 11 of 15 bullets are verbatim in the listing title (re-read on every
+  dated pass), 4 come from a dated read of the spec table, 0 unsupported. **Six phrases with no
+  recorded evidence at all were retired** — "magnetic back", "rinse-clean", "Smart Hub", "rack cooking",
+  "in the basket lids", "leave-in wireless probes" — rewritten on the cards, the compare table, the
+  buying guide, the thermometer category page and two guides, and now denied by name in the gate. The
+  fabricated-claim negative test is what forced the fix: the first version of the audit let a claim cite
+  its own register field as its evidence.
+- **A third long read**: `article-leftovers-reheat.html` (1,333 words, counted the same way as the two before it) on the FSIS leftovers rules — the
+  two-hour window, the shallow-container rule, 3–4 days refrigerated / 3–4 months frozen, and the 165°F
+  reheat number — read live 2026-11-20 (new source `S-FSIS-LEFTOVERS`). It states explicitly that the
+  guidance names a saucepan, a microwave and an oven and **does not** name an air fryer, instead of
+  quietly stretching a federal sentence to fit the category.
+- **The voice rules are gated, not asked for (SG-54).** New `voice` section: a short filler blacklist on
+  reader-facing pages, a ≤4 em-dashes-per-paragraph budget, and a rule that a lede opens on the
+  reader's problem rather than on the verification process. Negative-tested by injecting slop into a
+  guide (three failures, then clean).
+- **The suggestion queue is ranked by what it unblocks, and the counts can no longer drift.**
+  `SG-53` (Creators/PA-API access) now leads: it is the single account step that unlocks prices,
+  ratings, licensed imagery, bullet-level re-verification and commission categories, and it is the same
+  workflow that settles the short-link question. `SG-46` (the Pages dropdown) was re-ranked below it —
+  it is tidiness now, not exposure. The queue line on `suggestions.html` is generated from the register
+  (`hook_queue_stats`) because typed counts went stale in every pass before this one.
+- **Card footnotes now say what was read when** ("listed specs read 2026-11-14; title and ASIN
+  re-read 2026-11-20") instead of the earlier "listing re-checked", which overstated a title re-read as
+  if every bullet had been re-confirmed.
+
+## Reader-facing work in the pass before (2026-11-20, session arena/644d217b-prod2)
 
 The prior passes made the site correct and made it look like a shop. This pass answered the harder
 question — *why would anyone read it?* — with depth, and fixed the machinery that would have hidden
@@ -114,7 +161,7 @@ whether it worked.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **15 sections** (pages, disclosure, links, validity, facts, claims, voice, chrome, seo, publication, longreads, shop, exposition, measurement, freshness, derived, a11y, structured, assets, briefs, one-site, integrity, productpages), green on this build. `facts` now also runs the claim audit (every card bullet against its evidence); `voice` fails the build on filler phrases and process-led ledes; `exposition` enforces the generated root `_config.yml`. The `shop` section fails if the shelf loses a card, it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## The publication passes (2026-11-20 — three sessions, reconciled)
 
@@ -374,7 +421,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **23 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## Open decisions for the owner
 

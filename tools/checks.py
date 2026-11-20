@@ -16,6 +16,8 @@ Sections:
                F-/Q-/SG-/D- reference in a page exists in its register
   facts        each product's listed facts appear with a citation; null values
                are published blank + marked unverified, never filled in
+  voice        filler blacklist + em-dash budget + ledes open on the reader, not
+               on the verification process (D-12, VOICE.md)
   claims       banned popularity words on reader-facing pages; no published
                prices or star ratings anywhere
   chrome       one nav group ("The work behind it") + footer directory present
@@ -39,8 +41,11 @@ Sections:
   publication  guides reach compare + buying guide + their cluster pillars (S-24);
                feed covers every guide; reader-capture gate consistent with
                settings; Search Console verification meta matches the token slot
-  exposition   the publish artifact is docs/ only; source is never servable;
-               link.amazon short links are quoted evidence, never clickable
+  exposition   the publish artifact is docs/ only; source is never servable (root
+               .nojekyll must be absent and _config.yml must exclude every
+               non-publication path — the served surface while Pages' source is the
+               repo root); no page may link into an excluded path; link.amazon short
+               links are quoted evidence, never clickable
   measurement  the site's event list vs the endpoint's accepted names; any
                divergence FAILS the build (F-P23 fixed 2026-11-20, D-P21)
   one-site     one canonical base across every page; sitemap complete and free of
@@ -320,6 +325,97 @@ def main() -> int:
             fail(f"{l['product_id']}: path code merged into intended_asin (must stay separate)")
     if not FAILURES:
         ok("product facts cited; nulls blank + marked; intent fields separate")
+
+    # Claim-level audit: every bullet the shelf publishes must still resolve to a
+    # verbatim evidence string recorded for that ASIN. `unsupported` fails the build;
+    # `dated-read` is allowed but counted — that count is what F-P30 publishes.
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+    import claims_audit  # noqa: PLC0415
+
+    live_audit = claims_audit.audit()
+    rows = live_audit["claims"]
+    audit_path = DATA / f"claim-audit-{claims_audit.AUDIT_DATE}.json"
+    if not rows:
+        fail("claims audit found no product bullets on shop.html — the shelf changed shape "
+             "and the audit needs updating alongside it")
+    bad = [r for r in rows if r["classification"] == "unsupported"]
+    for r in bad:
+        fail(f"{r['product']} {r['field']}: {r['claim']!r} matches no recorded evidence string "
+             f"(unmatched words: {', '.join(r['unmatched_words']) or 'all'})")
+    if audit_path.exists():
+        if json.loads(audit_path.read_text(encoding="utf-8")).get("claims") != rows:
+            fail(f"data/p2/{audit_path.name} is stale — run `python3 tools/claims_audit.py`")
+    else:
+        fail(f"data/p2/{audit_path.name} is missing — run `python3 tools/claims_audit.py`")
+    hits = claims_audit.retired_hits(DOCS)
+    for h in hits:
+        fail(f"{h['page']}: retired claim wording came back ({h['phrase']!r} on "
+             f"{h['product']}) — {h['why']}; published wording should be {h['instead']!r}")
+    if rows and not bad:
+        counts = live_audit["_meta"]["counts"]
+        ok(f"{len(rows)} published product claims audited: {counts.get('title-verbatim', 0)} "
+           f"verbatim in today's title read, {counts.get('dated-read', 0)} from a dated listing "
+           "read, 0 unsupported")
+
+    # -------------------------------------------------------------------- voice
+    check("voice")
+    # The brief's standing complaint is generated-sounding copy, so the voice rules in
+    # VOICE.md are measured here instead of asked for. Three checks, deliberately narrow:
+    # a short filler blacklist, an em-dash budget per paragraph (the tic that reads as
+    # machine-written at more than a couple per line), and a rule that a page's lede
+    # opens on the reader's problem rather than on our verification process (D-12).
+    FILLER = [
+        "in today's world", "in today’s world", "when it comes to", "look no further",
+        "game-changer", "game changer", "unlock the", "delve", "seamless", "effortless",
+        "elevate your", "revolutionize", "dive into", "you're in the right place",
+        "you’re in the right place", "whether you're a", "whether you’re a",
+        "at the end of the day", "it's important to note", "it is important to note",
+        "say goodbye to", "say hello to", "take your cooking to", "transform your kitchen",
+        "we've got you covered", "we’re got you covered", "the ultimate guide",
+        "must-have", "let's face it", "let’s face it", "in conclusion", "furthermore",
+        "a must-have", "upgrade your game",
+    ]
+    PROCESS_OPEN = ("we read", "every figure", "every row sourced", "our register",
+                    "we verified", "we checked", "sourced to the official listing")
+    # Pages whose job is to *state* the voice rules quote the forbidden phrasing in order
+    # to forbid it; a scan that failed on them would push the brief toward vagueness.
+    # This exemption is for the rule documents only, and the quote-stripping above keeps
+    # inline examples elsewhere from tripping the list.
+    VOICE_EXEMPT = {"design-prompt.html"}
+    for f in html_files:
+        if f.name in GOVERNANCE or f.name in VOICE_EXEMPT:
+            continue  # the governance pages are allowed to talk about the process
+        raw = f.read_text(encoding="utf-8")
+        body = re.sub(r"<(table|nav|footer|script|style|aside)\b.*?</\1>", " ", raw, flags=re.S)
+        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body))
+        # A page may *name* a banned phrase to forbid it: the design brief and the voice
+        # rules quote the filler they exclude. Quoted spans and code are therefore not
+        # scanned — the blacklist applies to unquoted prose, which is what a reader
+        # actually receives as padding.
+        prose = re.sub(r"(&#x27;|&#39;|&lsquo;|&rsquo;|&#8216;|&#8217;|&ldquo;|&rdquo;|"
+                       r"&#8220;|&#8221;|\"|‘|’|“|”)[^<]{1,300}?"
+                       r"(&#x27;|&#39;|&lsquo;|&rsquo;|&#8216;|&#8217;|&ldquo;|&rdquo;|"
+                       r"&#8220;|&#8221;|\"|‘|’|“|”)", " ", text)
+        prose = re.sub(r"<code>.*?</code>|<blockquote>.*?</blockquote>", " ", prose, flags=re.S)
+        low = prose.lower()
+        for phrase in FILLER:
+            if phrase in low:
+                fail(f"{f.name}: filler phrase {phrase!r} on a reader-facing page "
+                     f"(VOICE.md: no padding, no hype)")
+        for para in re.findall(r"<p\b[^>]*>(.*?)</p>", body, flags=re.S):
+            dashes = para.count("—")
+            if dashes > 4:
+                fail(f"{f.name}: a paragraph carries {dashes} em-dashes — that is the "
+                     "generated-text tell the voice rules exist to stop")
+                break
+        lede = re.search(r'<p class="lede">(.*?)</p>', raw, flags=re.S)
+        if lede:
+            opener = re.sub(r"<[^>]+>", " ", lede.group(1)).strip().lower()[:60]
+            if any(opener.startswith(p0) for p0 in PROCESS_OPEN):
+                fail(f"{f.name}: the lede opens on the verification process, not on the "
+                     "reader's problem (D-12)")
+    if not FAILURES:
+        ok("no filler phrases, em-dash budget holds, ledes open on the reader")
 
     # ----------------------------------------------------------------- claims
     check("claims")
@@ -775,6 +871,36 @@ def main() -> int:
         ok(f"first-view imagery within the {BUDGET_FIRST_VIEW_KB} KB budget; every <picture> "
            f"has an existing WebP source and PNG fallback")
 
+    # --------------------------------------------------------- source liveness
+    check("liveness")
+    # The reachability state of every cited source (tools/source_liveness.py). Two
+    # rules, both mechanical: a source recorded as moved or dead may not still be linked
+    # from a reader-facing page, and a citation older than the freshness window fails,
+    # so a register that quietly stops being re-read cannot pass. Coverage is printed
+    # every build. A low coverage number is not a failure: this sandbox has no general
+    # HTTPS egress (measured 2026-11-20), so reads are recorded by whoever can make
+    # them — see F-P32 for the constraint and the command that lists the gap.
+    import source_liveness  # noqa: PLC0415
+
+    manifest = source_liveness.build_manifest(source_liveness.today())
+    if not manifest:
+        fail("source_liveness found no register rows — the audit cannot report coverage")
+    cited_dead = [r for r in manifest if r["liveness"] in ("dead", "moved") and r["url"]]
+    for r in cited_dead:
+        for f in html_files:
+            if f.name in GOVERNANCE:
+                continue
+            if r["url"] in f.read_text(encoding="utf-8"):
+                fail(f"{f.name}: links a source recorded as {r['liveness']} — {r['id']} "
+                     f"{r['url']} ({r['note'][:80]})")
+    live = sum(1 for r in manifest if r["liveness"] == "live")
+    never = sum(1 for r in manifest if r["liveness"] == "never-checked")
+    stale = [r for r in manifest if (r["register_read_age_days"] or 0) > source_liveness.WINDOW_DAYS]
+    for r in stale:
+        fail(f"data/p2/sources.json: {r['id']} was last read {r['register_last_read']} "
+             f"({r['register_read_age_days']}d ago), past the {source_liveness.WINDOW_DAYS}-day window")
+    ok(f"{len(manifest)} cited sources: {live} with a dated live read, {never} awaiting one, "
+       f"{len(cited_dead)} moved/dead; `python3 tools/source_liveness.py --pending` lists them")
     # -------------------------------------------------------------- long reads
     check("longreads")
     # Rules for long-form pieces (added 2026-11-20). A long read is an argument,
@@ -928,6 +1054,47 @@ def main() -> int:
             fail(f"{f.name}: short-link URL rendered twice in one cell")
     if not FAILURES:
         ok("artifact is docs/ only; short links are quoted, never clickable")
+    # The served surface, while Pages' source is the repository root (F-P19/F-P20).
+    # A legacy Pages build runs Jekyll unless .nojekyll is present, and Jekyll does
+    # not build any path named in `exclude` (docs.github.com, "About GitHub Pages and
+    # Jekyll", read 2026-11-20). So the root _config.yml IS the access control for as
+    # long as the source setting is `main /` — which makes it gate-worthy: a new
+    # directory must not become public simply because nobody thought about it.
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+    import publish_surface  # noqa: PLC0415
+
+    if (ROOT / ".nojekyll").exists():
+        fail("root .nojekyll exists — the legacy build would copy the whole checkout, "
+             "so every register and archived build at the root is servable (F-P19/F-P20)")
+    cfg = publish_surface.config_path()
+    if not cfg.exists():
+        fail("_config.yml is missing at the repo root — nothing excludes the source tree "
+             "from the Pages build")
+    else:
+        excludes = {e.rstrip("/") for e in publish_surface.read_excludes(cfg.read_text(encoding="utf-8"))}
+        required = set(publish_surface.excluded_top_level())
+        missing = sorted(required - excludes)
+        if missing:
+            fail(f"_config.yml does not exclude {', '.join(missing)} — regenerate with "
+                 "python3 tools/build.py")
+        published = set(publish_surface.published_names())
+        served_away = sorted(published & excludes)
+        if served_away:
+            fail(f"_config.yml excludes publication paths: {', '.join(served_away)}")
+        if not published:
+            fail("docs/ holds no publication — refusing to publish an empty served surface")
+        # An evidence link that points into an excluded path is a broken link by
+        # construction. Registers cite the repository blob instead of the served copy.
+        base = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))["base_url"].rstrip("/")
+        for f in html_files:
+            text = f.read_text(encoding="utf-8")
+            for href in re.findall(rf'href="{re.escape(base)}/([^"#?]*)"', text):
+                top = href.split("/")[0]
+                if top in excludes or (top.endswith(".md") or top.endswith(".json")):
+                    fail(f"{f.name}: links to {base}/{href}, a path the Pages build does "
+                         "not serve — cite the repository blob instead")
+        ok(f"root build serves {len(published)} paths, excludes {len(required)}; "
+           "no link points into an excluded path")
 
     # -------------------------------------------------------------- measurement
     check("measurement")

@@ -15,12 +15,18 @@ import json
 import pathlib
 import re
 import shutil
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "p2"
 CONTENT = ROOT / "content"
 ASSETS_SRC = ROOT / "assets"
 DOCS = ROOT / "docs"
+
+# tools/ is the generator's own package directory; publish_surface.py owns the rule
+# for what the Pages build may serve (F-P19/F-P20), and the gate reads the same module.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import publish_surface  # noqa: E402
 
 BUILD_DATE = "2026-11-20"  # set on each publishing pass
 
@@ -184,6 +190,10 @@ PAGES = [
     ("article-air-fryer-doneness", "article-air-fryer-doneness.html",
      f"Did the air fryer work? One number decides | {BRAND}",
      "Capacity, drawers and wattage do not tell you whether dinner is safe. USDA and extension guidance on the one number that does, applied to the three air fryers we track.",
+     "guides"),
+    ("article-leftovers-reheat", "article-leftovers-reheat.html",
+     f"Leftovers: the two-hour rule and the 165\u00b0F number | {BRAND}",
+     "USDA FSIS guidance on leftovers, refrigerated life and reheating, read line by line - and what it does not say about air fryers. Applied to the five tools we follow.",
      "guides"),
     ("article-thermometer-placement", "article-thermometer-placement.html",
      f"Where to put the probe: placement beats precision | {BRAND}",
@@ -543,7 +553,7 @@ def hook_products_table(_="") -> str:
             depth = float(m.group(1))
         cap_qt = {"P1": 6.0, "P2": 26.0, "P3": 8.0}.get(p["id"])
         ratio = f"{cap_qt / depth:.2f} qt/in" if (cap_qt and depth) else '<span class="unverified">—</span>'
-        why = {"P1": "Two dishes at once, synced", "P2": "Rack cooking, sheet-pan meals",
+        why = {"P1": "Two dishes at once, synced", "P2": "Tray meals behind French doors",
                "P3": "Big single basket, small footprint", "P4": "Fast doneness checks",
                "P5": "Cook away from the heat"}[p["id"]]
         rows.append(
@@ -909,6 +919,22 @@ def hook_briefs_summary(_="") -> str:
             'cheapest test that would close it.</p>')
 
 
+def hook_queue_stats(_="") -> str:
+    """Counts of the suggestion register, computed at build time.
+
+    This line used to be typed into the page by hand, and every pass that added rows
+    left it lying by one or two. A generated number cannot go stale.
+    """
+    counts: dict[str, int] = {}
+    for s in SUGGESTIONS:
+        counts[s["status"]] = counts.get(s["status"], 0) + 1
+    order = ["proposed", "recommended", "accepted", "shipped", "deferred", "rejected"]
+    bits = ", ".join(f"{counts[k]} {k}" for k in order if counts.get(k))
+    return (f'<p class="table-note">{len(SUGGESTIONS)} items in the queue — {bits}. '
+            'Rows are the register; the short list above is the reviewer\u2019s order, '
+            'recorded in the decision log.</p>')
+
+
 def hook_suggestions(_="") -> str:
     out = []
     for s in SUGGESTIONS:
@@ -987,7 +1013,7 @@ PRODUCT_IMAGES = {
 # already published on the card; these are the "who is this for" line, not a ranking.
 PRODUCT_BEST_FOR = {
     "P1": "Two dishes, one finish time",
-    "P2": "Sheet-pan meals and rack cooking",
+    "P2": "Tray meals behind French doors",
     "P3": "One big basket, the least counter",
     "P4": "A one-second spot check",
     "P5": "Long cooks, watched from away",
@@ -999,6 +1025,33 @@ PRODUCT_BUY_LABEL = {
     "P4": "Check price on Amazon",
     "P5": "Check price on Amazon",
 }
+
+
+def card_source_line(p: dict) -> str:
+    """The evidence line under every product card.
+
+    It says what was read, from where, on which date — per kind of value — rather
+    than implying the whole card was re-read today. Two of the three bullets on most
+    cards are verbatim in the listing *title*, which is re-read on every pass; the
+    rest come from a dated read of the spec table or the feature bullets, which this
+    environment cannot re-retrieve on demand (F-P30, and the fetch variant documented
+    in F-P17). `python3 tools/claims_audit.py` recomputes which bullet is which.
+    """
+    dated = [v for v in (p.get(k) for k in
+                         ("capacity_read", "dimensions_read", "spec_table_read",
+                          "item_details_read")) if v]
+    specs_read = min(dated) if dated else ""
+    title_read = p.get("last_live_read") or p.get("name_listing_read") or ""
+    parts = []
+    if specs_read:
+        parts.append(f"listed specs read {esc(specs_read)}")
+    if title_read:
+        parts.append(f"title and ASIN re-read {esc(title_read)}")
+    lead = "; ".join(parts) if parts else "read from the official listing"
+    return (f'<p class="source-line">{lead} — see <a class="src" '
+            f'href="{esc(p["buy_url"])}" rel="sponsored nofollow noopener" target="_blank">'
+            'the official listing</a>. We publish no price: they move hourly, so the '
+            'listing is the price of record. Illustration, not a product photo.</p>')
 
 
 def hook_product_cards(_="") -> str:
@@ -1549,6 +1602,7 @@ HOOKS = {
     "briefs": hook_briefs,
     "briefs_summary": hook_briefs_summary,
     "suggestions": hook_suggestions,
+    "queue_stats": hook_queue_stats,
     "decisions": hook_decisions,
     "ledger_events": hook_ledger_events,
     "ledger_table": hook_ledger_table,
@@ -1832,7 +1886,8 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
 
 def build_feed() -> None:
     items = []
-    for gid in GUIDE_IDS + ["buying-guide", "article-thermometer-placement", "article-air-fryer-doneness"]:
+    for gid in GUIDE_IDS + ["buying-guide", "article-thermometer-placement", "article-air-fryer-doneness",
+                          "article-leftovers-reheat"]:
         p = next(x for x in PAGES if x[0] == gid)
         items.append(f"""    <item>
       <title>{esc(p[2].split(' | ')[0])}</title>
@@ -1961,7 +2016,18 @@ def mirror_to_root():
     """Legacy "main /" Pages serves the repo root. Mirror the publication there so
     the canonical URL carries it (INT-07's approach, retargeted to this build).
     Purge artifacts of the previous mirror (site/ output) first so no stale pages
-    linger at root. Writes .nojekyll so the root is served as static files."""
+    linger at root.
+
+    The root is deliberately *not* given a .nojekyll file any more, and
+    tools/publish_surface.py writes a root _config.yml instead. Reason: with
+    .nojekyll present, the legacy build copies the whole checkout, so every register,
+    draft and archived build at the root is fetchable (flags F-P19 / F-P20; measured
+    on the live host 2026-11-20). Without it, Pages runs Jekyll, and Jekyll does not
+    build any path named in `exclude` — which is how the repository keeps working
+    files out of the served output while the Pages *source setting* (an owner action
+    this sandbox cannot perform: PUT build_type=workflow returns 403) still points at
+    the root. The published HTML carries no front matter, so Jekyll copies it as a
+    static file, byte for byte: the root mirror stays identical to docs/ either way."""
     site = ROOT / "site"
     if site.is_dir():
         for src in site.rglob("*"):
@@ -1979,9 +2045,14 @@ def mirror_to_root():
             dst = ROOT / src.relative_to(DOCS)
             dst.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, dst)
-    (ROOT / ".nojekyll").write_text("")
+    # Root: Jekyll must RUN (it is what enforces the exclusion list), so no .nojekyll
+    # here. The docs/ artifact is already rendered and must not be re-processed.
+    stale = ROOT / ".nojekyll"
+    if stale.exists():
+        stale.unlink()
     (DOCS / ".nojekyll").write_text("")
-    print("mirrored docs/ -> repo root")
+    publish_surface.write()
+    print("mirrored docs/ -> repo root (root .nojekyll removed; _config.yml written)")
 
 
 if __name__ == "__main__":

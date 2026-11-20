@@ -1,0 +1,427 @@
+{
+  "_meta": {
+    "id": "claim-audit",
+    "date_utc": "2026-11-20",
+    "session": "arena/b3089214-prod2",
+    "description": "Every product claim published on the shop shelf, matched against the verbatim evidence recorded for that ASIN. Classification rule is written out in tools/claims_audit.py so a reviewer can re-run it; `python3 tools/claims_audit.py` regenerates this file and tools/checks.py fails the build on any unsupported row.",
+    "retired_phrases": [
+      {
+        "phrase": "magnetic back",
+        "product": "P4",
+        "instead": "Auto-rotating bright LED screen",
+        "why": "no recorded string for P4 mentions a magnet; the phrase came from an unrecorded 2026-11-19 read"
+      },
+      {
+        "phrase": "rinse-clean",
+        "product": "P4",
+        "instead": "IP67 waterproof for grill and BBQ",
+        "why": "the listing evidence records the IP67 rating, not a cleaning instruction"
+      },
+      {
+        "phrase": "Smart Hub",
+        "product": "P5",
+        "instead": "CHEF iQ app with predictive cook times",
+        "why": "no recorded string names a Smart Hub or audio reminders"
+      },
+      {
+        "phrase": "rack cooking",
+        "product": "P2",
+        "instead": "French-door oven with an extra-large 26 qt interior",
+        "why": "the listing evidence names French doors, presets and accessories, not racks"
+      },
+      {
+        "phrase": "in the basket lids",
+        "product": "P1",
+        "instead": "Easy-view windows, dual-zone features, and a mute",
+        "why": "the title says 'Easy View Windows'; where the window sits is not recorded"
+      },
+      {
+        "phrase": "monitor away from the heat",
+        "product": "P5",
+        "instead": "3 ultra-thin wireless probes, WiFi unlimited range",
+        "why": "the card paired our format word with a monitoring promise no recorded string carries"
+      }
+    ],
+    "retired_phrase_hits": [
+      {
+        "page": "guide-probe-in-air-fryer.html",
+        "phrase": "in the basket lids",
+        "product": "P1",
+        "instead": "Easy-view windows, dual-zone features, and a mute",
+        "why": "the title says 'Easy View Windows'; where the window sits is not recorded"
+      }
+    ],
+    "evidence_files": [
+      "data/p2/verification-2026-11-20.json",
+      "data/p2/products.json"
+    ],
+    "counts": {
+      "title-verbatim": 11,
+      "dated-read": 4
+    },
+    "limits": "This audit proves a claim is consistent with the evidence this project recorded; it does not re-read the listing sections behind the dated reads. Which claims rest on a dated read rather than on the title a reader can check today is stated per row, and the class is flagged as F-P30 with the browser spot-check path (Q-P19)."
+  },
+  "claims": [
+    {
+      "product": "P1",
+      "asin": "B0CDY277D3",
+      "field": "highlight_1",
+      "claim": "Two independent 3 qt baskets with Sync Finish",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "3": "name_listing",
+        "basket": "name_listing",
+        "sync": "name_listing"
+      },
+      "source": "S-P1",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P1",
+      "asin": "B0CDY277D3",
+      "field": "highlight_2",
+      "claim": "Easy-view windows, dual-zone features, and a mute",
+      "classification": "dated-read",
+      "evidence_keys": [],
+      "words_outside_the_title": [
+        "dual",
+        "easy",
+        "mute",
+        "view",
+        "window",
+        "zone"
+      ],
+      "unmatched_words": [],
+      "word_evidence": {
+        "dual": "name_listing",
+        "easy": "name_listing",
+        "mute": "special_feature",
+        "view": "name_listing",
+        "window": "name_listing",
+        "zone": "special_feature"
+      },
+      "source": "S-P1",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P1",
+      "asin": "B0CDY277D3",
+      "field": "highlight_3",
+      "claim": "Hi-Fry high-heat finish option, auto shutoff",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "auto": "name_listing",
+        "fry": "name_listing",
+        "hi": "name_listing",
+        "shutoff": "name_listing"
+      },
+      "source": "S-P1",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P2",
+      "asin": "B09B7SB46R",
+      "field": "highlight_1",
+      "claim": "French-door oven with an extra-large 26 qt interior",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "26": "name_listing",
+        "door": "name_listing",
+        "extra": "name_listing",
+        "french": "name_listing",
+        "interior": "name_listing",
+        "larg": "name_listing",
+        "oven": "name_listing"
+      },
+      "source": "S-P2",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P2",
+      "asin": "B09B7SB46R",
+      "field": "highlight_2",
+      "claim": "24 one-touch preset options as listed",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "24": "name_listing",
+        "preset": "name_listing",
+        "touch": "name_listing"
+      },
+      "source": "S-P2",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P2",
+      "asin": "B09B7SB46R",
+      "field": "highlight_3",
+      "claim": "Six cooking accessories included as listed",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "accessori": "name_listing",
+        "cook": "name_listing",
+        "six": "name_listing"
+      },
+      "source": "S-P2",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P3",
+      "asin": "B08DKYBTPH",
+      "field": "highlight_1",
+      "claim": "4-in-1: air fry, bake, dehydrate, frozen",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "1": "name_listing",
+        "4": "name_listing",
+        "air": "name_listing",
+        "bake": "name_listing",
+        "dehydrat": "name_listing",
+        "frozen": "name_listing",
+        "fry": "name_listing"
+      },
+      "source": "S-P3",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P3",
+      "asin": "B08DKYBTPH",
+      "field": "highlight_2",
+      "claim": "450°F Hi-Fry option for a crisp finish",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "450f": "name_listing",
+        "crisp": "name_listing",
+        "fry": "name_listing",
+        "hi": "name_listing"
+      },
+      "source": "S-P3",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P3",
+      "asin": "B08DKYBTPH",
+      "field": "highlight_3",
+      "claim": "XL nonstick dishwasher-safe basket; LED shake reminder",
+      "classification": "dated-read",
+      "evidence_keys": [],
+      "words_outside_the_title": [
+        "basket",
+        "dishwash",
+        "led",
+        "nonstick",
+        "remind",
+        "safe",
+        "shak",
+        "xl"
+      ],
+      "unmatched_words": [],
+      "word_evidence": {
+        "basket": "name_listing",
+        "dishwash": "name_listing",
+        "led": "special_feature",
+        "nonstick": "name_listing",
+        "remind": "special_feature",
+        "safe": "name_listing",
+        "shak": "special_feature",
+        "xl": "name_listing"
+      },
+      "source": "S-P3",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P4",
+      "asin": "B0DHZTCNR5",
+      "field": "highlight_1",
+      "claim": "1-second thermocouple read, NIST-certified ±0.5°F accuracy as listed",
+      "classification": "dated-read",
+      "evidence_keys": [
+        "products.json:special_feature"
+      ],
+      "words_outside_the_title": [
+        "0.5f",
+        "1",
+        "accuracy",
+        "certifi",
+        "nist",
+        "read",
+        "second",
+        "thermocoupl"
+      ],
+      "unmatched_words": [],
+      "word_evidence": {
+        "0.5f": "special_feature",
+        "1": "name_listing",
+        "accuracy": "name_listing",
+        "certifi": "name_listing",
+        "nist": "name_listing",
+        "read": "special_feature",
+        "second": "special_feature",
+        "thermocoupl": "special_feature"
+      },
+      "source": "S-P4",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P4",
+      "asin": "B0DHZTCNR5",
+      "field": "highlight_2",
+      "claim": "IP67 waterproof for grill and BBQ",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "67": "name_listing",
+        "bbq": "name_listing",
+        "grill": "name_listing",
+        "ip": "name_listing",
+        "waterproof": "name_listing"
+      },
+      "source": "S-P4",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P4",
+      "asin": "B0DHZTCNR5",
+      "field": "highlight_3",
+      "claim": "Auto-rotating bright LED screen",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "auto": "name_listing",
+        "bright": "name_listing",
+        "led": "name_listing",
+        "rotat": "name_listing",
+        "screen": "name_listing"
+      },
+      "source": "S-P4",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P5",
+      "asin": "B0DZFD6R9Z",
+      "field": "highlight_1",
+      "claim": "3 ultra-thin wireless probes, WiFi unlimited range",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "3": "name_listing",
+        "prob": "name_listing",
+        "rang": "name_listing",
+        "thin": "name_listing",
+        "ultra": "name_listing",
+        "unlimit": "name_listing",
+        "wifi": "name_listing",
+        "wireles": "name_listing"
+      },
+      "source": "S-P5",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P5",
+      "asin": "B0DZFD6R9Z",
+      "field": "highlight_2",
+      "claim": "1000°F heat-safe, air-fryer-safe probes",
+      "classification": "title-verbatim",
+      "evidence_keys": [
+        "products.json:name_listing",
+        "verification-2026-11-20.json:title_observed"
+      ],
+      "words_outside_the_title": [],
+      "unmatched_words": [],
+      "word_evidence": {
+        "1000f": "name_listing",
+        "air": "name_listing",
+        "fryer": "name_listing",
+        "prob": "name_listing",
+        "safe": "name_listing"
+      },
+      "source": "S-P5",
+      "claim_read": "2026-11-20"
+    },
+    {
+      "product": "P5",
+      "asin": "B0DZFD6R9Z",
+      "field": "highlight_3",
+      "claim": "CHEF iQ app with predictive cook times",
+      "classification": "dated-read",
+      "evidence_keys": [
+        "products.json:special_feature"
+      ],
+      "words_outside_the_title": [
+        "app",
+        "chef",
+        "cook",
+        "iq",
+        "predictiv",
+        "time"
+      ],
+      "unmatched_words": [],
+      "word_evidence": {
+        "app": "special_feature",
+        "chef": "name_listing",
+        "cook": "special_feature",
+        "iq": "name_listing",
+        "predictiv": "special_feature",
+        "time": "special_feature"
+      },
+      "source": "S-P5",
+      "claim_read": "2026-11-20"
+    }
+  ]
+}

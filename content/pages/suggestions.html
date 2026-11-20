@@ -12,50 +12,76 @@
   <p>The board below proposes work. A handful of those proposals cannot be judged until four facts exist that only the owner can obtain — whether the tracking tag is live, where analytics runs, whether a domain is controlled, and whether the brand name is clear. Those are set out, one row each, with what we know, what is missing and how it gets found, on <a href="before-you-decide.html"><strong>Before you decide anything</strong></a>. Read that page first if you only have ten minutes; read this one when you want to pick a path.</p>
 </div>
 
-<h2 id="ranked">Do these five things, in this order</h2>
-<p>Thirty-eight items propose work. Only a handful of them change what happens next, and most cost you minutes rather than days. This is the short list, ranked by how much it unblocks per hour of your time. Everything below it is optional.</p>
+<h2 id="ranked">Do these things, in this order</h2>
+<p>The order below is the reviewer’s, recorded on 2026-11-20 as <a href="decisions.html#D-P22">D-P22</a> — items 1&ndash;5 stand as decided, and items 6&ndash;7 are proposals added afterwards: one needs an hour, the other needs five minutes, and neither changes what item 2 unlocks. Everything below the table is optional.</p>
+{{queue_stats}}
 <table class="data">
   <thead><tr><th>#</th><th>Item</th><th>What it changes</th><th>Cost to you</th><th>Reversible?</th><th>Your action</th></tr></thead>
   <tbody>
+
     <tr>
       <td>1</td>
-      <td><a href="#SG-46">SG-46</a></td>
-      <td>Publishes only the built site and stops serving <code>data/</code>, <code>content/</code> and <code>tools/</code> at public URLs. Also removes the second copy of every page in the repo.</td>
-      <td>~2 minutes</td>
-      <td>Yes — same dropdown</td>
-      <td>Settings → Pages → Source: <strong>GitHub Actions</strong>. Say so and the mirror files get deleted here.</td>
+      <td><a href="#SG-49">SG-49</a></td>
+      <td>Associates <strong>Creators/PA-API</strong> access. One account step unblocks everything the site is currently forced to withhold: prices and ratings as quotable data (<a href="flagged.html#F-02">F-02</a>), the licensed product photo (<a href="#SG-47">SG-47</a>), bullet-level re-verification (<a href="flagged.html#F-P30">F-P30</a>) and commission categories (<a href="flagged.html#F-01">F-01</a>) — and it is the same workflow that settles the short-link question (<a href="flagged.html#F-03">F-03</a> / <a href="questions.html#Q-01">Q-01</a>).</td>
+      <td>~30 minutes, plus the qualifying sale the programme asks for</td>
+      <td>Yes — access can sit unused</td>
+      <td>Apply in Associates Central, store the keys as a <em>secret</em> (never in this repo), then say the word: the fetch script and the register columns are the follow-up commit.</td>
     </tr>
     <tr>
       <td>2</td>
       <td><a href="#SG-06">SG-06</a> + <a href="#SG-29">SG-29</a></td>
-      <td>Turns on real analytics: a hosted endpoint plus Search Console. Until both exist, every topic choice on this site is a guess (<a href="questions.html#Q-P08">Q-P08</a>).</td>
+      <td>Turns on real analytics: a hosted endpoint plus Search Console. Until both exist, every topic choice on this site is a guess (<a href="questions.html#Q-P08">Q-P08</a>, <a href="questions.html#Q-P17">Q-P17</a>). <a href="#SG-34">SG-34</a> — picking the next topic from measured queries instead of instinct — is the payoff, and it needs about 14 days of data first.</td>
       <td>One hosting decision + one verification token</td>
       <td>Yes</td>
-      <td>Paste the Search Console token into settings, and name a host for the endpoint in this repo.</td>
+      <td>Paste the Search Console token into <code>data/p2/settings.json</code>, and name a host for <code>server.mjs</code> in this repo.</td>
     </tr>
     <tr>
       <td>3</td>
+      <td><a href="questions.html#Q-P19">Q-P19</a></td>
+      <td>Five minutes with a browser closes <a href="flagged.html#F-P30">F-P30</a>: read each listing’s &ldquo;About this item&rdquo; block, paste the lines verbatim into <code>data/p2/products.json</code> with the date, and re-run the audit. Either six retired details come back onto the cards or they stay out, on evidence either way.</td>
+      <td>~5 minutes, no account needed</td>
+      <td>Yes — it only adds records</td>
+      <td>Paste the bullets, or record &ldquo;checked, not present&rdquo; and the wording stays retired.</td>
+    </tr>
+    <tr>
+      <td>4</td>
       <td><a href="#SG-38">SG-38</a></td>
-      <td>Formal clearance for the name "The Crisp Counter". It ships today on a preliminary search only (<a href="flagged.html#F-P21">F-P21</a>); the risk grows with traffic, not with time.</td>
+      <td>Formal clearance for the name &ldquo;The Crisp Counter&rdquo;. It ships today on a preliminary search only (<a href="flagged.html#F-P21">F-P21</a>); the risk grows with traffic, not with time.</td>
       <td>Counsel or a trademark search</td>
       <td>Cheap now, expensive later</td>
       <td>Approve a search, or name a replacement and the rename is one setting.</td>
     </tr>
     <tr>
-      <td>4</td>
+      <td>5</td>
+      <td><a href="#SG-46">SG-46</a></td>
+      <td>The root exposure is <strong>closed repo-side</strong> as of 2026-11-20 (generated root <code>_config.yml</code> + the exposition gate, <a href="decisions.html#D-P26">D-P26</a>), so this is no longer an emergency. What the dropdown still buys: the root mirror and the generated config can be deleted, the double commit per pass disappears, and <a href="flagged.html#F-P31">F-P31</a> closes.</td>
+      <td>~2 minutes</td>
+      <td>Yes — same dropdown</td>
+      <td>Settings → Pages → Source: <strong>GitHub Actions</strong>. Say so and the mirror files get deleted here.</td>
+    </tr>
+    <tr>
+      <td>6</td>
       <td><a href="questions.html#Q-47">Q-47</a></td>
-      <td>Settles whether the "ask a question" form may store an email. It is deliberately disconnected until then.</td>
+      <td>Settles whether the &ldquo;ask a question&rdquo; form may store an email. It is deliberately disconnected until then (<a href="flagged.html#F-P14">F-P14</a>).</td>
       <td>A privacy decision</td>
       <td>Yes</td>
       <td>Choose: email collection with a stated basis, or questions only. Second option ships immediately.</td>
     </tr>
+      <tr>
+      <td>6</td>
+      <td><a href="#SG-53">SG-53</a> <span class="status status-proposed">added after D-P22</span></td>
+      <td>Associates <strong>Creators/PA-API</strong> access — the one account step that unblocks everything this site is forced to withhold: prices and ratings as quotable data (<a href="flagged.html#F-02">F-02</a>), the licensed product photo (<a href="#SG-47">SG-47</a>), bullet-level re-verification (<a href="flagged.html#F-P30">F-P30</a>), commission categories (<a href="flagged.html#F-01">F-01</a>). It competes with item 2 for the same half-hour, and it is the same workflow that settles the short-link question (<a href="flagged.html#F-03">F-03</a>, <a href="questions.html#Q-P18">Q-P18</a>).</td>
+      <td>~30 minutes, plus the qualifying sale the programme asks for</td>
+      <td>Yes — access can sit unused</td>
+      <td>Apply in Associates Central, keep the keys out of this repo (a secret), then record the choice here; the fetch script is the follow-up commit.</td>
+    </tr>
     <tr>
-      <td>5</td>
-      <td><a href="#SG-34">SG-34</a></td>
-      <td>Switches topic selection from editorial instinct to measured queries — but only once item 2 has 14 days of data.</td>
-      <td>None; it is the payoff step</td>
-      <td>Yes</td>
-      <td>Nothing yet. It unblocks itself.</td>
+      <td>7</td>
+      <td><a href="questions.html#Q-P21">Q-P21</a> <span class="status status-proposed">cheapest on the board</span></td>
+      <td>Five minutes with a browser closes <a href="flagged.html#F-P30">F-P30</a>: read each listing’s &ldquo;About this item&rdquo; block, paste the lines verbatim into <code>data/p2/products.json</code> with the date, re-run <code>python3 tools/claims_audit.py</code>. Six retired details either come back on evidence or stay out.</td>
+      <td>~5 minutes, no account</td>
+      <td>Yes — it only adds records</td>
+      <td>Paste the bullets, or note &ldquo;checked, not present&rdquo; and the wording stays retired.</td>
     </tr>
   </tbody>
 </table>
