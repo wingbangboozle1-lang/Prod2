@@ -372,7 +372,7 @@
    "rank": 6,
    "question": "Is open pull request #16 wanted in any form, and who closes it?",
    "known": "PR #16 (branch arena/30a7028a-prod2, opened 2026-11-19) hand-authors root-level pages, the sitemap, the feed and data/products.json. On main, root is a generated mirror of docs/, so merging it as-is replaces the live publication and breaks the reproducibility check. Logged as RR-5 and RR-6.",
-   "unknown": "Whether anything unique in that branch is wanted, and whether its author will retarget it.",
+   "unknown": "Nothing further — the pull request is closed and the wanted content is on main.",
    "how_to_discover": "Read its file list and diff against main; either close it with a note, or ask for a rebase onto main with output redirected to a subdirectory, or port the wanted registers one file at a time.",
    "answerable_by": "The owner, or an integration session with the owner's instruction.",
    "decision_at_stake": "SG-32, and the safety of the next merge in this repository.",
@@ -381,8 +381,9 @@
     "url": "https://github.com/wingbangboozle1-lang/Prod2/pull/16",
     "look_for": "The Files changed tab, compared with tools/build.py's mirror_to_root() on main."
    },
-   "progress_note": "2026-11-20 (arena/e0d92902-prod2): verified via the GitHub API that PR #16 was closed unmerged on 2026-11-19 (recorded in COORDINATION.md PR #16 handoff). The decision this question asked for already happened; row kept verbatim, answer attached here.",
-   "renumber_note": "Renumbered from Q-P18 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
+   "progress_note": "Answered 2026-11-20 (session arena/7cec0d73-prod2): PR #16 is CLOSED, not merged (observed through the GitHub API, check.url). Its unique reader-facing work — the two question-shaped guides, the plain-language analysis page and the design-prompt page with their data files — was ported onto main's generated pipeline in the same pass, with register ids reconciled where they collided — each carried row records its former id in its own renumber note. Its hand-authored root pages were not merged: root stays a generated mirror of docs/ (RR-5, RR-6). The merge hazard this question described is gone.",
+   "renumber_note": "Renumbered from Q-P18 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows.",
+   "status": "answered"
   },
   {
    "id": "Q-P31",
