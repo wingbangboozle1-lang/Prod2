@@ -365,7 +365,7 @@ def hook_products_table(_="") -> str:
             depth = float(m.group(1))
         cap_qt = {"P1": 6.0, "P2": 26.0, "P3": 8.0}.get(p["id"])
         ratio = f"{cap_qt / depth:.2f} qt/in" if (cap_qt and depth) else '<span class="unverified">—</span>'
-        why = {"P1": "Two dishes at once, synced", "P2": "Rack cooking, sheet-pan meals",
+        why = {"P1": "Two dishes at once, synced", "P2": "Tray meals behind French doors",
                "P3": "Big single basket, small footprint", "P4": "Fast doneness checks",
                "P5": "Cook away from the heat"}[p["id"]]
         rows.append(
@@ -619,7 +619,7 @@ PRODUCT_IMAGES = {
 # already published on the card; these are the "who is this for" line, not a ranking.
 PRODUCT_BEST_FOR = {
     "P1": "Two dishes, one finish time",
-    "P2": "Sheet-pan meals and rack cooking",
+    "P2": "Tray meals behind French doors",
     "P3": "One big basket, the least counter",
     "P4": "A one-second spot check",
     "P5": "Long cooks, watched from away",
@@ -633,10 +633,38 @@ PRODUCT_BUY_LABEL = {
 }
 
 
+def card_source_line(p: dict) -> str:
+    """The evidence line under every product card.
+
+    It says what was read, from where, on which date — per kind of value — rather
+    than implying the whole card was re-read today. Two of the three bullets on most
+    cards are verbatim in the listing *title*, which is re-read on every pass; the
+    rest come from a dated read of the spec table or the feature bullets, which this
+    environment cannot re-retrieve on demand (F-P30, and the fetch variant documented
+    in F-P17). `python3 tools/claims_audit.py` recomputes which bullet is which.
+    """
+    dated = [v for v in (p.get(k) for k in
+                         ("capacity_read", "dimensions_read", "spec_table_read",
+                          "item_details_read")) if v]
+    specs_read = min(dated) if dated else ""
+    title_read = p.get("last_live_read") or p.get("name_listing_read") or ""
+    parts = []
+    if specs_read:
+        parts.append(f"listed specs read {esc(specs_read)}")
+    if title_read:
+        parts.append(f"title and ASIN re-read {esc(title_read)}")
+    lead = "; ".join(parts) if parts else "read from the official listing"
+    return (f'<p class="source-line">{lead} — see <a class="src" '
+            f'href="{esc(p["buy_url"])}" rel="sponsored nofollow noopener" target="_blank">'
+            'the official listing</a>. We publish no price: they move hourly, so the '
+            'listing is the price of record. Illustration, not a product photo.</p>')
+
+
 def hook_product_cards(_="") -> str:
     cards = []
     for p in PRODUCTS:
         src, alt = PRODUCT_IMAGES[p["id"]]
+        source_line = card_source_line(p)
         cards.append(f"""
 <article class="card product-card" id="{esc(p['id'])}">
   <a class="thumb" href="{esc(p['buy_url'])}" rel="sponsored nofollow noopener" target="_blank"
@@ -654,7 +682,7 @@ def hook_product_cards(_="") -> str:
       <li>{esc(p.get('highlight_3') or '')}</li>
     </ul>
     <p class="buy-row">{buy_link(p, PRODUCT_BUY_LABEL[p['id']])}</p>
-    <p class="source-line">Listed facts sourced to {listing_link(p, 'the official listing')}; listing re-checked {esc(p.get('last_live_read') or p.get('name_listing_read') or '')}. Illustration, not the product photo.</p>
+    {source_line}
   </div>
 </article>""")
     return '<div class="shelf">' + "".join(cards) + '</div>'

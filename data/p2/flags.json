@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/b3089214-prod2): F-P19/F-P20 carry the repository-side fix for the root-mode exposure and a dated correction of the 'served copy differs' note (it was a fetch cache, proven with a cache-busted re-read); F-P26/F-P28 evidence links repointed from served-host paths, which are no longer published, to repository blobs; F-P29 opened for the residual dependency on the generated config."
+    "last_change": "2026-11-20 (arena/b3089214-prod2): F-P19/F-P20 carry the repository-side fix for the root-mode exposure and a dated correction of the 'served copy differs' note (it was a fetch cache, proven with a cache-busted re-read); F-P26/F-P28 evidence links repointed from served-host paths, which are no longer published, to repository blobs; F-P29 opened for the residual dependency on the generated config. 2026-11-20 (arena/b3089214-prod2): F-P29 opened for the residual dependency on the generated _config.yml; F-P30 opened for the dated-read/unevidenced-claim class, with six phrases retired and gated."
   },
   "flags": [
     {
@@ -400,6 +400,16 @@
       "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/_config.yml",
       "evidence_note": "GitHub Docs, 'About GitHub Pages and Jekyll' (read 2026-11-20): Jekyll does not build paths named in `exclude`; Pages cannot disable its default plugin list. Pages API build_type=legacy read 2026-11-20; PUT build_type=workflow returns 403 for this token.",
       "how_to_resolve": "Owner flips Settings → Pages → Source to GitHub Actions, then a later pass deletes the root mirror, the root _config.yml and the mirror step in tools/build.py. A reviewer can also confirm the interim control by fetching /Prod2/data/p2/settings.json: it must 404.",
+      "resolved_utc": null
+    },
+    {
+      "id": "F-P30",
+      "status": "open",
+      "title": "Ten published product details rest on dated reads the site cannot re-retrieve, and six were retired this pass",
+      "detail": "The shop cards publish 15 product bullets. `python3 tools/claims_audit.py` now matches every one against the verbatim strings recorded for that ASIN: 11 are in the listing title (which every dated pass re-reads), 4 come from a dated read of the spec table or the feature bullets (2026-11-14 / 2026-11-19) that this environment cannot reliably re-retrieve — the fetched listing variant returns the title, the breadcrumb and 'also viewed' carousels, not the 'About this item' block (F-P17 is the mechanism). Six further phrases were published with the same confidence as a listed spec but no recorded string carries them: 'magnetic back', 'rinse-clean', 'Smart Hub', 'rack cooking', 'in the basket lids', 'leave-in wireless probes'. They were rewritten to evidenced wording on 2026-11-20 (P1/P2/P4/P5 cards, the compare table, the buying guide, the thermometer category page and two guides) and are now gated: tools/checks.py fails if one returns on a reader-facing page. Nothing was deleted because it was disproved — it was unpublished because it was unevidenced, and the phrases are listed in data/p2/claim-audit-2026-11-20.json with the replacement text for each.",
+      "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/claim-audit-2026-11-20.json",
+      "evidence_note": "Rule: a published claim word must appear in a recorded verbatim evidence string for that ASIN (stem-folded, units and stop-words dropped, >=4 chars). Reproduce with `python3 tools/claims_audit.py --report`. The fabricated-claim negative test ('Whisper-quiet turbine with self-cleaning diamond coat') was run on 2026-11-20 and the gate failed as intended; the first version of the audit passed that test, because a claim could cite its own register field as evidence — the pool is now restricted to listing-text fields.",
+      "how_to_resolve": "Owner or a later pass closes the four dated-read rows and restores any retired detail it can evidence, by either (a) reading the listing's 'About this item' block in a browser and recording the string verbatim with a date, or (b) a Creators/PA-API response, which returns item highlights as data the Operating Agreement lets us quote (SG-49). Until then the cards stay narrower than the listing, which is the safe direction for an affiliate page.",
       "resolved_utc": null
     }
   ]

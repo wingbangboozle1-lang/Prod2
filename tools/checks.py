@@ -293,6 +293,37 @@ def main() -> int:
     if not FAILURES:
         ok("product facts cited; nulls blank + marked; intent fields separate")
 
+    # Claim-level audit: every bullet the shelf publishes must still resolve to a
+    # verbatim evidence string recorded for that ASIN. `unsupported` fails the build;
+    # `dated-read` is allowed but counted — that count is what F-P30 publishes.
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+    import claims_audit  # noqa: PLC0415
+
+    live_audit = claims_audit.audit()
+    rows = live_audit["claims"]
+    audit_path = DATA / f"claim-audit-{claims_audit.AUDIT_DATE}.json"
+    if not rows:
+        fail("claims audit found no product bullets on shop.html — the shelf changed shape "
+             "and the audit needs updating alongside it")
+    bad = [r for r in rows if r["classification"] == "unsupported"]
+    for r in bad:
+        fail(f"{r['product']} {r['field']}: {r['claim']!r} matches no recorded evidence string "
+             f"(unmatched words: {', '.join(r['unmatched_words']) or 'all'})")
+    if audit_path.exists():
+        if json.loads(audit_path.read_text(encoding="utf-8")).get("claims") != rows:
+            fail(f"data/p2/{audit_path.name} is stale — run `python3 tools/claims_audit.py`")
+    else:
+        fail(f"data/p2/{audit_path.name} is missing — run `python3 tools/claims_audit.py`")
+    hits = claims_audit.retired_hits(DOCS)
+    for h in hits:
+        fail(f"{h['page']}: retired claim wording came back ({h['phrase']!r} on "
+             f"{h['product']}) — {h['why']}; published wording should be {h['instead']!r}")
+    if rows and not bad:
+        counts = live_audit["_meta"]["counts"]
+        ok(f"{len(rows)} published product claims audited: {counts.get('title-verbatim', 0)} "
+           f"verbatim in today's title read, {counts.get('dated-read', 0)} from a dated listing "
+           "read, 0 unsupported")
+
     # ----------------------------------------------------------------- claims
     check("claims")
     for f in html_files:
