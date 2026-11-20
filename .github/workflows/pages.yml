@@ -26,6 +26,12 @@ jobs:
         run: python3 tools/build.py
       - name: Release gate — publication
         run: python3 tools/checks.py
+      # Fails the deploy if the stylesheet does not parse or does not reach the
+      # markup. Added after 2026-11-20, when all 30 pages shipped with git
+      # conflict markers in site.css and nothing in this repo could see it
+      # (no session has ever rendered a page in this sandbox).
+      - name: Release gate — stylesheet
+        run: python3 tools/design_qa.py
       - name: Build the preserved Countercraft site (site/)
         run: python3 scripts/build_site.py
       - name: Release gate — Countercraft

@@ -25,6 +25,29 @@ DOCS = ROOT / "docs"
 BUILD_DATE = "2026-11-20"  # set on each publishing pass
 
 
+def _asset_version() -> str:
+    """A short content hash of the shipped assets, appended as ?v= to every asset
+    URL. GitHub Pages serves assets through a CDN cache, so without this a
+    corrected stylesheet can sit behind a stale copy for hours — observed on
+    2026-11-20, when the fixed site.css was in the repo and the CDN still served
+    the conflict-broken one.
+
+    Hash of each file's PATH and BYTES only. It must not use mtime or inode: CI
+    rebuilds on a fresh clone and fails the job if the committed docs/ differs
+    from a fresh build (`git diff --exit-code -- docs/`), and a fresh clone never
+    has the same mtimes. Bytes-only keeps the build byte-reproducible."""
+    import hashlib
+    h = hashlib.sha1()
+    for f in sorted(ASSETS_SRC.rglob("*")):
+        if f.is_file():
+            h.update(f.relative_to(ASSETS_SRC).as_posix().encode())
+            h.update(hashlib.sha1(f.read_bytes()).digest())
+    return h.hexdigest()[:10]
+
+
+ASSET_V = _asset_version()
+
+
 def load(name: str):
     return json.loads((DATA / name).read_text(encoding="utf-8"))
 
@@ -40,6 +63,7 @@ DECISIONS = load("decisions.json")["decisions"]
 LEDGER = load("ledger.json")
 EVENTS = load("events.json")
 CALENDAR = load("calendar.json")
+BRIEFS = load("briefs.json")["briefs"]
 
 BRAND = SETTINGS["brand"]["name"]
 DESCRIPTOR = SETTINGS["brand"]["descriptor"]
@@ -62,6 +86,10 @@ PAGES = [
      f"Shop: the five kitchen tools we follow | {BRAND}",
      "One shelf: three air fryer formats and two thermometer workflows, filtered by what you cook and how much counter you can spare. Paid links, marked.",
      "shop"),
+    ("decide", "decide.html",
+     f"Which one should I buy? Four questions, one answer | {BRAND}",
+     "Answer four questions about how you cook and we name one of five tools, quote the listed fact the answer rests on, and say what would change it. No scores, no prices.",
+     "decide"),
     ("about", "about.html",
      f"About this site: who writes it, how we check | {BRAND}",
      "Who edits this site, the four rules every page follows, how figures are read and dated, and exactly what we cannot tell you yet.",
@@ -126,6 +154,11 @@ PAGES = [
      f"Gift guide: which of the five fits which cook? | {BRAND}",
      "Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.",
      "guides"),
+    # Three pages added 2026-11-20 (arena/e1dbef32-prod2), all built from official
+    # guidance rather than from listing copy: the doneness chart the buying
+    # decision keeps pointing at, the storage clock every guide assumes, and a long
+    # read on the rule no product page mentions. Sources: S-FSIS-CHART,
+    # S-FSIS-LEFTOVERS, S-FSIS-DANGER, S-UNL-AIRFRYER (all read 2026-11-20).
     ("guide-safe-temp-chart", "guide-safe-temp-chart.html",
      f"What temperature counts as done? | {BRAND}",
      "The USDA FSIS minimum internal temperature chart, food by food, with the rest-time detail listings leave out — and which thermometer clears which number.",
@@ -162,9 +195,17 @@ PAGES = [
      f"Flagged for review | {BRAND}",
      "Open, resolved and standing items with evidence links: the irregularities and unverified values a reviewer should see.",
      "work"),
+    ("before-you-decide", "before-you-decide.html",
+     f"Before you decide anything: the eleven open calls | {BRAND}",
+     "Eleven decisions waiting on facts only the owner can obtain: what is known, what is missing, how it gets found, and what changes when it lands.",
+     "work"),
     ("questions", "questions.html",
      f"Open questions and missing information | {BRAND}",
      "What we know, what we don't, and how to find out — the register that must be answered before certain decisions can be made.",
+     "work"),
+    ("briefs", "briefs.html",
+     f"Six decisions, what is known and what is missing | {BRAND}",
+     "Six decisions in the order they should be made: what is already verified, what is still missing, the exact question, who can answer it, and the cheapest test.",
      "work"),
     ("suggestions", "suggestions.html",
      f"Suggestion queue: choose the path before we build | {BRAND}",
@@ -187,6 +228,11 @@ PAGES = [
      "What this site collects (almost nothing), what the click counter does, and what the self-hosted analytics endpoint stores.",
      "work"),
 ]
+
+# Per-page script loading. Keeping decide.js off the other 29 pages is not a
+# micro-optimisation: a page that ships a form's controller everywhere is a page
+# whose JS can break something it does not own.
+PAGE_SCRIPTS = {"decide": ["decide.js"]}
 
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
@@ -222,6 +268,32 @@ def listing_link(p: dict, label: str = "listing") -> str:
             f'rel="noopener" target="_blank">{esc(label)}</a>')
 
 
+def picture(src: str, alt: str, *, cls: str = "", loading: str = "lazy",
+            width: int = 1200, height: int = 900, base: str | None = None) -> str:
+    """<picture> with a WebP source and the original PNG as the fallback.
+
+    Why: the five illustrations and the hero were 446-561 KB PNGs of flat colour
+    (2.4 MB for the six images on the landing page). The same art re-encoded as
+    WebP at q84 is 9.9-111 KB with no visible difference, which is the difference
+    between a fast page and a slow one on a phone. The PNGs stay in the repo and
+    are the fallback for every browser that does not take WebP, and as the
+    reference copy for anyone editing the art. Both files are loaded from this
+    site — no image CDN, per the privacy statement.
+    """
+    b = base if base is not None else BASE
+    webp = src[:-4] + ".webp" if src.endswith(".png") else None
+    alt_attr = f'alt="{esc(alt)}"' if alt else 'alt=""'
+    cls_attr = f' class="{esc(cls)}"' if cls else ""
+    img = (f'<img src="{esc(b)}/{esc(src)}" {alt_attr}{cls_attr} loading="{loading}" '
+           f'width="{width}" height="{height}" decoding="async">')
+    if not webp:
+        return img
+    return (f'<picture>'
+            f'<source type="image/webp" srcset="{esc(b)}/{esc(webp)}">'
+            f'{img}'
+            f'</picture>')
+
+
 def buy_link(p: dict, text: str | None = None, cls: str = "btn btn-buy") -> str:
     label = text or f"See the {p['name_short']} on Amazon"
     return amazon_link(p["buy_url"], label, cls) + f' <span class="paid">{esc(PAID_LABEL)}</span>'
@@ -236,6 +308,7 @@ def buy_link(p: dict, text: str | None = None, cls: str = "btn btn-buy") -> str:
 # which the gate still requires on every page.
 NAV_READER = [
     ("shop.html", "Shop"),
+    ("decide.html", "Find my match"),
     ("category-air-fryers.html", "Air fryers"),
     ("category-thermometers.html", "Thermometers"),
     ("guides.html", "Guides"),
@@ -249,6 +322,8 @@ NAV_WORK = [
     ("method.html", "Method &amp; sources"),
     ("flagged.html", "Flagged for review"),
     ("questions.html", "Open questions"),
+    ("briefs.html", "Decision briefs"),
+    ("before-you-decide.html", "Before you decide"),
     ("suggestions.html", "Suggestions"),
     ("decisions.html", "Decisions"),
     ("measurement.html", "Measurement"),
@@ -295,7 +370,7 @@ def build_footer() -> str:
     def lis(items):
         return "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in items)
     guides = lis(GUIDE_LINKS)
-    shop = lis([("shop.html", "Shop the shelf"), ("compare.html", "Compare the five"),
+    shop = lis([("shop.html", "Shop the shelf"), ("decide.html", "Find my match"), ("compare.html", "Compare the five"),
                 ("products.html", "Products &amp; specs"), ("category-air-fryers.html", "Air fryers"),
                 ("category-thermometers.html", "Thermometers"), ("buying-guide.html", "Buying guide")])
     read = lis([("guides.html", "All guides"), ("buying-guide.html", "Buying guide"),
@@ -434,6 +509,152 @@ def hook_counter_space(_="") -> str:
             'It answers: how much cooking space do I get per square inch of counter surrendered?</p>')
 
 
+def hook_glance_table(_="") -> str:
+    """The landing page's at-a-glance table: one line per tool, the three values a
+    buyer weighs first, and the buy action. Deliberately NOT the full comparison
+    table (that is compare.html's job and it is nine columns wide); this is the
+    shelf read at a glance above the fold-scroll, with a source on every row."""
+    rows = []
+    for p in PRODUCTS:
+        if p["id"] in ("P1", "P2", "P3"):
+            depth = re.match(r'([\d.]+)"D', p.get("dimensions") or "")
+            depth_txt = (depth.group(1) + '" deep') if depth else '<span class="unverified">—</span>'
+            cap = p.get("capacity") or '<span class="unverified">—</span>'
+            kind = "Air fryer"
+        else:
+            depth_txt = "—"
+            cap = "—"
+            kind = "Thermometer"
+        rows.append(
+            f'<tr><td><strong>{esc(p["name_short"])}</strong><br>'
+            f'<span class="muted">{esc(p["format"])}</span></td>'
+            f'<td>{kind}</td>'
+            f'<td>{esc(cap) if "unverified" not in str(cap) else cap}</td>'
+            f'<td>{depth_txt}</td>'
+            f'<td>{listing_link(p, "listing")}</td>'
+            f'<td>{buy_link(p, "Check price")}</td></tr>')
+    return ('<div class="table-scroll"><table class="data glance-table">'
+            '<thead><tr><th>Tool</th><th>Type</th><th>Listed capacity</th>'
+            '<th>Counter depth</th><th>Source</th><th></th></tr></thead><tbody>'
+            + "".join(rows) + '</tbody></table></div>'
+            '<p class="table-note">Depth is the listed front-to-back dimension, the number that decides '
+            'whether a machine fits your counter. Capacity is quoted exactly as the listing states it. '
+            'No prices and no ratings are published (<a href="flagged.html#F-02">F-02</a>); '
+            '<a href="compare.html#table">the full nine-column comparison is one click away</a>.</p>')
+
+
+# -------------------------------------------------------------------------- faq
+# The FAQPage node is derived from the page's own visible Q&A block, never typed a
+# second time. Landing and decide used to carry a hand-written copy of their own
+# questions in the structured data, and both had drifted: the landing markup answered
+# 4 of the 6 visible questions with different wording, and decide.html marked up 4
+# questions a reader could not find on the page at all. Google's rule is that the
+# marked-up content must be the content shown (F-P36), so there is now one source.
+FAQ_BLOCK = re.compile(
+    r'<details class="faq-item"><summary>(.*?)</summary><div class="faq-body"><p>(.*?)</p></div></details>',
+    re.S)
+TAG_STRIP = re.compile(r"<[^>]+>")
+
+
+def faq_pairs(fragment: str) -> list[tuple[str, str]]:
+    """(question, answer) for every FAQ item a page shows, in page order, markup
+    stripped so the machine copy is the same words a reader reads."""
+    return [(html.unescape(TAG_STRIP.sub("", q)).strip(),
+             html.unescape(TAG_STRIP.sub("", a)).strip())
+            for q, a in FAQ_BLOCK.findall(fragment)]
+
+
+def faq_node(pairs) -> dict:
+    return {
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question", "name": q,
+            "acceptedAnswer": {"@type": "Answer", "text": a},
+        } for q, a in pairs],
+    }
+
+
+LANDING_FAQ = [
+        ("Which air fryer should I buy?",
+         "It depends on two numbers you already have: how deep your counter is and whether you cook two "
+         'dishes at once. <a href="decide.html">Four questions on the decision page</a> will name one machine '
+         'and quote the listed fact the answer rests on. The short version: under 13 inches of depth, the '
+         'single-basket machine is the only one on this shelf that fits; two dishes that must finish together '
+         'point at the dual basket; rack and sheet-pan cooking points at the French-door oven.'),
+        ("Why are there no prices on this site?",
+         "Because a price we cannot fetch from Amazon is a price we would be making up. Amazon\'s Program "
+         'Policies restrict how prices may be displayed, and a price cached from last week is worse than no '
+         'price at all. Every buy button goes to the live listing, where the current price is Amazon\'s own '
+         'and always current (<a href="flagged.html#F-02">F-02</a>).'),
+        ("Why no star ratings or \"best\" badge?",
+         "Two reasons, both recorded. Star ratings are Amazon\'s content and their display is governed by the "
+         'Associates agreement, so this site does not republish them. And nobody here has cooked with these '
+         'machines, so a "best" badge would be an opinion dressed as a test result — the publish gate fails '
+         'the build if the site claims hands-on testing (<a href="about.html">about the site</a>).'),
+        ("How do you pick which products to follow?",
+         "The owner selected five: three air-fryer formats and two thermometer workflows. This site adds no "
+         'others and ranks none of them. What it does is read each official listing, date the read, and '
+         'publish the values with the link they came from (<a href="method.html">the source register</a>).'),
+        ("What if a listing changes after you read it?",
+         "Then our figure is stale and says so: every value carries the date it was read, and each product "
+         'card names the most recent re-check. Where a listing states a value two ways, both readings are '
+         'kept rather than averaged (<a href="flagged.html">the flagged page</a> lists every such case).'),
+        ("Do the links cost me anything?",
+         "No. They are Amazon Associates links: the price you pay is the listing\'s price, and a qualifying "
+         'purchase may earn this site a commission. That is the disclosure at the top of every page, and it '
+         'is repeated in the footer (<a href="compliance.html">how disclosures are handled</a>).'),
+]
+
+
+DECIDE_FAQ = [
+    ("Basket or oven-style air fryer: what should I compare?",
+     "Compare counter depth first, then basket count, then listed capacity. On this shelf the oven format "
+     "lists the deepest footprint at 16.9 inches, the dual-basket machine 13.38 inches and the single-basket "
+     "machine 12.75 inches. A machine that does not fit your counter is a return whatever else it does well "
+     "(<a href='guide-capacity.html'>the capacity checklist</a>)."),
+    ("How much counter depth does an air fryer need?",
+     "The listed depths of the three air fryers followed here are 12.75 inches (single basket, 8 qt), 13.38 "
+     "inches (dual basket, 6 qt total) and 16.9 inches (French-door oven, 26 qt). Measure front to back and "
+     "leave the clearance the manual asks for behind the machine (<a href='guide-cleanup-counter-space.html'>counter "
+     "fit and cleanup</a>)."),
+    ("Do I need two air fryer baskets?",
+     "Two baskets answer one problem: two dishes that need to finish at the same minute. Each basket on the "
+     "dual-basket machine is listed at 3 qt, so the 6 qt total is not available to a single batch at one "
+     "temperature. If you cook one thing at a time, a single 8 qt basket gives a larger single zone "
+     "(<a href='guide-two-baskets-or-one.html'>the two-basket question, in full</a>)."),
+    ("Instant-read or leave-in meat thermometer: which do I need?",
+     "An instant-read answers a question in about one second at the counter or grill. A wireless leave-in probe "
+     "stays in the food and reports throughout a long cook, and the probes on the model followed here are listed "
+     "as rated to 1000 degrees F, which is what makes them usable in an air fryer. The instant-read needs no "
+     "charging and no app; the leave-in watches a cook you would rather not open "
+     "(<a href='guide-instant-vs-leave-in.html'>check it or watch it</a>)."),
+]
+
+
+def faq_markup(pairs) -> str:
+    """The site\'s one FAQ component: one disclosure per question."""
+    items = "".join(
+        f'<details class="faq-item"><summary>{q}</summary>'
+        f'<div class="faq-body"><p>{a}</p></div></details>'
+        for q, a in pairs)
+    return f'<div class="faq">{items}</div>'
+
+
+def hook_landing_faq(_="") -> str:
+    """Reader questions answered on the landing page, rendered from LANDING_FAQ —
+    the same list the FAQPage JSON-LD is derived from, so the two cannot drift."""
+    return faq_markup(LANDING_FAQ)
+
+
+def hook_decide_faq(_="") -> str:
+    """The visible half of decide.html's FAQPage markup.
+
+    The four questions used to exist only inside the JSON-LD on this page: the reader
+    saw a chooser, the crawler was told there was an FAQ. Both halves now render from
+    one list, so markup cannot promise an answer the page does not show (F-P36)."""
+    return faq_markup(DECIDE_FAQ)
+
+
 def hook_chooser(_="") -> str:
     return """
 <div class="chooser" id="chooser">
@@ -550,6 +771,101 @@ def hook_questions(_="") -> str:
     return "".join(out)
 
 
+def _ref(text: str) -> str:
+    """Link every register id that appears in a brief field to its own row.
+
+    A brief must never assert a fact without letting the reader jump to the row
+    that proves it, so ids are linked mechanically rather than by hand. Ranges
+    such as "D-P10..D-P17" name an ID space and are left as text.
+    """
+    out = esc(text)
+    for rid in sorted(set(re.findall(r"\b(F-P?\d{1,3}|Q-P?\d{1,3}|SG-\d{1,3}|D-P?\d{1,3})\b", text)),
+                      key=len, reverse=True):
+        page = {"F": "flagged.html", "Q": "questions.html",
+                "SG": "suggestions.html", "D": "decisions.html"}[rid.split("-")[0]]
+        out = out.replace(f'<code>{esc(rid)}</code>' if False else esc(rid),
+                          f'<a href="{page}#{esc(rid)}"><code>{esc(rid)}</code></a>', 1)
+    return out
+
+
+def hook_briefs(_="") -> str:
+    out = []
+    for b in BRIEFS:
+        known = "".join(
+            f'<li>{esc(k["fact"])} <span class="brief-cite">{_ref(k["cited_by"])}</span></li>'
+            for k in b["known"])
+        unknown = "".join(f"<li>{esc(u)}</li>" for u in b["not_known"])
+        blocks = "".join(f"<li>{esc(x)}</li>" for x in b["what_it_blocks"])
+        links = " · ".join(f'<a class="src" href="{esc(l["url"])}" rel="noopener" target="_blank">'
+                           f'{esc(l["label"])}</a>' for l in b["evidence_links"])
+        # de-duplicate while keeping first-seen order: merging two register passes
+        # left B-01 listing F-P24 three times and B-03 listing F-02 twice.
+        def uniq(seq):
+            seen, out = set(), []
+            for x in seq:
+                if x not in seen:
+                    seen.add(x)
+                    out.append(x)
+            return out
+        flags = " ".join(f'<a href="flagged.html#{esc(f)}">{esc(f)}</a>' for f in uniq(b.get("flags", [])))
+        qs = " ".join(f'<a href="questions.html#{esc(q)}">{esc(q)}</a>' for q in uniq(b.get("questions", [])))
+        out.append(f"""
+<article class="card brief-card" id="{esc(b['id'])}">
+  <header class="brief-head">
+    <p class="eyebrow">Brief {esc(str(b['order']))} · {esc(b['id'])}</p>
+    <h2>{esc(b['question'])}</h2>
+    <p class="lede">{esc(b['yields'])}</p>
+  </header>
+  <div class="brief-two">
+    <div class="brief-col brief-known">
+      <h3>What is known — with the row that proves it</h3>
+      <ul>{known}</ul>
+    </div>
+    <div class="brief-col brief-unknown">
+      <h3>What is not known</h3>
+      <ul>{unknown}</ul>
+    </div>
+  </div>
+  <div class="brief-test">
+    <h3>The cheapest way to find out</h3>
+    <p>{_ref(b['cheapest_first_test'])}</p>
+    <p class="brief-who"><strong>Who can answer it:</strong> {esc(b['who_can_answer'])}</p>
+  </div>
+  <div class="brief-two">
+    <div class="brief-col">
+      <h3>Deciding this unlocks</h3>
+      <ul>{blocks}</ul>
+    </div>
+    <div class="brief-col">
+      <h3>It does not block</h3>
+      <p>{esc(b['what_it_does_not_block'])}</p>
+    </div>
+  </div>
+  <p class="brief-refs"><strong>Rows behind this brief:</strong> {flags or '—'}
+     &nbsp;·&nbsp; <strong>Questions:</strong> {qs or '—'}</p>
+  <p class="brief-links"><strong>Read it yourself:</strong> {links}</p>
+</article>""")
+    return "".join(out)
+
+
+def hook_briefs_summary(_="") -> str:
+    rows = []
+    for b in BRIEFS:
+        rows.append(
+            f'<tr><td>{esc(str(b["order"]))}</td>'
+            f'<td><a href="#{esc(b["id"])}"><code>{esc(b["id"])}</code></a></td>'
+            f'<td>{esc(b["question"])}</td>'
+            f'<td>{esc(b["who_can_answer"])}</td>'
+            f'<td>{len(b["not_known"])} open</td></tr>')
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>#</th><th>Brief</th>'
+            '<th>The decision</th><th>Answered by</th><th>Missing information</th>'
+            '</tr></thead><tbody>' + "".join(rows) + "</tbody></table></div>"
+            '<p class="table-note">Ordered by irreversibility, not by impact: the briefs that cost an '
+            'account or a rename come before the ones that cost a commit. Each brief below lists what is '
+            'already verified, with the register row that proves it, then what is still missing and the '
+            'cheapest test that would close it.</p>')
+
+
 def hook_suggestions(_="") -> str:
     out = []
     for s in SUGGESTIONS:
@@ -646,16 +962,17 @@ def hook_product_cards(_="") -> str:
     cards = []
     for p in PRODUCTS:
         src, alt = PRODUCT_IMAGES[p["id"]]
+        thumb = picture(src, "", loading="lazy", width=1200, height=900)
         cards.append(f"""
 <article class="card product-card" id="{esc(p['id'])}">
   <a class="thumb" href="{esc(p['buy_url'])}" rel="sponsored nofollow noopener" target="_blank"
      data-affiliate="1" tabindex="-1" aria-hidden="true">
-    <img src="{esc(BASE)}/{src}" alt="" loading="lazy" width="1200" height="900">
+    {thumb}
     <span class="rank">{esc(p['format'])}</span>
   </a>
   <div class="body">
     <p class="eyebrow">Best for: {esc(PRODUCT_BEST_FOR[p['id']])}</p>
-    <h3><a href="products.html#{esc(p['id'])}" style="color:inherit;text-decoration:none">{esc(p['name_short'])}</a></h3>
+    <h3 class="card-title"><a href="products.html#{esc(p['id'])}" style="color:inherit;text-decoration:none">{esc(p['name_short'])}</a></h3>
     <p class="muted asin">{esc(p['asin'])}</p>
     <ul>
       <li>{esc(p.get('highlight_1') or '')}</li>
@@ -702,9 +1019,9 @@ GUIDE_BLURBS = {
     "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
     "guide-safe-temp-chart": "The chart that decides whether dinner worked, read food by food, with its rest times.",
     "guide-leftovers": "The 3-4 day clock, the 165°F reheat, and where the guidance stops talking about air fryers.",
-    "article-thermometer-placement": "Why the USDA spends more words on where the probe goes than on how precise it is.",
-    "article-air-fryer-doneness": "Internal temperature, not capacity or wattage: the number that decides whether the batch worked.",
-    "article-danger-zone": "The 40-140°F clock, the holding list that does not include an air fryer, and the 165°F reheat.",
+    "article-thermometer-placement": "The USDA spends far more words on where the probe goes than on how precise it is — and that single fact decides which of the two thermometers is right for you.",
+    "article-air-fryer-doneness": "Capacity, drawers and wattage do not tell you whether dinner is safe. Extension guidance says the same rule applies to every air fryer — and that overfilling the basket is what ruins a batch.",
+    "article-danger-zone": "Hot holding, rapid cooling and the 165°F reheat: the official rules no listing mentions, and the one place the guidance goes quiet about air fryers.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -725,34 +1042,152 @@ GUIDE_TAGS = {
 }
 
 
-def _guide_card(gid: str) -> str:
+def _read_minutes(gid: str) -> int:
+    """Minutes for a long read, from the word count the cadence gate re-measures."""
+    for it in (CALENDAR.get("longreads") or {}).get("items") or []:
+        if it["path"][:-5] == gid:
+            return max(1, round(int(it.get("words_checked") or 0) / 200))
+    return 0
+
+
+def _guide_card(gid: str, more: str = "Read the guide") -> str:
+    # PAGE_TITLES, not GUIDE_TITLES: a cluster or season may point at a long read,
+    # which is a registered page but not a guide (see calendar.clusters).
     title = PAGE_TITLES[gid].split(" | ")[0]
+    tag = GUIDE_TAGS.get(gid, "Guide")
+    minutes = _read_minutes(gid)
+    if minutes:
+        tag = f"{tag} · {minutes} min"
     return f"""
   <article class="card guide-card">
-    <span class="tag">{esc(GUIDE_TAGS.get(gid, "Guide"))}</span>
+    <span class="tag">{esc(tag)}</span>
     <h3><a href="{gid}.html">{esc(title)}</a></h3>
     <p>{esc(GUIDE_BLURBS.get(gid, ""))}</p>
-    <a class="more" href="{gid}.html">Read the guide</a>
+    <a class="more" href="{gid}.html">{esc(more)}</a>
   </article>"""
+
+
+def hook_longread_cards(_="") -> str:
+    """Long-read cards, generated from data/p2/calendar.json.
+
+    The front page and the guides hub each typed these cards by hand, so a new long
+    read could be live in the register, the feed and the sitemap while both surfaces
+    still advertised the old pair. The register is now the only list.
+    """
+    cards = [_guide_card(it["path"][:-5], more="Read the long read")
+             for it in (CALENDAR.get("longreads") or {}).get("items") or []
+             if it["path"][:-5] in PAGE_TITLES]
+    return '<div class="card-grid">' + "".join(cards) + "</div>"
 
 
 def hook_trust_row(_="") -> str:
     """The hero's count row, computed from the registers instead of typed by hand.
 
-    Added 2026-11-20 after the pass that tripled the long reads left a hand-written
-    "12 guides & reads" on the front page — a number that can only drift. It is a
-    count of what this site publishes, not a claim about anyone else's traffic.
+    Added 2026-11-20 after the same failure on the same page: a hand-written "12
+    guides & long reads" and "Two long reads" both went stale the moment a page was
+    added. These count what this site publishes; they are not claims about traffic.
     """
     longreads = len((CALENDAR.get("longreads") or {}).get("items") or [])
     formats = len({p["format"] for p in PRODUCTS if "thermometer" not in p["format"].lower()})
     numbers = [
         (len(PRODUCTS), "tools followed"),
         (formats, "air fryer formats"),
-        (len(GUIDE_IDS) + longreads, "buyer guides &amp; long reads"),
-        (0, "made-up specs"),
+        (len(GUIDE_IDS) + longreads, "guides & long reads"),
+        (0, "invented specs"),
     ]
     cells = "".join(f"<div><b>{n}</b><span>{label}</span></div>" for n, label in numbers)
     return f'<div class="trust-row">{cells}</div>'
+
+
+def _queue_state() -> dict:
+    """Live suggestions, each cross-referenced against the questions that block it."""
+    q_by = {q["id"]: q for q in QUESTIONS}
+    open_q = {qid for qid, q in q_by.items() if q.get("status") != "answered"}
+    counts, rows = {}, []
+    for s in SUGGESTIONS:
+        counts[s["status"]] = counts.get(s["status"], 0) + 1
+        if s["status"] in ("proposed", "accepted"):
+            rows.append((s, [q_by[x] for x in s.get("depends_on", []) if x in open_q]))
+    return {"counts": counts, "rows": rows, "open_q": len(open_q)}
+
+
+def hook_queue_stats(_="") -> str:
+    """The queue counted from its own register.
+
+    The page opened with a typed "Thirty-eight items" sentence that was already a
+    fortnight behind the file it describes. A review surface that miscounts its own
+    queue cannot be trusted to rank it, so the line is generated instead.
+    """
+    st = _queue_state()
+    c = st["counts"]
+    ready = sum(1 for _s, waiting in st["rows"] if not waiting)
+    blocked = len(st["rows"]) - ready
+    return ("<strong>%d items</strong> in this queue: %d still proposed, %d accepted, "
+            "%d shipped, %d rejected. Of the %d live items, %d can be approved and built "
+            "with no new information at all, and %d wait on an answer this repository "
+            "cannot produce (%d open questions)." % (
+                sum(c.values()), c.get("proposed", 0), c.get("accepted", 0),
+                c.get("shipped", 0), c.get("rejected", 0), len(st["rows"]), ready, blocked,
+                st["open_q"]))
+
+
+def hook_readiness(_="") -> str:
+    """What has to be true before each live suggestion can be decided.
+
+    Generated, not curated: a proposal's depends_on names the questions it waits on,
+    and each question carries who can answer it and the cheapest route to that answer.
+    The table is therefore two registers shown against each other — it cannot flatter
+    the queue, hide a row from it, or fall behind it (the drift class F-P32 and F-P12
+    belong to).
+    """
+    st = _queue_state()
+    body, ready = [], []
+    for s, waiting in st["rows"]:
+        if not waiting:
+            ready.append(s["id"])
+            wait = '<span class="status status-shipped">nothing blocks it</span>'
+            who = "the site"
+            route = "Approve it and it builds in one pass; the register already holds the facts."
+        else:
+            wait = " ".join('<a href="questions.html#{0}"><code>{0}</code></a>'.format(q["id"])
+                            for q in waiting)
+            who = "; ".join(sorted({q["answerable_by"] for q in waiting}))
+            route = waiting[0]["how_to_discover"]
+            if len(route) > 250:
+                route = route[:247].rstrip() + "…"
+        body.append(
+            f'<tr id="ready-{s["id"]}"><td><a href="#{s["id"]}"><code>{s["id"]}</code></a> '
+            f'{esc(s["title"])}</td>'
+            f'<td><span class="status status-{s["status"]}">{s["status"]}</span></td>'
+            f'<td>{wait}</td><td>{esc(who)}</td><td>{esc(route)}</td></tr>')
+    chips = ", ".join('<a href="#{0}"><code>{0}</code></a>'.format(x) for x in ready[:12])
+    more = " and %d more" % (len(ready) - 12) if len(ready) > 12 else ""
+    return ('<div class="table-scroll"><table class="data"><thead><tr>'
+            "<th>Live suggestion</th><th>Status</th><th>Waits on</th>"
+            "<th>Who can answer</th><th>Cheapest route to the answer</th>"
+            "</tr></thead><tbody>" + "".join(body) + "</tbody></table></div>"
+            '<p class="table-note"><strong>%d of these need no new information at all</strong> '
+            'and can be approved today: %s%s. Everything else waits on an open question rather '
+            'than on work: this table is generated from <code>data/p2/suggestions.json</code> '
+            'and <code>data/p2/questions.json</code> on every build.</p>' % (len(ready), chips, more))
+
+
+# The front page used to print all ten guide cards, then a cluster block that
+# printed the same ten again, plus a four-card "start with the question" block:
+# 24 cards of the same material before a reader reached the end. The shelf and
+# the front-page guides hub are where completeness belongs (D-06's rule that a
+# reader surface leads with the products). Here, five cards — the ones that
+# match the questions a first-time buyer actually arrives with.
+FRONT_GUIDES = ["guide-basket-vs-oven", "guide-how-many-quarts",
+                "guide-cleanup-counter-space", "guide-instant-vs-leave-in",
+                "guide-multifunction"]
+
+
+def hook_front_guides(_="") -> str:
+    return ('<div class="card-grid">'
+            + "".join(_guide_card(g) for g in FRONT_GUIDES)
+            + '</div><p class="cta-row"><a class="btn btn-ghost" href="guides.html">'
+              'All twelve guides &amp; long reads &rarr;</a></p>')
 
 
 def hook_guide_cards(_="") -> str:
@@ -762,7 +1197,7 @@ def hook_guide_cards(_="") -> str:
 def hook_subscribe(_="") -> str:
     return f"""
 <div class="card subscribe-card" id="subscribe">
-  <h3>Follow the feed</h3>
+  <h2>Follow the feed</h2>
   <p>Every new guide lands in <a href="feed.xml" data-feed="1">the RSS feed</a> the day it publishes. It is the reader channel on this site that collects nothing at all: no sign-up, no address, no tracking.</p>
   <p class="muted">Feed address: <code>{esc(BASE)}/feed.xml</code> — paste it into any feed reader.</p>
 </div>"""
@@ -775,7 +1210,7 @@ def hook_reader_capture(_="") -> str:
     state = "live" if endpoint else "disconnected"
     return f"""
 <div class="card capture-card" id="ask">
-  <h3>What should we answer next?</h3>
+  <h2>What should we answer next?</h2>
   <p>Every guide here starts from a real buyer question. Ask yours in one line — if it fits the five products we follow, it enters the <a href="guides.html">guide queue</a>.</p>
   <form class="capture-form" data-capture="{esc(state)}" data-capture-endpoint="{esc(endpoint)}">
     <label for="capture-question">Your question</label>
@@ -795,7 +1230,7 @@ def hook_byline(_="") -> str:
     return f"""
 <div class="byline-strip" id="byline">
   <div>
-    <h3>Who writes this</h3>
+    <h2>Who writes this</h2>
     <p>{esc(BRAND)} is an edited buying guide, not a store and not a lab. Every figure was read from an official listing or an official policy page on a dated pass, and the citation sits next to it. Nobody here has cooked with these machines (<a href="decisions.html#D-06">D-06</a>), so nothing pretends otherwise. <a href="about.html">Read the four rules every page follows</a>, or go straight to the <a href="method.html">receipts</a>.</p>
   </div>
   <p class="byline-meta">Published {esc(BUILD_DATE)} · <a href="feed.xml" data-feed="1">RSS</a> · <a href="https://github.com/wingbangboozle1-lang/Prod2" rel="noopener" target="_blank">Source register on GitHub</a></p>
@@ -806,12 +1241,12 @@ def hook_season_desk(_="") -> str:
     blocks = []
     for s in CALENDAR["seasons"]:
         links = "".join(
-            f'<li><a href="{esc(g)}">{esc(PAGE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
+            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
             for g in s["guides"])
         blocks.append(f"""
   <div class="card season-card">
     <p class="eyebrow">{esc(s["window"])} · {esc(s["status"])}</p>
-    <h3>{esc(s["name"])}</h3>
+    <h2>{esc(s["name"])}</h2>
     <p>{esc(s["line"])}</p>
     <ul class="season-guides">{links}</ul>
   </div>""")
@@ -826,12 +1261,12 @@ def hook_clusters(_="") -> str:
     blocks = []
     for c in CALENDAR["clusters"]:
         links = "".join(
-            f'<li><a href="{esc(g)}">{esc(PAGE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
+            f'<li><a href="{esc(g)}">{esc(GUIDE_TITLES.get(g[:-5], g).split(" | ")[0])}</a></li>'
             for g in c["guides"])
         blocks.append(f"""
   <div class="card cluster-card">
     <p class="eyebrow">Cluster · {len(c["guides"])} guides</p>
-    <h3><a href="{esc(c["pillar"])}">{esc(c["name"])}</a></h3>
+    <h2><a href="{esc(c["pillar"])}">{esc(c["name"])}</a></h2>
     <p>{esc(c["line"])}</p>
     <ul class="cluster-guides">{links}</ul>
     <p><a class="more" href="{esc(c["pillar"])}">The {esc(c["name"].lower())} pillar page</a></p>
@@ -839,99 +1274,21 @@ def hook_clusters(_="") -> str:
     return '<div class="card-grid cluster-grid">' + "".join(blocks) + "</div>"
 
 
-def _queue_stats() -> dict:
-    q_by = {q["id"]: q for q in QUESTIONS}
-    open_q = {q["id"] for q in QUESTIONS if q.get("status") != "answered"}
-    counts = {"proposed": 0, "accepted": 0, "shipped": 0, "rejected": 0}
-    blocked = ready = 0
-    for s in SUGGESTIONS:
-        counts[s["status"]] = counts.get(s["status"], 0) + 1
-        if s["status"] in ("proposed", "accepted"):
-            deps = [x for x in s.get("depends_on", []) if x in q_by]
-            waiting = [x for x in deps if x in open_q]
-            if waiting:
-                blocked += 1
-            else:
-                ready += 1
-    return {"total": len(SUGGESTIONS), "open_questions": len(open_q), "blocked": blocked,
-            "ready": ready, **counts}
-
-
-def hook_queue_stats(_="") -> str:
-    """The queue's own counts, computed from the register on every build.
-
-    Added 2026-11-20: this page opened with a typed 'Thirty-eight items' sentence,
-    which was wrong the moment a row was appended (it read thirty-eight against a
-    register of thirty-eight, then forty-five). A review surface that miscounts its
-    own queue cannot be trusted to rank it.
-    """
-    c = _queue_stats()
-    return (f'<strong>{c["total"]} items</strong> in this queue: {c["proposed"]} still proposed, '
-            f'{c["accepted"]} accepted, {c["shipped"]} shipped, {c["rejected"]} rejected. '
-            f'{c["blocked"]} of the live items wait on an answer this repository cannot produce '
-            f'({c["open_questions"]} open questions); {c["ready"]} can be approved and built with '
-            f'no new information at all.')
-
-
-def hook_readiness(_="") -> str:
-    """What must be true before each live suggestion can be decided.
-
-    Derived mechanically: a suggestion's depends_on names the questions it waits on,
-    and each question carries who can answer it and the cheapest route to the answer.
-    Nothing in this table is authored here — it is the two registers shown against
-    each other, so it cannot drift from them (the class of defect F-P32 was).
-    """
-    q_by = {q["id"]: q for q in QUESTIONS}
-    open_q = {q["id"] for q in QUESTIONS if q.get("status") != "answered"}
-    rows, ready_rows = [], []
-    for s in SUGGESTIONS:
-        if s["status"] not in ("proposed", "accepted"):
-            continue
-        deps = [q_by[x] for x in s.get("depends_on", []) if x in q_by]
-        waiting = [q for q in deps if q["id"] in open_q]
-        if not waiting:
-            ready_rows.append(s["id"])
-            wait = '<span class="status status-shipped">nothing blocks it</span>'
-            who, route = "\u2014", "Approve it and it builds in one pass."
-        else:
-            wait = " ".join(f'<a href="questions.html#{esc(q["id"])}"><code>{esc(q["id"])}</code></a>'
-                            for q in waiting)
-            who = "; ".join(sorted({q["answerable_by"] for q in waiting}))
-            first = waiting[0]["how_to_discover"]
-            route = (first if len(first) <= 200 else first[:197].rstrip() + "\u2026")
-        rows.append(
-            f'<tr id="ready-{esc(s["id"])}"><td><a href="#{esc(s["id"])}"><code>{esc(s["id"])}</code></a> '
-            f'{esc(s["title"])}</td>'
-            f'<td><span class="status status-{esc(s["status"])}">{esc(s["status"])}</span></td>'
-            f'<td>{wait}</td><td>{esc(who)}</td><td>{esc(route)}</td></tr>')
-    return ('<div class="table-scroll"><table class="data"><thead><tr><th>Live suggestion</th>'
-            '<th>Status</th><th>Waits on</th><th>Who can answer</th><th>Cheapest route to the answer</th>'
-            '</tr></thead><tbody>' + "".join(rows) + '</tbody></table></div>'
-            f'<p class="table-note"><strong>{len(ready_rows)} of these need no new information at all</strong> '
-            f'and can be approved today: ' +
-            ", ".join(f'<a href="#{esc(x)}"><code>{esc(x)}</code></a>' for x in ready_rows[:12]) +
-            (f" and {len(ready_rows) - 12} more" if len(ready_rows) > 12 else "") +
-            '. The rest are blocked by an open question, not by work: the table is generated from '
-            '<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/suggestions.json" '
-            'rel="noopener" target="_blank">data/p2/suggestions.json</a> and '
-            '<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/questions.json" '
-            'rel="noopener" target="_blank">data/p2/questions.json</a> on every build, so it cannot '
-            'flatter the queue or hide a row from it.</p>')
-
-
 def hook_queue(_="") -> str:
     rows = []
     for q in CALENDAR["queue"]:
-        status = q.get("status") or "scheduled"
-        blocked = q.get("blocked_by")
-        state = f'<span class="status status-unverified">{esc(status)}</span>'
-        if blocked:
-            state += f'<br><a class="src" href="questions.html#{esc(blocked)}">{esc(blocked)}</a>'
+        # A slot can be scheduled, shipped or blocked — never silently unanswerable.
+        # Slot 1 asks a how-to-use question the listings cannot answer (Q-P19), and it is
+        # published as blocked rather than left to age as if it were merely not yet due.
+        state = esc(q.get("status") or "scheduled")
+        if q.get("blocked_by"):
+            bid = q["blocked_by"]
+            state += f' <a class="src" href="questions.html#{bid}">{bid}</a>'
         rows.append(f'<tr><td>{esc(q["due_utc"])}</td><td>{esc(q["title"])}</td>'
-                    f'<td>{esc(q["answers_with"])}</td><td>{state}</td></tr>')
+                      f'<td>{esc(q["answers_with"])}</td><td>{state}</td></tr>')
     return (f'<div class="table-scroll"><table class="data"><thead><tr><th>Due (UTC)</th>'
             f"<th>Working title — a hypothesis, not a popularity claim</th>"
-            f"<th>Answerable from</th><th>Status</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>"
+            f"<th>Answerable from</th></tr></thead><tbody>{rows}</tbody></table></div>"
             f'<p class="table-note">Cadence: {esc(CALENDAR["cadence"]["unit"])}, every '
             f'{esc(str(CALENDAR["cadence"]["interval_days"]))} days; next due '
             f'{esc(CALENDAR["cadence"]["next_due_utc"])}. {esc(CALENDAR["cadence"]["rule"])}</p>')
@@ -1005,12 +1362,21 @@ HOOKS = {
     "thermo_table": hook_thermo_table,
     "counter_space": hook_counter_space,
     "chooser": hook_chooser,
+    "glance_table": hook_glance_table,
+    "landing_faq": hook_landing_faq,
+    "decide_faq": hook_decide_faq,
+    "trust_row": hook_trust_row,
+    "longread_cards": hook_longread_cards,
+    "queue_stats": hook_queue_stats,
+    "readiness": hook_readiness,
     "intent_table": hook_intent_table,
     "sources_table": hook_sources_table,
     "flags_open": lambda _: hook_flags("open"),
     "flags_resolved": lambda _: hook_flags("resolved"),
     "flags_standing": lambda _: hook_flags("standing"),
     "questions": hook_questions,
+    "briefs": hook_briefs,
+    "briefs_summary": hook_briefs_summary,
     "suggestions": hook_suggestions,
     "decisions": hook_decisions,
     "ledger_events": hook_ledger_events,
@@ -1020,7 +1386,7 @@ HOOKS = {
     "guide_links": hook_guide_links,
     "comparison_cta": hook_comparison_cta,
     "guide_cards": hook_guide_cards,
-    "trust_row": hook_trust_row,
+    "front_guides": hook_front_guides,
     "subscribe": hook_subscribe,
     "reader_capture": hook_reader_capture,
     "byline": hook_byline,
@@ -1028,8 +1394,6 @@ HOOKS = {
     "clusters": hook_clusters,
     "queue": hook_queue,
     "questions_summary": hook_questions_summary,
-    "queue_stats": hook_queue_stats,
-    "readiness": hook_readiness,
     "guides_index": hook_guides_index,
     "shop_grid": hook_shop_grid,
     "compare_table": hook_compare_table,
@@ -1106,26 +1470,8 @@ def render_fragment(text: str) -> str:
 # ---------------------------------------------------------------------------
 # JSON-LD
 # ---------------------------------------------------------------------------
-FAQ_ITEM = re.compile(
-    r'<div class="faq-item">\s*<h3>(.*?)</h3>\s*<p>(.*?)</p>', re.S)
-TAG_STRIP = re.compile(r"<[^>]+>")
-
-
-def faq_pairs(fragment: str) -> list[tuple[str, str]]:
-    """Questions and answers published visibly on the page, in order.
-
-    FAQPage markup is derived from the rendered content, never from a separate
-    list, so structured data cannot drift from what the reader can see (the
-    failure mode F-P09..F-P11 were: machine said one thing, page said another).
-    """
-    out = []
-    for q, a in FAQ_ITEM.findall(fragment):
-        clean = lambda s: html.unescape(TAG_STRIP.sub("", s)).strip()
-        out.append((clean(q), clean(a)))
-    return out
-
-
-def jsonld_for(page_id: str, title: str, description: str, path: str, content: str = "") -> str:
+def jsonld_for(page_id: str, title: str, description: str, path: str,
+             content: str = "") -> str:
     graph = [{
         "@type": "WebSite", "name": f"{BRAND} — {DESCRIPTOR}", "url": BASE + "/",
         "description": TAGLINE,
@@ -1147,10 +1493,10 @@ def jsonld_for(page_id: str, title: str, description: str, path: str, content: s
                 "url": "https://www.amazon.com/dp/" + p["asin"],
                 "description": p.get("special_feature"),
             }
-            # A value we could not read is omitted, never written as null or filled
-            # with a placeholder: "brand": {"name": "unknown"} would be an invented
-            # fact inside machine-readable data, which is exactly what the evidence
-            # rule forbids on the page itself (F-02 lineage, D-P25).
+            # A value the register does not hold is omitted, not filled: null gtin13 is
+            # noise, and a brand literally named "unknown" would be an invented fact
+            # inside machine-readable data — the same rule the page copy follows (F-02,
+            # D-P25). This site publishes no price, availability or rating either.
             if p.get("brand"):
                 node["brand"] = {"@type": "Brand", "name": p["brand"]}
             items.append({
@@ -1161,6 +1507,13 @@ def jsonld_for(page_id: str, title: str, description: str, path: str, content: s
             })
         graph.append({"@type": "ItemList", "name": "Products compared on " + BRAND,
                       "itemListElement": items})
+    if page_id in ("index", "decide"):
+        # The FAQPage node used to be typed here as well as on the page. It is now
+        # derived once, at the foot of this function, from the rendered content —
+        # which is why decide.html gained a visible FAQ block on 2026-11-20: markup
+        # with nothing behind it is the one thing this site must not ship (F-P36).
+        pass
+
     if (page_id.startswith(("guide", "article")) and page_id != "guides") or page_id == "buying-guide":
         graph.append({
             "@type": "Article", "headline": title.split(" | ")[0],
@@ -1170,19 +1523,9 @@ def jsonld_for(page_id: str, title: str, description: str, path: str, content: s
             "publisher": {"@type": "Organization", "name": BRAND},
             "mainEntityOfPage": {"@type": "WebPage", "@id": BASE + "/" + path},
         })
-    # FAQPage markup ships ONLY where the page actually shows a question-and-answer
-    # block. Recorded deliberately: Google's supported-features gallery (read
-    # 2026-11-20) does not list FAQ among the rich results it supports, so this is
-    # machine-readability, not a rich-results play (D-P24, F-P32).
-    faq = faq_pairs(content)
-    if len(faq) >= 2:
-        graph.append({
-            "@type": "FAQPage",
-            "mainEntity": [{
-                "@type": "Question", "name": q,
-                "acceptedAnswer": {"@type": "Answer", "text": a},
-            } for q, a in faq],
-        })
+    pairs = faq_pairs(content)
+    if len(pairs) >= 2:
+        graph.append(faq_node(pairs))
     return json.dumps({"@context": "https://schema.org", "@graph": graph},
                       ensure_ascii=False, indent=1)
 
@@ -1208,7 +1551,7 @@ LAYOUT = """<!DOCTYPE html>
 {site_verification}<link rel="alternate" type="application/rss+xml" title="{brand} feed" href="{base}/feed.xml">
 <link rel="preload" href="{base}/assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{base}/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{base}/assets/css/site.css">
+<link rel="stylesheet" href="{base}/assets/css/site.css?v={asset_v}">
 <script type="application/ld+json">
 {jsonld}
 </script>
@@ -1227,8 +1570,8 @@ LAYOUT = """<!DOCTYPE html>
 {content}
 </main>
 {footer}
-<script src="{base}/assets/js/site.js" defer></script>
-<script src="{base}/assets/js/measure.js" defer></script>
+<script src="{base}/assets/js/site.js?v={asset_v}" defer></script>
+<script src="{base}/assets/js/measure.js?v={asset_v}" defer></script>
 </body>
 </html>
 """
@@ -1249,7 +1592,20 @@ def build_page(page_id: str, path: str, title: str, description: str, section: s
         content=content, footer=build_footer(),
         endpoint=esc(SETTINGS.get("analytics_endpoint", "") or ""),
         site_verification=site_verification,
+        asset_v=ASSET_V,
     )
+    if page_id == "index":
+        # the hero is the largest contentful paint on the landing page: tell the
+        # browser about it in the head instead of waiting for the <img> to be parsed
+        out = out.replace('</head>', f'<link rel="preload" as="image" type="image/webp" '
+                                     f'href="{BASE}/assets/img/hero-kitchen.webp" fetchpriority="high">\n</head>', 1)
+    extra = ""
+    if page_id in PAGE_SCRIPTS:
+        # ?v= like the LAYOUT tags: without it a fix can sit behind a stale CDN copy,
+        # which is exactly what the one-site section looks for (F-P37 shipped this way).
+        extra = "".join(f'<script src="{BASE}/assets/js/{src}?v={ASSET_V}" defer></script>\n'
+                        for src in PAGE_SCRIPTS[page_id])
+        out = out.replace("</body>", extra + "</body>")
     (DOCS / path).write_text(out, encoding="utf-8")
 
 
@@ -1291,14 +1647,63 @@ def build_sitemap() -> None:
 
 
 def build_robots() -> None:
+    # One site to index. Everything under archive/ is a previous build of this
+    # same project; leaving it crawlable splits link equity between a live page
+    # and three dead copies of it. The robots file asks; guard_archive() enforces
+    # with a per-file noindex, because robots.txt alone cannot stop indexing of a
+    # page that is already linked.
     (DOCS / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\n"
-        # Two archived builds are still in the tree and, while Pages serves the repo
-        # root (F-P19), still reachable by path. They are not the site: no canonical,
-        # a second brand, a second copy of every guide. Kept out of the index rather
-        # than duplicated into it (F-P33, one-site rule INT-06).
-        "Disallow: /Prod2/archive/\nDisallow: /Prod2/site/\n\n"
+        "User-agent: *\n"
+        "Allow: /\n"
+        # /Prod2/site/ is the other archived build: 25 tracked files under the old brand,
+        # with their own <title> and no canonical, still reachable while Pages serves the
+        # repository root. guard_archive() noindexes archive/ and not site/, so a robots
+        # request is the whole of what the build can do about it (F-P33, Q-P22).
+        "Disallow: /Prod2/archive/\n"
+        "Disallow: /Prod2/site/\n"
+        "Disallow: /Prod2/data/\n"
+        "Disallow: /Prod2/tools/\n"
+        "Disallow: /Prod2/content/\n"
+        "Disallow: /Prod2/scripts/\n"
+        "Disallow: /Prod2/tests/\n\n"
         f"Sitemap: {BASE}/sitemap.xml\n", encoding="utf-8")
+
+
+NOINDEX = '<meta name="robots" content="noindex, nofollow">'
+NOINDEX_XML = '<!-- robots: noindex, nofollow — archived build, not a publication -->'
+
+
+def guard_archive() -> int:
+    """Mark every archived HTML/XML file non-indexable.
+
+    GitHub Pages serves this repository in legacy "main /" mode, so every .html
+    committed under archive/ is fetchable at the live host and competes with the
+    canonical site in search results. robots.txt is a request, not an access
+    control, so each archived document also gets a noindex directive written in
+    place on every build. Returns how many files were tagged.
+    """
+    tagged = 0
+    arch = ROOT / "archive"
+    if not arch.is_dir():
+        return 0
+    for f in arch.rglob("*"):
+        if not f.is_file() or f.suffix not in (".html", ".xml"):
+            continue
+        text = f.read_text(encoding="utf-8", errors="replace")
+        marker = NOINDEX if f.suffix == ".html" else NOINDEX_XML
+        if "noindex" in text:
+            continue
+        if f.suffix == ".html":
+            head = re.search(r"<head[^>]*>", text, re.I)
+            if head:
+                text = text[:head.end()] + "\n" + marker + text[head.end():]
+            else:  # a fragment with no <head>: prepend a bare directive
+                text = marker + "\n" + text
+        else:
+            text = marker + "\n" + text
+        f.write_text(text, encoding="utf-8")
+        tagged += 1
+    return tagged
 
 
 def main() -> None:
@@ -1316,7 +1721,10 @@ def main() -> None:
     build_sitemap()
     build_robots()
     (DOCS / ".nojekyll").write_text("")
+    archived = guard_archive()
     print(f"built {len(PAGES)} pages -> {DOCS}")
+    if archived:
+        print(f"tagged {archived} archived files noindex (they are served at the root)")
 
 
 def mirror_to_root():

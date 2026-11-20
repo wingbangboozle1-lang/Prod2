@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/e1dbef32-prod2): F-P30..F-P35 appended — three defects found and fixed in this pass (paragraph balance, the FAQPage claim in the brief, placeholder values in structured data), one standing source note (the extension's Celsius slip), one open exposure (archived builds reachable while Pages serves the root), and one open inconsistency the new cadence gate surfaced (14-day promise vs the schedule actually kept). Append-only; no earlier row edited. | ids for this pass start after main's F-P29/Q-P18/SG-48/D-P23, which this register also carries — no row renumbered, no row dropped."
+  "last_change": "2026-11-20 (arena/0a9f19fe-prod2): F-P29 added and marked resolved - the conflict-marker / unclosed-block stylesheet defect and the new browser-free stylesheet gate. | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at F-P35, F-P33, F-P31, F-P32, F-P34, F-P30 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P21, SG-48..SG-54, D-P23..D-P26. | 2026-11-20 (arena/e1dbef32-prod2, integration): F-P36..F-P39 appended — three defects that shipped on main's merged tip (FAQ markup that did not match its page, two gate failures main passed through, a gate section that parsed nothing because of a query string) and one documentation count that lagged the code. All four are fixed on this branch and each carries a reproduction command. Append-only; no earlier row edited."
  },
  "flags": [
   {
@@ -301,7 +301,7 @@
    "id": "F-P19",
    "status": "open",
    "title": "Archived builds are reachable on the live host and are only excluded by robots.txt",
-   "detail": "Archived builds (archive/counter-notes-v1, archive/counter-notes-docs, archive/counter-edit-build, 121 files) are reachable on the live host and are excluded only by a robots.txt rule. Same root cause as F-P20: Pages is in legacy root mode, so every archived directory is served. robots.txt stops well-behaved crawlers and nothing else. The 2026-11-20 workflow change publishes docs/ only going forward, but the archived trees remain readable until the owner switches the Pages source.",
+   "detail": "Archived builds (archive/counter-notes-v1, archive/counter-notes-docs, archive/counter-edit-build, 121 files) are reachable on the live host and are excluded only by a robots.txt rule. Same root cause as F-P20: Pages is in legacy root mode, so every archived directory is served. robots.txt stops well-behaved crawlers and nothing else. The 2026-11-20 workflow change publishes docs/ only going forward, but the archived trees remain readable until the owner switches the Pages source. 2026-11-20 extension (arena/37b265a4-prod2): .github/workflows/pages.yml builds and uploads docs/ only, but the Pages API still reports build_type legacy with source main / (read 2026-11-20). While that remains, the workflow’s docs-only rule does not control what is served; the repository root, data/ and archive/ stay public. This is the same mismatch recorded in F-P20; it is extended here, not duplicated.",
    "evidence": "https://wingbangboozle1-lang.github.io/Prod2/archive/counter-notes-v1/",
    "evidence_note": "docs/ artifact is the only publish root (.github/workflows/pages.yml); gate section 'exposition' in tools/checks.py; Pages API showed build_type=legacy, source=main,/ on 2026-11-20.",
    "how_to_resolve": "Owner flips Pages source to GitHub Actions (see F-P20). Archived builds can then be dropped or left in git, unserved.",
@@ -311,7 +311,7 @@
    "id": "F-P20",
    "status": "open",
    "title": "The whole working repository is readable on the live host (root-mode Pages)",
-   "detail": "GitHub Pages is in legacy mode with the source set to the repository ROOT: the Pages API returns build_type=legacy, source={branch: main, path: /}. Checked on 2026-11-20, https://…/Prod2/data/p2/settings.json returns the settings register as JSON to an anonymous reader. Counted at the same moment: data/ 42 files, content/ 27, tools/ 5, scripts/ 4, tests/ 1, archive/ 121 — 196 source files reachable by guessing a path. Nothing secret is in them (the tracking ID and disclosure text are published on purpose and the capture and analytics endpoints are empty), but it is not the intended surface, it exposes drafts and the archived builds, and robots.txt is a crawler convention, not access control. The token available to this session cannot change the setting: a PUT to build_type=workflow returns 403. Mitigated in-repo as far as a build can: the Pages workflow uploads the docs/ artifact only, and the new exposition gate section refuses any source directory inside docs/. If an owner ever flips the source to GitHub Actions, this whole class disappears.",
+   "detail": "GitHub Pages is in legacy mode with the source set to the repository ROOT: the Pages API returns build_type=legacy, source={branch: main, path: /}. Checked on 2026-11-20, https://…/Prod2/data/p2/settings.json returns the settings register as JSON to an anonymous reader. Counted at the same moment: data/ 42 files, content/ 27, tools/ 5, scripts/ 4, tests/ 1, archive/ 121 — 196 source files reachable by guessing a path. Nothing secret is in them (the tracking ID and disclosure text are published on purpose and the capture and analytics endpoints are empty), but it is not the intended surface, it exposes drafts and the archived builds, and robots.txt is a crawler convention, not access control. The token available to this session cannot change the setting: a PUT to build_type=workflow returns 403. Mitigated in-repo as far as a build can: the Pages workflow uploads the docs/ artifact only, and the new exposition gate section refuses any source directory inside docs/. If an owner ever flips the source to GitHub Actions, this whole class disappears. 2026-11-20 R-01 addition: the public copy of data/p2/settings.json on the live host (fetched through the fetch tool) shows brand.name “Prod2” and an earlier last_change, while the repository copy and the live index title show “The Crisp Counter”. The cause is not established (possibly a fetch-tool cache or a stale copy). Recorded here, not treated as conclusive.",
    "evidence": "https://wingbangboozle1-lang.github.io/Prod2/data/p2/settings.json",
    "evidence_note": "Anonymous GET of a source file on the live host, 2026-11-20; Pages API reports build_type=legacy, source=main,/; count from `python3 tools/root_mirror.py --report`.",
    "how_to_resolve": "Owner: Settings → Pages → Source: GitHub Actions (one setting). Then confirm /data/p2/settings.json and /tools/build.py return 404 and close F-P19/F-P20.",
@@ -349,22 +349,77 @@
   {
    "id": "F-P24",
    "title": "Submitted link.amazon short links did not resolve to product listings in the 2026-11-20 live re-check",
-   "detail": "On 2026-11-20 the five submitted link.amazon URLs were fetched with redirects followed. Four resolved to the Amazon homepage (https://www.amazon.com/) and one returned HTTP 500. The five ASIN listing pages (https://www.amazon.com/dp/{ASIN}) were all live and their titles match data/p2/products.json exactly. The register's earlier redirect history (2026-11-14, 16, 17, 19) recorded these short links resolving to the same ASINs. The site does not publish the short links as buy paths (they render as quoted text under F-03), so no reader-facing link is broken by this. The difference is not explained: it may be a fetch-tool artifact or a change in the short-link service. Intended-ASIN fields were NOT changed. Full record: data/p2/live-check-2026-11-20-722181aa.json. Second observation, same day (arena/d5157db6-prod2, data/p2/live-check-2026-11-20-d5157db6.json): all five short links again resolved to https://www.amazon.com/ (the homepage); the link that returned HTTP 500 earlier today (B0f3GKalj, P5) now also resolves to the homepage. The problem is therefore not limited to one link and is not a one-off error. Still unresolved; still no reader-facing link is affected.",
+   "detail": "On 2026-11-20 the five submitted link.amazon URLs were fetched with redirects followed. Four resolved to the Amazon homepage (https://www.amazon.com/) and one returned HTTP 500. The five ASIN listing pages (https://www.amazon.com/dp/{ASIN}) were all live and their titles match data/p2/products.json exactly. The register's earlier redirect history (2026-11-14, 16, 17, 19) recorded these short links resolving to the same ASINs. The site does not publish the short links as buy paths (they render as quoted text under F-03), so no reader-facing link is broken by this. The difference is not explained: it may be a fetch-tool artifact or a change in the short-link service. Intended-ASIN fields were NOT changed. Full record: data/p2/live-check-2026-11-20-722181aa.json. Third read, arena/e292fb4d-prod2 (same day, fetch tool): all five resolved to https://www.amazon.com/ (homepage, title 'Amazon.com. Spend less. Smile more.'); no product page. Record: data/p2/live-check-2026-11-20-e292fb4d.json. Status stays open. Second observation, same day (arena/d5157db6-prod2, data/p2/live-check-2026-11-20-d5157db6.json): all five short links again resolved to https://www.amazon.com/ (the homepage); the link that returned HTTP 500 earlier today (B0f3GKalj, P5) now also resolves to the homepage. The problem is therefore not limited to one link and is not a one-off error. Still unresolved; still no reader-facing link is affected.",
    "evidence": "https://www.amazon.com/dp/B0CDY277D3",
    "evidence_note": "Live /dp/ listing for P1 (title matches register). Short-link observations and the four other ASIN pages are in data/p2/live-check-2026-11-20-722181aa.json.",
    "how_to_resolve": "Owner (or any reviewer with a normal browser) opens each of the five link.amazon URLs and records the final URL and ASIN in a dated redirect observation in data/p2/intent-links.json. If the short links no longer resolve to the registered ASINs, the intended_asin values stay as the /dp/ pages show and the mismatch is escalated under F-03 / F-57.",
    "status": "open"
   },
   {
-   "id": "F-P30",
+   "id": "F-P25",
+   "title": "“Check price on Amazon” button label on product cards needs a copy decision",
+   "detail": "Each product card on the shop front and shop page ends in a button labelled “Check price on Amazon”. No price is published on the site (F-02; decision D-P11). The label shows no price, so no violation is claimed. It is flagged for review because Program Policies §2(b) (read 2026-11-20) restricts what a site may show about prices, and the owner should confirm that a call to action that refers to price is acceptable. Alternative wording, such as “View on Amazon”, is a copy decision for the owner and is not made here.",
+   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
+   "evidence_note": "S-POL §2(b), read 2026-11-20 (policy page chunk 3). The button text is generated in tools/build.py.",
+   "how_to_resolve": "Owner chooses the button wording. A change is a one-line edit in tools/build.py followed by a rebuild and the release gate. Nothing changes until the owner decides.",
+   "status": "open"
+  },
+  {
+   "id": "F-P26",
+   "title": "The repository executive summary published a listed-price column, which the site withholds",
+   "detail": "EXECUTIVE_SUMMARY.md (served publicly at the live host because Pages is in legacy root mode) carried a “Price (as listed)” column with five dollar figures from the 2026-11-19 pass. The register withholds prices (F-02; D-P11; Program Policies §2(b), read 2026-11-20). Earlier records (F-P17; data/p2/verification-2026-11-20.json V-03) state that carousel prices on these listings belong to neighbouring ASINs. This session did not re-read the carousels, so whether any of the five figures came from a neighbouring product is not verified here. The column has been replaced with “withheld”. No figure was corrected, because no price is published.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/EXECUTIVE_SUMMARY.md",
+   "evidence_note": "Live file as served 2026-11-20 (fetch tool). Neighbouring-price mechanism: F-P17; carousel observations in data/p2/verification-2026-11-19.json and data/p2/verification-2026-11-20.json. Policy: S-POL §2(b), read 2026-11-20.",
+   "how_to_resolve": "Owner decides whether any price policy changes (suggestion SG-05 covers a dated-snapshot option). Until then the column stays withheld. Owner also decides whether the root-mode exposure of EXECUTIVE_SUMMARY.md and other repository files is fixed (F-P19, F-P20).",
+   "status": "open"
+  },
+  {
+   "id": "F-P27",
+   "title": "Two same-day fetch-tool reads of the owner short links disagree for two of five links, so the outcome is not reproducible",
+   "detail": "F-P24 (arena/722181aa-prod2, 2026-11-20) and an independent same-day re-read in arena/37b265a4-prod2 (data/p2/verification-2026-11-20.json, key r01_reread_2026_11_20) disagree on two of the five short links. link.amazon/B02NbDxp3: the R-01 read reached the intended listing (B09B7SB46R); the other read reached the Amazon homepage. link.amazon/B0f3GKalj: the R-01 read reached the Amazon homepage; the other read recorded HTTP 500. The other three links read the same way in both: link.amazon/B04G1MEwY and link.amazon/B0c8moW59 reached the homepage, and link.amazon/B00hJ57DV reached the homepage. Two same-day fetch-tool reads are not reproducible, so neither is taken as the answer. The outcome is decided only by the logged-out browser check in Q-P18.",
+   "evidence": "https://link.amazon/B02NbDxp3",
+   "evidence_note": "R-01 re-read: data/p2/verification-2026-11-20.json (r01_reread_2026_11_20). Other read: data/p2/live-check-2026-11-20-722181aa.json (arena/722181aa-prod2). Redirect history: data/p2/intent-links.json.",
+   "how_to_resolve": "Owner checks each link in a logged-out private window and in the Associates-enrolled browser and records the final URL (Q-P18). Until then the register keeps both reads as dated history and claims neither outcome.",
+   "status": "open"
+  },
+  {
+   "id": "F-P28",
+   "status": "open",
+   "title": "products.json and the intent record describe the short links as resolving to their listings; the 2026-11-20 reads do not confirm this for every link",
+   "detail": "products.json (short_link field on each product) and data/p2/intent-links.json (intent record and the 2026-11-19 redirect history) still describe the owner short links as resolving to the registered ASINs, and no status for the 2026-11-20 reads has been added to products.json. The 2026-11-20 reads (F-P24, F-P27) confirmed one of five links at its intended ASIN in the R-01 read. Intent fields (intended_asin, official_listing_url) and observed redirect targets are kept in separate fields and are not merged. The 2026-11-20 observations are dated history beside the 2026-11-19 record. Nothing in those files is overwritten by this flag, and no intent field is changed.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/data/p2/intent-links.json",
+   "evidence_note": "data/p2/products.json short_link fields; data/p2/intent-links.json observed_redirect_history (2026-11-19 and 2026-11-20 entries); data/p2/verification-2026-11-20.json r01_reread_2026_11_20.",
+   "how_to_resolve": "Owner completes the logged-out browser check (Q-P18). After that the owner decides whether products.json keeps the short_link field as recorded, and whether intent-links.json gets a dated status note. No intent field is changed until then.",
+   "resolved_utc": null
+  },
+  {
+   "id": "F-P29",
+   "title": "All 30 published pages shipped a stylesheet containing git conflict markers (fixed and gated in this pass)",
+   "detail": "On 2026-11-20 the file every page loads, assets/css/site.css, began with '<<<<<<< HEAD', '=======' and '>>>>>>> origin/main' at lines 1, 48 and 75. Both sides of that merge had also lost a closing brace, so two @font-face blocks ran together and the HEAD block was missing its terminator. Every workflow was green, tools/checks.py reported ALL CHECKS PASSED, and the site deployed in that state. Root cause of the miss: no check read the stylesheet for structure, and no session in this repository has ever rendered a page - measured this pass, the Python and Node browser toolkits install but the Chrome-for-Testing binary and the Debian font packages do not download. A strict CSS parser discards an unclosed block, so the tail of the design system was at risk of silently not applying. Note the interaction with F-P25: the defect was first noticed through a conflict-marker check, but a marker check alone does not catch a silently unclosed block, which is why this row is separate. Verified after repair: 245 top-level rules parse with 0 errors (before the merge of the briefs pass), braces balance, and the final @media print rule is fully consumed. This branch keeps both complete font stacks (six static latin subsets plus three variable faces) rather than choosing between them, because each is a valid fallback for the other. The condition that caused the miss is now gated by tools/design_qa.py (/tools/design_qa.py in this repo), which fails the build on markers, on an unclosed block, on a dangling var() token, on a missing or invalid font file, and on a body that paints no background or text colour.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css",
+   "evidence_note": "The stylesheet readers are served. Confirm line 1 is a comment rather than a conflict marker, then run python3 tools/design_qa.py in a checkout to reproduce the gate.",
+   "how_to_resolve": "No owner action required: repaired and gated in this pass. For review, open the live stylesheet and confirm line 1 is a comment, then run the gate.",
+   "status": "resolved"
+  },
+  {
+   "id": "F-P35",
    "status": "resolved",
-   "title": "The guides hub published an orphaned sentence, and no gate could see it",
-   "detail": "content/pages/guides.html closed its lede with </p> and then continued the same sentence outside the paragraph, ending in a second stray </p>. A reader saw a fragment stranded between blocks; the built page carried an unmatched end tag. The gate checked nested <p> and duplicate ids but never counted paragraph balance, so the defect was invisible to the machine that publishes the site.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/content/pages/guides.html",
-   "evidence_note": "The file as merged at 51a02ac — the lede's second sentence sits after the closing tag.",
-   "how_to_resolve": "Fixed 2026-11-20 in the same pass that found it: the fragment now opens one paragraph and closes it once.",
-   "resolution": "The sentence is back inside the lede, and tools/checks.py's validity section now counts <p> openings against </p> closings on every built page, so this class fails the build instead of shipping. Reproduced before the fix (the gate printed the exact mismatch), then fixed at the fragment.",
+   "title": "The publishing cadence could not be audited: nothing linked a publish to the schedule",
+   "detail": "data/p2/calendar.json declares 'one new question-shaped guide' every 14 days, and the nine queue slots are spaced exactly 14 days apart (measured: the only distinct gap between consecutive slots is 14 days; first_publish 2026-11-19 + 14 = next_due 2026-12-03). What did not exist was any machine-checkable link between a page that actually shipped and that schedule. Six reader pages published 2026-11-19 and 2026-11-20 — including today's two guides and one long read — left next_due_utc untouched at 2026-12-03, so the front page could keep saying 'a new guide every two weeks' whether or not the register kept score. A second inconsistency came with it: queue slot 1 promises to answer 'Preheat, shake, or don't' from 'manual-ritual features verified on the three listings', but a listing states a feature, not a ritual — that slot is now marked blocked on Q-P19 instead of scheduled.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
+   "evidence_note": "Gaps and dates computed from data/p2/calendar.json on 2026-11-20 by tools/checks.py's cadence section, not typed in by hand.",
+   "how_to_resolve": "Closed by the gate rule; the remaining decision — whether a 14-day rhythm is actually resourced — is Q-P20.",
+   "resolution": "Fixed 2026-11-20 with a rule rather than a cleanup: the publish gate (tools/checks.py, section 'cadence') now fails the build when the newest recorded publish + the declared interval falls after next_due_utc, so shipping silently without advancing the schedule is impossible. next_due_utc advanced to 2026-12-04, publishes are dated in calendar.published_early, and slot 1 carries blocked_by: Q-P19 with a status the guides hub renders.",
    "resolved_utc": "2026-11-20"
+  },
+  {
+   "id": "F-P33",
+   "status": "open",
+   "title": "Two archived builds are still reachable by path while Pages serves the repository root",
+   "detail": "site/ (the archived Countercraft build, 25 tracked files) and archive/countertop-dispatch/ both sit in the tree. While the Pages source is the repo root (F-P19), each is fetchable by URL, and neither carries a canonical pointing at this site: site/index.html is titled 'Countercraft — Kitchen gear worth the counter space.' A search engine that reaches either sees a second brand, a second copy of the same guide set and no signal about which one is the site. No price or rating was found in those files by this pass (grep for a $-then-digits pattern returned nothing), so this is an indexing and brand-dilution exposure, not a disclosure one.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/tree/main/site",
+   "evidence_note": "git ls-files site → 25 files, read 2026-11-20; robots.txt previously disallowed only /Prod2/archive/.",
+   "how_to_resolve": "One of two owner-side moves: set Settings → Pages → Source to 'GitHub Actions' so only the docs/ artifact is served (F-P19, which removes the exposure entirely), or approve deleting site/ and archive/ from the published branch. Interim mitigation shipped 2026-11-20: the generated robots.txt now disallows /Prod2/site/ as well as /Prod2/archive/. A robots line is a request, not a control — the source change is the fix."
   },
   {
    "id": "F-P31",
@@ -387,15 +442,6 @@
    "resolved_utc": "2026-11-20"
   },
   {
-   "id": "F-P33",
-   "status": "open",
-   "title": "Two archived builds are still reachable by path while Pages serves the repository root",
-   "detail": "site/ (the archived Countercraft build, 25 tracked files) and archive/countertop-dispatch/ both sit in the tree. While the Pages source is the repo root (F-P19), each is fetchable by URL, and neither carries a canonical pointing at this site: site/index.html is titled 'Countercraft — Kitchen gear worth the counter space.' A search engine that reaches either sees a second brand, a second copy of the same guide set and no signal about which one is the site. No price or rating was found in those files by this pass (grep for a $-then-digits pattern returned nothing), so this is an indexing and brand-dilution exposure, not a disclosure one.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/tree/main/site",
-   "evidence_note": "git ls-files site → 25 files, read 2026-11-20; robots.txt previously disallowed only /Prod2/archive/.",
-   "how_to_resolve": "One of two owner-side moves: set Settings → Pages → Source to 'GitHub Actions' so only the docs/ artifact is served (F-P19, which removes the exposure entirely), or approve deleting site/ and archive/ from the published branch. Interim mitigation shipped 2026-11-20: the generated robots.txt now disallows /Prod2/site/ as well as /Prod2/archive/. A robots line is a request, not a control — the source change is the fix."
-  },
-  {
    "id": "F-P34",
    "status": "resolved",
    "title": "Structured data published placeholder facts: gtin13 null and a brand named 'unknown'",
@@ -407,14 +453,58 @@
    "resolved_utc": "2026-11-20"
   },
   {
-   "id": "F-P35",
+   "id": "F-P30",
    "status": "resolved",
-   "title": "The publishing cadence could not be audited: nothing linked a publish to the schedule",
-   "detail": "data/p2/calendar.json declares 'one new question-shaped guide' every 14 days, and the nine queue slots are spaced exactly 14 days apart (measured: the only distinct gap between consecutive slots is 14 days; first_publish 2026-11-19 + 14 = next_due 2026-12-03). What did not exist was any machine-checkable link between a page that actually shipped and that schedule. Six reader pages published 2026-11-19 and 2026-11-20 — including today's two guides and one long read — left next_due_utc untouched at 2026-12-03, so the front page could keep saying 'a new guide every two weeks' whether or not the register kept score. A second inconsistency came with it: queue slot 1 promises to answer 'Preheat, shake, or don't' from 'manual-ritual features verified on the three listings', but a listing states a feature, not a ritual — that slot is now marked blocked on Q-P19 instead of scheduled.",
-   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
-   "evidence_note": "Gaps and dates computed from data/p2/calendar.json on 2026-11-20 by tools/checks.py's cadence section, not typed in by hand.",
-   "how_to_resolve": "Closed by the gate rule; the remaining decision — whether a 14-day rhythm is actually resourced — is Q-P20.",
-   "resolution": "Fixed 2026-11-20 with a rule rather than a cleanup: the publish gate (tools/checks.py, section 'cadence') now fails the build when the newest recorded publish + the declared interval falls after next_due_utc, so shipping silently without advancing the schedule is impossible. next_due_utc advanced to 2026-12-04, publishes are dated in calendar.published_early, and slot 1 carries blocked_by: Q-P19 with a status the guides hub renders.",
+   "title": "The guides hub published an orphaned sentence, and no gate could see it",
+   "detail": "content/pages/guides.html closed its lede with </p> and then continued the same sentence outside the paragraph, ending in a second stray </p>. A reader saw a fragment stranded between blocks; the built page carried an unmatched end tag. The gate checked nested <p> and duplicate ids but never counted paragraph balance, so the defect was invisible to the machine that publishes the site.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/content/pages/guides.html",
+   "evidence_note": "The file as merged at 51a02ac — the lede's second sentence sits after the closing tag.",
+   "how_to_resolve": "Fixed 2026-11-20 in the same pass that found it: the fragment now opens one paragraph and closes it once.",
+   "resolution": "The sentence is back inside the lede, and tools/checks.py's validity section now counts <p> openings against </p> closings on every built page, so this class fails the build instead of shipping. Reproduced before the fix (the gate printed the exact mismatch), then fixed at the fragment.",
+   "resolved_utc": "2026-11-20"
+  },
+  {
+   "id": "F-P36",
+   "status": "resolved",
+   "title": "Two pages shipped FAQPage markup that did not match the page a reader sees",
+   "detail": "Found while wiring the guide FAQ blocks against the new faq gate, and reproduced on origin/main (551c633c) in a clean worktree. decide.html carried a four-question FAQPage node with no question-and-answer content visible anywhere on the page — the strings appear only inside the JSON-LD script — while index.html showed six visible FAQ items and described four of them in the markup, with every answer paraphrased rather than mirrored. Both nodes were hand-written copies of a list the page already had, in the same file, one function apart: exactly the duplication that made the landing copy drift. Google's FAQ guidance requires the marked-up content to be the content shown, so this is a compliance-shaped defect, not a tidiness one.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/551c633cf2fb8117fd5d15c7b465d3391d47b42b/tools/build.py",
+   "evidence_note": "jsonld_for() on main: the index and decide branches each restate the FAQ by hand; hook_landing_faq() renders six. Reproduce with `git worktree add /tmp/m origin/main && cd /tmp/m && python3 tools/build.py && grep -c faq-item docs/decide.html` (returns 0).",
+   "how_to_resolve": "Make the structured data impossible to write twice.",
+   "resolution": "Fixed 2026-11-20 in the generator rather than in the copy: both pages' FAQ blocks now render from one list (LANDING_FAQ, DECIDE_FAQ) and the FAQPage node is derived from the rendered content by faq_pairs(), with tags stripped so the machine answer is the reader's answer word for word. decide.html gained a visible four-question block; index.html's node now covers all six. tools/checks.py's faq section enforces the pairing on every page, so a markup-only FAQ fails the build (D-P26).",
+   "resolved_utc": "2026-11-20"
+  },
+  {
+   "id": "F-P37",
+   "status": "resolved",
+   "title": "origin/main shipped red: the per-page script broke the site's own one-site gate",
+   "detail": "At the merged tip of main (551c633, after PRs #58-#60) `python3 tools/build.py && python3 tools/checks.py` fails two sections: one-site reports that decide.html's page script carries no ?v= cache-buster, and a11y reports a heading-level skip in suggestions.html (the review banner jumps h1 to h3). Verified by building and gating origin/main in a clean worktree, not inferred from the log. The Pages workflow runs the same gate, so the merge should not have been possible on a workflow-gated deploy; the site publishes from the committed docs/ artifact, which is why a red gate was survivable at all.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/551c633cf2fb8117fd5d15c7b465d3391d47b42b/tools/checks.py",
+   "evidence_note": "Reproduce: `git worktree add /tmp/m origin/main && cd /tmp/m && python3 tools/build.py && python3 tools/checks.py | tail -5`.",
+   "how_to_resolve": "Fix both, and stop trusting a green merge that was never gated.",
+   "resolution": "Fixed 2026-11-20 in this integration: build_page now appends ?v={ASSET_V} to per-page scripts the way LAYOUT does for site.js and measure.js, and the suggestions.html banner heading was promoted to h2 (styled by a new .callout h2 rule so it still reads as a callout). Both sections pass on this branch.",
+   "resolved_utc": "2026-11-20"
+  },
+  {
+   "id": "F-P38",
+   "status": "resolved",
+   "title": "The gate that claims to parse the stylesheet parsed nothing, because of a query string",
+   "detail": "The assets section collects asset URLs from built pages and keeps the ones ending .css or .js. Every real link carries the ?v= cache-buster the one-site section requires, so the stylesheet — the file whose corruption broke all 30 pages on 2026-11-20 (F-P29) — never entered the loop. The section was not empty and so never complained, because one script (decide.js, unversioned per F-P37) matched by accident. Net effect: 'no conflict markers, tokens defined, every class used by a page exists' was asserted against a single JavaScript file and reported as covering the design system.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/551c633cf2fb8117fd5d15c7b465d3391d47b42b/tools/checks.py",
+   "evidence_note": "The linked-URL filter `rel.endswith((\".css\", \".js\"))` before the ?v= suffix is stripped. Reproduce by printing css_files with and without the fix.",
+   "how_to_resolve": "Resolve the URL to a path before matching it.",
+   "resolution": "Fixed 2026-11-20: the assets section now strips the query string before matching and existence-testing, so docs/assets/css/site.css is genuinely parsed on every build — which is also what made the F-P37 fix safe to land (the version suffix no longer hides the file). With the stylesheet actually in scope, every class the 36 built pages use must exist in it, which is the assertion F-P29 was written for.",
+   "resolved_utc": "2026-11-20"
+  },
+  {
+   "id": "F-P39",
+   "status": "resolved",
+   "title": "README documented 14 gate sections while the gate ran 21",
+   "detail": "Both the quick-start line and the status table on main read '14 sections'; tools/checks.py at the same commit runs 21 (pages, disclosure, links, validity, facts, claims, derived, chrome, seo, publication, a11y, structured, assets, longreads, shop, exposition, measurement, briefs, one-site, integrity, freshness). Seven sections were added without touching the document a new session reads first — the same failure mode as F-P12 and F-P32: the code moved, the prose about the code stayed. It matters here because COORDINATION.md tells every session to run the gate and trust it.",
+   "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/551c633cf2fb8117fd5d15c7b465d3391d47b42b/README.md",
+   "evidence_note": "grep -n 'sections' README.md on main; count with `grep -cE '^\\s+check\\(\"' tools/checks.py`.",
+   "how_to_resolve": "State the count once, or do not state it at all.",
+   "resolution": "README and ENGINE now read 23 (21 + this pass's faq and cadence), and the section table lists each one. A future-proof alternative — generating the sentence from checks.py — is recorded as SG-50 territory rather than done here, since the copy lives in two documents.",
    "resolved_utc": "2026-11-20"
   }
  ]

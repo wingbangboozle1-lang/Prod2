@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-20 (arena/e1dbef32-prod2): SG-49..SG-55 appended — the reader-facing polish the site can still take (Q&A blocks, first-screen answers, job-led merchandising, a named byline), the two owner inputs that unblock scheduled work (manuals, cadence), and the exposure decision. Append-only; no existing row edited. | ids for this pass start after main's F-P29/Q-P18/SG-48/D-P23, which this register also carries — no row renumbered, no row dropped."
+  "last_change": "2026-11-20 (arena/644d217b-prod2): SG-45..SG-47 added — long-form argument pieces (shipped), the one-dropdown Pages fix ranked first by payoff, and the imagery question split into a safe path and a licensed path. | 2026-11-20 (arena/20f83238-prod2): reviewer pass — every open item decided (D-P22); SG-05 rejected per D-P11 (F-P29); SG-11/12/13/17/35 shipped to match the merged passes; SG-01/14/34/36/44 accepted with gates; SG-02/07/08/10/39/41/43 deferred with blockers; SG-48 added (owner digest). | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at SG-54, SG-49, SG-53, SG-52, SG-55, SG-50, SG-51 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P21, SG-48..SG-54, D-P23..D-P26."
  },
  "suggestions": [
   {
@@ -24,8 +24,9 @@
    "depends_on": [
     "Q-19"
    ],
-   "status": "proposed",
-   "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items."
+   "status": "accepted",
+   "recommendation": "Do it after clearance. Ranked 1 by impact/effort among brand items.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted as the first item of Path C, gated where it always was — the working brand already ships (SG-38/D-P18) and this row now means 'ratify + formal clearance', owner action on Q-19/Q-P10. Nothing visual waits on it (the rename-back is one field)."
   },
   {
    "id": "SG-02",
@@ -37,8 +38,9 @@
    "effort": "Small (column reorder + one derived column in build).",
    "risk": "Low. Derived values must show the formula to stay within the evidence rule.",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept. Cheap, on-thesis."
+   "status": "deferred",
+   "recommendation": "Accept. Cheap, on-thesis.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred to Path B's editorial hours — a comparison-table reorder should ride one content pass (with the register re-reads), not land mid-measurement-setup. Carried as the first item of the next content pass; not dropped."
   },
   {
    "id": "SG-03",
@@ -84,8 +86,9 @@
    "depends_on": [
     "Q-27"
    ],
-   "status": "proposed",
-   "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand."
+   "status": "rejected",
+   "recommendation": "Only after the automated date-pairing check exists. Do not do this by hand.",
+   "progress": "Rejected 2026-11-20 — decision D-P11 answered this in the negative on the Program Policies 2(b) read: a dated snapshot recorded by the site is not an Amazon-served value or a licensed API value, so it may not publish. The licensed-API route remains tracked in Q-27/Q-P05. (Status reconciled from 'proposed' — see F-P29.)"
   },
   {
    "id": "SG-06",
@@ -115,8 +118,9 @@
    "depends_on": [
     "Owner input"
    ],
-   "status": "proposed",
-   "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available."
+   "status": "deferred",
+   "recommendation": "Option (a) if the owner can supply real notes; otherwise stay honest with (b). This is the single biggest content upgrade available.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred — a 'lived with' layer needs real, attributable usage (D-06 stands: no hands-on testing exists). Revisit after Path A's measurement proves readers and one clean attribution test exists."
   },
   {
    "id": "SG-08",
@@ -128,8 +132,9 @@
    "effort": "One session (CSS/JS + checks update).",
    "risk": "Low — must keep disclosure visible and not obscure content (Participation Requirements on clarity).",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept as a UX follow-up after the first traffic arrives."
+   "status": "deferred",
+   "recommendation": "Accept as a UX follow-up after the first traffic arrives.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred to the second design-token conformance pass (the first shipped under SG-16/D-P19). Mobile polish, not a path item."
   },
   {
    "id": "SG-09",
@@ -155,8 +160,9 @@
    "effort": "One session.",
    "risk": "Low.",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Defer until measured queries confirm demand (after SG-06)."
+   "status": "deferred",
+   "recommendation": "Defer until measured queries confirm demand (after SG-06).",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred with Path C's expansion work — the queue's own rule says do not start expansion before Path A has 14 days of data (SG-34 gate)."
   },
   {
    "id": "SG-11",
@@ -171,8 +177,9 @@
     "Q-P02",
     "SG-06"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06."
+   "status": "shipped",
+   "recommendation": "Accept as the editorial plan. Start the calendar now; let measured queries reorder it after SG-06.",
+   "progress": "Shipped: the answer-first calendar has run since 2026-11-19 (14-day cadence, ten question-shaped guides published from it) and D-P20 extended it with hypothesis slots 6-9. Queue titles are labeled hypotheses, not popularity claims (D-19)."
   },
   {
    "id": "SG-12",
@@ -184,8 +191,9 @@
    "effort": "Small (copy in content/pages + one check that each block has both lines).",
    "risk": "Low. Must not claim testing that did not happen (D-06).",
    "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Accept. It improves the shop feel without adding claims."
+   "status": "shipped",
+   "recommendation": "Accept. It improves the shop feel without adding claims.",
+   "progress": "Shipped by the shop-front passes: every product card on shop.html and the front page carries a best-for line, the listed features that matter and a tagged buy button; the products page carries the full sourced spec per product."
   },
   {
    "id": "SG-13",
@@ -199,9 +207,9 @@
    "depends_on": [
     "SG-09"
    ],
-   "status": "accepted",
+   "status": "shipped",
    "recommendation": "Accept after SG-09 is automated, so every new cluster page passes the internal-link gate on day one.",
-   "progress": "2026-11-19 publication pass: the clusters shipped - data/p2/calendar.json defines both clusters, guides.html is the hub, every guide links its pillar (gate-enforced). Adding more formats still waits."
+   "progress": "Shipped: two clusters with pillar pages and a guides hub; the S-24 pillar-link rule is gate-enforced (tools/checks.py publication section)."
   },
   {
    "id": "SG-14",
@@ -216,8 +224,9 @@
     "Q-01",
     "SG-06"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the sequencing rule for every growth decision."
+   "status": "accepted",
+   "recommendation": "Accept as the sequencing rule for every growth decision.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted as a standing hold, recorded as D-P23: no paid promotion and no newsletter until one clean attribution test exists (the measurement page carries the test protocol). This is the first item of the chosen Path A."
   },
   {
    "id": "SG-15",
@@ -262,9 +271,9 @@
    "depends_on": [
     "Q-P07"
    ],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Queue behind SG-06 (measure first), but build the scaffolding early — it is cheap and inert until activated.",
-   "progress": "Cross-ref: the seasonal scaffolding partially shipped (data/p2/calendar.json + the front-page seasonal desk, SG-35); this row covers the remaining merchandising depth."
+   "progress": "Shipped: the seasonal desk is a standing front-page module fed by data/p2/calendar.json, the December gifting window is live with its gift guide (D-P20), and the grilling desk is staged for its window. Calendar-based framing only (D-19/F-15)."
   },
   {
    "id": "SG-27",
@@ -389,8 +398,9 @@
     "Q-P08",
     "Q-P02"
    ],
-   "status": "proposed",
-   "recommendation": "Accept. It is the payoff for SG-06 and requires no new machinery."
+   "status": "accepted",
+   "recommendation": "Accept. It is the payoff for SG-06 and requires no new machinery.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted as Path A's payoff step, gate unchanged: topic selection switches to measured queries only after Search Console + hosted endpoint + 14 days of events (SG-06). Until then the queue order stays editorial and says so."
   },
   {
    "id": "SG-35",
@@ -402,9 +412,9 @@
    "effort": "Half a session to make the front page date-aware (currently the season modules are static blocks).",
    "risk": "Low.",
    "depends_on": [],
-   "status": "proposed",
+   "status": "shipped",
    "recommendation": "Accept before the next season boundary (2026-12-31).",
-   "progress": "Seasonal desk + gifting window live 2026-11-20; front-page date-awareness (auto-retire on window end) remains queued before the 2026-12-31 boundary."
+   "progress": "Shipped: the seasonal desk rotation is a standing module (season hook from calendar.json), with the rotation register linked from the module."
   },
   {
    "id": "SG-36",
@@ -419,8 +429,9 @@
     "Q-47",
     "SG-04"
    ],
-   "status": "proposed",
-   "recommendation": "Accept in principle now; activate with the capture endpoint."
+   "status": "accepted",
+   "recommendation": "Accept in principle now; activate with the capture endpoint.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted, gated on Q-47 (consent basis for holding an email) and the capture endpoint — owner decisions first; the form ships dark meanwhile (F-P14)."
   },
   {
    "id": "SG-37",
@@ -440,7 +451,7 @@
   {
    "id": "SG-41",
    "title": "Gate the event vocabulary so the site and the endpoint cannot drift again",
-   "status": "shipped",
+   "status": "deferred",
    "evidence": "F-P23; allowedEvents in server.mjs vs the event list in data/p2/events.json",
    "proposal": "Add a check that parses the event names out of server.mjs's allowedEvents set and out of the event list the site ships, then fails the build when they differ. Ten lines; it turns a silent under-count into a red build.",
    "impact": "High — prevents a silent under-count once the endpoint is hosted.",
@@ -449,7 +460,7 @@
    "depends_on": "Q-P14 (the vocabulary choice)",
    "recommendation": "Adopt as soon as Q-P14 is answered — it is the cheapest possible insurance on a measurement surface.",
    "problem": "F-P23: three of the site's five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree.",
-   "progress": "Shipped 2026-11-20 (arena/644d217b-prod2): tools/checks.py section 'measurement' now fails the build when the shipped client can send an event the collector rejects, and tests/server.test.mjs reads the five names out of assets/js/measure.js so the two files cannot drift. See D-P21 / F-P23."
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred behind the owner's vocabulary choice (Q-P14): D-P15 decided to publish the site/endpoint mismatch rather than patch it, and the gate already surfaces it on every build. Whichever vocabulary the owner picks, this row becomes the enforcement."
   },
   {
    "id": "SG-38",
@@ -479,9 +490,9 @@
    "depends_on": [
     "Q-P05"
    ],
-   "status": "proposed",
+   "status": "deferred",
    "recommendation": "Accept as the next visual item after the current pass settles; amend the brief first, then draw.",
-   "progress": "Update 2026-11-20 (reconciliation): the drawn-imagery part of this proposal shipped in the shop-front pass (arena/70b2b9f7-prod2, decision D-P12): drawn format illustrations and an original hero scene are live. Remaining: amend DESIGN_PROMPT.md’s imagery line (it still restricts graphics to glyphs) and add the seasonal hero-scene rotation."
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred with the art budget — the drawn-art direction is set (D-P12) and this row extends it per season; it waits for Path A's data like every other non-measurement spend. Amending the brief stays owner-facing (Q-P05)."
   },
   {
    "id": "SG-40",
@@ -512,8 +523,9 @@
     "Q-P08",
     "SG-34"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the standing growth runbook; it is the shortest credible path to measured organic traffic."
+   "status": "accepted",
+   "recommendation": "Accept as the standing growth runbook; it is the shortest credible path to measured organic traffic.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): accepted as Path A's documentation step: the runbook is the owner's checklist for Search Console first, then measured topics (SG-34). Its first step is the SG-06 owner action."
   },
   {
    "id": "SG-42",
@@ -544,8 +556,9 @@
     "SG-34",
     "Q-P02"
    ],
-   "status": "proposed",
-   "recommendation": "Accept as the first measured-iteration item; do nothing until the gate opens."
+   "status": "deferred",
+   "recommendation": "Accept as the first measured-iteration item; do nothing until the gate opens.",
+   "progress": "2026-11-20 reviewer pass (arena/20f83238-prod2, D-P22): deferred to the measured copy pass: the row's own rule (titles measured, not instinct) needs Path A's Search Console data to run honestly."
   },
   {
    "id": "SG-45",
@@ -595,6 +608,34 @@
    "recommendation": "Run (b) now; switch to (a) only if API access is granted."
   },
   {
+   "id": "SG-48",
+   "title": "Monthly owner digest: turn the open-question register into a standing prompt",
+   "problem": "The questions register answers what is missing and how to find it per row, but the owner only sees it by browsing the page. Missing information tends to stay missing when nobody is prompted with the exact lookup.",
+   "proposal": "A one-page monthly digest generated from questions.json by the existing build: the owner-answerable questions first (each with its exact lookup steps and what it unblocks), then what changed since the last digest. Repo issue or one page in the work section; no reader-facing surface changes.",
+   "evidence": "The brief's requirement that suggestions exist to discover missing information; the questions register already carries how_to_discover per row and the discovery-methods table on the questions page.",
+   "impact": "Medium — converts the register from documentation into a decision pipeline; compounds the SG-06 measurement habit.",
+   "effort": "Small — one build hook and a calendar reminder, after Path A's first measured month.",
+   "risk": "Low; nothing reader-facing changes and nothing is collected.",
+   "depends_on": [
+    "SG-06"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept at Path A's first monthly review (D-P22). It is the cheapest way to keep the owner actions in Q-01/Q-23/Q-P06/Q-P08/Q-P10 from ageing silently."
+  },
+  {
+   "id": "SG-54",
+   "title": "Merchandise the shelf by cooking job, with the register as the only source",
+   "problem": "The shelf currently presents five cards in register order. A buyer does not think in formats; they think 'dinner for two', 'a crowd', 'a roast I cannot hover over'. The pages already contain the routing logic (best-for lines, the three-question chooser) but it sits below the cards rather than organising them.",
+   "proposal": "Group the shelf into three rails — 'Two people, one dish', 'Two dishes at once', 'Long cooks, watched from away' — each rail generated from the existing format and best-for fields, each header linking to the chooser rather than to a product. Every card keeps its own buy button; no rail implies a ranking, and the gate's claims section keeps prices, ratings and popularity words out.",
+   "evidence": "PRODUCT_BEST_FOR and the format fields in data/p2/products.json already carry every word the rail headers would use (https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py), so this is presentation, not new claims.",
+   "impact": "Medium to high for conversion — it shortens the path from 'I need something' to 'this one is for my kitchen' without inventing a reason to care.",
+   "effort": "One hook in tools/build.py plus a CSS rule for the rail header; the 'shop' gate section already checks card and button counts.",
+   "risk": "A rail header that reads like a verdict ('best for families') would be an unsupported claim. Keep the phrasing inside the listed facts, and let the gate's banned-word list stay where it is.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "The strongest un-built item on the marketing side of the queue; do it in the same pass as SG-50 so the shelf and the guides change once."
+  },
+  {
    "id": "SG-49",
    "title": "Retro-fit a visible Q&A block to the ten guides that do not have one",
    "problem": "The two guides published 2026-11-20 answer their question in the first screen and then carry a four-to-five item Q&A list; the ten older guides answer well but bury the short version inside prose. The markup mechanism now exists in the build, so the gap is editorial, not technical.",
@@ -608,6 +649,49 @@
    ],
    "status": "proposed",
    "recommendation": "Do it after Q-P21 sets the framing, in one pass so the mechanism and the content arrive together."
+  },
+  {
+   "id": "SG-53",
+   "title": "Decide what the published branch is allowed to contain",
+   "problem": "While the Pages source is the repository root (F-P19), the archived Countercraft build at site/ and the Countertop Dispatch snapshot under archive/ are reachable by URL with their own titles and no canonical pointing at the live site (F-P33). The only thing standing between a crawler and a second copy of the guide set is a robots.txt line, which is a request.",
+   "proposal": "Two acceptable outcomes, and both are the owner's: (a) set Settings → Pages → Source to 'GitHub Actions' so only the docs/ artifact is served, which removes the question entirely; or (b) record a decision that the archives stay reachable on purpose, publish that in about.html so it is not mistaken for an accident, and keep the robots disallow as the only control. What is not acceptable is leaving it unrecorded.",
+   "evidence": "git ls-files site → 25 tracked files read 2026-11-20; https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/site/index.html carries the title 'Countercraft — Kitchen gear worth the counter space.'",
+   "impact": "Medium — one site to index, one brand in the SERP, and one place for a reviewer to look.",
+   "effort": "Owner: one dropdown for (a), one sentence for (b).",
+   "risk": "Deleting the archives removes published receipts, which this project has deliberately preserved elsewhere; (b) is the lower-risk branch.",
+   "depends_on": [
+    "Q-P22"
+   ],
+   "status": "proposed",
+   "recommendation": "Pair it with the other owner-side Pages action (F-P19/F-P20): one settings change closes both."
+  },
+  {
+   "id": "SG-52",
+   "title": "Get the three operator's manuals into the source register",
+   "problem": "Four topics — preheat and shake rituals, second functions, coating care, and the holding question that decides holiday hosting — cannot be written from the listings, because a listing states a feature, not an instruction. Queue slot 1 is marked blocked on exactly this.",
+   "proposal": "Owner supplies the official manual PDF for P1 (Chefman dual-basket), P2 (Emeril Lagasse French-door) and P3 (Chefman TurboFry) from the manufacturer's own support page, or records that no manual states the figure. Each read lands in data/p2/sources.json with a date, then the blocked slot unblocks. Quoting policy is checked before anything is published, in the same place the OA reads are recorded.",
+   "evidence": "The peer-reviewed extension guidance tells readers to consult the operator's manual rather than answering it itself (https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/), and this site's register contains no manual read as of 2026-11-20.",
+   "impact": "High for the content plan — it is the only suggestion here that unlocks existing scheduled work rather than adding new work.",
+   "effort": "Owner: three downloads. Site: one dated read per manual, recorded like any other source.",
+   "risk": "Manuals are manufacturer documents, so claims drawn from them are attributed as manufacturer instructions, never as independent findings.",
+   "depends_on": [
+    "Q-P19"
+   ],
+   "status": "proposed",
+   "recommendation": "Do this before commissioning any new topic; it is cheaper than writing around the gap."
+  },
+  {
+   "id": "SG-55",
+   "title": "Decide whether a named human stands behind the byline",
+   "problem": "Every article's author is the organization 'The Crisp Counter' (the JSON-LD author node and the byline strip both say so), and the site is honest that nobody has cooked with the machines. That is defensible, but a publication with no named human is easier to skim past and harder to trust than one with a person who can be written to.",
+   "proposal": "Either add a named editor to settings.json (rendered in the byline, in the Article author node and on about.html, with a contact route), or record the choice to stay organizational in DECISIONS.md and say why on the About page. Both are publishable; the silence is the problem.",
+   "evidence": "data/p2/settings.json has no author field and jsonld_for emits author: {Organization} — verified against https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py; Google's people-first guidance asks that a site be clear about who is responsible for content: https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+   "impact": "Medium — trust is the only currency an affiliate page has when it declines to publish a rating.",
+   "effort": "One settings line plus three template touches, or one paragraph on about.html.",
+   "risk": "A name is an accountability promise. Do not invent one: an editorial pseudonym presented as a person is exactly the pattern this site exists to avoid.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Decide this before the first reader email arrives, not after; the capture form ships dark today (F-P14), so there is time but not indefinitely."
   },
   {
    "id": "SG-50",
@@ -636,62 +720,6 @@
    ],
    "status": "proposed",
    "recommendation": "Answer Q-P20 before the next slot's due date (2026-12-04) so the choice is made while the schedule is still true."
-  },
-  {
-   "id": "SG-52",
-   "title": "Get the three operator's manuals into the source register",
-   "problem": "Four topics — preheat and shake rituals, second functions, coating care, and the holding question that decides holiday hosting — cannot be written from the listings, because a listing states a feature, not an instruction. Queue slot 1 is marked blocked on exactly this.",
-   "proposal": "Owner supplies the official manual PDF for P1 (Chefman dual-basket), P2 (Emeril Lagasse French-door) and P3 (Chefman TurboFry) from the manufacturer's own support page, or records that no manual states the figure. Each read lands in data/p2/sources.json with a date, then the blocked slot unblocks. Quoting policy is checked before anything is published, in the same place the OA reads are recorded.",
-   "evidence": "The peer-reviewed extension guidance tells readers to consult the operator's manual rather than answering it itself (https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/), and this site's register contains no manual read as of 2026-11-20.",
-   "impact": "High for the content plan — it is the only suggestion here that unlocks existing scheduled work rather than adding new work.",
-   "effort": "Owner: three downloads. Site: one dated read per manual, recorded like any other source.",
-   "risk": "Manuals are manufacturer documents, so claims drawn from them are attributed as manufacturer instructions, never as independent findings.",
-   "depends_on": [
-    "Q-P19"
-   ],
-   "status": "proposed",
-   "recommendation": "Do this before commissioning any new topic; it is cheaper than writing around the gap."
-  },
-  {
-   "id": "SG-53",
-   "title": "Decide what the published branch is allowed to contain",
-   "problem": "While the Pages source is the repository root (F-P19), the archived Countercraft build at site/ and the Countertop Dispatch snapshot under archive/ are reachable by URL with their own titles and no canonical pointing at the live site (F-P33). The only thing standing between a crawler and a second copy of the guide set is a robots.txt line, which is a request.",
-   "proposal": "Two acceptable outcomes, and both are the owner's: (a) set Settings → Pages → Source to 'GitHub Actions' so only the docs/ artifact is served, which removes the question entirely; or (b) record a decision that the archives stay reachable on purpose, publish that in about.html so it is not mistaken for an accident, and keep the robots disallow as the only control. What is not acceptable is leaving it unrecorded.",
-   "evidence": "git ls-files site → 25 tracked files read 2026-11-20; https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/site/index.html carries the title 'Countercraft — Kitchen gear worth the counter space.'",
-   "impact": "Medium — one site to index, one brand in the SERP, and one place for a reviewer to look.",
-   "effort": "Owner: one dropdown for (a), one sentence for (b).",
-   "risk": "Deleting the archives removes published receipts, which this project has deliberately preserved elsewhere; (b) is the lower-risk branch.",
-   "depends_on": [
-    "Q-P22"
-   ],
-   "status": "proposed",
-   "recommendation": "Pair it with the other owner-side Pages action (F-P19/F-P20): one settings change closes both."
-  },
-  {
-   "id": "SG-54",
-   "title": "Merchandise the shelf by cooking job, with the register as the only source",
-   "problem": "The shelf currently presents five cards in register order. A buyer does not think in formats; they think 'dinner for two', 'a crowd', 'a roast I cannot hover over'. The pages already contain the routing logic (best-for lines, the three-question chooser) but it sits below the cards rather than organising them.",
-   "proposal": "Group the shelf into three rails — 'Two people, one dish', 'Two dishes at once', 'Long cooks, watched from away' — each rail generated from the existing format and best-for fields, each header linking to the chooser rather than to a product. Every card keeps its own buy button; no rail implies a ranking, and the gate's claims section keeps prices, ratings and popularity words out.",
-   "evidence": "PRODUCT_BEST_FOR and the format fields in data/p2/products.json already carry every word the rail headers would use (https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py), so this is presentation, not new claims.",
-   "impact": "Medium to high for conversion — it shortens the path from 'I need something' to 'this one is for my kitchen' without inventing a reason to care.",
-   "effort": "One hook in tools/build.py plus a CSS rule for the rail header; the 'shop' gate section already checks card and button counts.",
-   "risk": "A rail header that reads like a verdict ('best for families') would be an unsupported claim. Keep the phrasing inside the listed facts, and let the gate's banned-word list stay where it is.",
-   "depends_on": [],
-   "status": "proposed",
-   "recommendation": "The strongest un-built item on the marketing side of the queue; do it in the same pass as SG-50 so the shelf and the guides change once."
-  },
-  {
-   "id": "SG-55",
-   "title": "Decide whether a named human stands behind the byline",
-   "problem": "Every article's author is the organization 'The Crisp Counter' (the JSON-LD author node and the byline strip both say so), and the site is honest that nobody has cooked with the machines. That is defensible, but a publication with no named human is easier to skim past and harder to trust than one with a person who can be written to.",
-   "proposal": "Either add a named editor to settings.json (rendered in the byline, in the Article author node and on about.html, with a contact route), or record the choice to stay organizational in DECISIONS.md and say why on the About page. Both are publishable; the silence is the problem.",
-   "evidence": "data/p2/settings.json has no author field and jsonld_for emits author: {Organization} — verified against https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py; Google's people-first guidance asks that a site be clear about who is responsible for content: https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
-   "impact": "Medium — trust is the only currency an affiliate page has when it declines to publish a rating.",
-   "effort": "One settings line plus three template touches, or one paragraph on about.html.",
-   "risk": "A name is an accountability promise. Do not invent one: an editorial pseudonym presented as a person is exactly the pattern this site exists to avoid.",
-   "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Decide this before the first reader email arrives, not after; the capture form ships dark today (F-P14), so there is time but not indefinitely."
   }
  ]
 }

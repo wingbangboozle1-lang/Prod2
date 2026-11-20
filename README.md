@@ -62,8 +62,9 @@ form; the page tracker transmits nothing unless an endpoint is explicitly config
 ## The products
 
 Five owner-supplied `link.amazon` short links, each resolved against its official Amazon listing.
-All five tokens are 9-character short-link tokens, not 10-character ASINs; they resolve to real
-listings. See `data/p2/products.json`.
+All five tokens are 9-character short-link tokens, not 10-character ASINs. On 2026-11-19 they
+resolved to real listings. On 2026-11-20 a same-day re-read confirmed one of
+five links, and a second same-day read disagrees on two links, so the outcome is undecided until a browser check (F-P24, F-P27, F-P28). See `data/p2/products.json`.
 
 | # | Product | Format | ASIN |
 | --- | --- | --- | --- |
@@ -86,7 +87,7 @@ mistaken for the target product (F-P17).
 | `shop.html` | The whole catalogue, filterable by format and category, plus the three-question chooser |
 | `compare.html` | One sourced comparison table, the counter-space analysis, and how to read both |
 | `products.html` | Full listed specification per product, with the product-intent record kept separate |
-| `guides.html` + 10 guide pages | One buyer question per page, in clusters with pillar pages, on a 14-day cadence |
+| `guides.html` + 12 guide pages | One buyer question per page, in clusters with pillar pages, on a 14-day cadence; 3 long reads registered in `data/p2/calendar.json` |
 | `category-air-fryers.html`, `category-thermometers.html` | The two format shelves |
 | `buying-guide.html` | The long-form decision path: format, then capacity, then counter, then cleanup |
 | `about.html` | Authorship, the four editorial rules, what we cannot tell you, imagery policy |
@@ -142,8 +143,13 @@ See `EXECUTIVE_SUMMARY.md`, `DECISIONS.md`, and the **About** page for sources a
 | Search Console | Not verified; token slot ready in `data/p2/settings.json` (Q-P08) |
 | Analytics endpoint | `server.mjs` works and is tested; not hosted (Q-23) |
 | Campaign ledger | Empty by rule; accepts only authorized first-party rows |
+<<<<<<< HEAD
 | Release gate | 16 sections, green |
 | Open flags | 20 open, 8 resolved, 4 standing — all on the Flagged for review page |
+=======
+| Release gate | 14 sections, green |
+| Open flags | 27 open, 11 resolved, 4 standing (42 flags; F-P25..F-P28 added 2026-11-20) — all on the Flagged for review page |
+>>>>>>> origin/main
 
 Everything in the bottom half of that table is an owner action, not an engineering gap. The
 **Open questions** page lists the discovery route for each one.
