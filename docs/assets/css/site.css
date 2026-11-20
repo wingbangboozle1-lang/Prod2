@@ -608,6 +608,9 @@ a.src:hover { color: var(--ink); }
 .footer a { color: #EFE2D3; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
 .footer a:hover { color: #fff; }
 .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1.1fr; gap: 1.8rem; }
+.footer-sublist { margin-top: .55rem; }
+.footer-sublist ul { list-style: none; margin: 0; padding: 0; }
+.footer-sublist li { margin: .18rem 0; font-size: .86rem; }
 .footer h2 {
   font-family: var(--sans); font-size: .72rem; text-transform: uppercase;
   letter-spacing: .13em; color: #A5978A; margin: 0 0 .85rem;

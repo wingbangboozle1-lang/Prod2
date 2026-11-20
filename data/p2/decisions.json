@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "Merged with origin/main (2026-11-20): main's rows kept for shared ids (both integrations had independently renumbered PR #47's D-P21/D-P22 to D-P22/D-P23); D-P24 (PR #41's handoff record) carried from arena/7cec0d73-prod2."
+  "last_change": "Second union with origin/main (2026-11-20): decision id sets identical on both sides; main's rows kept."
  },
  "decisions": [
   {
@@ -334,15 +334,15 @@
   },
   {
    "id": "D-P24",
-   "question": "How is the 2026-11-20 pass (handoff takeover of stale PRs #23/#25 + first same-day live verification) recorded as decisions?",
+   "question": "Do products get dedicated pages, and what may those pages claim?",
    "status": "Recorded 2026-11-20",
-   "recorded_choice": "Adopted: (a) same-day live verification of all five submitted short links plus compliance pages, recorded in data/p2/verification-2026-11-20.json with dated observations appended to the intent register; (b) PR #25 content union — guides guide-dual-vs-single, guide-probe-in-air-fryer, guide-air-fryer-gift (clustered in calendar.json), analysis.html and design-prompt.html decision surfaces, registers decision-priority/design-prompts/verification-log, question rows Q-P10..Q-P33 and suggestion rows SG-18..SG-26 verbatim, the editorial voice-lint gate, and the settings-derived disclosure sentence in checks.py; (c) PR #23 content union — the Start here path on the front page. Not adopted (queued, review-gated): PR #25 mobile compare bar (SG-23 remains proposed; the site.js delta that powers it stays on that branch), its portal-v2 board hooks for questions/suggestions (main keeps the PR #27 status tables), and its replacement of guide titles for guide-how-many-quarts/guide-two-baskets-or-one (main keeps both; guide-dual-vs-single is differentiated by its capacity-math angle). Conflicts resolved at source without discarding the other sessions' work; their branches remain on the remote.",
+   "recorded_choice": "Yes to pages, strict no to new claims (numbered D-P24 after the mid-pass collision on D-P23, which the 2026-11-20 integration pass carries for the paid-placement hold — both stand). Each of the five products gets one reader-facing page (completing SG-12 beyond the card-level shipping note). Content policy: the page may restate values already in the verified register (products.json) with their read dates and source links, derive arithmetic from listed numbers with the formula shown, and link the cluster — nothing else. No prices, no ratings (F-02), no availability (D-P11), no hands-on or performance language (D-06), no popularity words (D-19). Every page ends with its own 'what we could not verify' block. JSON-LD carries a Product node (name/sku/brand/category) with deliberately NO offers and NO aggregateRating. The 'productpages' gate section enforces one page per product, the tagged buy URL, the sponsored marking, the unverified block, reachability from index/shop/products/pillars and sitemap presence.",
+   "rationale": "Amazon's ASIN definition (S-ASIN) makes the listing page the checkable source for every published value; a dedicated page that cites the register lets a reader verify each row against that listing. Dedicated pages are also the standard landing surface for product-name organic queries, which today had no page to land on. Recorded 2026-11-20 by arena/770ebcc2-prod2.",
    "sources": [
-    "https://github.com/wingbangboozle1-lang/Prod2/pull/23",
-    "https://github.com/wingbangboozle1-lang/Prod2/pull/25",
-    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json"
-   ],
-   "renumber_note": "Renumbered through the 2026-11-20 merge race: D-P10 -> D-P16 ->  -> D-P24 (main consumed each ID in PRs #29-#44). Content unchanged. Renumbered from D-P22 during the 2026-11-20 integration (session arena/7cec0d73-prod2): the source branch and main had both used this id for different rows."
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/products.json",
+    "https://www.amazon.com/dp/B0CDY277D3",
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/live-check-2026-11-20-770ebcc2.json"
+   ]
   }
  ]
 }

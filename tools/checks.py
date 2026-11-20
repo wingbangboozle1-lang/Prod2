@@ -43,6 +43,9 @@ Sections:
                duplicates; every archived build carries noindex; robots.txt scoped
                away from source and archive; every css/js URL carries a content
                version so a corrected asset cannot sit behind a stale CDN copy
+  productpages one dedicated page per product (SG-12): exists, cites the buy URL,
+               carries the unverified block, linked from index, shop, products and
+               its pillar, present in the sitemap; no orphan product pages
   briefs       the decision layer: every declared brief rendered, every cited
                register id resolves, no brief with an empty "not known" list, and
                the page is in the sitemap and the footer directory (X-04)
@@ -626,7 +629,12 @@ def main() -> int:
             linked.add(rel)
         for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             linked.add(rel)
-    css_files = sorted(DOCS / rel for rel in linked if rel.endswith((".css", ".js")) and (DOCS / rel).exists())
+    # A ?v= cache-buster (required by the one-site gate) is a query parameter,
+    # not part of the filename: resolve the path without it.
+    def _asset_path(rel: str) -> pathlib.Path:
+        return DOCS / rel.split("?", 1)[0]
+    css_files = sorted(_asset_path(rel) for rel in linked
+                       if rel.split("?", 1)[0].endswith((".css", ".js")) and _asset_path(rel).exists())
     if not css_files:
         fail("no stylesheet or script linked by a built page exists in docs/ — nothing styles the site")
     for f in css_files:
@@ -668,7 +676,7 @@ def main() -> int:
                          ("decide.html", BUDGET_FIRST_VIEW_KB)):
         text = (DOCS / name).read_text(encoding="utf-8")
         total = 0
-        for rel in re.findall(r'<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"\s]+)"', text):
+        for rel in re.findall(r'<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"?\s]+)', text):
             # a <picture> source is what a modern browser actually downloads
             pth = DOCS / rel
             if pth.exists():
@@ -678,7 +686,7 @@ def main() -> int:
     # every <picture> must have a WebP source and a PNG fallback, and both exist
     for f in html_files:
         text = f.read_text(encoding="utf-8")
-        for m in re.finditer(r'<picture>\s*<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"[^>]*>\s*<img[^>]+src="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"', text):
+        for m in re.finditer(r'<picture>\s*<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"?]+)[^"]*"[^>]*>\s*<img[^>]+src="(?:https://[^"]*?/Prod2/)?(assets/[^"?]+)', text):
             webp, png = m.group(1), m.group(2)
             if not webp.endswith(".webp"):
                 fail(f"{f.name}: <picture> source is not WebP ({webp})")
@@ -747,7 +755,7 @@ def main() -> int:
     # every referenced local image must exist in the build
     for f in html_files:
         text = f.read_text(encoding="utf-8")
-        for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"]+)"', text):
+        for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"?]+)', text):
             if not (DOCS / rel).exists():
                 fail(f"{f.name}: image {rel} missing from docs/")
         for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
@@ -1075,6 +1083,46 @@ def main() -> int:
             fail(f"data/p2/{p.name}: verification record filename carries no date")
     if not FAILURES:
         ok("no conflict markers shipped; stylesheet tokens intact; register ids resolve")
+
+    # ------------------------------------------------------------ product pages
+    check("productpages")
+    # SG-12 (shipped 2026-11-20): every product in the register has its own
+    # reader page. The gate keeps the promise: no product without a page, no
+    # page without its buy link, its citations and its unverified block.
+    paths = build.PRODUCT_PAGE_PATHS
+    product_files = sorted(f.name for f in DOCS.glob("product-*.html"))
+    expect_files = sorted(v + ".html" for v in paths.values())
+    if product_files != expect_files:
+        fail(f"product pages on disk != registry: {product_files} vs {expect_files}")
+    for p in products:
+        slug = paths.get(p["id"])
+        if not slug:
+            fail(f"{p['id']}: no product page registered in build.PRODUCT_PAGE_PATHS")
+            continue
+        f = DOCS / (slug + ".html")
+        if not f.exists():
+            fail(f"{p['id']}: product page {slug}.html not built")
+            continue
+        text = f.read_text(encoding="utf-8")
+        if p["buy_url"] not in text:
+            fail(f"{slug}.html: does not carry the tagged buy URL")
+        if 'rel="sponsored' not in text:
+            fail(f"{slug}.html: buy link not marked sponsored")
+        if "What we could not verify" not in text:
+            fail(f"{slug}.html: no 'what we could not verify' block")
+        if p["asin"] not in text:
+            fail(f"{slug}.html: ASIN not published on its own page")
+        for host_page in ("index.html", "shop.html", "products.html"):
+            if f'href="{slug}.html"' not in (DOCS / host_page).read_text(encoding="utf-8"):
+                fail(f"{host_page}: does not link the {p['id']} product page")
+        pillar = "category-air-fryers.html" if "thermometer" not in p["format"].lower() \
+            else "category-thermometers.html"
+        if f'href="{slug}.html"' not in (DOCS / pillar).read_text(encoding="utf-8"):
+            fail(f"{pillar}: does not link the {p['id']} product page")
+        if f"/{slug}.html</loc>" not in (DOCS / "sitemap.xml").read_text(encoding="utf-8"):
+            fail(f"{slug}.html: missing from sitemap.xml")
+    if not FAILURES:
+        ok(f"{len(products)} product pages: cited, sponsored, unverified-block present, linked, in sitemap")
 
     # -------------------------------------------------------------- freshness
     check("freshness")
