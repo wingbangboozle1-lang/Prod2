@@ -22,7 +22,7 @@ CONTENT = ROOT / "content"
 ASSETS_SRC = ROOT / "assets"
 DOCS = ROOT / "docs"
 
-BUILD_DATE = "2026-11-19"  # set on each publishing pass
+BUILD_DATE = "2026-11-20"  # set on each publishing pass
 
 
 def load(name: str):
