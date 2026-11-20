@@ -40,6 +40,7 @@ DECISIONS = load("decisions.json")["decisions"]
 LEDGER = load("ledger.json")
 EVENTS = load("events.json")
 CALENDAR = load("calendar.json")
+BRIEFS = load("briefs.json")["briefs"]
 
 BRAND = SETTINGS["brand"]["name"]
 DESCRIPTOR = SETTINGS["brand"]["descriptor"]
@@ -154,6 +155,10 @@ PAGES = [
      f"Open questions and missing information | {BRAND}",
      "What we know, what we don't, and how to find out — the register that must be answered before certain decisions can be made.",
      "work"),
+    ("briefs", "briefs.html",
+     f"Six decisions, what is known and what is missing | {BRAND}",
+     "Six decisions in the order they should be made: what is already verified, what is still missing, the exact question, who can answer it, and the cheapest test.",
+     "work"),
     ("suggestions", "suggestions.html",
      f"Suggestion queue: choose the path before we build | {BRAND}",
      "Proposed improvements with evidence, impact, effort and risk. Nothing here is implemented until a reviewer picks a path.",
@@ -236,6 +241,7 @@ NAV_WORK = [
     ("method.html", "Method &amp; sources"),
     ("flagged.html", "Flagged for review"),
     ("questions.html", "Open questions"),
+    ("briefs.html", "Decision briefs"),
     ("suggestions.html", "Suggestions"),
     ("decisions.html", "Decisions"),
     ("measurement.html", "Measurement"),
@@ -533,6 +539,92 @@ def hook_questions(_="") -> str:
   </dl>
 </article>""")
     return "".join(out)
+
+
+def _ref(text: str) -> str:
+    """Link every register id that appears in a brief field to its own row.
+
+    A brief must never assert a fact without letting the reader jump to the row
+    that proves it, so ids are linked mechanically rather than by hand. Ranges
+    such as "D-P10..D-P17" name an ID space and are left as text.
+    """
+    out = esc(text)
+    for rid in sorted(set(re.findall(r"\b(F-P?\d{1,3}|Q-P?\d{1,3}|SG-\d{1,3}|D-P?\d{1,3})\b", text)),
+                      key=len, reverse=True):
+        page = {"F": "flagged.html", "Q": "questions.html",
+                "SG": "suggestions.html", "D": "decisions.html"}[rid.split("-")[0]]
+        out = out.replace(f'<code>{esc(rid)}</code>' if False else esc(rid),
+                          f'<a href="{page}#{esc(rid)}"><code>{esc(rid)}</code></a>', 1)
+    return out
+
+
+def hook_briefs(_="") -> str:
+    out = []
+    for b in BRIEFS:
+        known = "".join(
+            f'<li>{esc(k["fact"])} <span class="brief-cite">{_ref(k["cited_by"])}</span></li>'
+            for k in b["known"])
+        unknown = "".join(f"<li>{esc(u)}</li>" for u in b["not_known"])
+        blocks = "".join(f"<li>{esc(x)}</li>" for x in b["what_it_blocks"])
+        links = " · ".join(f'<a class="src" href="{esc(l["url"])}" rel="noopener" target="_blank">'
+                           f'{esc(l["label"])}</a>' for l in b["evidence_links"])
+        flags = " ".join(f'<a href="flagged.html#{esc(f)}">{esc(f)}</a>' for f in b.get("flags", []))
+        qs = " ".join(f'<a href="questions.html#{esc(q)}">{esc(q)}</a>' for q in b.get("questions", []))
+        out.append(f"""
+<article class="card brief-card" id="{esc(b['id'])}">
+  <header class="brief-head">
+    <p class="eyebrow">Brief {esc(str(b['order']))} · {esc(b['id'])}</p>
+    <h2>{esc(b['question'])}</h2>
+    <p class="lede">{esc(b['yields'])}</p>
+  </header>
+  <div class="brief-two">
+    <div class="brief-col brief-known">
+      <h3>What is known — with the row that proves it</h3>
+      <ul>{known}</ul>
+    </div>
+    <div class="brief-col brief-unknown">
+      <h3>What is not known</h3>
+      <ul>{unknown}</ul>
+    </div>
+  </div>
+  <div class="brief-test">
+    <h3>The cheapest way to find out</h3>
+    <p>{_ref(b['cheapest_first_test'])}</p>
+    <p class="brief-who"><strong>Who can answer it:</strong> {esc(b['who_can_answer'])}</p>
+  </div>
+  <div class="brief-two">
+    <div class="brief-col">
+      <h3>Deciding this unlocks</h3>
+      <ul>{blocks}</ul>
+    </div>
+    <div class="brief-col">
+      <h3>It does not block</h3>
+      <p>{esc(b['what_it_does_not_block'])}</p>
+    </div>
+  </div>
+  <p class="brief-refs"><strong>Rows behind this brief:</strong> {flags or '—'}
+     &nbsp;·&nbsp; <strong>Questions:</strong> {qs or '—'}</p>
+  <p class="brief-links"><strong>Read it yourself:</strong> {links}</p>
+</article>""")
+    return "".join(out)
+
+
+def hook_briefs_summary(_="") -> str:
+    rows = []
+    for b in BRIEFS:
+        rows.append(
+            f'<tr><td>{esc(str(b["order"]))}</td>'
+            f'<td><a href="#{esc(b["id"])}"><code>{esc(b["id"])}</code></a></td>'
+            f'<td>{esc(b["question"])}</td>'
+            f'<td>{esc(b["who_can_answer"])}</td>'
+            f'<td>{len(b["not_known"])} open</td></tr>')
+    return ('<div class="table-scroll"><table class="data"><thead><tr><th>#</th><th>Brief</th>'
+            '<th>The decision</th><th>Answered by</th><th>Missing information</th>'
+            '</tr></thead><tbody>' + "".join(rows) + "</tbody></table></div>"
+            '<p class="table-note">Ordered by irreversibility, not by impact: the briefs that cost an '
+            'account or a rename come before the ones that cost a commit. Each brief below lists what is '
+            'already verified, with the register row that proves it, then what is still missing and the '
+            'cheapest test that would close it.</p>')
 
 
 def hook_suggestions(_="") -> str:
@@ -881,6 +973,8 @@ HOOKS = {
     "flags_resolved": lambda _: hook_flags("resolved"),
     "flags_standing": lambda _: hook_flags("standing"),
     "questions": hook_questions,
+    "briefs": hook_briefs,
+    "briefs_summary": hook_briefs_summary,
     "suggestions": hook_suggestions,
     "decisions": hook_decisions,
     "ledger_events": hook_ledger_events,

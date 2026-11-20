@@ -666,3 +666,61 @@ a.src:hover { color: var(--ink); }
   body { background: #fff; color: #000; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .75em; }
 }
+
+/* ==========================================================================
+   Decision briefs (2026-11-20, X-04)
+   A brief is a two-column argument: verified on the left, missing on the right,
+   with the cheapest test immediately under it. Tokens are the same ones the
+   rest of the sheet uses, so this adds no new palette.
+   ========================================================================== */
+.brief-card { margin: 2rem 0; padding: 1.6rem 1.7rem; }
+.brief-card .brief-head h2 { margin: .2rem 0 .5rem; font-size: 1.5rem; }
+.brief-card .brief-head .lede { margin: 0 0 1.1rem; font-size: 1rem; }
+.brief-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  margin: 1rem 0;
+}
+.brief-col {
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+}
+.brief-col h3, .brief-test h3 {
+  margin: 0 0 .6rem;
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.brief-col ul { margin: 0; padding-left: 1.1rem; }
+.brief-col li { margin-bottom: .55rem; font-size: .93rem; line-height: 1.5; }
+.brief-known { background: var(--sage-wash, #eef2e8); }
+.brief-unknown { background: var(--clay-wash, #fbeee4); }
+.brief-cite { display: block; margin-top: .2rem; font-size: .78rem; color: var(--ink-soft); }
+.brief-cite a { text-decoration: none; }
+.brief-test {
+  border-left: 3px solid var(--terracotta, #b4552d);
+  background: var(--paper);
+  padding: .9rem 1.1rem;
+  margin: 1rem 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.brief-test p { margin: .3rem 0; }
+.brief-who { font-size: .9rem; color: var(--ink-soft); }
+.brief-refs, .brief-links {
+  font-size: .84rem;
+  color: var(--ink-soft);
+  margin: .5rem 0 0;
+  padding-top: .7rem;
+  border-top: 1px solid var(--rule);
+}
+.brief-refs code, .brief-links code { font-size: .8rem; }
+h2#B-01, h2#B-02, h2#B-03, h2#B-04, h2#B-05, h2#B-06 { scroll-margin-top: 4rem; }
+@media (max-width: 44rem) {
+  .brief-two { grid-template-columns: 1fr; }
+  .brief-card { padding: 1.1rem 1rem; }
+}

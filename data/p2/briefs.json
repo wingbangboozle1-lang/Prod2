@@ -1,0 +1,344 @@
+{
+ "_meta": {
+  "description": "Decision briefs. One entry per decision the owner actually has to make, in the order the site's own evidence says they should be made. Each brief states what is known and links the row that proves it, states what is NOT known (including what is not knowable from outside Amazon's own console), the exact question to answer, who can answer it, what it blocks, and what the cheapest first test is. A brief asserts nothing that is not in the registers: every 'known' field cites a flag, question, decision, source or dated read by id.",
+  "created_utc": "2026-11-20",
+  "session": "arena/15730819-prod2",
+  "why_this_exists": "The owner asked for 'a clear list of questions, informations and answers that need to be addressed before any decision can be reasonably made based on the information that we already have and do not have', plus 'suggestions to discover missing information'. The Q-register answers what is unknown; the SG-register answers what to build. Neither answers 'what do I decide, in what order, and what is the cheapest way to find out'. That is this file.",
+  "ordering_rule": "Ordered by irreversibility, not by impact. A brief that can be undone in one commit ranks below a brief that costs an account.",
+  "read_dates": "All source reads cited here are dated in data/p2/verification-2026-11-20.json (three passes, 2026-11-14 to 2026-11-20).",
+  "cross_branch_note": "Two open PRs on other branches add rows this register does not have: F-P26 (a price column in the repository executive summary), F-P27 (two same-day short-link reads disagreeing), F-P28 (products.json vs the 2026-11-20 reads), and Q-P18 (the logged-out browser check). They are NOT cited here, because a brief must only point at rows a reader can open on the site as published. This session's own third read (data/p2/verification-2026-11-20.json -> third_pass_2026_11_20_arena_15730819) is the evidence cited for the same finding, and it is on this branch. When those PRs merge, the briefs should be re-pointed at their rows."
+ },
+ "briefs": [
+  {
+   "id": "B-01",
+   "order": 1,
+   "question": "Is the Associates account enrolled, and does shopnow047c-20 actually attribute?",
+   "yields": "Every revenue claim on this project rests on this one answer. Until it is answered, no measurement on the site can be tied to money.",
+   "known": [
+    {
+     "fact": "The tracking ID shopnow047c-20 was supplied by the owner and its format matches Amazon's documented US Store ID pattern (ends in -20).",
+     "cited_by": "Q-01 · S-TAG"
+    },
+    {
+     "fact": "All five outbound product links on the site carry tag=shopnow047c-20 and rel=\"sponsored\", and the gate fails the build if either is missing.",
+     "cited_by": "Compliance page · tools/checks.py links section"
+    },
+    {
+     "fact": "The five owner-submitted short links carry no tag parameter.",
+     "cited_by": "F-03"
+    },
+    {
+     "fact": "The supplied short links resolved to their intended ASINs on every read from 2026-11-14 to 2026-11-19, and to the Amazon homepage on three reads on 2026-11-20.",
+     "cited_by": "F-P24 · F-P24 · third_pass_2026_11_20_arena_15730819"
+    },
+    {
+     "fact": "Amazon's Operating Agreement states Special Links must use the Associates ID Amazon assigned, with the tag as a parameter in the URL.",
+     "cited_by": "S-OA §2(b) (Participation Requirements), read 2026-11-20"
+    }
+   ],
+   "not_known": [
+    "Whether the ID is registered, active, or inside the 3-sale/180-day enrolment requirement — none of that is visible from outside Associates Central.",
+    "Whether a click from this site reports in the Associates dashboard. Nothing on this site can test that; only the owner's console can.",
+    "Whether the five short links are compliant Special Links. Their status is unresolved (FLG-003, carried) and this project has never claimed they are invalid.",
+    "Whether the short-link misdirection on 2026-11-20 is a change in Amazon's short-link service, a fetch-tool artefact, or a per-token rotation. Two same-day reads disagreed on two of five links (F-P24), so neither is treated as the answer."
+   ],
+   "who_can_answer": "The owner, inside Associates Central, in a normal logged-out browser.",
+   "cheapest_first_test": "Open ONE product's tagged link from the live site, buy nothing, and check that the click appears in Associates Central → Reports with the correct tag. Amazon's own guidance is one link per product before scaling (F-58).",
+   "what_it_blocks": [
+    "Any statement that this site earns",
+    "The campaign ledger (it accepts only authorised first-party rows)",
+    "Every conversion recommendation on the Suggestions page"
+   ],
+   "what_it_does_not_block": "Publishing. The site can ship and be indexed while this is open; it simply cannot claim revenue.",
+   "evidence_links": [
+    {
+     "label": "Amazon Associates Central (owner sign-in required)",
+     "url": "https://affiliate-program.amazon.com/"
+    },
+    {
+     "label": "Operating Agreement §2(b) — Special Links must use your assigned ID",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    }
+   ],
+   "flags": [
+    "F-03",
+    "F-57",
+    "F-58",
+    "F-P24",
+    "F-P24",
+    "F-P24"
+   ],
+   "questions": [
+    "Q-01",
+    "Q-01"
+   ]
+  },
+  {
+   "id": "B-02",
+   "order": 2,
+   "question": "Can this site legally use the name it currently publishes under?",
+   "yields": "The site ships as 'The Crisp Counter'. A working brand that has not been cleared is a rename risk on every page, every feed URL and every social card at once.",
+   "known": [
+    {
+     "fact": "The name 'The Crisp Counter' was adopted on the owner's anti-slop directive as a working brand, explicitly without formal clearance.",
+     "cited_by": "D-P18 · F-P21"
+    },
+    {
+     "fact": "A preliminary search found no conflicting kitchen-appliance brand in the first page of results. That is not a clearance.",
+     "cited_by": "data/p2/settings.json brand.name_basis (2026-11-20)"
+    },
+    {
+     "fact": "Amazon's Program Policies forbid Amazon or affiliate trademarks, or variants or misspellings of them, in a domain name, subdomain, tag/Associates ID, or username. The name contains no Amazon mark.",
+     "cited_by": "S-POL (Trademark Guidelines / suitability), read 2026-11-20"
+    },
+    {
+     "fact": "The site has no domain of its own; it is served under a github.io subpath.",
+     "cited_by": "Q-19"
+    }
+   ],
+   "not_known": [
+    "Whether 'The Crisp Counter' is registrable or already registered as a mark in the relevant classes.",
+    "Whether any existing food publication uses a confusingly similar name.",
+    "Which jurisdiction the owner would register in.",
+    "Whether the owner wants a domain at all — that decision changes the cost of renaming by an order of magnitude."
+   ],
+   "who_can_answer": "The owner, with a trademark search (USPTO TESS or a paid clearance search) and a registrar check.",
+   "cheapest_first_test": "Search the exact phrase plus 'kitchen' and 'air fryer' on USPTO's public search and on a registrar; record the date and result. Two names can be carried in parallel in this register until one clears.",
+   "what_it_blocks": [
+    "A domain purchase",
+    "Print/social identity",
+    "Any press or outreach that names the site"
+   ],
+   "what_it_does_not_block": "Everything else. The brand is one line in settings.json and a rebuild; reversal is recorded as cheap in D-P18.",
+   "evidence_links": [
+    {
+     "label": "USPTO trademark search",
+     "url": "https://tmsearch.uspto.gov/"
+    },
+    {
+     "label": "Associates Program Policies (Trademark Guidelines section)",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "flags": [
+    "F-P21"
+   ],
+   "questions": [
+    "Q-19"
+   ]
+  },
+  {
+   "id": "B-03",
+   "order": 3,
+   "question": "May this site publish a price at all?",
+   "yields": "The single largest reader-trust feature a shopping page can have, and the single easiest way to breach the Operating Agreement.",
+   "known": [
+    {
+     "fact": "Amazon permits a site to show prices and availability only if (a) Amazon serves the link in which that price is displayed, or (b) the data comes through the Creators/PA API under the licence.",
+     "cited_by": "S-POL §2(b) (Links on Your Site), read 2026-11-20"
+    },
+    {
+     "fact": "Every clear price string visible on the five listings belongs to a neighbouring ASIN in an 'also viewed' carousel, not to the product on the page.",
+     "cited_by": "F-P17 · third_pass_2026_11_20_arena_15730819.pricing"
+    },
+    {
+     "fact": "The build fails if a dollar figure or a star-rating string appears in any published page.",
+     "cited_by": "tools/checks.py claims section"
+    },
+    {
+     "fact": "The site therefore publishes 'Check price on Amazon' instead of a number, on all five products.",
+     "cited_by": "index.html shelf · D-P11"
+    }
+   ],
+   "not_known": [
+    "Whether the owner is enrolled in the Creators API / PA API — the only route that would make a published price lawful today.",
+    "Whether Amazon will serve a price inside the Special Link on this site's traffic.",
+    "What a compliant refresh cadence would be if API access existed (the licence sets this; the project has not read it).",
+    "Whether the trading position is unchanged — the rate table and pricing rules are Amazon's to change, and this project has set no re-read reminder."
+   ],
+   "who_can_answer": "The owner (API enrolment), then a dated read of the API licence terms.",
+   "cheapest_first_test": "Log into Associates Central and check whether the Creators API or PA API is available on the account. If it is not, the answer is 'no price', and the current build is already correct.",
+   "what_it_blocks": [
+    "Any price-comparison table",
+    "Any 'best value' recommendation",
+    "Any deal or Black Friday surface (the season the calendar is entering)"
+   ],
+   "what_it_does_not_block": "Everything the site currently does. The refusal is already the shipped state and is explained on every card.",
+   "evidence_links": [
+    {
+     "label": "Associates Program Policies — §2(b), prices and availability",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "Creators API / Product Advertising API (enrolment gate)",
+     "url": "https://affiliate-program.amazon.com/"
+    }
+   ],
+   "flags": [
+    "F-02",
+    "F-P17",
+    "F-02"
+   ],
+   "questions": [
+    "Q-27"
+   ]
+  },
+  {
+   "id": "B-04",
+   "order": 4,
+   "question": "Where does the click counter actually send its numbers?",
+   "yields": "Whether the site can learn anything from its own traffic, or whether every future topic decision stays a guess.",
+   "known": [
+    {
+     "fact": "The site defines exactly five events — page_view, outbound_click, guide_read_75, category_click, feed_click — and the shipped client sends exactly those five.",
+     "cited_by": "data/p2/events.json · assets/js/measure.js"
+    },
+    {
+     "fact": "The collector answers 400 to none of them; the vocabulary mismatch that silently dropped two thirds of the events was fixed and is now a hard gate failure.",
+     "cited_by": "F-P23 (resolved) · D-P21 · tools/checks.py measurement section"
+    },
+    {
+     "fact": "The counter sets no cookies, stores no identifiers, and until an endpoint is configured it writes only to the reader's own browser and transmits nothing. That is the shipped state.",
+     "cited_by": "privacy.html · data/p2/settings.json analytics_endpoint_note"
+    },
+    {
+     "fact": "GitHub Pages is static and cannot host the collector; the Pages API returns 403 to this session, so even the Actions switch is an owner action.",
+     "cited_by": "F-P19 · INT-07"
+    }
+   ],
+   "not_known": [
+    "Which host the owner wants (any container, VM or function that speaks HTTPS).",
+    "Who pays, and how much — no cost figure is published because none has been obtained.",
+    "The retention period and who reads the aggregate.",
+    "Whether the owner wants server-side measurement at all, or would accept browser-local counts as the permanent ceiling."
+   ],
+   "who_can_answer": "The owner.",
+   "cheapest_first_test": "Run server.mjs locally (npm start), set the endpoint in settings.json, open one page, and confirm one aggregate row lands. That proves the loop for the cost of a laptop minute.",
+   "what_it_blocks": [
+    "Any measured topic choice",
+    "Any statement that the site is measured",
+    "Feeding real queries into the guide queue"
+   ],
+   "what_it_does_not_block": "Publishing. The site is honest that it currently measures nothing centrally.",
+   "evidence_links": [
+    {
+     "label": "The event contract as shipped",
+     "url": "https://wingbangboozle1-lang.github.io/Prod2/measurement.html"
+    },
+    {
+     "label": "Measurement page",
+     "url": "https://wingbangboozle1-lang.github.io/Prod2/measurement.html"
+    }
+   ],
+   "flags": [
+    "F-19"
+   ],
+   "questions": [
+    "Q-23",
+    "Q-P17"
+   ]
+  },
+  {
+   "id": "B-05",
+   "order": 5,
+   "question": "Should the whole repository stop being readable on the live host?",
+   "yields": "Reader trust and a smaller attack surface. Right now anyone can read the registers, the generator and this coordination file at the site's own address.",
+   "known": [
+    {
+     "fact": "Pages serves this repository in legacy 'main /' mode, so everything committed to the root is fetchable, including data/ and tools/.",
+     "cited_by": "F-P20 · INT-07"
+    },
+    {
+     "fact": "The Pages REST API returns 403 to this session on any attempt to switch to Actions mode, so the switch needs a repository admin.",
+     "cited_by": "F-P19 · recorded three times, re-confirmed 2026-11-20 (PUT /pages → 403)"
+    },
+    {
+     "fact": "robots.txt disallows /Prod2/archive/ but cannot stop a human or a scraper reading anything else.",
+     "cited_by": "robots.txt"
+    },
+    {
+     "fact": "The published artifact docs/ contains only rendered pages, assets and the feed; no register is inside it.",
+     "cited_by": "tools/checks.py exposition section"
+    }
+   ],
+   "not_known": [
+    "Whether any reader has actually hit a source file (no server logs are available from Pages).",
+    "Whether the owner prefers Actions-mode Pages, a separate gh-pages branch, or a domain in front.",
+    "Whether the repository should be private — which would conflict with using it as the Pages source without a paid plan."
+   ],
+   "who_can_answer": "A repository admin (the owner) in Settings → Pages.",
+   "cheapest_first_test": "Open https://wingbangboozle1-lang.github.io/Prod2/COORDINATION.md in a logged-out window. If it renders, the exposure is live and confirmed.",
+   "what_it_blocks": [
+    "Publishing the campaign ledger's real rows (they would be world-readable)",
+    "Anything the owner would not want indexed",
+    "The 'no source in the artifact' promise actually being true at the host level"
+   ],
+   "what_it_does_not_block": "The reader experience, which is already correct.",
+   "evidence_links": [
+    {
+     "label": "The exposure, as described on the Flagged page",
+     "url": "https://wingbangboozle1-lang.github.io/Prod2/flagged.html"
+    },
+    {
+     "label": "GitHub Pages source settings (admin only)",
+     "url": "https://github.com/wingbangboozle1-lang/Prod2/settings/pages"
+    }
+   ],
+   "flags": [
+    "F-P19",
+    "F-P20"
+   ],
+   "questions": [
+    "Q-P08"
+   ]
+  },
+  {
+   "id": "B-06",
+   "order": 6,
+   "question": "Is there a legal way for this site to show the actual product?",
+   "yields": "The difference between a publication and a set of diagrams. Right now every product image is a drawn illustration of the format.",
+   "known": [
+    {
+     "fact": "The six illustrations were drawn for the site, are generic to the product format, and every card is captioned 'illustration, not the product photo'.",
+     "cited_by": "D-P12 · README (Imagery)"
+    },
+    {
+     "fact": "Amazon listing photography is Program Content, and using it is conditioned on the IP Licence, which this project has not reviewed.",
+     "cited_by": "Q-P05 · S-POL IP License section"
+    },
+    {
+     "fact": "The listing pages do expose image URLs (m.media-amazon.com), which is exactly why the licence question has to be answered before one is copied.",
+     "cited_by": "third_pass_2026_11_20_arena_15730819 (listing fetches)"
+    }
+   ],
+   "not_known": [
+    "Whether the IP Licence permits linking to or hot-linking Amazon-hosted images from an Associates site — the single test is to open a SiteStripe image link on one enrolled product and read the licence text that accompanies it.",
+    "Whether the owner has any original photography.",
+    "Whether a commissioned drawing set is preferable to licensed photography on cost grounds — no quote has been obtained."
+   ],
+   "who_can_answer": "The owner (SiteStripe access), then a dated read of the IP Licence.",
+   "cheapest_first_test": "In Associates Central, open SiteStripe on one product, pick an image link, and read the licence terms shown there. One minute, and it settles whether photography is available at all.",
+   "what_it_blocks": [
+    "Any page that looks like a shop rather than a guide",
+    "Open Graph images that show a product",
+    "Paid or affiliate-network partnerships that require product imagery"
+   ],
+   "what_it_does_not_block": "Publishing, which currently uses drawings and says so.",
+   "evidence_links": [
+    {
+     "label": "Associates Program Policies — IP License and Usage Requirements",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "Imagery policy as published",
+     "url": "https://wingbangboozle1-lang.github.io/Prod2/about.html"
+    }
+   ],
+   "flags": [],
+   "questions": [
+    "Q-P05",
+    "Q-P16"
+   ]
+  }
+ ]
+}

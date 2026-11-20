@@ -33,6 +33,9 @@ Sections:
                link.amazon short links are quoted evidence, never clickable
   measurement  the site's event list vs the endpoint's accepted names; any
                divergence FAILS the build (F-P23 fixed 2026-11-20, D-P21)
+  briefs       the decision layer: every declared brief rendered, every cited
+               register id resolves, no brief with an empty "not known" list, and
+               the page is in the sitemap and the footer directory (X-04)
   integrity    no raw merge-conflict marker in any shipped file (a marker shipped
                in assets/css/site.css on 2026-11-20 and broke the live stylesheet);
                the stylesheet still defines its tokens and font-faces; register
@@ -581,6 +584,55 @@ def main() -> int:
         fail("measure.js: guide_read_75 does not cover article-* pages, so long reads are unmeasured")
     else:
         ok("depth event covers both guide-* and article-* pages")
+
+    # ----------------------------------------------------------------- briefs
+    check("briefs")
+    # X-04: the decision layer. A brief is only useful if every fact in it points
+    # at a row a reader can open, and only honest if it names what is missing. So
+    # the gate asserts: the page exists and is reachable; every declared brief is
+    # rendered with an anchor; every cited register id exists in that register;
+    # and no brief is published with an empty "not known" list, which would mean
+    # a decision dressed up as a conclusion.
+    briefs_doc = DOCS / "briefs.html"
+    if not briefs_doc.exists():
+        fail("docs/briefs.html is missing but briefs are declared in data/p2/briefs.json")
+    else:
+        btext = briefs_doc.read_text(encoding="utf-8")
+        bjson = json.loads((DATA / "briefs.json").read_text(encoding="utf-8"))["briefs"]
+        flag_ids = {x["id"] for x in json.loads((DATA / "flags.json").read_text(encoding="utf-8"))["flags"]}
+        q_ids = {x["id"] for x in json.loads((DATA / "questions.json").read_text(encoding="utf-8"))["questions"]}
+        sg_ids = {x["id"] for x in json.loads((DATA / "suggestions.json").read_text(encoding="utf-8"))["suggestions"]}
+        d_ids = {x["id"] for x in json.loads((DATA / "decisions.json").read_text(encoding="utf-8"))["decisions"]}
+        reg = {"F": flag_ids, "Q": q_ids, "SG": sg_ids, "D": d_ids}
+        for b in bjson:
+            if f'id="{b["id"]}"' not in btext:
+                fail(f"briefs.html: brief {b['id']} is declared but not rendered")
+            if not b.get("not_known"):
+                fail(f"data/p2/briefs.json: {b['id']} lists nothing as unknown — "
+                     "a decision with no open question is a conclusion, not a brief")
+            if not b.get("known"):
+                fail(f"data/p2/briefs.json: {b['id']} cites no evidence")
+            for ref in b.get("flags", []) + b.get("questions", []):
+                ns = ref.split("-")[0]
+                if ns not in reg or ref not in reg[ns]:
+                    fail(f"data/p2/briefs.json: {b['id']} cites {ref}, which is not in its register")
+        # every id cited inside a known[]/cheapest-test string must resolve too
+        idscan = re.compile(r"\b(F-P?\d{1,3}|Q-P?\d{1,3}|SG-\d{1,3}|D-P?\d{1,3})\b")
+        for b in bjson:
+            blob = json.dumps({k: b[k] for k in ("known", "not_known", "cheapest_first_test",
+                                                  "what_it_blocks", "what_it_does_not_block")})
+            for rid in set(idscan.findall(blob)):
+                ns = rid.split("-")[0]
+                if ns in reg and rid not in reg[ns]:
+                    fail(f"data/p2/briefs.json: {b['id']} text cites {rid}, missing from that register")
+        # findable: the briefs page must be in the sitemap and reachable from the footer
+        smap = (DOCS / "sitemap.xml").read_text(encoding="utf-8")
+        if "briefs.html" not in smap:
+            fail("sitemap.xml does not list briefs.html")
+        if 'href="briefs.html"' not in (DOCS / "index.html").read_text(encoding="utf-8"):
+            fail("index.html does not link briefs.html (the footer directory must carry it)")
+    if not FAILURES:
+        ok(f"{'briefs' and len(bjson)} briefs rendered; every citation resolves; page in sitemap + footer")
 
     # --------------------------------------------------------------- integrity
     check("integrity")
