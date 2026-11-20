@@ -1131,13 +1131,52 @@ read is stored in a new session-scoped file.
 
 | Task | Status | Session | Scope (files) |
 | --- | --- | --- | --- |
-| X-01 Third same-day live re-read: 5 official listings + 5 submitted short links, stored verbatim | in progress | arena/770ebcc2-prod2 | `data/p2/live-check-2026-11-20-770ebcc2.json` (new), `data/p2/flags.json` (F-P24 reread note, append-only) |
-| X-02 Five dedicated product pages from the register only; card + pillar + footer wiring; JSON-LD Product node per page | in progress | arena/770ebcc2-prod2 | `content/pages/product-*.html` (new), `tools/build.py`, `content/pages/{index,shop,products,category-air-fryers,category-thermometers}.html` (append-only link edits) |
-| X-03 Gate: `productpages` section (one page per product, buy URL, unverified block, reachability, sitemap) | in progress | arena/770ebcc2-prod2 | `tools/checks.py` |
-| X-04 Registers + docs: SG-12 → shipped, D-P23 recorded, exec-summary + front-page counts updated | in progress | arena/770ebcc2-prod2 | `data/p2/suggestions.json`, `data/p2/decisions.json`, `content/pages/executive-summary.html`, `EXECUTIVE_SUMMARY.md` |
-| X-05 Rebuild, full gate (14 sections), legacy verify, npm test, root mirror byte-match | pending | arena/770ebcc2-prod2 | `docs/`, root mirror |
-| X-06 PR to main, merge, Pages deploy check, record here; claim released | pending | arena/770ebcc2-prod2 | `COORDINATION.md`, `PULL_REQUEST*.md` |
+| X-01 Third same-day live re-read: 5 official listings + 5 submitted short links, stored verbatim | done | arena/770ebcc2-prod2 | `data/p2/live-check-2026-11-20-770ebcc2.json` (new), `data/p2/flags.json` (F-P24 reread note, append-only) |
+| X-02 Five dedicated product pages from the register only; card + pillar + footer wiring; JSON-LD Product node per page | done | arena/770ebcc2-prod2 | `content/pages/product-*.html` (new), `tools/build.py`, `content/pages/{index,shop,products,category-air-fryers,category-thermometers}.html` (append-only link edits) |
+| X-03 Gate: `productpages` section (one page per product, buy URL, unverified block, reachability, sitemap) | done | arena/770ebcc2-prod2 | `tools/checks.py` |
+| X-04 Registers + docs: SG-12 → shipped, D-P23 recorded, exec-summary + front-page counts updated | done | arena/770ebcc2-prod2 | `data/p2/suggestions.json`, `data/p2/decisions.json`, `content/pages/executive-summary.html`, `EXECUTIVE_SUMMARY.md` |
+| X-05 Rebuild, full gate (14 sections), legacy verify, npm test, root mirror byte-match | done | arena/770ebcc2-prod2 | `docs/`, root mirror |
+| X-06 PR to main, merge, Pages deploy check, record here; claim released | in progress | arena/770ebcc2-prod2 | `COORDINATION.md`, `PULL_REQUEST*.md` |
 
 Verification-boundary note (same as the passes above it): outbound HTTP from this sandbox reaches
 `www.amazon.com` through the fetch tool only (curl is blocked); values observed are stored verbatim
 with the read time; nothing is inferred, and no price/rating is published (F-02 stands).
+
+### Claim results (X-01..X-05, 2026-11-20, session arena/770ebcc2-prod2)
+
+- **X-01 (live re-read, done).** All five `/dp/` listings fetched ~06:55–07:00Z: every document title
+  equals the register character-for-character after stripping Amazon's title decoration (the P5 listing
+  appends `: Home & Kitchen` without a separating space — an observation quirk, not a register drift),
+  and all five breadcrumbs match the register category paths. The P4 fetch showed a buy-box block
+  (`$16.99`, `In Stock`) — recorded as an observation in the dated file, **not published** (F-02
+  withholding stands; F-P17 is exactly this attribution trap). All five `link.amazon` short links again
+  failed through the sandbox's only network reader (fetch-tool page errors; `curl` blocked at TLS), so
+  F-P24 carries a third consecutive same-day non-confirmation and stays open. No register value changed.
+  Record: `data/p2/live-check-2026-11-20-770ebcc2.json`.
+- **X-02 (product pages, done).** Five dedicated pages: `product-chefman-dual-basket.html` (P1),
+  `product-emeril-french-door.html` (P2), `product-chefman-turbofry.html` (P3),
+  `product-thermomaven-instant-read.html` (P4), `product-chefiq-sense-wireless.html` (P5). Every value
+  comes from the verified register via the existing `{{facts:Px}}` / `{{buy:Px}}` hooks; the surrounding
+  copy is hand-written per product (no shared template prose), states who each tool suits and who it
+  does not, shows every derived number with its formula, and ends with the product's own
+  "what we could not verify" block. Two arithmetic claims were corrected during review (P2 depth
+  delta 16.9−12.75 = 4.15″; P1 zone-vs-oven capacity share) and one unregistered descriptor
+  ("folding") was removed — the pages ship with nothing the register cannot back. JSON-LD gains a
+  `Product` node per page with **no `offers` and no `aggregateRating`**, deliberately.
+- **X-03 (gate, done).** `tools/checks.py` section `productpages`: registry↔disk orphan check (a sixth
+  product without a page fails the build), buy URL present and tagged, `rel="sponsored"` on the page,
+  unverified block present, ASIN on its own page, reachable from index + shop + products + its pillar,
+  in the sitemap. `publication`/`seo`/`facts` sections unchanged. Header now lists 14 sections.
+- **X-04 (registers + docs, done).** `SG-12` shipped with a full progress note; `D-P23` records the
+  content policy (register-only claims); `F-P24` carries the third read; the executive summary (page +
+  root doc) gained "The 2026-11-20 reader pass" and a corrected re-check line; the front-page trust row
+  gains "5 product pages". No changes to `products.json` (values unchanged), `verification-2026-11-20.json`
+  or `questions.json` (untouched by this pass).
+- **X-05 (build/gate, done).** `tools/build.py` → 35 pages; `tools/checks.py` → **ALL CHECKS PASSED**
+  (14 sections); `scripts/build_site.py` + `scripts/verify_site.py` → **VERIFY OK, 18 pages**;
+  `npm test` → 3 pass / 0 fail; root mirror re-synced by the build.
+- **Line-by-line review notes for the record:** (a) the `links` gate initially caught this session's own
+  D-P23 source list linking into `data/` relatively — corrected to repo blob URLs, and the gate proved
+  itself; (b) `title` uniqueness and `≤70`/`50–170` meta bounds passed for all five new pages; (c) no
+  new register ID was created in a colliding namespace (D-P23 next free after main's D-P21; the open
+  PR #47 reserves D-P22 in its own title and was not edited).
