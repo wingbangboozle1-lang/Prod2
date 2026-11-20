@@ -233,7 +233,7 @@
    ],
    "status": "shipped",
    "recommendation": "Accept as the first visual item — the cheapest way to make the page read as designed rather than defaulted.",
-   "progress": "Shipped 2026-11-20 (D-P16): Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) self-hosted as latin woff2 subsets in assets/fonts/ (SIL OFL 1.1, licenses committed beside the files), font-display: swap, no third-party requests. The merged design system (arena/70b2b9f7-prod2) consumes the brief typefaces through its token layer."
+   "progress": "Shipped 2026-11-20 (D-P19): Fraunces (600 normal, 400 italic) and Inter (400/500/600/700) self-hosted as latin woff2 subsets in assets/fonts/ (SIL OFL 1.1, licenses committed beside the files), font-display: swap, no third-party requests. The merged design system (arena/70b2b9f7-prod2) consumes the brief typefaces through its token layer."
   },
   {
    "id": "SG-16",
