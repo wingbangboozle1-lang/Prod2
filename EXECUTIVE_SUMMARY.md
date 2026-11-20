@@ -86,7 +86,7 @@ whether it worked.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **13 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## The publication passes (2026-11-20 — three sessions, reconciled)
 
@@ -115,7 +115,7 @@ branded publication with timely articles, not generated output — and this merg
 ## The publication pass (2026-11-19, arena/9f84489c-prod2)
 
 The reader-facing site now reads like a shop, not an audit (decision D-P07): the front page leads
-with the five product cards before any data table; a guides hub groups eight question-shaped guides
+with the five product cards before any data table; a guides hub groups ten guide pages
 into two clusters (air fryers, meat thermometers) with pillar pages; a seasonal desk (holiday
 hosting live, grilling season staged) rotates from `data/p2/calendar.json`; the reader nav carries
 clear labels (Compare · Products · Guides · Buying guide · Air fryers · Thermometers) while every
@@ -200,7 +200,7 @@ Full source list with links: `data/p2/sources.json` and the **About** page.
 - **Two category pages** — Air Fryer Ovens, Meat Thermometers.
 - **Comparison page** — three-question "which one is for you" chooser, side-by-side table, and a
   counter-space analysis (capacity per unit of counter depth; depth figures flagged, not guessed).
-- **Eight question-shaped guides** — one page per buyer question, with FAQ structure and Article +
+- **Ten guide pages** (eight calendar topics plus the gift and holiday guides) — one page per buyer question, with FAQ structure and Article +
   FAQPage structured data, internally linked to the comparison, category and each other.
 - **Research Desk** — the full register, the product-intent confirmation record, the (empty)
   campaign ledger, and the source register.
@@ -319,7 +319,7 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 - 2026-11-19 session record: `data/p2/verification-2026-11-19.json` (redirect reads, titles, breadcrumbs, feature bullets, carousel observations).
 - Source register with read dates: `method.html` / `data/p2/sources.json`.
 - Coordination board with task statuses and the PR/deploy record: `COORDINATION.md`.
-- Gate: `python3 tools/build.py && python3 tools/checks.py` — **13 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
+- Gate: `python3 tools/build.py && python3 tools/checks.py` — **14 sections** (pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness), green on this build. The `shop` section is new: it fails if the shelf loses a card, a buy button, an image file or the About page, if a referenced asset is missing, or if any page implies hands-on testing.
 
 ## Open decisions for the owner
 
