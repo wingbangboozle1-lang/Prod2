@@ -9,7 +9,7 @@
    "shipped": "Live in the current build.",
    "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
   },
-  "last_change": "2026-11-20 (arena/644d217b-prod2): SG-45..SG-47 added — long-form argument pieces (shipped), the one-dropdown Pages fix ranked first by payoff, and the imagery question split into a safe path and a licensed path. | 2026-11-20 (arena/20f83238-prod2): reviewer pass — every open item decided (D-P22); SG-05 rejected per D-P11 (F-P29); SG-11/12/13/17/35 shipped to match the merged passes; SG-01/14/34/36/44 accepted with gates; SG-02/07/08/10/39/41/43 deferred with blockers; SG-48 added (owner digest). | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at SG-57, SG-52, SG-56, SG-55, SG-58, SG-53, SG-54 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P42, SG-48..SG-57, D-P23..D-P28."
+  "last_change": "Second union with origin/main (2026-11-20): main's 42 rows kept (including its new SG-49–SG-51); SG-18–SG-26 (PR #41's rows) carried from arena/7cec0d73-prod2. | 2026-11-20 (arena/e1dbef32-prod2, union): SG-52, SG-53, SG-54, SG-55, SG-56, SG-57, SG-58 appended after main's highest row so both sets survive; this session's rows carry their own ids and no row of another session was renumbered, edited or dropped."
  },
  "suggestions": [
   {
@@ -623,17 +623,521 @@
    "recommendation": "Accept at Path A's first monthly review (D-P22). It is the cheapest way to keep the owner actions in Q-01/Q-23/Q-P06/Q-P08/Q-P10 from ageing silently."
   },
   {
-   "id": "SG-57",
-   "title": "Merchandise the shelf by cooking job, with the register as the only source",
-   "problem": "The shelf currently presents five cards in register order. A buyer does not think in formats; they think 'dinner for two', 'a crowd', 'a roast I cannot hover over'. The pages already contain the routing logic (best-for lines, the three-question chooser) but it sits below the cards rather than organising them.",
-   "proposal": "Group the shelf into three rails — 'Two people, one dish', 'Two dishes at once', 'Long cooks, watched from away' — each rail generated from the existing format and best-for fields, each header linking to the chooser rather than to a product. Every card keeps its own buy button; no rail implies a ranking, and the gate's claims section keeps prices, ratings and popularity words out.",
-   "evidence": "PRODUCT_BEST_FOR and the format fields in data/p2/products.json already carry every word the rail headers would use (https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py), so this is presentation, not new claims.",
-   "impact": "Medium to high for conversion — it shortens the path from 'I need something' to 'this one is for my kitchen' without inventing a reason to care.",
-   "effort": "One hook in tools/build.py plus a CSS rule for the rail header; the 'shop' gate section already checks card and button counts.",
-   "risk": "A rail header that reads like a verdict ('best for families') would be an unsupported claim. Keep the phrasing inside the listed facts, and let the gate's banned-word list stay where it is.",
+   "id": "SG-49",
+   "title": "Front-page 'the newest question' slot above the shelf",
+   "problem": "The front page's guide grid is complete but static: a returning reader cannot see what changed since the last visit, and the page can read as a fixed catalogue rather than a publication with a cadence.",
+   "proposal": "Add one module directly above the shelf, titled 'The newest question', carrying the latest published guide's question headline, its one-sentence answer and a single link. It rotates automatically from GUIDE_IDS order in tools/build.py — no new data and no editorial work at publish time. Specified in DESIGN_PROMPT.md as an input to the next visual pass (Q-P09 path).",
+   "evidence": "The publishing cadence (data/p2/calendar.json — one question-shaped guide per 14 days) is invisible on the front page. SG-35's seasonal desk is a slow rotation, not a newness signal.",
+   "impact": "Medium: gives the front page a publication pulse and a second entry point to each new guide; becomes measurable once SG-06 opens.",
+   "effort": "Small: one build hook plus one card component, reusing the existing guide-card styles.",
+   "risk": "Low. Claims-gate compliant: the slot states a publication date and a question, never popularity.",
    "depends_on": [],
    "status": "proposed",
-   "recommendation": "The strongest un-built item on the marketing side of the queue; do it in the same pass as SG-53 so the shelf and the guides change once."
+   "recommendation": "Accept for the next design pass; specify in DESIGN_PROMPT.md before building."
+  },
+  {
+   "id": "SG-50",
+   "title": "Quarterly listing re-verification SLA: fetch, diff, flag",
+   "problem": "The register's value is its dated reads, but nothing forces a re-read on a schedule. The 2026-11-20 passes found a real discrepancy (F-P24) precisely because someone re-fetched the sources.",
+   "proposal": "Adopt a 90-day re-read SLA for the five listing pages and the two Associates policy pages: fetch each, diff the document title and the 'Updated' line against the register, write a dated verification record, and open a flag on any mismatch. Automate the diff if CI egress allows (Q-P20); otherwise run the SLA as a session step at each cadence review.",
+   "evidence": "This session's third pass reproduced F-P24 and confirmed 5/5 title matches at zero register drift (data/p2/verification-2026-11-20.json, third_pass_arena_44af3083). The mechanism works and costs minutes.",
+   "impact": "High on trust — the site's stated differentiator (SG-37) — and it is the discovery path for Q-P03 and Q-P15.",
+   "effort": "Small if manual; medium if automated (depends on Q-P17).",
+   "risk": "Low: failures surface as flags, which are non-blocking by policy.",
+   "depends_on": [
+    "Q-P20",
+    "SG-37"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept. Start the manual cadence now; automate when Q-P20 answers."
+  },
+  {
+   "id": "SG-51",
+   "title": "Standing CTA language for the no-price world",
+   "problem": "The site cannot publish prices (F-02), so every conversion moment ends at a generic 'See it on Amazon' button. The CTA copy is the only conversion lever left and it is currently uniform and untested.",
+   "proposal": "Define three rule-compliant CTA label variants for the buy buttons (for example 'See today's price on Amazon', 'Check the listing', 'See the format on Amazon'), keep the paid-link label attached to each, and rotate them behind the measurement gate — the outbound_click event is already instrumented (data/p2/events.json). Nothing ships until the SG-06 gate opens; the variant list is specified in DESIGN_PROMPT.md now.",
+   "evidence": "Program Policies 2(b) (updated 2026-04-14, S-POL) requires prices to be shown by Amazon, not by us — which makes 'see today's price' a truthful, compliant promise. The outbound_click event is the measuring stick.",
+   "impact": "Medium on click-through once measurement exists; zero before it.",
+   "effort": "Small: label variants in settings plus one rotation rule in the build.",
+   "risk": "Low — provided no label implies a price, rating or availability the site cannot see (claims gate).",
+   "depends_on": [
+    "SG-06",
+    "SG-43"
+   ],
+   "status": "proposed",
+   "recommendation": "Accept as a specified input to the next design pass; implement only after SG-06."
+  },
+  {
+   "id": "SG-25",
+   "title": "Instrument the click path before testing anything on it",
+   "theme": "Measurement",
+   "rank": 2,
+   "feeds_design_prompt": false,
+   "status": "proposed",
+   "problem": "Redesigns, title rewrites and seasonal hubs all get argued from taste today, because nothing is counted. Five events are defined, the client exists, and no endpoint receives them (F-19).",
+   "proposal": "Deploy the existing collector, point the site at it, and define the five events' report before any layout change is proposed: outbound_click by ASIN, guide_read_75, category_click, feed_click, page_view. Then set one rule: a design change ships with its hypothesis and the metric that would falsify it.",
+   "evidence": "The owner's Priority 4 row (measure before automating optimization) and D-P05, which fixed the five-event set. The project ledger is deliberately empty until an authorized first-party report exists.",
+   "impact": "Indirect but compounding: it converts every later suggestion into a test.",
+   "effort": "Low to host; medium to keep the discipline.",
+   "risk": "Low; the collector is aggregate-only and stores nothing identifying.",
+   "depends_on": [
+    "Q-23",
+    "Q-P06"
+   ],
+   "links": [
+    {
+     "label": "Google: qualifying outbound links",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+    }
+   ],
+   "recommendation": "Accept as the precondition for SG-15..SG-24 being argued about with numbers.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Host the existing collector on any Node host, keep the ledger empty",
+     "what_changes": "Events accumulate; the ledger still only fills from authorized reports.",
+     "upside": "Measurement without inventing revenue numbers.",
+     "downside": "Someone must run a host (Q-23).",
+     "cost": "Owner action",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Local-only counters, revisit later",
+     "what_changes": "Nothing leaves the browser.",
+     "upside": "No hosting.",
+     "downside": "No learning; the next pass repeats today's guesswork.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-19",
+   "title": "Answer first, then explain: a 40-word summary block and FAQ structured data on every guide",
+   "theme": "Editorial & SEO",
+   "rank": 3,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Guides open with scene-setting paragraphs. A reader (and a crawler) has to scroll to find the answer, which is the opposite of how question-shaped pages earn their place.",
+   "proposal": "Each guide starts with a boxed 'Short answer' of at most 40 words, then three to five H2 sections that each open with their own one-line answer, then a FAQ list mirroring the phrasing people type. Publish the FAQ block as FAQPage structured data in the same JSON-LD graph the build already emits, and validate the JSON-LD parses (the gate already does).",
+   "evidence": "Google's guidance on helpful, people-first content and on qualifying outbound links; the site already links every figure to its listing, which is the E-E-A-T signal to keep.",
+   "impact": "High for organic entry and for skim-through retention; the cheapest on-page improvement on this list.",
+   "effort": "Medium across eight guides; mechanical once the template exists.",
+   "risk": "Low, if the short answer never says more than the sourced body text.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: people-first content",
+     "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    }
+   ],
+   "recommendation": "Accept and apply retroactively to all eight guides in one pass.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Short answer + FAQPage JSON-LD on every guide",
+     "what_changes": "Template change in the build; eight content passes.",
+     "upside": "Answers the query where the query is answered, with machine-readable support.",
+     "downside": "FAQ markup is presentational for the reader; do not expect a guaranteed rich result.",
+     "cost": "One pass",
+     "unlocks": "SG-21",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Short answer only, no extra structured data",
+     "what_changes": "Same prose change, no schema.",
+     "upside": "Simpler; nothing to maintain in two places.",
+     "downside": "Loses the explicit question/answer pairing the build could carry.",
+     "cost": "Half the effort",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Leave the prose as it is",
+     "what_changes": "Nothing.",
+     "upside": "No churn.",
+     "downside": "The answer stays buried below the fold.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-21",
+   "title": "Rewrite titles and metas to a two-part pattern: the question, then the promise",
+   "theme": "Editorial & SEO",
+   "rank": 4,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Current titles are correct and a little flat, and the brand suffix repeats on every page. Searchers choose on the title line; this is the cheapest lever on click-through that does not require a traffic claim.",
+   "proposal": "Pattern: '<the question a person types> — <what they get in 4 minutes>'. Keep titles under 60 visible characters, front-load the query noun, and write each meta description to the page's actual content (50-170 chars, enforced today). Ban the empty intensifiers the gate already bans; catchy here means specific, not loud.",
+   "evidence": "Google's snippet guidance says the description should accurately summarise the page and that unique descriptions per page matter (S-GSNIP); the gate already enforces uniqueness and length (S-04 in the owner's register, implemented 2026-11-16).",
+   "impact": "Medium-high on impressions-to-clicks; no effect without impressions, so pair with SG-06.",
+   "effort": "Low. Ten string edits in the page registry.",
+   "risk": "Low; the gate fails a duplicate or out-of-range description, so drift is caught.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: snippet and description guidance",
+     "url": "https://developers.google.com/search/docs/appearance/snippet"
+    }
+   ],
+   "recommendation": "Accept, but do it after SG-19 so each title matches the answer the page now leads with.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Question + promise, brand suffix dropped from guides",
+     "what_changes": "Titles read like answers; brand moves to the meta og:site_name.",
+     "upside": "Longer tail matched more precisely; less repetition.",
+     "downside": "Brand appears less in results for a small site that may want it.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Keep the brand suffix everywhere",
+     "what_changes": "Nothing changes.",
+     "upside": "Brand consistency in results.",
+     "downside": "Every title starts with the same prefix, which is what the pattern was meant to fix.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-18",
+   "title": "Design an original illustration system in place of photography",
+   "theme": "Brand",
+   "rank": 6,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "A shop without product images looks unfinished, and copying listing photos is not an option: images are Program Content. The gap has to be filled with something we own.",
+   "proposal": "Commission or generate a small, consistent set of original line diagrams drawn by this project: basket vs oven cavity, French-door clearance, dual-zone timing, probe placement in a roast, counter-depth footprint to scale. Each figure is labelled with the listed measurement it illustrates and links to the source. Style rules (stroke width, palette, no perspective shading) go into the design brief so the set stays coherent.",
+   "evidence": "Operating Agreement Section 1 treats Amazon's images as Program Content, so the compliant route is our own artwork (S-OA). Our own diagrams also satisfy Google's originality guidance.",
+   "impact": "High on the 'is this a real publication' question, which is what the current page lacks most.",
+   "effort": "Medium. Eight to twelve figures, plus a style block in the brief.",
+   "risk": "Low if figures only ever draw listed values; a diagram that implies a performance claim becomes a claim.",
+   "depends_on": [
+    "Q-P05"
+   ],
+   "links": [
+    {
+     "label": "Associates Operating Agreement",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    }
+   ],
+   "recommendation": "Accept. It is the only visual upgrade available that does not depend on licensing anything.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Original measured diagrams, spec-labelled",
+     "what_changes": "One figure per format decision, each captioned with the listed value and its source.",
+     "upside": "Ownable, defensible, and it looks like editorial intent.",
+     "downside": "Hand-drawn feel depends on execution; a bad diagram is worse than none.",
+     "cost": "One design pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Abstract brand art only",
+     "what_changes": "Typographic and geometric art, no measured diagrams.",
+     "upside": "Cheap and safe.",
+     "downside": "Adds beauty but no understanding.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Copy listing photographs",
+     "what_changes": "Product images on cards and guides.",
+     "upside": "Looks like a normal commerce page.",
+     "downside": "Program Content the site has no licence to host; take-down and account risk.",
+     "cost": "None - do not do this",
+     "unlocks": "nothing",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-26",
+   "title": "A no-slop lint in the publish gate",
+   "theme": "Trust & authority",
+   "rank": 7,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "The site's single biggest reputational risk is reading machine-made. Today the gate checks compliance and sources, but nothing about prose, so an opener like 'In today's fast-paced kitchen' can ship.",
+   "proposal": "Extend the gate's claims section with an editorial blocklist and shape rules: no throat-clearing openers, no 'look no further', 'game-changer', 'elevate', 'unleash', 'delve', 'in the world of', 'whether you're a beginner or a seasoned pro'; no adjective pile-ups (three or more in a row); no second-person promises the register cannot support; every guide has an H2 within its first 300 words; no em-dash abuse beyond a set count. Fail the build, like everything else.",
+   "evidence": "Google's guidance on originality and people-first content, plus its AI-content statement, both already in the source register; D-12 is the voice the rules encode.",
+   "impact": "Medium-high on the thing the owner flagged twice: not reading like generated filler.",
+   "effort": "Low. A list and four functions.",
+   "risk": "Medium false positives; mitigate with an explicit per-page exemption file that the gate prints so exceptions are visible in review, not silent.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: creating helpful, people-first content",
+     "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    },
+    {
+     "label": "Google: AI-generated content guidance",
+     "url": "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content"
+    }
+   ],
+   "recommendation": "Accept. Voice rules that live only in a document decay; rules in the gate do not.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Hard gate with visible exemptions",
+     "what_changes": "checks.py grows an 'editorial' section; exemptions printed in the run log.",
+     "upside": "Style becomes a release requirement.",
+     "downside": "Blocks a publish while a wording fix is trivial - the fix is usually one sentence.",
+     "cost": "One pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Warning-only lint in CI",
+     "what_changes": "Reports, does not fail.",
+     "upside": "No friction.",
+     "downside": "Warnings get ignored within two passes, as every team knows.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Prose rules in VOICE.md only",
+     "what_changes": "Nothing automated.",
+     "upside": "Zero build risk.",
+     "downside": "Nothing stops the next session.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-23",
+   "title": "Mobile-first pass: type scale, 44px tap targets, sticky comparison bar, no horizontal table traps",
+   "theme": "Reader experience",
+   "rank": 9,
+   "feeds_design_prompt": true,
+   "status": "recommended",
+   "note": "Implemented 2026-11-19 under D-P08 (presentation only): fluid type scale, min-height tap targets, visible focus rings, a dismissible sticky comparison bar on the comparison and product pages, and table scroll affordances. This mirrors the owner's register row S-20.",
+   "problem": "Most of this traffic arrives on a phone. Wide data tables and small nav links are the two things that make a careful site feel like a tool.",
+   "proposal": "Fluid root size with a clamp; every link, button and radio at least 44px; a sticky bottom bar carrying one sponsored CTA with a dismiss control; tables keep horizontal scroll but gain a shadow cue and a sticky first column; disclosure stays above the fold at 320px, checked by the gate.",
+   "evidence": "Page-experience guidance on mobile presentation; the owner's own S-20 row in the requirements register.",
+   "impact": "High for readable mobile dwell and for the tap that earns the commission.",
+   "effort": "Low-medium. CSS plus a small script.",
+   "risk": "Low; a fixed bar must not cover the footer or the disclosure, which is the gate's job.",
+   "depends_on": [],
+   "links": [
+    {
+     "label": "Google: page experience",
+     "url": "https://developers.google.com/search/docs/appearance/page-experience"
+    }
+   ],
+   "recommendation": "Accept and keep it as the baseline for future pages.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Ship the CSS/JS pass now, no content change",
+     "what_changes": "Type scale, tap targets, sticky bar, table cues.",
+     "upside": "Immediate feel improvement with no factual exposure.",
+     "downside": "None material.",
+     "cost": "Done in this pass",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Rebuild the tables as card lists on small screens",
+     "what_changes": "Each product becomes a stacked card below 40rem.",
+     "upside": "No sideways scrolling at all.",
+     "downside": "Two presentations of one register to keep in sync.",
+     "cost": "One extra pass",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-20",
+   "title": "A counter-fit calculator shoppers can actually use",
+   "theme": "Reader experience",
+   "rank": 10,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "The counter-space analysis is a table. The reader's real question is 'will it fit where I want it', which is arithmetic they have to do themselves.",
+   "proposal": "A no-network widget: the reader types their available depth and width, the page flags which of the five listed footprints clear it, and prints the clearance figures it compared against with links to the listings. Everything computed client-side from registered values; nothing stored; nothing sent anywhere.",
+   "evidence": "The chooser already proves the pattern (D-23). Page-experience guidance rewards interaction that answers the specific question.",
+   "impact": "Medium-high for engagement and for the 'this site helped me' feeling that drives the click.",
+   "effort": "Low-medium. One script, one gate-safe template.",
+   "risk": "Medium on wording: a fit result is geometry, not a recommendation, and must say so; listing dimensions vary by read (F-29 style drift).",
+   "depends_on": [
+    "SG-22"
+   ],
+   "links": [
+    {
+     "label": "Google: page experience",
+     "url": "https://developers.google.com/search/docs/appearance/page-experience"
+    }
+   ],
+   "recommendation": "Accept after SG-22 puts read dates on the product blocks, so the calculator can quote its own staleness.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Client-side, listed values only, with a dated-source line",
+     "what_changes": "One input pair, five pass/fail rows, each linking to its listing.",
+     "upside": "Genuinely useful, zero data collection, defensible.",
+     "downside": "Only as fresh as the last register pass.",
+     "cost": "Low-medium",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Static printable checklist instead",
+     "what_changes": "A measure-your-counter worksheet.",
+     "upside": "No script, works offline.",
+     "downside": "Loses the direct answer.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Skip it",
+     "what_changes": "Nothing.",
+     "upside": "No maintenance.",
+     "downside": "Buyers do the arithmetic elsewhere and buy elsewhere.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-22",
+   "title": "Show the freshness of every figure on the product block, not only on the method page",
+   "theme": "Trust & authority",
+   "rank": 11,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Read dates exist in the data and on the method page, but on the product block a 2026-11-14 dimension looks identical to a figure read today. Buyers and reviewers both read that as staleness or as a claim of currency.",
+   "proposal": "A compact 'read 2026-11-14 · re-check due 2026-12-14' chip on each product block and on the calculator, driven by the register's read dates, plus a gate rule that no product fact may publish without one. Set the re-check interval as a decision (Q-P11) rather than a habit.",
+   "evidence": "F-02 and F-29 already document value drift; the register carries *_read for every field, so the chip is free.",
+   "impact": "Medium. It turns the site's real advantage into something visible in one glance.",
+   "effort": "Low. One chip component plus one gate rule.",
+   "risk": "Low.",
+   "depends_on": [
+    "Q-P11"
+   ],
+   "links": [
+    {
+     "label": "Associates Program Policies on Program Content display",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "recommendation": "Accept. It is the cheapest trust signal available and it is already computed.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Read date + re-check due chip, gate-enforced",
+     "what_changes": "Every product fact carries its date inline; stale pages fail the build.",
+     "upside": "Honest, automated, and distinctive.",
+     "downside": "Requires the cadence to actually be kept.",
+     "cost": "Low",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Read date only, no due date",
+     "what_changes": "Inline dates, no expiry rule.",
+     "upside": "No false precision.",
+     "downside": "Staleness is visible but nothing forces action.",
+     "cost": "Minutes",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "Keep dates on the method page only",
+     "what_changes": "Nothing changes.",
+     "upside": "Cleaner cards.",
+     "downside": "The site's main differentiator stays hidden.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
+  },
+  {
+   "id": "SG-24",
+   "title": "Seasonal hubs, but only with dated official snapshots as the evidence",
+   "theme": "Editorial & SEO",
+   "rank": 18,
+   "feeds_design_prompt": true,
+   "status": "proposed",
+   "problem": "Seasonality is where this category actually earns traffic, and the site currently has no seasonal surface. But seasonal framing without evidence is exactly the popularity claim the project's own rule forbids.",
+   "proposal": "Two hub pages a year (gifting window, grilling window), written around use rather than hype: what people cook or give in that window, which of the five listed formats matches, and what the site can honestly say about timing. Any statement about what is popular carries a dated capture of an official Amazon category page and the capture is archived with the commit.",
+   "evidence": "F-15 and D-19 set the rule; the owner's register row for S-16 adopted it on 2026-11-16. The Air Fryers category page is the pattern for a dated capture.",
+   "impact": "Medium-high in the right weeks, near zero outside them.",
+   "effort": "One pass per season, plus capture discipline.",
+   "risk": "Medium: a stale seasonal page reads as decay; retire it on a date, don't let it linger.",
+   "depends_on": [
+    "SG-06"
+   ],
+   "links": [
+    {
+     "label": "Amazon Air Fryers category page (the kind of dated snapshot the rule allows)",
+     "url": "https://www.amazon.com/Air-Fryers/b/ref=dp_bc_5?ie=UTF8&node=17659096011"
+    }
+   ],
+   "recommendation": "Queue it for the first full cycle after measurement exists; do not write seasonal copy against a feeling.",
+   "paths": [
+    {
+     "key": "A",
+     "label": "Seasonal hubs with archived dated captures",
+     "what_changes": "Two timed hub pages, each with its evidence snapshot and a retirement date.",
+     "upside": "Editorial rhythm that stays honest.",
+     "downside": "Requires the capture habit to survive.",
+     "cost": "Two passes a year",
+     "unlocks": "",
+     "recommended": true
+    },
+    {
+     "key": "B",
+     "label": "Evergreen use-frames only ('cooking for two', 'thanksgiving turkey')",
+     "what_changes": "Use-case pages with no date-bound claims.",
+     "upside": "No decay and no upkeep.",
+     "downside": "Misses the seasonal query spike.",
+     "cost": "One pass",
+     "unlocks": "",
+     "recommended": false
+    },
+    {
+     "key": "C",
+     "label": "No seasonal surface",
+     "what_changes": "Nothing.",
+     "upside": "Zero upkeep.",
+     "downside": "The site stays flat year-round in a category that is not.",
+     "cost": "None",
+     "unlocks": "",
+     "recommended": false
+    }
+   ]
   },
   {
    "id": "SG-52",
@@ -649,49 +1153,6 @@
    ],
    "status": "proposed",
    "recommendation": "Do it after Q-P42 sets the framing, in one pass so the mechanism and the content arrive together."
-  },
-  {
-   "id": "SG-56",
-   "title": "Decide what the published branch is allowed to contain",
-   "problem": "While the Pages source is the repository root (F-P19), the archived Countercraft build at site/ and the Countertop Dispatch snapshot under archive/ are reachable by URL with their own titles and no canonical pointing at the live site (F-P33). The only thing standing between a crawler and a second copy of the guide set is a robots.txt line, which is a request.",
-   "proposal": "Two acceptable outcomes, and both are the owner's: (a) set Settings → Pages → Source to 'GitHub Actions' so only the docs/ artifact is served, which removes the question entirely; or (b) record a decision that the archives stay reachable on purpose, publish that in about.html so it is not mistaken for an accident, and keep the robots disallow as the only control. What is not acceptable is leaving it unrecorded.",
-   "evidence": "git ls-files site → 25 tracked files read 2026-11-20; https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/site/index.html carries the title 'Countercraft — Kitchen gear worth the counter space.'",
-   "impact": "Medium — one site to index, one brand in the SERP, and one place for a reviewer to look.",
-   "effort": "Owner: one dropdown for (a), one sentence for (b).",
-   "risk": "Deleting the archives removes published receipts, which this project has deliberately preserved elsewhere; (b) is the lower-risk branch.",
-   "depends_on": [
-    "Q-P43"
-   ],
-   "status": "proposed",
-   "recommendation": "Pair it with the other owner-side Pages action (F-P19/F-P20): one settings change closes both."
-  },
-  {
-   "id": "SG-55",
-   "title": "Get the three operator's manuals into the source register",
-   "problem": "Four topics — preheat and shake rituals, second functions, coating care, and the holding question that decides holiday hosting — cannot be written from the listings, because a listing states a feature, not an instruction. Queue slot 1 is marked blocked on exactly this.",
-   "proposal": "Owner supplies the official manual PDF for P1 (Chefman dual-basket), P2 (Emeril Lagasse French-door) and P3 (Chefman TurboFry) from the manufacturer's own support page, or records that no manual states the figure. Each read lands in data/p2/sources.json with a date, then the blocked slot unblocks. Quoting policy is checked before anything is published, in the same place the OA reads are recorded.",
-   "evidence": "The peer-reviewed extension guidance tells readers to consult the operator's manual rather than answering it itself (https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/), and this site's register contains no manual read as of 2026-11-20.",
-   "impact": "High for the content plan — it is the only suggestion here that unlocks existing scheduled work rather than adding new work.",
-   "effort": "Owner: three downloads. Site: one dated read per manual, recorded like any other source.",
-   "risk": "Manuals are manufacturer documents, so claims drawn from them are attributed as manufacturer instructions, never as independent findings.",
-   "depends_on": [
-    "Q-P40"
-   ],
-   "status": "proposed",
-   "recommendation": "Do this before commissioning any new topic; it is cheaper than writing around the gap."
-  },
-  {
-   "id": "SG-58",
-   "title": "Decide whether a named human stands behind the byline",
-   "problem": "Every article's author is the organization 'The Crisp Counter' (the JSON-LD author node and the byline strip both say so), and the site is honest that nobody has cooked with the machines. That is defensible, but a publication with no named human is easier to skim past and harder to trust than one with a person who can be written to.",
-   "proposal": "Either add a named editor to settings.json (rendered in the byline, in the Article author node and on about.html, with a contact route), or record the choice to stay organizational in DECISIONS.md and say why on the About page. Both are publishable; the silence is the problem.",
-   "evidence": "data/p2/settings.json has no author field and jsonld_for emits author: {Organization} — verified against https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py; Google's people-first guidance asks that a site be clear about who is responsible for content: https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
-   "impact": "Medium — trust is the only currency an affiliate page has when it declines to publish a rating.",
-   "effort": "One settings line plus three template touches, or one paragraph on about.html.",
-   "risk": "A name is an accountability promise. Do not invent one: an editorial pseudonym presented as a person is exactly the pattern this site exists to avoid.",
-   "depends_on": [],
-   "status": "proposed",
-   "recommendation": "Decide this before the first reader email arrives, not after; the capture form ships dark today (F-P14), so there is time but not indefinitely."
   },
   {
    "id": "SG-53",
@@ -720,6 +1181,62 @@
    ],
    "status": "proposed",
    "recommendation": "Answer Q-P41 before the next slot's due date (2026-12-04) so the choice is made while the schedule is still true."
+  },
+  {
+   "id": "SG-55",
+   "title": "Get the three operator's manuals into the source register",
+   "problem": "Four topics — preheat and shake rituals, second functions, coating care, and the holding question that decides holiday hosting — cannot be written from the listings, because a listing states a feature, not an instruction. Queue slot 1 is marked blocked on exactly this.",
+   "proposal": "Owner supplies the official manual PDF for P1 (Chefman dual-basket), P2 (Emeril Lagasse French-door) and P3 (Chefman TurboFry) from the manufacturer's own support page, or records that no manual states the figure. Each read lands in data/p2/sources.json with a date, then the blocked slot unblocks. Quoting policy is checked before anything is published, in the same place the OA reads are recorded.",
+   "evidence": "The peer-reviewed extension guidance tells readers to consult the operator's manual rather than answering it itself (https://food.unl.edu/free-resources/newsletters/food-safety-tips-electric-air-fryers/), and this site's register contains no manual read as of 2026-11-20.",
+   "impact": "High for the content plan — it is the only suggestion here that unlocks existing scheduled work rather than adding new work.",
+   "effort": "Owner: three downloads. Site: one dated read per manual, recorded like any other source.",
+   "risk": "Manuals are manufacturer documents, so claims drawn from them are attributed as manufacturer instructions, never as independent findings.",
+   "depends_on": [
+    "Q-P40"
+   ],
+   "status": "proposed",
+   "recommendation": "Do this before commissioning any new topic; it is cheaper than writing around the gap."
+  },
+  {
+   "id": "SG-56",
+   "title": "Decide what the published branch is allowed to contain",
+   "problem": "While the Pages source is the repository root (F-P19), the archived Countercraft build at site/ and the Countertop Dispatch snapshot under archive/ are reachable by URL with their own titles and no canonical pointing at the live site (F-P33). The only thing standing between a crawler and a second copy of the guide set is a robots.txt line, which is a request.",
+   "proposal": "Two acceptable outcomes, and both are the owner's: (a) set Settings → Pages → Source to 'GitHub Actions' so only the docs/ artifact is served, which removes the question entirely; or (b) record a decision that the archives stay reachable on purpose, publish that in about.html so it is not mistaken for an accident, and keep the robots disallow as the only control. What is not acceptable is leaving it unrecorded.",
+   "evidence": "git ls-files site → 25 tracked files read 2026-11-20; https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/site/index.html carries the title 'Countercraft — Kitchen gear worth the counter space.'",
+   "impact": "Medium — one site to index, one brand in the SERP, and one place for a reviewer to look.",
+   "effort": "Owner: one dropdown for (a), one sentence for (b).",
+   "risk": "Deleting the archives removes published receipts, which this project has deliberately preserved elsewhere; (b) is the lower-risk branch.",
+   "depends_on": [
+    "Q-P43"
+   ],
+   "status": "proposed",
+   "recommendation": "Pair it with the other owner-side Pages action (F-P19/F-P20): one settings change closes both."
+  },
+  {
+   "id": "SG-57",
+   "title": "Merchandise the shelf by cooking job, with the register as the only source",
+   "problem": "The shelf currently presents five cards in register order. A buyer does not think in formats; they think 'dinner for two', 'a crowd', 'a roast I cannot hover over'. The pages already contain the routing logic (best-for lines, the three-question chooser) but it sits below the cards rather than organising them.",
+   "proposal": "Group the shelf into three rails — 'Two people, one dish', 'Two dishes at once', 'Long cooks, watched from away' — each rail generated from the existing format and best-for fields, each header linking to the chooser rather than to a product. Every card keeps its own buy button; no rail implies a ranking, and the gate's claims section keeps prices, ratings and popularity words out.",
+   "evidence": "PRODUCT_BEST_FOR and the format fields in data/p2/products.json already carry every word the rail headers would use (https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py), so this is presentation, not new claims.",
+   "impact": "Medium to high for conversion — it shortens the path from 'I need something' to 'this one is for my kitchen' without inventing a reason to care.",
+   "effort": "One hook in tools/build.py plus a CSS rule for the rail header; the 'shop' gate section already checks card and button counts.",
+   "risk": "A rail header that reads like a verdict ('best for families') would be an unsupported claim. Keep the phrasing inside the listed facts, and let the gate's banned-word list stay where it is.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "The strongest un-built item on the marketing side of the queue; do it in the same pass as SG-53 so the shelf and the guides change once."
+  },
+  {
+   "id": "SG-58",
+   "title": "Decide whether a named human stands behind the byline",
+   "problem": "Every article's author is the organization 'The Crisp Counter' (the JSON-LD author node and the byline strip both say so), and the site is honest that nobody has cooked with the machines. That is defensible, but a publication with no named human is easier to skim past and harder to trust than one with a person who can be written to.",
+   "proposal": "Either add a named editor to settings.json (rendered in the byline, in the Article author node and on about.html, with a contact route), or record the choice to stay organizational in DECISIONS.md and say why on the About page. Both are publishable; the silence is the problem.",
+   "evidence": "data/p2/settings.json has no author field and jsonld_for emits author: {Organization} — verified against https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py; Google's people-first guidance asks that a site be clear about who is responsible for content: https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+   "impact": "Medium — trust is the only currency an affiliate page has when it declines to publish a rating.",
+   "effort": "One settings line plus three template touches, or one paragraph on about.html.",
+   "risk": "A name is an accountability promise. Do not invent one: an editorial pseudonym presented as a person is exactly the pattern this site exists to avoid.",
+   "depends_on": [],
+   "status": "proposed",
+   "recommendation": "Decide this before the first reader email arrives, not after; the capture form ships dark today (F-P14), so there is time but not indefinitely."
   }
  ]
 }

@@ -70,8 +70,8 @@ python3 server.mjs --port 8787
 
 ## Test count
 
-`tools/checks.py` runs **23 check sections** covering 150+ individual assertions across
-36 built pages (the core pages, the guides hub, 12 guide pages and 3 long reads). The table
+`tools/checks.py` runs **27 check sections** covering 150+ individual assertions across
+48 built pages (the core pages, the guides hub, 14 guide pages, 3 long reads and 5 product pages). The table below lists the sections a content author is most likely to trip; `git show` the file for the rest.
 below lists the sections a content author is most likely to trip; `git show` the file for the
 rest — `pages`, `links`, `facts`, `claims`, `chrome`, `derived`, `a11y`, `briefs`, `shop`,
 `measurement`, `integrity` and `freshness` are all enforced on every build. The engine has no other entry points; everything the site publishes flows

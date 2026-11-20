@@ -1,0 +1,128 @@
+{
+ "_meta": {
+  "description": "The nine decisions this repository is actually waiting on, ranked by what they unblock. Derived from the suggestion queue and the open-questions register; rendered on the Analysis page so a reviewer sees the whole board in one place rather than reconstructing it from eight pages.",
+  "updated_utc": "2026-11-20",
+  "how_to_use": "Answer the waiting_on field — usually one sentence — and the items above it move. Nothing here blocks publication: the site stays live and correct while every one of these stays open.",
+  "last_change": "rank 9 resolved 2026-11-20 (arena/7cec0d73-prod2): PR #16 closed, not merged; wanted content ported via the generated build."
+ },
+ "ordering": [
+  {
+   "rank": 1,
+   "decision": "Decide the register question",
+   "item": "SG-31 / Q-P15 / F-P06 — is data/p2/ the only register that feeds published values?",
+   "why": "Two files disagree about whether prices exist. Until one is canonical, every future pass has to rediscover which one the live page used, and a reviewer cannot tell a stale figure from a deliberate omission.",
+   "waiting_on": "A one-line answer in COORDINATION.md. Any session can then move the other file to archive/ and say so on the method page.",
+   "effort": "Minutes",
+   "unblocks": [
+    "F-P06",
+    "SG-31",
+    "Q-27"
+   ]
+  },
+  {
+   "rank": 2,
+   "decision": "Decide who reads the suggestions",
+   "item": "Q-P08 — who accepts a path, how often, and does a reviewer's accept bind the build?",
+   "why": "34 items sit in a queue with no named decider. That is the difference between a decision surface and a list nobody is allowed to close, and it is why a prior session's accepted design brief sat unimplemented for two passes.",
+   "waiting_on": "A name or a rule. The queue already carries accepted / amended / rejected as states; it just has nobody to set them.",
+   "effort": "One sentence",
+   "unblocks": [
+    "Every SG item"
+   ]
+  },
+  {
+   "rank": 3,
+   "decision": "Turn on measurement before changing anything else",
+   "item": "SG-06, SG-25 / Q-P06, Q-23 — host the collector and verify a Search Console property.",
+   "why": "Every ranking on this board is currently judgement, because there is no impression or click data. Two weeks of real queries would reorder the content queue on evidence instead of taste.",
+   "waiting_on": "A host for one small service and a verified property. The collector already exists in the repository and stores nothing identifying.",
+   "effort": "An afternoon",
+   "unblocks": [
+    "SG-04",
+    "SG-24",
+    "SG-11",
+    "Q-P02",
+    "Q-P07"
+   ]
+  },
+  {
+   "rank": 4,
+   "decision": "Pick the price policy",
+   "item": "Q-27 / SG-05 and F-P06 — dated snapshot prices, a live licensed price, or none at all.",
+   "why": "The number is the most-clicked element on any commercial page. Choosing 'none' is defensible; choosing it by default, because nobody picked, is the current state and it quietly costs the most.",
+   "waiting_on": "A decision. If prices appear, they need the date-pairing check and the re-verification cadence agreed first, or the page ages badly.",
+   "effort": "One decision + a gate rule",
+   "unblocks": [
+    "SG-05",
+    "Q-27",
+    "the CTA design in DP-2 and DP-3"
+   ]
+  },
+  {
+   "rank": 5,
+   "decision": "Set the re-verification cadence",
+   "item": "Q-P11 — how old may a published figure be before the build refuses it?",
+   "why": "Titles, preset counts and carousels have already been observed drifting between reads days apart. A site whose only claim is 'we checked' has to define what 'checked' is worth in time.",
+   "waiting_on": "An interval (a day, a fortnight, a quarter) and who owns the sweep. Then the gate enforces it and the read-date chip on the product block means something.",
+   "effort": "One number",
+   "unblocks": [
+    "SG-22",
+    "SG-20",
+    "SG-05"
+   ]
+  },
+  {
+   "rank": 6,
+   "decision": "Name the publisher",
+   "item": "Q-P31 / SG-27 — who is speaking, and does the mandated disclosure use 'I' or an entity name?",
+   "why": "Amazon prescribes the disclosure statement in the first person; the site is run as a project. A reader, a reviewer and the FTC's guidance all expect an identifiable party, and right now there is none.",
+   "waiting_on": "The exact string to publish. A name, an entity, or a deliberate 'editorial desk, contact at…'.",
+   "effort": "Minutes",
+   "unblocks": [
+    "SG-27",
+    "SG-34 final form",
+    "the About page",
+    "structured-data author"
+   ]
+  },
+  {
+   "rank": 7,
+   "decision": "Decide the imagery question",
+   "item": "Q-P05 / SG-18 — do we license official product images, draw our own diagrams, or stay typographic?",
+   "why": "An affiliate page with no product image looks unfinished, and a shop expects to be shown the thing. Amazon's images are licensed feed content; our own diagrams are ours. The site currently has neither.",
+   "waiting_on": "Which route. Then the design prompt DP-1 becomes implementable instead of aspirational.",
+   "effort": "A decision, then a design pass",
+   "unblocks": [
+    "SG-18",
+    "SG-17",
+    "DP-1",
+    "DP-2"
+   ]
+  },
+  {
+   "rank": 8,
+   "decision": "Confirm the account facts only you can see",
+   "item": "Q-01, F-57, F-58 — enrolment under shopnow047c-20, the site registered to it, one link tested end to end.",
+   "why": "Everything on the site is verifiable except the two things that make it a business: that the tag belongs to this site and that a click through it reports. Both are single sign-ins away from settled.",
+   "waiting_on": "A look in Associates Central. A session cannot see it, so the register will carry it as unverified until you do.",
+   "effort": "Ten minutes",
+   "unblocks": [
+    "F-57",
+    "F-58",
+    "F-03 to a yes/no",
+    "every growth item below it"
+   ]
+  },
+  {
+   "rank": 9,
+   "decision": "Close out the PR #16 hazard (resolved: the PR is closed)",
+   "item": "Q-P30 / SG-32 — PR #16 was closed on 2026-11-20, not merged (GitHub API). Its wanted content was ported onto main's generated pipeline; its hand-authored root pages stay unmerged.",
+   "why": "It was a repository-safety question: one merge from a stale branch would replace the publication with a hand-authored copy and break the reproducibility check that guards it. Answered by the integration session: the PR is closed, the hazard is gone, and the wanted reader-facing work arrived through the generated build instead.",
+   "waiting_on": "Nothing — resolved. The coordination board records the port; SG-32's cleanup item stays open only as bookkeeping.",
+   "effort": "Minutes",
+   "unblocks": [
+    "a clean next merge"
+   ]
+  }
+ ]
+}

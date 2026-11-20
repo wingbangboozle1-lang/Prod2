@@ -188,3 +188,4 @@ Editorial direction added with this pass: new topics come from official
 guidance the listings do not carry (USDA FSIS, peer-reviewed extension
 guidance), not from re-wording listing copy. Three pages shipped on that rule
 and the sourcing standard is recorded in the decisions log (D-P28).
+

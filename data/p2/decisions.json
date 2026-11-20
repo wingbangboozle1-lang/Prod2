@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 third reconciliation: three parallel passes shared the D-P10..D-P17 ID space. Final assignment: D-P10..D-P14 (shop-front pass, arena/70b2b9f7-prod2), D-P15 (event-vocabulary publication, arena/86206fb3-prod2), D-P18 (working brand), D-P19 (shipped typography + token conformance), D-P20 (gifting window + queue) — the anti-slop pass rows remapped twice, documented here. No decision discarded. | 2026-11-20 (arena/20f83238-prod2): D-P22 (queue reviewer pass — Path A chosen) and D-P23 (promotion hold) added. | 2026-11-20 (arena/e1dbef32-prod2, union merge): this pass's rows land at D-P26, D-P28, D-P27, D-P29 after main's highest row, so both sets are kept and no id was reused. Remap of this session's own earlier numbers: F-P25..F-P30, Q-P18..Q-P42, SG-48..SG-57, D-P23..D-P28. | 2026-11-20 (arena/e1dbef32-prod2): D-P30 (single-source structured data) and D-P31 (fix main's own gate failures before merging, without touching other sessions' content) appended. D-P22 and D-P23 on main are other sessions' rows and were left alone."
+  "last_change": "Third union with origin/main (2026-11-20): main's rows kept incl. its new D-P25; PR #41's rows carried from arena/7cec0d73-prod2 where still absent. | 2026-11-20 (arena/e1dbef32-prod2, union): D-P26, D-P27, D-P28, D-P29, D-P30, D-P31 appended after main's highest row so both sets survive; this session's rows carry their own ids and no row of another session was renumbered, edited or dropped."
  },
  "decisions": [
   {
@@ -333,6 +333,28 @@
    ]
   },
   {
+   "id": "D-P24",
+   "question": "Do products get dedicated pages, and what may those pages claim?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "Yes to pages, strict no to new claims (numbered D-P24 after the mid-pass collision on D-P23, which the 2026-11-20 integration pass carries for the paid-placement hold — both stand). Each of the five products gets one reader-facing page (completing SG-12 beyond the card-level shipping note). Content policy: the page may restate values already in the verified register (products.json) with their read dates and source links, derive arithmetic from listed numbers with the formula shown, and link the cluster — nothing else. No prices, no ratings (F-02), no availability (D-P11), no hands-on or performance language (D-06), no popularity words (D-19). Every page ends with its own 'what we could not verify' block. JSON-LD carries a Product node (name/sku/brand/category) with deliberately NO offers and NO aggregateRating. The 'productpages' gate section enforces one page per product, the tagged buy URL, the sponsored marking, the unverified block, reachability from index/shop/products/pillars and sitemap presence.",
+   "rationale": "Amazon's ASIN definition (S-ASIN) makes the listing page the checkable source for every published value; a dedicated page that cites the register lets a reader verify each row against that listing. Dedicated pages are also the standard landing surface for product-name organic queries, which today had no page to land on. Recorded 2026-11-20 by arena/770ebcc2-prod2.",
+   "sources": [
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/products.json",
+    "https://www.amazon.com/dp/B0CDY277D3",
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/live-check-2026-11-20-770ebcc2.json"
+   ]
+  },
+  {
+   "id": "D-P25",
+   "question": "What publishes in the late-November sale window, and on what evidence?",
+   "status": "Recorded 2026-11-20 (editorial hypothesis per D-19)",
+   "recorded_choice": "Publish guide-sale-week.html (\"Four questions a sale week can't answer\") in the holiday-hosting season lane — the same ahead-of-cadence seasonal-desk precedent as the gifting guide (D-P20) and slot 1. The guide asks the four questions a discount cannot answer (format, capacity, listing-versus-discount, workflow) and is built only from the verified register: cited listing facts carry dated reads (2026-11-20 title re-check), the depth figure defers to the counter-space analysis (F-P08 keeps dimensions pending re-read), and no price, rating, deal-quality or popularity claim appears anywhere (F-02, D-19; the claims gate enforces). The cadence queue is untouched. Timing note: this guide was authored before D-P22 (Path A) landed; it is read as inside the published calendar's seasonal lane, not as new scope beyond it — if the reviewer reads Path A differently, retracting this publish is one line in tools/build.py + data/p2/calendar.json. Measured queries take over topic selection once the SG-06 gate and 14 days of data exist (SG-34). (Recorded by arena/2adc150a-prod2; id renumbered three times to avoid collisions — see COORDINATION.md.)",
+   "sources": [
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/calendar.json",
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/live-check-2026-11-20-722181aa.json"
+   ]
+  },
+  {
    "id": "D-P26",
    "question": "Should the site emit FAQPage structured data, and what is it allowed to claim?",
    "status": "Recorded 2026-11-20",
@@ -347,6 +369,21 @@
     "F-P32",
     "Q-P42",
     "SG-52"
+   ]
+  },
+  {
+   "id": "D-P27",
+   "question": "What does the evidence rule mean for machine-readable data?",
+   "status": "Recorded 2026-11-20",
+   "recorded_choice": "The same thing it means on the page: a field the register does not hold is omitted from the JSON-LD, never written as null and never filled with a placeholder. The Product node dropped its hard-coded \"gtin13\": null and its 'unknown' brand fallback; brand now appears only when a brand was actually read.",
+   "rationale": "A page can hold the line on blanks while the structured data next to it invents a value, and a crawler reads both. All five products do have a listed brand today, so nothing wrong was published — but the fallback would have fired the first time a read came back empty, and the fix belongs in the generator rather than in a reviewer's memory.",
+   "sources": [
+    "https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py",
+    "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart"
+   ],
+   "affects": [
+    "F-P34",
+    "F-02"
    ]
   },
   {
@@ -365,21 +402,6 @@
     "SG-45",
     "Q-P40",
     "F-P31"
-   ]
-  },
-  {
-   "id": "D-P27",
-   "question": "What does the evidence rule mean for machine-readable data?",
-   "status": "Recorded 2026-11-20",
-   "recorded_choice": "The same thing it means on the page: a field the register does not hold is omitted from the JSON-LD, never written as null and never filled with a placeholder. The Product node dropped its hard-coded \"gtin13\": null and its 'unknown' brand fallback; brand now appears only when a brand was actually read.",
-   "rationale": "A page can hold the line on blanks while the structured data next to it invents a value, and a crawler reads both. All five products do have a listed brand today, so nothing wrong was published — but the fallback would have fired the first time a read came back empty, and the fix belongs in the generator rather than in a reviewer's memory.",
-   "sources": [
-    "https://github.com/wingbangboozle1-lang/Prod2/blob/51a02ac75bc21816329ca00c64bfcb55a9eafec3/tools/build.py",
-    "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart"
-   ],
-   "affects": [
-    "F-P34",
-    "F-02"
    ]
   },
   {

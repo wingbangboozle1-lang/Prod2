@@ -611,6 +611,9 @@ a.src:hover { color: var(--ink); }
 .footer a { color: #EFE2D3; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
 .footer a:hover { color: #fff; }
 .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1.1fr; gap: 1.8rem; }
+.footer-sublist { margin-top: .55rem; }
+.footer-sublist ul { list-style: none; margin: 0; padding: 0; }
+.footer-sublist li { margin: .18rem 0; font-size: .86rem; }
 .footer h2 {
   font-family: var(--sans); font-size: .72rem; text-transform: uppercase;
   letter-spacing: .13em; color: #A5978A; margin: 0 0 .85rem;
@@ -990,3 +993,75 @@ ol.numbered > li::before {
   display: flex; align-items: center; justify-content: center;
   font-family: var(--sans); font-size: .8rem; font-weight: 750;
 }
+
+/* ---------- analysis / design-pack / decision-board modules (ported from
+   PR #41 / arena/e0d92902-prod2 onto main's tokens 2026-11-20: --card ->
+   --paper-card, --tap -> 44px, --step-1 -> 1.06rem to match main's scale) ---------- */
+.chip-read {
+  display: inline-block; font-size: .72rem; letter-spacing: .04em; color: var(--sage-deep);
+  background: var(--paper-deep); border-radius: 999px; padding: .1rem .5rem; vertical-align: .08em;
+  font-variant-numeric: tabular-nums;
+}
+.findings {
+  border-left: 4px solid var(--sage); background: var(--paper-deep);
+  border-radius: 0 var(--radius) var(--radius) 0; padding: .9rem 1.1rem; font-size: .97rem;
+}
+.findings-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  gap: 1.1rem; margin: 1.4rem 0;
+}
+.finding { border-left: 4px solid var(--sage); }
+.guide-stat { font-size: .84rem; margin: .3rem 0 0; }
+.status-open { background: #F0E2D8; color: var(--terracotta-deep); }
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+  gap: .9rem; margin: 1.25rem 0;
+}
+.stat {
+  background: var(--paper-card); border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: .9rem 1rem;
+}
+.stat b { display: block; font-family: var(--serif); font-size: 1.9rem; line-height: 1; }
+.stat span { font-size: .84rem; color: var(--muted); }
+.prio-list { list-style: none; padding: 0; margin: 1.25rem 0; display: grid; gap: .85rem; }
+.prio {
+  background: var(--paper-card); border: 1px solid var(--rule); border-left: 4px solid var(--terracotta);
+  border-radius: var(--radius); padding: .95rem 1.15rem; display: grid;
+  grid-template-columns: 2.6rem 1fr; gap: .1rem 1rem; align-items: baseline;
+}
+.prio-num {
+  grid-row: span 2; font-family: var(--serif); font-size: 1.6rem;
+  color: var(--terracotta-deep); line-height: 1;
+}
+.prio-item { font-weight: 700; }
+.prio p { margin: 0; font-size: .93rem; grid-column: 2; }
+.dp-card { margin-bottom: 1.5rem; scroll-margin-top: 7rem; }
+.dp-prompt {
+  background: var(--ink); color: #F2EAE0; border-radius: var(--radius); padding: 1.15rem 1.25rem;
+  overflow-x: auto; margin: .8rem 0 .9rem;
+}
+.dp-prompt pre { margin: 0; white-space: pre-wrap; }
+.dp-prompt code {
+  background: none; color: inherit; padding: 0; font-size: .88rem;
+  font-family: var(--sans); line-height: 1.6;
+}
+.dp-meta { margin-top: .4rem; }
+.dp-meta summary {
+  cursor: pointer; font-weight: 600; color: var(--sage-deep); min-height: 44px;
+  display: inline-flex; align-items: center;
+}
+.dp-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); gap: 1rem; }
+.dp-cols h4 {
+  font-size: .8rem; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--muted); margin: .8rem 0 .3rem;
+}
+.dp-cols ul { margin: 0; padding-left: 1.1rem; font-size: .92rem; }
+.short-answer { border-left-color: var(--terracotta); }
+.short-answer h3 {
+  font-family: var(--sans); font-size: .8rem; text-transform: uppercase;
+  letter-spacing: .09em; color: var(--terracotta-deep); margin-bottom: .4rem;
+}
+.short-answer p { font-family: var(--serif); font-size: 1.06rem; margin: 0; }
+.not-tested { font-size: .95rem; }
+.prio-wait, .prio-unblocks { font-size: .88rem; margin: .15rem 0 0; }
+.prio-unblocks a { margin-right: .35rem; }

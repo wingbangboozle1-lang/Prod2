@@ -19,13 +19,12 @@ Sections:
   claims       banned popularity words on reader-facing pages; no published
                prices or star ratings anywhere
   chrome       one nav group ("The work behind it") + footer directory present
+  fonts        favicon linked and present; every font/icon reference resolves; @font-face
+               blocks carry font-display; shipped fonts carry their license files
+  calendar     clusters/seasons/queue agree with the built page register (every
+               guide has a pillar; no calendar entry names a page that does not exist)
   seo          canonical/og:image/JSON-LD parse; sitemap covers every page;
                robots.txt points at the sitemap; feed items resolve
-  faq          FAQPage markup exists exactly where a visible Q&A block exists, with
-               the same questions, non-empty answers and no markup-only FAQ pages
-  cadence      the editorial calendar is enforced, not decorated: no overdue queue
-               slot, no dangling cluster/season reference, long-read word counts
-               re-measured against the built page, cadence gap reconciled
   shop         one shelf page with all five cards, buy buttons, imagery that
                exists, an About page, and no hands-on-testing claim
   a11y         one h1 per page, no heading-level skips, headings opened and closed at
@@ -48,6 +47,9 @@ Sections:
                duplicates; every archived build carries noindex; robots.txt scoped
                away from source and archive; every css/js URL carries a content
                version so a corrected asset cannot sit behind a stale CDN copy
+  productpages one dedicated page per product (SG-12): exists, cites the buy URL,
+               carries the unverified block, linked from index, shop, products and
+               its pillar, present in the sitemap; no orphan product pages
   briefs       the decision layer: every declared brief rendered, every cited
                register id resolves, no brief with an empty "not known" list, and
                the page is in the sitemap and the footer directory (X-04)
@@ -261,10 +263,10 @@ def main() -> int:
                     fail(f"{f.name}: fragment {target}#{frag} has no matching id")
             elif target == f.name and frag not in page_ids[f.name]:
                 fail(f"{f.name}: fragment #{frag} has no matching id")
-    # unbalanced paragraph tags: a stray "</p>" or an unclosed "<p>" is the class of
-    # defect that produced F-P09..F-P11 — the source fragment looks fine to a human
-    # and renders wrong for a reader. Counted per page (2026-11-20, E-02 pass): the
-    # guides hub had orphaned half of its own lede outside the paragraph.
+    # Unbalanced paragraph tags: a stray "</p>" or an unclosed "<p>" is the class of
+    # defect that produced F-P30 — the source fragment looks fine to a person and
+    # renders wrong for a reader. Counted per page (2026-11-20), because a fragment
+    # check cannot catch it once the layout is wrapped around it.
     for f in html_files:
         text = f.read_text(encoding="utf-8")
         opens = len(re.findall(r"<p\b", text))
@@ -280,11 +282,18 @@ def main() -> int:
         "D": {x["id"] for x in json.loads((DATA / "decisions.json").read_text(encoding="utf-8"))["decisions"]},
     }
     ref_re = re.compile(r"\b(F|Q|SG|D)-(?:P)?\d+\b")
+    # "Renumbered from X during the 2026-11-20 integration" is provenance text,
+    # not a live citation: the id it names is the row's FORMER id, kept visible
+    # so a reviewer can follow the trail. Strip those sentences before scanning,
+    # exactly as the fragment/anchor pass above treats nothing it finds inside
+    # <code> history notes.
+    provenance_re = re.compile(r"[Rr]enumbered from (?:F|Q|SG|D)-(?:P)?\d+[^.<]{0,80}")
     for f in html_files:
         if f.name == "flagged.html":
             continue  # may name out-of-register ids when that is the irregularity
         text = f.read_text(encoding="utf-8")
-        for m in ref_re.finditer(text):
+        scan = provenance_re.sub("", text)
+        for m in ref_re.finditer(scan):
             rid = m.group(0)
             if rid not in registers[m.group(1)]:
                 fail(f"{f.name}: cites {rid} which is not in the register")
@@ -425,6 +434,80 @@ def main() -> int:
     if not FAILURES:
         ok("nav group + footer directory on every page; reader nav within budget")
 
+    # ------------------------------------------------------------------ fonts
+    check("fonts")
+    # Font + favicon plumbing (added 2026-11-20, arena/2adc150a-prod2): the
+    # static-asset references a page cannot render correctly without — favicon,
+    # @font-face sources and their licenses. (The stylesheet-structure checks
+    # live in the later "assets" section.)
+    base = json.loads((DATA / "settings.json").read_text(encoding="utf-8"))["base_url"].rstrip("/")
+
+    def resolve_asset(ref: str, from_dir: pathlib.Path) -> pathlib.Path | None:
+        ref = ref.split("?", 1)[0].split("#", 1)[0]
+        if ref.startswith(base + "/"):
+            return DOCS / ref[len(base) + 1:]
+        if ref.startswith(("http://", "https://", "mailto:", "data:", "#")):
+            return None
+        return from_dir / ref
+
+    font_refs: set[str] = set()
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        for tag in re.findall(r"<(?:script|link|img)\b[^>]*>", text):
+            m = re.search(r'\b(?:src|href)="([^"]+)"', tag)
+            if not m:
+                continue
+            ref = m.group(1)
+            target = resolve_asset(ref, DOCS)
+            if target is not None and not target.exists():
+                fail(f"{f.name}: broken asset reference -> {ref}")
+        if 'rel="icon"' not in text:
+            fail(f"{f.name}: no favicon link")
+    for css in sorted((DOCS / "assets").rglob("*.css")):
+        text = css.read_text(encoding="utf-8")
+        for block in re.findall(r"@font-face\s*{([^}]*)}", text):
+            if "font-display" not in block:
+                fail(f"{css.relative_to(DOCS)}: @font-face without font-display")
+        for ref in re.findall(r"url\(\s*[\"']?([^\"')]+)[\"']?\s*\)", text):
+            target = resolve_asset(ref, css.parent)
+            if target is not None and not target.exists():
+                fail(f"{css.relative_to(DOCS)}: broken url() -> {ref}")
+            if ref.endswith((".woff2", ".woff", ".ttf", ".otf")):
+                font_refs.add(ref)
+    if font_refs:
+        fdir = DOCS / "assets" / "fonts"
+        if not (fdir.is_dir() and any(fdir.glob("LICENSE*"))):
+            fail("shipped fonts have no LICENSE* file in docs/assets/fonts/")
+    if not FAILURES:
+        ok(f"{len(font_refs)} font reference(s) + icon/asset refs resolve; favicon + font licenses present")
+
+    # --------------------------------------------------------------- calendar
+    check("calendar")
+    cal = json.loads((DATA / "calendar.json").read_text(encoding="utf-8"))
+    guide_ids = set(build.GUIDE_IDS)
+    known_pages = {p[0] for p in build.PAGES}
+
+    def gstem(g: str) -> str:
+        return g[:-5] if g.endswith(".html") else g
+
+    clustered: set[str] = set()
+    for cl in cal["clusters"]:
+        for g in cl["guides"]:
+            if gstem(g) not in known_pages:
+                fail(f"cluster '{cl['id']}' names a page that does not exist: {g}")
+            clustered.add(gstem(g))
+    for missing in sorted(guide_ids - clustered):
+        fail(f"guide {missing} has no cluster (every guide needs a pillar)")
+    for season in cal["seasons"]:
+        for g in season["guides"]:
+            if gstem(g) not in known_pages:
+                fail(f"season '{season['id']}' names a page that does not exist: {g}")
+    for q in cal["queue"]:
+        if not q.get("due_utc") or not q.get("title"):
+            fail(f"queue slot {q.get('slot')} is missing due_utc or title")
+    if not FAILURES:
+        ok("clusters/seasons/queue agree with the built guide register")
+
     # -------------------------------------------------------------------- seo
     check("seo")
     for f in html_files:
@@ -463,52 +546,6 @@ def main() -> int:
             fail(f"feed links missing page {name}")
     if not FAILURES:
         ok("meta/JSON-LD/sitemap/robots/feed consistent")
-
-    # -------------------------------------------------------------------- faq
-    check("faq")
-    # FAQPage markup is emitted by tools/build.py ONLY where the page shows a real
-    # question-and-answer block, derived from the rendered fragment. Two failure
-    # modes matter: markup with nothing visible behind it (a claim), and a visible
-    # FAQ with no markup (the drift the brief's own design document promised).
-    faq_pages = 0
-    for f in html_files:
-        text = f.read_text(encoding="utf-8")
-        # The site's FAQ component is <details class="faq-item"> (see build.py's
-        # faq_markup): a div-shaped selector would silently count zero on every page.
-        blocks = len(re.findall(r'<details class="faq-item">', text))
-        m = re.search(r'<script type="application/ld\+json">(.*?)</script>', text, re.S)
-        nodes = []
-        if m:
-            try:
-                nodes = [n for n in json.loads(m.group(1)).get("@graph", [])
-                         if n.get("@type") == "FAQPage"]
-            except Exception:  # noqa: BLE001 - the seo section parses this properly
-                nodes = []
-        visible = re.sub(r"<[^>]+>", " ", text)
-        if blocks >= 2:
-            faq_pages += 1
-            if not nodes:
-                fail(f"{f.name}: {blocks} visible FAQ entries but no FAQPage markup")
-            else:
-                items = nodes[0].get("mainEntity") or []
-                if len(items) != blocks:
-                    fail(f"{f.name}: FAQPage markup has {len(items)} questions but the page "
-                         f"shows {blocks} — markup and content must be the same list")
-                for it in items:
-                    q = (it.get("name") or "").strip()
-                    a = ((it.get("acceptedAnswer") or {}).get("text") or "").strip()
-                    if not q or not a:
-                        fail(f"{f.name}: FAQPage question or answer is empty")
-                    if q and q not in visible:
-                        fail(f"{f.name}: FAQPage asks something the page does not say: {q[:60]!r}")
-                    if len(a) < 60:
-                        fail(f"{f.name}: FAQPage answer for {q[:40]!r} is {len(a)} chars — "
-                             f"an answer thin enough to need no markup should not carry markup")
-        elif nodes:
-            fail(f"{f.name}: FAQPage markup present with {blocks} visible entries — "
-                 f"markup must describe content a reader can actually see")
-    ok(f"{faq_pages} pages carry FAQ blocks with matching FAQPage markup "
-       "(descriptive markup only: no rich-result claim, see D-P26 / S-GFAQ)")
 
     # ----------------------------------------------------------- publication
     check("publication")
@@ -674,20 +711,19 @@ def main() -> int:
     linked = set()
     for page in html_files:
         text = page.read_text(encoding="utf-8")
-        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+        # Strip any ?v= cache-buster: the artifact on disk is site.css, the page
+        # requests site.css?v=<hash>. Comparing the raw string against the file
+        # list would fail for every page once assets are versioned.
+        for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             linked.add(rel)
-        for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"]+)"', text):
+        for rel in re.findall(r'<script[^>]+src="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
             linked.add(rel)
-    def _resolved(rel: str):
-        # Assets are linked with a ?v= cache-buster (the one-site section requires it),
-        # so the query has to come off before the file can be found. Until 2026-11-20
-        # this section only ever scanned a script that happened to be linked WITHOUT a
-        # cache-buster, which meant the stylesheet carrying the whole design system was
-        # never parsed by the gate that claims to parse it (F-P38).
-        path = rel.split("?")[0]
-        return DOCS / path if path.endswith((".css", ".js")) else None
-
-    css_files = sorted({p for p in (_resolved(rel) for rel in linked) if p and p.exists()})
+    # A ?v= cache-buster (required by the one-site gate) is a query parameter,
+    # not part of the filename: resolve the path without it.
+    def _asset_path(rel: str) -> pathlib.Path:
+        return DOCS / rel.split("?", 1)[0]
+    css_files = sorted(_asset_path(rel) for rel in linked
+                       if rel.split("?", 1)[0].endswith((".css", ".js")) and _asset_path(rel).exists())
     if not css_files:
         fail("no stylesheet or script linked by a built page exists in docs/ — nothing styles the site")
     for f in css_files:
@@ -729,7 +765,7 @@ def main() -> int:
                          ("decide.html", BUDGET_FIRST_VIEW_KB)):
         text = (DOCS / name).read_text(encoding="utf-8")
         total = 0
-        for rel in re.findall(r'<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"\s]+)"', text):
+        for rel in re.findall(r'<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"?\s]+)', text):
             # a <picture> source is what a modern browser actually downloads
             pth = DOCS / rel
             if pth.exists():
@@ -739,7 +775,7 @@ def main() -> int:
     # every <picture> must have a WebP source and a PNG fallback, and both exist
     for f in html_files:
         text = f.read_text(encoding="utf-8")
-        for m in re.finditer(r'<picture>\s*<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"[^>]*>\s*<img[^>]+src="(?:https://[^"]*?/Prod2/)?(assets/[^"]+)"', text):
+        for m in re.finditer(r'<picture>\s*<source[^>]+srcset="(?:https://[^"]*?/Prod2/)?(assets/[^"?]+)[^"]*"[^>]*>\s*<img[^>]+src="(?:https://[^"]*?/Prod2/)?(assets/[^"?]+)', text):
             webp, png = m.group(1), m.group(2)
             if not webp.endswith(".webp"):
                 fail(f"{f.name}: <picture> source is not WebP ({webp})")
@@ -790,16 +826,60 @@ def main() -> int:
     if not FAILURES:
         ok(f"{len(longreads)} long reads: sourced, verified-block present, in sitemap and feed")
 
-    # ------------------------------------------------------------- cadence
+    # ---------------------------------------------------------------------- faq
+    check("faq")
+    # FAQPage markup must be the page's own Q&A block, restated. Two failure modes
+    # matter and both shipped on 2026-11-20 (F-P36): markup with nothing visible
+    # behind it, and a visible FAQ the markup does not describe. The generator derives
+    # the node from the rendered page now, so this section is the regression test.
+    faq_pages = 0
+    for f in html_files:
+        text = f.read_text(encoding="utf-8")
+        blocks = len(re.findall(r'<details class="faq-item">', text))
+        m = re.search(r'<script type="application/ld\+json">(.*?)</script>', text, re.S)
+        nodes = []
+        if m:
+            try:
+                nodes = [n for n in json.loads(m.group(1)).get("@graph", [])
+                         if n.get("@type") == "FAQPage"]
+            except Exception:  # noqa: BLE001 - the seo section parses this properly
+                nodes = []
+        visible = re.sub(r"<[^>]+>", " ", text)
+        if blocks >= 2:
+            faq_pages += 1
+            if not nodes:
+                fail(f"{f.name}: {blocks} visible FAQ entries but no FAQPage markup")
+            else:
+                items = nodes[0].get("mainEntity") or []
+                if len(items) != blocks:
+                    fail(f"{f.name}: FAQPage markup has {len(items)} questions but the page "
+                         f"shows {blocks} — markup and content must be the same list")
+                for it in items:
+                    q = (it.get("name") or "").strip()
+                    a = ((it.get("acceptedAnswer") or {}).get("text") or "").strip()
+                    if not q or not a:
+                        fail(f"{f.name}: FAQPage question or answer is empty")
+                    if q and q not in visible:
+                        fail(f"{f.name}: FAQPage asks something the page does not say: {q[:60]!r}")
+                    if len(a) < 60:
+                        fail(f"{f.name}: FAQPage answer for {q[:40]!r} is {len(a)} chars — an "
+                             f"answer too thin to need markup should not carry markup")
+        elif nodes:
+            fail(f"{f.name}: FAQPage markup present with {blocks} visible entries — markup must "
+                 f"describe content a reader can actually see")
+    ok(f"{faq_pages} pages carry FAQ blocks with matching FAQPage markup (descriptive markup "
+       "only: no rich-result claim is made anywhere on the site)")
+
+    # -------------------------------------------------------------------- cadence
     check("cadence")
-    # An editorial promise that nobody enforces is a defect waiting to rot. This
-    # section reads data/p2/calendar.json against the built site (2026-11-20, E-04).
+    # An editorial promise nobody enforces is a defect waiting to rot (F-P34). This
+    # section reads data/p2/calendar.json against the built site.
     import datetime as _dt
     def _d(s):
         return _dt.date.fromisoformat(s)
     today = _d(build.BUILD_DATE)
     cal = json.loads((DATA / "calendar.json").read_text(encoding="utf-8"))
-    # 1. a queued topic whose due date has passed must be shipped or deferred, on record
+    # 1. a queued topic past its due date is shipped or deferred, on the record
     overdue = []
     for q in cal.get("queue") or []:
         due = q.get("due_utc")
@@ -809,7 +889,7 @@ def main() -> int:
         if _d(due) <= today and not (q.get("shipped_utc") or q.get("deferred_until")):
             overdue.append(f"slot {q.get('slot')} ({due}) — {q.get('title')!r}")
     if overdue:
-        fail("editorial cadence is overdue and unreconciled — ship it, defer it with a date, "
+        fail("the editorial cadence is overdue and unreconciled — ship it, defer it with a date, "
              f"or retire the slot: {'; '.join(overdue)}")
     # 2. every guide a cluster or season points at must exist as a built page
     dangling = []
@@ -818,8 +898,10 @@ def main() -> int:
             if not (DOCS / g).exists():
                 dangling.append(f"{group.get('id')}: {g}")
     if dangling:
-        fail("calendar points at pages that are not built: " + "; ".join(dangling))
-    # 3. the long-read register's word count must still describe the page
+        fail("the calendar points at pages that are not built: " + "; ".join(dangling))
+    # 3. a long read's registered word count must still describe the built page.
+    #    Measured on the fragment at authoring time, so the built page (chrome plus
+    #    cluster links) reads longer: 20% is the slack editing needs, no more.
     for item in (cal.get("longreads") or {}).get("items") or []:
         f = DOCS / item["path"]
         if not f.exists():
@@ -828,34 +910,33 @@ def main() -> int:
         body = re.sub(r"<script.*?</script>", " ", main.group(1) if main else "", flags=re.S)
         words = len(re.sub(r"<[^>]+>", " ", body).split())
         recorded = item.get("words_checked") or 0
-        # measured on the fragment at authoring time, so the built page (which adds
-        # the chrome-wrapped links) reads slightly longer; 20% is the slack that
-        # allows for editing, anything bigger means the register stopped matching.
         if recorded and abs(words - recorded) / max(words, 1) > 0.20:
-            fail(f"{item['path']}: register says {recorded} words, the built page has {words} — "
+            fail(f"{item['path']}: the register says {recorded} words, the built page has {words} — "
                  f"the long read changed without the register being re-measured")
-    # 4. shipping must advance the schedule. The register promises an interval; if the
-    #    newest recorded publish plus that interval lands after next_due_utc, the
-    #    calendar was left behind by a build. This is the rule F-P35 asked for: the
-    #    cadence line stops being prose the moment the schedule can drift from it.
+    # 4. shipping must advance the schedule: newest recorded publish + the declared
+    #    interval cannot land after next_due_utc.
     cad = cal.get("cadence") or {}
     nxt, interval = cad.get("next_due_utc"), cad.get("interval_days")
     pubs = [x.get("shipped_utc") for x in (cal.get("queue") or []) if x.get("shipped_utc")]
     pubs += [x.get("published_utc") for x in (cal.get("published_early") or []) if x.get("published_utc")]
+    pubs += [x.get("published_utc") for x in (cal.get("shipped") or []) if x.get("published_utc")]
+    pubs += [x.get("shipped_utc") for x in (cal.get("shipped") or []) if x.get("shipped_utc")]
     pubs += [x.get("published_utc") for x in (cal.get("longreads") or {}).get("items") or [] if x.get("published_utc")]
     if nxt and interval and pubs:
         required = max(_d(x) for x in pubs) + _dt.timedelta(days=interval)
         if _d(nxt) < required:
             fail(f"cadence: the newest publish is {max(pubs)} and the declared interval is "
                  f"{interval} days, so next_due_utc cannot be earlier than {required} (it reads {nxt})")
-    # 5. a slot is either scheduled, shipped or blocked — never silently unanswerable
+    # 5. a blocked slot says so on the page that lists the queue
     blocked = [x for x in (cal.get("queue") or []) if x.get("blocked_by")]
     for x in blocked:
         if not x.get("status"):
             fail(f"cadence: queue slot {x.get('slot')} is blocked on {x['blocked_by']} but says so nowhere")
     if not FAILURES:
-        ok(f"cadence held: {len(cal.get('queue') or [])} queued slots (none overdue, {len(blocked)} blocked on record), "
-           f"{len((cal.get('longreads') or {}).get('items') or [])} long reads measured, next due {nxt}")
+        ok(f"cadence held: {len(cal.get('queue') or [])} queued slots (none overdue, {len(blocked)} "
+           f"blocked on record), {len((cal.get('longreads') or {}).get('items') or [])} long reads "
+           f"measured, next due {nxt}")
+
 
     # ------------------------------------------------------------ shop surface
     check("shop")
@@ -875,7 +956,7 @@ def main() -> int:
     # every referenced local image must exist in the build
     for f in html_files:
         text = f.read_text(encoding="utf-8")
-        for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"]+)"', text):
+        for rel in re.findall(r'src="(?:https://[^"]*?/Prod2/)?(assets/img/[^"?]+)', text):
             if not (DOCS / rel).exists():
                 fail(f"{f.name}: image {rel} missing from docs/")
         for rel in re.findall(r'<link rel="stylesheet" href="(?:https://[^"]*?/Prod2/)?([^"?]+)', text):
@@ -891,6 +972,55 @@ def main() -> int:
         ok("one shelf, full cards, real imagery, no hands-on claim")
 
     # ------------------------------------------------------------ exposition
+    # -------------------------------------------------------------- conflicts
+    check("conflicts")
+    # An unresolved merge marker shipped once already: assets/css/site.css on
+    # main carried literal "<<<<<<< HEAD" / "=======" / ">>>>>>> origin/main"
+    # lines at its top and was being served to every reader, because the CSS
+    # parser skips the malformed first rule and the file was one brace short.
+    # Nothing in the build noticed. This section fails the build on any
+    # conflict marker in a published artifact or in a source file the build
+    # copies from, so that class of defect cannot reach a reader again.
+    MARKERS = ("<<<<<<<", ">>>>>>>", "\n=======\n")
+    TEXT_ARTIFACTS = (".html", ".css", ".js", ".xml", ".txt", ".json", ".md")
+    scan_targets: list[pathlib.Path] = []
+    scan_targets += [f for f in html_files]
+    for sub in ("assets",):
+        d = DOCS / sub
+        if d.exists():
+            scan_targets += [f for f in d.rglob("*") if f.is_file() and f.suffix in TEXT_ARTIFACTS]
+    for extra in ("feed.xml", "sitemap.xml", "robots.txt"):
+        pth = DOCS / extra
+        if pth.exists():
+            scan_targets.append(pth)
+    # source-of-truth files the build copies verbatim into the artifact
+    for src in (ROOT / "assets" / "css", ROOT / "assets" / "js"):
+        if src.exists():
+            scan_targets += [f for f in src.rglob("*") if f.is_file() and f.suffix in TEXT_ARTIFACTS]
+    seen: set[str] = set()
+    for f in scan_targets:
+        if f in seen:
+            continue
+        seen.add(f)
+        try:
+            text = f.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        for marker in MARKERS:
+            if marker in text:
+                rel = f.relative_to(ROOT) if ROOT in f.parents else f
+                fail(f"{rel}: contains an unresolved merge marker ({marker.strip()!r})")
+                break
+    # A stylesheet that is short a brace is broken even when it parses as text.
+    for css in [f for f in seen if f.suffix == ".css"]:
+        text = css.read_text(encoding="utf-8")
+        code = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+        if code.count("{") != code.count("}"):
+            rel = css.relative_to(ROOT) if ROOT in css.parents else css
+            fail(f"{rel}: unbalanced braces ({code.count('{')} open, {code.count('}')} close)")
+    if not FAILURES:
+        ok(f"no merge markers or unbalanced braces in {len(seen)} published text artifacts")
+
     check("exposition")
     # The deploy artifact is docs/ alone. Nothing a reader can fetch may expose
     # the registers, the page sources or the generator (flags F-P19/F-P20).
@@ -1132,6 +1262,12 @@ def main() -> int:
     range_re = re.compile(r"\b[A-Z]{1,2}(?:-P)?\d{1,3}\s*[.–-]{1,2}\s*[A-Z]{1,2}(?:-P)?\d{1,3}\b")
     for name in registers:
         text = range_re.sub(" ", (DATA / name).read_text(encoding="utf-8"))
+        # Renumber provenance sentences exist to name a row's FORMER ids ("renumbered
+        # from Q-P24 during the integration", "D-P10 -> D-P16 -> D-P24 (main consumed
+        # each ID)"). They are history, not live references: strip every sentence that
+        # contains "renumber" before collecting ids, exactly as the page-level scan
+        # above treats provenance. A live citation never lives inside such a sentence.
+        text = re.sub(r"[^.]*[Rr]enumbered?[^.]*\.?", " ", text)
         for rid in set(id_re.findall(text)):
             # a register may cite a neighbouring register's id; only flag ids that
             # exist in NO register at all, which is the real dangling-reference case.
@@ -1148,6 +1284,46 @@ def main() -> int:
             fail(f"data/p2/{p.name}: verification record filename carries no date")
     if not FAILURES:
         ok("no conflict markers shipped; stylesheet tokens intact; register ids resolve")
+
+    # ------------------------------------------------------------ product pages
+    check("productpages")
+    # SG-12 (shipped 2026-11-20): every product in the register has its own
+    # reader page. The gate keeps the promise: no product without a page, no
+    # page without its buy link, its citations and its unverified block.
+    paths = build.PRODUCT_PAGE_PATHS
+    product_files = sorted(f.name for f in DOCS.glob("product-*.html"))
+    expect_files = sorted(v + ".html" for v in paths.values())
+    if product_files != expect_files:
+        fail(f"product pages on disk != registry: {product_files} vs {expect_files}")
+    for p in products:
+        slug = paths.get(p["id"])
+        if not slug:
+            fail(f"{p['id']}: no product page registered in build.PRODUCT_PAGE_PATHS")
+            continue
+        f = DOCS / (slug + ".html")
+        if not f.exists():
+            fail(f"{p['id']}: product page {slug}.html not built")
+            continue
+        text = f.read_text(encoding="utf-8")
+        if p["buy_url"] not in text:
+            fail(f"{slug}.html: does not carry the tagged buy URL")
+        if 'rel="sponsored' not in text:
+            fail(f"{slug}.html: buy link not marked sponsored")
+        if "What we could not verify" not in text:
+            fail(f"{slug}.html: no 'what we could not verify' block")
+        if p["asin"] not in text:
+            fail(f"{slug}.html: ASIN not published on its own page")
+        for host_page in ("index.html", "shop.html", "products.html"):
+            if f'href="{slug}.html"' not in (DOCS / host_page).read_text(encoding="utf-8"):
+                fail(f"{host_page}: does not link the {p['id']} product page")
+        pillar = "category-air-fryers.html" if "thermometer" not in p["format"].lower() \
+            else "category-thermometers.html"
+        if f'href="{slug}.html"' not in (DOCS / pillar).read_text(encoding="utf-8"):
+            fail(f"{pillar}: does not link the {p['id']} product page")
+        if f"/{slug}.html</loc>" not in (DOCS / "sitemap.xml").read_text(encoding="utf-8"):
+            fail(f"{slug}.html: missing from sitemap.xml")
+    if not FAILURES:
+        ok(f"{len(products)} product pages: cited, sponsored, unverified-block present, linked, in sitemap")
 
     # -------------------------------------------------------------- freshness
     check("freshness")

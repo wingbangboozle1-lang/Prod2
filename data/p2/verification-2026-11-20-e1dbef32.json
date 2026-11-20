@@ -184,5 +184,34 @@
   "content/pages/guide-safe-temp-chart.html",
   "content/pages/guide-leftovers.html",
   "content/pages/article-danger-zone.html"
- ]
+ ],
+ "integration_recheck": {
+  "when_utc": "2026-11-20",
+  "why": "The brief's final-integration rule: re-verify the combined data line by line and confirm the build has no broken links before merging.",
+  "main_tip_build": {
+   "command": "git worktree add /tmp/m origin/main && cd /tmp/m && python3 tools/build.py && python3 tools/checks.py",
+   "result_at_551c633": "CHECKS FAILED - 2 problems: [a11y] suggestions.html heading skip; [one-site] decide.html script lacks ?v= (recorded as F-P37)",
+   "result_at_b9122e9": "ALL CHECKS PASSED, 45 pages - both issues had been repaired by main's own later passes, which is why F-P37 and F-P38 are recorded as fixed upstream"
+  },
+  "merged_branch_build": {
+   "pages": 48,
+   "gate_sections": 27,
+   "result": "ALL CHECKS PASSED; scripts/verify_site.py VERIFY OK; node tests 10/10 (npm test)",
+   "defects_found_in_combined_state": [
+    "content/pages/shop.html and content/pages/guides.html each carried an orphaned sentence with a stray end tag (F-P30) - caught by the new paragraph-balance rule on the merged tree and repaired here",
+    "decide.html shipped FAQPage markup with no visible Q&A, and index.html described 4 of its 6 visible questions (F-P36) - fixed by deriving the node from the page",
+    "product structured data still carried gtin13 null and a placeholder brand on main's tip (F-P34) - unread fields are now omitted",
+    "README and ENGINE documented 14 gate sections while the merged gate runs 27 (F-P39) - corrected here"
+   ],
+   "register_union": {
+    "flags": 53,
+    "questions": 40,
+    "suggestions": 58,
+    "decisions": 42,
+    "duplicate_ids": 0,
+    "note": "Both sessions' rows kept. This pass's rows moved to F-P30..F-P39, Q-P40..Q-P43, SG-52..SG-58 and D-P26..D-P31 across three reconciliations as main took the earlier numbers mid-flight; every rename is recorded in the affected register's _meta.last_change, and no other session's row was edited, renumbered or dropped."
+   },
+   "not_re_checked_here": "The five product listings were not fetched a third time on 2026-11-20: three same-day passes by other sessions cover them (data/p2/live-check-2026-11-20-*.json), and this branch publishes no value that depends on a fresher read."
+  }
+ }
 }

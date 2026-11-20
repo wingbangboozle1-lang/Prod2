@@ -145,3 +145,4 @@ npm test                    # endpoint tests
   (D-06), and the pages say so in their own text.
 - It does not claim the extension's Celsius figure is a typo; it claims only that
   two official pages disagree and that this site publishes the figure they share.
+
