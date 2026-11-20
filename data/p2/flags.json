@@ -357,12 +357,12 @@
   },
   {
    "id": "F-P25",
-   "title": "“Check price on Amazon” button label on product cards needs a copy decision",
-   "detail": "Each product card on the shop front and shop page ends in a button labelled “Check price on Amazon”. No price is published on the site (F-02; decision D-P11). The label shows no price, so no violation is claimed. It is flagged for review because Program Policies §2(b) (read 2026-11-20) restricts what a site may show about prices, and the owner should confirm that a call to action that refers to price is acceptable. Alternative wording, such as “View on Amazon”, is a copy decision for the owner and is not made here.",
-   "evidence": "https://affiliate-program.amazon.com/help/operating/policies",
-   "evidence_note": "S-POL §2(b), read 2026-11-20 (policy page chunk 3). The button text is generated in tools/build.py.",
-   "how_to_resolve": "Owner chooses the button wording. A change is a one-line edit in tools/build.py followed by a rebuild and the release gate. Nothing changes until the owner decides.",
-   "status": "open"
+   "title": "All 30 published pages shipped a stylesheet containing git conflict markers (fixed and gated in this pass)",
+   "detail": "On 2026-11-20 the file every page loads, assets/css/site.css, began with '<<<<<<< HEAD', '=======' and '>>>>>>> origin/main' at lines 1, 48 and 75. Both sides of that merge also lost a closing brace, so two @font-face blocks ran together and the HEAD block was missing its terminator. Every workflow was green, tools/checks.py reported ALL CHECKS PASSED, and the site deployed in that state. Root cause of the miss: no check in this repository read the stylesheet, and no session in this repository has ever rendered a page - measured this pass, the Python and Node browser toolkits install but the Chrome-for-Testing binary and the Debian font packages do not download. A strict CSS parser discards an unclosed block, so the tail of the design system was at risk of silently not applying. Verified after repair: tinycss2 parses 245 top-level rules with 0 errors in both assets/ and docs/, braces balance 278/278, and the final @media print rule is fully consumed. Both complete font stacks were kept rather than choosing between them, because each is a valid fallback for the other. The condition that caused the miss is now gated by tools/design_qa.py, which fails the build on markers, on an unclosed block, on a dangling var() token, on a missing or invalid font file, and on unreadable body colour.",
+   "evidence": "https://wingbangboozle1-lang.github.io/Prod2/assets/css/site.css",
+   "evidence_note": "The live stylesheet served to readers. The defect is visible in the git history of the merge that introduced it; the repaired file and the gate are in this repository (tools/design_qa.py).",
+   "how_to_resolve": "No owner action required: repaired and gated in this pass. For review, open the live stylesheet and confirm line 1 is a comment rather than a conflict marker, then run 'python3 tools/design_qa.py' anywhere in the repo to reproduce the gate.",
+   "status": "resolved"
   },
   {
    "id": "F-P26",
