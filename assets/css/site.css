@@ -345,3 +345,47 @@ a.btn.btn-ghost.aff-link { color: var(--ink); }
 .season-guides, .cluster-guides { margin: .55rem 0 0; padding-left: 1.1rem; font-size: .87rem; color: var(--ink-soft); }
 .season-guides a, .cluster-guides a { color: var(--ink-soft); }
 .capture-card textarea { min-height: 5rem; }
+
+/* ------------------------------------------------------------ small screens
+   Most affiliate traffic arrives on a phone. These rules are the difference
+   between "looks like a shop" and "looks like a document shown sideways". */
+@media (max-width: 700px) {
+  body { font-size: 16.5px; }
+  .wrap, .wrap-narrow { padding: 0 1rem; }
+  h1 { font-size: clamp(1.85rem, 7vw, 2.4rem); }
+  h2 { margin-top: 2.6rem; }
+
+  .masthead-row { padding: .6rem 0; gap: .6rem; }
+  .wordmark-name { font-size: 1.35rem; }
+  .wordmark img { width: 28px; height: 28px; }
+  .nav { gap: .1rem; width: 100%; justify-content: space-between; }
+  .nav > a, .nav-work > summary { padding: .6rem .45rem; font-size: .86rem; min-height: 44px; display: inline-flex; align-items: center; }
+  .nav-work-menu { position: static; box-shadow: none; border-radius: var(--radius-sm); margin-top: .35rem; }
+
+  /* the disclosure must stay readable, not shrink to a caption */
+  .disclosure { font-size: .78rem; padding: .55rem 0; }
+  .disclosure-more { display: none; }  /* the full sentence remains; detail is one tap away */
+
+  .hero { padding-top: 1.2rem; }
+  .hero-sub { font-size: 1.02rem; }
+  .cta-row { gap: .55rem; }
+  .btn { width: 100%; justify-content: center; padding: .85rem 1.1rem; }
+  .cta-row .btn { width: auto; flex: 1 1 auto; }
+
+  .shelf, .guide-grid, .card-grid, .season, .two-col, .footer-grid { grid-template-columns: 1fr; }
+  .format-tiles { grid-template-columns: 1fr; }
+  .tile { padding: .9rem; }
+
+  /* tables: keep the header row visible while scrolling the register sideways */
+  table.data { font-size: .8rem; }
+  table.data th, table.data td { padding: .5rem .55rem; }
+  .table-scroll { border-radius: var(--radius-sm); }
+  .byline { gap: .7rem; }
+  .byline-avatar { width: 38px; height: 38px; font-size: .92rem; }
+}
+
+@media (max-width: 420px) {
+  h1 { font-size: 1.7rem; }
+  .card, .panel, .callout, .chooser { padding: .9rem .95rem; }
+  .guide-card-body { padding: .8rem .9rem .95rem; }
+}
