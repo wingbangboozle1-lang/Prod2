@@ -735,3 +735,23 @@ were resolved and all five listings were read on **2026-11-20** (evidence record
 `data/p2/verification-2026-11-20.json`, links published for manual review). Shell `curl` remains
 blocked; the verification used the fetch path, not shell egress. This is recorded as a method
 difference, not a contradiction of the earlier note.
+
+## Progress log — arena/dd4bae8a-prod2
+
+| Task | Status | Evidence |
+| --- | --- | --- |
+| V-01 live re-verification | **done** | `data/p2/verification-2026-11-20.json`. Five short links resolved; five listings read; ASINs, titles and breadcrumbs matched the register exactly. No value changed. |
+| V-02 RR-1 / RR-2 | **done** | Program Policies 2(b) and Participation Requirements 6(t) re-read 2026-11-20. Decision `D-P10`, flag `F-P19` closed, section added to `compliance.html`. Both review requests answered: values stay unpublished. |
+| V-03 reader-facing redesign | **done** | New `assets/css/site.css`, `tools/make_art.py` (12 own images), front page rebuilt as a publication front, guide pages carry their own diagram + byline + reading time, product cards rebuilt, mobile breakpoints, decision log restructured. |
+| V-04 gate extension | **done** | `tools/checks.py` now 12 sections: added `imagery` (alt, dimensions, local host, file exists) and `one site` (preserved build noindex/self-canonical, root mirror byte-identical). |
+| V-05 suggestions + questions | **done** | `SG-38..SG-42` added; every row now carries cost / reversibility / recommended action / your action; suggestions page opens with a decision table and a live count of items waiting. `Q-P10`, `Q-P11` added; questions page leads with the three decision-blocking questions. |
+| V-06 docs + integration | in progress | README, EXECUTIVE_SUMMARY, ENGINE, DESIGN_PROMPT updated. PR + deploy record below. |
+
+### Defects found and fixed on this pass (not cosmetic)
+
+| ID | Defect | Fix |
+| --- | --- | --- |
+| **F-P20** | The preserved `site/` build carried canonical URLs pointing at the publication's live pages with an allowing `robots.txt`, so a crawler could index a second set of pages whose canonical claimed different content. | `scripts/build_site.py`: every preserved page is now `noindex,follow` and self-canonical; `site/robots.txt` disallows `/Prod2/site/`. New gate section `one site` fails on regression. |
+| **F-P21** | Three of the five shipped measurement events (`guide_read_75`, `category_click`, `feed_click`) were rejected with 400 by the collector that would have received them, and would have been lost silently. Page views also collapsed into a single `page_view\|/unknown` row because the tracker sends `path` while the collector read only `page`. | `server.mjs`: the five site events are first-class; `path` maps to `page`; a conservative `cleanTarget()` keeps one optional `#fragment`. Three regression tests added, one of which reads the event names out of `measure.js` so the two cannot drift again. `npm test` 4/4. |
+| **F-P15** | The ASIN-definition citation was behind an Amazon sign-in wall. | Repointed to the public official page (`sell.amazon.com/blog/what-is-an-asin`, re-read 2026-11-20), which states the 10-character definition. |
+| — | `verify.yml` diffed the repo root against `site/` output although the root mirrors `docs/`. | Workflow rewritten: publication gated first, root mirror asserted reproducible, preserved build gated second and asserted non-indexable. Every step verified from a clean clone. |
