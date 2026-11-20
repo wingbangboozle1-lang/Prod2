@@ -14,6 +14,38 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## CLAIM — session arena/d5157db6-prod2 (2026-11-20, re-verification + drift fixes + integration)
+
+Protocol note: this session works only on its assigned branch `arena/d5157db6-prod2`. The `session-<id>/<task>` branch naming in the brief is not used; this claim is recorded here instead.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| R-01 Live re-check of the five `/dp/` listings (P1 re-read) and the five submitted short links | done | arena/d5157db6-prod2 | `data/p2/live-check-2026-11-20-d5157db6.json` (new) |
+| R-02 Record the second same-day short-link observation on F-P24 (the HTTP 500 link now resolves to the homepage) | done | arena/d5157db6-prod2 | `data/p2/flags.json` (F-P24 evidence note only; status stays open) |
+| R-03 Correct stale counts: gate sections (11/13/9 → 14), guide pages (9/eight → 10), built pages (24 → 30) | done | arena/d5157db6-prod2 | `README.md`, `ENGINE.md`, `EXECUTIVE_SUMMARY.md`, `content/pages/executive-summary.html`, `docs/`, root mirror |
+| R-04 Rebuild, gate, CI-equivalent checks, PR to main, merge, Pages check; record here | done (see record below) | arena/d5157db6-prod2 | `COORDINATION.md`, `docs/`, root mirror |
+
+### Results (2026-11-20)
+
+- **R-01 Listings.** `https://www.amazon.com/dp/B0CDY277D3` (P1) live; title matches `data/p2/products.json` (`name_listing`). P2–P5 were not re-read in this pass; they were read earlier today under 722181aa and are unchanged.
+- **R-01 Short links.** All five `https://link.amazon/{token}` URLs were read through the fetch tool. Four resolved to `https://www.amazon.com/`. The fifth (`B0f3GKalj`, P5) returned HTTP 500 in the earlier read today and resolved to the homepage in this read. None resolved to a product listing in this pass. Intended ASINs were not changed.
+- **R-02 Flag.** F-P24 is still **open**. Its evidence note now carries the second observation. No reader-facing link is affected: the site never publishes a short link as a buy path.
+- **R-03 Counts.** The gate runs 14 sections (`pages, disclosure, links, validity, facts, claims, chrome, seo, publication, longreads, shop, exposition, measurement, freshness`). The build produces 30 pages, 10 `guide-*` pages and 2 `article-*` long reads. Corrected in README, ENGINE.md, EXECUTIVE_SUMMARY.md and the reader page `executive-summary.html`.
+- **R-04 Checks.** `python3 tools/build.py` → 30 pages; `python3 tools/checks.py` → ALL CHECKS PASSED; `python3 scripts/build_site.py` + `python3 scripts/verify_site.py` → VERIFY OK; `node --test tests/server.test.mjs` → 3/3 pass.
+
+### Sources (official and fetched this session)
+
+- Amazon listing: https://www.amazon.com/dp/B0CDY277D3
+- Submitted short links (fetch tool, 2026-11-20): https://link.amazon/B04G1MEwY · https://link.amazon/B02NbDxp3 · https://link.amazon/B00hJ57DV · https://link.amazon/B0c8moW59 · https://link.amazon/B0f3GKalj
+- Amazon's ASIN definition and tag format: already recorded in `data/p2/sources.json` (S-ASIN, S-TAG); not re-read.
+
+### Irregularities for manual review (not blocking)
+
+1. F-P24 — short links still resolve to the Amazon homepage (2 reads today). Owner needs a normal browser check; see the flag's `how_to_resolve`.
+2. Associates Special Links: the Associates-workflow test of one link per product (confirming destination and tracking report) requires a logged-in Associates account. This sandbox has no such access, so it is **not done** and is an owner action (Q-01 / F-03).
+3. Pages source is still `main /` (F-P19 / F-P20). Owner action: Settings → Pages → Source: GitHub Actions.
+4. Analytics endpoint is deployable but not hosted (F-19 / Q-23). Search Console is not verified (Q-P08).
+
 ## ACTIVE CLAIM — session arena/644d217b-prod2 (2026-11-20, reader-first publication pass + integration)
 
 Branched from `4398598` (main after PR #33). This session is both the working session and the
