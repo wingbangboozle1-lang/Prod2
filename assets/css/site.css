@@ -397,3 +397,9 @@ a.btn.btn-ghost.aff-link { color: var(--ink); }
   border-bottom: 1px solid var(--rule);
 }
 .article-meta a { color: var(--sage-deep); text-decoration: none; }
+
+/* Reserve the hero's aspect ratio before the image arrives: no layout shift on
+   a phone over a slow connection, which is most of this site's traffic. */
+.hero-figure img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+@media (max-width: 880px) { .hero-figure img { aspect-ratio: 16 / 10; } }
+.figure-wide img { width: 100%; aspect-ratio: 8 / 5; object-fit: cover; }
