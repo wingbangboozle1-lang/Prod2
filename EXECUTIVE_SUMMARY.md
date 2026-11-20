@@ -8,13 +8,14 @@
 
 | # | Product | Format | ASIN | Submitted short link | Status |
 |---|---|---|---|---|---|
-| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 | link.amazon/B04G1MEwY | Verified since 2026-11-14; re-read 2026-11-19 |
-| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R | link.amazon/B02NbDxp3 | Verified since 2026-11-14; re-read 2026-11-19 (title drift — F-44) |
-| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH | link.amazon/B00hJ57DV | Verified since 2026-11-14; re-read 2026-11-19 |
-| P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | **First verified 2026-11-19** (resolves F-55) |
-| P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | **First verified 2026-11-19** (resolves F-55) |
+| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 | link.amazon/B04G1MEwY | Verified 2026-11-14 → 2026-11-20 (live) |
+| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R | link.amazon/B02NbDxp3 | Verified 2026-11-14 → 2026-11-20 (live; the F-44 title drift did not recur) |
+| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH | link.amazon/B00hJ57DV | Verified 2026-11-14 → 2026-11-20 (live) |
+| P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | Verified 2026-11-19, re-read live 2026-11-20 |
+| P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | Verified 2026-11-19, re-read live 2026-11-20 |
 
-- All five short links resolved to the ASINs above on 2026-11-19 **with no `tag=` parameter** (F-03). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
+- All five short links resolved to the ASINs above **again on 2026-11-20**, with their listing titles matching the register character for character, and again **with no `tag=` parameter** — Amazon served its own `btn_ref` source tokens instead (F-P16, F-03). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
+- The 2026-11-20 read is a new, independent verification: `data/p2/verification-2026-11-20.json`.
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
 - **No revenue is claimed.** Tag registration and click attribution are confirmable only inside Associates Central (F-57, F-58) — the one-link-per-product test is the owner's next step.
 
@@ -209,13 +210,14 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 
 | # | Product | Format | ASIN | Submitted short link | Status |
 |---|---|---|---|---|---|
-| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 | link.amazon/B04G1MEwY | Verified since 2026-11-14; re-read 2026-11-19 |
-| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R | link.amazon/B02NbDxp3 | Verified since 2026-11-14; re-read 2026-11-19 (title drift — F-44) |
-| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH | link.amazon/B00hJ57DV | Verified since 2026-11-14; re-read 2026-11-19 |
-| P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | **First verified 2026-11-19** (resolves F-55) |
-| P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | **First verified 2026-11-19** (resolves F-55) |
+| P1 | Chefman 6 qt dual basket air fryer oven | Dual-basket | B0CDY277D3 | link.amazon/B04G1MEwY | Verified 2026-11-14 → 2026-11-20 (live) |
+| P2 | Emeril Lagasse 26 qt French door air fryer toaster oven | Oven-style | B09B7SB46R | link.amazon/B02NbDxp3 | Verified 2026-11-14 → 2026-11-20 (live; the F-44 title drift did not recur) |
+| P3 | Chefman 8 qt TurboFry air fryer | Single-basket | B08DKYBTPH | link.amazon/B00hJ57DV | Verified 2026-11-14 → 2026-11-20 (live) |
+| P4 | ThermoMaven 1-second meat thermometer | Instant-read | B0DHZTCNR5 | link.amazon/B0c8moW59 | Verified 2026-11-19, re-read live 2026-11-20 |
+| P5 | CHEF iQ Sense Gen3 wireless thermometer | Wireless leave-in | B0DZFD6R9Z | link.amazon/B0f3GKalj | Verified 2026-11-19, re-read live 2026-11-20 |
 
-- All five short links resolved to the ASINs above on 2026-11-19 **with no `tag=` parameter** (F-03). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
+- All five short links resolved to the ASINs above **again on 2026-11-20**, with their listing titles matching the register character for character, and again **with no `tag=` parameter** — Amazon served its own `btn_ref` source tokens instead (F-P16, F-03). The supplied short links are recorded verbatim and not judged (FLG-003 unresolved).
+- The 2026-11-20 read is a new, independent verification: `data/p2/verification-2026-11-20.json`.
 - The site publishes tagged Special Links `https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20` with `rel="sponsored"` and the required disclosure on every page (decisions D-01/D-14, D-P06).
 - **No revenue is claimed.** Tag registration and click attribution are confirmable only inside Associates Central (F-57, F-58) — the one-link-per-product test is the owner's next step.
 
@@ -260,3 +262,46 @@ The PR that merges this work records the deploy result in `COORDINATION.md`.
 3. Brand rename after trademark clearance (SG-01, blocked on Q-19).
 4. Whether to adopt a dated-snapshot price policy (SG-05) — only with automation.
 5. Product photography decision (S-18/D-22): still awaiting a decision; generated/copy photography is banned, real photography is the only compliant path.
+
+## The 2026-11-20 pass (arena/dd4bae8a-prod2)
+
+**Verification.** All five supplied links were resolved live and all five listings re-read on
+2026-11-20. ASINs, listing titles and category breadcrumbs matched the register exactly; nothing
+needed correcting and no value was inferred. Record: `data/p2/verification-2026-11-20.json`.
+
+**Two review requests closed with the official text.** RR-1 and RR-2 asked whether the register may
+show prices and star ratings. Re-reading the Associates Program Policies on 2026-11-20 settled it:
+section 2(b) permits price display only where Amazon serves the link displaying it or the value
+comes through Creators/PA API, and Participation Requirements 6(t) permits star ratings only via
+Creators/PA API. A value seen on a page and retyped into our own data file satisfies neither, so
+prices and ratings stay off (decision D-P10, flag F-P19 closed). Because the rule has to survive
+future edits, the gate now fails the build if a price or rating string reaches published HTML.
+
+**Read like a shop.** The front page was rebuilt as a publication front: a hero with the site's own
+diagram, an explicit five-item shelf with a buy button and a source line on every card, decision
+tiles that route by cooking format, then the guides. The stylesheet was rewritten around a paper
+stock, serif display type and rules rather than boxes.
+
+**Imagery that is ours.** The site ships twelve images and every one is the site's own typographic
+or diagrammatic art, generated deterministically by `tools/make_art.py`. There is no product
+photography: copying a listing image to our own server is exactly what Amazon's IP License
+restricts, and a stock photo would break the site's evidence rule. Each guide carries its own
+diagram and a byline.
+
+**One site to index.** A real defect was found and fixed: the preserved `site/` build carried
+canonical URLs pointing at the publication's live pages, so a crawler could index a second set of
+pages whose canonical claimed different content. It is now `noindex,follow`, self-canonical, and
+disallowed in `robots.txt`, with a new gate section that fails the build if that regresses (F-P20).
+
+**A suggestions surface you can actually decide from.** The queue now opens with one table — ID,
+what it would change, status, cost to you, reversibility, your action — with a live count of items
+waiting on a decision. Five new rows (SG-38..SG-42) cover the decisions this pass could not make
+alone: prices, ratings, product photography, whether the site will ever test products, and the
+queue itself.
+
+**What is still not known.** Nothing is measured. Search Console is unverified (Q-P11), the
+analytics endpoint is not deployed (F-19), and the campaign ledger is empty by rule (F-P18). Every
+statement about which topic "works" would be an invention until that changes.
+
+**Gate.** `python3 tools/build.py && python3 tools/checks.py` — now 12 sections, all green;
+`python3 scripts/build_site.py && python3 scripts/verify_site.py` also green.
