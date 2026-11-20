@@ -1,0 +1,90 @@
+<p class="eyebrow">The work behind it</p>
+<h1>Analysis and findings</h1>
+<p class="lede">This is the page a reviewer was promised: the register read as findings rather than as
+rows. Everything on it is computed at build time from the same files the site publishes from, so it
+cannot drift from the data it summarises — and where the honest answer is "we cannot tell yet", that is
+the finding.</p>
+
+<h2 id="headline">Five findings, stated plainly</h2>
+<div class="findings-grid">
+  <article class="card finding"><h3>1 · The links are not the problem; the account is</h3>
+    <p>All five submitted short links resolve, on a dated read, to real listings whose titles match this
+    register character for character. What cannot be checked from outside an Associates account is that
+    <code>shopnow047c-20</code> is registered to this site and that a click through it reports. That single
+    unknown sits under every number this project might one day earn
+    (<a href="flagged.html#F-57">F-57</a>, <a href="flagged.html#F-58">F-58</a>).</p></article>
+  <article class="card finding"><h3>2 · The published set is complete only for the air fryers</h3>
+    <p>Three of five products carry capacity, dimensions and features read from the listing. The two
+    thermometers carry features and category but no dimensions or capacity — because a thermometer has
+    neither. Blank cells are marked, never filled (<a href="method.html">method</a>).</p></article>
+  <article class="card finding"><h3>3 · Format, not price, is the differentiator here</h3>
+    <p>Prices and ratings are withheld by rule (<a href="flagged.html#F-02">F-02</a>), which leaves the one
+    comparison buyers genuinely cannot make themselves: what a listed capacity costs in counter inches.
+    That ranking is below, and it is the most useful thing on this site.</p></article>
+  <article class="card finding"><h3>4 · Nothing is measured, so nothing is optimised</h3>
+    <p>Five events are defined and counted in the visitor's browser; no endpoint receives them, so the
+    campaign ledger is empty by rule, not by neglect. Every ranking on this page is therefore editorial
+    judgement against the registers — stated as such (<a href="questions.html#Q-P22">Q-P22</a>,
+    <a href="flagged.html#F-19">F-19</a>).</p></article>
+  <article class="card finding"><h3>5 · The site is correct and unconverted</h3>
+    <p>It reads as a careful register: caveats first, product second. The queue's top-ranked items are the
+    ones that put the shelf in front of the reader without touching a single claim
+    (<a href="suggestions.html">suggestions</a> SG-15, SG-16, SG-19).</p></article>
+</div>
+
+<h2 id="capacity">Capacity against footprint: the three air fryers</h2>
+<p>Quarts are marketing; a quart per inch of listed depth is arithmetic. Both numbers come from the
+same listing, and dividing them is the closest this site can get to an apples-to-apples comparison
+without a tape measure and a kitchen.</p>
+{{capacity_ranking}}
+
+<h2 id="coverage">Coverage: which guides carry which product</h2>
+<p>A buying guide earns its keep when a reader can follow one product through several questions.
+This counts the internal links that actually exist in the published pages, not the ones planned.</p>
+{{coverage_matrix}}
+
+<h2 id="funnel">The three-stage funnel, and what each stage lacks</h2>
+{{funnel}}
+
+<h2 id="pulse">The register, by the numbers</h2>
+{{flag_stats}}
+
+<h2 id="waiting-on">What we are waiting on, ranked</h2>
+<p>These are not open bugs; they are open <em>decisions</em>. Each one is answerable in a sentence and each one
+moves something below it, which is why they are ordered by what they unblock rather than by how long they have
+been sitting.</p>
+{{priority_board}}
+
+<h2 id="decision-board">Decision board: the open questions ranked by what they unblock</h2>
+<p>Ordered by how much of the roadmap each answer frees — not by ease. Answering the top two costs a
+sentence each; that is the awkward part.</p>
+{{decision_board}}
+
+<h2 id="verification">Verification ledger</h2>
+<p>Every dated check, with the source a person can click to repeat it. The rule: no product value is
+published from a listing older than the current re-read window.</p>
+{{verification_ledger}}
+
+<h2 id="what-we-refuse">What this analysis deliberately does not contain</h2>
+<ul>
+  <li><strong>No revenue or conversion projection.</strong> A figure invented here would be the only
+  unsourced number on the site, and the site is built to have none.</li>
+  <li><strong>No popularity claim.</strong> No view counts, no popularity badges, no seasonal
+  assertion without a dated official page behind it (<a href="decisions.html#D-19">D-19</a>).</li>
+  <li><strong>No ranking of products.</strong> The capacity ratio above is a normalisation, not a verdict;
+  the biggest cavity here is also the deepest machine.</li>
+  <li><strong>No prices, no star ratings</strong> (<a href="flagged.html#F-02">F-02</a>).</li>
+</ul>
+
+<div class="callout">
+  <h3>If you only read one page after this one</h3>
+  <p>Read <a href="questions.html">the open questions</a>. Every number above is trustworthy precisely
+  because the missing ones are written down somewhere; the questions page is where the site says what it
+  still does not know, and what it would take to find out.</p>
+</div>
+
+<p class="small-note">Registers behind this page:
+<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/products.json" rel="noopener" target="_blank">products</a> ·
+<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-log.json" rel="noopener" target="_blank">verification log</a> ·
+<a href="https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/decision-priority.json" rel="noopener" target="_blank">decision priority</a>.
+Recomputed on every build; it is never hand-edited.</p>

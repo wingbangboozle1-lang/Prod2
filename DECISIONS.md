@@ -43,7 +43,7 @@ This file mirrors `data/p2/decisions.json`, which is what the site renders on th
 | D-P13 | 2026-11-20 | Disclosure adopts the prescribed first-person sentence from Operating Agreement §5 |
 | D-P14 | 2026-11-20 | The thermometer guide publishes USDA/FoodSafety.gov safe-temperature, storage and power-outage data, quoted with last-reviewed dates |
 | D-P15 | 2026-11-20 | This file rebuilt from the register after drifting from the shipped site (see the note above) |
-
+| D-P16 | Integrate stale parallel PRs #23/#25 by union: redirect+compliance re-verification, 3 guides, analysis + design-prompt pages, 3 registers, Q-P10..Q-P21 + SG-18..SG-26, editorial gate, settings-derived disclosure | Nothing discarded; review-gated proposals stay queued | `data/p2/verification-2026-11-20.json`; COORDINATION.md handoff notes |
 ## Open — a choice is waiting
 
 | ID | Question | What is missing | Recommended path |

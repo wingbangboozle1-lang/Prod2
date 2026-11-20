@@ -1,0 +1,303 @@
+{
+  "_meta": {
+    "description": "Design prompt pack: the brief an owner or a design session can hand to whoever restyles this site, assembled from the accepted constraints in the registers. Each block is copy-ready. Nothing in here is adopted as a decision until it appears in data/p2/decisions.json.",
+    "updated_utc": "2026-11-19",
+    "set_by": "arena/b650562d-prod2",
+    "how_it_relates_to_the_queue": "Every block names the suggestions (SG-xx) that carry its decision. A block whose suggestions are still 'proposed' is a brief for a path that has not been chosen yet - use it to choose, not as permission."
+  },
+  "guardrails": [
+    {
+      "id": "G1",
+      "rule": "The disclosure appears above the fold on every page, and the required statement runs verbatim.",
+      "why": "The Operating Agreement requires the statement; FTC guidance requires the paid connection to be clear and conspicuous near the links. The site currently satisfies both in one strip, and the gate fails a page that drops either.",
+      "source": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE",
+      "design_consequence": "Treat the strip as fixed chrome, like the masthead: it may be restyled (weight, colour, size within legibility) but never moved below the fold, collapsed behind a click, or reduced to a footer link."
+    },
+    {
+      "id": "G2",
+      "rule": "Every outbound product link is a tagged Special Link with rel=\"sponsored nofollow noopener\", and the words '(paid link)' sit beside it.",
+      "why": "Program Policies govern how Special Links are used and forbid obscuring where a link goes; Google requires paid links to be qualified.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "design_consequence": "No design pattern may hide the destination: no 'button that opens a redirect', no link wrapped in a share widget, no URL shortener in the href. A CTA can be beautiful; its href stays an explicit tagged amazon.com/dp/ URL and its label says it is paid."
+    },
+    {
+      "id": "G3",
+      "rule": "No prices and no star ratings are published.",
+      "why": "Standing rule F-02. Volatile values captured by hand go stale on the page that carries them, and the project has not adopted a dated-snapshot price policy (Q-27, SG-05).",
+      "source": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/flags.json",
+      "design_consequence": "Do not design a price block, a 'was/now' strike-through, a countdown, a 'best price today' badge or a rating strip. Design the CTA to earn the click on information instead: 'See current price at Amazon (paid link)'."
+    },
+    {
+      "id": "G4",
+      "rule": "No popularity or urgency claims without a dated capture of an official page.",
+      "why": "D-19 and F-15. The site will not say what people are buying unless it can show a dated official source, and it will not manufacture scarcity.",
+      "source": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "design_consequence": "No 'popular right now' ribbons, no stock counters, no 'X people are viewing', no seasonal badges unless SG-24's evidence discipline is adopted first."
+    },
+    {
+      "id": "G5",
+      "rule": "No product photography the site has no right to host, and no generated images passed off as the product.",
+      "why": "Amazon's images are Program Content (Operating Agreement Section 1). Copied listing photos and AI-made product shots are both out; the imagery question Q-P05 is unresolved.",
+      "source": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "design_consequence": "The visual identity has to carry the page without product photos: original measured diagrams (SG-18), typographic cards (SG-17), and honest whitespace. Never a placeholder stock kitchen."
+    },
+    {
+      "id": "G6",
+      "rule": "A blank cell is a blank cell: it never gets filled with an estimate, and it is labelled.",
+      "why": "The no-inference rule the whole project rests on. Two of five products have no capacity or dimensions because they are thermometers; commission fields are null for every product (F-01).",
+      "source": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/products.json",
+      "design_consequence": "Design the empty state as a first-class component: an em dash, the word 'unverified' or 'not stated on the listing', and a link to the flagged item. Do not grey out, do not pad, do not hide."
+    },
+    {
+      "id": "G7",
+      "rule": "Every figure on a page keeps its source link and its read date visible.",
+      "why": "The site's only real differentiator is its provenance: every figure links to the page it was read from. If the source link moves to a footnote to save pixels, the differentiator goes with it.",
+      "source": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "design_consequence": "Source links live inline next to the number, small but always present - and the read date is on the product block (SG-22), not only on the method page."
+    },
+    {
+      "id": "G8",
+      "rule": "One site, one navigation group, all governance surfaces reachable from the footer.",
+      "why": "Search engines index one site with one canonical structure; the owner's brief asks for a reader-facing front page with the dashboards kept reachable, not removed.",
+      "source": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+      "design_consequence": "Header carries the shop path only (Compare, Products, Buying guide, Air fryers, Thermometers, Guides). 'The work behind it' stays one collapsible group; the footer keeps the full directory."
+    }
+  ],
+  "blocks": [
+    {
+      "id": "DP-1",
+      "title": "Brand and visual system",
+      "goal": "Make the site recognisable as a small kitchen publication in three seconds, without a logo budget or a photo library.",
+      "paste_prompt": "Design a compact editorial identity for a buying-guide site about countertop air fryers and meat thermometers. Constraints that cannot move: a disclosure strip sits directly under the masthead on every page; product photography may not be used (we do not hold image rights) and no prices or star ratings appear anywhere.\n\nDeliver a type system with a serif display face for headlines and a system sans for body, one fluid scale from 320px to 1440px, a measure of 62-72 characters, and a line-height of 1.6 or more in body copy. Choose a warm paper background with one clay or terracotta accent and one sage support colour; keep text contrast at 4.5:1 minimum and the accent reserved for interaction, never for decoration only.\n\nDeliver: a masthead that reads as a publication (wordmark, one-line descriptor, five nav items, one collapsible group for the working documents); a 4px left-rule motif used for callouts, verdicts and source notes so the reader learns that a rule means 'sourced'; card, table, chip and empty-state components; and a print stylesheet for the comparison page.\n\nEverything must survive without JavaScript, must be keyboard operable with a visible focus ring, and must give every tap target at least 44px. Ship tokens (colour, space, type) as CSS custom properties; no framework.",
+      "acceptance": [
+        "One scale, four steps, used consistently on h1 to caption",
+        "The accent colour never appears without meaning",
+        "Every component renders legibly at 320px wide",
+        "Contrast passes for body text, links and the disclosure strip",
+        "Print output of the comparison page fits one page"
+      ],
+      "avoid": [
+        "Glassmorphism, gradients behind text, hero images of stock kitchens, three-column card grids on mobile, decorative icons with no label"
+      ],
+      "evidence": [
+        {
+          "label": "Google: page experience and mobile presentation",
+          "url": "https://developers.google.com/search/docs/appearance/page-experience"
+        }
+      ],
+      "related": [
+        "SG-01",
+        "SG-18",
+        "SG-17",
+        "SG-29",
+        "SG-23"
+      ]
+    },
+    {
+      "id": "DP-2",
+      "title": "Front page as a shop shelf",
+      "goal": "A first screen that answers 'what can I buy here and why should I trust it' before it explains method.",
+      "paste_prompt": "Rework the home page so the first screen reads like a shop shelf rather than a report. Order it as: masthead; disclosure strip; a two-line promise naming the category and the standard ('five products, every figure read from the official listing, dated'); a rail of five product cards; a row of format tiles; a shelf of guides; then a short trust rail.\n\nEach product card shows: the short name, the format as an eyebrow, two listed numbers that decide the purchase (capacity and counter depth, or accuracy and probe count), one sponsored CTA labelled as a paid link, and a 'read <date>' chip. Where a figure is not stated on the listing, show the empty state with its reason - never a dash alone.\n\nThe guide shelf shows eight cards, each with the question as its title and a one-line answer preview drawn from the page's own short answer, plus a reading time computed from the text. The trust rail is three sentences: what we checked, what we refuse to publish, and where to see the flags - each linking to its page. No testimonials, no awards, no badges we have not earned.",
+      "acceptance": [
+        "A first-time reader can reach a product CTA without scrolling on a phone",
+        "Every number on the front page exists in the register with a read date",
+        "The disclosure strip is fully visible at 320px with the shelf below it",
+        "No card implies testing that did not happen"
+      ],
+      "avoid": [
+        "Countdown timers, 'deal' ribbons, price claims, invented superlatives, a hero about the research process"
+      ],
+      "evidence": [
+        {
+          "label": "Google: people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        }
+      ],
+      "related": [
+        "SG-15",
+        "SG-16",
+        "SG-22",
+        "SG-12"
+      ]
+    },
+    {
+      "id": "DP-3",
+      "title": "Product page: buyer-first, then the evidence",
+      "goal": "Turn each product from a table into a decision the reader can make, without saying more than the listing does.",
+      "paste_prompt": "Design the product block as three layers, in this order: verdict, evidence, caveats.\n\nLayer one is a verdict block, two sentences, drawn only from listed facts: who this suits, and where it falls short. Label it as derived from the listing, with the source link beside it, and keep the standing sentence that nobody here has cooked with this machine.\n\nLayer two is the evidence: a two-column fact list (capacity, dimensions, format, notable listed functions, materials, what the listing says about cleaning), each row with its read date and a source link. This is the register, so the values cannot be re-worded into claims: '24 one-touch presets as listed' is correct, 'endless options' is not.\n\nLayer three is caveats: variant families, the seller and condition warning, and anything flagged. Use the left-rule component, and link each caveat to its flag on the review page.\n\nEnd with one CTA row: the sponsored listing link and a link to the comparison. No second CTA, no sticky nag, no popup.",
+      "acceptance": [
+        "A reader who skims only layer one gets a usable, sourced answer",
+        "Every figure in layer two matches the register character for character",
+        "Caveats appear on the page they belong to, not only on a central flags page",
+        "One sponsored CTA per block, labelled"
+      ],
+      "avoid": [
+        "Star-rating widgets, price callouts, 'our pick' badges, invented pros/cons lists, comparison against products we have not verified"
+      ],
+      "evidence": [
+        {
+          "label": "Google: thin-affiliation guidance in the spam policies",
+          "url": "https://developers.google.com/search/docs/essentials/spam-policies"
+        }
+      ],
+      "related": [
+        "SG-16",
+        "SG-12",
+        "SG-07",
+        "SG-22"
+      ]
+    },
+    {
+      "id": "DP-4",
+      "title": "Comparison, chooser and the mobile bar",
+      "goal": "A table that behaves like a tool on a phone, and a chooser that routes on constraints rather than taste.",
+      "paste_prompt": "Redesign the comparison page around one table and one three-question chooser, both usable one-handed.\n\nThe table: first column sticky (product name and ASIN), horizontal scroll with a visible fade cue and a shadow rather than a cut-off, header row sticky under the masthead, and a per-cell source link that is legible at 12px. Add a column for the derived metric (capacity per inch of counter depth) and print the formula directly under the table; mark rows where a needed value is absent and link the reason.\n\nThe chooser: three questions, each a real constraint (party size, tray versus basket, how often two dishes at once), radio inputs at 44px, a result card that names the format first and the product second, and a sentence explaining which listed figures produced that result. State plainly that it routes on listed values and is not a ranking.\n\nOn screens under 40rem add a dismissible sticky bottom bar carrying the product name in view and one sponsored CTA; it must not cover the disclosure, must disappear at the footer, and must be closable by keyboard.\n\nNo sorting controls: a sortable table invites a ranking the site refuses to publish.",
+      "acceptance": [
+        "Comparison usable one-handed at 360px with no sideways scroll of the whole page",
+        "Chooser result names the listed values behind it",
+        "Sticky bar is dismissible and never overlaps the disclosure",
+        "Blank cells explain themselves"
+      ],
+      "avoid": [
+        "Score columns, weighted 'our rating' numbers, sorting arrows, comparison against unverified products"
+      ],
+      "evidence": [
+        {
+          "label": "Google: page experience",
+          "url": "https://developers.google.com/search/docs/appearance/page-experience"
+        }
+      ],
+      "related": [
+        "SG-02",
+        "SG-20",
+        "SG-23",
+        "SG-28",
+        "SG-08"
+      ]
+    },
+    {
+      "id": "DP-5",
+      "title": "Article system: question-shaped, answer-first",
+      "goal": "Guides that people finish, that cite the listing for every figure, and that read like a person wrote them.",
+      "paste_prompt": "Set the article template for the guides.\n\nTitle: the question a buyer types, then a promise of what they get, under 60 characters, no year, no 'best', no 'top 10'. Sub-deck: one sentence naming the tension in the question.\n\nOpen with a boxed short answer, at most 40 words, that would satisfy the reader if they read nothing else. Then sections that each open with their own one-line answer before any explanation. Close with a FAQ list of three to five real phrasings, and a 'keep reading' block that must reach the comparison, the buying guide and the category pillar - the build enforces it.\n\nRules for the copy: every number carries its source link and read date; anything the listing does not state stays absent and gets named as absent; the site's own limits appear once, near the end, not as the opening act; sentences vary in length, and no paragraph begins with throat-clearing. Do not imitate review-site filler: no 'in today's busy kitchens', no 'look no further', no 'game-changer', no 'whether you are a beginner or a pro'.\n\nTreat the buying guide, the categories and the hub pages as the same template with different openings, so the whole cluster reads as one desk.",
+      "acceptance": [
+        "Short answer under 40 words and defensible from the body",
+        "Each H2 opens with its answer",
+        "At least one figure per guide links to the listing with a date",
+        "Internal links to comparison, buying guide and pillar present and gate-checked",
+        "No sentence in the piece that could apply to every appliance on earth"
+      ],
+      "avoid": [
+        "AI-shaped listicles, filler intros, ' experts recommend' with no expert, keyword restated in six forms"
+      ],
+      "evidence": [
+        {
+          "label": "Google: snippet and title guidance",
+          "url": "https://developers.google.com/search/docs/appearance/snippet"
+        },
+        {
+          "label": "Google: AI-generated content guidance",
+          "url": "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content"
+        }
+      ],
+      "related": [
+        "SG-19",
+        "SG-21",
+        "SG-26",
+        "SG-11",
+        "SG-13"
+      ]
+    },
+    {
+      "id": "DP-6",
+      "title": "Findability: one site, one structure",
+      "goal": "Give search one clean site to index and a reason to rank it, then measure honestly.",
+      "paste_prompt": "Keep the findability layer mechanical and audited, not aspirational.\n\nEach page: unique title under 60 characters, unique meta description between 50 and 170 characters written to that page's content, canonical on the deployed URL, one og:image (page-specific once SG-17 is accepted), Twitter summary card, and JSON-LD that parses: WebSite and BreadcrumbList everywhere, ItemList with Product entries on the shop pages, Article on guides, FAQPage where a guide carries a FAQ block.\n\nSite files: sitemap.xml covering exactly the published pages with lastmod from the build date, robots.txt pointing at it, an RSS feed carrying every guide, and a 404 page that offers the five products and the eight guides rather than an error.\n\nTwo rules the build enforces so this cannot rot: a page that is registered but not built fails the build, and a built page missing from the sitemap fails it too. When a guide is added, its entry in the sitemap and the feed is generated in the same pass, never by hand.\n\nDo not add structured data the page cannot support: no AggregateRating, no Offer, no price field, no review markup - the site publishes none of those.",
+      "acceptance": [
+        "Every page in the sitemap resolves; no page is missing from it",
+        "JSON-LD parses on every page and matches visible content",
+        "Titles and descriptions unique, with lengths in range",
+        "Feed items resolve to built pages"
+      ],
+      "avoid": [
+        "AggregateRating or Offer schema without a licensed feed, doorway pages per query variant, an index of links with no prose"
+      ],
+      "evidence": [
+        {
+          "label": "Google: build and submit a sitemap",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap"
+        },
+        {
+          "label": "Google: qualify outbound links",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+        }
+      ],
+      "related": [
+        "SG-19",
+        "SG-21",
+        "SG-30",
+        "SG-17"
+      ]
+    },
+    {
+      "id": "DP-7",
+      "title": "Measurement and the iteration loop",
+      "goal": "Make the next design decision come out of a number, not out of taste.",
+      "paste_prompt": "Design the measurement surface as part of the publication, not as a hidden script.\n\nInstrument five events only: page_view, outbound_click (with the ASIN and the target host, never the full URL), guide_read_75, category_click, feed_click. No cookies, no visitor identifiers, no fingerprinting, nothing transmitted until an endpoint URL is configured in the settings file. Show the reader what is counted on the privacy page, in the same voice as the rest of the site.\n\nOn the measurement page publish: the five events with their definitions, the attribution windows as stated by the official commission report, an empty campaign ledger whose columns are fixed and whose rows come only from an authorized first-party export, and a one-line statement that no revenue or conversion figure exists yet.\n\nThen bind the loop: any design or content change proposed from now on carries a hypothesis and the metric that would falsify it. Write that rule into the suggestions template so a suggestion without a measure cannot be accepted.",
+      "acceptance": [
+        "Five events defined in code and on the page, with fields documented",
+        "Nothing is transmitted by default",
+        "Ledger publishes zero rows with a visible reason",
+        "Every accepted change names its metric"
+      ],
+      "avoid": [
+        "Revenue forecasts, conversion-rate claims, a dashboard showing invented numbers, dark patterns to lift CTR such as fake urgency"
+      ],
+      "evidence": [
+        {
+          "label": "Amazon: Standard Commission Income Statement (attribution windows)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        }
+      ],
+      "related": [
+        "SG-06",
+        "SG-25",
+        "SG-14",
+        "SG-30"
+      ]
+    },
+    {
+      "id": "DP-8",
+      "title": "Copy rules that keep it from reading machine-made",
+      "goal": "The difference between a publication and a generated page is mostly sentence-level, so make it enforceable.",
+      "paste_prompt": "Write the copy to these rules and put them in the build gate so they survive whoever edits next.\n\nNever open with a scene-setter. The first sentence carries the answer, the number, or the tension - in that order of preference. Cut any clause that could survive in an article about a different product: 'in today's busy kitchens', 'look no further', 'whether you are a beginner or a seasoned pro', 'game-changer', 'elevate', 'unleash', 'delve'. Cap adjective runs at two. Do not use 'ensure', 'crucial', 'essential' or 'robust' where a plainer word means the same. Vary sentence length hard: a 25-word sentence next to an eight-word one is what makes a paragraph sound written.\n\nTake a position, but only inside what the listing states: 'the shallowest of the three here' is a position you can defend; 'the best for families' is not. When the answer is unknown, say the sentence that admits it and links the flag - that sentence is a feature of this publication, not a weakness.\n\nName the reader's situation concretely: two people, one burner, a 12-inch counter, a turkey for six. Abstractions about 'lifestyle' are how generated pages read.\n\nGate: a lint that fails the build on the blocklist, on an H1 followed by more than 200 words before the first H2, and on a product figure without a source link. Exemptions go in a printed list, so an exception is visible in review rather than silent.",
+      "acceptance": [
+        "Blocklist enforced by the gate, exemptions visible",
+        "First 30 words of every guide carry an answer or a number",
+        "No paragraph of filler in any published page",
+        "Positions are defensible from the register"
+      ],
+      "avoid": [
+        "Synonym swapping to look varied, lists of eight bullets where two sentences would do, an em-dash in every line, a conclusion that restates the intro"
+      ],
+      "evidence": [
+        {
+          "label": "Google: helpful, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        }
+      ],
+      "related": [
+        "SG-26",
+        "SG-19",
+        "SG-21"
+      ]
+    }
+  ],
+  "sequence": [
+    "1. Answer the blocking questions that gate the design (Q-P11 cadence, Q-P19 publisher, Q-P05 imagery, Q-P06 domain, Q-P15 register, Q-P18 PR #16).",
+    "2. Accept or reject the six ranked suggestions that the polish depends on: SG-15, SG-16, SG-19, SG-21, SG-22, SG-26.",
+    "3. Run DP-1 and DP-2 as one pass (identity plus front page), so the shelf and the type system land together.",
+    "4. Run DP-5 and DP-8 together with the lint, before adding any new article: prose rules added after a backlog only excuse the backlog.",
+    "5. Turn on measurement (DP-7) as soon as a host exists, then let the first measured queries reorder the topic queue."
+  ]
+}

@@ -42,6 +42,7 @@ python3 server.mjs --port 8787
 | `links` | every `amazon.com/dp/` product link carries `tag=shopnow047c-20` **and** `rel="sponsored nofollow noopener"`; `link.amazon` short links carry `rel="sponsored"` and are never query-stripped or tag-appended; other Amazon links carry `nofollow`; every internal link resolves |
 | `facts` | every product's buy URL and listing citation is published; blanks are rendered `— unverified`; intent records keep `intended_asin` and `observed_redirect` as separate fields and the path code is never treated as an ASIN |
 | `claims` | no price patterns (`$…`) and no star-rating patterns anywhere (F-02); no banned popularity words ("trending", "best-selling", …) on reader-facing pages (D-19) |
+| `editorial` | voice lint on reader pages — no throat-clearing/filler phrases (VOICE.md, design prompt DP-8); "read YYYY-MM-DD" dates present next to published register figures (SG-22). Exemptions live in `data/p2/editorial-exemptions.json` and are printed when active |
 | `chrome` | the single navigation group ("The work behind it") and the footer directory appear on every page |
 | `seo` | canonical + og:image + parseable JSON-LD per page; sitemap covers exactly the built pages; robots.txt points at the sitemap; feed items resolve |
 | `publication` | every guide reaches the comparison, the buying guide and its cluster pillars (S-24 rule, automated); the feed covers every guide; the reader-capture form's consent checkbox and gate state match `settings.json`; the Search Console verification meta appears only while a token is configured |
@@ -68,7 +69,9 @@ python3 server.mjs --port 8787
 
 ## Test count
 
-`tools/checks.py` runs **9 check sections** covering 70+ individual assertions across
-24 pages (20 core + guides hub + 3 question-shaped guides added in the 2026-11-19
-publication pass). The engine has no other entry points; everything the site publishes flows
-through the build and the gate.
+`tools/checks.py` runs **14 check sections** covering 100+ individual assertions across
+32 pages (27 core pages of the 2026-11-20 shop-first build, plus the three handoff guides,
+analysis and design-prompt surfaces added in the 2026-11-20 integration pass). The disclosure
+sentence is read from `settings.json` rather than hardcoded, so the mandated wording and the
+enforced wording cannot drift apart. The engine has no other entry points; everything the site
+publishes flows through the build and the gate.

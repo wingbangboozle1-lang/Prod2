@@ -76,6 +76,27 @@ All five were **re-fetched live on 2026-11-20**; every observed string is record
 five listings show a neighbouring product's price or rating in the visible page; none of those were
 mistaken for the target product (F-P17).
 
+## The 2026-11-20 handoff-integration pass (arena/e0d92902-prod2)
+
+Two parallel PRs (#23, #25) were stale for over eight hours; per the coordination protocol's
+handoff rule their unique content was union-merged into this tree (D-P16), conflicts resolved at
+source, nothing discarded:
+
+- **Redirect + compliance re-verification (same day):** all five short links re-fetched live and
+  resolving to the five register ASINs with no `tag=`; the Program Policies, Operating Agreement,
+  ASIN definition, disclosure help topic and FTC guidance re-read. Evidence:
+  `data/p2/verification-2026-11-20.json` (session `e0d92902` section). F-P07 resolved.
+- **Three new question-shaped guides** (dual-vs-single capacity math; a leave-in probe in an air
+  fryer; an air-fryer gift checklist) — clustered, sitemap and feed.
+- **Two new decision surfaces:** `analysis.html` (capacity-to-depth ranking, coverage matrix,
+  funnel, verification ledger) and `design-prompt.html` (the design brief pack), backed by three
+  new registers (`decision-priority`, `design-prompts`, `verification-log`).
+- **Queues extended:** questions Q-P10..Q-P21 (its Q-P14 renumbered **Q-P22** after colliding with
+  PR #36's Q-P14) and suggestions SG-18..SG-26 — all review-gated, none implemented.
+- **Gate hardening:** the new `editorial` section (voice lint + read-date presence), and the gate
+  now reads the disclosure sentence from `settings.json` so mandated and enforced wording cannot
+  drift. Register tables carry per-field `read YYYY-MM-DD` chips.
+
 ## The site, by page
 
 | Page | Job |

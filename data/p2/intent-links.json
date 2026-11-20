@@ -3,9 +3,10 @@
     "description": "Product-intent confirmation record. For each submitted link: the intended ASIN and the official listing URL the site publishes, the date and source of that confirmation, and the observed redirect target kept in its own separate field. The two fields are never merged. Amazon defines the ASIN as the checkable product identifier (S-ASIN); the short-link path code is not an ASIN (F-67).",
     "tracking_id": "shopnow047c-20",
     "tracking_id_source": "Supplied by the owner in the brief (2026-11-19) and the preceding brief (2026-11-17). Format check: Amazon's help page (S-TAG, read 2026-11-17) states Amazon's software adds '-20' to Store IDs and a US Store ID ends in -20. Registration and activity of this ID are confirmable only inside Associates Central (F-57).",
-    "updated_utc": "2026-11-19",
+    "updated_utc": "2026-11-20",
     "method": "Each owner-submitted short link was fetched with redirects followed; the final listing URL and page title were read; the intended ASIN is the ASIN of that official listing. Observed redirects are stored as dated raw observations in observed_redirect_history and are never copied into intended_asin fields without a listing read. Not verified anywhere: Associates reporting, commission categories, tag attribution (F-57, F-58).",
-    "short_link_status_note": "The supplied short links are recorded verbatim and are not judged valid or invalid — their compliance status is unresolved (Zone3 FLG-003). The site publishes the tagged Special Links below as its outbound product hrefs (decisions D-01/D-14, carried; D-P06), per Participation Requirements 2(b) and 6(v)-(w): final destination URL with the tag as a parameter, no shortener."
+    "short_link_status_note": "The supplied short links are recorded verbatim and are not judged valid or invalid — their compliance status is unresolved (Zone3 FLG-003). The site publishes the tagged Special Links below as its outbound product hrefs (decisions D-01/D-14, carried; D-P06), per Participation Requirements 2(b) and 6(v)-(w): final destination URL with the tag as a parameter, no shortener.",
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): dated redirect observations appended for all five links after live fetches; intent fields unchanged."
   },
   "links": [
     {
@@ -27,10 +28,36 @@
       "special_link_status": "Published as the site's outbound product link per decisions D-01/D-14 (carried) and D-P06. Destination re-verified 2026-11-19. Attribution unverified until the one-link-per-product Associates Central test passes (F-57, F-58).",
       "intent_match": true,
       "observed_redirect_history": [
-        {"date_utc": "2026-11-14", "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3", "note": "First resolution; no tag=.", "record": "Zone4 data/verification-session-46c18cd1.json"},
-        {"date_utc": "2026-11-16", "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3", "note": "Same ASIN; no tag=.", "record": "Zone4 data/verification-session-4c552c78.json"},
-        {"date_utc": "2026-11-17", "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3", "note": "Same ASIN; Amazon source-token parameters only, no tag=.", "record": "Zone4 data/verification-session-1f4a7a22.json"},
-        {"date_utc": "2026-11-19", "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3", "note": "Same ASIN; title matches register; no tag=.", "record": "data/p2/verification-2026-11-19.json"}
+        {
+          "date_utc": "2026-11-14",
+          "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
+          "note": "First resolution; no tag=.",
+          "record": "Zone4 data/verification-session-46c18cd1.json"
+        },
+        {
+          "date_utc": "2026-11-16",
+          "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
+          "note": "Same ASIN; no tag=.",
+          "record": "Zone4 data/verification-session-4c552c78.json"
+        },
+        {
+          "date_utc": "2026-11-17",
+          "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
+          "note": "Same ASIN; Amazon source-token parameters only, no tag=.",
+          "record": "Zone4 data/verification-session-1f4a7a22.json"
+        },
+        {
+          "date_utc": "2026-11-19",
+          "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
+          "note": "Same ASIN; title matches register; no tag=.",
+          "record": "data/p2/verification-2026-11-19.json"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B0CDY277D3",
+          "note": "Same ASIN; title matches register; Amazon product-summary landing (lv=shuf); no tag=.",
+          "record": "data/p2/verification-2026-11-20.json (e0d92902 section)"
+        }
       ]
     },
     {
@@ -52,9 +79,30 @@
       "special_link_status": "Published as the site's outbound product link per decisions D-01/D-14 (carried) and D-P06. Destination re-verified 2026-11-19. Attribution unverified until the one-link-per-product Associates Central test passes (F-57, F-58).",
       "intent_match": true,
       "observed_redirect_history": [
-        {"date_utc": "2026-11-14", "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R", "note": "First resolution; no tag=.", "record": "Zone4 data/verification-session-46c18cd1.json"},
-        {"date_utc": "2026-11-16", "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R", "note": "Same ASIN; no tag=.", "record": "Zone4 data/verification-session-4c552c78.json"},
-        {"date_utc": "2026-11-19", "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R", "note": "Same ASIN; second title segment differs from 2026-11-14 read (F-44/F-66); no tag=.", "record": "data/p2/verification-2026-11-19.json"}
+        {
+          "date_utc": "2026-11-14",
+          "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R",
+          "note": "First resolution; no tag=.",
+          "record": "Zone4 data/verification-session-46c18cd1.json"
+        },
+        {
+          "date_utc": "2026-11-16",
+          "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R",
+          "note": "Same ASIN; no tag=.",
+          "record": "Zone4 data/verification-session-4c552c78.json"
+        },
+        {
+          "date_utc": "2026-11-19",
+          "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R",
+          "note": "Same ASIN; second title segment differs from 2026-11-14 read (F-44/F-66); no tag=.",
+          "record": "data/p2/verification-2026-11-19.json"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B09B7SB46R",
+          "note": "Same ASIN; title identical to the 2026-11-19 observed string (register name still differs — F-44/F-66); no tag=.",
+          "record": "data/p2/verification-2026-11-20.json (e0d92902 section)"
+        }
       ]
     },
     {
@@ -76,9 +124,30 @@
       "special_link_status": "Published as the site's outbound product link per decisions D-01/D-14 (carried) and D-P06. Destination re-verified 2026-11-19. Attribution unverified until the one-link-per-product Associates Central test passes (F-57, F-58).",
       "intent_match": true,
       "observed_redirect_history": [
-        {"date_utc": "2026-11-14", "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH", "note": "First resolution; no tag=.", "record": "Zone4 data/verification-session-46c18cd1.json"},
-        {"date_utc": "2026-11-16", "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH", "note": "Same ASIN; no tag=.", "record": "Zone4 data/verification-session-4c552c78.json"},
-        {"date_utc": "2026-11-19", "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH", "note": "Same ASIN; title matches register; no tag=.", "record": "data/p2/verification-2026-11-19.json"}
+        {
+          "date_utc": "2026-11-14",
+          "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH",
+          "note": "First resolution; no tag=.",
+          "record": "Zone4 data/verification-session-46c18cd1.json"
+        },
+        {
+          "date_utc": "2026-11-16",
+          "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH",
+          "note": "Same ASIN; no tag=.",
+          "record": "Zone4 data/verification-session-4c552c78.json"
+        },
+        {
+          "date_utc": "2026-11-19",
+          "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH",
+          "note": "Same ASIN; title matches register; no tag=.",
+          "record": "data/p2/verification-2026-11-19.json"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B08DKYBTPH",
+          "note": "Same ASIN; title matches register; no tag=.",
+          "record": "data/p2/verification-2026-11-20.json (e0d92902 section)"
+        }
       ]
     },
     {
@@ -100,7 +169,18 @@
       "special_link_status": "Published as the site's outbound product link per D-P06 after first destination verification 2026-11-19. Attribution unverified until the one-link-per-product Associates Central test passes (F-57, F-58).",
       "intent_match": true,
       "observed_redirect_history": [
-        {"date_utc": "2026-11-19", "final_url_without_query": "https://www.amazon.com/dp/B0DHZTCNR5", "note": "First resolution; no tag=.", "record": "data/p2/verification-2026-11-19.json"}
+        {
+          "date_utc": "2026-11-19",
+          "final_url_without_query": "https://www.amazon.com/dp/B0DHZTCNR5",
+          "note": "First resolution; no tag=.",
+          "record": "data/p2/verification-2026-11-19.json"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B0DHZTCNR5",
+          "note": "Same ASIN; title matches register; no tag=.",
+          "record": "data/p2/verification-2026-11-20.json (e0d92902 section)"
+        }
       ]
     },
     {
@@ -122,7 +202,18 @@
       "special_link_status": "Published as the site's outbound product link per D-P06 after first destination verification 2026-11-19. Attribution unverified until the one-link-per-product Associates Central test passes (F-57, F-58).",
       "intent_match": true,
       "observed_redirect_history": [
-        {"date_utc": "2026-11-19", "final_url_without_query": "https://www.amazon.com/dp/B0DZFD6R9Z", "note": "First resolution; no tag=.", "record": "data/p2/verification-2026-11-19.json"}
+        {
+          "date_utc": "2026-11-19",
+          "final_url_without_query": "https://www.amazon.com/dp/B0DZFD6R9Z",
+          "note": "First resolution; no tag=.",
+          "record": "data/p2/verification-2026-11-19.json"
+        },
+        {
+          "date_utc": "2026-11-20",
+          "final_url_without_query": "https://www.amazon.com/dp/B0DZFD6R9Z",
+          "note": "Same ASIN; title matches register (3-probe Gen3); no tag=.",
+          "record": "data/p2/verification-2026-11-20.json (e0d92902 section)"
+        }
       ]
     }
   ]

@@ -1,0 +1,72 @@
+{
+  "_meta": {
+    "description": "Verification ledger: one dated row per official-source check, with the URL a human can click to repeat it. The rule (adopted as Q-P11's default while that question stays open): no product value is published from a page whose listing has not been re-read inside 30 days.",
+    "updated_utc": "2026-11-19",
+    "written_by": "arena/b650562d-prod2"
+  },
+  "entries": [
+    {
+      "checked_utc": "2026-11-19",
+      "by": "arena/b650562d-prod2",
+      "target": "https://link.amazon/B04G1MEwY",
+      "result": "resolves to /dp/B0CDY277D3; page title matches data/p2/products.json name_listing character for character; no tag= on the resolved URL",
+      "note": "Redirect followed live. Confirms P1 identity and keeps F-03 standing."
+    },
+    {
+      "checked_utc": "2026-11-19",
+      "by": "arena/b650562d-prod2",
+      "target": "https://link.amazon/B02NbDxp3",
+      "result": "resolves to /dp/B09B7SB46R; title segment '24 One-Touch Preset Options' matches the register's 2026-11-19 read",
+      "note": "Drift watch: this listing's second title segment has differed on earlier reads (F-44, F-66). Today's read agrees with the published string."
+    },
+    {
+      "checked_utc": "2026-11-19",
+      "by": "arena/b650562d-prod2",
+      "target": "https://link.amazon/B00hJ57DV",
+      "result": "resolves to /dp/B08DKYBTPH; 'Chefman Air Fryer 8 Qt | TurboFry 4-in-1 with 450F Hi-Fry Option…' matches the register",
+      "note": "P3 remains part of a 6/8/9-quart variant family (F-08)."
+    },
+    {
+      "checked_utc": "2026-11-19",
+      "by": "arena/b650562d-prod2",
+      "target": "https://link.amazon/B0c8moW59",
+      "result": "resolves to /dp/B0DHZTCNR5; ThermoMaven 1 Sec listing title matches, including '±0.5℉ Accuracy | NIST&NSF Certified' wording and 'Black' colour segment",
+      "note": "P4 identity re-confirmed. The NIST/NSF wording is quoted as the listing states it, not adopted as this site's claim."
+    },
+    {
+      "checked_utc": "2026-11-19",
+      "by": "arena/b650562d-prod2",
+      "target": "https://link.amazon/B0f3GKalj",
+      "result": "resolves to /dp/B0DZFD6R9Z; CHEF iQ Sense Gen3 title matches the register's 3-probe configuration",
+      "note": "P5 identity re-confirmed. Size options 1/2/3/4 probes remain on the listing (F-P05)."
+    },
+    {
+      "checked_utc": "2026-11-19",
+      "by": "arena/b650562d-prod2",
+      "target": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE",
+      "result": "the required statement appears there as 'As an Amazon Associate I earn from qualifying purchases.'; link-level disclosure must be clear and conspicuous",
+      "note": "Drove D-P07: the strip now carries the mandated sentence verbatim with the site's plain-language line under it."
+    },
+    {
+      "checked_utc": "2026-11-19",
+      "by": "arena/b650562d-prod2",
+      "target": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
+      "result": "PA-API 5 is deprecated and replaced by the Creators API; calls to the old endpoint return HTTP 403 AccessDenied",
+      "note": "Recorded as F-P10 and SG-33. No code in this repository calls any product API today, so nothing is broken by it."
+    },
+    {
+      "checked_utc": "2026-11-19",
+      "by": "arena/b650562d-prod2",
+      "target": "gh api repos/wingbangboozle1-lang/Prod2/pages",
+      "result": "Pages build type remains legacy (no 'workflow' source set); latest build status 'built'",
+      "note": "Confirms the root mirror is what readers see; the Actions-mode flip stays admin-only (F-58)."
+    },
+    {
+      "checked_utc": "2026-11-19",
+      "by": "arena/236bc1ed-prod2",
+      "target": "https://link.amazon/B04G1MEwY and https://link.amazon/B0c8moW59",
+      "result": "two of five short links re-read; both matched the register",
+      "note": "Carried row. Superseded for coverage by the five 2026-11-19 rows above (F-P07 closed)."
+    }
+  ]
+}

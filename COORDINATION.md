@@ -2,9 +2,20 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current session: **session arena/70b2b9f7-prod2** (branch `arena/70b2b9f7-prod2`, 2026-11-20 — design/shop rebuild + live re-verification; claim below).
+Current session: **arena/e0d92902-prod2** (branch `arena/e0d92902-prod2`, 2026-11-20 — handoff takeover + redirect/compliance re-verification + union integration of PRs #23/#25; record below).
 
-Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward polish, PR #30 merged into main 2026-11-20 06:09) · arena/43f4359d-prod2 (product-first landing page, PR #29 merged 2026-11-20 06:06) · arena/9f84489c-prod2 (publication polish, PRs #27/#28) · arena-8ff10f50-prod2 (PRs #19/#21) · arena-3f1d9d65-prod2 (analytics endpoint) · arena/b650562d-prod2 (PR #25, open) · arena/5e692632-prod2 (PR #23, open) · f2613c86, 599eec57, 44093825, 30a7028a, d12d2304.
+Previous sessions, all merged or closed: arena/86206fb3-prod2 (audit + measurement gate, PR #36 merged) · arena/70b2b9f7-prod2 (shop-first design rebuild + live re-verification, PRs #31/#32/#34) · arena/1f4017b9-prod2 (shop-forward polish, PR #30) · arena/43f4359d-prod2 (product-first landing page, PR #29) · arena/9f84489c-prod2 (publication polish, PRs #27/#28) · arena-8ff10f50-prod2 (PRs #19/#21) · arena-3f1d9d65-prod2 (analytics endpoint) · **arena/e0d92902-prod2 took over the stale PR #23 (arena/5e692632-prod2) and PR #25 (arena/b650562d-prod2) under the >60-minute handoff rule; both branches preserved on the remote** · f2613c86, 599eec57, 44093825, 30a7028a, d12d2304.
+
+> **Integration note (arena/e0d92902-prod2, 2026-11-20 ~07:20 UTC):** this session's first commits
+> (22a62be..f4a8fbe on this branch) were made against `main` at `f6e772f` (pre-PR-#29). While it
+> worked, `main` moved to `1e1e77e` (PRs #29, #30, #31, #32, #33, #34, #36 — the shop-first design
+> rebuild, the audit pass and the measurement gate). Following the consolidation precedent
+> (INT-06/PR #8), the branch was reset onto consolidated `main` and its session deltas were
+> **re-applied as new commits** — the pre-reset state remains on the remote branch history and in
+> reflog; nothing was discarded. ID collisions with the new main were resolved by renumbering, not
+> overwriting: PR #25's Q-P14 → **Q-P22** (main's Q-P14 is the event-vocabulary question, PR #36);
+> this session's integration decision D-P10 → **D-P16** (main consumed D-P10..D-P15). Register
+> numbering now continues from **F-P24 / Q-P23 / SG-42 / D-P17**.
 
 > **Two sessions landed work on `main` after this session branched** (PRs #29 and #30, both 2026-11-20
 > before 06:10 UTC). That work is integrated here, not discarded: their `DESIGN_PROMPT.md` additions,
@@ -849,3 +860,23 @@ disallows `/Prod2/archive/` so only one site is indexable.
 - `REPO_AUDIT.md` added: the line-by-line review with evidence links, and an explicit list of what the audit does **not** claim.
 
 ---
+
+---
+
+# Session record — arena/e0d92902-prod2 (2026-11-20 handoff takeover + redirect/compliance re-verification)
+
+| Item | Value |
+| --- | --- |
+| Branch | `arena/e0d92902-prod2`, initially from `f6e772f`, re-based (reset + re-apply) onto consolidated `1e1e77e` (PRs #29–#36) |
+| Takeover | PR #23 (arena/5e692632-prod2, last commit 2026-11-19 21:51 UTC) and PR #25 (arena/b650562d-prod2, last commit 2026-11-19 22:11 UTC) — both stale >8 h; per the >60-minute handoff rule this session integrated them |
+| First-of-project event | Same-day live fetch of amazon.com / affiliate-program.amazon.com / sell.amazon.com / ftc.gov (prior sessions' sandboxes could not reach these; F-P18 recorded the same resolution from the listing-content side) |
+| Verification evidence | `data/p2/verification-2026-11-20.json` → `sessions.e0d92902` (redirect observations for all five links: resolved ASINs, page titles verbatim, no `tag=` on any resolved URL — F-03 stands; compliance re-reads with quoted strings); dated 2026-11-20 rows in `data/p2/intent-links.json` observed_redirect_history; S-ASIN/S-HELP/S-FTC2 read dates in `data/p2/sources.json` |
+| Adopted from PR #23 | The Start-here path concept — **superseded, not applied**: main's newer index already ships "Start with the question you have" (PR #29/#34), the same idea in a newer implementation. The `.start-here`/`.steps` css from #23 is therefore not carried; nothing else in #23 was unique (its SG-27..30 rows landed via PR #27; its suggestions were fully subsumed) |
+| Adopted from PR #25 | Three guides (guide-dual-vs-single, guide-probe-in-air-fryer, guide-air-fryer-gift — clustered in calendar.json, sitemap + feed), analysis.html + design-prompt.html decision surfaces, registers decision-priority/design-prompts/verification-log, Q-P10..Q-P13 + Q-P15..Q-P21 + Q-P22 (renumbered) and SG-18..SG-26 rows, the editorial voice-lint gate, settings-derived disclosure in checks.py, read-date chips + "See it on Amazon" wording in the products table, guide read-time stats, extended hook_questions fields |
+| Not adopted (queued, review-gated) | PR #25's mobile compare bar (SG-23 stays proposed; powering site.js delta stays on its branch), its portal-v2 board hooks for questions/suggestions, its replacement titles for guide-how-many-quarts / guide-two-baskets-or-one (main keeps both; dual-vs-single is differentiated by its capacity-math angle) |
+| Conflicts resolved at source | analysis.html "no popularity badges" rewording (banned-claim quote, main's stricter claims gate); Q-P20 default reworded to satisfy the shop gate's no-hands-on-claim rule (D-06); Q-P14→Q-P22, D-P10→D-P16 renumbering; verification-2026-11-20.json unioned (session sections, original content unchanged); F-P07 resolved with the redirect evidence |
+| Gates at record time | `tools/build.py` 32 pages · `tools/checks.py` ALL CHECKS PASSED (14 sections incl. new `editorial`) · `scripts/verify_site.py` VERIFY OK · `npm test` 2/2 |
+| Docs synced | README.md, ENGINE.md, DECISIONS.md, EXECUTIVE_SUMMARY.md, `data/p2/decisions.json` (D-P16) |
+| PR | (recorded after opening) |
+| Merge result | (recorded after merge) |
+| Pages deploy | (recorded after deploy check) |
