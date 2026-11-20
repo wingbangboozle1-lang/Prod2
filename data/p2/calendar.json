@@ -1,9 +1,9 @@
 {
  "_meta": {
   "description": "Editorial calendar: publishing cadence, seasonal desks and content clusters. Consumed by tools/build.py. The topic queue is carried from data/calendar.json (arena/cd3cddd6-prod2, 2026-11-19); slot 1 shipped early in the 2026-11-19 publication pass (guide-two-baskets-or-one.html).",
-  "updated_utc": "2026-11-19",
+  "updated_utc": "2026-11-20",
   "evidence_rule": "No season or topic is justified by a search-volume or trend figure (D-19 / F-15). Each exists because it answers a question a buyer of the verified five products can actually ask, answerable from the verified register. Seasons follow the US calendar because the marketplace is amazon.com (settings.marketplace).",
-  "last_change": "2026-11-19 integration (arena/9f84489c-prod2): guide-instant-vs-leave-in.html (PR #20) wired into the thermometers cluster and the grilling-season desk."
+  "last_change": "2026-11-20 (arena/f55b5827-prod2): gifting season opened with guide-gift-guide.html (shipped ahead of the cadence, same precedent as slot 1); queue extended with slots 6-9 as editorial hypotheses (D-19) — measured queries take over selection once the SG-06 gate + 14 days of data exist (SG-34)."
  },
  "cadence": {
   "unit": "one new question-shaped guide",
@@ -25,6 +25,18 @@
     "guide-how-many-quarts.html"
    ],
    "status": "live 2026-11-19"
+  },
+  {
+   "id": "holiday-gifting",
+   "name": "Holiday gifting",
+   "window": "December (US)",
+   "line": "A machine that takes counter space is a risky gift — match it to the cook, not the mood.",
+   "guides": [
+    "guide-gift-guide.html",
+    "guide-how-many-quarts.html",
+    "guide-instant-vs-leave-in.html"
+   ],
+   "status": "live 2026-11-20"
   },
   {
    "id": "grilling-season",
@@ -52,7 +64,8 @@
     "guide-multifunction.html",
     "guide-how-many-quarts.html",
     "guide-two-baskets-or-one.html",
-    "guide-holiday-hosting.html"
+    "guide-holiday-hosting.html",
+    "guide-gift-guide.html"
    ]
   },
   {
@@ -63,7 +76,8 @@
    "guides": [
     "guide-thermometer-accuracy.html",
     "guide-holiday-hosting.html",
-    "guide-instant-vs-leave-in.html"
+    "guide-instant-vs-leave-in.html",
+    "guide-gift-guide.html"
    ]
   }
  ],
@@ -97,7 +111,31 @@
    "due_utc": "2027-01-28",
    "title": "Nonstick, ceramic, stainless: what the basket coating means for cleanup",
    "answers_with": "Materials fields verified for P1-P3"
+  },
+  {
+   "slot": 6,
+   "due_utc": "2027-02-11",
+   "title": "Party-day batch math: how a dual-basket air fryer handles appetizer waves",
+   "answers_with": "Batch math from the capacity guide applied to P1's two 3 qt zones; no recipes invented"
+  },
+  {
+   "slot": 7,
+   "due_utc": "2027-02-25",
+   "title": "Will a 26-quart air fryer oven fit your counter? A measuring walkthrough",
+   "answers_with": "P2's listed dimensions plus the counter-space analysis formula; clearance framing from listed values only"
+  },
+  {
+   "slot": 8,
+   "due_utc": "2027-03-11",
+   "title": "Dishwasher-safe, nonstick, or stainless: what the basket material means for spring cleanup",
+   "answers_with": "Material and dishwasher-safe fields verified on P1-P3 listings"
+  },
+  {
+   "slot": 9,
+   "due_utc": "2027-03-25",
+   "title": "Reading a thermometer listing: probe length, temperature range, and response time without the jargon",
+   "answers_with": "Listed specs on P4/P5 (accuracy claims, waterproofing, probe range) with the F-26-style discrepancy check"
   }
  ],
- "queue_note": "Slot 1 of the original queue ('Dual-basket vs single-basket: when are two drawers actually better than one?') shipped 2026-11-19 as guide-two-baskets-or-one.html, ahead of its 2026-12-03 date."
+ "queue_note": "Slot 1 of the original queue ('Dual-basket vs single-basket: when are two drawers actually better than one?') shipped 2026-11-19 as guide-two-baskets-or-one.html, ahead of its 2026-12-03 date. The December gifting slot shipped 2026-11-20 as guide-gift-guide.html under the seasonal-desk activation, with the same rule: sourced facts + 'what we could not verify' block required before publish. Slots 6-9 are hypotheses awaiting either their due date or measured-query demand (SG-34)."
 }

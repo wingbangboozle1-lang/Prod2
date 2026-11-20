@@ -2,7 +2,7 @@
  "_meta": {
   "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
   "updated_utc": "2026-11-20",
-  "last_change": "2026-11-20 (arena/86206fb3-prod2): F-P22 resolved; F-P23 opened; F-P19/F-P20 rewritten with the measured root-mode exposure (196 source files, live anonymous GET verified); F-P12 resolved."
+  "last_change": "2026-11-20 reconciliation of three parallel passes: shop-front pass added F-P15..F-P20; event-vocabulary pass added F-P22/F-P23; anti-slop pass added the working-brand clearance flag F-P21. IDs kept disjoint; nothing discarded."
  },
  "flags": [
   {
@@ -334,6 +334,15 @@
    "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
    "evidence_note": "the allowedEvents set in server.mjs vs the event list in docs/assets/js/measure.js and data/p2/events.json",
    "how_to_resolve": "Pick one vocabulary: extend server.mjs to accept the three site events, or change measure.js to emit the endpoint's names. Record it as a decision, then gate the two lists against each other."
+  },
+  {
+   "id": "F-P21",
+   "title": "Working brand “The Crisp Counter” adopted on the owner's directive without formal trademark clearance",
+   "detail": "The 2026-11-20 anti-slop pass replaced the repository codename 'Prod2' on reader-facing surfaces with the design brief's working brand (decision D-P18). A preliminary web search that day returned no conflicting kitchen-appliance brand in the first page of results, but no formal USPTO/state/common-law search has been run. Until clearance, the brand is provisional and one-line reversible (data/p2/settings.json).",
+   "evidence": "https://tmsearch.uspto.gov/",
+   "evidence_note": "USPTO trademark search — the formal check that would resolve this; the preliminary 2026-11-20 web-search record sits in D-P10's sources.",
+   "how_to_resolve": "Run the formal clearance (Q-P10 / Q-19), then either ratify the name in the decision log or revert via settings.json and rebuild.",
+   "status": "open"
   }
  ]
 }

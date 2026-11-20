@@ -2,7 +2,7 @@
 
 Repo: `wingbangboozle1-lang/Prod2`
 Tracking ID: `shopnow047c-20`
-Current session: **session arena/70b2b9f7-prod2** (branch `arena/70b2b9f7-prod2`, 2026-11-20 — design/shop rebuild + live re-verification; claim below).
+Current sessions (2026-11-20, three parallel passes reconciled on this branch): **session arena/f55b5827-prod2** (branch `arena/f55b5827-prod2`, anti-slop design + working-brand + gifting-guide pass — claim below) · arena/70b2b9f7-prod2 (shop-front design rebuild + live re-verification, PR #31) · arena/86206fb3-prod2 (exposure canaries + F-P19/F-P20 rewrites + event-vocabulary publication, PRs #37/#38). This branch merges both and reconciles all three registers.
 
 Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward polish, PR #30 merged into main 2026-11-20 06:09) · arena/43f4359d-prod2 (product-first landing page, PR #29 merged 2026-11-20 06:06) · arena/9f84489c-prod2 (publication polish, PRs #27/#28) · arena-8ff10f50-prod2 (PRs #19/#21) · arena-3f1d9d65-prod2 (analytics endpoint) · arena/b650562d-prod2 (PR #25, open) · arena/5e692632-prod2 (PR #23, open) · f2613c86, 599eec57, 44093825, 30a7028a, d12d2304.
 
@@ -11,6 +11,63 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 > their `scripts/build_site.py` shelf work and their `tools/build.py` "Best for" intent are all
 > preserved. Where the two builds disagreed on the same reader-facing surface, the newer design
 > system in this branch wins and the reasoning is recorded in the resolution note below.
+
+---
+
+## PARALLEL CLAIM — session arena/f55b5827-prod2 (2026-11-20, anti-slop design + brand + seasonal pass)
+
+Ran in parallel with the two passes above (both also branched from f6e772f). **Reconciled by this
+session's merges of origin/main (PRs #29–#31 and #37–#38): nothing from any pass was discarded.**
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| V-01 Ship the adopted brief's typography (self-hosted Fraunces + Inter, OFL) + design-token conformance | done | arena/f55b5827-prod2 | `assets/fonts/*`, `assets/css/site.css` |
+| V-02 Working-brand adoption on the owner directive ("The Crisp Counter") + preliminary name search; formal clearance stays open (Q-19) | done | arena/f55b5827-prod2 | `data/p2/settings.json`, `tools/make_og.py`, `assets/img/og-card.png`, `data/p2/flags.json` (as F-P21) |
+| V-03 Catchy seasonal guide (December gifting window) + calendar queue extension (hypotheses only, D-19) | done | arena/f55b5827-prod2 | `content/pages/guide-gift-guide.html`, `data/p2/calendar.json`, `tools/build.py` |
+| V-04 Decision-making improvements + suggestion batch (SG-38..SG-40, SG-42, SG-43 added; runbook at SG-44) | done | arena/f55b5827-prod2 | `data/p2/suggestions.json`, `content/pages/suggestions.html` |
+| V-05 Questions / missing-information register additions (Q-P10, Q-P11) | done | arena/f55b5827-prod2 | `data/p2/questions.json` |
+| V-06 Register + docs sync (decisions D-P18..D-P20 after remap) | done | arena/f55b5827-prod2 | `data/p2/decisions.json`, `*.md`, `tools/build.py` (BUILD_DATE) |
+| V-07 Integration: reconcile all three passes, rebuild both outputs, gate, line-by-line re-verify, PR to main, merge, Pages live check | done | arena/f55b5827-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+### Claim results (V-01..V-07, 2026-11-20)
+
+- **V-01 (typography + tokens):** Fraunces (600 normal, 400 italic) + Inter (400/500/600/700) shipped as latin
+  woff2 subsets in `assets/fonts/`, SIL OFL 1.1 license files committed beside them, `font-display: swap`,
+  zero third-party requests. Files via @fontsource/fraunces@5.3.0 and @fontsource/inter@5.3.0
+  (registry.npmjs.org; upstreams github.com/undercasetype/Fraunces, github.com/rsms/inter — linked in D-P19).
+  The merged design system consumes them through its token layer.
+- **V-02 (working brand):** "The Crisp Counter" on every reader-facing surface (masthead, titles, JSON-LD,
+  feed, footer, OG card). Preliminary name search 2026-11-20 (web search, first page — no kitchen-appliance
+  conflict; formal clearance NOT performed): recorded in D-P18 sources (tmsearch.uspto.gov is the resolver).
+  Clearance flag published as **F-P21**. Six page titles shortened to keep the 70-char gate green.
+- **V-03 (seasonal guide):** `guide-gift-guide.html` shipped (December gifting window; gifting seasonal card
+  in `data/p2/calendar.json`; queue slots 6-9). Every fact traces to the register; carries the mandatory
+  "What we could not verify" block; D-19 respected. All gift-guide facts re-checked against the merged
+  register after each reconciliation (16.9" depth, sync finish, 8 qt + 450°F + shake reminder, 1-second
+  NIST/NSF ±0.5°F IP67, 3 probes + 1000°F — all present).
+- **V-04 (suggestions):** SG-15/16/31/32/33/38/40 statused; SG-39/SG-43 added; SG-42 closed as rejected on
+  the D-P11 policy read; the organic-discovery runbook lives at **SG-44** (remapped twice from SG-41 after
+  two ID collisions). Suggestions page carries the three-path chooser PLUS the decision-maker/decide-by
+  path block (SG-32).
+- **V-05 (questions):** Q-P10 (brand ratification + clearance, D-P18/F-P21) and Q-P11 (availability
+  snapshots — answered no by the D-P11 policy read) added.
+- **V-06 (registers + docs):** decisions at **D-P18 (working brand), D-P19 (typography + token
+  conformance), D-P20 (gifting window)**; remap history documented in each register's meta.
+- **Second verification pass (2026-11-20):** all five official listing URLs re-fetched; document titles
+  (verbatim listing titles) + breadcrumbs matched the register — **agrees with the shop-front pass's deep
+  read in `data/p2/verification-2026-11-20.json`**, which is the primary record for this date.
+- **V-07 (integration):** `tools/build.py` + `tools/checks.py` → ALL CHECKS PASSED; `scripts/build_site.py`
+  + `scripts/verify_site.py` → VERIFY OK; `npm test` → 2/2; rebuild reproducibility confirmed. PR + merge +
+  Pages check recorded in the PR record below.
+
+### Reconciliation note (read this before editing the registers)
+
+Three sessions on 2026-11-20 independently used the D-P10+/F-P15+/SG-4x+ ID spaces. Final assignment:
+**decisions** D-P10..D-P14 (shop-front), D-P15 (event-vocabulary publication, arena/86206fb3-prod2),
+D-P18..D-P20 (anti-slop, remapped twice — the collision history is in the decision log's meta);
+**flags** F-P15..F-P20 (shop-front), F-P21 (anti-slop, remapped from F-P15), F-P22/F-P23 (event-vocab);
+**suggestions** SG-38..SG-40 + SG-42..SG-44 (anti-slop; SG-41 belongs to the event-vocab pass).
+Every cross-reference on the built pages resolves (the validity gate checks register IDs).
 
 ---
 

@@ -60,7 +60,7 @@ def main() -> None:
     img = Image.new("RGB", (W, H), PAPER)
     d = ImageDraw.Draw(img)
 
-    f_brand = ImageFont.truetype(SERIF_B, 58)
+    f_brand = ImageFont.truetype(SERIF_B, 44)  # working brand is longer; fits its row (measured below)
     f_desc = ImageFont.truetype(SANS_B, 20)
     f_head = ImageFont.truetype(SERIF_B, 68)
     f_sub = ImageFont.truetype(SANS, 28)
@@ -71,12 +71,13 @@ def main() -> None:
     d.rectangle([0, 0, W, 12], fill=TERRACOTTA)
 
     # ---- brand row ----------------------------------------------------------
-    d.text((MARGIN, 56), "Prod2", font=f_brand, fill=INK)
-    brand_w = d.textlength("Prod2", font=f_brand)
+    brand = "The Crisp Counter"  # working brand — D-P18 (clearance open, F-P21)
+    d.text((MARGIN, 60), brand, font=f_brand, fill=INK)
+    brand_w = d.textlength(brand, font=f_brand)
     # the wordmark's own terracotta full stop
-    d.text((MARGIN + brand_w, 56), ".", font=f_brand, fill=TERRACOTTA)
+    d.text((MARGIN + brand_w, 60), ".", font=f_brand, fill=TERRACOTTA)
     desc_x = MARGIN + brand_w + 26
-    d.text((desc_x, 84), "KITCHEN NOTES & BUYING GUIDES", font=f_desc, fill=MUTED)
+    d.text((desc_x, 86), fit(d, "KITCHEN NOTES & BUYING GUIDES", f_desc, W - desc_x - MARGIN), font=f_desc, fill=MUTED)
 
     # ---- headline, confined to the left column ------------------------------
     head_max_w = CHIP_X - MARGIN - 28

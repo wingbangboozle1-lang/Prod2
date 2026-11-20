@@ -43,6 +43,9 @@ This file mirrors `data/p2/decisions.json`, which is what the site renders on th
 | D-P13 | 2026-11-20 | Disclosure adopts the prescribed first-person sentence from Operating Agreement §5 |
 | D-P14 | 2026-11-20 | The thermometer guide publishes USDA/FoodSafety.gov safe-temperature, storage and power-outage data, quoted with last-reviewed dates |
 | D-P15 | 2026-11-20 | This file rebuilt from the register after drifting from the shipped site (see the note above) |
+| D-P18 | 2026-11-20 | **Working brand "The Crisp Counter"** on all reader-facing surfaces (anti-slop pass, arena/f55b5827-prod2). Owner's standing directive; preliminary name search clean; formal clearance open (Q-19/Q-P10, flag F-P21). One-line reversible in settings.json |
+| D-P19 | 2026-11-20 | **The design brief's typography ships**: self-hosted Fraunces + Inter (SIL OFL 1.1) consumed by the shop design system's token layer; plus the brief's mobile conformance (amber attention states, 44px tap targets, sticky comparison anchor bar, focus-visible outlines) |
+| D-P20 | 2026-11-20 | **December gifting window opened**: guide-gift-guide.html from the verified register; gifting seasonal card; queue slots 6-9 as editorial hypotheses (D-19); measured queries take over at the SG-06 gate |
 
 ## Open — a choice is waiting
 
@@ -50,6 +53,8 @@ This file mirrors `data/p2/decisions.json`, which is what the site renders on th
 | --- | --- | --- | --- |
 | Q-01 | Is the Associates account enrolled under `shopnow047c-20`, and has each link been validated in it? | Access to Associates Central | Owner: generate one Special Link, test one click, read the report |
 | Q-19 | Is the site's trade name cleared, and does it contain an Amazon Mark? | Trademark search | Clear a name before renaming (SG-01) |
+| Q-P10 | Does the owner ratify the working brand "The Crisp Counter", and will formal clearance run? | USPTO/state/common-law search (preliminary web search clean, D-P18) | Owner + counsel; revert is one line if not ratified |
+| Q-P11 | May the site publish availability snapshots? | — | **Answered: no.** The same clause as prices (Program Policies §2(b), D-P11) |
 | Q-23 | Where can the self-hosted analytics endpoint run? | Hosting choice | Any Node host; GitHub Pages cannot run it |
 | Q-27 | May the site publish prices under a dated-snapshot rule? | — | **Answered: no.** See D-P11 |
 | Q-31 | Is P2's preset count 24 or 25? | The listing body copy | The title states 24; the body was not captured in enough detail to settle it |

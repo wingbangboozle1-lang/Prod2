@@ -55,7 +55,7 @@ PROD_BY_ID = {p["id"]: p for p in PRODUCTS}
 # ---------------------------------------------------------------------------
 PAGES = [
     ("index", "index.html",
-     f"Air fryers and meat thermometers, chosen by format | {BRAND}",
+     f"Air fryers and thermometers by format | {BRAND}",
      "Three air fryers in three formats and two meat thermometers, compared by capacity, counter fit and cleanup. Every figure cites the official listing it came from.",
      "home"),
     ("shop", "shop.html",
@@ -63,7 +63,7 @@ PAGES = [
      "One shelf: three air fryer formats and two thermometer workflows, filtered by what you cook and how much counter you can spare. Paid links, marked.",
      "shop"),
     ("about", "about.html",
-     f"About {BRAND}: who writes this and how we check | {BRAND}",
+     f"About this site: who writes it, how we check | {BRAND}",
      "Who edits this site, the four rules every page follows, how figures are read and dated, and exactly what we cannot tell you yet.",
      "about"),
     ("compare", "compare.html",
@@ -75,7 +75,7 @@ PAGES = [
      "Full listed specifications with read dates and source links, plus the product-intent confirmation record for every submitted link. Blank means unverified.",
      "products"),
     ("buying-guide", "buying-guide.html",
-     f"Buying guide: choose by format, capacity and counter fit | {BRAND}",
+     f"Buying guide: format, capacity and counter fit | {BRAND}",
      "A buying guide that starts from your kitchen, not a brand: format first, then capacity, then counter depth, then cleanup — with the questions that decide each.",
      "guides"),
     ("guide-basket-vs-oven", "guide-basket-vs-oven.html",
@@ -103,7 +103,7 @@ PAGES = [
      "Quarts on a listing describe volume, not people. A serving-count sanity check built from the listed capacities of the three air fryers, each sourced.",
      "guides"),
     ("guide-two-baskets-or-one", "guide-two-baskets-or-one.html",
-     f"Two baskets or one: when do two drawers earn their space? | {BRAND}",
+     f"Two baskets or one: when two drawers earn it | {BRAND}",
      "Dual-zone or one big basket? The batch math and the listed specs that decide it: sync finish, shake reminders, and who cooks two dishes at once.",
      "guides"),
     ("guide-holiday-hosting", "guide-holiday-hosting.html",
@@ -111,19 +111,23 @@ PAGES = [
      "Big meals, borrowed counter space, eat-in waves. Which air-fryer format and which thermometer workflow fit holiday hosting, from listed specs only.",
      "guides"),
     ("guide-instant-vs-leave-in", "guide-instant-vs-leave-in.html",
-     f"Instant-read vs leave-in: which thermometer for which cook | {BRAND}",
+     f"Instant-read vs leave-in: which one fits you | {BRAND}",
      "Spot-check in a second, or watch a long cook from your phone? How an instant-read and a wireless leave-in thermometer differ by workflow, with listed specs.",
+     "guides"),
+    ("guide-gift-guide", "guide-gift-guide.html",
+     f"Gift guide: which of the five fits which cook? | {BRAND}",
+     "Match each of the five machines to the cook who would actually use it: weeknight juggling, from-scratch roasting, small kitchens, grill-side checks, long smokes.",
      "guides"),
     ("guides", "guides.html",
      f"Guides: one buyer question per page | {BRAND}",
      "Every buying guide on this site, grouped by cluster and season, each answering a single question with sourced figures. A new guide every two weeks.",
      "guides"),
     ("category-air-fryers", "category-air-fryers.html",
-     f"Air fryers: dual-basket, toaster-oven, single-basket | {BRAND}",
+     f"Air fryers: the three formats compared | {BRAND}",
      "Three air-fryer formats compared by the decision that matters — how they fit your counter and your cooking. Listed specs only, each with its source.",
      "categories"),
     ("category-thermometers", "category-thermometers.html",
-     f"Meat thermometers: instant-read vs wireless leave-in | {BRAND}",
+     f"Meat thermometers: instant-read vs leave-in | {BRAND}",
      "Two thermometers compared: a one-second instant-read with certified accuracy claims, and a wireless leave-in probe set. Listed specs only, sourced.",
      "categories"),
     ("executive-summary", "executive-summary.html",
@@ -151,7 +155,7 @@ PAGES = [
      "Every recorded decision, its question, its outcome and its sources — carried decisions keep their original dates.",
      "work"),
     ("measurement", "measurement.html",
-     f"Measurement: events, clicks and the campaign ledger | {BRAND}",
+     f"Measurement: events, clicks, campaign ledger | {BRAND}",
      "The privacy-preserving click counter, the five defined events with attribution windows, the analytics endpoint, and the empty campaign ledger.",
      "work"),
     ("compliance", "compliance.html",
@@ -166,7 +170,8 @@ PAGES = [
 
 GUIDE_IDS = ["guide-basket-vs-oven", "guide-capacity", "guide-cleanup-counter-space",
              "guide-multifunction", "guide-thermometer-accuracy", "guide-how-many-quarts",
-             "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in"]
+             "guide-two-baskets-or-one", "guide-holiday-hosting", "guide-instant-vs-leave-in",
+             "guide-gift-guide"]
 GUIDE_TITLES = {g: dict((p[0], p[2]) for p in PAGES)[g] for g in GUIDE_IDS}
 
 
@@ -239,6 +244,7 @@ GUIDE_LINKS = [
     ("guide-two-baskets-or-one.html", "Two baskets or one?"),
     ("guide-holiday-hosting.html", "Holiday hosting formats"),
     ("guide-instant-vs-leave-in.html", "Instant-read vs leave-in"),
+    ("guide-gift-guide.html", "The gift guide"),
     ("guides.html", "All guides"),
 ]
 
@@ -664,6 +670,7 @@ GUIDE_BLURBS = {
     "guide-two-baskets-or-one": "Batch math meets listed specs: when two drawers beat one big basket.",
     "guide-holiday-hosting": "Big meals, borrowed counter space, eat-in waves: the format that holds up.",
     "guide-instant-vs-leave-in": "Check at the counter in a second, or watch a long roast from your phone.",
+    "guide-gift-guide": "Five machines, five kinds of cooks: match the gift to the person, from listed specs.",
 }
 GUIDE_TAGS = {
     "guide-basket-vs-oven": "Format",
@@ -675,6 +682,7 @@ GUIDE_TAGS = {
     "guide-two-baskets-or-one": "Format",
     "guide-holiday-hosting": "Seasonal",
     "guide-instant-vs-leave-in": "Thermometers",
+    "guide-gift-guide": "Seasonal",
 }
 
 

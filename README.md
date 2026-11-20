@@ -1,7 +1,9 @@
-# Prod2 — an editorial Amazon affiliate shop
+# Prod2 — The Crisp Counter (editorial Amazon affiliate shop)
 
 Five kitchen tools (three air fryers in three formats, two meat thermometers), written up as a
-buying guide and sold through Amazon Associates. Tracking ID `shopnow047c-20`.
+buying guide and sold through Amazon Associates. Tracking ID `shopnow047c-20`. The reader-facing
+publication ships under the working brand **The Crisp Counter** (decision D-P18, 2026-11-20, on the
+owner's anti-slop directive; formal name clearance open as Q-19/F-P21).
 
 **Live site:** https://wingbangboozle1-lang.github.io/Prod2/
 

@@ -1,3 +1,51 @@
+<<<<<<< HEAD
+/* ----------
+   Self-hosted typefaces (D-P19, 2026-11-20): Fraunces + Inter, latin subsets,
+   SIL Open Font License 1.1 — license files in assets/fonts/. font-display:
+   swap; no third-party font requests.
+   ---------- */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/inter-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/inter-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/inter-latin-700-normal.woff2") format("woff2");
+=======
 /* Self-hosted type (2026-11-20). No font CDN: the privacy statement promises no
    third-party requests, and a CDN would leak every reader's IP to one.
    Fraunces = display, Inter = UI/body. Both SIL OFL 1.1; see assets/fonts/LICENSE.txt. */
@@ -24,6 +72,7 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+>>>>>>> origin/main
 }
 
 /* ==========================================================================
@@ -98,6 +147,20 @@ body {
 }
 .skip:focus { left: 0; top: 0; }
 :focus-visible { outline: 3px solid var(--terracotta); outline-offset: 2px; border-radius: 3px; }
+
+
+/* ---------- sticky comparison anchor bar (brief 'Mobile-first rules', D-15; SG-16) ---------- */
+.anchor-bar {
+  position: sticky; top: 0; z-index: 55; display: none;
+  gap: .45rem; padding: .55rem 1.25rem; background: var(--paper-deep);
+  border-bottom: 1px solid var(--rule); overflow-x: auto;
+}
+.anchor-bar a {
+  flex: 0 0 auto; padding: .45rem .95rem; min-height: 44px; display: inline-flex; align-items: center;
+  background: var(--paper-card); border: 1px solid var(--rule); border-radius: 999px;
+  font-size: .88rem; font-weight: 600; color: var(--ink-soft); text-decoration: none;
+}
+.anchor-bar a:hover { border-color: var(--terracotta); color: var(--terracotta-deep); }
 
 /* ---------- masthead ---------- */
 .masthead {
@@ -614,6 +677,9 @@ a.src:hover { color: var(--ink); }
   .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
 }
 @media (max-width: 60rem) {
+  /* sticky comparison anchors: the tall masthead unsticks so the anchor bar owns the sticky slot */
+  .masthead { position: static; }
+  .anchor-bar { display: flex; }
   .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
   .hero-note { position: static; margin-top: .8rem; max-width: none; }
   .hero h1 { max-width: 22ch; }
@@ -630,7 +696,9 @@ a.src:hover { color: var(--ink); }
   main { padding: 0 1.1rem 3rem; }
   .masthead-row { gap: .7rem; }
   .nav { gap: .9rem; }
-  .nav a, .nav-work summary { font-size: .88rem; }
+  .nav a, .nav-work summary { font-size: .88rem; padding: .6rem 0; } /* 44px tap targets (brief D-15) */
+  .nav-work-menu a { min-height: 44px; display: flex; align-items: center; }
+  .tile { min-height: 44px; }
   .nav-work-menu { right: auto; left: 0; }
   .format-tiles { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
