@@ -72,3 +72,47 @@ test('endpoint aggregates the Countercraft event family safely',async(t)=>{
   assert.equal(counts['filter_apply|filter'],1);
   assert.equal(counts['guide_read|guide'],1);
 });
+
+test('the publication client and this endpoint agree on every event name (F-P23 regression)',async(t)=>{
+  // The defect this guards: assets/js/measure.js shipped five event names, three
+  // of which this endpoint answered 400 to, so two thirds of the site's
+  // measurement was lost without any error a reader could see. The event list is
+  // read out of measure.js itself, so the two files cannot drift apart again
+  // without this test failing.
+  const client = await readFile(path.join(ROOT,'assets','js','measure.js'),'utf8');
+  const match = client.match(/var EVENTS = \[([^\]]+)\]/);
+  assert.ok(match,'measure.js must declare its EVENTS array');
+  const events=[...match[1].matchAll(/["']([a-z0-9_]+)["']/g)].map(m=>m[1]);
+  assert.equal(events.length,5,'the site publishes exactly five events (data/p2/events.json)');
+  const port=await freePort();
+  const store=path.join(ROOT,'var','test-events-vocab.json');
+  await rm(store,{force:true});
+  const child=spawn(process.execPath,['server.mjs'],{cwd:ROOT,env:{...process.env,PORT:String(port),EVENT_STORE:store},stdio:['ignore','pipe','pipe']});
+  let logs='';child.stdout.on('data',x=>logs+=x.toString());child.stderr.on('data',x=>logs+=x.toString());
+  t.after(async()=>{child.kill('SIGTERM');await new Promise(resolve=>child.once('exit',resolve));await rm(store,{force:true});});
+  let ready=false;
+  for(let n=0;n<60;n++){try{const r=await fetch(`http://127.0.0.1:${port}/`);if(r.ok){ready=true;break;}}catch{}await new Promise(resolve=>setTimeout(resolve,50));}
+  assert.ok(ready,`server did not start: ${logs}`);
+  // Payload shapes copied from measure.js record() calls.
+  const shapes={
+    page_view:{path:'/guide-capacity.html'},
+    outbound_click:{asin:'B0CDY277D3',target:'www.amazon.com'},
+    guide_read_75:{path:'/guide-capacity.html'},
+    category_click:{target:'air-fryers'},
+    feed_click:{}
+  };
+  for(const event of events){
+    assert.ok(shapes[event],`test needs a sample payload for ${event}`);
+    const r=await fetch(`http://127.0.0.1:${port}/api/events`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({event,path:'/shop.html',...shapes[event]})});
+    assert.equal(r.status,204,`endpoint must accept the site's own event "${event}"`);
+  }
+  const stored=await readFile(store,'utf8');
+  const counts=JSON.parse(stored);
+  assert.equal(counts['page_view|/guide-capacity.html'],1,'page_view must key off path, not collapse to /unknown');
+  assert.equal(counts['outbound_click|B0CDY277D3'],1,'outbound_click must keep the ASIN valid');
+  assert.equal(counts['guide_read_75|/guide-capacity.html'],1);
+  assert.equal(counts['category_click|air-fryers'],1);
+  assert.equal(counts['feed_click|feed'],1);
+  assert.equal(Object.keys(counts).length,5,'five distinct keys, no /unknown bucket');
+  assert.equal(stored.includes('www.amazon.com'),false,'the target host must not be stored');
+});

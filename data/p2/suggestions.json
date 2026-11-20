@@ -9,7 +9,7 @@
       "shipped": "Live in the current build.",
       "rejected": "Recorded as not adopted; revisit only if the recorded decision changes."
     },
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): SG-18..SG-26 appended verbatim from the arena/b650562d-prod2 register (stale PR #25 handoff); shared-row statuses keep main values. Review-gated: nothing implemented."
+    "last_change": "2026-11-20 (arena/644d217b-prod2): SG-45..SG-47 added — long-form argument pieces (shipped), the one-dropdown Pages fix ranked first by payoff, and the imagery question split into a safe path and a licensed path. | 2026-11-20 (arena/e0d92902-prod2): SG-18..SG-26 appended verbatim (stale PR #25 handoff); review-gated."
   },
   "suggestions": [
     {
@@ -440,7 +440,7 @@
     {
       "id": "SG-41",
       "title": "Gate the event vocabulary so the site and the endpoint cannot drift again",
-      "status": "proposed",
+      "status": "shipped",
       "evidence": "F-P23; allowedEvents in server.mjs vs the event list in data/p2/events.json",
       "proposal": "Add a check that parses the event names out of server.mjs's allowedEvents set and out of the event list the site ships, then fails the build when they differ. Ten lines; it turns a silent under-count into a red build.",
       "impact": "High — prevents a silent under-count once the endpoint is hosted.",
@@ -448,7 +448,8 @@
       "risk": "Low. Pure test code; touches no runtime path.",
       "depends_on": "Q-P14 (the vocabulary choice)",
       "recommendation": "Adopt as soon as Q-P14 is answered — it is the cheapest possible insurance on a measurement surface.",
-      "problem": "F-P23: three of the site's five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree."
+      "problem": "F-P23: three of the site's five events (guide_read_75, category_click, feed_click) are rejected by server.mjs as written, so the two halves of the measurement surface disagree.",
+      "progress": "Shipped 2026-11-20 (arena/644d217b-prod2): tools/checks.py section 'measurement' now fails the build when the shipped client can send an event the collector rejects, and tests/server.test.mjs reads the five names out of assets/js/measure.js so the two files cannot drift. See D-P21 / F-P23."
     },
     {
       "id": "SG-38",
@@ -545,6 +546,53 @@
       ],
       "status": "proposed",
       "recommendation": "Accept as the first measured-iteration item; do nothing until the gate opens."
+    },
+    {
+      "id": "SG-45",
+      "title": "Publish long-form argument pieces, not only checklists",
+      "problem": "The ten guides are 430-800 words and each one ends by restating the same method rule. A reader who wants to know what actually decides a purchase has nowhere to read an argument, and a search engine has ten thin pages competing with each other on near-identical framing.",
+      "proposal": "Ship one long read (1,200-1,400 words) per buying decision, built on an official guidance source the listings do not carry — USDA FSIS placement and temperature guidance, land-grant extension food-safety guidance. Each long read states a position, cites every figure, and carries the site's standing 'what we could not verify' block.",
+      "evidence": "Two shipped 2026-11-20: article-thermometer-placement.html (1,295 words) and article-air-fryer-doneness.html (1,212 words), both sourced to pages read that day (S-FSIS-THERMO, S-FSIS-CHART, S-UNL-AIRFRYER).",
+      "impact": "High — depth is the only durable difference between this site and an affiliate listing scrape; it also gives guides something to link to instead of to each other.",
+      "effort": "One long read per cadence cycle (currently 14 days).",
+      "risk": "Slower cadence than short guides; mitigated by keeping one short guide per cycle alive.",
+      "depends_on": [
+        "SG-34"
+      ],
+      "status": "shipped",
+      "progress": "Shipped 2026-11-20 (arena/644d217b-prod2): two long reads live and wired into the sitemap, feed, JSON-LD and both category pillars.",
+      "recommendation": "Keep doing it. Next candidates, in order: counter depth vs door swing (needs a tape-measure verification by the owner), then a gift piece rewritten for January returns season."
+    },
+    {
+      "id": "SG-46",
+      "title": "Move to one deployable artifact and retire the repo-root mirror",
+      "problem": "GitHub Pages serves this repository's ROOT in legacy mode, so every reader-facing page is committed twice (docs/ and the root mirror) and 196 source files sit at fetchable paths. The mitigation in place (canaries, a mirror script, an exposition gate, flags F-P19/F-P20) makes the exposure visible; it does not remove it.",
+      "proposal": "Owner flips Settings -> Pages -> Source to GitHub Actions. That is one dropdown. ./github/workflows/pages.yml already builds docs/ and uploads it as an artifact, so the workflow needs no change; the root mirror and both canary files can then be deleted.",
+      "evidence": "Measured 2026-11-20: Pages API returns build_type 'legacy', source main /; a token-scoped PUT to build_type=workflow returned 403. The workflow that would publish docs/ only already exists and is green.",
+      "impact": "High — halves the file count in the repo, removes the double-commit in every pass, and closes the largest open compliance item.",
+      "effort": "About two minutes of owner time; one follow-up commit here to delete the mirror.",
+      "risk": "A brief window where the site serves the workflow artifact instead of the root. Revert is the same dropdown.",
+      "depends_on": [
+        "F-P19",
+        "F-P20"
+      ],
+      "status": "proposed",
+      "recommendation": "Do this first. It is the cheapest item on the board with the largest structural payoff, and unlike every other item it needs no editorial judgement."
+    },
+    {
+      "id": "SG-47",
+      "title": "Get one authoritative gallery image per product through the official channel, or keep drawings",
+      "problem": "Every product card carries an illustration rather than a photo, because copying a listing image is restricted by Amazon's IP License. Illustrations are honest but they are also the single biggest reason the shelf does not look like a shop.",
+      "proposal": "Either (a) enrol in the Amazon Associates product-advertising/PA-API route and pull the official image with the licensed link, which is the only compliant way to show real photography, or (b) commission a consistent illustration set so at least the drawings look deliberate rather than placeholder.",
+      "evidence": "Operating Agreement Section 1 / IP License and Usage Requirements, read 2026-11-20; the site's own note under every card reads 'Illustration, not the product photo'.",
+      "impact": "High for click-through; zero for compliance.",
+      "effort": "(a) needs API access; (b) is a design pass.",
+      "risk": "(a) is blocked on API approval, which is outside this project's control. (b) is safe and reversible.",
+      "depends_on": [
+        "Q-P05"
+      ],
+      "status": "proposed",
+      "recommendation": "Run (b) now; switch to (a) only if API access is granted."
     },
     {
       "id": "SG-25",

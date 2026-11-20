@@ -3,7 +3,7 @@
     "description": "Editorial calendar: publishing cadence, seasonal desks and content clusters. Consumed by tools/build.py. The topic queue is carried from data/calendar.json (arena/cd3cddd6-prod2, 2026-11-19); slot 1 shipped early in the 2026-11-19 publication pass (guide-two-baskets-or-one.html).",
     "updated_utc": "2026-11-20",
     "evidence_rule": "No season or topic is justified by a search-volume or trend figure (D-19 / F-15). Each exists because it answers a question a buyer of the verified five products can actually ask, answerable from the verified register. Seasons follow the US calendar because the marketplace is amazon.com (settings.marketplace).",
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): guide-dual-vs-single (air fryers) and guide-probe-in-air-fryer (thermometers) added from the arena/b650562d-prod2 handoff. Its guide-air-fryer-gift is superseded by main's guide-gift-guide (same reader intent, already registered) — recorded on the board, not shipped twice."
+    "last_change": "2026-11-20 (arena/644d217b-prod2): two long-form pieces registered in the thermometer and air-fryer clusters; they carry an argument rather than a checklist and are tracked as SG-45. | 2026-11-20 (arena/e0d92902-prod2): guide-dual-vs-single + guide-probe-in-air-fryer added from the arena/b650562d-prod2 handoff (its gift guide superseded by guide-gift-guide)."
   },
   "cadence": {
     "unit": "one new question-shaped guide",
@@ -66,6 +66,7 @@
         "guide-two-baskets-or-one.html",
         "guide-holiday-hosting.html",
         "guide-gift-guide.html",
+        "article-air-fryer-doneness.html",
         "guide-dual-vs-single.html"
       ]
     },
@@ -79,6 +80,7 @@
         "guide-holiday-hosting.html",
         "guide-instant-vs-leave-in.html",
         "guide-gift-guide.html",
+        "article-thermometer-placement.html",
         "guide-probe-in-air-fryer.html"
       ]
     }
@@ -139,5 +141,36 @@
       "answers_with": "Listed specs on P4/P5 (accuracy claims, waterproofing, probe range) with the F-26-style discrepancy check"
     }
   ],
-  "queue_note": "Slot 1 of the original queue ('Dual-basket vs single-basket: when are two drawers actually better than one?') shipped 2026-11-19 as guide-two-baskets-or-one.html, ahead of its 2026-12-03 date. The December gifting slot shipped 2026-11-20 as guide-gift-guide.html under the seasonal-desk activation, with the same rule: sourced facts + 'what we could not verify' block required before publish. Slots 6-9 are hypotheses awaiting either their due date or measured-query demand (SG-34)."
+  "queue_note": "Slot 1 of the original queue ('Dual-basket vs single-basket: when are two drawers actually better than one?') shipped 2026-11-19 as guide-two-baskets-or-one.html, ahead of its 2026-12-03 date. The December gifting slot shipped 2026-11-20 as guide-gift-guide.html under the seasonal-desk activation, with the same rule: sourced facts + 'what we could not verify' block required before publish. Slots 6-9 are hypotheses awaiting either their due date or measured-query demand (SG-34).",
+  "longreads": {
+    "description": "Long-form pieces: one buying decision argued from an official guidance source the listings do not carry. Same rules apply: every figure sourced, mandatory 'what we could not verify' block.",
+    "items": [
+      {
+        "path": "article-thermometer-placement.html",
+        "cluster": "thermometers",
+        "words_checked": 1295,
+        "sources": [
+          "S-FSIS-THERMO",
+          "S-FSIS-CHART",
+          "S-P4",
+          "S-P5"
+        ],
+        "published_utc": "2026-11-20"
+      },
+      {
+        "path": "article-air-fryer-doneness.html",
+        "cluster": "air-fryers",
+        "words_checked": 1212,
+        "sources": [
+          "S-UNL-AIRFRYER",
+          "S-FSIS-CHART",
+          "S-FSIS-THERMO",
+          "S-P1",
+          "S-P2",
+          "S-P3"
+        ],
+        "published_utc": "2026-11-20"
+      }
+    ]
+  }
 }

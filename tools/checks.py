@@ -25,13 +25,16 @@ Sections:
                robots.txt points at the sitemap; feed items resolve
   shop         one shelf page with all five cards, buy buttons, imagery that
                exists, an About page, and no hands-on-testing claim
+  longreads    every long read registered in the calendar exists, shows inline
+               sources, carries its "what we could not verify" block, cites only
+               allow-listed official hosts, and is in the sitemap and the feed
   publication  guides reach compare + buying guide + their cluster pillars (S-24);
                feed covers every guide; reader-capture gate consistent with
                settings; Search Console verification meta matches the token slot
   exposition   the publish artifact is docs/ only; source is never servable;
                link.amazon short links are quoted evidence, never clickable
-  measurement  the site's event list vs the endpoint's accepted names; divergence
-               is printed as a published irregularity (F-P23), not hidden
+  measurement  the site's event list vs the endpoint's accepted names; any
+               divergence FAILS the build (F-P23 fixed 2026-11-20, D-P21)
   freshness    docs/ matches a rebuild from data/ + content/ (no stale output)
 """
 from __future__ import annotations
@@ -469,6 +472,46 @@ def main() -> int:
     if not FAILURES:
         ok("guides link their pillars; feed covers guides; capture gate and verification meta consistent")
 
+    # -------------------------------------------------------------- long reads
+    check("longreads")
+    # Rules for long-form pieces (added 2026-11-20). A long read is an argument,
+    # so the failure modes are different from a guide's: it can ship without a
+    # source next to its figures, or without saying what it could not verify.
+    cal = json.loads((DATA / "calendar.json").read_text(encoding="utf-8"))
+    longreads = (cal.get("longreads") or {}).get("items") or []
+    if not longreads:
+        note("no long reads registered in data/p2/calendar.json")
+    for item in longreads:
+        name = item["path"]
+        f = DOCS / name
+        if not f.exists():
+            fail(f"registered long read missing from the build: {name}")
+            continue
+        text = f.read_text(encoding="utf-8")
+        if "What we could not verify" not in text:
+            fail(f"{name}: long read has no 'what we could not verify' block")
+        # Every external citation must be a real URL on an https official host.
+        # Exclude the site's own absolute URLs (canonical, nav, assets): only
+        # third-party citations count as evidence.
+        base = re.search(r'<link rel="canonical" href="(https://[^/"]+)', text)
+        own = base.group(1) if base else ""
+        ext = {u for u in re.findall(r'href="(https://[^"]+)"', text) if not u.startswith(own)}
+        if not ext:
+            fail(f"{name}: long read cites nothing external")
+        for url in ext:
+            host = re.sub(r"^https://([^/]+).*$", r"\1", url)
+            if not re.search(r"(amazon\.com|usda\.gov|food\.unl\.edu|ftc\.gov|google\.com|github\.com)$", host):
+                fail(f"{name}: cites an unregistered host {host} — add it to the allowlist deliberately")
+        # A claim-carrying paragraph should show a source marker on the page.
+        if text.count('class="src-inline"') < 3:
+            fail(f"{name}: fewer than 3 inline source markers; a long read must show its receipts")
+        if f"/{name}" not in (DOCS / "sitemap.xml").read_text(encoding="utf-8"):
+            fail(f"{name}: long read is not in the sitemap")
+        if f"/{name}" not in (DOCS / "feed.xml").read_text(encoding="utf-8"):
+            fail(f"{name}: long read is not in the feed")
+    if not FAILURES:
+        ok(f"{len(longreads)} long reads: sourced, verified-block present, in sitemap and feed")
+
     # ------------------------------------------------------------ shop surface
     check("shop")
     if not (DOCS / "shop.html").exists():
@@ -545,18 +588,39 @@ def main() -> int:
     if server.exists() and site_js.exists():
         m = re.search(r"allowedEvents\s*=\s*new Set\(\[(.*?)\]\)", server.read_text(encoding="utf-8"), re.S)
         server_events = set(re.findall(r"'([a-z_0-9]+)'", m.group(1))) if m else set()
-        site_events = set(re.findall(r"name:\s*'([a-z_0-9]+)'", site_js.read_text(encoding="utf-8")))
-        if not site_events:
-            site_events = set(re.findall(r"'([a-z_0-9]+)'", site_js.read_text(encoding="utf-8")))
         events_doc = json.loads((ROOT / "data" / "p2" / "events.json").read_text(encoding="utf-8"))
         declared = {e["name"] for e in events_doc["events"]}
-        rejected = sorted(e for e in declared if server_events and e not in server_events)
-        if rejected:
-            note(f"endpoint would reject: {', '.join(rejected)} — F-P23 / Q-P14")
-        ok(f"{len(declared)} site events; endpoint accepts {len(server_events)} names"
-           + (f"; {len(rejected)} mismatched (published, not blocking)" if rejected else ""))
+        # Read the shipped client's own list too, not just the register: the client
+        # is what actually posts, and it is the file that drifted from the register
+        # in the first place. Any name it can send that the endpoint rejects is a
+        # silent 400 in production, so this is a hard failure now, not a note.
+        client_txt = (ROOT / "assets" / "js" / "measure.js").read_text(encoding="utf-8")
+        cm = re.search(r"var EVENTS = \[(.*?)\]", client_txt, re.S)
+        client_events = set(re.findall(r"\"([a-z_0-9]+)\"|'([a-z_0-9]+)'", cm.group(1))) if cm else set()
+        client_events = {a or b for a, b in client_events}
+        if not server_events:
+            fail("server.mjs: allowedEvents list could not be parsed")
+        elif not client_events:
+            fail("assets/js/measure.js: EVENTS list could not be parsed")
+        else:
+            rejected = sorted(e for e in declared | client_events if e not in server_events)
+            undocumented = sorted(e for e in client_events if e not in declared)
+            if rejected:
+                fail("the shipped client can send events the endpoint answers 400 to, "
+                     f"so those counts are lost silently: {', '.join(rejected)} (F-P23)")
+            if undocumented:
+                fail(f"the client sends events missing from data/p2/events.json: {', '.join(undocumented)}")
+            ok(f"{len(declared)} declared site events; {len(client_events)} sent by measure.js; "
+               f"endpoint accepts {len(server_events)} names; 0 unmatched")
     else:
         note("server.mjs or measure.js missing — vocabulary cross-check skipped")
+    # The depth event must fire on long reads too, not only on guide pages.
+    # Both new articles were invisible to the old check (2026-11-20).
+    mjs = (ROOT / "assets" / "js" / "measure.js").read_text(encoding="utf-8")
+    if 'indexOf("article")' not in mjs:
+        fail("measure.js: guide_read_75 does not cover article-* pages, so long reads are unmeasured")
+    else:
+        ok("depth event covers both guide-* and article-* pages")
 
     # -------------------------------------------------------------- freshness
     check("freshness")

@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Flag register. Status: open | resolved | standing. Open flags are published on the Flagged for Review page and do not block publication. Every flag carries an evidence link. IDs F-01…F-67 are carried from the prior project registers (S-PRIOR3, S-PRIOR4) with their evidence; F-Pxx are new in this project.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): F-P07 resolved (full redirect re-read); F-P24 updated with the contradicting same-day evidence (flag stays open for the owner)."
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): F-P07 resolved; F-P24 updated with contradicting same-day evidence (flag stays open)."
   },
   "flags": [
     {
@@ -193,7 +193,7 @@
       "evidence": "https://link.amazon/B02NbDxp3",
       "evidence_note": "Submitted link for P2; the three unrefreshed short links are listed in data/p2/intent-links.json.",
       "how_to_resolve": "Re-read all five short links in the next publishing pass. Not automated yet; a check that fails on a redirect change would close this gap.",
-      "resolution_note": "2026-11-20 (arena/e0d92902-prod2): all five submitted short links re-fetched live in one pass; each resolved to its register ASIN (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z), no tag= on any resolved URL. Evidence: sessions.e0d92902.redirect_observations in data/p2/verification-2026-11-20.json and dated rows in data/p2/intent-links.json."
+      "resolution_note": "2026-11-20 (arena/e0d92902-prod2): all five submitted short links re-fetched live in one pass; each resolved to its register ASIN (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z), no tag= on any resolved URL. Evidence: sessions.e0d92902.redirect_observations in data/p2/verification-2026-11-20.json; dated rows in data/p2/intent-links.json."
     },
     {
       "id": "F-P08",
@@ -329,12 +329,14 @@
     },
     {
       "id": "F-P23",
-      "status": "open",
+      "status": "resolved",
       "title": "The site's five events and the endpoint's accepted vocabulary do not match",
       "detail": "measure.js would send page_view, outbound_click, guide_read_75, category_click and feed_click. server.mjs accepts page_view, outbound_click, guide_open, category_open, rss_feed_click, chooser_completed, article_half_read, disclosure_viewed, cta_click, product_click, filter_apply and guide_read. Three of the five site events (guide_read_75, category_click, feed_click) would be rejected by the only endpoint in this repository. Nothing is lost today because the endpoint is not hosted and the site transmits nothing, but connecting them unchanged would silently under-count. Not corrected in this pass because choosing the vocabulary is a decision, not a typo.",
       "evidence": "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs",
       "evidence_note": "the allowedEvents set in server.mjs vs the event list in docs/assets/js/measure.js and data/p2/events.json",
-      "how_to_resolve": "Pick one vocabulary: extend server.mjs to accept the three site events, or change measure.js to emit the endpoint's names. Record it as a decision, then gate the two lists against each other."
+      "how_to_resolve": "Pick one vocabulary: extend server.mjs to accept the three site events, or change measure.js to emit the endpoint's names. Record it as a decision, then gate the two lists against each other.",
+      "resolution": "Resolved 2026-11-20 (arena/644d217b-prod2). The collector now accepts the site's five documented events (page_view, outbound_click, guide_read_75, category_click, feed_click) and keys each one correctly: page_view reads the site's path field instead of collapsing to /unknown, outbound_click keeps the ASIN, category_click and guide_read_75 are aggregated rather than rejected. The preserved Countercraft event family is still accepted, so nothing that already posts to this endpoint is dropped. A regression test (tests/server.test.mjs) reads the event names out of assets/js/measure.js itself, and tools/checks.py section 'measurement' now FAILS the build when the client can send a name the endpoint rejects. Hosting the endpoint is still owner action (F-19/Q-23).",
+      "resolved_utc": "2026-11-20"
     },
     {
       "id": "F-P21",
@@ -348,12 +350,12 @@
     {
       "id": "F-P24",
       "title": "Submitted link.amazon short links did not resolve to product listings in the 2026-11-20 live re-check",
-      "detail": "On 2026-11-20 the five submitted link.amazon URLs were fetched with redirects followed. Four resolved to the Amazon homepage (https://www.amazon.com/) and one returned HTTP 500. The five ASIN listing pages (https://www.amazon.com/dp/{ASIN}) were all live and their titles match data/p2/products.json exactly. The register's earlier redirect history (2026-11-14, 16, 17, 19) recorded these short links resolving to the same ASINs. The site does not publish the short links as buy paths (they render as quoted text under F-03), so no reader-facing link is broken by this. The difference is not explained: it may be a fetch-tool artifact or a change in the short-link service. Intended-ASIN fields were NOT changed. Full record: data/p2/live-check-2026-11-20-722181aa.json. See contradicting_evidence: an earlier same-day pass observed 5/5 successful resolutions.",
+      "detail": "On 2026-11-20 the five submitted link.amazon URLs were fetched with redirects followed. Four resolved to the Amazon homepage (https://www.amazon.com/) and one returned HTTP 500. The five ASIN listing pages (https://www.amazon.com/dp/{ASIN}) were all live and their titles match data/p2/products.json exactly. The register's earlier redirect history (2026-11-14, 16, 17, 19) recorded these short links resolving to the same ASINs. The site does not publish the short links as buy paths (they render as quoted text under F-03), so no reader-facing link is broken by this. The difference is not explained: it may be a fetch-tool artifact or a change in the short-link service. Intended-ASIN fields were NOT changed. Full record: data/p2/live-check-2026-11-20-722181aa.json.",
       "evidence": "https://www.amazon.com/dp/B0CDY277D3",
       "evidence_note": "Live /dp/ listing for P1 (title matches register). Short-link observations and the four other ASIN pages are in data/p2/live-check-2026-11-20-722181aa.json.",
       "how_to_resolve": "Owner (or any reviewer with a normal browser) opens each of the five link.amazon URLs and records the final URL and ASIN in a dated redirect observation in data/p2/intent-links.json. If the short links no longer resolve to the registered ASINs, the intended_asin values stay as the /dp/ pages show and the mismatch is escalated under F-03 / F-57.",
       "status": "open",
-      "contradicting_evidence": "2026-11-20 ~06:10-06:15 UTC (arena/e0d92902-prod2, minutes before the 722181aa re-check): the same five fetches resolved 5/5 to the register ASINs (page titles recorded verbatim in data/p2/verification-2026-11-20.json, sessions.e0d92902.redirect_observations). Three independent sessions (2026-11-14..19 records, this 2026-11-20 pass) observed successful resolutions; the 722181aa pass observed homepage redirects/HTTP 500 minutes later. The pattern fits an intermittent fetch artifact (bot-detection or rate-limiting serving the homepage) rather than a service change, but only a manual browser check settles it — the flag stays open for the owner."
+      "contradicting_evidence": "2026-11-20 ~06:10-06:15 UTC (arena/e0d92902-prod2, minutes before the 722181aa re-check): the same five fetches resolved 5/5 to the register ASINs (page titles verbatim in data/p2/verification-2026-11-20.json, sessions.e0d92902). Three independent sessions (2026-11-14..19 records plus this pass) observed successful resolutions; the 722181aa pass observed homepage redirects/HTTP 500 minutes later. Pattern fits an intermittent fetch artifact (bot-detection or rate limiting) rather than a service change; a manual browser check settles it — flag stays open for the owner."
     }
   ]
 }

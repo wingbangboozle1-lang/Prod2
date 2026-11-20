@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Decision log. D-01…D-27 numbering is carried from the prior register (S-PRIOR4) where the decision predates this project; each row keeps its recorded date and outcome. D-Pxx are decisions recorded in this project.",
     "updated_utc": "2026-11-20",
-    "last_change": "2026-11-20 (arena/e0d92902-prod2): D-P21 recorded (handoff integration of stale PRs #23/#25; renumbered D-P10 -> D-P16 -> D-P21 through the merge race)."
+    "last_change": "2026-11-20 (arena/e0d92902-prod2): D-P22 recorded (handoff integration; renumbered D-P10 -> D-P16 -> D-P21 -> D-P22 through the merge race)."
   },
   "decisions": [
     {
@@ -301,6 +301,21 @@
     },
     {
       "id": "D-P21",
+      "question": "Which event vocabulary is authoritative when the site's client and the collector disagree?",
+      "status": "Recorded 2026-11-20",
+      "recorded_choice": "The site's five documented events (page_view, outbound_click, guide_read_75, category_click, feed_click) are authoritative, because they are the published contract in data/p2/events.json and the ones the reader-facing measurement page describes. The collector was changed to accept them, not the reverse: renaming the site's events to fit the endpoint would have made the published register wrong. The collector keeps its older Countercraft names as additional accepted values so no existing client breaks.",
+      "rationale": "Flags F-P23 and Q-P14 recorded a silent 400 on three of five events. Publishing a measurement page while the receiving endpoint drops the majority of events is a correctness defect, not a style choice, so it is fixed rather than merely disclosed.",
+      "sources": [
+        "https://github.com/wingbangboozle1-lang/Prod2/blob/main/server.mjs"
+      ],
+      "affects": [
+        "F-P23",
+        "Q-P14",
+        "SG-41"
+      ]
+    },
+    {
+      "id": "D-P22",
       "question": "How is the 2026-11-20 pass (handoff takeover of stale PRs #23/#25 + first same-day live verification) recorded as decisions?",
       "status": "Recorded 2026-11-20",
       "recorded_choice": "Adopted: (a) same-day live verification of all five submitted short links plus compliance pages, recorded in data/p2/verification-2026-11-20.json with dated observations appended to the intent register; (b) PR #25 content union — guides guide-dual-vs-single, guide-probe-in-air-fryer, guide-air-fryer-gift (clustered in calendar.json), analysis.html and design-prompt.html decision surfaces, registers decision-priority/design-prompts/verification-log, question rows Q-P10..Q-P21 and suggestion rows SG-18..SG-26 verbatim, the editorial voice-lint gate, and the settings-derived disclosure sentence in checks.py; (c) PR #23 content union — the Start here path on the front page. Not adopted (queued, review-gated): PR #25 mobile compare bar (SG-23 remains proposed; the site.js delta that powers it stays on that branch), its portal-v2 board hooks for questions/suggestions (main keeps the PR #27 status tables), and its replacement of guide titles for guide-how-many-quarts/guide-two-baskets-or-one (main keeps both; guide-dual-vs-single is differentiated by its capacity-math angle). Conflicts resolved at source without discarding the other sessions' work; their branches remain on the remote.",
@@ -309,7 +324,7 @@
         "https://github.com/wingbangboozle1-lang/Prod2/pull/25",
         "https://github.com/wingbangboozle1-lang/Prod2/blob/main/data/p2/verification-2026-11-20.json"
       ],
-      "renumber_note": "Renumbered twice during the 2026-11-20 race: D-P10 -> D-P16 (after PRs #29-#36 consumed D-P10..D-P15) -> D-P21 (after PRs #39/#40 consumed D-P16..D-P20). Content unchanged."
+      "renumber_note": "Renumbered through the 2026-11-20 merge race: D-P10 -> D-P16 -> D-P21 -> D-P22 (main consumed each ID in PRs #29-#44). Content unchanged."
     }
   ]
 }

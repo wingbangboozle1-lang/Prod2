@@ -75,8 +75,12 @@
     });
 
     /* guide depth: fire once at 75% scroll on guide pages */
+    /* guide pages AND long-form articles: both are long reads, so both can reach
+       the 75% depth event. Articles were added 2026-11-20 (build ids start with
+       "article-"); without this they would have been silently unmeasured. */
     if (document.body.getAttribute("data-page") &&
-        document.body.getAttribute("data-page").indexOf("guide") === 0) {
+        (document.body.getAttribute("data-page").indexOf("guide") === 0 ||
+         document.body.getAttribute("data-page").indexOf("article") === 0)) {
       var fired = false;
       window.addEventListener("scroll", function () {
         if (fired) return;
