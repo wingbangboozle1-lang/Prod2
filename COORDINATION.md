@@ -46,6 +46,17 @@ Protocol note: this session works only on its assigned branch `arena/d5157db6-pr
 3. Pages source is still `main /` (F-P19 / F-P20). Owner action: Settings → Pages → Source: GitHub Actions.
 4. Analytics endpoint is deployable but not hosted (F-19 / Q-23). Search Console is not verified (Q-P08).
 
+### PR / merge / deploy record — arena/d5157db6-prod2
+
+| Item | Value |
+| --- | --- |
+| PR | https://github.com/wingbangboozle1-lang/Prod2/pull/50 |
+| Merge result | **Merged 2026-11-20 06:51:34 UTC**, merge commit `51a02ac` (`gh pr merge 50 --merge`) |
+| Checks on PR | `test` pass · `verify` pass |
+| Workflows on merge commit | verify-site ✓ · Self-hosted analytics tests ✓ · Deploy to GitHub Pages ✓ (run 44690776303) · pages build and deployment ✓ |
+| Live check | https://wingbangboozle1-lang.github.io/Prod2/flagged.html served with the Flagged-for-review register; the F-P24 entry is in the built `docs/flagged.html` |
+| Status | R-01..R-04 **done**. Claim released. |
+
 ## ACTIVE CLAIM — session arena/644d217b-prod2 (2026-11-20, reader-first publication pass + integration)
 
 Branched from `4398598` (main after PR #33). This session is both the working session and the
