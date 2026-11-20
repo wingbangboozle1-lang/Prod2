@@ -14,6 +14,39 @@ Previous sessions, all merged or closed: arena/1f4017b9-prod2 (shop-forward poli
 
 ---
 
+## ACTIVE CLAIM — session arena/d8b3c61e-prod2 (2026-11-20, final integration: source-link compliance + reader-facing depth + integration)
+
+Branched from `main` at `51a02ac` (PR #53 merge). This session is the **final integration session**
+for this pass: it verifies the combined data line by line, closes the last reader-facing
+compliance defect, and publishes to GitHub Pages.
+
+**Open PRs and how this session treats them (logged, not edited):**
+
+| PR | Head | State | Treatment here |
+| --- | --- | --- | --- |
+| #41 | `arena/e0d92902-prod2` | conflicting | **Content is adopted.** It carries the only genuinely new reader-facing assets in flight: an `analysis.html` findings page, a `design-prompt.html` copy-ready brief page, two new question-shaped guides (`guide-dual-vs-single`, `guide-probe-in-air-fryer`), `data/p2/design-prompts.json` and `data/p2/decision-priority.json`, plus 11 new open questions and 9 new suggestions. Its register *deletions* (F-P25..F-P28, SG-43/44/45) are **not** adopted — those rows exist on `main` and carry dated verification. |
+| #47 | `arena/20f83238-prod2` | conflicting | **Decisions adopted** (`D-P21` Path A chosen, `D-P22` promotion hold) because the brief forbids manual input and asks for a decided queue. Its `suggestions.html` rewrite **is not** adopted — it deletes main's ranked "do these five things" board, which is the single most decision-useful surface on the site. |
+| #49 | `arena/82d0f434-prod2` | conflicting | **Not adopted.** It is 43 commits behind `main` and drops six flags and eight suggestions that `main` carries with dated sources. Its endpoint-contract work is superseded by `main`'s already-merged `server.mjs` fix (F-P23). |
+| #45 | `arena/19fb7064-prod2` | conflicting | **Not adopted.** It deletes ~1,000 lines of reviewer-facing material (`EXECUTIVE_SUMMARY.md`, `README.md`) and 95 lines of `tools/checks.py` gates. |
+| #35 | `arena/dd4bae8a-prod2` | conflicting | **Not adopted.** 51 commits behind `main`; it removes `assets/analytics.js` and `assets/style.css` (the preserved Countercraft generation) and its own `COORDINATION.md` write would delete 552 lines of the shared board. |
+| #52 | `arena/644d217b-prod2` | open, COORDINATION only | Merged upstream via PR #52. Nothing to do. |
+
+**Scope claimed by this session (files):** `content/pages/{analysis,design-prompt,guide-dual-vs-single,guide-probe-in-air-fryer,about,guide-instant-vs-leave-in,guide-thermometer-accuracy,guides,measurement,questions,suggestions}.html`,
+`data/p2/{design-prompts,decision-priority,verification-log,flags,questions,suggestions,decisions}.json`,
+`tools/build.py`, `tools/checks.py`, `assets/css/site.css`, `docs/` (generated), root mirror,
+`COORDINATION.md`, `EXECUTIVE_SUMMARY.md`, `README.md`, `ENGINE.md`.
+
+| Task | Status | Session | Scope (files) |
+| --- | --- | --- | --- |
+| I-01 Verify the five listings and the five submitted short links live (2026-11-20), independently of the earlier passes; record every observed string verbatim | done | arena/d8b3c61e-prod2 | `data/p2/live-check-2026-11-20-d8b3c61e.json` |
+| I-02 Close the last reader-facing compliance defect: table rows that carry a **value** but no source link (about.html, guide-instant-vs-leave-in.html, guide-thermometer-accuracy.html) | done | arena/d8b3c61e-prod2 | `content/pages/{about,guide-instant-vs-leave-in,guide-thermometer-accuracy}.html`, `tools/checks.py` |
+| I-03 Add a gate that fails the build when a value-bearing table row has no source link (the rule the brief states verbatim) | done | arena/d8b3c61e-prod2 | `tools/checks.py` |
+| I-04 Adopt PR #41's new reader-facing assets (analysis page, design-prompt page, two new guides) without losing main's dated flags/questions/suggestions | done | arena/d8b3c61e-prod2 | `content/pages/`, `data/p2/`, `tools/build.py` |
+| I-05 Adopt PR #47's decisions D-P21/D-P22 and its 11 new questions / 9 new suggestions without deleting main's rows | done | arena/d8b3c61e-prod2 | `data/p2/{decisions,questions,suggestions}.json`, `content/pages/suggestions.html` |
+| I-06 Rebuild, re-verify the combined data line by line, confirm the site builds with no broken links, PR to main, merge, confirm the Pages deploy, record the result | in progress | arena/d8b3c61e-prod2 | `docs/`, root mirror, `COORDINATION.md` |
+
+---
+
 ## ACTIVE CLAIM — session arena/37b265a4-prod2 (2026-11-20, same-day link + listing re-verification and integration)
 
 Branch `arena/37b265a4-prod2`, branched from `main` at `4398598` (PR #33 merge). No other claim is live: every earlier claim in this file is done or merged.
